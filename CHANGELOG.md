@@ -58,3 +58,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `chap03` (stack-diagram aside), `chap05` exercise 5 (Koch curve opening line) and
   exercise 4 (closing line): inline virtual-assistant asides (kind C). Tasks and
   solution cells unchanged; no prose repair was needed in any case.
+
+## 2026-07-30 — Modification footer, all chapters
+
+### Added
+- Every file in `chapters/` (chap00–chap19 and jupyter_intro, 21 files) gets a
+  `type="note"` sentinel appended to its existing Downey copyright/license footer:
+  attribution to Eric Brown for a high school CS class, with a link to
+  `github.com/porttack/ThinkPython`. Applied uniformly regardless of which chapters
+  have otherwise been touched by Pass 2 yet. No email address included (public repo).

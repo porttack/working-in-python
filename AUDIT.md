@@ -893,3 +893,16 @@ section, not an exercise), so no chap03 exercise entry needed an action change t
 - The pacing/buffer question from Pass 1 remains open and undecided.
 - Nothing in chapters 3–5 tempted a restructure beyond what's logged above. The Koch
   and `ch05-ex04` kind-C removals both closed cleanly on their own, same as chapters 1–2.
+---
+
+## 2026-07-30 — Modification footer (all chapters, cross-cutting)
+
+Every file in `chapters/` (chap00–chap19, jupyter_intro — 21 files) now carries a
+`type="note"` sentinel appended to the existing Downey copyright/license footer,
+attributing the modifications to Eric Brown for a high school CS class and linking to
+`github.com/porttack/ThinkPython`. No email address, by request (public repo). Applied
+uniformly to every chapter regardless of which pass has touched it — so chapters not
+yet reached by Pass 2 (6–19) will show one sentinel block (this footer note) before any
+other surgery happens to them. Not a per-chapter checkout item; no ledger entry, since
+it isn't exercise-related. `make check` clean; cell counts and outputs unchanged in
+every file (verified against `HEAD` before this change).
