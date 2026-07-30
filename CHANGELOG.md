@@ -135,3 +135,29 @@ Details in `AUDIT.md`.
 
 Scoped to chapters 1-3 only, by request. Chapters 4-19 and Step 5 (appendices) not
 started. Details in `AUDIT.md`.
+
+## 2026-07-30 — Pass 2, chapters 6–8 (batch complete)
+
+### Added
+- Blank markers in chapters 6–8: 5 prose blanks and 3 spoken prompts each, no code
+  blanks (upstream's `blank/` empties every code cell in all three chapters).
+- `chap07` exercises `ch07-ex06r` and `ch07-ex07r`: self-contained specs for writing
+  `uses_all` in terms of `uses_only` (swapped-argument hint) and in terms of `uses_any`
+  (loop hint), replacing the book's last two kind-A exercises. Both verified against the
+  chapter's existing doctests before being finalized.
+
+### Removed
+- `chap06`, `chap07`, `chap08`: the "Ask a virtual assistant" section from each
+  Exercises area (kind B), removed whole, no replacement.
+- `chap07` exercises `ch07-ex06` and `ch07-ex07`: the two remaining kind-A exercises
+  (ask a VA to derive `uses_all`), replaced as above. `ch07-ex07`'s cell also contained a
+  ChatGPT-attributed answer pasted directly into the notebook; removed along with the
+  prompt.
+- `chap08` exercise 1 and exercise 4: inline virtual-assistant asides (kind C).
+  Exercise 4's aside was cut cleanly; exercise 1's was repaired rather than deleted, to
+  keep the substantive constraint ("don't use `with` or `try` — not covered yet")
+  independent of the virtual-assistant framing it was attached to.
+
+This completes the "chapters 3–8" batch from `mods/pass-2-surgery.md`'s order of work
+(chapters 3–5 landed in an earlier session). All four of the book's kind-A replacement
+exercises are now written. Details in `AUDIT.md`.

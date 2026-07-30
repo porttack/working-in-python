@@ -71,7 +71,7 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap06
 
-5 exercise(s).
+6 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -80,10 +80,11 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch06-ex03 | Write a recursive function implementing the Ackermann function | native | kept | — | 25 | 25 |
 | ch06-ex04 | Write a function called is_power that checks whether a is a power of b | native | kept | — | 20 | 20 |
 | ch06-ex05 | Write a function called gcd using Euclid's algorithm | native | kept | — | 25 | 25 |
+| ch06-va01 | Ask a virtual assistant: spot bugs in absolute_value_wrong/absolute_value_extra_return/is_divisible, then ask for a distance function | B | removed | — | 0 | 0 |
 
 ## chap07
 
-7 exercise(s).
+10 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -92,19 +93,23 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch07-ex03 | Write a function called uses_all | native | kept | — | 15 | 15 |
 | ch07-ex04 | Write functions to solve the NYT 'Spelling Bee' puzzle | native | kept | — | 35 | 35 |
 | ch07-ex05 | Notice the similarity between uses_none/uses_only/uses_all and write one using another | native | kept | — | 15 | 15 |
-| ch07-ex06 | Ask a virtual assistant to write uses_all in terms of uses_only, then verify with run_doctests | A | kept | — | 10 | 10 |
-| ch07-ex07 | Ask a virtual assistant to write uses_all in terms of uses_any, then verify the result | A | kept | — | 10 | 10 |
+| ch07-ex06 | Ask a virtual assistant to write uses_all in terms of uses_only, then verify with run_doctests | A | removed | — | 10 | 10 |
+| ch07-ex06r | Write uses_all by calling uses_only with its arguments swapped | native | added | ch07-ex06 | 5 | 5 |
+| ch07-ex07 | Ask a virtual assistant to write uses_all in terms of uses_any, then verify the result | A | removed | — | 10 | 10 |
+| ch07-ex07r | Write uses_all by calling uses_any in a loop over the required letters | native | added | ch07-ex07 | 10 | 10 |
+| ch07-va01 | Ask a virtual assistant what's wrong with uses_any_incorrect | B | removed | — | 0 | 0 |
 
 ## chap08
 
-4 exercise(s).
+5 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
-| ch08-ex01 | Write a function that mimics the shell command 'head' | native | kept | — | 20 | 20 |
+| ch08-ex01 | Write a function that mimics the shell command 'head' | native | edited | — | 20 | 20 |
 | ch08-ex02 | Determine how many words remain after a round of Wordle feedback | native | kept | — | 30 | 30 |
 | ch08-ex03 | Continue the Wordle exercise with additional feedback | native | kept | — | 5 | 5 |
-| ch08-ex04 | Analyze word frequency in the text of *The Count of Monte Cristo* | native | kept | — | 30 | 30 |
+| ch08-ex04 | Analyze word frequency in the text of *The Count of Monte Cristo* | native | edited | — | 30 | 30 |
+| ch08-va01 | Ask a virtual assistant: regex special characters, sample patterns, raw strings | B | removed | — | 0 | 0 |
 
 ## chap09
 
@@ -222,8 +227,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 87
+Total exercises: 92
 
-By kind: A=4, B=5, native=78
+By kind: A=4, B=8, native=80
 
-By action: added=1, edited=4, kept=76, removed=6
+By action: added=3, edited=6, kept=72, removed=11

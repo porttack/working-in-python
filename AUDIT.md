@@ -1282,3 +1282,176 @@ genuinely nothing to backfill here.
   as "headers only" because the full topic isn't reached until chapter 7) without
   re-litigating the `while`-loop gap in student-facing text — that finding stays in
   `AUDIT.md` and the alignment docs, not in the book itself.
+
+---
+
+## 2026-07-30 — Pass 2, chapters 6–8 (batch complete: chapters 3–8 all done)
+
+Continues from the chapters 3–5 handoff. The approved pattern (5 prose blanks, 3
+spoken prompts, code blanks only where warranted, per-chapter checkout) was applied
+without changes. This finishes the "chapters 3–8" batch from `mods/pass-2-surgery.md`'s
+order of work — chapters 1–8 are now all done.
+
+### Step 1 — VA removal
+
+| Chapter | Kind A | Kind B | Kind C | Prose repair needed |
+|---|---|---|---|---|
+| chap06 | 0 | 1 | 0 | none |
+| chap07 | 2 | 1 | 0 | none (both A's replaced, not repaired) |
+| chap08 | 0 | 1 | 2 | one of two |
+
+- **chap06 kind B** — the "Ask a virtual assistant" section under Exercises (seven
+  cells: heading + intro sentence, three illustrative buggy-function cells each with
+  its own connecting sentence, and the closing two-part prompt). Removed whole.
+- **chap07 kind B** — same pattern, five cells (heading, two illustrative cells, two
+  connecting sentences, closing prompt). Removed whole.
+- **chap08 kind B** — a single markdown cell (heading, sample regex prompts, a
+  raw-string question). Removed whole. One quirk worth recording: the code cell
+  immediately after it (`from doctest import run_docstring_examples` / `run_doctests`
+  helper) looks like it belongs to the VA section but doesn't mention virtual
+  assistants at all — and nothing in the rest of chap08 actually calls
+  `run_doctests`. Left in place untouched; it's vestigial boilerplate copy-pasted from
+  chap07's template, not VA material, and removing unused-but-harmless code is outside
+  this pass's mandate.
+- **chap08 kind C, exercise 4 (Monte Cristo)** — cut the trailing "-- you might want
+  to ask a virtual assistant for help" clause. Sentence now ends cleanly on "...like
+  `impale`." **No repair.**
+- **chap08 kind C, exercise 1 (head-like function)** — the only prose repair in this
+  batch. Original: "Consider asking a virtual assistant for help, but if you do, tell
+  it not to use a `with` statement or a `try` statement." Straight deletion would have
+  thrown away a real constraint (neither construct is taught yet at this point in the
+  book), not just a VA aside, so it was rewritten as "Don't use a `with` statement or
+  a `try` statement -- we haven't covered them yet." This is the kind of judgment call
+  Step 1 asks to be recorded rather than done silently — flagging it here for anyone
+  auditing what moved.
+
+### Step 2 — Replacement exercises (the last two owed, both in chap07)
+
+Both of chap07's kind-A exercises replace an "ask a VA" prompt with a direct hint,
+keeping the target function name, the existing doctests, and (where present) the
+existing Solution/`run_doctests` cell structure — same pattern as `ch05-ex07`.
+
+- **`ch07-ex06` → `ch07-ex06r`**: original task was "ask a virtual assistant" for the
+  trick relating `uses_only` and `uses_all`. Replaced with a hint pointing at the
+  swapped-argument relationship (`uses_only(word, available)` checking "every letter
+  in `word` is in `available`" vs. what `uses_all(word, required)` needs to check).
+  Solution and `run_doctests(uses_all)` cells unchanged.
+- **`ch07-ex07` → `ch07-ex07r`**: original task was "ask a virtual assistant" to
+  derive `uses_all` from `uses_any`. This one also had upstream's own answer pasted
+  directly into the notebook as a code cell — a comment reading "Here's what I got
+  from ChatGPT 4o December 26, 2024" followed by a real, working implementation,
+  sitting between two `# Solution goes here` placeholder cells. Replaced the prompt
+  with a hint describing the loop (for each required letter, check `uses_any(word,
+  letter)`), deleted the ChatGPT-answer cell outright, and turned the trailing
+  placeholder into `run_doctests(uses_all)` so the exercise is self-verifying like
+  every other exercise in the chapter, rather than untested as upstream left it.
+
+**Both hints were verified before being written into the exercise, not just
+remembered.** Ran both derivations against the chapter's real doctests
+(`uses_all('banana', 'ban') == True`, `uses_all('apple', 'api') == False`, plus the
+existing `uses_only`/`uses_any` implementations from the chapter body): `uses_only(
+required, word)` and the `uses_any`-in-a-loop version both pass cleanly with no
+doctest failures.
+
+`ch07-ex06` and `ch07-ex07` → `action: "removed"`; `ch07-ex06r` / `ch07-ex07r` added
+with `replacement_id` pointing back to each, `self_verifying: true` on both (matching
+the chapter's doctest convention), `est_minutes_after` left close to a plausible
+few-minutes estimate for a one-line/one-loop derivation exercise.
+
+**This closes out the book's replacement-exercise job.** All four kind-A exercises
+identified in Pass 1 (`ch05-ex06`, `ch07-ex06`, `ch07-ex07`, and the still-open
+`chap17` Kangaroo exercise) are now accounted for — three replaced, one (`chap17`)
+still pending since it's in the 9–11/12–13/14–19 range, out of this batch's scope.
+
+### Step 4 — Blank markers
+
+| Chapter | Prose blanks | Prompts | Code blanks | Notes |
+|---|---:|---:|---:|---|
+| chap06 | 5 | 3 | 0 | |
+| chap07 | 5 | 3 | 0 | |
+| chap08 | 5 | 3 | 0 | |
+
+**chap06**: blanks on `return value`, `pure function`, `dead code`, `incremental
+development`, `Turing complete` — five different sections. Skipped `scaffolding`
+(same section as `incremental development`) and `input validation` (Checking types
+section) to stay at the target. Prompts: before the `NameError` demo for `area`
+(predict whether it's accessible outside `circle_area`); before
+`absolute_value_wrong(0)` (predict the return value); before the completed
+`distance(1, 2, 4, 6)` call (predict the result now that the function works).
+
+**chap07**: blanks on `loop variable`, `file object`, `update`, `counter`, `linear
+search` — five different sections. Skipped `method` (same section as `file object`),
+`initialize`/`increment`/`decrement`/`augmented assignment operators` (same section as
+`update`), and `pass`/`fail` (Doctest section, left readable as a discussion section,
+matching the convention from chapters 1–5). Prompts: before displaying `total` after
+the counting loop; before displaying `count` (predict relative to `total`); before
+testing `uses_any_incorrect` (predict which doctest fails).
+
+**chap08**: blanks on `character`, `slice`, `immutable`, `invocation`, `regular
+expression` — five different sections. Skipped `index` and `empty string` (same
+sections as `character`/`slice`), `object` (same paragraph as `immutable`), `pattern`
+(same section as `regular expression`), and `string substitution`/`shell command`
+(the latter in Debugging, left readable per convention). Prompts: predict which
+letter `fruit[1]` is; predict what `fruit[n]` does (before the `IndexError` demo);
+predict what `greeting[0] = 'J'` does (before the `TypeError` demo).
+
+Zero code blanks in all three, confirmed against each chapter's `blank/` version
+(chap06: 87 code cells, chap07: 72, chap08: 85 — all already empty). Consistent with
+the finding from the chapters 3–5 handoff: this is the norm through the rest of the
+book, not something to keep re-verifying chapter by chapter, though this batch did
+check each one directly rather than assuming.
+
+### Step 5 — Per-chapter checkout
+
+- `make check` passes (21 source files, `check_sync` clean) after every chapter's
+  edits and again at the end of the batch.
+- `make projector` regenerated and re-checked clean after each chapter.
+- `make ledger` regenerates with no manual edits after each chapter's ledger update.
+- Cell-level diff against `upstream/v3` for each chapter shows exactly the intended
+  changes and nothing else: chap06, 7 edited + 7 deleted; chap07, 10 edited + 1 new
+  content in an existing cell + 6 deleted (5 from the kind-B block, 1 the
+  ChatGPT-answer cell); chap08, 8 edited + 1 deleted. No whitespace or formatting
+  drift — every notebook round-trips through `json.dumps(nb, indent=1,
+  ensure_ascii=False)` byte-identical to how it was already serialized, so edits were
+  made as targeted string replacements inside specific cells' `source`, never a
+  whole-file rewrite.
+- All three files: zero `virtual assistant` or `ChatGPT` mentions remain; zero cell
+  outputs or execution-count changes introduced by this pass (cells that were deleted
+  took their old execution counts with them; no cell gained a new one).
+- `git status` shows nothing added or modified under `blank/`.
+
+### Ledger
+
+92 entries, up from 87. Six additions: `ch06-va01`, `ch07-va01`, `ch08-va01` (kind B,
+removed, 0 minutes, matching the established pattern) and `ch07-ex06r` / `ch07-ex07r`
+(kind native, added, `self_verifying: true`, `replacement_id` pointing at the exercise
+each replaces). Four existing entries moved from `kept` to actions reflecting what
+happened: `ch07-ex06` and `ch07-ex07` to `removed`; `ch08-ex01` and `ch08-ex04` to
+`edited` (the two kind-C repairs). No IDs renumbered.
+
+### Handoff to the next batch (chapters 9–11) and beyond
+
+- **Chapters 9–11 are `decide` on VA removal, per `CHAPTER_MANIFEST.md` — do not strip
+  without a ruling.** Blank markers can proceed regardless, per
+  `mods/pass-2-surgery.md`'s order of work.
+- **The `chap17` Kangaroo exercise (kind A) is still the one open replacement.** It's
+  out of scope until Pass 2 reaches the 14–19 range, and that range's own instruction
+  is `keep`/no markers — worth flagging *now* that a kind-A exercise sits inside a
+  chapter otherwise treated as a near-no-op, so it isn't accidentally skipped when
+  chapters 14–19 turn out to mostly be a confirm-nothing-changed pass.
+- **CLAUDE.md's status table has been updated** to reflect chapters 1–8 done (was
+  stale — it still said "ch. 1–2 done... ch. 3–19 pending" even though chapters 3–5
+  had already landed in a prior session under a different handoff note in this file;
+  worth double-checking this table gets updated at the end of every batch from now on,
+  not just noted in `AUDIT.md`).
+- The two open items from the chapters 1–2 gate (the unclassified chap00/chap01
+  virtual-assistant mentions in body prose, and the notebook-hygiene vs.
+  small-diffs tension) are both still open and untouched by this batch.
+- The open classification question from the chapters 3–5 handoff (whether chap05's
+  countdown_by_two VA vignette is actually a second kind-A exercise, which would owe a
+  fifth replacement) is also still open and untouched here.
+- The pacing/buffer question from Pass 1 remains open and undecided.
+- Nothing in chapters 6–8 tempted a restructure beyond what's logged above. The
+  chap08 exercise-1 repair was the only place prose needed rewriting rather than
+  deleting, and it closed cleanly on its own — not a case that needed raising per the
+  "if repairing would mean rewriting a paragraph" threshold.

@@ -11,7 +11,7 @@ Do not read the other pass files; they will fill your context with work that isn
 | Pass | File | Mode | Status |
 |---|---|---|---|
 | 1. Survey and scaffold | `docs/pass-1-survey.md` (actually at `mods/pass-1-survey.md` — see `AUDIT.md` handoff) | read-only + tooling | done, see `AUDIT.md` handoff |
-| 2. Chapter surgery | `mods/pass-2-surgery.md` | destructive edits + authoring | in progress — ch. 1–2 done, **stopped at the register/marker-density gate**; ch. 3–19 pending. Pacing question still open. See `AUDIT.md` |
+| 2. Chapter surgery | `mods/pass-2-surgery.md` | destructive edits + authoring | in progress — ch. 1–8 done (the whole "chapters 3–8" batch, across three sessions); ch. 9–19 pending. All four book-wide kind-A replacement exercises are now written. Pacing question still open. See `AUDIT.md` |
 | 3. Standards alignment | `docs/pass-3-alignment.md` | analysis + additive back matter | in progress — Steps 1–3 done (both indexes, `standards/crosswalk.json`, all three `alignment/*.md` docs); Step 4 done for chapters 1–3 only (standards inserts + `tools/check_sync.py` fix). Chapters 4–19 and Step 5 not started. See `AUDIT.md` |
 
 Keep the Status column current. Each pass ends by appending a handoff note to `AUDIT.md`
