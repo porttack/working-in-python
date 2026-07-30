@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(make projector)",
+      "Bash(make check)",
+      "Bash(make ledger)",
+      "Bash(make session *)",
+      "Bash(python3 tools/*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git restore *)",
+      "Bash(nbstripout *)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git rm *)",
+      "Bash(git checkout *)"
+    ],
+    "deny": [
+      "Edit(blank/**)",
+      "Write(blank/**)",
+      "Write(projector/**)",
+      "Edit(projector/**)",
+      "Bash(rm -rf *)"
+    ]
+  }
+}
