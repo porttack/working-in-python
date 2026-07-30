@@ -168,6 +168,20 @@
     "note": ""
   },
   {
+    "chapter": "chap03",
+    "id": "ch03-va01",
+    "anchor": "Ask a virtual assistant: spaces vs tabs, writing/debugging functions with a VA",
+    "kind": "B",
+    "action": "removed",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": 0,
+    "est_minutes_after": 0,
+    "self_verifying": false,
+    "note": "Bare suggested-prompt section (with illustrative code/debugging asides, no Solution cell) attached to Exercises. Removed whole, no replacement."
+  },
+  {
     "chapter": "chap04",
     "id": "ch04-ex01",
     "anchor": "Write a function called rectangle that draws a rectangle with jupyturtle",
@@ -238,6 +252,20 @@
     "note": ""
   },
   {
+    "chapter": "chap04",
+    "id": "ch04-va01",
+    "anchor": "Ask a virtual assistant: writing a spiral-drawing function with jupyturtle",
+    "kind": "B",
+    "action": "removed",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": 0,
+    "est_minutes_after": 0,
+    "self_verifying": false,
+    "note": "Bare suggested-prompt section, no attached graded task. Removed whole, no replacement."
+  },
+  {
     "chapter": "chap05",
     "id": "ch05-ex01",
     "anchor": "Compute h:m:s from seconds since the Unix epoch using integer division and modulus",
@@ -284,42 +312,70 @@
     "id": "ch05-ex04",
     "anchor": "Read a jupyturtle function, predict what it draws, then adjust its arguments",
     "kind": "native",
-    "action": "kept",
+    "action": "edited",
     "replacement_id": null,
     "targets_ap": [],
     "targets_ca": [],
     "est_minutes_before": 15,
     "est_minutes_after": 15,
     "self_verifying": false,
-    "note": ""
+    "note": "Kind-C VA aside removed from the closing line ('try asking a virtual assistant' if unsure how the function works). Task and cells unchanged."
   },
   {
     "chapter": "chap05",
     "id": "ch05-ex05",
     "anchor": "Write a function called koch that draws a Koch curve",
     "kind": "native",
-    "action": "kept",
+    "action": "edited",
     "replacement_id": null,
     "targets_ap": [],
     "targets_ca": [],
     "est_minutes_before": 25,
     "est_minutes_after": 25,
     "self_verifying": true,
-    "note": "Opens with a VA prompt ('What is the Koch curve?') as a warm-up; the graded task is writing koch, not evaluating the VA's answer -- classified C, not A."
+    "note": "Opens with a VA prompt ('What is the Koch curve?') as a warm-up; the graded task is writing koch, not evaluating the VA's answer -- classified C, not A. Pass 2: removed the opening VA line; exercise now opens directly with the numbered recursive recipe."
   },
   {
     "chapter": "chap05",
     "id": "ch05-ex06",
     "anchor": "Ask a virtual assistant for a program that draws a Sierpinski triangle, then debug it",
     "kind": "A",
-    "action": "kept",
+    "action": "removed",
     "replacement_id": null,
     "targets_ap": [],
     "targets_ca": [],
     "est_minutes_before": 20,
+    "est_minutes_after": 0,
+    "self_verifying": false,
+    "note": "Entire task was prompt-a-VA-and-debug-the-result; no independent native task existed. Pass 2: replaced one-for-one with ch05-ex07, a self-contained recursive-triangle spec keeping the same function name, parameters, and solution/demo cells."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05-ex07",
+    "anchor": "Write draw_sierpinski(size, degree): a recursive Sierpinski triangle, no VA involved",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": "ch05-ex06",
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
     "est_minutes_after": 20,
     "self_verifying": false,
-    "note": "Entire task is prompt-a-VA-and-debug-the-result; no independent native task exists. Pass 2 candidate for one-for-one replacement with a native turtle-graphics exercise."
+    "note": "Replacement for the removed kind-A exercise. Gives the recursive definition of a Sierpinski triangle (base case + three half-size corner triangles) and points at penup/pendown for repositioning, without dictating exact turtle commands. The recursive algorithm was verified independently -- simulated headlessly against jupyturtle and checked to reproduce the exact standard Sierpinski-gasket edge set at depths 0-4 -- before being reduced to the geometric description given to students; a naive forward/back-only version (the common textbook snippet) was tested first and found to visibly drift off-target at depth >= 2, which is why the exercise points at penup/pendown instead. Same function name/parameters and the same demo/solution cells as the original, so the diff is limited to the prompt text."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05-va01",
+    "anchor": "Ask a virtual assistant: modulus/xor, chained-vs-nested conditionals, countdown_by_two debugging",
+    "kind": "B",
+    "action": "removed",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": 0,
+    "est_minutes_after": 0,
+    "self_verifying": false,
+    "note": "Bare suggested-prompt section under Exercises, no ### Exercise heading and no Solution cell anywhere in it. Includes an embedded countdown_by_two debugging vignette ('paste the solution it provides back here and test it') that reads like it could independently qualify as kind A on the same logic as the chap17 Kangaroo exercise; Pass 1's audit did not call it out separately. Removed under the existing kind-B classification without adding a second replacement -- flagged in AUDIT.md for confirmation, since Step 2 caps replacements at four and warns against padding."
   },
   {
     "chapter": "chap06",

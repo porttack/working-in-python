@@ -31,7 +31,7 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap03
 
-4 exercise(s).
+5 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -39,10 +39,11 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch03-ex02 | Write a function called triangle that draws a pyramid | native | kept | — | 15 | 15 |
 | ch03-ex03 | Write a function called rectangle that draws a rectangle of characters | native | kept | — | 15 | 15 |
 | ch03-ex04 | Write a program that prints the '99 Bottles of Beer' song | native | kept | — | 25 | 25 |
+| ch03-va01 | Ask a virtual assistant: spaces vs tabs, writing/debugging functions with a VA | B | removed | — | 0 | 0 |
 
 ## chap04
 
-5 exercise(s).
+6 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -51,19 +52,22 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch04-ex03 | Write a function called parallelogram and rewrite rectangle/rhombus to use it | native | kept | — | 20 | 20 |
 | ch04-ex04 | Write functions to draw a pie made of triangular segments | native | kept | — | 20 | 20 |
 | ch04-ex05 | Write a function called petal and use it to draw a flower | native | kept | — | 25 | 25 |
+| ch04-va01 | Ask a virtual assistant: writing a spiral-drawing function with jupyturtle | B | removed | — | 0 | 0 |
 
 ## chap05
 
-6 exercise(s).
+8 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
 | ch05-ex01 | Compute h:m:s from seconds since the Unix epoch using integer division and modulus | native | kept | — | 15 | 15 |
 | ch05-ex02 | Determine whether three given stick lengths can form a triangle | native | kept | — | 25 | 25 |
 | ch05-ex03 | Predict the output of a program and draw a stack diagram | native | kept | — | 5 | 5 |
-| ch05-ex04 | Read a jupyturtle function, predict what it draws, then adjust its arguments | native | kept | — | 15 | 15 |
-| ch05-ex05 | Write a function called koch that draws a Koch curve | native | kept | — | 25 | 25 |
-| ch05-ex06 | Ask a virtual assistant for a program that draws a Sierpinski triangle, then debug it | A | kept | — | 20 | 20 |
+| ch05-ex04 | Read a jupyturtle function, predict what it draws, then adjust its arguments | native | edited | — | 15 | 15 |
+| ch05-ex05 | Write a function called koch that draws a Koch curve | native | edited | — | 25 | 25 |
+| ch05-ex06 | Ask a virtual assistant for a program that draws a Sierpinski triangle, then debug it | A | removed | — | 20 | 0 |
+| ch05-ex07 | Write draw_sierpinski(size, degree): a recursive Sierpinski triangle, no VA involved | native | added | ch05-ex06 | None | 20 |
+| ch05-va01 | Ask a virtual assistant: modulus/xor, chained-vs-nested conditionals, countdown_by_two debugging | B | removed | — | 0 | 0 |
 
 ## chap06
 
@@ -218,8 +222,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 83
+Total exercises: 87
 
-By kind: A=4, B=2, native=77
+By kind: A=4, B=5, native=78
 
-By action: edited=2, kept=79, removed=2
+By action: added=1, edited=4, kept=76, removed=6

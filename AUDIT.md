@@ -711,3 +711,185 @@ and `ch02-ex02`. No IDs were renumbered.
   a ruling; their blank markers can proceed regardless.
 - Nothing in these two chapters tempted a restructure. The only two places where the text
   wanted rewriting were the two kind-C removals, and both closed cleanly on their own.
+---
+
+## Pass 2, chapters 3–5
+
+Continues from the chapters 1–2 gate. The pattern approved there (5 prose blanks, 3
+spoken prompts, code blanks only where warranted, per-chapter checkout) was applied
+without changes. This batch stops at chapter 5, not chapter 8 — a partial installment
+of the "chapters 3–8" batch in `mods/pass-2-surgery.md`'s order of work. Chapters 6–8
+remain to do.
+
+### Repo change found at the start of this session, not made by this pass
+
+`chapters/*.md` and `projector/*.md` (the parallel Markdown exports from the Pass 2 prep
+commit) were gone when this session started, removed by a commit titled "Cleanup" that
+landed after the chapters 1–2 gate and that this session did not make. `.gitignore` had
+also been hand-edited (uncommitted) to add `chapters/*.md`. Net effect: `chapters/` is
+now `.ipynb`-only, matching what upstream actually ships. This is a reasonable
+simplification — blank markers (HTML comments) are just as invisible in a rendered
+Jupyter markdown cell as in rendered `.md` — so this pass adopted it: committed the
+`.gitignore` catch-up separately, and edited `chapters/chapNN.ipynb` directly with no
+parallel file to keep in sync. `git diff upstream/v3 -- chapters/chapNN.md` is no longer
+a meaningful check (there's nothing to compare); use the `.ipynb`.
+
+### Step 1 — VA removal
+
+| Chapter | Kind A | Kind B | Kind C | Prose repair needed |
+|---|---|---|---|---|
+| chap03 | 0 | 1 | 1 | none |
+| chap04 | 0 | 1 | 0 | none |
+| chap05 | 1 | 1 | 2 | none |
+
+- **chap03 kind B** — the "Ask a virtual assistant" cell under Exercises (spaces-vs-tabs
+  history, "ask your VA to write `repeat`", debugging `print_twice`). Removed whole.
+- **chap03 kind C** — inside the stack-diagram discussion: "In the frame for `print`,
+  the question mark indicates that we don't know the name of the parameter. If you are
+  curious, ask a virtual assistant..." Removed the second sentence; the first stands on
+  its own. **No repair.**
+- **chap04 kind B** — the "Ask a virtual assistant" section (writing a spiral-drawing
+  function). Two cells, removed whole. No kind C in this chapter, matching Pass 1.
+- **chap05 kind B** — larger than the others: runs from the "### Ask a virtual
+  assistant" heading through a countdown_by_two debugging vignette, twelve cells total,
+  with no `### Exercise` heading and no Solution cell anywhere in the span. Removed as
+  one block. **Flagged, not changed:** the countdown_by_two piece ("But it has an error.
+  Ask a virtual assistant what's wrong and how to fix it. Paste the solution it provides
+  back here and test it.") reads like it could independently qualify as kind A, on the
+  same logic Pass 1 used for the chap17 Kangaroo exercise (no solution cell exists; the
+  deliverable is the VA's explanation). Pass 1's audit didn't call this piece out
+  separately the way it flagged the Koch curve and `is_image` borderline cases. This
+  pass removed it under the existing kind-B classification and did **not** add a fifth
+  replacement exercise — `mods/pass-2-surgery.md` Step 2 caps replacements at four
+  book-wide and warns explicitly against padding, and this is exactly the kind of
+  classification judgment call that should be confirmed rather than decided in passing.
+  **Raise this at the next gate**: if it's ruled kind A after all, a fifth replacement
+  is owed; if kind B stands, nothing further is needed.
+- **chap05 kind C, Koch curve (`ch05-ex05`)** — already documented by Pass 1's ledger
+  note. Removed the opening line ("Ask a virtual assistant 'What is the Koch curve?'");
+  the exercise now opens directly with the numbered recursive recipe. **No repair.**
+- **chap05 kind C, `ch05-ex04`** — a second aside Pass 1's audit counted (chap05 C=2)
+  but that wasn't yet located when chapter 3 and 4 work started: "Adjust the values of
+  `length`, `angle` and `factor`... If you are not sure you understand how it works, try
+  asking a virtual assistant." Removed the second sentence. **No repair.**
+
+### Step 2 — Replacement exercise (the book's first)
+
+`ch05-ex06`, the Sierpiński triangle exercise ("ask a VA for a program that draws one,
+then debug it"), is replaced by `ch05-ex07`: a self-contained spec for
+`draw_sierpinski(size, degree)`, keeping the exact function name, parameters, and the
+original's solution/demo cells untouched — only the prompt paragraph changed. It gives
+the recursive definition (base case is a plain triangle; case `n` is three half-size
+corner triangles with a gap where the middle one would go) and points at `penup`/
+`pendown` for repositioning, without dictating exact turtle commands — the student still
+has to work out the geometry, same as the four other kind-A replacements are meant to.
+
+**This recursive algorithm was verified before being written into the exercise, not
+just remembered.** A well-known textbook snippet for "recursive Sierpinski with a
+turtle" uses only `forward`/`back`/`left`/`right` (no pen lifting) between sub-triangles.
+That version was built and run headlessly against the real `jupyturtle` module
+(downloaded and driven with `auto_render=False`, no display needed) and checked against
+a pure-coordinate reference implementation of the standard Sierpiński gasket edge set.
+It matched at depth 1 but **visibly drifted at depth ≥ 2** — the turtle does not return
+to its own starting position/heading after a nested call, so the position math the
+outer call depends on breaks. The version actually given to students instead lifts the
+pen (`penup`/`pendown`) around every reposition; this was verified to exactly reproduce
+the expected edge set (no extra, no missing lines, using a tolerance-based segment
+comparison to rule out float-rounding false positives) at depths 0 through 4, and to
+render as a correct Sierpiński triangle. `penup`/`pendown` are real `jupyturtle`
+functions but weren't yet imported in this notebook (only `forward`/`left`/`right`/
+`back` were, for the Koch exercise) — the prompt tells students to import them the same
+way, rather than silently assuming they're available.
+
+`ch05-ex06` → `action: "removed"`; `ch05-ex07` added with `replacement_id: "ch05-ex06"`,
+`est_minutes_after: 20` (same as the original's estimate, per Step 2's "lands within a
+few minutes" guidance), `self_verifying: false` (visual/graphical, matching this
+chapter's other jupyturtle exercises, not doctested).
+
+### Step 4 — Blank markers
+
+| Chapter | Prose blanks | Prompts | Code blanks | Notes |
+|---|---:|---:|---:|---|
+| chap03 | 5 | 3 | 1 (Pass 1's) | topped up from 2/1/1 |
+| chap04 | 5 | 3 | 0 | |
+| chap05 | 5 | 3 | 0 | |
+
+**chap03** already carried `function definition` and `header` from Pass 1's tooling
+check; topped up with `parameter`, `local`, `traceback` (one per remaining section:
+Parameters, Variables and parameters are local, Tracebacks) to reach 5. Prompts: before
+the first `for` loop (predict iteration count); before the `NameError` demonstration
+(why does displaying `cat` fail outside the function). Its Pass-1 code blank on
+`print_lyrics`'s header is unchanged.
+
+**chap04**: blanks on `canvas`, `encapsulation`, `generalization`, `development plan`,
+`docstring` — five different sections. Prompts: before the first `for`-loop
+simplification of the square-drawing code; after the "`n` is a constant" limitation
+paragraph (what happens at a much larger radius); after the precondition/postcondition
+paragraph in Debugging (whose bug is it). Zero code blanks: `blank/chap04.ipynb` empties
+all 49 code cells already.
+
+**chap05**: blanks on `modulus operator`, `boolean expression`, `chained conditional`,
+`recursive`, `infinite recursion` — five different sections, deliberately skipping
+`logical operators` and `nested conditional` to stay at the target rather than push to
+six. Prompts: before the clock-arithmetic result (predict `(11+3) % 12`); before the
+first `countdown` call (predict the output); before the `ValueError` from non-integer
+input (what kind of error). Zero code blanks, same reasoning.
+
+**Finding that changes the Pass-1 handoff's expectation:** Pass 1 predicted code blanks
+would become more common from chapter 3 onward, once `def` headers and loop bodies give
+them something to carry. That hasn't happened in practice: `blank/chapNN.ipynb` empties
+**every single code cell** in chapters 4 through 19 (verified directly), and in chapters
+1–3 the only code left non-empty is boilerplate (the `download` cell), diagram-plumbing,
+the `%xmode`/debug-setup cell, or exercise test-call cells — none of which are things
+this pass's rules allow blanking anyway. Expect **zero code blanks to remain the norm**
+for the rest of the book, not the exception; the 0–2 target in `CLAUDE.md` should be
+read as a ceiling nearly no chapter will need to reach, not a per-chapter quota.
+
+### Step 5 — Per-chapter checkout
+
+- `make check` passes (21 source files — down from 42 now that `chapters/` is
+  `.ipynb`-only; `check_sync` clean).
+- `make ledger` regenerates with no manual edits; byte-identical across two runs.
+- `make projector` regenerated and re-checked clean after every chapter's edits.
+- Cell-level diff against `upstream/v3` for each chapter shows exactly the intended
+  changes: chap03, 8 cells edited + 1 deleted; chap04, 8 edited + 2 deleted; chap05, 11
+  edited + 12 deleted. No insertions (every change is an edit-in-place or a deletion —
+  the one new exercise reuses an existing cell rather than adding one), no whitespace or
+  formatting drift.
+- All three files: zero `virtual assistant` mentions remain; zero cell outputs or
+  execution-count changes (verified against both `HEAD` and `upstream/v3`), consistent
+  with the notebook-hygiene approach from the chapters 1–2 gate (add none of our own;
+  the whole-book `nbstripout` question from that gate is still open, unaffected by this
+  batch).
+- `git status` shows nothing added or modified under `blank/`.
+
+### Ledger
+
+87 entries, up from 83. Six additions: `ch03-va01`, `ch04-va01`, `ch05-va01` (kind B,
+removed, 0 minutes, matching the chapters 1–2 pattern) and `ch05-ex07` (kind native,
+added, `replacement_id: "ch05-ex06"`, 20 minutes). Three existing entries moved from
+`kept` to `edited`: `ch05-ex04` and `ch05-ex05` (kind-C removals) — `ch03`'s kind-C
+removal wasn't inside any ledgered exercise (it's expository prose in the Stack diagrams
+section, not an exercise), so no chap03 exercise entry needed an action change there.
+`ch05-ex06` moved from `kept` to `removed`. No IDs renumbered.
+
+### Handoff to the rest of the batch (chapters 6–8) and to the next gate
+
+- **Open classification question, needs a ruling before it's forgotten:** is the
+  chap05 countdown_by_two VA vignette (inside the removed kind-B block) actually a
+  second kind-A exercise? See Step 1 above. This determines whether a fifth replacement
+  is owed anywhere in the book.
+- **chap07 carries two of the remaining three kind-A replacements** (`ch07-ex06`,
+  `ch07-ex07`, both doctest-based per Pass 1's notes — write their replacements the same
+  way, with `self_verifying: true`). That's the next chapter with exercise-authoring
+  work, not chapter 6 or 8.
+- **Code blanks: stop expecting them.** Confirmed zero-code-blank is the norm through
+  at least chapter 19's `blank/` directory (all code cells emptied). Don't budget time
+  for hunting good code-blank candidates in 6–8 unless a chapter's `blank/` version
+  turns out to be the exception — check first, the way this pass did for chap04/05.
+- The two open items from the chapters 1–2 gate (the unclassified chap01/chap00
+  virtual-assistant mentions in body prose, and the notebook-hygiene vs.
+  small-diffs tension) are both still open and untouched by this batch.
+- The pacing/buffer question from Pass 1 remains open and undecided.
+- Nothing in chapters 3–5 tempted a restructure beyond what's logged above. The Koch
+  and `ch05-ex04` kind-C removals both closed cleanly on their own, same as chapters 1–2.
