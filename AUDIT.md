@@ -1455,3 +1455,65 @@ happened: `ch07-ex06` and `ch07-ex07` to `removed`; `ch08-ex01` and `ch08-ex04` 
   chap08 exercise-1 repair was the only place prose needed rewriting rather than
   deleting, and it closed cleanly on its own — not a case that needed raising per the
   "if repairing would mean rewriting a paragraph" threshold.
+
+---
+
+## 2026-07-30 — Book retitled to *A Python Notebook*
+
+Out-of-pass request from the maintainer: rename this fork from its working title
+(borrowed wholesale from upstream) to *A Python Notebook*, subtitle *adapted from Allen
+Downey's Think Python, Third Edition*.
+
+Enumerated every occurrence of "Think Python"/"ThinkPython" in the repo (~500 raw hits)
+and classified each as naming this fork (change) vs. crediting/referencing Downey's
+actual book (keep). Confirmed with the maintainer on two judgment calls before touching
+anything:
+- The `carrier` field in `standards/apcsp.json`/`castandards.json` (an internal taxonomy
+  slug meaning "this book carries this standard", quoted in the generated alignment
+  docs) — maintainer chose to rename it too, to `python_notebook` (parallel to the
+  existing `little_brother` carrier: full name, no article, snake_case).
+- The GitHub repository itself, previously `porttack/ThinkPython` — maintainer is
+  renaming it to `porttack/python-notebook`; all links updated to match. **This means the
+  actual GitHub repo needs to be renamed (or redirected) for those links to resolve** —
+  that's on the maintainer, not something this session could do.
+
+Changed: `README.md`, `jb/_config.yml` (title/subtitle), `mods/pass-3-alignment.md` and
+`alignment/glossary-map.md`/`supplement-plan.md` (this book's own name used as prose,
+5+4+1 occurrences), the `carrier` slug everywhere it appears (`standards/apcsp.json`,
+`standards/castandards.json`, `alignment/standards_alignment.md`,
+`alignment/supplement-plan.md`, this file, and — missed on the first pass, caught by a
+count mismatch during verification — 4 embedded JSON-schema examples inside
+`mods/pass-3-alignment.md` itself), and the `porttack/ThinkPython` URL everywhere
+(`CHANGELOG.md`, this file, and the `type="note"` footer in all 21 `chapters/*.ipynb`).
+`projector/` regenerated from `chapters/`, not hand-edited.
+
+Left untouched: every credit to Downey's actual book and its real GitHub repo
+(`AllenDowney/ThinkPython`) inside upstream chapter prose, `ATTRIBUTION.md`, `CLAUDE.md`,
+`CHAPTER_MANIFEST.md`, `Turtle.py`, and the vendored Downey reference material
+(`ThinkPython_v3_Full.md`, `ThinkPythonSolutions/`, `thinkpython.py` — the last of which
+is `import`ed by every chapter, so renaming the file would have broken 20 chapters for no
+benefit). Also left `chapters/build.sh`/`jb/build.sh` alone — vestigial upstream release
+scripts not wired into this repo's own `Makefile`.
+
+Follow-up, same session: the maintainer looked at a rendered chapter and found the
+footer confusing — Downey's "Think Python: 3rd Edition" copyright line appeared *above*
+this book's own "Modified by Eric Brown..." note, reading as if the fork were still
+called Think Python. Reordered the `type="note"` sentinel to appear first in all 21
+`chapters/*.ipynb` (and regenerated `projector/`), and reworded its opening to lead with
+**A Python Notebook**. Downey's copyright/license block itself is byte-for-byte
+unchanged — only its position relative to the sentinel moved, using a json-load/modify/
+json-dump(indent=1, ensure_ascii=False) round trip confirmed byte-identical on
+unmodified files before use, so the diff is exactly the intended reorder and nothing
+else.
+
+### For a future maintainer
+
+- The GitHub repo rename (`porttack/ThinkPython` -> `porttack/python-notebook`) is not
+  done by this session — links throughout the repo now assume it's done. Do that rename
+  (or add a redirect) or the modification-footer links in every chapter 404.
+- `blank/` (singular, not `blanks/`) is a separate, older generated directory not
+  mentioned anywhere in `CLAUDE.md`'s layout and predates the `porttack` footer entirely
+  (confirmed: zero `porttack` occurrences there, vs. one in every `chapters/`/`projector/`
+  file). It looks stale/orphaned relative to the current `projector/` pipeline. Not
+  touched by this rename — flagging for whoever eventually decides whether to delete it
+  or fold it into the real build.

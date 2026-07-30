@@ -161,3 +161,21 @@ started. Details in `AUDIT.md`.
 This completes the "chapters 3–8" batch from `mods/pass-2-surgery.md`'s order of work
 (chapters 3–5 landed in an earlier session). All four of the book's kind-A replacement
 exercises are now written. Details in `AUDIT.md`.
+
+## 2026-07-30 — Book retitled to *A Python Notebook*
+
+### Changed
+- Retitled this fork *A Python Notebook*, subtitle *adapted from Allen Downey's Think
+  Python, Third Edition*: `README.md` and `jb/_config.yml` (title/subtitle), the internal
+  "ThinkPython" shorthand for this book in `mods/pass-3-alignment.md` and the alignment
+  docs, the standards crosswalk `carrier` slug (`thinkpython` -> `python_notebook`), and
+  the GitHub repository itself (`porttack/ThinkPython` -> `porttack/python-notebook`),
+  with every link updated to match. Downey's own book and repository credits, and all
+  vendored Downey reference material, were left untouched. Details in
+  `AP_MODIFICATIONS.md`'s Naming section.
+- Reordered the `type="note"` modification footer in all 21 files under `chapters/` (and
+  regenerated `projector/` to match) to appear *before* Downey's copyright/license block
+  rather than after it, and reworded it to lead with this book's own title. Previously a
+  reader hit "Think Python: 3rd Edition" first and the fork's own attribution second,
+  which read as if the fork were still called Think Python. Content of Downey's
+  copyright/license block is unchanged, only its position relative to the sentinel note.
