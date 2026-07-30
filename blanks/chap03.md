@@ -1,3 +1,5 @@
+<!-- GENERATED FROM chap03.md - DO NOT EDIT. Source of truth is chapters/. -->
+
 You can order print and ebook versions of *Think Python 3e* from
 [Bookshop.org](https://bookshop.org/a/98697/9781098155438) and
 [Amazon](https://www.amazon.com/_/dp/1098155432?smid=ATVPDKIKX0DER&_encoding=UTF8&tag=oreilly20-20&_encoding=UTF8&tag=greenteapre01-20&linkCode=ur2&linkId=e2a529f94920295d27ec8a06e757dc7c&camp=1789&creative=9325).
@@ -33,7 +35,7 @@ This chapter also introduces a new statement, the `for` loop, which is used to r
 
 ## Defining new functions
 
-A <!--blank-->**function definition**<!--/blank--> specifies the name of a new function and the sequence of statements that run when the function is called. Here's an example:
+A _______________________ specifies the name of a new function and the sequence of statements that run when the function is called. Here's an example:
 
 
 ```python
@@ -48,7 +50,7 @@ Anything that's a legal variable name is also a legal function name.
 
 The empty parentheses after the name indicate that this function doesn't take any arguments.
 
-The first line of the function definition is called the <!--blank-->**header**<!--/blank--> -- the rest is called the **body**.
+The first line of the function definition is called the __________ -- the rest is called the **body**.
 The header has to end with a colon and the body has to be indented. By convention, indentation is always four spaces. 
 The body of this function is two print statements; in general, the body of a function can contain any number of statements of any kind.
 
@@ -88,7 +90,7 @@ def print_twice(string):
 The variable name in parentheses is a **parameter**.
 When the function is called, the value of the argument is assigned to the parameter.
 For example, we can call `print_twice` like this.
-<!--blank-only: What gets assigned to the parameter when the function is called?-->
+What gets assigned to the parameter when the function is called?
 
 
 

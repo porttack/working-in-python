@@ -25,3 +25,12 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# apcsp: dated working copies for live annotation (CLAUDE.md layout: sessions/)
+sessions/
+
+# apcsp: framework extracts must never be committed (CLAUDE.md non-negotiable #1) --
+# these stay in scratch, outside the repo; ignored here as a backstop in case one
+# is ever placed under standards/ again.
+standards/*.pdf
+scratch/
