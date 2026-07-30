@@ -67,3 +67,35 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   attribution to Eric Brown for a high school CS class, with a link to
   `github.com/porttack/ThinkPython`. Applied uniformly regardless of which chapters
   have otherwise been touched by Pass 2 yet. No email address included (public repo).
+
+## 2026-07-30 — Pass 3, Step 1 (AP index)
+
+### Added
+- `standards/apcsp.json`: full AP CSP index built from the 2023 CED — 35 topics, all
+  5 Big Ideas, 66 learning objectives, 8 exclusion statements, exam and practice
+  weights, all cross-checked against the source PDF's own tables. Every LO code in the
+  document is accounted for exactly once.
+
+Stopped at the Step 1 gate by request; Steps 2–5 (California index, crosswalk,
+alignment docs, standards inserts, appendices) not started. Findings — including a
+partial-coverage gap on iteration (no `while` loop anywhere in the book) and several
+fully unassigned topics (binary search, simulations, algorithmic efficiency, among
+others) — are detailed in `AUDIT.md`.
+
+## 2026-07-30 — Pass 3, corrections + Step 2 (CA index)
+
+### Fixed
+- `standards/apcsp.json` `meta.mcq_format`: corrected an arithmetic error (question
+  counts summed to 78, not the exam's actual 70) after rechecking the CED's exam-format
+  table.
+- `standards/apcsp.json`: all 7 previously-`unassigned` topics reassigned to
+  `carrier: "supplement"` with a note on where each is taught (CS50T Multimedia for
+  binary numbers/data compression; the November algorithms block for binary search,
+  simulations, algorithmic efficiency, and undecidable problems; continuous lab-pair
+  work and the Create Performance Task for collaboration).
+
+### Added
+- `standards/castandards.json`: full California 9-12 CS standards index built from
+  `csstandards.pdf` — all 30 core standards across the five strands, extraction matching
+  the expected shape exactly. Stopped at the Step 2 gate; Steps 3–5 not started. Details,
+  including 8 flagged `unassigned` standards, in `AUDIT.md`.

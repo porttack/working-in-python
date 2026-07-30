@@ -12,7 +12,7 @@ Do not read the other pass files; they will fill your context with work that isn
 |---|---|---|---|
 | 1. Survey and scaffold | `docs/pass-1-survey.md` (actually at `mods/pass-1-survey.md` — see `AUDIT.md` handoff) | read-only + tooling | done, see `AUDIT.md` handoff |
 | 2. Chapter surgery | `mods/pass-2-surgery.md` | destructive edits + authoring | in progress — ch. 1–2 done, **stopped at the register/marker-density gate**; ch. 3–19 pending. Pacing question still open. See `AUDIT.md` |
-| 3. Standards alignment | `docs/pass-3-alignment.md` | analysis + additive back matter | not started |
+| 3. Standards alignment | `docs/pass-3-alignment.md` | analysis + additive back matter | in progress — Steps 1–2 done (`standards/apcsp.json`, `standards/castandards.json` built); stopped at the Step 2 gate. Steps 3–5 not started. See `AUDIT.md` |
 
 Keep the Status column current. Each pass ends by appending a handoff note to `AUDIT.md`
 so the next pass can start cold. If you weren't told which pass to run, read the last

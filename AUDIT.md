@@ -906,3 +906,198 @@ yet reached by Pass 2 (6–19) will show one sentinel block (this footer note) b
 other surgery happens to them. Not a per-chapter checkout item; no ledger entry, since
 it isn't exercise-related. `make check` clean; cell counts and outputs unchanged in
 every file (verified against `HEAD` before this change).
+
+---
+
+## 2026-07-30 — Pass 3, Step 1 (AP index) — stopped at the Step 1 gate by request
+
+Ran only Step 1 of `mods/pass-3-alignment.md`: built `standards/apcsp.json` from
+`standards/ap-computer-science-principles-course-and-exam-description-2023.pdf` (262 pages,
+"Effective Fall 2023" / V.1). Stopped after Step 1 as instructed — Steps 2-5 (California
+index, crosswalk/alignment docs, standards inserts, appendices) were **not started**, not
+because anything blocked them (`standards/csstandards.pdf` is present, so Step 2 is
+unblocked whenever this resumes).
+
+### What's in the index
+
+35 topics across all 5 Big Ideas, 66 learning objectives, every LO code cross-checked
+against a full-document regex sweep of the PDF (zero missing either direction). Weights
+verified against the CED's own tables (both the multiple-choice-by-big-idea table on
+Course Framework p.18/163 and the by-practice table on Exam Information p.164) and they
+match the shape this file predicted exactly: CRD 10–13, DAT 17–22, AAP 30–35, CSN 11–15,
+IOC 21–26. Practice weights: P1 18–25, P2 20–28, P3 7–12, P4 12–19, P5 28–33, P6 not on the
+MCQ at all (Create Performance Task only).
+
+**Topic → LO mapping was not trusted from the "Big Idea at a Glance" summary tables
+alone.** Those tables' multi-column layout collapses under `pdftotext`, and two boundary
+cases came out wrong on first read: Big Idea 5's 5.2–5.6 row order, and (less seriously)
+whether AAP-2.I belongs to 3.6 or 3.7. Every LO-to-topic assignment in the JSON was
+verified against that topic's own detail page, not the summary table alone — this matters
+if anyone re-extracts from a future CED revision using the same tool: the summary table is
+a fast first pass, not a source of truth by itself.
+
+### Every `unassigned` topic (7), as required
+
+- **1.1 Collaboration** — no pair-programming/collaborative-workflow content in the book.
+  Possibly realized as a classroom practice rather than book content; that's a Step 3
+  supplement-plan call, not decided here.
+- **2.1 Binary Numbers**, **2.2 Data Compression** — confirmed not carried, consistent with
+  `CLAUDE.md`'s own framing of what this book carries of Big Idea 2.
+- **3.11 Binary Search** — the book teaches **linear search** by name (chap07) but never
+  introduces binary search, not even conceptually. No `bisect`, no sorted-list-halving
+  example anywhere. This is a real content gap against a topic the CED requires, not
+  something the AAP-2.P.1 exclusion (implementation details only) covers.
+- **3.16 Simulations** — no dedicated simulation content in chapters 1–13. The word only
+  appears in chap19 (independent-study range). chap12's random-number work is adjacent
+  but isn't the same idea.
+- **3.17 Algorithmic Efficiency** — no informal-efficiency discussion anywhere in
+  chapters 1–13. "Efficient"/"sufficient" hits elsewhere in the book are incidental.
+- **3.18 Undecidable Problems** — not carried at all; a non-programming conceptual topic.
+
+### Load-bearing finding beyond the "every unassigned topic" list
+
+**3.8 Iteration (AAP-2.J/K) is only half-carried, and it isn't flagged by the exclusion
+mechanism.** The exam reference sheet gives this topic two pseudocode forms: `REPEAT n
+TIMES` (definite, matches Python's `for`) and `REPEAT UNTIL(condition)` (indefinite,
+matches Python's `while`). **This edition of the book has no `while` loop anywhere** —
+confirmed by scanning every code cell in chapters 1–13 for the token, zero hits outside
+incidental English "while." Indefinite repetition is instead handled through recursion
+(chap05, chap06), which is a real conceptual substitute but not the same construct on the
+exam, and doesn't produce the `REPEAT UNTIL`-specific edge cases the CED calls out
+(AAP-2.K.4 infinite loop from a condition that never turns true; AAP-2.K.5 zero-iteration
+when the condition is already true going in). Whether to add a short `while`-loop
+supplement or treat recursion as sufficient coverage is a real pedagogical call — raising
+it here rather than deciding it, per `CLAUDE.md`'s "raise rather than decide" list (this is
+close to "a standard has no plausible carrier," just partial rather than total).
+
+### Exclusion statements found (8 total, all in the JSON; 6 beyond the two known ones)
+
+Known going in: linked lists (AAP-1.D.6, on 3.2) and specific binary-search
+implementations (AAP-2.P.1, on 3.11). Six more found by grepping every
+"EXCLUSION STATEMENT" occurrence in the PDF and deduplicating against Appendix 2's repeat
+of the same content: real-number range limits (DAT-1.B.3, on 2.1); parallel traversal of
+two lists with a shared index (AAP-2.O.1, on 3.10); formal Big-O analysis (AAP-4.A.3, on
+3.17); specific heuristic solutions (AAP-4.A.9, on 3.17); determining undecidability itself
+(AAP-4.B.2, on 3.18); specific encryption/decryption math (IOC-2.B.5, on 5.6, Little
+Brother's territory not this book's, recorded anyway since the index covers the whole
+framework).
+
+### `class_periods`
+
+Left `null` for all 35 topics, by design rather than extraction failure: the CED's Course
+at a Glance table has no per-topic time-estimate column at all. The numbers printed next
+to each topic in that table are Computational Thinking Practice references (1–6, matching
+the six practices' names), not period counts. Recorded once in `meta.class_periods_note`
+rather than repeated 35 times in the topic array.
+
+### For a future maintainer, when the CED is revised
+
+- Don't trust the "Big Idea at a Glance" table's topic→LO grouping without cross-checking
+  each topic's own detail page — see the boundary-case note above.
+- The full-document LO-code regex sweep (`\b(CRD|DAT|AAP|CSN|IOC)-[0-9]\.[A-Z]\b`, deduped)
+  is a fast way to get a checksum: this pass's JSON accounts for all 66 codes found that
+  way, in both directions, with no gaps.
+- The 8 exclusion statements appear twice each in the source PDF (once in the Big Idea
+  guide, once in Appendix 2's "Conceptual Framework" restatement) — `grep -c` will report
+  16, not 8; dedupe by EK code before treating a change in count as a real CED revision.
+
+### What's still open
+
+- Steps 2–5 not started: California index, crosswalk, `standards_alignment.md`,
+  `supplement-plan.md`, `glossary-map.md` (including the scope question about chapters
+  14–19), standards inserts, and both appendices. All unblocked whenever this resumes —
+  `standards/csstandards.pdf` is present.
+- The three `unassigned`/gap topics above that read as real pedagogical decisions (3.8
+  partial, 3.11, 3.16, 3.17 missing entirely) should probably inform the Step 3 scope
+  question and supplement plan directly, not just sit in the JSON.
+- Pass 2 (chapter surgery) and its open items are untouched by this pass and remain as
+  Pass 2 left them.
+
+---
+
+## 2026-07-30 — Pass 3 follow-up: AP index corrections + Step 2 (CA index) — stopped at the Step 2 gate
+
+### Corrections to `standards/apcsp.json` from the Step 1 gate
+
+- **`meta.mcq_format` had a real arithmetic error**: it read "65 single-select ... plus 8
+  multi-select" alongside the 5-question reading-passage set, which sums to 78, not the
+  70 questions the exam actually has. Rechecked against the CED's exam-format table
+  (Exam Information p.163): the breakdown is **57** individual single-select + **8**
+  individual multi-select (65 individual questions total) + **1 set of 5** single-select
+  questions tied to a reading passage = 70. The reading-passage set is additional to the
+  65 individual questions, not additional to a 65-question single-select count — the "65"
+  in the CED's own prose ("70 total questions, including 65 individual questions and one
+  set of five...") is single-select-plus-multi-select combined, not single-select alone.
+  Fixed; both the CED's summary sentence and its own table now agree with the corrected
+  field.
+- **All 7 `unassigned` topics reassigned to `carrier: "supplement"`** with a note on
+  where each is actually taught, per direction: 2.1 Binary Numbers and 2.2 Data
+  Compression → CS50T Multimedia; 3.11 Binary Search, 3.16 Simulations, 3.17 Algorithmic
+  Efficiency, 3.18 Undecidable Problems → the November algorithms block; 1.1
+  Collaboration → continuous, through lab pair work and the Create Performance Task, not
+  a standalone lesson. Zero `unassigned` topics remain in `standards/apcsp.json`.
+
+### Step 2 — `standards/castandards.json`
+
+Built from `standards/csstandards.pdf` (270 pages, CDE, framework-alignment updates
+through Nov. 2023). **Extraction matched the expected shape exactly, no disagreement to
+report**: five strands, thirty core 9-12 standards (CS.1–3, NI.4–7, DA.8–11, AP.12–22,
+IC.23–30). A separate, non-core "9-12 Specialty" set (`9-12S.*`) exists in the same
+document for a more advanced pathway; confirmed it's genuinely a different standard set
+(its own numbering, its own section header "9–12 Specialty" starting right after IC.30)
+and left it out of the index, since Step 2 only asked for the 30 core standards.
+
+**Carrier counts**: 7 `thinkpython`, 12 `little_brother`, 3 `supplement`, 8 `unassigned`.
+
+- `little_brother` (12): all 4 NI standards, all 8 IC standards. Matches `CLAUDE.md`'s
+  course context directly — it names CA's NI and IC strands specifically as Little
+  Brother's territory, so this wasn't a judgment call.
+- `supplement` (3): **DA.8** and **DA.9** — same real-world content as AP's DAT-1.A/DAT-1.D
+  (binary data representation, compression tradeoffs; DA.9's own worked example is
+  image-format size-vs-quality, which *is* compression), so given CS50T Multimedia carries
+  those on the AP side, it carries these too. **AP.21** — same collaboration/team-roles
+  practice as AP CRD-1.1, so it gets the same "continuous, via lab pairing and the CPT"
+  note. These three are inferences from this session's AP carrier decisions, not separate
+  instructions for the CA framework — flagging that distinction so it can be pushed back
+  on if the reasoning doesn't hold.
+- `thinkpython` (7): AP.12 (chap07 linear search + chap09 sort), AP.13 (chap09 Lists),
+  AP.14 (chap05/chap06 — the CED's own worked example for this standard is recursive vs.
+  iterative Fibonacci, and chap06 has a section literally named "Fibonacci"), AP.16
+  (chap03/chap04 procedures; classes in chap14–19 carry the rest but sit outside the
+  Aug–Dec sequence), AP.17 (chap02/chap04/chap08, same library evidence as AP AAP-3.D),
+  AP.20 (chap04/chap07, testing and iteration — but not its usability/accessibility
+  clauses), AP.22 (chap04, in-code documentation only, not the presentation/graphics
+  forms this standard also names).
+- `unassigned` (8), every one flagged: **CS.1**, **CS.2** (hardware/systems abstraction,
+  no carrier in either framework as scoped), **CS.3** (troubleshooting — the standard's
+  own examples are network/help-desk scenarios, not code debugging; deliberately not
+  claimed by the book's Debugging sections, which carry AP CRD-1.4 instead, a different
+  skill), **DA.10** (data visualization — no charting/plotting content anywhere in the
+  book), **DA.11** (validating a computational model against real data — chap12's Markov
+  model is adjacent but the chapter never validates or refines it against real-world
+  data), **AP.15** (event-driven/GUI programming — every program in the book runs
+  top-to-bottom to completion, no event loop anywhere), **AP.18** (design incorporating
+  user feedback from a broad audience — chap04's development plan is solo and technical,
+  never audience-facing; distinct from AP.21's teammate-collaboration gap), **AP.19**
+  (software license limitations — same gap as AP CRD-2.H already flagged in the AP index;
+  the book uses libraries in chap04/chap08 but never discusses their licensing terms).
+
+### For a future maintainer
+
+- The CS.3 vs. CRD-1.4 distinction (troubleshooting-in-general vs. code-debugging-
+  specifically) is subtle and easy to blur in the crosswalk — worth a deliberate note
+  there rather than letting `CS.3` quietly inherit `CRD-1.4`'s `thinkpython` carrier.
+- The three CA `supplement` assignments above are this session's inferences from the
+  already-decided AP carriers, not independently confirmed against the same source the
+  AP assignments came from (a direct instruction naming where each is taught). Worth a
+  quick confirm before Step 3 treats them as settled.
+
+### What's still open
+
+- Steps 3–5 not started: crosswalk (`standards/crosswalk.json`), the three
+  `alignment/*.md` docs (including the Step 3 scope question about chapters 14–19),
+  standards inserts, and both appendices. Nothing blocks Step 3 now that both indexes
+  exist.
+- Everything listed as still-open in the Step 1 handoff above remains open (the 3.8
+  iteration gap, the four fully-unassigned-in-AP topics now carried as `supplement`, and
+  Pass 2's untouched items).

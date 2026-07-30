@@ -1,0 +1,245 @@
+# Pass 3 — Standards Alignment
+
+## Amendments
+
+- **`chapters/` is `.ipynb` only.** The `.md` exports were deleted. Standards inserts go
+  into notebook JSON. After every chapter, `make check` must pass; it asserts each notebook
+  parses as JSON and that cell counts match `upstream/v3`. Those two assertions are how a
+  botched JSON edit gets caught, so do not skip them.
+- **Notebook hygiene, revised.** Introduce no new outputs and change no existing
+  `execution_count`. Upstream ships 1353 of them; leave them alone. Never run `nbstripout`
+  across the book.
+- **Confirm `standards/csstandards.pdf` exists before Step 2.** The PDFs are gitignored, so
+  presence is not visible in git. If it is missing, do Steps 1, 3, and 5, and stop before
+  Step 2. Note in the handoff that the California half is outstanding.
+- **Kind D exists.** Prose that mentions virtual assistants without directing the student to
+  use one is kept, no action. Relevant only if you touch VA prose, which this pass should not.
+
+## Go...
+
+Read `CLAUDE.md` first, then the last handoff note in `AUDIT.md`. Do not read the other
+pass files.
+
+**Mode:** analysis, then additive back matter. Nothing in this pass removes anything.
+
+**Blocked by:** pass 1 (the ledger and chapter inventory), and `csstandards.pdf` for the
+California half. The AP half can proceed without it. If `csstandards.pdf` is missing, do
+Steps 1, 3, and 5, and stop before Step 2.
+
+**Not blocked by:** pass 2. Standards inserts are back matter, so a chapter already being
+taught can receive one with no disruption.
+
+---
+
+## Step 1 — AP index (STOP after)
+
+`standards/apcsp.json`, from the 2023 CED.
+
+```json
+{
+  "meta": { "ced_version": "...", "extracted": "YYYY-MM-DD",
+            "section_ii_format": "on-exam-day written response with Personalized Project Reference",
+            "cpt_class_hours_minimum": 9 },
+  "big_ideas": [
+    { "id": "AAP", "number": 3, "name": "Algorithms and Programming",
+      "mcq_weight_low": 30, "mcq_weight_high": 35, "carrier": "thinkpython" }
+  ],
+  "practices": [
+    { "id": "P5", "name": "Computing Innovations", "mcq_weight_low": 28, "mcq_weight_high": 33 }
+  ],
+  "topics": [
+    { "code": "3.10", "big_idea": "AAP", "title": "Lists",
+      "los": ["AAP-2.N", "AAP-2.O"], "paraphrase": "<original wording only>",
+      "class_periods": null, "tp_chapters": [9],
+      "carrier": "thinkpython",
+      "exclusions": ["linked lists are outside course scope (AAP-1.D.6)"] }
+  ]
+}
+```
+
+Notes:
+
+- **Weights** come from the CED's own table. Verify rather than trusting any table you were
+  handed. Expected shape: CRD 10–13, DAT 17–22, AAP 30–35, CSN 11–15, IOC 21–26.
+- **`class_periods`** comes from the Course at a Glance table, which does not survive PDF
+  text extraction cleanly. Parse from the table layout, not the text layer. Leave `null`
+  with a note rather than guessing; these numbers feed the course calendar.
+- **`exclusions`** are time savings and there are more than you'd expect. Known: linked
+  lists out of scope (AAP-1.D.6); specific implementations of binary search out of scope
+  (AAP-2.P.1). Find the rest.
+- **`tp_chapters`** by reading chapters, not guessing.
+- **`carrier`** is `thinkpython`, `little_brother`, `supplement`, or `unassigned`. Report
+  every `unassigned` topic; do not leave one quietly.
+
+---
+
+## Step 2 — California index (STOP after)
+
+`standards/castandards.json`, from `csstandards.pdf`. Same shape:
+
+```json
+{ "code": "9-12.AP.14", "strand": "AP", "strand_name": "Algorithms & Programming",
+  "grade_band": "9-12", "core": true, "paraphrase": "<original wording only>",
+  "tp_chapters": [14, 15], "carrier": "thinkpython" }
+```
+
+Validate your extraction against the expected shape: five strands, thirty core standards in
+the 9–12 band. CS.1–3 (Computing Systems), NI.4–7 (Networks and the Internet), DA.8–11
+(Data and Analysis), AP.12–22 (Algorithms and Programming), IC.23–30 (Impacts of
+Computing). **If your extraction disagrees with this shape, report the disagreement rather
+than silently adopting either version.**
+
+---
+
+## Step 3 — Crosswalk and alignment docs (STOP after)
+
+`standards/crosswalk.json`:
+
+```json
+{ "ap": "3.10", "ca": "9-12.AP.14", "strength": "strong|partial|related",
+  "note": "<why they do or do not fully correspond>" }
+```
+
+Be honest about `strength`. A crosswalk that claims everything corresponds is useless; the
+value is in seeing where one lesson earns credit twice and where the two frameworks
+genuinely diverge.
+
+Then generate:
+
+**`alignment/standards_alignment.md`** — four views:
+1. by chapter: what each chapter covers in both frameworks
+2. by AP topic: coverage, carrier, chapters
+3. by CA standard: coverage, carrier, chapters
+4. gaps: anything `unassigned` in either framework
+
+**`alignment/supplement-plan.md`** — what is taught outside this book and by what. Expected
+division of labor, stated plainly so the boundary is legible rather than accidental:
+- ThinkPython carries AP Big Idea 3 almost entirely, Big Idea 1 partially, and CA's AP.12–22
+  strand heavily
+- partial on AP Big Idea 2 and CA's DA.8–11, via file and CSV work; not binary numbers or
+  data compression
+- not carried: AP Big Ideas 4 and 5, CA's NI and IC strands. A separate novel unit covers
+  these.
+
+**`alignment/glossary-map.md`** — **concept mapping, not string diffing.** The CED has no
+glossary appendix; its vocabulary lives in Essential Knowledge prose and in the Exam
+Reference Sheet's own naming. A string-level diff against Downey's `**term:** definition`
+entries produces noise.
+
+Lead with the table that actually costs students points:
+
+| ThinkPython | AP CSP |
+|---|---|
+| function | procedure |
+| conditional | selection |
+| `%` | `MOD` |
+| `print` | `DISPLAY` |
+| `input` | `INPUT` |
+| `len(x)` | `LENGTH(x)` |
+| `x.append(v)` | `APPEND(x, v)` |
+| `=` assignment | `←` |
+| `==` equality | `=` |
+| 0-based index | **1-based index** |
+
+Then: terms AP expects that ThinkPython doesn't use (with a proposed carrier for each, many
+of which are `little_brother`), and terms ThinkPython uses that AP doesn't need (marked
+`keep` or `defer`, recommended never deleted).
+
+### The scope question
+
+**Report this explicitly and prominently.** Do any California standards, particularly in the
+AP.12–22 strand, require content that only chapters 14–19 provide, and that nothing else in
+the course reaches? Abstraction, modularity, and program structure are the likely candidates.
+
+If yes, chapters 14–19 are core rather than enrichment, and the treatment matrix in
+`CLAUDE.md` needs revising to give them blank markers and live instruction time. That is a
+teacher decision, but it turns on evidence you are the first to see. Do not decide it; state
+it clearly enough that it can be decided.
+
+---
+
+## Step 4 — Standards inserts
+
+One per chapter, in back matter, inside a `type="standards"` sentinel. All codes and weights
+read from the JSON; nothing hardcoded. Under 200 words. Signposting, not a second textbook.
+
+**Full form, chapters 1–13:**
+
+```markdown
+<!-- apcsp:begin type="standards" chapter="09" -->
+## Standards alignment
+
+**AP CSP:** 3.10 Lists, 3.2 Data Abstraction — Big Idea 3, 30–35% of the exam
+**California 9–12:** 9-12.AP.14, 9-12.AP.16
+
+<One to three sentences of original prose connecting this chapter's Python to the way the
+exam frames the same idea. Heavily weighted topics only; light ones get the headers alone.>
+
+**Vocabulary:** this book says *function*; the exam says *procedure*.
+**Indexing:** Python lists start at 0. Exam pseudocode lists start at 1.
+
+**Covered elsewhere:** 5.6 Safe Computing and 9-12.IC.30 are carried by the novel unit.
+<!-- apcsp:end -->
+```
+
+**Short form, chapters 14–19:**
+
+```markdown
+<!-- apcsp:begin type="standards" chapter="15" -->
+## Standards alignment
+
+**AP CSP:** not assessed. Object-oriented programming is outside the AP CSP framework.
+**California 9–12:** <codes, if any>
+
+Included because <one line: on-ramp to AP CSA, CMU 15-111, or a CA standard nothing else
+in the course reaches>.
+<!-- apcsp:end -->
+```
+
+Telling a student "this is not on the exam, and here is why we're doing it anyway" is better
+information than silence.
+
+Also backfill `targets_ap` and `targets_ca` in `data/exercise-ledger.json` for every
+replacement exercise pass 2 wrote, then `make ledger`.
+
+---
+
+## Step 5 — Appendices
+
+**`appendix/pseudocode-crosswalk.md`.** Likely the highest-value artifact in the fork:
+roughly a third of multiple-choice items involve pseudocode, and the mismatches bite
+students who *do* know Python. Verify every row against the Exam Reference Sheet in CED
+Appendix 1. Side-by-side code pairs, not prose.
+
+Cover the Step 3 vocabulary table plus:
+- **1-based indexing**, led with, and out-of-range producing an error that terminates the
+  program (AAP-1.D.8)
+- `REPEAT n TIMES` vs `for _ in range(n)`
+- `REPEAT UNTIL (cond)` vs `while`, noting the sense is **inverted**
+- `FOR EACH item IN aList` vs `for item in aList`
+- `NOT` / `AND` / `OR` vs `not` / `and` / `or`
+- `RANDOM(a, b)` inclusive of both endpoints, matching `random.randint` and **not**
+  `random.randrange`
+- `REMOVE(aList, i)` shifts left, `INSERT(aList, i, value)` shifts right, both 1-based
+- the robot-in-a-grid instruction set, which has no Python analogue and is taught separately
+
+Close with a two-way translation exercise set, Python to pseudocode and back.
+
+**`appendix/cs50p-map.md`.** Each chapter to the CS50P week whose problem set can serve as a
+lab. Do not reorder chapters to fit. Note that CS50P sets from week 3 onward are steeper
+than CSP requires and belong as differentiation rather than whole-class work. Identify the
+four topics CS50P covers that ThinkPython underweights: exceptions as a first-class topic,
+pytest, command-line arguments, and APIs.
+
+---
+
+## Handoff
+
+Append to `AUDIT.md`:
+
+- both indexes: counts, and every `unassigned` standard in either framework
+- crosswalk: how many `strong`, `partial`, `related`, and where the frameworks diverge
+- **the scope question from Step 3, answered with evidence**
+- any `class_periods` left null and why
+- exclusion statements found beyond the two known ones
+- what a future maintainer needs to know when the CED or the CA framework is revised
