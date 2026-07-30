@@ -4,14 +4,14 @@
     "id": "ch01-ex01",
     "anchor": "Try examples of round() with numbers ending in 0.5",
     "kind": "native",
-    "action": "kept",
+    "action": "edited",
     "replacement_id": null,
     "targets_ap": [],
     "targets_ca": [],
     "est_minutes_before": 10,
     "est_minutes_after": 10,
     "self_verifying": false,
-    "note": ""
+    "note": "Kind-C VA aside removed: the closing line inviting the student to ask a virtual assistant how Python rounds a trailing 0.5. Task and cells unchanged."
   },
   {
     "chapter": "chap01",
@@ -56,6 +56,20 @@
     "note": ""
   },
   {
+    "chapter": "chap01",
+    "id": "ch01-va01",
+    "anchor": "Ask a virtual assistant: bitwise operators, order of operations, round arguments, modulus",
+    "kind": "B",
+    "action": "removed",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": 0,
+    "est_minutes_after": 0,
+    "self_verifying": false,
+    "note": "Bare suggested-prompt list with no graded task attached. Removed whole, no replacement (pass-2 Step 1, kind B). Not priced in the pass-1 effort table, so removal does not change the chapter estimate."
+  },
+  {
     "chapter": "chap02",
     "id": "ch02-ex01",
     "anchor": "Make deliberate errors with assignment order, chained assignment, and imports",
@@ -74,14 +88,28 @@
     "id": "ch02-ex02",
     "anchor": "Practice using the interpreter as a calculator: sphere volume, trig identity, math.e",
     "kind": "native",
-    "action": "kept",
+    "action": "edited",
     "replacement_id": null,
     "targets_ap": [],
     "targets_ca": [],
     "est_minutes_before": 25,
     "est_minutes_after": 25,
     "self_verifying": true,
-    "note": ""
+    "note": "Kind-C VA aside removed from Part 3: the clause offering a virtual assistant as a way to find out what math.e is. Task and cells unchanged."
+  },
+  {
+    "chapter": "chap02",
+    "id": "ch02-va01",
+    "anchor": "Ask a virtual assistant: keywords, int/float/str as names, built-in functions, math module",
+    "kind": "B",
+    "action": "removed",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": 0,
+    "est_minutes_after": 0,
+    "self_verifying": false,
+    "note": "Bare suggested-prompt list with no graded task attached. Removed whole, no replacement (pass-2 Step 1, kind B). Not priced in the pass-1 effort table, so removal does not change the chapter estimate."
   },
   {
     "chapter": "chap03",

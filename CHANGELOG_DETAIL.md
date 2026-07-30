@@ -9,23 +9,25 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap01
 
-4 exercise(s).
+5 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
-| ch01-ex01 | Try examples of round() with numbers ending in 0.5 | native | kept | — | 10 | 10 |
+| ch01-ex01 | Try examples of round() with numbers ending in 0.5 | native | edited | — | 10 | 10 |
 | ch01-ex02 | Make deliberate syntax errors (plus sign, missing operator, parentheses) and observe messages | native | kept | — | 15 | 15 |
 | ch01-ex03 | Guess the type of several expressions before checking with type() | native | kept | — | 10 | 10 |
 | ch01-ex04 | Practice arithmetic word problems: seconds in a time, miles from km, calories burned | native | kept | — | 25 | 25 |
+| ch01-va01 | Ask a virtual assistant: bitwise operators, order of operations, round arguments, modulus | B | removed | — | 0 | 0 |
 
 ## chap02
 
-2 exercise(s).
+3 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
 | ch02-ex01 | Make deliberate errors with assignment order, chained assignment, and imports | native | kept | — | 15 | 15 |
-| ch02-ex02 | Practice using the interpreter as a calculator: sphere volume, trig identity, math.e | native | kept | — | 25 | 25 |
+| ch02-ex02 | Practice using the interpreter as a calculator: sphere volume, trig identity, math.e | native | edited | — | 25 | 25 |
+| ch02-va01 | Ask a virtual assistant: keywords, int/float/str as names, built-in functions, math module | B | removed | — | 0 | 0 |
 
 ## chap03
 
@@ -216,8 +218,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 81
+Total exercises: 83
 
-By kind: A=4, native=77
+By kind: A=4, B=2, native=77
 
-By action: kept=81
+By action: edited=2, kept=79, removed=2

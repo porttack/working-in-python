@@ -532,3 +532,182 @@ missing closing tag) confirmed working and reverted cleanly.
   don't renumber them even if an exercise is later split or merged — use `replacement_id`
   instead.
 
+---
+
+# Audit — Pass 2 (Chapter Surgery)
+
+## Gate: chapters 1–2 complete, stopping for register and marker-density review
+
+Per `mods/pass-2-surgery.md` "Order of work" step 1, work stops here. Chapters 3–8 are the
+next batch and should conform to whatever pattern this review approves or amends.
+
+### Preconditions checked before starting
+
+- `CHAPTER_MANIFEST.md` filename mapping is present and approved. Not blocked.
+- `upstream/v3` had no local ref; fetched it. **Note for the checkout step:** upstream ships
+  only `chapters/*.ipynb`. The parallel `chapters/*.md` files are this fork's own exports
+  (commit c780265), so `git diff upstream/v3 -- chapters/chapNN.md` shows the whole file as
+  new and proves nothing. The meaningful upstream diff is against the `.ipynb`. Both
+  renderings are hand-edited in parallel and were verified byte-equivalent in marker counts
+  after every change.
+
+### Uncommitted prep found in the working tree
+
+A prior session had already staged, but not committed, the `blanks/` → `projector/` rename
+called for by this pass (Makefile, `CLAUDE.md` layout section, `standards/README.md`) and a
+fix to `tools/build_blanks.py` closing the Pass 1 gap where `# blank` was silently inert in
+`.md` files. That work is verified and committed separately as a prep commit so the
+chapter commits stay revertible on their own. One additional fix was needed: the Makefile's
+`.PHONY` still listed the old `blanks` target, so `make projector` no-opped against the
+existing `projector/` directory.
+
+Two stray files, `CLAUDE.md.bak` and `Makefile.bak`, are left untracked and uncommitted.
+
+### Step 1 — VA removal
+
+| Chapter | Kind A | Kind B | Kind C | Prose repair needed |
+|---|---|---|---|---|
+| chap01 | 0 | 1 | 1 | none |
+| chap02 | 0 | 1 | 1 | none |
+
+- **chap01 kind B** — the whole "Ask a virtual assistant" subsection under `## Exercises`
+  (3 consecutive notebook cells). Removed whole.
+- **chap01 kind C** — the closing line of exercise 1, inviting the student to ask an
+  assistant how Python rounds a trailing `0.5`. It was a standalone paragraph after the two
+  `round` cells; removing it leaves the exercise ending on "Try these examples and see if
+  you can figure out what rule it follows," which reads correctly. **No repair.**
+- **chap02 kind B** — same subsection, one notebook cell. Removed whole.
+- **chap02 kind C** — a clause inside exercise 2 Part 3 offering an assistant as a way to
+  find out what `math.e` is. The sentence now runs "…written in math notation as $e$. Now
+  let's compute $e^2$ three ways:" — coherent as written. **No repair.**
+
+**No prose repairs were made in either chapter**, so there is nothing here a reader of the
+original needs to be told about beyond the removals themselves.
+
+**One VA mention deliberately left in place.** `chap01` line 50 ends "…you will need it to
+understand the rest of the book, to communicate with other programmers, and to use and
+understand virtual assistants." Pass 1's A/B/C sweep did not classify it: it is not a
+suggestion that an assistant could explain something, it is a reason the vocabulary matters,
+and it sits in chapter-body prose rather than an exercise. Removing the trailing clause
+would be an edit to upstream prose outside the three defined kinds. **Left as-is, raised
+here for the gate review to rule on** — the same judgment will recur in `chap00`, whose
+Preface discusses assistants at book level in five places and is likewise unclassified.
+
+### Step 2 — Replacement exercises
+
+**None.** Neither chapter has a kind-A exercise. The four replacements owed across the book
+are all in chapters 5, 7, and 17.
+
+### Step 3 — Policy note
+
+Added once, in `chap00`, as `## Doing the work by hand`, inside
+`<!-- apcsp:begin type="note" chapter="00" -->`. Placed after "Navigating the Book" —
+the section that tells the student how to work through the book — and before "What's new in
+the third edition?". Four sentences, second person, present tense, no moralizing and no
+attribution guidance. It will not be repeated per chapter.
+
+### Step 4 — Blank markers
+
+| Chapter | Prose blanks | Prompts | Code blanks | Against target (4–6 / 2–4 / 0–2) |
+|---|---:|---:|---:|---|
+| chap01 | 5 | 3 | 0 | in range on all three |
+| chap02 | 5 | 3 | 0 | in range on all three |
+
+**chap01 prose blanks** (one per paragraph, five different sections): `arithmetic operator`,
+`expression`, `calling` (the operative verb, with `function call` left visible in the next
+sentence as the recovery cue), `concatenation`, `type`. Left visible on purpose: `bug` /
+`debugging` in the Debugging section, and `natural`/`formal language`, so the chapter's two
+discussion sections stay readable rather than becoming vocabulary drills.
+
+**chap01 prompts**: before the `84 / 2` cell (predict 42 vs 42.0); before `len('Spam')`
+(does `len` count the quotes); after the `1,000,000` paragraph (if it is not an integer,
+what is it). Each is answered by the cell that follows or the next paragraph, so all three
+are recoverable by a student who did the reading.
+
+**chap02 prose blanks**, again one per paragraph across five sections:
+`assignment statement`, `state diagram`, `keyword`, `module`, `argument`.
+
+**chap02 prompts**: after "`class` is also illegal, but it might not be obvious why"
+(the first two illegal names fail for visible reasons — what is wrong with `class`);
+after the import-statement paragraph (what separates an expression from a statement); after
+the "explain *why*, not *what*" paragraph, immediately before the two contrasting comment
+cells (which one earns its space).
+
+**Code blanks: zero in both chapters, and this is the right answer, not an omission.**
+Two independent reasons:
+
+1. **Upstream's `blank/` makes it redundant.** `blank/chap01.ipynb` and `blank/chap02.ipynb`
+   are the same notebooks with the source of *every* code cell emptied — 50 and 49 cells
+   respectively. There is nothing left for a `# blank` marker to add.
+2. **There is nothing worth blanking.** Chapters 1 and 2 have no multi-line worked example
+   in the body. Every expository cell is a one-line expression (`84 // 2`, `type(42.0)`,
+   `math.pow(5, 2)`) whose entire content *is* the concept, so blanking the line leaves no
+   surrounding context to recover it from — that is a quiz question, not a blank. The only
+   multi-line cells are the `download` boilerplate and the `diagram` state-diagram
+   plumbing, both explicitly off-limits.
+
+Expect this to change from chapter 3 onward, where `def` headers, loop headers, and
+conditions give a code blank something to carry. Reason 1 above will still apply, so the
+0–2 target should be read as a ceiling that most chapters will not need to reach.
+
+### Step 5 — Per-chapter checkout
+
+- `make check` passes (42 source files, `check_sync` clean).
+- `make ledger` regenerates with no manual edits; verified byte-identical across two runs.
+- `make projector` verified idempotent.
+- Cell-level diff of `chap01.ipynb` and `chap02.ipynb` against `upstream/v3` shows exactly
+  the intended changes and no whitespace or formatting drift: chap01, 8 cells edited (5
+  blanks + 3 prompts) and 4 cells deleted (3 VA + 1 kind-C); chap02, 9 cells edited (5
+  blanks + 3 prompts + 1 kind-C) and 1 cell deleted (VA). Notebook JSON round-trips
+  byte-identically, so the diffs are content-only.
+- `git status` shows nothing added or modified under `blank/`.
+- Marker counts verified equal between each chapter's `.md` and `.ipynb`.
+
+### Notebook hygiene — a conflict to rule on, not resolved here
+
+`CLAUDE.md` non-negotiable #5 says notebooks carry no execution counts and that `nbstripout`
+runs before commit. **Upstream's own notebooks ship with execution counts** — 49 of them in
+`chap01.ipynb` alone, 1353 across `chapters/`. Running `nbstripout` over the book would
+touch every chapter and produce exactly the whole-file reflow that non-negotiable #2
+forbids, and would guarantee a conflict on every future upstream pull.
+
+What was done instead: verified that **this pass introduced no outputs and changed no
+execution count** in `chap00`, `chap01`, or `chap02`, and that those three files contain no
+cell outputs at all. The only committed outputs anywhere in `chapters/` are two cells in
+`jupyter_intro.ipynb` (a stream and a deliberate error), which are upstream's and are the
+point of that notebook.
+
+**Ruling needed:** either non-negotiable #5 means "add no outputs or execution counts of our
+own" (which is what was done, and is compatible with #2), or it means the fork strips the
+whole book once and accepts permanent divergence from upstream. Do not let pass 3 decide
+this by accident.
+
+### Ledger
+
+`data/exercise-ledger.json` is now 83 entries, up from 81. Two added: `ch01-va01` and
+`ch02-va01`, `kind: "B"`, `action: "removed"`, both at 0 minutes before and after — those
+sections were optional and ungraded and were never priced into the Pass 1 effort table, so
+their removal does not change either chapter's estimate. Two existing entries moved from
+`action: "kept"` to `action: "edited"` with a note naming the kind-C removal: `ch01-ex01`
+and `ch02-ex02`. No IDs were renumbered.
+
+### Handoff to the next batch (chapters 3–8)
+
+- **The pattern to conform to**, pending this review: 5 prose blanks and 3 prompts per
+  chapter, each blank in a different section, one per paragraph, on glossary terms and
+  operative verbs; code blanks only where a multi-line worked example has a line that
+  carries the concept, and never as a substitute for what upstream's `blank/` already does.
+- **chap03 already carries 4 markers from Pass 1** (2 prose blanks, 1 prompt, 1 code blank
+  on the `print_lyrics` header) added to verify the tooling. It needs topping up to the
+  pattern, not starting from scratch — and its `# blank` line in the `.md` now actually
+  works, since the build fix landed.
+- **chap05 and chap07 carry three of the four kind-A replacements** (`ch05-ex06`,
+  `ch07-ex06`, `ch07-ex07`). Those are the only exercise-authoring work in the 3–8 batch.
+  chap07 uses doctest, so its two replacements are written the same way with
+  `self_verifying: true`.
+- The `chap01` line-50 question above will recur; a single ruling should cover all of them.
+- The pacing/buffer question raised by Pass 1 is **still open** and this pass did nothing
+  that depends on it. Chapters 9–11 remain `decide` on VA and must not be stripped without
+  a ruling; their blank markers can proceed regardless.
+- Nothing in these two chapters tempted a restructure. The only two places where the text
+  wanted rewriting were the two kind-C removals, and both closed cleanly on their own.
