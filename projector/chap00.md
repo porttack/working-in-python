@@ -66,6 +66,15 @@ Chapter 18 presents some of these features.
 
 Finally, Chapter 19 presents my parting thoughts and suggestions for continuing your programming journey.
 
+<!-- apcsp:begin type="note" chapter="00" -->
+## Doing the work by hand
+
+In the first semester of this course, you write the code yourself.
+Do not use a virtual assistant or a chatbot to write code for you, and do not paste an exercise into one to get an answer.
+The work in the fall is to learn the language by hand.
+The policy changes in the spring, and your teacher will tell you when.
+<!-- apcsp:end -->
+
 ## What's new in the third edition?
 
 The biggest changes in this edition were driven by two new technologies -- Jupyter notebooks and virtual assistants.
