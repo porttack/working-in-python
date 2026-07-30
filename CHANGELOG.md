@@ -116,3 +116,22 @@ others) — are detailed in `AUDIT.md`.
 
 Stopped at the Step 3 gate; Steps 4–5 (standards inserts, appendices) not started.
 Details in `AUDIT.md`.
+
+## 2026-07-30 — Pass 3, Step 4 (standards inserts, chapters 1-3)
+
+### Fixed
+- `tools/check_sync.py`: standards-code validation assumed the wrong JSON shape for
+  `standards/apcsp.json`/`castandards.json` (a leftover from when those files were empty
+  Pass 1 placeholders). Every legitimate code citation would have failed `make check`.
+  Fixed with schema-aware code extraction; the tool's other behaviors are unchanged.
+
+### Added
+- `type="standards"` sentinel in chap01, chap02, and chap03's back matter, each citing
+  AP CSP topics and (where one exists) a California 9-12 standard, with codes and exam
+  weights read from the JSON rather than hardcoded. Appended into the existing footer
+  cell rather than a new cell, so cell counts are unchanged. `make check` passes; `make
+  ledger` regenerates byte-identical (no replacement exercises exist yet in chapters
+  1-3, so there was nothing to backfill).
+
+Scoped to chapters 1-3 only, by request. Chapters 4-19 and Step 5 (appendices) not
+started. Details in `AUDIT.md`.

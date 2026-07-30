@@ -1180,3 +1180,105 @@ reasons to move OOP earlier, but standards coverage doesn't compel it.
 - The exercise-ledger backfill (`targets_ap`/`targets_ca` for Pass 2's replacement
   exercises, part of Step 4) is also still outstanding.
 - Everything still open from the Step 1 and Step 2 handoffs above remains open.
+
+---
+
+## 2026-07-30 — Pass 3, Step 4 (standards inserts), chapters 1-3 only
+
+Scoped to chapters 1–3 only, by request — not the whole book. Step 4 is otherwise
+unstarted for chapters 4–19.
+
+### A real bug found and fixed before any insert could pass `make check`
+
+`tools/check_sync.py`'s standards-code validation (`check_standards_codes`) assumed
+`standards/apcsp.json` and `standards/castandards.json` were either a flat list of codes
+or a dict keyed directly by code — the shape they had as Pass 1 placeholders (`{}`).
+Once Step 1/2 built the real schema (a dict with `topics`/`standards` arrays, each entry
+holding a `code` and, for AP, a nested `los` list), every single legitimate code
+citation would have failed validation: `"9-12.AP.16" not in {"meta": ..., "standards":
+[...]}` is true regardless of whether `9-12.AP.16` is actually indexed, because dict
+membership checks keys, not nested values. Confirmed this would have broken `make check`
+immediately by testing the old logic against a real CA code before touching any chapter.
+
+Fixed by adding two schema-aware extractors (`apcsp_valid_codes`, `castandards_valid_codes`)
+that build the actual flat code sets from the real JSON shape — topic codes ("3.10") plus
+each topic's nested LO codes ("AAP-2.N") for AP; standard codes ("9-12.AP.16") for CA. Not
+a rewrite of the tool's structure or its three build_blanks.py-protected behaviors
+(untouched) — just correcting a code-extraction assumption written before the JSON files
+had real content. `make check` passes clean after the fix, tested against all three
+inserted chapters.
+
+### The inserts themselves
+
+One `type="standards"` sentinel per chapter (01, 02, 03), each appended into the
+existing last markdown cell — the same cell already carrying the `type="note"`
+modification-attribution footer — rather than as a new cell, to keep cell counts
+unchanged from before this edit (106/106/82, confirmed identical pre- and post-edit) and
+the diff to a pure addition (0 deletions in all three files per `git diff --stat`).
+
+- **chap01**: cites 3.3 Mathematical Expressions and 3.4 Strings (Big Idea 3, prose),
+  1.2 and 1.4 (Big Idea 1, headers only). No California standard maps to this chapter —
+  said so explicitly rather than forcing a code, since California's 9-12 core standards
+  don't test basic arithmetic/expressions at all (assumed prior knowledge by this grade
+  band).
+- **chap02**: cites 3.1 Variables and Assignments and 3.14 Libraries (prose), 1.4
+  (headers only); California 9-12.AP.17. Vocabulary line: `=` vs. `←`.
+- **chap03**: cites 3.12 Calling Procedures and 3.13 Developing Procedures (prose), 3.8
+  Iteration and 1.4 (headers only, since the chapter's `for` loop is incidental to a
+  Repetition demo, not full iteration instruction); California 9-12.AP.16. Vocabulary
+  line: *function* vs. *procedure* — the single highest-value substitution in the whole
+  glossary map, introduced at the first natural chapter for it.
+
+All codes and weights are read from the JSON at write time (cross-checked against
+`standards/apcsp.json`'s `big_ideas` array for the 30-35%/10-13% figures cited, not
+memorized) rather than hardcoded. Every insert is under 200 words. Apostrophe style
+matched to upstream: found and fixed two places where I'd typed a curly `'` instead of
+the straight `'` upstream uses exclusively (checked by grepping chap01's existing prose,
+zero curly quotes found there).
+
+### Ledger backfill (the other half of Step 4)
+
+`data/exercise-ledger.json` has **no `replacement_id` entries in chapters 1-3** — the
+only replacement exercise so far is `ch05-ex07` (chapter 5, out of this batch's scope).
+So the "backfill `targets_ap`/`targets_ca` for every replacement exercise pass 2 wrote"
+instruction is a no-op for this specific batch, not skipped. Ran `make ledger` anyway to
+confirm it regenerates byte-identical (`git status` showed no changes to
+`data/exercise-ledger.json` or `CHANGELOG_DETAIL.md`) — the tool is stable, and there was
+genuinely nothing to backfill here.
+
+### Verification
+
+- `make check`: clean, 21 files.
+- `make projector` (via `build_blanks.py`, not `--check`) regenerated after the source
+  edit, then re-checked clean.
+- Cell counts unchanged in all three chapters (confirmed against the pre-edit working
+  tree, not just against upstream, since Pass 2 had already legitimately diverged chap01/
+  02/03's cell counts from `upstream/v3` via prior deletions).
+- `git diff` on all three chapter files: pure insertions, zero deletions, confined to
+  the existing last cell.
+- No `execution_count` or `outputs` changes anywhere in the diff.
+
+### What a future maintainer needs to know
+
+- **The `check_sync.py` fix is required infrastructure for the rest of Step 4.** Anyone
+  resuming this step for chapters 4-19 needs this fix in place already (it's in this
+  commit) — without it, every legitimate CA code citation fails `make check`.
+- **The two-sentinel-blocks-in-one-cell pattern is now established**: the `type="note"`
+  footer and the `type="standards"` insert both live in each chapter's final markdown
+  cell, each independently balanced. Follow this pattern for chapters 4-13 rather than
+  adding new cells, to keep preserving cell-count parity with the pre-Pass-3 working
+  tree.
+- chap02 and chap03's California line cites a single code each (`9-12.AP.17`,
+  `9-12.AP.16`) because `standards/castandards.json`'s `tp_chapters` mapping only ever
+  assigned one CA standard per early chapter — don't force a second one in for
+  symmetry's sake if the index doesn't back it up.
+
+### What's still open
+
+- Step 4 for chapters 4-13 (full form) and 14-19 (short form) — not started.
+- Step 5 (both appendices) — not started.
+- Everything still open from the Step 1-3 handoffs above remains open, including the
+  3.8/AP.14 iteration finding, which chapter 3's insert already gestures at (citing 3.8
+  as "headers only" because the full topic isn't reached until chapter 7) without
+  re-litigating the `while`-loop gap in student-facing text — that finding stays in
+  `AUDIT.md` and the alignment docs, not in the book itself.

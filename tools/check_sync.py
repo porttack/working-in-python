@@ -77,14 +77,14 @@ def check_sentinels(name, text, problems):
     return begins
 
 
-def check_standards_codes(name, text, apcsp_index, castandards_index, problems):
-    if not apcsp_index and not castandards_index:
+def check_standards_codes(name, text, apcsp_codes, castandards_codes, problems):
+    if not apcsp_codes and not castandards_codes:
         return  # indexes empty -- pass 1/2, nothing to resolve against yet
     for code in AP_CODE_RE.findall(text):
-        if apcsp_index and code not in apcsp_index:
+        if apcsp_codes and code not in apcsp_codes:
             problems.append(f"{name}: AP code {code!r} not found in standards/apcsp.json")
     for code in CA_CODE_RE.findall(text):
-        if castandards_index and code not in castandards_index:
+        if castandards_codes and code not in castandards_codes:
             problems.append(f"{name}: CA code {code!r} not found in standards/castandards.json")
 
 
@@ -96,18 +96,30 @@ def check_blank_marker_tier(name, stem, text, problems):
         )
 
 
-def load_json_index(path):
+def load_json(path):
     if not path.exists():
         return {}
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        return json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return {}
-    if isinstance(data, dict):
-        return data
-    if isinstance(data, list):
-        return {item: True for item in data}
-    return {}
+
+
+def apcsp_valid_codes(data):
+    # Placeholder shape (pre-Pass-3-Step-1) is `{}` -- no "topics" key, empty set.
+    # Real shape: topic-level codes ("3.10") plus each topic's nested LO codes
+    # ("AAP-2.N"), since a chapter insert or exercise note might cite either.
+    codes = set()
+    for topic in data.get("topics", []):
+        if "code" in topic:
+            codes.add(topic["code"])
+        codes.update(topic.get("los", []))
+    return codes
+
+
+def castandards_valid_codes(data):
+    # Placeholder shape is `{}` -- no "standards" key, empty set.
+    return {s["code"] for s in data.get("standards", []) if "code" in s}
 
 
 def main():
@@ -115,8 +127,8 @@ def main():
         print(f"error: {CHAPTERS_DIR} not found", file=sys.stderr)
         return 1
 
-    apcsp_index = load_json_index(STANDARDS_DIR / "apcsp.json")
-    castandards_index = load_json_index(STANDARDS_DIR / "castandards.json")
+    apcsp_codes = apcsp_valid_codes(load_json(STANDARDS_DIR / "apcsp.json"))
+    castandards_codes = castandards_valid_codes(load_json(STANDARDS_DIR / "castandards.json"))
 
     problems = []
     sources = sorted(
@@ -127,7 +139,7 @@ def main():
     for path in sources:
         text = read_text(path)
         check_sentinels(path.name, text, problems)
-        check_standards_codes(path.name, text, apcsp_index, castandards_index, problems)
+        check_standards_codes(path.name, text, apcsp_codes, castandards_codes, problems)
         check_blank_marker_tier(path.name, path.stem, text, problems)
 
     if problems:
@@ -137,7 +149,7 @@ def main():
         return 1
 
     skip_note = ""
-    if not apcsp_index and not castandards_index:
+    if not apcsp_codes and not castandards_codes:
         skip_note = " (standards code resolution skipped -- indexes are empty)"
     print(f"check_sync: clean ({len(sources)} files checked){skip_note}")
     return 0
