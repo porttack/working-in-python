@@ -1,4 +1,6 @@
-# Think Python, 3rd edition
+# A Python Notebook
+
+*Adapted from Allen Downey's Think Python, Third Edition*
 
 Jupyter notebooks and other material for the 3rd edition of *Think Python: How to Think Like a Computer Scientist*
 

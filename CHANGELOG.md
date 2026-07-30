@@ -65,7 +65,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Every file in `chapters/` (chap00–chap19 and jupyter_intro, 21 files) gets a
   `type="note"` sentinel appended to its existing Downey copyright/license footer:
   attribution to Eric Brown for a high school CS class, with a link to
-  `github.com/porttack/ThinkPython`. Applied uniformly regardless of which chapters
+  `github.com/porttack/python-notebook`. Applied uniformly regardless of which chapters
   have otherwise been touched by Pass 2 yet. No email address included (public repo).
 
 ## 2026-07-30 — Pass 3, Step 1 (AP index)

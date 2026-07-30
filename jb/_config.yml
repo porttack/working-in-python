@@ -1,5 +1,6 @@
 # Book settings
-title: Think Python
+title: A Python Notebook
+subtitle: Adapted from Allen Downey's Think Python, Third Edition
 author: Allen B. Downey
 
 latex:

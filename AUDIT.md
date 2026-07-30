@@ -900,7 +900,7 @@ section, not an exercise), so no chap03 exercise entry needed an action change t
 Every file in `chapters/` (chap00–chap19, jupyter_intro — 21 files) now carries a
 `type="note"` sentinel appended to the existing Downey copyright/license footer,
 attributing the modifications to Eric Brown for a high school CS class and linking to
-`github.com/porttack/ThinkPython`. No email address, by request (public repo). Applied
+`github.com/porttack/python-notebook`. No email address, by request (public repo). Applied
 uniformly to every chapter regardless of which pass has touched it — so chapters not
 yet reached by Pass 2 (6–19) will show one sentinel block (this footer note) before any
 other surgery happens to them. Not a per-chapter checkout item; no ledger entry, since
@@ -1047,7 +1047,7 @@ document for a more advanced pathway; confirmed it's genuinely a different stand
 (its own numbering, its own section header "9–12 Specialty" starting right after IC.30)
 and left it out of the index, since Step 2 only asked for the 30 core standards.
 
-**Carrier counts**: 7 `thinkpython`, 12 `little_brother`, 3 `supplement`, 8 `unassigned`.
+**Carrier counts**: 7 `python_notebook`, 12 `little_brother`, 3 `supplement`, 8 `unassigned`.
 
 - `little_brother` (12): all 4 NI standards, all 8 IC standards. Matches `CLAUDE.md`'s
   course context directly — it names CA's NI and IC strands specifically as Little
@@ -1060,7 +1060,7 @@ and left it out of the index, since Step 2 only asked for the 30 core standards.
   note. These three are inferences from this session's AP carrier decisions, not separate
   instructions for the CA framework — flagging that distinction so it can be pushed back
   on if the reasoning doesn't hold.
-- `thinkpython` (7): AP.12 (chap07 linear search + chap09 sort), AP.13 (chap09 Lists),
+- `python_notebook` (7): AP.12 (chap07 linear search + chap09 sort), AP.13 (chap09 Lists),
   AP.14 (chap05/chap06 — the CED's own worked example for this standard is recursive vs.
   iterative Fibonacci, and chap06 has a section literally named "Fibonacci"), AP.16
   (chap03/chap04 procedures; classes in chap14–19 carry the rest but sit outside the
@@ -1086,7 +1086,7 @@ and left it out of the index, since Step 2 only asked for the 30 core standards.
 
 - The CS.3 vs. CRD-1.4 distinction (troubleshooting-in-general vs. code-debugging-
   specifically) is subtle and easy to blur in the crosswalk — worth a deliberate note
-  there rather than letting `CS.3` quietly inherit `CRD-1.4`'s `thinkpython` carrier.
+  there rather than letting `CS.3` quietly inherit `CRD-1.4`'s `python_notebook` carrier.
 - The three CA `supplement` assignments above are this session's inferences from the
   already-decided AP carriers, not independently confirmed against the same source the
   AP assignments came from (a direct instruction naming where each is taught). Worth a

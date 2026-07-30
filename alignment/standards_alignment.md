@@ -53,28 +53,28 @@ pass.
 | Topic | Title | Carrier | Chapters | Note |
 |---|---|---|---|---|
 | 1.1 | Collaboration | supplement | — | Lab pair work + Create Performance Task, continuous |
-| 1.2 | Program Function and Purpose | thinkpython | 1, 5 | partial — no event-driven programming |
-| 1.3 | Program Design and Development | thinkpython | 4 | CRD-2.H (crediting others' code) uncarried |
-| 1.4 | Identifying and Correcting Errors | thinkpython | 1–13 | every chapter's Debugging section |
+| 1.2 | Program Function and Purpose | python_notebook | 1, 5 | partial — no event-driven programming |
+| 1.3 | Program Design and Development | python_notebook | 4 | CRD-2.H (crediting others' code) uncarried |
+| 1.4 | Identifying and Correcting Errors | python_notebook | 1–13 | every chapter's Debugging section |
 | 2.1 | Binary Numbers | supplement | — | CS50T Multimedia |
 | 2.2 | Data Compression | supplement | — | CS50T Multimedia |
-| 2.3 | Extracting Information from Data | thinkpython | 12, 13 | |
-| 2.4 | Using Programs with Data | thinkpython | 12, 13 | |
-| 3.1 | Variables and Assignments | thinkpython | 2 | |
-| 3.2 | Data Abstraction | thinkpython | 9, 10, 11 | |
-| 3.3 | Mathematical Expressions | thinkpython | 1, 2 | |
-| 3.4 | Strings | thinkpython | 1, 8 | |
-| 3.5 | Boolean Expressions | thinkpython | 5 | |
-| 3.6 | Conditionals | thinkpython | 5 | |
-| 3.7 | Nested Conditionals | thinkpython | 5 | |
-| 3.8 | Iteration | thinkpython | 3, 7 | partial — **no `while` loop anywhere in the book** |
-| 3.9 | Developing Algorithms | thinkpython | 6, 7 | |
-| 3.10 | Lists | thinkpython | 9 | |
+| 2.3 | Extracting Information from Data | python_notebook | 12, 13 | |
+| 2.4 | Using Programs with Data | python_notebook | 12, 13 | |
+| 3.1 | Variables and Assignments | python_notebook | 2 | |
+| 3.2 | Data Abstraction | python_notebook | 9, 10, 11 | |
+| 3.3 | Mathematical Expressions | python_notebook | 1, 2 | |
+| 3.4 | Strings | python_notebook | 1, 8 | |
+| 3.5 | Boolean Expressions | python_notebook | 5 | |
+| 3.6 | Conditionals | python_notebook | 5 | |
+| 3.7 | Nested Conditionals | python_notebook | 5 | |
+| 3.8 | Iteration | python_notebook | 3, 7 | partial — **no `while` loop anywhere in the book** |
+| 3.9 | Developing Algorithms | python_notebook | 6, 7 | |
+| 3.10 | Lists | python_notebook | 9 | |
 | 3.11 | Binary Search | supplement | — | November algorithms block |
-| 3.12 | Calling Procedures | thinkpython | 3, 6 | |
-| 3.13 | Developing Procedures | thinkpython | 3, 4 | |
-| 3.14 | Libraries | thinkpython | 2, 4, 8 | |
-| 3.15 | Random Values | thinkpython | 12 | |
+| 3.12 | Calling Procedures | python_notebook | 3, 6 | |
+| 3.13 | Developing Procedures | python_notebook | 3, 4 | |
+| 3.14 | Libraries | python_notebook | 2, 4, 8 | |
+| 3.15 | Random Values | python_notebook | 12 | |
 | 3.16 | Simulations | supplement | — | November algorithms block |
 | 3.17 | Algorithmic Efficiency | supplement | — | November algorithms block |
 | 3.18 | Undecidable Problems | supplement | — | November algorithms block |
@@ -100,17 +100,17 @@ From `standards/castandards.json`.
 | 9-12.DA.9 | Data & Analysis | supplement | — | CS50T Multimedia |
 | 9-12.DA.10 | Data & Analysis | unassigned | — | data visualization — no plotting/charting anywhere in the book |
 | 9-12.DA.11 | Data & Analysis | unassigned | — | validating a model against real data |
-| 9-12.AP.12 | Algorithms & Programming | thinkpython | 7, 9 | |
-| 9-12.AP.13 | Algorithms & Programming | thinkpython | 9 | |
-| 9-12.AP.14 | Algorithms & Programming | thinkpython | 5, 6 | recursive half strong, iterative half thin (no `while`) |
+| 9-12.AP.12 | Algorithms & Programming | python_notebook | 7, 9 | |
+| 9-12.AP.13 | Algorithms & Programming | python_notebook | 9 | |
+| 9-12.AP.14 | Algorithms & Programming | python_notebook | 5, 6 | recursive half strong, iterative half thin (no `while`) |
 | 9-12.AP.15 | Algorithms & Programming | unassigned | — | event-driven/GUI programming, none in the book |
-| 9-12.AP.16 | Algorithms & Programming | thinkpython | 3, 4 | satisfied by procedures alone — see scope question |
-| 9-12.AP.17 | Algorithms & Programming | thinkpython | 2, 4, 8 | |
+| 9-12.AP.16 | Algorithms & Programming | python_notebook | 3, 4 | satisfied by procedures alone — see scope question |
+| 9-12.AP.17 | Algorithms & Programming | python_notebook | 2, 4, 8 | |
 | 9-12.AP.18 | Algorithms & Programming | unassigned | — | audience feedback in design, none in the book |
 | 9-12.AP.19 | Algorithms & Programming | unassigned | — | license limitations — same gap as AP CRD-2.H |
-| 9-12.AP.20 | Algorithms & Programming | thinkpython | 4, 7 | usability/accessibility clauses uncarried |
+| 9-12.AP.20 | Algorithms & Programming | python_notebook | 4, 7 | usability/accessibility clauses uncarried |
 | 9-12.AP.21 | Algorithms & Programming | supplement | — | lab pair work + Create Performance Task |
-| 9-12.AP.22 | Algorithms & Programming | thinkpython | 4 | presentation/graphics forms uncarried |
+| 9-12.AP.22 | Algorithms & Programming | python_notebook | 4 | presentation/graphics forms uncarried |
 | 9-12.IC.23–30 | Impacts of Computing (all 8) | little_brother | — | |
 
 ---
@@ -118,7 +118,7 @@ From `standards/castandards.json`.
 ## View 4 — Gaps
 
 ### Unassigned in the AP framework
-None. All 35 AP CSP topics have a carrier (`thinkpython`, `little_brother`, or
+None. All 35 AP CSP topics have a carrier (`python_notebook`, `little_brother`, or
 `supplement`) as of this pass.
 
 ### Unassigned in the CA framework (8 standards, no carrier yet)
@@ -158,7 +158,7 @@ worth distinguishing from the list above:
 Indefinite iteration is taught only through recursion. Both frameworks' pseudocode/
 comparison expectations (`REPEAT UNTIL` on the AP side; recursive-vs-iterative Fibonacci
 on the CA side) assume the student has seen a real condition-controlled loop. This
-shows up as "thinkpython, partial" rather than "unassigned" in both indexes, which is
+shows up as "python_notebook, partial" rather than "unassigned" in both indexes, which is
 accurate but risks being read past — flagging it here too since it's the single most
 consequential coverage question this pass surfaced.
 
