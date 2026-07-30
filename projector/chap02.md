@@ -34,7 +34,7 @@ And I'll introduce more of the vocabulary we use to talk about programs, includi
 ## Variables
 
 A **variable** is a name that refers to a value.
-To create a variable, we can write a **assignment statement** like this.
+To create a variable, we can write a ________________________ like this.
 
 
 ```python
@@ -120,7 +120,7 @@ bbox = frame.draw(ax, x, y, dy=-0.25)
 # adjust(x, y, bbox)
 ```
 
-This kind of figure is called a **state diagram** because it shows what state each of the variables is in (think of it as the variable's state of mind).
+This kind of figure is called a _________________ because it shows what state each of the variables is in (think of it as the variable's state of mind).
 We'll use state diagrams throughout the book to represent a model of how Python stores variables and their values.
 
 ## Variable names
@@ -151,6 +151,7 @@ million! = 1000000
 ```
 
 `class` is also illegal, but it might not be obvious why.
+The first two names are illegal for reasons you can see. What is wrong with class?
 
 
 ```python
@@ -159,7 +160,7 @@ million! = 1000000
 class = 'Self-Defence Against Fresh Fruit'
 ```
 
-It turns out that `class` is a **keyword**, which is a special word used to specify the structure of a program.
+It turns out that `class` is a ___________, which is a special word used to specify the structure of a program.
 Keywords can't be used as variable names.
 
 Here's a complete list of Python's keywords:
@@ -195,7 +196,7 @@ For example, the following statement imports the `math` module.
 import math
 ```
 
-A **module** is a collection of variables and functions.
+A __________ is a collection of variables and functions.
 The math module provides a variable called `pi` that contains the value of the mathematical constant denoted $\pi$.
 We can display its value like this.
 
@@ -247,6 +248,7 @@ n = 17
 ```
 
 Similarly, an import statement has an effect -- it imports a module so we can use the variables and functions it contains -- but it has no visible effect.
+What separates an expression from a statement?
 
 
 ```python
@@ -300,7 +302,7 @@ Notice that the `print` function puts a space between the values.
 
 ## Arguments
 
-When you call a function, the expression in parenthesis is called an **argument**.
+When you call a function, the expression in parenthesis is called an ____________.
 Normally I would explain why, but in this case the technical meaning of a term has almost nothing to do with the common meaning of the word, so I won't even try.
 
 Some of the functions we've seen so far take only one argument, like `int`.
@@ -397,6 +399,7 @@ effect on the execution of the program.
 
 Comments are most useful when they document non-obvious features of the code.
 It is reasonable to assume that the reader can figure out *what* the code does; it is more useful to explain *why*.
+Of the next two comments, which one earns its space?
 
 This comment is redundant with the code and useless:
 
@@ -513,21 +516,6 @@ An error that causes a program to do the wrong thing, but not to display an erro
 %xmode Verbose
 ```
 
-### Ask a virtual assistant
-
-Again, I encourage you to use a virtual assistant to learn more about any of the topics in this chapter.
-
-If you are curious about any of keywords I listed, you could ask "Why is class a keyword?" or "Why can't variable names be keywords?"
-
-You might have noticed that `int`, `float`, and `str` are not Python keywords.
-They are variables that represent types, and they can be used as functions.
-So it is *legal* to have a variable or function with one of those names, but it is strongly discouraged. Ask an assistant "Why is it bad to use int, float, and str as variable names?"
-
-Also ask, "What are the built-in functions in Python?"
-If you are curious about any of them, ask for more information.
-
-In this chapter we imported the `math` module and used some of the variable and functions it provides. Ask an assistant, "What variables and functions are in the math module?" and "Other than math, what modules are considered core Python?"
-
 ### Exercise
 
 Repeating my advice from the previous chapter, whenever you learn a new feature, you should make errors on purpose to see what goes wrong.
@@ -566,7 +554,7 @@ The result should be close to 1. It might not be exactly 1 because floating-poin
 # Solution goes here
 ```
 
-**Part 3.** In addition to `pi`, the other variable defined in the `math` module is `e`, which represents the base of the natural logarithm, written in math notation as $e$. If you are not familiar with this value, ask a virtual assistant "What is `math.e`?" Now let's compute $e^2$ three ways:
+**Part 3.** In addition to `pi`, the other variable defined in the `math` module is `e`, which represents the base of the natural logarithm, written in math notation as $e$. Now let's compute $e^2$ three ways:
 
 * Use `math.e` and the exponentiation operator (`**`).
 
