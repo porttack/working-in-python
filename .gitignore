@@ -34,3 +34,6 @@ sessions/
 # is ever placed under standards/ again.
 standards/*.pdf
 scratch/
+
+# chapters/: .ipynb is the sole source of truth
+chapters/*.md
