@@ -50,7 +50,7 @@ CODE_STUB = "# your code here"
 
 BLANK_RE = re.compile(r"<!--blank-->(.*?)<!--/blank-->", re.DOTALL)
 BLANK_ONLY_RE = re.compile(r"<!--blank-only:(.*?)-->", re.DOTALL)
-CODE_BLANK_RE = re.compile(r"^(\s*)(.*?)\s*#\s?blank\s*$")
+CODE_BLANK_RE = re.compile(r"^(\s*)(.*?)\s*#\s?blank\s*$", re.MULTILINE)
 
 
 # ----------------------------------------------------------------------- transforms
@@ -149,13 +149,60 @@ def transform_notebook(nb, src_name):
     return out
 
 
-def transform_markdown(text, src_name):
-    body = []
+FENCE_OPEN_RE = re.compile(r"^(`{3,}|~{3,})(.*)$")
+
+
+def split_fences(text):
+    """Yield ('prose', chunk) and ('code', chunk, fence_open, fence_close, tagged).
+
+    Jupytext markdown keeps code cells in fenced blocks, so a .md chapter needs its
+    fences processed the same way a notebook's code cells are. Without this, `# blank`
+    inside a .md fence silently does nothing.
+    """
+    segments = []
+    prose, code = [], []
+    fence, info, open_line = None, "", None
+
     for line in text.splitlines(keepends=True):
-        body.append(line)
-    joined = "".join(body)
-    joined = blank_markdown(joined)
-    return f"<!-- {GENERATED_BANNER.format(src=src_name)} -->\n\n{joined}"
+        bare = line.rstrip("\n")
+        if fence is None:
+            m = FENCE_OPEN_RE.match(bare)
+            if m:
+                if prose:
+                    segments.append(("prose", "".join(prose)))
+                    prose = []
+                fence, info, open_line = m.group(1), m.group(2), line
+                code = []
+                continue
+            prose.append(line)
+        else:
+            if bare.startswith(fence) and not bare[len(fence):].strip():
+                tagged = bool(re.search(r"\bblank\b", info))
+                segments.append(("code", "".join(code), open_line, line, tagged))
+                fence, info, open_line, code = None, "", None, []
+                continue
+            code.append(line)
+
+    if fence is not None:  # unterminated fence; treat as code, no closer
+        tagged = bool(re.search(r"\bblank\b", info))
+        segments.append(("code", "".join(code), open_line, "", tagged))
+    if prose:
+        segments.append(("prose", "".join(prose)))
+    return segments
+
+
+def transform_markdown(text, src_name):
+    out = []
+    for seg in split_fences(text):
+        if seg[0] == "prose":
+            out.append(blank_markdown(seg[1]))
+        else:
+            _, code, open_line, close_line, tagged = seg
+            blanked = blank_code(code, tagged)
+            if code and not code.endswith("\n"):
+                blanked = blanked.rstrip("\n")
+            out.append(open_line + blanked + close_line)
+    return f"<!-- {GENERATED_BANNER.format(src=src_name)} -->\n\n" + "".join(out)
 
 
 # ------------------------------------------------------------------------ validation
@@ -174,6 +221,18 @@ def validate(path, raw):
     for s in stray:
         if not (s.startswith("<!--blank-->") or s.startswith("<!--blank-only:")):
             problems.append(f"{path}: unrecognized marker {s!r}")
+
+    # A "# blank" in a .md file only does something inside a fenced code block.
+    # Outside a fence it renders as prose and silently accomplishes nothing.
+    if path.endswith(".md"):
+        for kind, *rest in split_fences(raw):
+            if kind == "prose" and CODE_BLANK_RE.search(rest[0]):
+                for line in rest[0].splitlines():
+                    if CODE_BLANK_RE.match(line):
+                        problems.append(
+                            f"{path}: '# blank' outside a code fence does nothing: "
+                            f"{line.strip()!r}"
+                        )
     return problems
 
 

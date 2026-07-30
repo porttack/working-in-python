@@ -39,7 +39,7 @@ A _______________________ specifies the name of a new function and the sequence 
 
 
 ```python
-def print_lyrics():  # blank
+___________________
     print("I'm a lumberjack, and I'm okay.")
     print("I sleep all night and I work all day.")
 ```

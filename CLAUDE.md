@@ -11,7 +11,7 @@ Do not read the other pass files; they will fill your context with work that isn
 | Pass | File | Mode | Status |
 |---|---|---|---|
 | 1. Survey and scaffold | `docs/pass-1-survey.md` (actually at `mods/pass-1-survey.md` — see `AUDIT.md` handoff) | read-only + tooling | done, see `AUDIT.md` handoff |
-| 2. Chapter surgery | `docs/pass-2-surgery.md` | destructive edits + authoring | not started — pacing question open, see `AUDIT.md` |
+| 2. Chapter surgery | `mods/pass-2-surgery.md` | destructive edits + authoring | in progress — ch. 1–2 done, **stopped at the register/marker-density gate**; ch. 3–19 pending. Pacing question still open. See `AUDIT.md` |
 | 3. Standards alignment | `docs/pass-3-alignment.md` | analysis + additive back matter | not started |
 
 Keep the Status column current. Each pass ends by appending a handoff note to `AUDIT.md`
@@ -32,7 +32,7 @@ handoff note in `AUDIT.md` and ask.
    Never reflow, re-wrap, restyle, reorder, or rename upstream content. The goal is to pull
    Downey's corrections next year instead of re-forking.
 
-3. **`blanks/` is generated. Never hand-edit it.** `make check` will catch it.
+3. **`projector/` is generated. Never hand-edit it.** `make check` will catch it.
 
 4. **Every exercise touched is recorded in `data/exercise-ledger.json`.** No silent edits.
 
@@ -68,9 +68,9 @@ nothing from them. If a chapter later moves into live instruction, add markers t
 Valid `type`: `standards`, `glossary`, `exercise`, `note`, `pseudocode`.
 
 **Blank markers.** HTML comments, invisible when rendered, so `chapters/` needs no build
-step and displays correctly as written. Only `blanks/` is generated.
+step and displays correctly as written. Only `projector/` is generated.
 
-| Marker | In `chapters/` | In `blanks/` |
+| Marker | In `chapters/` | In `projector/` |
 |---|---|---|
 | `<!--blank-->visible text<!--/blank-->` | renders normally | underscores, sized to original |
 | `<!--blank-only: prompt text-->` | invisible | renders the prompt |
@@ -90,7 +90,7 @@ question you'd ask aloud at that moment.
 
 ```
 chapters/                    forked upstream. the source of truth.
-blanks/                      GENERATED. committed. never hand-edited.
+projector/                   GENERATED. committed. never hand-edited.
 sessions/                    gitignored. dated copies for live annotation.
 standards/
   apcsp.json                 from the 2023 CED
@@ -120,10 +120,10 @@ Makefile
 ```
 
 ```make
-blanks:  ; python3 tools/build_blanks.py
+projector: ; python3 tools/build_blanks.py --dst projector
 ledger:  ; python3 tools/build_ledger.py
-check:   ; python3 tools/build_blanks.py --check && python3 tools/check_sync.py
-session: ; @mkdir -p sessions/$(shell date +%F)-$(CH) && cp blanks/$(CH).ipynb sessions/$(shell date +%F)-$(CH)/
+check:   ; python3 tools/build_blanks.py --dst projector --check && python3 tools/check_sync.py
+session: ; @mkdir -p sessions/$(shell date +%F)-$(CH) && cp projector/$(CH).ipynb sessions/$(shell date +%F)-$(CH)/
 ```
 
 `tools/build_blanks.py` is provided and tested. Extensions must preserve three behaviors:
