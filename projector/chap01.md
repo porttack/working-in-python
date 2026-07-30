@@ -53,7 +53,7 @@ This vocabulary is important -- you will need it to understand the rest of the b
 
 ## Arithmetic operators
 
-An **arithmetic operator** is a symbol that represents an arithmetic computation. For example, the plus sign, `+`, performs addition.
+An _______________________ is a symbol that represents an arithmetic computation. For example, the plus sign, `+`, performs addition.
 
 
 ```python
@@ -75,6 +75,7 @@ The asterisk, `*`,  performs multiplication.
 ```
 
 And the forward slash, `/`, performs division:
+84 / 2 -- will Python display 42 or 42.0?
 
 
 ```python
@@ -126,7 +127,7 @@ them at <http://wiki.python.org/moin/BitwiseOperators>.
 
 ## Expressions
 
-A collection of operators and numbers is called an **expression**.
+A collection of operators and numbers is called an ______________.
 An expression can contain any number of operators and numbers.
 For example, here's an expression that contains two operators.
 
@@ -185,7 +186,7 @@ For a negative number, the absolute value is positive.
 abs(-42)
 ```
 
-When we use a function like this, we say we're **calling** the function.
+When we use a function like this, we say we're ___________ the function.
 An expression that calls a function is a **function call**.
 
 When you call a function, the parentheses are required.
@@ -248,7 +249,7 @@ Strings can also contain spaces, punctuation, and digits.
 'Well, '
 ```
 
-The `+` operator works with strings; it joins two strings into a single string, which is called **concatenation**
+The `+` operator works with strings; it joins two strings into a single string, which is called _________________
 
 
 ```python
@@ -265,6 +266,7 @@ The `*` operator also works with strings; it makes multiple copies of a string a
 The other arithmetic operators don't work with strings.
 
 Python provides a function called `len` that computes the length of a string.
+Does len count the quotation marks?
 
 
 ```python
@@ -302,7 +304,7 @@ So far we've seen three kinds of values:
 
 * `'Hello'` is a string.
 
-A kind of value is called a **type**.
+A kind of value is called a ________.
 Every value has a type -- or we sometimes say it "belongs to" a type.
 
 Python provides a function called `type` that tells you the type of any value.
@@ -386,6 +388,7 @@ float('12.6')
 When you write a large integer, you might be tempted to use commas
 between groups of digits, as in `1,000,000`.
 This is a legal expression in Python, but the result is not an integer.
+If it is not an integer, what is it?
 
 
 ```python
@@ -510,30 +513,6 @@ The process of finding and correcting errors.
 %xmode Verbose
 ```
 
-### Ask a virtual assistant
-
-As you work through this book, there are several ways you can use a virtual assistant or chatbot to help you learn.
-
-* If you want to learn more about a topic in the chapter, or anything is unclear, you can ask for an explanation.
-
-* If you are having a hard time with any of the exercises, you can ask for help.
-
-In each chapter, I'll suggest exercises you can do with a virtual assistant, but I encourage you to try things on your own and see what works for you.
-
-Here are some topics you could ask a virtual assistant about:
-
-* Earlier I mentioned bitwise operators but I didn't explain why the value of `7 ^ 2` is 5. Try asking "What are the bitwise operators in Python?" or "What is the value of `7 XOR 2`?"
-
-* I also mentioned the order of operations. For more details, ask "What is the order of operations in Python?"
-
-* The `round` function, which we used to round a floating-point number to the nearest integer, can take a second argument. Try asking "What are the arguments of the round function?" or "How do I round pi off to three decimal places?"
-
-* There's one more arithmetic operator I didn't mention; try asking "What is the modulus operator in Python?"
-
-Most virtual assistants know about Python, so they answer questions like this pretty reliably.
-But remember that these tools make mistakes.
-If you get code from a chatbot, test it!
-
 ### Exercise
 
 You might wonder what `round` does if a number ends in `0.5`.
@@ -549,8 +528,6 @@ round(42.5)
 ```python
 round(43.5)
 ```
-
-If you are curious, ask a virtual assistant, "If a number ends in 0.5, does Python round up or down?"
 
 ### Exercise
 
