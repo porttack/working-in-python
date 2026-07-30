@@ -1101,3 +1101,82 @@ and left it out of the index, since Step 2 only asked for the 30 core standards.
 - Everything listed as still-open in the Step 1 handoff above remains open (the 3.8
   iteration gap, the four fully-unassigned-in-AP topics now carried as `supplement`, and
   Pass 2's untouched items).
+
+---
+
+## 2026-07-30 — Pass 3, Step 3 (crosswalk + alignment docs) — stopped at the Step 3 gate
+
+Built `standards/crosswalk.json` and all three `alignment/*.md` docs from the two indexes.
+Stopped after Step 3 as instructed. Steps 4–5 (standards inserts, appendices) not started.
+
+### Crosswalk: counts and where the frameworks diverge
+
+33 rows. **18 strong, 8 partial, 6 related.** Deliberately not exhaustive — pairs with no
+honest correspondence are left out of the file and covered instead as gaps in
+`alignment/standards_alignment.md`, per the instruction to be honest about strength
+rather than force full coverage.
+
+The 6 `related` rows are the ones worth reading over the others; each is a case where two
+similar-sounding standards turned out, on close reading, not to test the same thing:
+- **AP 1.4 vs. CA CS.3** — both nominally "troubleshooting," but CS.3's own examples are
+  network/help-desk scenarios, not code debugging. Kept apart deliberately so the book's
+  Debugging sections don't get credited for a systems-level skill they don't teach.
+- **AP 3.11 (Binary Search) vs. CA AP.12** — AP CSP names binary search as its own
+  required topic; CA's parallel standard only says "searching and sorting algorithms"
+  generically, satisfiable by linear search alone. The book's binary-search gap is a
+  sharper problem for AP than for CA.
+- **AP 3.15 (Random Values) vs. CA AP.12** — CA folds randomization into its algorithms
+  standard rather than giving it a dedicated topic the way AP CSP's 3.15 does.
+- **AP 3.16 (Simulations) vs. CA DA.11 (model refinement)** — sound adjacent, aren't:
+  AP's is about trading off realism for repeatability/cost, CA's is about validating a
+  model against real observations. Flagged so these two gaps aren't treated as one
+  problem needing one fix.
+- **AP 4.2 (Fault Tolerance) vs. CA NI.6 (security)** — adjacent within Networks, not the
+  same idea; doesn't matter for this book since both are Little Brother's territory.
+- **AP 1.1 (Collaboration) vs. CA IC.27** — same rough territory, filed under different
+  big ideas on each side (CRD vs. IC), with mismatched carriers on this book's side (1.1
+  is supplement/CPT, IC.27 is little_brother).
+
+**Two `strong` rows flag matching gaps rather than matching coverage** — worth calling
+out separately since a "strong" match usually means "well covered," not here: AP
+CRD-2.H and CA AP.19 are the *same uncarried gap* (crediting/licensing borrowed code),
+and AP 1.1 / CA AP.21 are the same *carried-by-practice-not-book* item (collaboration).
+
+### The scope question (Step 3's central deliverable) — answered with evidence
+
+**No**, chapters 14–19 are not required by any CA 9–12 core standard. The two CA
+standards that could plausibly demand OOP (`AP.16`, decomposition; `AP.17`, modular
+design) both phrase classes as one option among several ("procedures, modules, **and/or**
+classes" — CA's own wording), not a requirement, and both are already fully satisfied by
+chapters 2–4 and 8 alone. Cross-checked against View 1 of `standards_alignment.md`:
+chapters 14–19 carry zero AP or CA topics under the current mapping, and nothing in
+either 30-or-35-item index changes that conclusion. Stated as evidence, not decided as
+policy, per the pass file's instruction — a teacher could still have non-standards
+reasons to move OOP earlier, but standards coverage doesn't compel it.
+
+### What a future maintainer needs to know
+
+- The crosswalk is intentionally lopsided toward Big Ideas 1–3 / CS, DA, AP strands,
+  where this book's actual decisions live. Big Ideas 4–5 / NI, IC strands got a lighter
+  pass (block-level "both Little Brother" rows, not exhaustive sub-topic matching) since
+  neither framework routes that content through this book — spending more effort there
+  wouldn't change any decision this project can make.
+- `alignment/supplement-plan.md`'s "no assigned carrier anywhere" list (7 items: AP
+  CRD-2.H/CA AP.19, CA AP.15, CA AP.18, CA CS.1/CS.2/CS.3, CA DA.10, CA DA.11) is the
+  actual punch list if someone wants to close remaining gaps — small enough to patch
+  individually, not large enough to justify a new supplement course the way CS50T
+  Multimedia or the November block do.
+- The AP 3.8 / CA AP.14 iteration finding (no `while` loop in the book) is reiterated a
+  third time now, across the AP index, the CA crosswalk, and both alignment docs. That
+  repetition is deliberate, not an oversight — it's the finding most likely to get lost
+  if a reader only skims one of the four documents.
+
+### What's still open
+
+- Steps 4–5 not started: standards inserts (one per chapter, `type="standards"`
+  sentinel, back matter) and the two appendices (`pseudocode-crosswalk.md`,
+  `cs50p-map.md`). Both unblocked — everything they need now exists in the three JSON
+  files and three alignment docs.
+- The exercise-ledger backfill (`targets_ap`/`targets_ca` for Pass 2's replacement
+  exercises, part of Step 4) is also still outstanding.
+- Everything still open from the Step 1 and Step 2 handoffs above remains open.

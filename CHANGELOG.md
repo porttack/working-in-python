@@ -99,3 +99,20 @@ others) — are detailed in `AUDIT.md`.
   `csstandards.pdf` — all 30 core standards across the five strands, extraction matching
   the expected shape exactly. Stopped at the Step 2 gate; Steps 3–5 not started. Details,
   including 8 flagged `unassigned` standards, in `AUDIT.md`.
+
+## 2026-07-30 — Pass 3, Step 3 (crosswalk + alignment docs)
+
+### Added
+- `standards/crosswalk.json`: 33 AP CSP ↔ California pairings (18 strong, 8 partial, 6
+  related), honest about strength rather than forcing full coverage.
+- `alignment/standards_alignment.md`: four views (by chapter, by AP topic, by CA
+  standard, gaps) plus the Step 3 scope question, answered with evidence — chapters
+  14–19 are not required by any CA 9-12 core standard.
+- `alignment/supplement-plan.md`: the division of labor across this book, Little
+  Brother, CS50T Multimedia, the November algorithms block, and lab/CPT practice, plus
+  a punch list of standards with no assigned carrier anywhere yet.
+- `alignment/glossary-map.md`: concept-level vocabulary mapping, led by the
+  point-costing substitution table (function/procedure, 0- vs. 1-based indexing, etc.).
+
+Stopped at the Step 3 gate; Steps 4–5 (standards inserts, appendices) not started.
+Details in `AUDIT.md`.
