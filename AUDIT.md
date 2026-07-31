@@ -1517,3 +1517,45 @@ else.
   file). It looks stale/orphaned relative to the current `projector/` pipeline. Not
   touched by this rename — flagging for whoever eventually decides whether to delete it
   or fold it into the real build.
+
+## 2026-07-30 — Standards inserts: horizontal rule + framework links (chapters 1-3)
+
+Maintainer request, out of the normal Step 4 sequence but within its scope (chapters 1-3
+are the only ones with standards inserts so far): add a `<hr>`-equivalent above the
+"Standards alignment" heading, and link to wherever the cited standards actually live
+online, since CSTA-style citations are easier to look up when a click gets you there.
+
+Used a markdown `---` rather than a raw `<hr>` tag, since the `type="note"` sentinel in
+the same cell already uses `---` for the same purpose — matching that convention rather
+than mixing markdown and HTML rules in one cell.
+
+For the link targets, tried to find a URL that reaches a *specific* standard, not just
+its framework, before settling for the latter:
+- `https://codehs.com/standards/framework/APCSP20` — the AP CSP page the maintainer
+  supplied. Confirmed by fetching the raw HTML (not just the rendered page) that this is
+  a client-rendered grid: no `id` attributes, no anchor fragments, no per-row deep link
+  exists to construct.
+- For California, the maintainer's supplied URL was a `gridState`-filtered search over
+  *all* CodeHS frameworks (filtering the "state" column for the text "California"), which
+  doesn't resolve to a specific framework and is itself JS-rendered so nothing in the raw
+  HTML confirms it even returns the right page. Searched instead and found
+  `https://codehs.com/standards/framework/CA_9-12` — CodeHS's own page for exactly the
+  framework this repo's `standards/castandards.json` is built from. Fetched it and
+  confirmed all 30 core 9-12.* codes are present with the same strand grouping (CS, NI,
+  DA, AP, IC) `castandards.json` expects. Same anchor limitation as the AP page.
+
+Since neither page supports a per-standard anchor, linked the **AP CSP** / **California
+9-12** *label* to the whole framework page, only on lines that actually cite a code (chap01's
+California line cites none, so it stays unlinked). Updated `chap01.ipynb`, `chap02.ipynb`,
+`chap03.ipynb` via `NotebookEdit` (cell count and every other cell unchanged), regenerated
+`projector/` with `tools/build_blanks.py`, and `make check` passes. Also updated both
+Step 4 templates in `mods/pass-3-alignment.md` and added an Amendments bullet recording
+the two canonical URLs and the anchor limitation, so chapters 4-19 pick this up
+automatically without re-deriving it.
+
+### For a future maintainer
+
+- If CodeHS ever restructures these pages so individual standards get their own anchor
+  or URL, revisit — the Amendments bullet in `mods/pass-3-alignment.md` says as much.
+- This did not touch Step 4 content for chapters 4-19 (not started) or Step 5. Status in
+  `CLAUDE.md`'s table is unchanged by this note.

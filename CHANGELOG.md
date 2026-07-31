@@ -179,3 +179,17 @@ exercises are now written. Details in `AUDIT.md`.
   reader hit "Think Python: 3rd Edition" first and the fork's own attribution second,
   which read as if the fork were still called Think Python. Content of Downey's
   copyright/license block is unchanged, only its position relative to the sentinel note.
+
+## 2026-07-30 — Standards inserts: horizontal rule + framework links (chapters 1-3)
+
+### Changed
+- `type="standards"` sentinel in chap01, chap02, and chap03 (and the Step 4 templates in
+  `mods/pass-3-alignment.md`): added a leading `---` markdown rule to visually separate
+  the insert from the license block above it, and linked the **AP CSP** / **California
+  9-12** labels to CodeHS's framework pages (`codehs.com/standards/framework/APCSP20` and
+  `/CA_9-12`) wherever a line actually cites a code. `projector/` regenerated to match;
+  `make check` passes.
+
+Confirmed CodeHS's framework pages are client-rendered grids with no per-standard anchor
+or `id`, so the link reaches the whole framework, not a specific row — noted in
+`mods/pass-3-alignment.md` so a future maintainer doesn't try to guess a deeper URL.

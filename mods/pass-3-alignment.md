@@ -14,6 +14,15 @@
   Step 2. Note in the handoff that the California half is outstanding.
 - **Kind D exists.** Prose that mentions virtual assistants without directing the student to
   use one is kept, no action. Relevant only if you touch VA prose, which this pass should not.
+- **Standards links.** Link the **AP CSP** and **California 9-12** labels in every standards
+  insert to CodeHS's framework pages: `https://codehs.com/standards/framework/APCSP20` (AP)
+  and `https://codehs.com/standards/framework/CA_9-12` (CA, confirmed to list all 30 core
+  9-12.* standards). Both pages are client-rendered grids with no `id` attributes or anchor
+  fragments — confirmed by fetching the raw HTML, not just the rendered view — so a link can
+  only reach the whole framework, never a specific row. Don't invent a deeper URL. Link only
+  the line that actually cites a code; leave a line unlinked if it says "not assessed" or "no
+  standard names this content on its own." If CodeHS restructures these pages later and
+  anchors become available, revisit.
 
 ## Go...
 
@@ -167,10 +176,12 @@ read from the JSON; nothing hardcoded. Under 200 words. Signposting, not a secon
 
 ```markdown
 <!-- apcsp:begin type="standards" chapter="09" -->
+---
+
 ## Standards alignment
 
-**AP CSP:** 3.10 Lists, 3.2 Data Abstraction — Big Idea 3, 30–35% of the exam
-**California 9–12:** 9-12.AP.14, 9-12.AP.16
+**[AP CSP](https://codehs.com/standards/framework/APCSP20):** 3.10 Lists, 3.2 Data Abstraction — Big Idea 3, 30–35% of the exam
+**[California 9–12](https://codehs.com/standards/framework/CA_9-12):** 9-12.AP.14, 9-12.AP.16
 
 <One to three sentences of original prose connecting this chapter's Python to the way the
 exam frames the same idea. Heavily weighted topics only; light ones get the headers alone.>
@@ -182,19 +193,27 @@ exam frames the same idea. Heavily weighted topics only; light ones get the head
 <!-- apcsp:end -->
 ```
 
+The leading `---` is a markdown rule, matching the one already used in this cell's `note`
+sentinel — not a raw `<hr>` tag. Link a label only when its line actually cites a code.
+
 **Short form, chapters 14–19:**
 
 ```markdown
 <!-- apcsp:begin type="standards" chapter="15" -->
+---
+
 ## Standards alignment
 
 **AP CSP:** not assessed. Object-oriented programming is outside the AP CSP framework.
-**California 9–12:** <codes, if any>
+**[California 9–12](https://codehs.com/standards/framework/CA_9-12):** <codes, if any>
 
 Included because <one line: on-ramp to AP CSA, CMU 15-111, or a CA standard nothing else
 in the course reaches>.
 <!-- apcsp:end -->
 ```
+
+Leave the **AP CSP** label unlinked here since the line cites no code. If a chapter's
+California line is also empty, leave that unlinked too.
 
 Telling a student "this is not on the exam, and here is why we're doing it anyway" is better
 information than silence.
