@@ -193,3 +193,16 @@ exercises are now written. Details in `AUDIT.md`.
 Confirmed CodeHS's framework pages are client-rendered grids with no per-standard anchor
 or `id`, so the link reaches the whole framework, not a specific row — noted in
 `mods/pass-3-alignment.md` so a future maintainer doesn't try to guess a deeper URL.
+
+## 2026-07-30 — AP CSP standards reference page
+
+### Added
+- `alignment/apcsp-standards-reference.html`: a single self-contained page indexing the
+  full AP CSP framework (Practices, Big Ideas, Topics, Learning Objectives, and Essential
+  Knowledge) with a stable `#CODE` anchor on every item, built on top of
+  `standards/apcsp.json`. Extends that file's existing topic-level paraphrases down to all
+  66 Learning Objectives and 331 Essential Knowledge statements, each in original wording
+  — only AP's own codes are reproduced as-is, never College Board's descriptive prose.
+  Lets `alignment/standards_alignment.md` and future Step 4 standards inserts deep-link to
+  a specific EK statement instead of just a topic. See `AUDIT.md` for method and an
+  automated verbatim-overlap check.

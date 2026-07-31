@@ -1559,3 +1559,70 @@ automatically without re-deriving it.
   or URL, revisit — the Amendments bullet in `mods/pass-3-alignment.md` says as much.
 - This did not touch Step 4 content for chapters 4-19 (not started) or Step 5. Status in
   `CLAUDE.md`'s table is unchanged by this note.
+
+## 2026-07-30 — AP CSP standards reference page (`alignment/apcsp-standards-reference.html`)
+
+Maintainer request: a single HTML page indexing the full AP CSP framework — Practices, Big
+Ideas, Topics, Learning Objectives, and Essential Knowledge — with a stable anchor
+(`#CODE`) on every item, so `alignment/standards_alignment.md` and future Step 4 standards
+inserts can deep-link straight to a specific EK statement instead of just the topic level.
+
+The maintainer's named source, `standards/AP-Computer-Science-Principles-SDG-2020.pdf`,
+turned out not to contain this content at all — "SDG" is the **Syllabus Development
+Guide**, an 18-page College Board audit document (curricular requirements CR1–CR11 and
+sample syllabus evidence), not the framework itself. Flagged this and confirmed with the
+maintainer before proceeding (see three-question exchange in this session): build from
+`standards/apcsp.json` (already extracted from the real CED) and go one level deeper than
+it currently does, down to individual Essential Knowledge statements, all in original
+paraphrase, kept in-repo.
+
+This required extracting content non-negotiable #1 has never had to handle at EK
+granularity before: 66 Learning Objectives and 331 Essential Knowledge statements across
+all five Big Ideas, direct from
+`standards/ap-computer-science-principles-course-and-exam-description-2023.pdf` (pages
+~32–125, the Course Framework LO/EK tables). Every one of the 397 items got its own
+original-wording paraphrase — genuinely reworded, not a light edit of College Board's
+sentence — following the same voice as the existing topic-level paraphrases in
+`apcsp.json`. AP's own codes (`CRD-1.A.2`, etc.) are reproduced as identifiers, never the
+descriptive prose attached to them, consistent with the rule.
+
+Method: split the CED's Course Framework section into six chunks (one per Big Idea, with
+Algorithms and Programming — the largest, 117 EK statements — split into two halves) and
+ran six parallel paraphrasing passes, each blind to the others, each told explicitly to
+reword completely rather than lightly edit. Merged the six outputs, cross-checked EK/LO
+counts against a fresh regex count of the raw extraction (all six matched exactly — 50,
+54, 62, 55, 41, 69 EK respectively — so nothing was silently dropped, including by the two
+passes whose task status briefly reported "killed" mid-run; their output files were
+already complete on disk). Then ran an automated n-gram check (6- and 7-word shared
+sequences) between every paraphrase and its source Big Idea's raw text across all 397
+entries: two paraphrases (`AAP-2.F.5`, `CSN-1.E.3`) came back as near-verbatim light edits
+and were rewritten by hand; a second pass at a stricter threshold turned up only two more
+hits, both benign (a generic phrase — "in a reasonable amount of time" — and unavoidable
+reuse of the fixed technical term "rogue access point"). Nothing else in the 397 flagged.
+
+The page itself: single self-contained HTML file (inline CSS/JS, no external requests,
+light/dark aware), 445 unique anchor ids (6 Practices + 5 Big Ideas + 35 Topics + 66 LOs +
+331 EK — topic ids are prefixed `T-` to disambiguate from same-numbered things), a sticky
+sidebar table of contents, and a client-side text/code filter. Verified no duplicate ids,
+balanced tags, and that the inline `<script>` parses. Practices are listed at the
+top-level (id/name/MCQ-weight) only — did not extract the CED's Practice 1–6 sub-skill
+breakdown (the "1.A: Investigate the situation..." rows), since the maintainer's answer
+scoped source to what `apcsp.json` already covers, which stops above that layer.
+
+### For a future maintainer
+
+- Regeneration isn't scripted into `tools/` yet — the build script and the six raw
+  CED-section extracts live only in this session's scratchpad, not the repo (correctly:
+  they're framework-extract intermediates and non-negotiable #1 says those never get
+  committed). If `apcsp.json`'s topic-to-LO mapping changes, or the CED gets a new
+  version, this page needs to be regenerated from scratch by re-running the same
+  extract-six-ways-and-paraphrase method, not hand-patched.
+- `alignment/standards_alignment.md` does not yet link to this new page — it still cites
+  AP topics only at the `1.1`-style topic level. Wiring its tables (and the Step 4
+  standards inserts once chapters 4-19 start) to point at specific
+  `apcsp-standards-reference.html#CODE` anchors is follow-up, not done here.
+- The Practice 1–6 sub-skill breakdown (skills 1.A–6.something, with instructional notes
+  and sample activities) exists in the CED but was deliberately left out of this page. If
+  alignment work ever needs to cite a specific practice sub-skill instead of just the
+  top-level practice, that's a second, similarly-sized extraction pass, not a small
+  addition to this one.
