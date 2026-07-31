@@ -14,15 +14,22 @@
   Step 2. Note in the handoff that the California half is outstanding.
 - **Kind D exists.** Prose that mentions virtual assistants without directing the student to
   use one is kept, no action. Relevant only if you touch VA prose, which this pass should not.
-- **Standards links.** Link the **AP CSP** and **California 9-12** labels in every standards
-  insert to CodeHS's framework pages: `https://codehs.com/standards/framework/APCSP20` (AP)
-  and `https://codehs.com/standards/framework/CA_9-12` (CA, confirmed to list all 30 core
-  9-12.* standards). Both pages are client-rendered grids with no `id` attributes or anchor
-  fragments — confirmed by fetching the raw HTML, not just the rendered view — so a link can
-  only reach the whole framework, never a specific row. Don't invent a deeper URL. Link only
-  the line that actually cites a code; leave a line unlinked if it says "not assessed" or "no
-  standard names this content on its own." If CodeHS restructures these pages later and
-  anchors become available, revisit.
+- **Standards links, AP CSP.** As of 2026-07-30 we host our own AP CSP standards reference
+  at `alignment/apcsp-standards-reference.html`, deployed to
+  `https://python.porttack.com/alignment/apcsp-standards-reference.html`, with a `#T-<code>`
+  anchor on every topic (e.g. `#T-3.10`). Do not link the **AP CSP** label itself — link each
+  individual topic citation in the line to its own anchor, e.g.
+  `[3.10 Lists](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.10)`.
+  This superseded the earlier CodeHS-framework-page convention (still visible in commit
+  b0a2f53 for chapters 1-3, later redone in the AUDIT.md handoff dated 2026-07-30 "Redo AP
+  linking"); do not link to `codehs.com` for AP CSP going forward.
+- **Standards links, California.** Unchanged — still link the **California 9-12** label to
+  `https://codehs.com/standards/framework/CA_9-12`. We have not built our own hosted page for
+  the CA standards, so there is nowhere else to point yet. That page is a client-rendered grid
+  with no `id` attributes or anchor fragments — confirmed by fetching the raw HTML, not just
+  the rendered view — so the link can only reach the whole framework, never a specific row.
+  Don't invent a deeper URL. Link only the line that actually cites a code; leave a line
+  unlinked if it says "not assessed" or "no standard names this content on its own."
 
 ## Go...
 
@@ -180,7 +187,7 @@ read from the JSON; nothing hardcoded. Under 200 words. Signposting, not a secon
 
 ## Standards alignment
 
-**[AP CSP](https://codehs.com/standards/framework/APCSP20):** 3.10 Lists, 3.2 Data Abstraction — Big Idea 3, 30–35% of the exam
+**AP CSP:** [3.10 Lists](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.10), [3.2 Data Abstraction](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.2) — Big Idea 3, 30–35% of the exam
 **[California 9–12](https://codehs.com/standards/framework/CA_9-12):** 9-12.AP.14, 9-12.AP.16
 
 <One to three sentences of original prose connecting this chapter's Python to the way the
@@ -194,7 +201,11 @@ exam frames the same idea. Heavily weighted topics only; light ones get the head
 ```
 
 The leading `---` is a markdown rule, matching the one already used in this cell's `note`
-sentinel — not a raw `<hr>` tag. Link a label only when its line actually cites a code.
+sentinel — not a raw `<hr>` tag. The **AP CSP** label itself is never a link — link each
+individual topic citation to its own `#T-<code>` anchor on
+`alignment/apcsp-standards-reference.html`, in the order the topics are named. Only link
+the **California 9–12** label (still to the whole CodeHS framework page, no per-standard
+anchor exists there) when its line actually cites a code.
 
 **Short form, chapters 14–19:**
 
@@ -212,7 +223,8 @@ in the course reaches>.
 <!-- apcsp:end -->
 ```
 
-Leave the **AP CSP** label unlinked here since the line cites no code. If a chapter's
+The **AP CSP** label is never linked (per the full-form note above); here it also cites no
+code, so there is doubly nothing to link. If a chapter's
 California line is also empty, leave that unlinked too.
 
 Telling a student "this is not on the exam, and here is why we're doing it anyway" is better

@@ -236,3 +236,15 @@ or `id`, so the link reaches the whole framework, not a specific row — noted i
   maintainer has now confirmed it should point at this fork instead, so it's
   `porttack/working-in-python` (branch `v3`). `ATTRIBUTION.md`'s own reference to the
   upstream repo is unaffected — that one is a Downey credit, not a build setting.
+
+## 2026-07-30 — Redo AP CSP linking: our own anchors, not CodeHS
+
+### Changed
+- `type="standards"` sentinel in chap01, chap02, and chap03: the **AP CSP** label is no
+  longer a link; each topic it cites now links individually to its own `#T-<code>` anchor
+  on `alignment/apcsp-standards-reference.html` (to be hosted at
+  `https://python.porttack.com/alignment/apcsp-standards-reference.html`). The
+  **California 9-12** label is unchanged, still linking to CodeHS's framework page — we
+  have no hosted CA reference page yet. `mods/pass-3-alignment.md`'s Amendments bullet and
+  both Step 4 templates updated to match, so chapters 4-19 pick up the new convention.
+  `projector/` regenerated; `make check` passes.

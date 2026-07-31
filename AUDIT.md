@@ -1685,3 +1685,48 @@ session, same as the actual GitHub repo rename from the first retitle.
 - `python.porttack.com` is referenced now but not backed by anything (no CNAME, no DNS
   confirmed). If the site doesn't resolve, that's expected until the maintainer sets up
   hosting — not a bug in this change.
+
+## 2026-07-30 — Redo AP CSP linking: our own anchors, not CodeHS (chapters 1-3)
+
+Maintainer request, superseding this same day's earlier "Standards inserts" work
+(commit `b0a2f53`): stop linking the **AP CSP** label to CodeHS's whole-framework page and
+instead link each individual topic citation to its own anchor on the new
+`alignment/apcsp-standards-reference.html`, which will be hosted at
+`https://python.porttack.com/alignment/apcsp-standards-reference.html`. Explicitly scoped
+to AP CSP only and to chapters 1-3 only — the **California 9-12** label keeps linking to
+CodeHS (`codehs.com/standards/framework/CA_9-12`) since there's no equivalent hosted CA
+page yet.
+
+Changed the standards sentinel in chap01, chap02, and chap03: the **AP CSP:** label is now
+plain bold text (no link), and each topic mentioned on its line links individually to
+`.../apcsp-standards-reference.html#T-<code>` (e.g. `#T-3.10`, `#T-1.4`). Confirmed all
+nine cited topic anchors (`T-3.3`, `T-3.4`, `T-1.2`, `T-1.4`, `T-3.1`, `T-3.14`, `T-3.12`,
+`T-3.13`, `T-3.8`) actually exist on the reference page before wiring the links.
+
+One thing worth flagging for future notebook edits: `NotebookEdit`'s cell replacement
+serializes the edited cell's `source` field as a single string, not nbformat's usual
+list-of-lines. That's valid JSON either way and `make check` doesn't care, but it turns a
+one-line content change into what looks like a full-cell rewrite in `git diff`, which cuts
+against this repo's small-diff rule and its stated goal of pulling Downey's upstream
+corrections cleanly next year. Re-split each touched cell's `source` back into a
+list-of-lines (`str.splitlines(keepends=True)`) and re-serialized all three files with
+`json.dump(..., indent=1, ensure_ascii=False)` — matching the indent width already used
+throughout these files — before regenerating `projector/`. Confirms as a one-line diff per
+chapter now, matching commit `b0a2f53`'s shape. Future sessions using `NotebookEdit` on
+these notebooks should check `git diff` for this and re-flatten if it recurs.
+
+Updated `mods/pass-3-alignment.md`'s Amendments bullet and both Step 4 templates so
+chapters 4-19 pick up the new AP-CSP-links-to-our-own-anchors convention automatically,
+with the California-stays-on-CodeHS carve-out spelled out explicitly so it isn't dropped
+by pattern-matching against the AP CSP change. `make projector` regenerated; `make check`
+passes.
+
+### For a future maintainer
+
+- `alignment/apcsp-standards-reference.html` isn't live yet (`python.porttack.com` DNS
+  still pending per the note above this one) — the links in chapters 1-3 will 404 until
+  hosting is set up. Not a bug in this change.
+- If a California-standards reference page with its own anchors ever gets built, the
+  California label in these three chapters (and the Step 4 templates) still needs the same
+  treatment this pass gave the AP CSP label. Not done here — explicitly out of scope by
+  request.
