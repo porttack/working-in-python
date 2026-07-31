@@ -228,3 +228,11 @@ or `id`, so the link reaches the whole framework, not a specific row — noted i
   current-state references (title fields, the carrier slug, live links) get updated on
   each rename; narrative history does not. See `AP_MODIFICATIONS.md`'s Naming section for
   the current name in one place.
+
+### Fixed
+- `jb/_config.yml`'s `repository.url` (used for the built site's "view source" button)
+  pointed at upstream (`AllenDowney/ThinkPython`) rather than this fork's own repo. Left
+  that way through both retitles as a judgment call rather than a decision; the
+  maintainer has now confirmed it should point at this fork instead, so it's
+  `porttack/working-in-python` (branch `v3`). `ATTRIBUTION.md`'s own reference to the
+  upstream repo is unaffected — that one is a Downey credit, not a build setting.
