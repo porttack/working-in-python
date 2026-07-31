@@ -1,6 +1,8 @@
-# A Python Notebook
+# Working in Python
 
 *Adapted from Allen Downey's Think Python, Third Edition*
+
+Published at [python.porttack.com](https://python.porttack.com).
 
 Jupyter notebooks and other material for the 3rd edition of *Think Python: How to Think Like a Computer Scientist*
 

@@ -1626,3 +1626,62 @@ scoped source to what `apcsp.json` already covers, which stops above that layer.
   alignment work ever needs to cite a specific practice sub-skill instead of just the
   top-level practice, that's a second, similarly-sized extraction pass, not a small
   addition to this one.
+
+---
+
+## 2026-07-30 — Second retitle: *Working in Python*
+
+Another out-of-pass maintainer request: rename again, from *A Python Notebook* to
+*Working in Python*. Repo: `working-in-python` (same owner, `porttack`, confirmed).
+Website: `python.porttack.com` (new — didn't exist under either previous name).
+
+Applied the identical mechanical treatment as the first retitle (see the entry above),
+re-running the occurrence sweep rather than assuming it was still complete:
+`README.md`, `jb/_config.yml` (title/subtitle), this book's own name used as prose in
+`mods/pass-3-alignment.md`/`alignment/glossary-map.md`/`alignment/supplement-plan.md`,
+the `carrier` slug (`python_notebook` -> `working_in_python`) in
+`standards/apcsp.json`/`castandards.json` and every alignment doc that quotes it, and the
+GitHub URL (`porttack/python-notebook` -> `porttack/working-in-python`) in the
+`type="note"` footer of all 21 `chapters/*.ipynb`. `projector/` regenerated, not
+hand-edited.
+
+The re-sweep caught one thing a mechanical "grep for the old name" made obvious but that
+I'd have missed by working from memory: `alignment/apcsp-standards-reference.html` didn't
+exist during the first retitle (added in the very next commit) and carries 22 occurrences
+of the `carrier` slug. Updated it too. Lesson for next time this happens: always re-grep,
+never assume the file list from last time is still the whole file list.
+
+**Decided this session, worth stating explicitly since it reverses part of the first
+retitle's approach:** `CHANGELOG.md` and `AUDIT.md`'s dated narrative entries are no
+longer touched on a rename, even the mechanical-looking bits (a quoted carrier value, a
+URL). The first retitle updated `AUDIT.md`'s "Carrier counts: 7 `thinkpython`..." line
+(Pass 3 Step 2 handoff) to say `python_notebook` instead — defensible in isolation, but it
+means that entry no longer says what was actually true on the date it was written, and a
+third rename would mean editing it a second time. Left `thinkpython`/`python_notebook`
+exactly as they landed in each entry from here on; only `AP_MODIFICATIONS.md` (current-
+state summary, not a dated log) and the live repo files get kept in sync going forward.
+
+Added the publication URL (`python.porttack.com`) to `README.md` and a comment in
+`jb/_config.yml`, by request scoped to just those two references — no CNAME file, no
+GitHub Pages custom-domain wiring. That's still the maintainer's to do outside this
+session, same as the actual GitHub repo rename from the first retitle.
+
+### For a future maintainer
+
+- Two repo renames are now owed on GitHub, not done by any session: first
+  `porttack/ThinkPython` -> `porttack/python-notebook`, now superseded by
+  `porttack/python-notebook` -> `porttack/working-in-python`. If neither rename has
+  happened yet, the simplest path is to rename directly from `ThinkPython` to
+  `working-in-python` once, since `python-notebook` never shipped. Every link in the repo
+  currently assumes `porttack/working-in-python` exists.
+- `jb/_config.yml`'s `repository: url` still points at `AllenDowney/ThinkPython` (upstream,
+  used for the built site's "suggest edit"/view-source button). That was classified as a
+  Downey credit in the first retitle and left alone both times since — but functionally,
+  that button drives readers to upstream's repo for a site now built from this fork's own
+  modified `chapters/`, which looks like it might have been an oversight from before this
+  fork was forked, not a deliberate credit. Not changed either time because it's a
+  judgment call outside "rename the title," not because it's clearly correct as-is. Worth
+  a maintainer decision, not a silent fix.
+- `python.porttack.com` is referenced now but not backed by anything (no CNAME, no DNS
+  confirmed). If the site doesn't resolve, that's expected until the maintainer sets up
+  hosting — not a bug in this change.

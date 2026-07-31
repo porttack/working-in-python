@@ -51,7 +51,7 @@ taught can receive one with no disruption.
             "cpt_class_hours_minimum": 9 },
   "big_ideas": [
     { "id": "AAP", "number": 3, "name": "Algorithms and Programming",
-      "mcq_weight_low": 30, "mcq_weight_high": 35, "carrier": "python_notebook" }
+      "mcq_weight_low": 30, "mcq_weight_high": 35, "carrier": "working_in_python" }
   ],
   "practices": [
     { "id": "P5", "name": "Computing Innovations", "mcq_weight_low": 28, "mcq_weight_high": 33 }
@@ -60,7 +60,7 @@ taught can receive one with no disruption.
     { "code": "3.10", "big_idea": "AAP", "title": "Lists",
       "los": ["AAP-2.N", "AAP-2.O"], "paraphrase": "<original wording only>",
       "class_periods": null, "tp_chapters": [9],
-      "carrier": "python_notebook",
+      "carrier": "working_in_python",
       "exclusions": ["linked lists are outside course scope (AAP-1.D.6)"] }
   ]
 }
@@ -77,7 +77,7 @@ Notes:
   lists out of scope (AAP-1.D.6); specific implementations of binary search out of scope
   (AAP-2.P.1). Find the rest.
 - **`tp_chapters`** by reading chapters, not guessing.
-- **`carrier`** is `python_notebook`, `little_brother`, `supplement`, or `unassigned`. Report
+- **`carrier`** is `working_in_python`, `little_brother`, `supplement`, or `unassigned`. Report
   every `unassigned` topic; do not leave one quietly.
 
 ---
@@ -89,7 +89,7 @@ Notes:
 ```json
 { "code": "9-12.AP.14", "strand": "AP", "strand_name": "Algorithms & Programming",
   "grade_band": "9-12", "core": true, "paraphrase": "<original wording only>",
-  "tp_chapters": [14, 15], "carrier": "python_notebook" }
+  "tp_chapters": [14, 15], "carrier": "working_in_python" }
 ```
 
 Validate your extraction against the expected shape: five strands, thirty core standards in
@@ -123,7 +123,7 @@ Then generate:
 
 **`alignment/supplement-plan.md`** — what is taught outside this book and by what. Expected
 division of labor, stated plainly so the boundary is legible rather than accidental:
-- A Python Notebook carries AP Big Idea 3 almost entirely, Big Idea 1 partially, and CA's AP.12–22
+- Working in Python carries AP Big Idea 3 almost entirely, Big Idea 1 partially, and CA's AP.12–22
   strand heavily
 - partial on AP Big Idea 2 and CA's DA.8–11, via file and CSV work; not binary numbers or
   data compression
@@ -137,7 +137,7 @@ entries produces noise.
 
 Lead with the table that actually costs students points:
 
-| A Python Notebook | AP CSP |
+| Working in Python | AP CSP |
 |---|---|
 | function | procedure |
 | conditional | selection |
@@ -150,8 +150,8 @@ Lead with the table that actually costs students points:
 | `==` equality | `=` |
 | 0-based index | **1-based index** |
 
-Then: terms AP expects that A Python Notebook doesn't use (with a proposed carrier for each, many
-of which are `little_brother`), and terms A Python Notebook uses that AP doesn't need (marked
+Then: terms AP expects that Working in Python doesn't use (with a proposed carrier for each, many
+of which are `little_brother`), and terms Working in Python uses that AP doesn't need (marked
 `keep` or `defer`, recommended never deleted).
 
 ### The scope question
@@ -247,7 +247,7 @@ Close with a two-way translation exercise set, Python to pseudocode and back.
 **`appendix/cs50p-map.md`.** Each chapter to the CS50P week whose problem set can serve as a
 lab. Do not reorder chapters to fit. Note that CS50P sets from week 3 onward are steeper
 than CSP requires and belong as differentiation rather than whole-class work. Identify the
-four topics CS50P covers that A Python Notebook underweights: exceptions as a first-class topic,
+four topics CS50P covers that Working in Python underweights: exceptions as a first-class topic,
 pytest, command-line arguments, and APIs.
 
 ---

@@ -6,7 +6,7 @@ boundary is legible rather than accidental. Built from `standards/apcsp.json` an
 
 ## The division of labor
 
-**A Python Notebook carries:**
+**Working in Python carries:**
 - AP Big Idea 3 (Algorithms and Programming) almost entirely — 14 of 18 topics, and every
   topic in the 30–35%-of-the-exam weight band that this course actually reaches.
 - AP Big Idea 1 (Creative Development) partially — 3 of 4 topics, with the 4th
@@ -69,7 +69,7 @@ pass.
 
 **AP 3.8 / CA AP.14, iteration:** this book has no `while` loop anywhere — recursion
 stands in for indefinite iteration throughout. This isn't a missing-carrier problem the
-way the list above is (python_notebook does carry the topic), so it doesn't show up as a gap
+way the list above is (working_in_python does carry the topic), so it doesn't show up as a gap
 in the carrier fields, but it's the single largest coverage risk this pass found. See
 `alignment/standards_alignment.md`'s "load-bearing finding" note before assuming this
 topic is fully closed.

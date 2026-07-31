@@ -206,3 +206,25 @@ or `id`, so the link reaches the whole framework, not a specific row — noted i
   Lets `alignment/standards_alignment.md` and future Step 4 standards inserts deep-link to
   a specific EK statement instead of just a topic. See `AUDIT.md` for method and an
   automated verbatim-overlap check.
+
+## 2026-07-30 — Second retitle: *Working in Python*
+
+### Changed
+- Retitled this fork again, from *A Python Notebook* to *Working in Python* (subtitle
+  unchanged: *adapted from Allen Downey's Think Python, Third Edition*). Same treatment as
+  the first retitle: `README.md` and `jb/_config.yml` (title/subtitle), the book's own
+  name wherever used as prose (`mods/pass-3-alignment.md`, `alignment/glossary-map.md`,
+  `alignment/supplement-plan.md`), the `carrier` slug (`python_notebook` ->
+  `working_in_python`) everywhere it appears — including
+  `alignment/apcsp-standards-reference.html`, added since the first retitle and caught by
+  this pass's occurrence sweep — and the GitHub repository
+  (`porttack/python-notebook` -> `porttack/working-in-python`), with every link updated to
+  match. `projector/` regenerated, not hand-edited.
+- Added the book's publication URL, `python.porttack.com`, to `README.md` and as a comment
+  in `jb/_config.yml`. No GitHub Pages custom-domain setup (CNAME file, DNS) included —
+  scoped to just the two references, by request.
+- This entry and the "Book retitled to *A Python Notebook*" entry above are both left as
+  written — each documents the name at the time of that specific rename. Only
+  current-state references (title fields, the carrier slug, live links) get updated on
+  each rename; narrative history does not. See `AP_MODIFICATIONS.md`'s Naming section for
+  the current name in one place.

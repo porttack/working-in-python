@@ -11,7 +11,7 @@ Same term, different name. These are the substitutions most likely to cost a poi
 exam question that's otherwise easy — a student who knows the Python cold but hasn't
 mapped it onto the exam's own words.
 
-| A Python Notebook | AP CSP |
+| Working in Python | AP CSP |
 |---|---|
 | function | procedure |
 | conditional | selection |
@@ -29,7 +29,7 @@ questions: every Python list in this book is indexed from 0, and every exam-refe
 list is indexed from 1. Worth a standing callout wherever a standards insert touches
 lists or iteration (topics 3.8, 3.10, 3.11), not just a one-time mention.
 
-## Terms AP CSP expects that A Python Notebook doesn't use
+## Terms AP CSP expects that Working in Python doesn't use
 
 With a proposed carrier for each — most are the already-established supplements from
 `alignment/supplement-plan.md`, not new decisions.
@@ -48,13 +48,13 @@ With a proposed carrier for each — most are the already-established supplement
 | symmetric / asymmetric (public/private key) encryption | the two families of encryption approaches named on the exam reference sheet | little_brother |
 | personally identifiable information (PII) | the CED's term for data that identifies a specific individual | little_brother |
 
-## Terms A Python Notebook uses that AP CSP doesn't need
+## Terms Working in Python uses that AP CSP doesn't need
 
 Recommended: never delete these. They're either the Python-specific name for a concept
 AP CSP does require (in which case the term itself just isn't tested, only the idea
 underneath it), or they're extra content this course teaches beyond the exam's scope.
 
-| A Python Notebook term | Status | Why |
+| Working in Python term | Status | Why |
 |---|---|---|
 | recursion / recursive | keep | not part of the AP CSP reference sheet's required pseudocode at all (only `REPEAT n TIMES` / `REPEAT UNTIL` iteration are), but this book uses it as its primary vehicle for indefinite repetition — see the `while`-loop gap in the AP index and `standards_alignment.md`. Load-bearing for this course even though it isn't exam vocabulary. |
 | docstring | keep | Python's realization of AP's general "program documentation" concept (CRD-2.G) — the idea is tested, the term isn't. |
