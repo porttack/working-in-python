@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>About This Book &#8212; Working in Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'about';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="author" title="About these documents" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Welcome" href="chap01.html" />
+    <link rel="prev" title="Preface" href="chap00.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Working in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Working in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="orientation.html">How This Course Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">About This Book</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap01.html">1. Welcome</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Variables and Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Text Analysis and Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Files and Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Classes and Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap15.html">15. Classes and Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap16.html">16. Classes and Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/[CONFIRM: your user]/working-in-python/tree/main" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/about.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>About This Book</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-not-use-a-curriculum-that-already-exists">Why not use a curriculum that already exists?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-downeys-book-specifically">Why Downey’s book specifically</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-jupyter-notebooks">Why Jupyter notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-no-ai-assistants-in-the-first-semester">Why no AI assistants in the first semester</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-was-changed">What was changed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-book-does-not-cover">What this book does not cover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-and-attribution">License and attribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections">Corrections</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="about-this-book">
+<h1>About This Book<a class="headerlink" href="#about-this-book" title="Link to this heading">#</a></h1>
+<p><em>Working in Python</em> is the reading text for a high school AP Computer Science
+Principles course. It is an adaptation of Allen Downey’s
+<a class="reference external" href="https://allendowney.github.io/ThinkPython/"><em>Think Python</em>, Third Edition</a>,
+used and redistributed under the license Downey chose for it.</p>
+<p>This page explains why it exists, what was changed, and what it deliberately
+does not do. If you are a student in the course, the page you want is
+<a class="reference internal" href="orientation.html"><span class="std std-doc">How This Course Works</span></a>. This one is written for teachers,
+parents, and anyone who found the repo and wondered what they were looking at.</p>
+<hr class="docutils" />
+<section id="why-not-use-a-curriculum-that-already-exists">
+<h2>Why not use a curriculum that already exists?<a class="headerlink" href="#why-not-use-a-curriculum-that-already-exists" title="Link to this heading">#</a></h2>
+<p>Several good AP CSP curricula exist. <a class="reference external" href="http://Code.org">Code.org</a>’s is free, thorough, and carries a
+pre-approved Course Audit syllabus, which is a real convenience. CMU CS Academy
+teaches Python. CodeHS is widely adopted. Using this book instead of one of them
+costs me the audit shortcut and a great deal of authoring time, so the reasons
+had better be good ones.</p>
+<p>They come down to three.</p>
+<p><strong>The programming text should be a book.</strong> Most CSP curricula deliver
+programming as a sequence of short activities inside a web platform. That works,
+and students complete it. What it does not produce is a student who can sit down
+with a chapter of technical prose and get something out of it. That skill is the
+one that keeps paying after the course ends, in every later CS class and in every
+job that involves code. A platform cannot teach it. A book can, if students are
+actually required to read it.</p>
+<p><strong>The language should be the one we use everywhere else.</strong> I also teach robotics.
+Our robots run Python. Our data work is Python. A student who spends a year in a
+block environment or in App Lab has learned real computational thinking and then
+has to start over on syntax. Starting in Python means the fall semester’s work
+transfers directly to the spring and to everything after.</p>
+<p><strong>I want to be able to change it.</strong> A hosted curriculum is a thing you follow. A
+text you can edit is a thing you can fix. When a chapter runs long for my
+students, I cut it. When my state standards need a paragraph the original does
+not have, I add one, marked as mine. That is only possible because Downey
+licensed his book to allow it.</p>
+</section>
+<section id="why-downeys-book-specifically">
+<h2>Why Downey’s book specifically<a class="headerlink" href="#why-downeys-book-specifically" title="Link to this heading">#</a></h2>
+<p><em>Think Python</em> has been the strongest free introductory Python text for well over
+a decade, and the third edition made two changes that matter here. It is written
+as Jupyter notebooks, so the prose and the runnable code are the same document.
+And it takes software testing seriously, introducing doctest early, which almost
+no beginner text does and which quietly builds the habit of asking whether your
+code is right rather than whether it ran.</p>
+<p>It is also unusually well built for adaptation. The vocabulary is defined
+carefully and each chapter ends with a glossary, which turns out to matter more
+than it sounds like it should. Learning to program means learning two languages:
+Python, and the language people use to talk about Python. Downey is deliberate
+about the second one. Students who have it can read an error message, read
+documentation, and ask a precise question. Students who do not are stuck.</p>
+<p>I emailed Downey to tell him I was doing this. The license did not require it.
+Telling an author that his work is being used is just what you do.</p>
+</section>
+<section id="why-jupyter-notebooks">
+<h2>Why Jupyter notebooks<a class="headerlink" href="#why-jupyter-notebooks" title="Link to this heading">#</a></h2>
+<p>Because the alternative is asking fourteen-year-olds to install a toolchain in
+the first week of school, and that week is expensive.</p>
+<p>Notebooks let a student open a chapter in a browser, run the examples, break
+them, and fix them, in the same document they are reading. The chapter is not
+a description of the code. It is the code. Every chapter here opens in Google
+Colab from a badge, with nothing to install.</p>
+<p>There is a real cost, which I want to state plainly rather than pretend away.
+Notebooks encourage running cells out of order and leaving state lying around,
+which is a genuinely bad habit, and they are not how professional Python is
+written. We address that directly later in the year by moving to files and a
+terminal. The first semester’s priority is removing every obstacle between a
+student and a running program.</p>
+</section>
+<section id="why-no-ai-assistants-in-the-first-semester">
+<h2>Why no AI assistants in the first semester<a class="headerlink" href="#why-no-ai-assistants-in-the-first-semester" title="Link to this heading">#</a></h2>
+<p>This is the most distinctive rule in the course and the one I get asked about
+most, including by people who think it is either obvious or foolish.</p>
+<p>The original book takes the opposite position. Downey wrote the third edition
+partly to teach students to use virtual assistants well, and he is not wrong to.
+Those sections are removed here for the fall and the removals are documented.</p>
+<p>The reason is narrow and specific. The AP Create Performance Task requires
+students to submit a program and then explain how it works, in writing and on
+video, from their own understanding. The College Board permits AI assistance on
+the task. I permit it too, starting in January, with attribution. But you cannot
+explain code you did not write, and you cannot get good at explaining code by
+watching something else produce it.</p>
+<p>Learning to program involves a specific unpleasant experience: you have a broken
+program, you do not know why, and you have to reason your way to the cause. That
+experience is the mechanism by which the skill is acquired. An assistant removes
+it. Skipping it feels like progress and is not.</p>
+<p>So: no assistants until January, then assistants permitted with attribution, on
+the theory that by then a student has enough foundation to evaluate what the
+assistant hands them. Evaluating it is the actual professional skill. It is
+downstream of the other one, not a substitute for it.</p>
+<p>We spend real class time on why this line is drawn where it is. Students are
+invited to disagree out loud.</p>
+</section>
+<section id="what-was-changed">
+<h2>What was changed<a class="headerlink" href="#what-was-changed" title="Link to this heading">#</a></h2>
+<p>The full record is in <a class="reference internal" href="#AP_MODIFICATIONS.md"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">AP_MODIFICATIONS.md</span></code></span></a>, which exists
+both because the license requires changes to be indicated and because it doubles
+as evidence for the AP Course Audit. In summary:</p>
+<ul class="simple">
+<li><p><strong>Virtual assistant material removed</strong> from the chapters used in the fall,
+consistent with the AI policy above. Passages where Downey merely mentions
+assistants as a fact about the world are left alone. So is the Preface, where
+he describes his own pedagogy; editing an author’s account of his own method
+is a larger intervention than this project needs.</p></li>
+<li><p><strong>Standards alignment blocks added</strong>, mapping chapter content to AP CSP topics
+and to the California 9–12 computer science standards.</p></li>
+<li><p><strong>Additional graded exercises written</strong>, separate from Downey’s, so that his
+exercises can stay ungraded practice.</p></li>
+<li><p><strong>Fill-in-the-blank projector versions generated</strong> from the chapters for
+live coding in class. These are built by script, never edited by hand.</p></li>
+<li><p><strong>Scope reduced.</strong> Chapters 1 through 11 are the fall semester. Chapters 12
+and 13 come after the exam. Chapters 14 through 19, which cover
+object-oriented programming, are left entirely untouched as independent study
+for students who want more.</p></li>
+</ul>
+<p>Every addition is wrapped in comment sentinels, so what is Downey’s and what is
+mine can be separated mechanically at any time.</p>
+</section>
+<section id="what-this-book-does-not-cover">
+<h2>What this book does not cover<a class="headerlink" href="#what-this-book-does-not-cover" title="Link to this heading">#</a></h2>
+<p>This is a division of labor, not a gap I failed to fill.</p>
+<p><em>Working in Python</em> carries the algorithms and programming content of AP CSP
+almost entirely, and part of the creative development content through its
+treatment of debugging, incremental development, and testing. It reaches some of
+the data material through file and CSV work.</p>
+<p>It does not cover binary representation, data compression, computer networks,
+the internet, cybersecurity, or the global and ethical impacts of computing.
+Those are between a third and a half of the exam. In this course they are
+carried by a separate unit built around Cory Doctorow’s novel <em>Little Brother</em>,
+plus three computing innovation investigations. That unit is not a supplement.
+It is structurally load-bearing, and it is where most of the course’s writing and
+argument happens.</p>
+<p>If you are adopting this book for your own course, understand that you are
+adopting a programming text, not an AP CSP curriculum. You will need to bring the
+rest.</p>
+</section>
+<section id="license-and-attribution">
+<h2>License and attribution<a class="headerlink" href="#license-and-attribution" title="Link to this heading">#</a></h2>
+<p><em>Think Python</em>, Third Edition is copyright 2024 Allen B. Downey. Downey licensed
+the text under
+<a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+and the code under the <a class="reference external" href="https://mit-license.org/">MIT License</a>.</p>
+<p>This adaptation carries the same licenses. Text is CC BY-NC-SA 4.0, code is MIT.
+That means you may use it, adapt it, and share your adaptation, for
+non-commercial purposes, with attribution, under these same terms.</p>
+<p>Downey sells print and ebook editions of the original. If this book is useful to
+you, buy his. Full details in <a class="reference internal" href="#ATTRIBUTION.md"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">ATTRIBUTION.md</span></code></span></a>.</p>
+</section>
+<section id="corrections">
+<h2>Corrections<a class="headerlink" href="#corrections" title="Link to this heading">#</a></h2>
+<p>Errors introduced by this adaptation are mine. Corrections and suggestions are
+welcome at <strong>[CONFIRM: contact address]</strong> or as an issue on
+<strong>[CONFIRM: repo URL]</strong>. If you are reporting a typo, quoting part of the
+sentence it appears in makes it much easier to find than a page number.</p>
+<p>Errors in the original book should go to Downey at <code class="docutils literal notranslate"><span class="pre">feedback&#64;thinkpython.com</span></code>.
+Please do not send him mine.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chap00.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Preface</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chap01.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Welcome</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-not-use-a-curriculum-that-already-exists">Why not use a curriculum that already exists?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-downeys-book-specifically">Why Downey’s book specifically</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-jupyter-notebooks">Why Jupyter notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-no-ai-assistants-in-the-first-semester">Why no AI assistants in the first semester</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-was-changed">What was changed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-book-does-not-cover">What this book does not cover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-and-attribution">License and attribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corrections">Corrections</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey, adapted by [CONFIRM: your name]
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: left;">
+  <p>
+    <em>Working in Python</em> is adapted from
+    <a href="https://allendowney.github.io/ThinkPython/">Think Python, Third Edition</a>,
+    copyright 2024 <a href="https://allendowney.com">Allen B. Downey</a>.
+    Changes were made; see
+    <a href="https://github.com/[CONFIRM: your user]/working-in-python/blob/main/AP_MODIFICATIONS.md">AP_MODIFICATIONS.md</a>.
+  </p>
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img alt="Creative Commons License" style="border-width:0"
+         src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+  </a>
+  <br />
+  Text licensed under a
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+  Code licensed under the <a href="https://mit-license.org/">MIT License</a>.
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
