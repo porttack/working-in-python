@@ -1,9 +1,25 @@
 format: jb-book
 root: index
+
 parts:
-- caption: Front Matter
+
+# Required reading, in the order a student should hit it.
+- caption: Start Here
   chapters:
-  - file: chap00
+    - file: orientation
+    - file: chap00        # Downey's Preface, unedited
+    - file: about
+
+# All nineteen chapters live in ONE numbered part, deliberately.
+#
+# It is tempting to split these into "Chapters 1-11", "After the Exam", and
+# "On Your Own" as three parts with captions, so that course scope shows up
+# in the sidebar. Do not. Jupyter Book restarts numbering at each part, so
+# chapter 12 would render as "1" in its own section. This course refers to
+# chapters by number constantly, and a sidebar that disagrees with the
+# syllabus is worse than a sidebar that says less.
+#
+# Scope is communicated in index.md and orientation.md instead.
 - caption: Chapters
   numbered: True
   chapters:
@@ -26,6 +42,3 @@ parts:
     - file: chap17
     - file: chap18
     - file: chap19
-- caption: End Matter
-  chapters:
-  - file: blank

@@ -1,39 +1,56 @@
-# Book settings
+# Jupyter Book settings for Working in Python.
+#
+# Derived from Allen Downey's jb/_config.yml in the ThinkPython v3 repo.
+# Changes from upstream: title, author line, repository URL, and an
+# extra_footer that names the adaptation as well as the original. The MyST
+# and mathjax blocks are unchanged; do not touch them, they are load-bearing
+# for the math in the recursion and efficiency chapters.
+
 title: Working in Python
-subtitle: Adapted from Allen Downey's Think Python, Third Edition
-author: Allen B. Downey
-# Published at https://python.porttack.com
+author: "Allen B. Downey, adapted by [CONFIRM: your name]"
 
 latex:
   latex_documents:
     targetname: book.tex
 
+# Notebooks are NOT executed at build time. Output shown on the site is
+# whatever is committed in the .ipynb files. This is consistent with the
+# decision to leave upstream's execution counts and outputs alone.
 execute:
   execute_notebooks: 'off'
 
 repository:
-  url: https://github.com/porttack/working-in-python/tree/v3
+  url: "https://github.com/[CONFIRM: your user]/working-in-python/tree/main"
+
 html:
   use_repository_button: true
 
+  # CC BY-NC-SA requires attribution, a statement that changes were made, and
+  # that the derivative carry the same license. This footer does all three on
+  # every page of the book, which is the cheapest possible way to satisfy it.
   extra_footer: |
     <div style="text-align: left;">
+      <p>
+        <em>Working in Python</em> is adapted from
+        <a href="https://allendowney.github.io/ThinkPython/">Think Python, Third Edition</a>,
+        copyright 2024 <a href="https://allendowney.com">Allen B. Downey</a>.
+        Changes were made; see
+        <a href="https://github.com/[CONFIRM: your user]/working-in-python/blob/main/AP_MODIFICATIONS.md">AP_MODIFICATIONS.md</a>.
+      </p>
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
         <img alt="Creative Commons License" style="border-width:0"
              src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
       </a>
       <br />
-      This work is licensed under a
+      Text licensed under a
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-      </a>.
+        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+      Code licensed under the <a href="https://mit-license.org/">MIT License</a>.
     </div>
 
 parse:
-  # myst_extended_syntax: true  # instead enable individual features below
-  myst_enable_extensions:  # https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html
+  myst_enable_extensions:
     - amsmath
-    # - attrs_inline  # causing the conflict with dollarmath
     - colon_fence
     - deflist
     - dollarmath
@@ -54,3 +71,8 @@ sphinx:
       tex2jax:
         inlineMath: [["$","$"], ["\\(", "\\)"]]
     myst_update_mathjax: false
+
+    # Files here are copied verbatim to the root of the built site. This is how
+    # CNAME survives: build.sh force-pushes gh-pages, so anything committed to
+    # that branch by hand gets destroyed on the next build.
+    html_extra_path: ['extra']
