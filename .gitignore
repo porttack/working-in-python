@@ -37,3 +37,7 @@ scratch/
 
 # chapters/: .ipynb is the sole source of truth
 chapters/*.md
+
+# Jupyter Book build artifacts
+jb/chap*.ipynb
+jb/_build/
