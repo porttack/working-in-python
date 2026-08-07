@@ -16,6 +16,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-06 — chap01 front-matter cleanup
+
+### Removed
+- The upstream front-matter cell in `chapters/chap01.ipynb` pointing readers to buy print
+  and ebook copies from Bookshop.org and Amazon. Not relevant to students working from this
+  fork.
+- The "This is the Jupyter notebook for Chapter 1 of *Think Python*, 3rd edition, by Allen
+  B. Downey" sentence from the Welcome cell -- redundant with the *Think Python* credit and
+  copyright already in the chapter's closing note.
+
+### Changed
+- Added a `---` rule above the "Working in Python" fork-attribution note in chap01's
+  closing `type="note"` sentinel block, to set it off visually from the exercises above it.
+  (First tried a literal `<hr>` tag; it rendered invisibly sitting directly under the
+  sentinel's HTML comment with no blank line between them, so switched to the plain
+  markdown thematic break already used twice elsewhere in the same cell.)
+
+`projector/` regenerated after each edit; `make check` passes.
+
 ## 2026-07-29 — Pass 2, chapters 1–2
 
 ### Added

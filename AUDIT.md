@@ -1730,3 +1730,89 @@ passes.
   California label in these three chapters (and the Step 4 templates) still needs the same
   treatment this pass gave the AP CSP label. Not done here — explicitly out of scope by
   request.
+
+## 2026-08-01 — Jupyter Book site pipeline installed and published (retroactive note)
+
+Commits `68bac48` (Install Jupyter Book site pipeline and prose pages) and `8112678`
+(Ignore Jupyter Book build artifacts) did this work the same day but no handoff note was
+appended at the time. Written retroactively, from a separate session, to close that gap —
+see `site-setup.md` (now removed; its content is folded in here) for the original task
+brief this followed.
+
+Installed into `jb/`: `index.md`, `orientation.md`, `about.md`, updated `_config.yml` and
+`_toc.yml`, a rewritten `build.sh` (`--local` flag, refuses to run against a dirty
+`chapters/` tree, publishes from `chapters/` rather than a separate solutions repo since
+this fork's notebooks carry "# Solution goes here" placeholders, not worked answers), and
+`extra/CNAME`. `PUBLISHING.md` added at the repo root. Two `_config.yml` scalars
+(`author`, `repository.url`) needed quoting — their unquoted `[CONFIRM: ...]` placeholders
+contain a bare colon-space, which is invalid in a plain YAML scalar and broke the build;
+quoting fixed the parse without resolving the placeholders themselves, which are still
+open (see the "future maintainer" notes on the two renames above — this is the same
+family of unresolved `[CONFIRM: ...]` markers).
+
+`.gitignore` gained `jb/chap*.ipynb` and `jb/_build/` (build artifacts — `build.sh` copies
+`chapters/*.ipynb` into `jb/` and mutates them via `prep_notebooks.py`, and without this
+entry every local build leaves ~20 changed notebooks in `git status`) and, in a later
+uncommitted edit, `.venv/` (a pinned-below-2.0 virtualenv for `jupyter-book`/`ghp-import`,
+per `PUBLISHING.md`).
+
+**Publishing already happened.** `jb/build.sh` (no `--local`) was run, which builds to
+`jb/_build/html` and then runs `ghp-import -n -p -f _build/html`, force-pushing a fresh
+commit onto `gh-pages` — `gh-pages` is a generated artifact branch, not something `v3`
+gets merged into. That push landed as `d6f04ab` on both local and `origin` `gh-pages`, ten
+minutes after `8112678`, so the published site reflects everything on `v3` as of that
+commit (chapters 1-8 surgery done, all four kind-A replacements, standards inserts for
+chapters 1-3). No further publish is needed until `v3` moves again; the only remaining
+step for anyone checking is confirming `python.porttack.com` actually resolves (DNS/CNAME
+was still unconfirmed as of the entry above this one).
+
+**Found and removed, not part of the original install:** an untracked `deploy.sh` at the
+repo root, from an unrelated session, that reimplemented `jb/build.sh`'s build-verify-
+publish sequence nearly line-for-line with its own preflight/verify wrapper. Deleted in
+favor of keeping `jb/build.sh` (referenced by `PUBLISHING.md`) as the single canonical
+publish path — two scripts doing the same force-push is a foot-gun, not redundancy worth
+keeping.
+
+### For a future maintainer
+
+- To publish after future chapter edits: `cd jb && ./build.sh --local` to verify, then
+  `./build.sh` (no flag) to force-push `gh-pages`. There is no merge step and no PR into
+  `gh-pages` — treat it as fully regenerated output, never hand-edited.
+- `jb/build.sh` refuses to run if `chapters/` has uncommitted changes. Commit or stash
+  first if it exits complaining about a dirty tree.
+- `[CONFIRM: ...]` placeholders remain in `jb/_config.yml` (`author`, `repository.url`
+  fields) — same open item as the repo-rename and upstream-vs-fork "suggest edit" button
+  questions raised in the entries above. Not resolved by this note.
+
+## 2026-08-06 — chap01: front-matter cleanup (order links, welcome blurb, note-block rule)
+
+Three small, out-of-band fixes at the user's request, done directly in
+`chapters/chap01.ipynb` (no separate pass invoked).
+
+1. Removed the upstream front-matter cell (id `1331faa1`) that pointed readers to buy
+   print/ebook copies from Bookshop.org and Amazon — not applicable to students working
+   from this fork's notebooks. Pure deletion of upstream content, not a sentinel addition
+   or VA removal, so it isn't captured by the treatment-matrix mechanisms.
+2. Added a rule above the "**Working in Python** — modified by Eric Brown..." line in the
+   chapter's closing `type="note"` sentinel block (cell `a7f4edf8`), to separate it
+   visually from the exercise cells above. This is our own sentinel content, not upstream,
+   so edited freely. First attempt used a literal `<hr>` tag placed directly under the
+   sentinel's `<!-- apcsp:begin ... -->` comment with no blank line separating them —
+   confirmed by the user it rendered invisibly after building. Replaced with a plain `---`
+   markdown thematic break instead, matching the two other rules already in that same
+   cell (which are known to render correctly). **Lesson for future sentinel edits: prefer
+   markdown syntax (`---`, `**bold**`, etc.) over raw HTML tags inside sentinel blocks —
+   raw HTML block-merging with an adjacent comment line is an easy way to silently lose
+   the element.**
+3. Removed "This is the Jupyter notebook for Chapter 1 of *Think Python*, 3rd edition, by
+   Allen B. Downey" from the Welcome cell (id `a14edb7e`), per the user: that credit is
+   already given at the bottom of the chapter (the *Think Python* title/copyright block
+   right after the fork-attribution note). Pure deletion of upstream prose, left the
+   surrounding Jupyter/Colab instructions intact and coherent.
+
+`projector/chap01.ipynb` regenerated (`make projector`) after each edit; `make check`
+passes. `jb/chap01.ipynb` untouched — it's a build artifact (`jb/build.sh` copies fresh
+from `chapters/` on every build) and will pick up all three changes next publish.
+`CHANGELOG.md` updated.
+
+Does not change Pass 2's chapter-9-19 status, and no other chapter was touched.
