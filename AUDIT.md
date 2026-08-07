@@ -1796,23 +1796,43 @@ Three small, out-of-band fixes at the user's request, done directly in
 2. Added a rule above the "**Working in Python** — modified by Eric Brown..." line in the
    chapter's closing `type="note"` sentinel block (cell `a7f4edf8`), to separate it
    visually from the exercise cells above. This is our own sentinel content, not upstream,
-   so edited freely. First attempt used a literal `<hr>` tag placed directly under the
-   sentinel's `<!-- apcsp:begin ... -->` comment with no blank line separating them —
-   confirmed by the user it rendered invisibly after building. Replaced with a plain `---`
-   markdown thematic break instead, matching the two other rules already in that same
-   cell (which are known to render correctly). **Lesson for future sentinel edits: prefer
-   markdown syntax (`---`, `**bold**`, etc.) over raw HTML tags inside sentinel blocks —
-   raw HTML block-merging with an adjacent comment line is an easy way to silently lose
-   the element.**
+   so edited freely. First attempt used a literal `<hr>` tag directly under the sentinel's
+   `<!-- apcsp:begin ... -->` comment with no blank line separating them; the user reported
+   not seeing it after building, which read at the time like a markup/parser problem, so it
+   was swapped for the plain `---` thematic break used elsewhere in the same cell as a
+   defensive fix.
 3. Removed "This is the Jupyter notebook for Chapter 1 of *Think Python*, 3rd edition, by
    Allen B. Downey" from the Welcome cell (id `a14edb7e`), per the user: that credit is
    already given at the bottom of the chapter (the *Think Python* title/copyright block
    right after the fork-attribution note). Pure deletion of upstream prose, left the
    surrounding Jupyter/Colab instructions intact and coherent.
 
-`projector/chap01.ipynb` regenerated (`make projector`) after each edit; `make check`
-passes. `jb/chap01.ipynb` untouched — it's a build artifact (`jb/build.sh` copies fresh
-from `chapters/` on every build) and will pick up all three changes next publish.
-`CHANGELOG.md` updated.
+**Follow-up — the markup was never the problem.** The user came back saying the `<hr>` (by
+then `---`) was present but "such a light grey, it is very difficult to see." Reproduced
+with a real local build (copied `chapters/` into a scratch `jb/` tree, ran
+`prep_notebooks.py` + `jupyter-book build .` with the project's pinned `.venv`, since
+`jb/build.sh` itself refuses to run against a dirty `chapters/` tree) and confirmed via
+`grep` on the built HTML and on sphinx-book-theme's shipped CSS: the theme sets
+`hr{opacity:.25}` globally (in `pydata-sphinx-theme.css`), which is what actually washed
+the rule out — the earlier "no blank line" theory was a red herring; the original literal
+`<hr>` would have rendered exactly as correctly-positioned and exactly as faint as the
+`---` that replaced it. **Lesson: when a user reports something invisible after building,
+check the compiled HTML/CSS before rewriting the markup — the source can be completely
+correct and the real cause a global stylesheet rule.**
 
-Does not change Pass 2's chapter-9-19 status, and no other chapter was touched.
+Fixed site-wide, not just for chap01: added `jb/_static/custom.css` (new file, overrides
+`.bd-article hr { opacity: 0.6; }`, scoped to article content so theme chrome like the
+sidebar/search-modal is untouched) and wired it into `jb/_config.yml`'s `sphinx.config`
+via `html_static_path`/`html_css_files`. Confirmed the stylesheet is emitted and linked in
+a fresh scratch build's `chap01.html`. User explicitly chose "darken all `<hr>` site-wide"
+over a chap01-only fix when asked, since a CSS change here is unavoidably global.
+
+`projector/chap01.ipynb` regenerated (`make projector`) after each `chapters/` edit;
+`make check` passes. `jb/chap01.ipynb` untouched in the real repo — it's a build artifact
+(`jb/build.sh` copies fresh from `chapters/` on every build) and will pick up all three
+notebook changes next publish; `jb/_static/custom.css` and the `_config.yml` edit, by
+contrast, are real tracked source and need no regeneration. `CHANGELOG.md` updated.
+
+Does not change Pass 2's chapter-9-19 status, and no other chapter was touched. This touches
+`jb/`, which is Pass 3/site-pipeline territory rather than Pass 2's — noted here rather than
+opening a separate pass since it's a two-line CSS fix, not new pipeline work.

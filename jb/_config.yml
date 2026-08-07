@@ -76,3 +76,8 @@ sphinx:
     # CNAME survives: build.sh force-pushes gh-pages, so anything committed to
     # that branch by hand gets destroyed on the next build.
     html_extra_path: ['extra']
+
+    # custom.css: raises the theme's default hr opacity (25%, barely visible)
+    # for article content. See jb/_static/custom.css for detail.
+    html_static_path: ['_static']
+    html_css_files: ['custom.css']

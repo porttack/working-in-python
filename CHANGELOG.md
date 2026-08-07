@@ -16,7 +16,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
-## 2026-08-06 — chap01 front-matter cleanup
+## 2026-08-06 — chap01 front-matter cleanup; site-wide hr visibility fix
 
 ### Removed
 - The upstream front-matter cell in `chapters/chap01.ipynb` pointing readers to buy print
@@ -29,11 +29,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Added a `---` rule above the "Working in Python" fork-attribution note in chap01's
   closing `type="note"` sentinel block, to set it off visually from the exercises above it.
-  (First tried a literal `<hr>` tag; it rendered invisibly sitting directly under the
-  sentinel's HTML comment with no blank line between them, so switched to the plain
-  markdown thematic break already used twice elsewhere in the same cell.)
+  (First tried a literal `<hr>` tag directly under the sentinel's HTML comment with no
+  blank line between them; that turned out fine, and was not the actual problem -- see
+  below.)
+- `jb/_config.yml`: added `html_static_path`/`html_css_files` pointing at a new
+  `jb/_static/custom.css`. The sphinx-book-theme ships all `<hr>` at 25% opacity, which is
+  what made the rule above nearly invisible -- not the markup. The override raises opacity
+  to 0.6, scoped to `.bd-article hr` so it only affects rendered chapter content, not the
+  theme's own sidebar/modal chrome. Affects every `<hr>` and `---` in the built site, not
+  just chap01's.
 
-`projector/` regenerated after each edit; `make check` passes.
+`projector/` regenerated after each `chapters/` edit; `make check` passes. Verified with a
+scratch local build of the full `jb/` pipeline (`prep_notebooks.py` + `jupyter-book
+build`), not just the notebook source.
 
 ## 2026-07-29 — Pass 2, chapters 1–2
 

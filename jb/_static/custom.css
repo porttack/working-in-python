@@ -1,0 +1,8 @@
+/* sphinx-book-theme (via pydata-sphinx-theme) ships <hr> at 25% opacity,
+   which reads as a barely-visible light grey line against body text.
+   Scoped to article content so sidebar/modal/other theme-chrome rules,
+   which use the same bootstrap `hr` selector for different purposes,
+   are left alone. */
+.bd-article hr {
+  opacity: 0.6;
+}
