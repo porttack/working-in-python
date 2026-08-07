@@ -36,5 +36,9 @@ the easy part of the year.
   and why there are no AI assistants this semester
 - **[About this book](about.md)** — why it exists, what changed from the
   original, licensing
+- **[AP CSP Standards Reference](https://python.porttack.com/alignment/apcsp-standards-reference.html)**
+  — every AP CSP topic, and which chapters cover it
+- **[What's Next](todo.md)** — standards alignment and chapter work still in
+  progress
 - **[CONFIRM: link to syllabus]**
 - **[CONFIRM: link to where assignments are turned in]**
