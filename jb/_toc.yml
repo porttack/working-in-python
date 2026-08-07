@@ -42,3 +42,11 @@ parts:
     - file: chap17
     - file: chap18
     - file: chap19
+
+# Meta pages: not reading material, but useful to have visible in the
+# sidebar on every page rather than buried in "Also here" links on index.md.
+- caption: Reference
+  chapters:
+    - file: todo
+    - url: https://python.porttack.com/alignment/apcsp-standards-reference.html
+      title: AP CSP Standards Reference
