@@ -1859,3 +1859,94 @@ contrast, are real tracked source and need no regeneration. `CHANGELOG.md` updat
 Does not change Pass 2's chapter-9-19 status, and no other chapter was touched. This touches
 `jb/`, which is Pass 3/site-pipeline territory rather than Pass 2's — noted here rather than
 opening a separate pass since it's a small CSS fix, not new pipeline work.
+
+## 2026-08-06 — GitHub Codespaces option for chap01
+
+Added a devcontainer and one Codespaces link, at the user's request, as an alternative to
+the existing Colab link. This is tooling, not chapter surgery or standards work, so it
+doesn't belong to any of the three passes -- noted here the same way the hr-visibility fix
+above was.
+
+**What was built.** `.devcontainer/devcontainer.json` at the repo root (Python 3.11 +
+VS Code Python/Jupyter extensions + `pip install ipykernel matplotlib pyyaml` on create),
+and a `type="note"` sentinel cell inserted into `chap01` right after the existing
+Welcome/Colab cell, linking to `https://codespaces.new/porttack/working-in-python`.
+`projector/` regenerated (`make projector`); `make check` passes.
+
+**The "one Codespace" requirement needed no extra engineering.** The user's actual worry
+was GitHub's per-account cap on concurrent Codespaces, given the plan is eventually one
+link per chapter (19 notebooks). Codespaces are created per-*repository*, not per-notebook
+or per-link. As long as every chapter's link points at the same
+`codespaces.new/porttack/working-in-python` URL -- not something parameterized per chapter
+-- GitHub itself offers "reopen your existing Codespace for this repo" the second time a
+student clicks through, rather than creating a new one. So the fix is entirely about *not*
+making the link chapter-specific, not about building any reuse logic ourselves. Login is
+likewise automatic: `codespaces.new` forces a GitHub sign-in first if the visitor isn't
+authenticated.
+
+**Environment sizing was grepped, not guessed.** Asked whether to preinstall Colab's whole
+default stack or size the devcontainer minimally; user chose "mirror Colab's common stack."
+Rather than guess what that means, grepped every `import`/`from ... import` across all of
+`chapters/*.ipynb`: the only third-party runtime dependencies anywhere in the book are
+`matplotlib` (direct import) and `pyyaml` (`import yaml`, plus an explicit `!pip install
+pyyaml` in chap13). `thinkpython`, `diagram`, `jupyturtle`, and `structshape` are not pip
+packages at all -- they're single-file modules every chapter fetches itself at runtime via
+`urlretrieve` from GitHub/a release asset, identical to how Colab gets them, so the
+devcontainer doesn't need to carry them.
+
+**Known limitation, not fixed.** `codespaces.new` has no "open to this file" deep link, so
+a student lands in the repo root and has to navigate to `chapters/chap01.ipynb` themselves
+-- said so directly in the note text. Also left alone: the *existing* Colab link in the
+same cell still points at `AllenDowney/ThinkPython` (upstream), not this fork -- a
+pre-existing mismatch called out in `PUBLISHING.md`'s "Colab badges" section, out of scope
+for this change and not asked about.
+
+**Scoped to chapter 1 only, by request.** The devcontainer itself is repo-wide and needs no
+further work to serve other chapters once their notebooks are opened in a Codespace: adding
+the same note-sentinel link to chapters 2-19 is a small, mechanical follow-up whenever Pass
+2 (or a dedicated pass) reaches them -- same URL, same wording, chapter number in the
+sentinel's `chapter="NN"` attribute. Nothing about that follow-up is open or ambiguous.
+
+### 2026-08-06 follow-up — auto-launch Jupyter Lab; fix the first-run kernel prompt
+
+Two things the user found by actually clicking the link and running the notebook in the
+Codespace it opened, addressed in the same devcontainer rather than a new file.
+
+**Which UI opens by default.** Confirmed there are two distinct ways a `.ipynb` runs in a
+Codespace: VS Code's own Jupyter extension (kernel as a subprocess, rendered inside VS
+Code's web UI, no port involved -- what was already configured), or a real `jupyter lab`
+process that Codespaces auto-forwards a port to and that renders as the classic
+browser-notebook UI. User wanted the second as the default landing experience (closer to
+what students already know from Colab) with the first kept as a fallback, not replaced.
+Implemented via `postStartCommand` (backgrounds `jupyter lab` on port 8888, auth disabled)
+plus `forwardPorts`/`portsAttributes.onAutoForward: "openBrowser"`. Concretely, clicking the
+Codespaces link now opens two tabs: VS Code first (as before), then a second tab with plain
+Jupyter Lab once the server comes up a few seconds later. The chap01 note cell was reworded
+to describe both, with VS Code framed as the parenthetical/behind-the-scenes option per the
+user's request, rather than inventing a second URL for it -- there isn't one; both views are
+the same running Codespace, just different tabs into it.
+
+**Jupyter's own auth was turned off** (`--ServerApp.token='' --ServerApp.password=''`)
+because Codespaces' forwarded ports are already private and authenticated to the Codespace's
+own owner by default -- a second token/password on top of that is friction with no real
+security benefit here, since anyone who could reach the forwarded URL at all already had to
+be signed into GitHub as the student who owns that Codespace. Worth revisiting if this repo
+ever forwards a port publicly instead of privately.
+
+**The kernel-picker prompt** ("Select Kernel Source": Python Environments / Jupyter Kernel /
+Existing Jupyter Kernel) is what VS Code shows the first time a notebook runs in a container
+where it doesn't yet know which interpreter to use -- and since every student gets a brand
+new container, every student would hit it fresh, not just once ever. Fixed by pinning
+`python.defaultInterpreterPath` to the image's one interpreter and making sure `ipykernel`
+is preinstalled for it (`postCreateCommand`, already true before this change). Deliberately
+did *not* also run `python -m ipykernel install --name python3` to register a named
+kernelspec -- reasoned that since the interpreter is already the workspace default and
+already has `ipykernel`, VS Code's Python-environment-based kernel discovery shouldn't need
+a separate registered kernelspec, and adding one risked the interpreter showing up twice
+(once under "Python Environments," once under "Jupyter Kernel") instead of resolving
+cleanly. **Not independently verified against a live Codespace** -- couldn't test VS Code's
+actual first-run behavior against these settings in this session. If a student still hits
+the picker after this, that's the next thing to check, and the kernelspec-registration route
+is the fallback if the default-interpreter route alone doesn't fully suppress it.
+
+`projector/` regenerated; `make check` passes.

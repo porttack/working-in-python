@@ -16,6 +16,43 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-06 — GitHub Codespaces option for chap01
+
+### Added
+- `.devcontainer/devcontainer.json`: repo-root devcontainer (Python 3.11, VS Code Python/
+  Jupyter extensions, `pip install ipykernel matplotlib pyyaml jupyterlab` on create) so
+  the repo can be opened as a GitHub Codespace. Sized from an actual grep of every
+  chapter's imports, not a guess at Colab's full preinstalled set -- `matplotlib` and
+  `pyyaml` are the only third-party runtime dependencies anywhere in `chapters/`.
+  `thinkpython`, `diagram`, `jupyturtle`, and `structshape` are single-file modules the
+  notebooks fetch themselves via `urlretrieve`, same as on Colab, so they need no
+  preinstall.
+- `.devcontainer/devcontainer.json`: `postStartCommand` launches Jupyter Lab in the
+  background on port 8888 (token/password disabled -- redundant given Codespaces' own
+  per-owner authenticated port forwarding); `forwardPorts`/`portsAttributes` auto-forwards
+  that port and opens it in a new browser tab the moment the server comes up, so the
+  Codespace lands students in a plain notebook UI close to what Colab already looks like,
+  rather than the full VS Code editor. The VS Code editor is still there in the tab
+  underneath (that's what the devcontainer's `customizations.vscode` config was already
+  for) -- nothing about it was removed, just no longer the first thing a student sees.
+- `.devcontainer/devcontainer.json`: `python.defaultInterpreterPath` pinned to the image's
+  one Python interpreter, so the VS Code Jupyter extension has an unambiguous default and
+  (with `ipykernel` preinstalled) shouldn't need to ask "Select Kernel Source" the first
+  time a student runs a cell there. Every student gets a fresh container, so without this
+  every student would hit that prompt cold.
+- `chap01`: a `type="note"` sentinel cell, inserted right after the existing Welcome/Colab
+  cell, linking to `https://codespaces.new/porttack/working-in-python` and describing both
+  the auto-opened notebook tab and the VS Code tab behind it. Deliberately the same URL
+  that would go in every other chapter, not a per-notebook link -- Codespaces are created
+  per-repository, so a student who already has one for this repo gets GitHub's own "reopen
+  existing Codespace" prompt instead of a new one, which is what keeps everyone at one
+  Codespace total regardless of how many chapters they've clicked through. `make check`
+  passes.
+
+Scoped to chapter 1 only, by request; chapters 2-19 don't have the link yet. The Colab link
+in the same cell still points at `AllenDowney/ThinkPython` (upstream), a pre-existing
+mismatch noted in `PUBLISHING.md`, not touched here.
+
 ## 2026-08-06 — chap01 front-matter cleanup; site-wide hr visibility fix
 
 ### Removed
