@@ -34,14 +34,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   below.)
 - `jb/_config.yml`: added `html_static_path`/`html_css_files` pointing at a new
   `jb/_static/custom.css`. The sphinx-book-theme ships all `<hr>` at 25% opacity, which is
-  what made the rule above nearly invisible -- not the markup. The override raises opacity
-  to 0.6, scoped to `.bd-article hr` so it only affects rendered chapter content, not the
-  theme's own sidebar/modal chrome. Affects every `<hr>` and `---` in the built site, not
-  just chap01's.
+  what made the rule above nearly invisible -- not the markup. First attempt raised
+  opacity to 0.6 only; still reported as too light. Final version sets `opacity: 1`,
+  `border-top-width: 2px`, and an explicit `border-top-color:
+  var(--pst-color-text-base)` (the theme's own body-text color, so it stays correct in
+  both light and dark mode) instead of tuning opacity. Scoped to `.bd-article hr` so it
+  only affects rendered chapter content, not the theme's own sidebar/modal chrome.
+  Affects every `<hr>` and `---` in the built site, not just chap01's.
 
-`projector/` regenerated after each `chapters/` edit; `make check` passes. Verified with a
-scratch local build of the full `jb/` pipeline (`prep_notebooks.py` + `jupyter-book
-build`), not just the notebook source.
+`projector/` regenerated after each `chapters/` edit; `make check` passes. Verified by
+rendering the actual built page with headless Chrome and inspecting a screenshot, not
+just grepping the HTML/CSS.
 
 ## 2026-07-29 — Pass 2, chapters 1–2
 

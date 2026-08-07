@@ -1820,12 +1820,35 @@ the rule out — the earlier "no blank line" theory was a red herring; the origi
 check the compiled HTML/CSS before rewriting the markup — the source can be completely
 correct and the real cause a global stylesheet rule.**
 
-Fixed site-wide, not just for chap01: added `jb/_static/custom.css` (new file, overrides
-`.bd-article hr { opacity: 0.6; }`, scoped to article content so theme chrome like the
-sidebar/search-modal is untouched) and wired it into `jb/_config.yml`'s `sphinx.config`
-via `html_static_path`/`html_css_files`. Confirmed the stylesheet is emitted and linked in
-a fresh scratch build's `chap01.html`. User explicitly chose "darken all `<hr>` site-wide"
-over a chap01-only fix when asked, since a CSS change here is unavoidably global.
+Fixed site-wide, not just for chap01: added `jb/_static/custom.css` (new file, scoped to
+`.bd-article hr` so theme chrome like the sidebar/search-modal is untouched) and wired it
+into `jb/_config.yml`'s `sphinx.config` via `html_static_path`/`html_css_files`. User
+explicitly chose "darken all `<hr>` site-wide" over a chap01-only fix when asked, since a
+CSS change here is unavoidably global.
+
+**First attempt wasn't enough either.** Shipped `opacity: 0.6` and confirmed (via `grep`)
+the stylesheet was emitted, linked, and later in cascade order than the theme's own CSS in
+a fresh scratch build. User came back again: "still very light... This should not be
+hard." Rather than tune the opacity value blind a third time, rendered the actual page:
+copied `chapters/` into a second scratch `jb/` tree, ran the real `prep_notebooks.py` +
+`jupyter-book build` pipeline, then used the system's headless Chrome
+(`/Applications/Google Chrome.app/.../Google Chrome --headless --screenshot`) to capture
+`chap01.html` and `sips` to crop to the note block, and actually looked at the pixels
+instead of reasoning about CSS specificity and cascade order from source. Confirmed the
+rule really was faint even at 0.6 opacity. Replaced the opacity tweak with `opacity: 1`,
+`border-top-width: 2px`, and an explicit `border-top-color: var(--pst-color-text-base)` —
+the theme's own body-text-color custom property, pulled from `pydata-sphinx-theme.css`, so
+it stays correct in both light and dark mode without hardcoding a hex value. Re-rendered
+the same way and visually confirmed a solid, clearly-visible dark rule above both "Working
+in Python" and "1.10. Standards alignment."
+
+**Lesson for next time a "can't see it" report comes in about *any* rendered page (not
+just this book): don't stop at reading CSS and reasoning about it — render the page for
+real (headless Chrome screenshot, or equivalent) and look. Two rounds of "should be visible
+now" based on grepping stylesheets both turned out wrong in ways only pixels would have
+caught: the first genuinely was a no-op (the "no blank line" theory), and the second was a
+real change that just wasn't strong enough. Reasoning about a stylesheet is not the same
+as seeing it render.**
 
 `projector/chap01.ipynb` regenerated (`make projector`) after each `chapters/` edit;
 `make check` passes. `jb/chap01.ipynb` untouched in the real repo — it's a build artifact
@@ -1835,4 +1858,4 @@ contrast, are real tracked source and need no regeneration. `CHANGELOG.md` updat
 
 Does not change Pass 2's chapter-9-19 status, and no other chapter was touched. This touches
 `jb/`, which is Pass 3/site-pipeline territory rather than Pass 2's — noted here rather than
-opening a separate pass since it's a two-line CSS fix, not new pipeline work.
+opening a separate pass since it's a small CSS fix, not new pipeline work.
