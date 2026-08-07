@@ -12,13 +12,5 @@
       }
     }
   },
-  "postCreateCommand": "pip install ipykernel matplotlib pyyaml jupyterlab",
-  "postStartCommand": "nohup python -m jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --ServerApp.token='' --ServerApp.password='' > /tmp/jupyterlab.log 2>&1 &",
-  "forwardPorts": [8888],
-  "portsAttributes": {
-    "8888": {
-      "label": "Jupyter Lab",
-      "onAutoForward": "openBrowser"
-    }
-  }
+  "postCreateCommand": "pip install ipykernel matplotlib pyyaml jupyterlab"
 }

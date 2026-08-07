@@ -1950,3 +1950,48 @@ the picker after this, that's the next thing to check, and the kernelspec-regist
 is the fallback if the default-interpreter route alone doesn't fully suppress it.
 
 `projector/` regenerated; `make check` passes.
+
+### 2026-08-06 follow-up 2 — two links, via a second devcontainer (unverified, needs live test)
+
+User's original mental model was two links: one for the browser-notebook view, one for VS
+Code. The previous follow-up above rejected that as infeasible with a single devcontainer,
+since startup behavior (auto-launch Jupyter, auto-forward the port) belongs to the
+container, not to whichever URL opened it -- true for one devcontainer config, but GitHub
+does support multiple `.devcontainer/*/devcontainer.json` files selected via a
+`devcontainer_path` URL parameter, which reopens the possibility properly.
+
+**What was built.** Split into two configs: `.devcontainer/devcontainer.json` (default --
+plain VS Code, no auto-forwarding, matches "VS Code as configured" from the first
+follow-up) and `.devcontainer/jupyter/devcontainer.json` (the auto-launch-Jupyter-Lab
+config from the previous entry, now non-default). `chap01`'s note links both:
+`?quickstart=1` (bare) for VS Code, `?quickstart=1&devcontainer_path=.devcontainer/jupyter/
+devcontainer.json` for the notebook view.
+
+**Also fixed in passing: `?quickstart=1` was missing from the very first version of this
+link**, added back in the first follow-up entry, and never caught until this round.
+Rechecked GitHub's own docs on `facilitating-quick-creation-and-resumption-of-codespaces`:
+the "offer to resume your existing Codespace" behavior that the note text has promised
+since the very first version of this feature is *specifically* what `?quickstart=1` adds --
+without it, `codespaces.new/OWNER/REPO` goes straight to a creation page with no resume
+check at all. So the original single-link version likely created a new Codespace on every
+click, silently undermining the "one Codespace for the whole class" premise this entire
+feature was justified on. Both links now carry `?quickstart=1`.
+
+**The one thing this session could not verify, and the user knowingly accepted the risk
+of shipping anyway.** Whether clicking the *second* link (different `devcontainer_path`),
+after already having a Codespace created from the *first* link, triggers the same
+"reopen existing Codespace" prompt -- or silently creates a second, separate Codespace
+that counts against the student's (small) concurrent-Codespace quota. Searched GitHub's
+docs and a couple of community discussions; found `quickstart=1`'s resume behavior
+documented only in the single-devcontainer case, found `devcontainer_path` mentioned as
+real and supported, but found no documentation of how the two interact. This session has
+no way to click through GitHub's actual UI to test it.
+
+**Before this goes out to the whole class, the maintainer needs to**: open the "notebook
+view" link, let it fully create a Codespace, then click the "VS Code" link for the same
+repo and see whether GitHub offers "resume" or starts building a second Codespace (check
+the Codespaces list at github.com/codespaces to confirm either way). If it creates a
+second one, the safe fallback is reverting to one link (either variant of the previous
+follow-up) -- noted here so that fallback doesn't need to be rediscovered.
+
+`projector/` regenerated; `make check` passes.

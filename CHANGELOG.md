@@ -16,6 +16,29 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-06 — Split the Codespaces link into two, experimentally
+
+### Changed
+- `.devcontainer/devcontainer.json` (default) no longer auto-launches Jupyter Lab -- it's
+  back to a plain VS Code Codespace (Python/Jupyter extensions, `ipykernel`/`matplotlib`/
+  `pyyaml`/`jupyterlab` preinstalled, no `postStartCommand`/port forwarding). That
+  behavior moved to a new `.devcontainer/jupyter/devcontainer.json`, selected via the
+  `devcontainer_path` URL parameter.
+- `chap01`'s Codespaces note now links both: "Open in a notebook view" (the `jupyter/`
+  config, auto-forwarded Jupyter Lab) and "Open in VS Code" (the default config). Both
+  URLs also gained `?quickstart=1`, which turned out to be required for the "reopen your
+  existing Codespace" behavior the note already promised -- without it, `codespaces.new`
+  skips that check and goes straight to a creation page. This was a real bug in the
+  original single-link version, caught while researching whether two `devcontainer_path`
+  links could safely coexist.
+
+**Not independently verified.** Could not confirm from GitHub's documentation whether a
+student who already has a Codespace from one of these links gets offered to resume it when
+they click the *other* link (different `devcontainer_path`), or whether that silently
+creates a second Codespace instead -- which would defeat the entire point of scoping both
+links to one shared URL. Needs a live test (open one link, then the other, watch what
+happens) before this goes out to the whole class. See `AUDIT.md`.
+
 ## 2026-08-06 — GitHub Codespaces option for chap01
 
 ### Added
