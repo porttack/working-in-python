@@ -1,8 +1,6 @@
 # Working in Python
 
-*adapted from Allen Downey's* **Think Python**, *Third Edition*
-
-The Python text for **[CONFIRM: course name]** at **[CONFIRM: school]**.
+*(adapted from Allen Downey's* **Think Python**, *Third Edition - see details at bottom)*
 
 ## Start here
 
@@ -40,5 +38,28 @@ the easy part of the year.
   — every AP CSP topic, and which chapters cover it
 - **[What's Next](todo.md)** — standards alignment and chapter work still in
   progress
-- **[CONFIRM: link to syllabus]**
-- **[CONFIRM: link to where assignments are turned in]**
+
+<!-- apcsp:begin type="note" chapter="01" -->
+---
+
+**Working in Python** — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: [github.com/porttack/working-in-python](https://github.com/porttack/working-in-python)
+
+---
+
+[Think Python: 3rd Edition](https://allendowney.github.io/ThinkPython/index.html)
+
+Copyright 2024 [Allen B. Downey](https://allendowney.com)
+
+Code license: [MIT License](https://mit-license.org/)
+
+Text license: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+---
+
+## Standards alignment
+
+**AP CSP:** [3.3 Mathematical Expressions](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.3), [3.4 Strings](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.4) (Big Idea 3, 30–35% of the exam). Also [1.2 Program Function and Purpose](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.2) and [1.4 Identifying and Correcting Errors](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4) (Big Idea 1, 10–13%), headers only.
+**California 9-12:** no standard names this content on its own. California treats basic arithmetic and expressions as prior knowledge by this grade band.
+
+This chapter's expressions and arithmetic operators are exactly what the exam calls mathematical expressions. Strings begin here too, but the exam's full string content isn't reached until chapter 8.
+
