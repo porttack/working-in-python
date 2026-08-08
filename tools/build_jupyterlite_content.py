@@ -46,6 +46,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CHAPTERS = {
+    "jupyter_intro.ipynb": ["thinkpython.py"],
     "chap01.ipynb": ["thinkpython.py"],
     "chap02.ipynb": ["thinkpython.py", "diagram.py"],
     "chap03.ipynb": ["thinkpython.py", "diagram.py"],

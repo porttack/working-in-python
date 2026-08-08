@@ -2440,3 +2440,48 @@ session republishing JupyterLite for *any* reason must bump `VERSION` first -- t
 change small enough to skip it for, and "I'll remember" is exactly what just failed.
 
 `projector/` unchanged; `make check` passes.
+
+## 2026-08-08 follow-up 6 — jupyter_intro.ipynb now vendored into JupyterLite; chap01 links to it there instead of only Colab
+
+User noticed chap01's intro link (`[click here for a short introduction]`) points at Colab,
+hosting Downey's *upstream* copy of `jupyter_intro.ipynb` on his own repo -- not ours, and not
+JupyterLite. Wanted a fallback that starts up in our WebAssembly deployment instead.
+
+`chapters/jupyter_intro.ipynb` already existed (forked, with the standard attribution-footer
+sentinel from an earlier pass) but was not wired into anything: not in `jb/_toc.yml` (by
+design -- it's not a numbered chapter), and not in `tools/build_jupyterlite_content.py`'s
+`CHAPTERS` map, so it never made it into `jupyterlite/content/`. Added it there
+(`"jupyter_intro.ipynb": ["thinkpython.py"]`, same single dependency as chap01 -- confirmed by
+reading its cells: one `download()`+`import thinkpython` cell, one `%%expect SyntaxError` cell,
+no `!` shell magic) and bumped `jupyterlite/VERSION` to `v3` per the standing rule.
+
+**Left the upstream Colab paragraph in cell 0 untouched** -- rewriting it in place would show up
+as a diff outside a sentinel block, which is exactly what the sentinel convention exists to
+prevent. Instead added a new `type="note" chapter="01"` sentinel cell right after it (matching
+the precedent already set by the Codespaces note that follows it), pointing at
+`https://python.porttack.com/jupyterlite-v3/lab/index.html?path=jupyter_intro.ipynb`. Used the
+`lab` app rather than `notebooks`: `lab` opens with the file-browser sidebar visible by default
+(listing every notebook and support file in the flat `content/` dir), `notebooks` (Notebook 7,
+single-document mode) does not, and having a nav to browse across chapters is worth more here
+than the sparser single-notebook look.
+
+First attempt at inserting the sentinel cell went through `NotebookEdit`, which HTML-escaped the
+`<!--`/`-->` markers into `&lt;--`/`--&gt;` in the written file -- caught by re-reading the cell
+immediately after and seeing the literal entities; fixed with a plain text substitution pass
+over the file afterward. Worth remembering if `NotebookEdit` is used again to write raw HTML
+comments into a markdown cell.
+
+Verified for real, not just by inspection: ran the actual `jupyter lite build`, served
+`jupyterlite/_output` locally, and drove it with Playwright (`.venv/bin/python`, already had
+`playwright` installed). Loaded `jupyter_intro.ipynb` under `/lab/`, ran all cells fresh in a
+real Pyodide kernel: `import thinkpython` succeeded against the vendored sibling file (no
+network download attempted), and the `%%expect SyntaxError` cell produced the expected error
+banner, not a crash. Also loaded `chap01.ipynb` under `/lab/` and confirmed the new note cell
+renders with a working link, sitting below the untouched Colab paragraph, and that
+`jupyter_intro.ipynb` now appears in the left file browser alongside the chapters.
+
+`make check` passes (`build_blanks --check`, `check_sync`, `build_jupyterlite_content --check`);
+`projector/chap01.ipynb` regenerated to match. Not yet done: no other chapter's `%%expect`-style
+intro cross-reference (e.g. chap01's second one, in the "NOTE:" cell before the `abs 42` example)
+was touched -- same upstream-Colab-link pattern, left alone for the same reason, not evaluated
+for whether it's worth a similar note.

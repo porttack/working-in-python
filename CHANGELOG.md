@@ -96,6 +96,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   can fix. See `ucbds-infra/otter-grader#458`. (The student-facing `check()` piece alone is
   small enough to reimplement instead — see `jupyterlite/check.py` above.)
 
+## 2026-08-08 — jupyter_intro.ipynb vendored into JupyterLite; chap01 links to it there
+
+### Added
+- `chapters/jupyter_intro.ipynb` added to `tools/build_jupyterlite_content.py`'s `CHAPTERS`
+  map (needs only `thinkpython.py`, same as chap01), so it now ships inside
+  `jupyterlite/content/` instead of only existing as a forked-but-unwired file.
+- chap01 gets a new `type="note"` sentinel cell, right after the upstream Colab paragraph,
+  offering `jupyter_intro.ipynb` in JupyterLite (`/lab/index.html?path=jupyter_intro.ipynb`)
+  as a fallback when Colab is unreachable. The upstream paragraph and its Colab links are
+  untouched — this is additive, following the same pattern as the existing Codespaces note.
+- JupyterLite deploy bumped to `jupyterlite-v3/`.
+
+### Changed
+- Nothing in `chapters/` outside the one new sentinel cell in chap01.
+
 ## 2026-08-06 — Split the Codespaces link into two, experimentally
 
 ### Changed
