@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2026-08-08T01:49:32.030805Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2026-08-08T01:49:32.030805Z",
+      "mimetype": null,
+      "name": "chap01.ipynb",
+      "path": "chap01.ipynb",
+      "size": 34688,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2026-08-08T01:49:32.031232Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2026-08-08T01:49:32.031232Z",
+      "mimetype": "text/x-python",
+      "name": "thinkpython.py",
+      "path": "thinkpython.py",
+      "size": 2722,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2026-08-08T01:49:34.586000Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2026-08-08T01:49:34.586620Z",
+  "mimetype": null,
+  "name": "",
+  "path": "",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}
