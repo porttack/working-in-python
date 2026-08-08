@@ -71,7 +71,7 @@ Downey copies from `../ThinkPythonSolutions/soln/`, because his site publishes
 worked solutions in collapsed cells. This fork copies `../chapters/` instead.
 Students should not be able to unfold the answer to tonight's homework.
 
-## Two coupling hazards
+## Three coupling hazards
 
 **CNAME.** `build.sh` force-pushes `gh-pages`, so a CNAME committed to that
 branch by hand is destroyed on the next build. It lives in `jb/extra/CNAME`
@@ -82,11 +82,24 @@ unaffected by the custom domain. They stay coupled to the repo name
 permanently. Renaming the repo requires regenerating every badge in the same
 commit, and Colab's fetcher does not reliably follow GitHub's redirect.
 
+**JupyterLite.** Same force-push problem as CNAME, different shape: `build.sh`
+now builds `../jupyterlite/content/` and `../jupyterlite/_output/` (see
+`tools/build_jupyterlite_content.py`, `AUDIT.md` 2026-08-07/08) and copies the
+result into `_build/html/jupyterlite/` *before* `ghp-import` runs, so it rides
+along in the same force-push instead of needing a separate one. If you ever
+build and publish by hand outside `build.sh`, this subdirectory silently
+vanishes on the next `ghp-import` unless you regenerate it the same way.
+`porttack/learn` also embeds this repo's `gh-pages` branch as a git submodule
+(serves at `learn.porttack.com/working-in-python/`); that submodule pins an
+exact commit, so it does **not** pick up a new `gh-pages` push automatically
+-- bump it deliberately with `git submodule update --remote working-in-python`
+in that repo when you want the live copy to move forward.
+
 ## First deploy, in order
 
 Each step fails independently, so verify each before starting the next.
 
-1. `pip install jupyter-book ghp-import`
+1. `pip install jupyter-book ghp-import jupyterlite-core jupyterlite-pyodide-kernel jupyter-server`
 2. Add the `.gitignore` entries above, commit.
 3. `cd jb && ./build.sh`
 4. Set Pages source to `gh-pages` / `/`. Confirm the default
@@ -98,6 +111,8 @@ Each step fails independently, so verify each before starting the next.
    impression of the course.
 6. Verify an internal cross-reference resolves. Chapter 10 links back to an
    earlier section; click it.
+7. Verify `https://python.porttack.com/jupyterlite/notebooks/index.html?path=chap01.ipynb`
+   loads and runs (Colab-outage fallback, chapters 1-11 only -- see AUDIT.md).
 
 ## Later, not now
 

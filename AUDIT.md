@@ -2076,3 +2076,130 @@ same as the four files already there; (3) no `chapters/*.ipynb` content changed 
 session, so there is nothing to reconcile against upstream.
 
 `projector/` unchanged; `make check` passes.
+
+## 2026-08-08 — JupyterLite: chapters 4-11 vendored, matplotlib bug found and fixed, wired into build.sh
+
+Follow-on to the 2026-08-07 spike above. Otter Grader was asked for and investigated first:
+**not feasible, and not a "build a custom Pyodide/WASM" problem.** `otter-grader` hard-depends
+on `python-on-whales` (needs a real Docker daemon) and `playwright` (drives a real Chromium
+process), neither of which has any meaning inside a WASM sandbox -- this is a known open
+upstream issue, [ucbds-infra/otter-grader#458](https://github.com/ucbds-infra/otter-grader/issues/458).
+Not pursued further; if lightweight autograded checks are wanted later, that's a from-scratch
+assert-based feature, not an `otter-grader` integration.
+
+**Extended `tools/build_jupyterlite_content.py`'s `CHAPTERS` map to all of chapters 1-11.**
+Re-derived the dependency inventory from scratch by grepping every `download('...')` call
+across all 11 chapters (the 2026-08-07 table undercounted -- it was built from a buggy grep
+that excluded whole cells containing the string `def download`, which happened to also
+contain the actual `download(...)` calls for chapters 7-11, silently dropping their
+`diagram.py` dependency from that table). The corrected, verified map:
+
+| Chapter | Deps |
+|---|---|
+| chap01 | thinkpython.py |
+| chap02, 03, 06 | + diagram.py |
+| chap04, 05 | + diagram.py, jupyturtle.py |
+| chap07, 09, 10 | + diagram.py, words.txt |
+| chap08 | + diagram.py, words.txt, pg345.txt, pg1184.txt |
+| chap11 | + diagram.py, structshape.py, words.txt, pg345.txt |
+
+Newly vendored at repo root this session: `jupyturtle.py` (BSD-3-Clause, from
+`ramalho/jupyturtle`'s `2024-03` release asset -- license checked before vendoring),
+`pg345.txt` (Dracula, public domain, Project Gutenberg), `pg1184.txt` (The Count of Monte
+Cristo, public domain, Project Gutenberg -- needed by chap08, not chap11; chap11 only reuses
+`pg345.txt`). `thinkpython.py`/`diagram.py`/`structshape.py`/`words.txt` were already vendored
+and already correct from 2026-08-07.
+
+**A second network-shaped failure mode, distinct from `download()`/urlretrieve: chap08 also
+uses raw `!wget` shell magic**, e.g. `if not os.path.exists('pg345.txt'): !wget https://...`.
+`!` magic has no shell/subprocess to run in under Pyodide at all -- worse than the SSL
+problem, there's no fallback path, but the same `exists()` guard means pre-bundling the file
+skips the line entirely, same fix, no notebook edit.
+
+**Real bug found by actually running the chapters, not just building them: `diagram.py`
+(used by chapters 2-11) imports `matplotlib`, which Pyodide does not auto-install.** Pyodide
+*does* have an auto-install-on-import convenience for packages named in a cell's own source
+text (confirmed: typing `import matplotlib.pyplot as plt` directly into a cell auto-installs
+and works fine) -- but that mechanism only scans the executing cell's own text; it does not
+see imports that happen *inside* a `.py` file loaded via `import`/`from X import`. Since every
+`from diagram import ...` cell is upstream chapter content we won't edit, and diagram.py
+itself is vendored byte-identical to upstream (also not to be forked just for this), the fix
+had to live in `tools/build_jupyterlite_content.py`: it now injects one extra bootstrap cell
+-- plain `import matplotlib.pyplot`, nothing else -- as the new first cell of any chapter
+whose deps include `diagram.py`, in the generated `jupyterlite/content/` copy only. Chapters,
+vendored files, and everything committed stay untouched; only build output changes.
+
+**Blind alley, recorded so it isn't retried:** `jupyterlite-pyodide-kernel`'s settings schema
+(`extensions/@jupyterlite/pyodide-kernel-extension/static/schema/kernel.v0.schema.json`)
+documents a `loadPyodideOptions.packages` field specifically for preloading packages at
+kernel startup, which would have been a cleaner fix (zero notebook cells added, pure
+JupyterLite build config via an `overrides.json` + `jupyter_lite_config.json` in a new
+`jupyterlite/` lite-dir). Wired it up correctly -- confirmed via `jupyter-lite.json` that the
+override landed in `settingsOverrides` exactly where the schema expects it -- and it still had
+no effect: watched the kernel's own startup console log (`Loading Pygments, asttokens, ...`)
+and matplotlib never appeared in it, confirmed by then hitting the same `ModuleNotFoundError`
+downstream. Whatever consumes this setting in `jupyterlite-pyodide-kernel` 0.8.2, if anything
+does, it isn't the code path that actually calls `loadPyodide()`. Reverted (removed
+`jupyterlite/overrides.json` and `jupyterlite/jupyter_lite_config.json`) in favor of the
+bootstrap-cell fix above, which was verified working. Don't re-attempt this without first
+checking whether a newer `jupyterlite-pyodide-kernel` release actually wires it up.
+
+**Verification method and its own bugs.** Used Playwright (a cached Chromium build already
+present on this machine, `playwright` npm package, no new browser download needed) driving
+the real built site to actually execute chapters end to end, not just confirm the build
+succeeds -- this is what caught the matplotlib bug above, which a build-success check alone
+would have missed entirely. Two tooling bugs cost real time and are worth naming in case the
+scripts get reused: (1) a "has this cell run" check that looked for *any* gap between two
+executed cells, which misses the far more common case of a run that simply halted partway
+with nothing after it ever running -- fix was to just find the first not-yet-executed cell,
+full stop; (2) JupyterLab 4's windowed/virtualized notebook rendering means an off-screen
+cell's `innerText()` reads back empty until it's scrolled into view *and* given time for
+CodeMirror to actually populate -- cost two rounds of "the culprit cell is blank?!" before
+adding `scrollIntoViewIfNeeded()` plus a real wait. Also confirmed, and not a bug: Jupyter's
+"Run All Cells" halts at the first cell whose output is styled as an error, which includes
+`%%expect`/`%%expect_error` cells even though the magic itself caught the exception -- true in
+any Jupyter frontend, not Pyodide-specific, and irrelevant to real students (who run cell by
+cell, per the book's design) -- the verification scripts detect this case and resume past it
+automatically rather than treating it as a failure.
+
+**Verification results:**
+- **chap04** -- fully verified, including fixing the matplotlib bug above. Turtle graphics
+  (`jupyturtle`) confirmed rendering correctly via screenshot. The one remaining halt past
+  that point is a normal unsolved `# Solution goes here` exercise (cell defines `rectangle`
+  as a student exercise; the next cell calls it) -- would fail identically in Colab.
+- **chap08** -- verified except for a **new, genuine, inherent limitation**: code cells 64,
+  65, 66, 67, and 74 use `!head`/`!tail` to preview files already written earlier in the same
+  notebook. Unlike the `!wget` cells, these have no `exists()` guard to hang a fix on --
+  there's nothing to pre-bundle, since they're not fetching anything, just inspecting a file
+  that already exists locally. This is a real, permanent gap for chap08 specifically: those 5
+  cells will always fail under JupyterLite. Not fixable without editing the chapter (out of
+  scope) or emulating a shell (out of scope). Everything else in chap08 -- matplotlib, both
+  `!wget`-guarded Gutenberg downloads via the newly-vendored files, all `%%expect` cells --
+  works.
+- **chap11** -- fully clean. Ran every real cell (106 total) with zero unexpected failures;
+  the four `%%expect` halts along the way resumed correctly; the run reached cell 96, which is
+  exactly where the chapter's own `# Solution goes here` exercises begin.
+
+**Made the build permanent, per explicit request ("make this build properly since our test
+worked").** `jb/build.sh` now runs `tools/build_jupyterlite_content.py` + `jupyter lite build`
+and copies the output into `_build/html/jupyterlite/` *before* `jb build .`'s output gets
+`ghp-import`'d, so the JupyterLite site rides along in the same force-push instead of being a
+separate manual step that silently disappears on the next real site rebuild (which is exactly
+what would have happened to the 2026-08-07 one-off `/jupyterlite/` test push otherwise).
+Verified with `cd jb && ./build.sh --local`: both `_build/html/chap01.html` (the Jupyter Book
+page) and `_build/html/jupyterlite/notebooks/index.html?path=chap01.ipynb` serve correctly
+from the same local build. Documented as a third "coupling hazard" in `PUBLISHING.md`,
+alongside CNAME and the Colab badges. **Not yet actually published** -- `--local` only, no
+force-push run this session; see CHANGELOG.md and the next handoff for whether that happened.
+
+**For a future maintainer.** (1) The `porttack/learn` submodule note from 2026-08-07 still
+applies: bumping `gh-pages` here does not move `learn.porttack.com`'s copy automatically. (2)
+If `!head`/`!tail`-style cells turn up in chapters 12+ during a later pass, this is the same
+class of bug as chap08's -- check for it explicitly, since it doesn't announce itself the way
+a `ModuleNotFoundError` does (grep for lines starting with `!` after stripping whitespace).
+(3) The matplotlib bootstrap-cell trick in `tools/build_jupyterlite_content.py` generalizes:
+if a future chapter needs another Pyodide-prebuilt package (e.g. `pandas`) via some vendored
+`.py` file rather than a direct notebook import, add an entry to `PRELOAD_ON_DEP` rather than
+re-solving this.
+
+`projector/` unchanged; `make check` passes.

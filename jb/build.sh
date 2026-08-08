@@ -2,7 +2,8 @@
 #
 # Build and publish the Working in Python website.
 #
-#   one-time:  pip install jupyter-book ghp-import
+#   one-time:  pip install jupyter-book ghp-import jupyterlite-core \
+#              jupyterlite-pyodide-kernel jupyter-server
 #   build only: cd jb && ./build.sh --local
 #   publish:    cd jb && ./build.sh
 #
@@ -39,6 +40,14 @@ python prep_notebooks.py
 
 jb build .
 
+# JupyterLite (chap01-11, Colab-outage fallback): built separately from
+# ../jupyterlite/content/ and copied in as a subdirectory so it survives the
+# ghp-import force-push below, which otherwise replaces the whole branch with
+# just _build/html. See AUDIT.md, 2026-08-07/08.
+(cd .. && python3 tools/build_jupyterlite_content.py && jupyter lite build --contents jupyterlite/content --output-dir jupyterlite/_output)
+rm -rf _build/html/jupyterlite
+cp -r ../jupyterlite/_output _build/html/jupyterlite
+
 if [[ "${1:-}" == "--local" ]]; then
   echo
   echo "Local build only. Output in jb/_build/html/index.html"
@@ -57,3 +66,4 @@ echo "Published. Verify before telling anyone:"
 echo "  1. https://python.porttack.com/ loads with CSS intact"
 echo "  2. a chapter's Open in Colab badge actually opens"
 echo "  3. an internal cross-reference resolves (chap10 -> earlier section)"
+echo "  4. https://python.porttack.com/jupyterlite/notebooks/index.html?path=chap01.ipynb runs"

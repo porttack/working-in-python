@@ -32,6 +32,34 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` — no chapter links to JupyterLite yet; hosting is undecided.
 
+## 2026-08-08 — JupyterLite extended to chapters 1-11 and wired into the real publish pipeline
+
+### Added
+- Vendored `jupyturtle.py` (BSD-3-Clause, `ramalho/jupyturtle`), `pg345.txt` (Dracula), and
+  `pg1184.txt` (The Count of Monte Cristo) at repo root, alongside the existing
+  `thinkpython.py`/`diagram.py`/`structshape.py`/`words.txt`, so all of chapters 1-11 have
+  every dependency their `download()`/`!wget` cells need already available locally.
+- `tools/build_jupyterlite_content.py` now covers chapters 1-11 (not just chap01) and injects
+  a small bootstrap cell (plain `import matplotlib.pyplot`) as the first cell of any chapter
+  that pulls in `diagram.py` — Pyodide doesn't auto-install packages imported from inside a
+  vendored `.py` file, only ones named directly in the executing cell's own source. Fixes a
+  real `ModuleNotFoundError` found by actually running chapter 4, not just building it.
+- `jb/build.sh` now builds JupyterLite and copies it into `_build/html/jupyterlite/` before
+  `ghp-import`, so it survives the branch's force-push instead of needing a separate,
+  easily-forgotten deploy step. Documented as a third coupling hazard in `PUBLISHING.md`.
+
+### Investigated, not pursued
+- Otter Grader: infeasible under Pyodide. Hard-depends on Docker (`python-on-whales`) and a
+  real Chromium process (`playwright`) for its full CLI grading path — an architectural
+  mismatch with a WASM sandbox, not something a custom Pyodide build can fix. See
+  `ucbds-infra/otter-grader#458`.
+
+### Known limitation
+- chap08's five `!head`/`!tail` preview cells (lines previewing already-written files, not
+  fetching anything) have no shell to run in under Pyodide and no `exists()` guard to hang a
+  workaround on. These will always fail in the JupyterLite version of chap08; everything else
+  in that chapter, including its Gutenberg downloads, works.
+
 ## 2026-08-06 — Split the Codespaces link into two, experimentally
 
 ### Changed
