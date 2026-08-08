@@ -10,8 +10,24 @@
     "federated_extensions": [
       {
         "extension": "./extension",
+        "load": "static/remoteEntry.9077b3d2deaffb329dfc.js",
+        "name": "@jupyter-widgets/jupyterlab-manager"
+      },
+      {
+        "extension": "./extension",
         "load": "static/remoteEntry.1535fa47514890d8.js",
         "name": "@jupyterlite/pyodide-kernel-extension"
+      },
+      {
+        "extension": "./extension",
+        "load": "static/remoteEntry.a623ad007fc3f6deb8ab.js",
+        "name": "ipylab",
+        "style": "./style"
+      },
+      {
+        "extension": "./extension",
+        "load": "static/remoteEntry.e928860fd982eedb.js",
+        "name": "jupyterlab-jupytext"
       },
       {
         "extension": "./extension",
