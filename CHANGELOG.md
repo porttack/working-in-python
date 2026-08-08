@@ -84,6 +84,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   Full otter-grader's `assign`/`generate`/`run`/`grade`/PDF export/logging/plugins/Gradescope
   integration are explicitly out of scope and stay on a machine with a real Python. Not yet
   used by any chapter — infrastructure ahead of content, same as `ascii_art.py`.
+- JupyterLite deploy bumped to `jupyterlite-v2/`. `v1` was republished in place with
+  `ascii_art.py`/`check.py` added, which is exactly the mistake the versioning rule above
+  exists to prevent — a student hit a stale-cache `ModuleNotFoundError` for `ascii_art` as a
+  direct result. `jupyterlite-v1/` is no longer served; use `jupyterlite-v2/`.
 
 ### Investigated, not pursued
 - Full Otter Grader package: infeasible under Pyodide. Hard-depends on Docker

@@ -2418,3 +2418,25 @@ authoring workflow the user described (author one master notebook, run `otter as
 to use whenever an exercise gets written that way -- nothing about it is chapter-specific.
 
 `projector/` unchanged; `make check` passes.
+
+## 2026-08-08 follow-up 5 — republished ascii_art.py/check.py to the SAME jupyterlite-v1/, exactly the mistake the versioning rule exists to prevent
+
+User tried `import ascii_art` on the live site right after the previous follow-up's publish and
+got `ModuleNotFoundError` even though the file was directly fetchable by URL (curl confirmed
+200). Cause: this session's own publish for that follow-up reused `jupyterlite-v1/` instead of
+bumping `jupyterlite/VERSION` to `v2` -- exactly the scenario the versioning scheme in
+`CLAUDE.md`/`PUBLISHING.md` (2026-08-08 follow-up 2, above) was built to make structurally
+impossible, defeated by simply not following it. The direct URL fetch worked because it bypasses
+whatever manifest-driven contents sync Pyodide uses to populate its virtual filesystem; that
+manifest is exactly the kind of thing GitHub Pages' `Cache-Control: max-age=600` (or a stale
+service-worker/browser cache) can keep serving as pre-`ascii_art.py` even after the underlying
+files change, since the *URL* didn't change.
+
+Fix: bumped `jupyterlite/VERSION` to `v2`, republished. No code change needed -- the rule was
+already correct; this was purely a process lapse. Flagging plainly rather than glossing over it,
+since the entire point of that rule was to make this exact mistake unable to reach a student, and
+this session made it anyway by skipping the one manual step the rule depends on. Any future
+session republishing JupyterLite for *any* reason must bump `VERSION` first -- there is no
+change small enough to skip it for, and "I'll remember" is exactly what just failed.
+
+`projector/` unchanged; `make check` passes.
