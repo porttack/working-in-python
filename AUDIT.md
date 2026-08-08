@@ -2245,3 +2245,54 @@ homework yet" pattern already seen in chap04, and equally true in Colab. That's 
 expected stopping point; chap08 has no remaining JupyterLite-specific failures.
 
 `projector/` unchanged; `make check` passes (now including the new `--check`).
+
+## 2026-08-08 follow-up 2 — JupyterLite deploys are now versioned (jupyterlite-vN/)
+
+User asked to "version our changes as discussed before so kids don't get caching problems" --
+no record of that prior discussion was found in this repo or in this session's own memory, so
+treated as a fresh ask rather than guessed at. Investigated the actual caching surface before
+proposing anything:
+
+- **GitHub Pages** sets `Cache-Control: max-age=600` with a proper `ETag` on these files --
+  short, self-correcting, not really a "problem," but a school network's caching proxy is
+  under no obligation to honor revalidation as faithfully as a browser.
+- **JupyterLite's own service worker** can cache aggressively, but reading the built
+  `service-worker.js` (minified, but the logic is plain) shows caching only activates if the
+  page URL includes `?enableCache=true` -- `let enableCache=!1`, flipped only by that query
+  param. None of our links set it, so today's deploy already does a plain network fetch every
+  time. Confirmed, not assumed.
+
+So there wasn't an active bug, but the underlying worry -- a republished fix getting masked by
+some caching layer between here and a student's Chromebook -- is legitimate for a live
+classroom tool, and cheap to make structurally impossible rather than merely unlikely today.
+Asked the user what "versioned" meant given no record of the specifics; answer: a `-vN`
+suffix on the deploy path (plus keep `enableCache` off, and write the rule down somewhere
+enforced).
+
+**What changed:**
+- `jupyterlite/VERSION` -- a single line, currently `v1`. Committed, hand-bumped.
+- `jb/build.sh` reads it and deploys to `_build/html/jupyterlite-${JLVER}/` instead of a bare
+  `jupyterlite/`. Also now explicitly sweeps `_build/html/jupyterlite*` before copying the
+  current version in -- caught by testing, not foresight: an orphaned unversioned
+  `jupyterlite/` directory from an earlier local `--local` run (before this change existed)
+  was still sitting in `jb/_build/html/` and would have ridden along into the next real
+  publish alongside the new versioned one if not swept first. Sphinx's own build only manages
+  files it knows about, so anything dropped into `_build/html/` by our own copy step persists
+  across runs unless removed explicitly.
+- `CLAUDE.md` gets a new short, enforced section (`## JupyterLite versioning`): bump
+  `VERSION` before any content-changing republish, never reuse a version number, never add
+  `?enableCache=true`. `PUBLISHING.md`'s JupyterLite coupling-hazard entry carries the full
+  reasoning above so the rule doesn't read as arbitrary.
+
+**The actual tradeoff, stated plainly so it isn't rediscovered as a surprise:** `ghp-import`
+replaces the whole `gh-pages` branch every publish, so only the *current* version directory
+exists after a bump -- there is no running archive of `jupyterlite-v1/`, `v2/`, etc. sitting
+around. A tab a student left open on an old version 404s on the next reload rather than
+silently serving stale content. For a fallback tool that only matters when Colab is already
+down, "obviously broken, go re-click the link" beats "silently wrong," so this was treated as
+the right failure mode rather than a gap to close.
+
+**Not yet done:** this repo's own build wasn't republished with this change in this session
+-- see CHANGELOG.md for whether that happened separately.
+
+`projector/` unchanged; `make check` passes.

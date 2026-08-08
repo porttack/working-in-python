@@ -44,7 +44,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   that pulls in `diagram.py` — Pyodide doesn't auto-install packages imported from inside a
   vendored `.py` file, only ones named directly in the executing cell's own source. Fixes a
   real `ModuleNotFoundError` found by actually running chapter 4, not just building it.
-- `jb/build.sh` now builds JupyterLite and copies it into `_build/html/jupyterlite/` before
+- `jb/build.sh` now builds JupyterLite and copies it into `_build/html/jupyterlite-vN/` before
   `ghp-import`, so it survives the branch's force-push instead of needing a separate,
   easily-forgotten deploy step. Documented as a third coupling hazard in `PUBLISHING.md`.
 - chap08's five `!head`/`!tail` preview cells (no shell under Pyodide, and nothing to
@@ -58,6 +58,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `CELL_PATCHES` or the known guarded-download pattern, so a future chapter addition or an
   upstream merge that introduces a new shell-magic cell fails loudly instead of silently
   breaking JupyterLite.
+- JupyterLite deploys are now versioned: `jb/build.sh` reads `jupyterlite/VERSION` and
+  publishes to `jupyterlite-vN/` instead of a bare `jupyterlite/`, so a republished fix can
+  never be masked by a stale cached copy in a student's browser or a school network's
+  caching proxy — a new version is a URL nobody has fetched before. `CLAUDE.md` and
+  `PUBLISHING.md` both document the rule: bump `VERSION` before any content-changing
+  republish, never reuse a version number, never add `?enableCache=true` to a link (confirmed
+  by reading the built service worker that this is what actually enables its caching).
 
 ### Investigated, not pursued
 - Otter Grader: infeasible under Pyodide. Hard-depends on Docker (`python-on-whales`) and a

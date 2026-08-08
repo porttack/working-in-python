@@ -85,15 +85,35 @@ commit, and Colab's fetcher does not reliably follow GitHub's redirect.
 **JupyterLite.** Same force-push problem as CNAME, different shape: `build.sh`
 now builds `../jupyterlite/content/` and `../jupyterlite/_output/` (see
 `tools/build_jupyterlite_content.py`, `AUDIT.md` 2026-08-07/08) and copies the
-result into `_build/html/jupyterlite/` *before* `ghp-import` runs, so it rides
-along in the same force-push instead of needing a separate one. If you ever
-build and publish by hand outside `build.sh`, this subdirectory silently
+result into `_build/html/jupyterlite-vN/` *before* `ghp-import` runs, so it
+rides along in the same force-push instead of needing a separate one. If you
+ever build and publish by hand outside `build.sh`, this subdirectory silently
 vanishes on the next `ghp-import` unless you regenerate it the same way.
 `porttack/learn` also embeds this repo's `gh-pages` branch as a git submodule
 (serves at `learn.porttack.com/working-in-python/`); that submodule pins an
 exact commit, so it does **not** pick up a new `gh-pages` push automatically
 -- bump it deliberately with `git submodule update --remote working-in-python`
 in that repo when you want the live copy to move forward.
+
+**JupyterLite caching, and why the path is versioned.** GitHub Pages sets
+`Cache-Control: max-age=600` on these files -- short, but not zero, and a
+school network's own caching proxy is under no obligation to respect it as
+faithfully as a browser would. JupyterLite also ships a service worker that
+*can* cache aggressively, though it's off by default (confirmed by reading
+the built `service-worker.js`: it only caches if the page URL includes
+`?enableCache=true` -- never add that param to a student-facing link). Rather
+than rely on every caching layer between here and a Chromebook getting cache
+invalidation right, `jb/build.sh` deploys to `jupyterlite-vN/`, reading `N`
+from `jupyterlite/VERSION`. **Bump `jupyterlite/VERSION` before republishing
+any change to `jupyterlite/content/` or `tools/build_jupyterlite_content.py`,
+and never reuse a version number for different content** -- a version bump
+means the next publish lands at a URL nobody's browser or proxy has ever
+fetched before, so there is nothing to be stale. The tradeoff: since
+`ghp-import` replaces the whole branch each publish, only the *current*
+version number's directory exists on `gh-pages` after a bump -- a tab left
+open on an old `jupyterlite-vN/` URL 404s on reload rather than silently
+running stale content, which for a live classroom fallback is the failure
+mode you want.
 
 ## First deploy, in order
 
@@ -111,8 +131,9 @@ Each step fails independently, so verify each before starting the next.
    impression of the course.
 6. Verify an internal cross-reference resolves. Chapter 10 links back to an
    earlier section; click it.
-7. Verify `https://python.porttack.com/jupyterlite/notebooks/index.html?path=chap01.ipynb`
-   loads and runs (Colab-outage fallback, chapters 1-11 only -- see AUDIT.md).
+7. Verify `https://python.porttack.com/jupyterlite-vN/notebooks/index.html?path=chap01.ipynb`
+   (current `N` is in `jupyterlite/VERSION`) loads and runs -- Colab-outage fallback,
+   chapters 1-11 only, see `AUDIT.md`.
 
 ## Later, not now
 

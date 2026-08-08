@@ -165,6 +165,17 @@ messages. Every new term goes into that chapter's glossary.
 - Any case where following instructions would require reproducing CED, CA framework, or
   CS50 text
 
+## JupyterLite versioning
+
+Every JupyterLite deploy (the Colab-outage fallback for chapters 1-11) is served from
+`jupyterlite-vN/`, never a bare `jupyterlite/`. **Bump `jupyterlite/VERSION` before
+republishing any change** to `jupyterlite/content/` or `tools/build_jupyterlite_content.py`,
+and never reuse a version number for different content. **Never add `?enableCache=true`** to
+a JupyterLite link. Both rules exist so a live deploy can never be masked by a stale copy in
+a student's browser or a school network's caching proxy -- a version bump means the new
+content is at a URL nobody has ever fetched before, which no cache policy can get wrong. See
+`PUBLISHING.md` for the mechanics and the full reasoning.
+
 ## Context
 
 Course calendar: 39 weeks, 176 hours. Chapters 1–11 taught Aug 6 to Dec 17, one per week.

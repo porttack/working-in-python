@@ -44,9 +44,22 @@ jb build .
 # ../jupyterlite/content/ and copied in as a subdirectory so it survives the
 # ghp-import force-push below, which otherwise replaces the whole branch with
 # just _build/html. See AUDIT.md, 2026-08-07/08.
+#
+# Deployed under a versioned path (jupyterlite-vN/, not jupyterlite/) so a
+# republish can never be masked by a stale cached copy in a student's browser
+# or a school network's caching proxy -- a new version is a URL nobody has
+# ever fetched before, which no cache-control header or proxy policy can get
+# wrong. Bump ../jupyterlite/VERSION whenever content/ or
+# tools/build_jupyterlite_content.py changes meaningfully; never reuse a
+# version number for different content. See CLAUDE.md and PUBLISHING.md.
+JLVER=$(cat ../jupyterlite/VERSION)
 (cd .. && python3 tools/build_jupyterlite_content.py && jupyter lite build --contents jupyterlite/content --output-dir jupyterlite/_output)
-rm -rf _build/html/jupyterlite
-cp -r ../jupyterlite/_output _build/html/jupyterlite
+# Sphinx's own build only manages files it knows about, so a jupyterlite* dir
+# from an older run (before versioning existed, or an old version number)
+# lingers in _build/html across runs unless swept here. Without this, a
+# stale one could ride along into the next ghp-import publish.
+rm -rf _build/html/jupyterlite _build/html/jupyterlite-*
+cp -r ../jupyterlite/_output "_build/html/jupyterlite-${JLVER}"
 
 if [[ "${1:-}" == "--local" ]]; then
   echo
@@ -66,4 +79,4 @@ echo "Published. Verify before telling anyone:"
 echo "  1. https://python.porttack.com/ loads with CSS intact"
 echo "  2. a chapter's Open in Colab badge actually opens"
 echo "  3. an internal cross-reference resolves (chap10 -> earlier section)"
-echo "  4. https://python.porttack.com/jupyterlite/notebooks/index.html?path=chap01.ipynb runs"
+echo "  4. https://python.porttack.com/jupyterlite-${JLVER}/notebooks/index.html?path=chap01.ipynb runs"
