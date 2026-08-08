@@ -2203,3 +2203,45 @@ if a future chapter needs another Pyodide-prebuilt package (e.g. `pandas`) via s
 re-solving this.
 
 `projector/` unchanged; `make check` passes.
+
+## 2026-08-08 follow-up — chap08's `!head`/`!tail` cells patched in the JupyterLite copy; added a check so this doesn't get rediscovered by accident
+
+Asked directly: should the five broken `!head`/`!tail` cells in chap08 just be edited? Decided
+no, for the same reason chapters aren't touched anywhere else in this project -- they work
+fine in Colab/Codespaces (real shell), Pass 2 already marked chapter 8 "done", and CLAUDE.md's
+diff-cleanliness rule exists specifically so Downey's future corrections stay pullable.
+Instead, extended the same mechanism already used for the matplotlib bootstrap cell: patch
+the cells only in the generated `jupyterlite/content/` copy.
+
+**What was added to `tools/build_jupyterlite_content.py`:**
+- `CELL_PATCHES`: `{notebook: {exact_source_tuple: replacement_source_tuple}}`. Applied by
+  exact full-cell-source match (not line-by-line rewriting) -- deliberately narrow, since these
+  are one-off substitutions for known cells, not a general `!head`/`!tail`-to-Python
+  transpiler. The five chap08 cells (`!head pg345_cleaned.txt`, `!tail pg345_cleaned.txt`,
+  `!head ... > pg345_cleaned_10_lines.txt`, `!head -100 ... > pg345_cleaned_100_lines.txt`,
+  `!tail pg345_cleaned_100_lines.txt`) became one-line `open(...).readlines()[:N]` /
+  `[-N:]` equivalents matching plain `head`/`tail` default behavior (10 lines).
+- `--check`: scans every notebook already in `CHAPTERS` for code cells containing a line that
+  starts with `!` and is **not** already accounted for, by either (a) an exact `CELL_PATCHES`
+  match, or (b) the known guarded-download shape (`wget` alongside `exists(` in the same
+  cell, e.g. chap08's own `pg345.txt`/`pg1184.txt` downloads). Anything else fails loudly,
+  naming the notebook and cell index, telling whoever hits it to add a `CELL_PATCHES` entry.
+  Wired into `make check`. This was the actual point of asking "should we mark this somehow"
+  -- not a comment inside `chapters/` (would mean inventing an unapproved sentinel type for a
+  pure build-tooling concern, and CLAUDE.md's sentinel types are all content types: standards,
+  glossary, exercise, note, pseudocode), but an automated gate that fires the next time a new
+  chapter gets added to `CHAPTERS`, or an upstream merge changes a chapter already in it.
+  Verified the check actually catches a regression (temporarily removed one `CELL_PATCHES`
+  entry in a scratch REPL, confirmed `--check` reported exactly that cell) before trusting it.
+
+**Verified via the same Playwright harness as before**: re-ran chap08 end to end. All three
+`%%expect` cells resumed correctly as before; all four *reachable* patched cells (the fifth,
+`!tail pg345_cleaned_100_lines.txt`, previews a file that only exists once the student's own
+`head()` exercise is solved, so it isn't reached either way) executed with zero errors --
+confirming the Python replacements are correct, not just textually plausible. The run now
+halts only at `head('pg345_cleaned.txt', 10)` with a `NameError`, which is `head` being an
+unsolved `# Solution goes here` exercise a few cells earlier -- the same "hasn't done the
+homework yet" pattern already seen in chap04, and equally true in Colab. That's the correct,
+expected stopping point; chap08 has no remaining JupyterLite-specific failures.
+
+`projector/` unchanged; `make check` passes (now including the new `--check`).

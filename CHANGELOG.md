@@ -47,18 +47,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `jb/build.sh` now builds JupyterLite and copies it into `_build/html/jupyterlite/` before
   `ghp-import`, so it survives the branch's force-push instead of needing a separate,
   easily-forgotten deploy step. Documented as a third coupling hazard in `PUBLISHING.md`.
+- chap08's five `!head`/`!tail` preview cells (no shell under Pyodide, and nothing to
+  pre-bundle since they don't fetch anything) are now rewritten to plain-Python equivalents
+  via `CELL_PATCHES` in `tools/build_jupyterlite_content.py` — only in the generated
+  `jupyterlite/content/` copy, `chapters/chap08.ipynb` is untouched. Verified all four
+  reachable patched cells execute correctly; the fifth is gated behind a still-unsolved
+  in-chapter exercise, same as in Colab.
+- `tools/build_jupyterlite_content.py --check` (wired into `make check`): scans every
+  chapter already in the JupyterLite build for `!`-prefixed lines not already covered by
+  `CELL_PATCHES` or the known guarded-download pattern, so a future chapter addition or an
+  upstream merge that introduces a new shell-magic cell fails loudly instead of silently
+  breaking JupyterLite.
 
 ### Investigated, not pursued
 - Otter Grader: infeasible under Pyodide. Hard-depends on Docker (`python-on-whales`) and a
   real Chromium process (`playwright`) for its full CLI grading path — an architectural
   mismatch with a WASM sandbox, not something a custom Pyodide build can fix. See
   `ucbds-infra/otter-grader#458`.
-
-### Known limitation
-- chap08's five `!head`/`!tail` preview cells (lines previewing already-written files, not
-  fetching anything) have no shell to run in under Pyodide and no `exists()` guard to hang a
-  workaround on. These will always fail in the JupyterLite version of chap08; everything else
-  in that chapter, including its Gutenberg downloads, works.
 
 ## 2026-08-06 — Split the Codespaces link into two, experimentally
 
