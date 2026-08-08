@@ -61,6 +61,11 @@ CHAPTERS = {
 PRELOAD_ON_DEP = {
     "diagram.py": ["matplotlib.pyplot"],
 }
+# Files that live in jupyterlite/ itself (not repo root, not chapter deps) and
+# get copied once into the flat content/ directory, where every chapter's
+# notebook can see and import them as a sibling file -- no per-chapter wiring
+# needed. See AUDIT.md, 2026-08-08.
+SHARED_FILES = ["ascii_art.py"]
 CELL_PATCHES = {
     "chap08.ipynb": {
         ("!head pg345_cleaned.txt",): (
@@ -164,6 +169,13 @@ def build():
     if CONTENT_DIR.exists():
         shutil.rmtree(CONTENT_DIR)
     CONTENT_DIR.mkdir(parents=True)
+
+    for shared in SHARED_FILES:
+        shared_src = ROOT / "jupyterlite" / shared
+        if not shared_src.exists():
+            print(f"error: {shared_src} not found", file=sys.stderr)
+            return 1
+        shutil.copy(shared_src, CONTENT_DIR / shared)
 
     for notebook, deps in CHAPTERS.items():
         src = ROOT / "chapters" / notebook

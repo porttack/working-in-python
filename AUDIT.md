@@ -2292,7 +2292,42 @@ silently serving stale content. For a fallback tool that only matters when Colab
 down, "obviously broken, go re-click the link" beats "silently wrong," so this was treated as
 the right failure mode rather than a gap to close.
 
-**Not yet done:** this repo's own build wasn't republished with this change in this session
--- see CHANGELOG.md for whether that happened separately.
+Published later in this same session: `v3` pushed, `jb/build.sh` run for real, `gh-pages`
+now serves `jupyterlite-v1/`, `porttack/learn`'s submodule bumped to match. Verified all
+three live URLs (`python.porttack.com`, `learn.porttack.com`, and that the old unversioned
+`/jupyterlite/` path correctly 404s).
+
+`projector/` unchanged; `make check` passes.
+
+## 2026-08-08 follow-up 3 — ascii_art.py: pyfiglet/art/cowsay/ascii_magic, available on demand
+
+User asked for these four packages to be usable by students in JupyterLite. None are in
+Pyodide's own curated package set (unlike `matplotlib`), so the bare-import auto-install hook
+that made the `diagram.py` fix work does not apply here -- confirmed empirically: a plain
+`import pyfiglet` in a cell throws `ModuleNotFoundError`. What does work, also confirmed
+empirically, is the explicit async API: `import piplite; await piplite.install('pyfiglet')`,
+then the normal import. Tested all four this way in a real running build before doing
+anything else, per the same "confirm, don't assume" approach as the matplotlib fix --
+`ascii_magic` in particular pulls in Pillow, which *is* one of Pyodide's own prebuilt
+packages, and micropip correctly resolved that dependency from Pyodide's own package index
+rather than trying (and failing) to build it from source.
+
+Asked where these should be wired in: preloaded per-chapter (like matplotlib) or available
+generally. Answer: generally, install-on-demand, not preloaded -- preloading four packages
+nothing currently uses would add real network/startup cost to every chapter for no benefit.
+
+**What was added:** `jupyterlite/ascii_art.py` -- a new, tiny, hand-written module living in
+`jupyterlite/` itself (not repo root: unlike `thinkpython.py`/`diagram.py`/etc., it has no
+upstream equivalent, so it doesn't belong alongside the files that mirror Downey's repo).
+Exposes one function, `use(*names)`, that calls `piplite.install()` for whichever of the four
+packages a student asks for (or all four with no arguments). `tools/build_jupyterlite_content.py`
+gained a `SHARED_FILES` list, copied once into the flat `content/` directory rather than
+per-chapter -- since every chapter's notebook already lands in that same flat directory
+(confirmed by inspecting `jupyterlite/content/`: all 11 notebooks and every dependency file
+sit as siblings, not in per-chapter subfolders), one copy is visible to `import ascii_art`
+from any chapter with zero per-chapter wiring. Verified end to end from `chap02` specifically
+(a chapter that declares no dependency on this file at all) to prove the shared mechanism,
+not just chap01: `import ascii_art; await ascii_art.use('pyfiglet'); import pyfiglet;
+print(pyfiglet.figlet_format('Hi'))` rendered correctly.
 
 `projector/` unchanged; `make check` passes.

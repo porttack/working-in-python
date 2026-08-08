@@ -65,6 +65,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `PUBLISHING.md` both document the rule: bump `VERSION` before any content-changing
   republish, never reuse a version number, never add `?enableCache=true` to a link (confirmed
   by reading the built service worker that this is what actually enables its caching).
+- `jupyterlite/ascii_art.py`: lets a student opt into `pyfiglet`, `art`, `cowsay`, or
+  `ascii_magic` with `import ascii_art; await ascii_art.use('pyfiglet')`. None of these are
+  in Pyodide's own curated packages, so (unlike `matplotlib`) they need an explicit
+  `piplite.install()`, not a bare import — confirmed by testing each one directly before
+  writing anything. Lives in `jupyterlite/`, not repo root, since it has no upstream
+  equivalent to mirror. Copied once into the shared `content/` directory rather than
+  per-chapter, so it's importable from any chapter with zero wiring; verified from `chap02`
+  specifically to confirm that.
 
 ### Investigated, not pursued
 - Otter Grader: infeasible under Pyodide. Hard-depends on Docker (`python-on-whales`) and a
