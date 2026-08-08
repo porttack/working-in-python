@@ -1995,3 +1995,84 @@ second one, the safe fallback is reverting to one link (either variant of the pr
 follow-up) -- noted here so that fallback doesn't need to be rediscovered.
 
 `projector/` regenerated; `make check` passes.
+
+## 2026-08-07 — JupyterLite feasibility spike for chap01
+
+Motivating question: if Google Colab is unreachable on a school network, is JupyterLite
+(runs entirely in-browser via Pyodide/WASM, no account or server) a viable third option
+alongside the existing Colab badge and Codespaces links? This entry is a feasibility
+spike, not a shipped feature -- nothing in `chapters/` changed.
+
+**Key finding: Downey's `download()` boilerplate cell does not work under Pyodide, but
+the fix needs no notebook edit.** Every chapter's first code cell defines `download(url)`,
+which calls `urllib.request.urlretrieve()` to fetch a helper module or data file, but only
+`if not exists(filename)`. Pyodide has no `ssl` module, so `urlretrieve()` cannot open an
+HTTPS URL at all -- confirmed against [jupyterlite/pyodide-kernel#78](https://github.com/jupyterlite/pyodide-kernel/issues/78)
+and the urllib3 Pyodide/Emscripten docs. The `exists()` guard is the way out: if the
+dependency is already sitting next to the notebook when the kernel starts (bundled into
+JupyterLite's `--contents` directory at build time), `download()` finds it and never
+touches the network. No patch to any chapter notebook is required.
+
+**Inventory of what chapters 1–11 actually need**, from grepping every `download('...')`
+call:
+
+| File | Used by | Already vendored at repo root, byte-identical to upstream? |
+|---|---|---|
+| `thinkpython.py` | ch 1–11 | yes |
+| `diagram.py` | ch 2, 3, 5, 6 | yes |
+| `structshape.py` | ch 11 | yes |
+| `words.txt` | ch 7–10, 11 | yes (tracked, not just present) |
+| `jupyturtle.py` (from `ramalho/jupyturtle` GitHub releases) | ch 4, 5 | no |
+| `pg345.txt`, Dracula (from `gutenberg.org`) | ch 11 only | no |
+
+So chapters 1, 2, 3, 6 need nothing new; 7–10 need nothing new; only 4, 5 (`jupyturtle.py`)
+and 11 (`pg345.txt`) still need a file vendored the same way before they'd work.
+
+**What was built, scoped to chap01 only** (the rest deliberately deferred, see below):
+- `tools/build_jupyterlite_content.py` -- generates `jupyterlite/content/` from a small
+  `CHAPTERS = {notebook: [deps]}` map, copying each notebook from `chapters/` and its
+  listed dependencies from the repo root. Currently lists only `chap01.ipynb:
+  [thinkpython.py]`. Follows the same "generated, never hand-edited" rule as `projector/`;
+  regenerate with `make jupyterlite` (which also runs `jupyter lite build`) or the script
+  alone.
+- `jupyterlite/content/` and `jupyterlite/_output/` (the built static site) are both
+  gitignored -- `_output/` bundles the Pyodide runtime and is far too large to commit, and
+  `content/` is pure output of the script above. Neither should ever be added by hand.
+  `.jupyterlite.doit.db` (doit's build-state cache, left at repo root because `jupyter lite
+  build` treats the invoking cwd as the lite-dir root) is gitignored too.
+- `make jupyterlite` builds; `make jupyterlite-serve` serves `jupyterlite/_output` on
+  `localhost:8123` for local preview. Requires `jupyterlite-core`, `jupyterlite-pyodide-
+  kernel`, and `jupyter-server` in the active environment -- not yet added to any
+  requirements file, since this repo has no single dependency manifest (`jb/` and the
+  devcontainers each `pip install` their own list ad hoc); flagging here rather than
+  inventing one unasked.
+- Verified end to end: built the site, served it locally, opened chap01 in both the
+  `notebooks` (Colab-like) and `lab` views, ran every cell. The `thinkpython` import
+  succeeded with zero network calls, matplotlib-free cells behaved normally. One cosmetic
+  surprise the user flagged and accepted as non-blocking: the per-cell hover run button
+  (JupyterLab's own [PR #16602](https://github.com/jupyterlab/jupyterlab/pull/16602)
+  feature) didn't show up reliably in this build; Shift-Enter and the top toolbar's Run
+  button both work regardless, so it wasn't investigated further.
+
+**Deliberately not done in this session, and why:**
+- **No sentinel note block added to `chap01.ipynb` yet.** The Codespaces block links to a
+  live `codespaces.new` URL; a JupyterLite equivalent needs a real hosted URL, and hosting
+  hasn't been decided. `PUBLISHING.md` already has exactly one GitHub Pages site for this
+  repo (`gh-pages` branch, root folder, served at `python.porttack.com`, built by
+  `jb/build.sh`) -- whether JupyterLite should publish into a subpath of that same
+  deployment, or somewhere else entirely, is a hosting decision, not a coding one. Per
+  CLAUDE.md's "raise rather than decide," that call belongs to the maintainer before any
+  public-facing link goes into a chapter.
+- **Chapters 4, 5, and 11 left untouched.** Same treatment (vendor `jupyturtle.py` and
+  `pg345.txt` the same way, add them to `tools/build_jupyterlite_content.py`'s `CHAPTERS`
+  map) would very likely work, but the user asked to see chap01 alone first before
+  deciding whether to invest further, so the other three were not attempted.
+
+**For a future maintainer.** If you're picking this up: (1) decide hosting before adding
+any chapter-facing link; (2) extending to another chapter is just adding one line to the
+`CHAPTERS` map in `tools/build_jupyterlite_content.py`, *except* chapters 4, 5, and 11,
+which need `jupyturtle.py` / `pg345.txt` fetched once and committed at repo root first,
+same as the four files already there; (3) no `chapters/*.ipynb` content changed in this
+session, so there is nothing to reconcile against upstream.
+
+`projector/` unchanged; `make check` passes.

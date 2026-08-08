@@ -16,6 +16,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-07 — JupyterLite build scaffold, chap01 only (spike, not yet linked from a chapter)
+
+### Added
+- `tools/build_jupyterlite_content.py` and `make jupyterlite`/`make jupyterlite-serve`
+  targets: assemble a JupyterLite site whose only content is `chap01.ipynb` plus its
+  vendored `thinkpython.py`, as a fallback for when Google Colab is unreachable. `jupyter
+  lite build`'s Pyodide kernel can't run `urllib.request.urlretrieve()` over HTTPS, but
+  Downey's `download()` cell only fetches a file if it's missing, so bundling the
+  dependency alongside the notebook avoids the problem without touching any chapter.
+  `jupyterlite/content/` and `jupyterlite/_output/` are generated and gitignored, same
+  policy as `projector/`. See `AUDIT.md`, 2026-08-07, for the full inventory of what
+  chapters 4, 5, and 11 would still need before they could get the same treatment.
+
+### Changed
+- Nothing in `chapters/` — no chapter links to JupyterLite yet; hosting is undecided.
+
 ## 2026-08-06 — Split the Codespaces link into two, experimentally
 
 ### Changed
