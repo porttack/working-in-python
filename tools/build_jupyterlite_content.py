@@ -65,7 +65,7 @@ PRELOAD_ON_DEP = {
 # get copied once into the flat content/ directory, where every chapter's
 # notebook can see and import them as a sibling file -- no per-chapter wiring
 # needed. See AUDIT.md, 2026-08-08.
-SHARED_FILES = ["ascii_art.py"]
+SHARED_FILES = ["ascii_art.py", "check.py"]
 CELL_PATCHES = {
     "chap08.ipynb": {
         ("!head pg345_cleaned.txt",): (

@@ -73,12 +73,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   equivalent to mirror. Copied once into the shared `content/` directory rather than
   per-chapter, so it's importable from any chapter with zero wiring; verified from `chap02`
   specifically to confirm that.
+- `jupyterlite/check.py`: a from-scratch, stdlib-only reimplementation of
+  `otter.Notebook.check()`/`check_all()` — reads the same OK-format `tests/*.py` files real
+  `otter assign` writes (with `tests: files: true` in its config) and runs each case as a
+  `doctest` against the caller's globals, mirroring `otter.test_files.ok_test.OKTestFile`'s
+  own approach closely enough that conformance is achievable rather than hoped for. Verified
+  with `jupyterlite/check_conformance.py` against a real local `otter-grader` install: 10
+  submissions across 5 fixtures (including a deliberate case-isolation test and float/
+  exception/multi-line-output edge cases), all matching exactly, both overall and per case.
+  Full otter-grader's `assign`/`generate`/`run`/`grade`/PDF export/logging/plugins/Gradescope
+  integration are explicitly out of scope and stay on a machine with a real Python. Not yet
+  used by any chapter — infrastructure ahead of content, same as `ascii_art.py`.
 
 ### Investigated, not pursued
-- Otter Grader: infeasible under Pyodide. Hard-depends on Docker (`python-on-whales`) and a
-  real Chromium process (`playwright`) for its full CLI grading path — an architectural
-  mismatch with a WASM sandbox, not something a custom Pyodide build can fix. See
-  `ucbds-infra/otter-grader#458`.
+- Full Otter Grader package: infeasible under Pyodide. Hard-depends on Docker
+  (`python-on-whales`) and a real Chromium process (`playwright`) for its full CLI grading
+  path — an architectural mismatch with a WASM sandbox, not something a custom Pyodide build
+  can fix. See `ucbds-infra/otter-grader#458`. (The student-facing `check()` piece alone is
+  small enough to reimplement instead — see `jupyterlite/check.py` above.)
 
 ## 2026-08-06 — Split the Codespaces link into two, experimentally
 

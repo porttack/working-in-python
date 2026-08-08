@@ -2331,3 +2331,90 @@ not just chap01: `import ascii_art; await ascii_art.use('pyfiglet'); import pyfi
 print(pyfiglet.figlet_format('Hi'))` rendered correctly.
 
 `projector/` unchanged; `make check` passes.
+
+## 2026-08-08 follow-up 4 — check.py: a from-scratch, conformance-verified Otter-check shim
+
+Full `otter-grader` was already ruled infeasible under Pyodide (2026-08-08, above) on
+architectural grounds -- Docker and a real Chromium process for its CLI grading path, not a
+"needs a WASM build" problem. The follow-on idea, from the user: only `otter.Notebook.check()`
+is actually needed in the browser. Everything else (`otter assign`, `generate`, `run`, `grade`,
+PDF export, logging, environment serialization, plugins, Gradescope) stays on a machine with a
+real Python. OK-format test files are data -- a `test = {...}` dict of doctest-style cases --
+so the checking piece is small enough to hand-write, stdlib only, no install, if it's actually
+conformant with real otter and not just plausible-looking.
+
+**Read otter-grader's own source before writing anything**, per the user's explicit
+instruction and this session's own established habit (matplotlib, `!wget`, jupyterlite-pyodide-
+kernel settings). `otter/test_files/ok_test.py`'s `OKTestFile` turned out to be a complete,
+exact spec: load a `.py` file by `exec`-ing it and reading `test_globals['test']`; run each
+case's `code` as a `doctest.DocTestParser`/`DocTestRunner` doctest against the caller's
+globals; pass/fail comes straight from the runner's own summary. `otter/test_files/
+abstract_test.py` supplied the `_repr_html_` shape (pass/fail per case, expected-vs-actual on
+failure). This made check.py close to a transcription of a well-defined stdlib recipe, not an
+invention -- which is exactly why conformance turned out to be achievable at all.
+
+**A real surprise the user's own instinct anticipated:** the *master-notebook authoring*
+syntax in current otter-grader (verified against the real, current example notebook at
+`ucbds-infra/otter-grader` `docs/_static/notebooks/assign-full-example-v1.ipynb`) is
+assert-based Python functions under a `# BEGIN TESTS` block, not the doctest-dict OK-format
+the user described from memory. But running `otter assign` on that exact notebook showed
+Otter *itself* converts each test function into an OK-format doctest string internally
+(`OK_FORMAT = True` is still the default) -- and by further default, stores the result in the
+notebook's own metadata rather than a `tests/` directory. Setting `tests: files: true` in the
+`# ASSIGNMENT CONFIG` cell (a real, existing config key, `Assignment.TestsValue.files`) is
+what restores the `tests/*.py`-file layout the user specified and `otter.Notebook.check()`
+itself defaults to (`tests_dir: str = "./tests"`, confirmed from `otter/check/notebook.py`).
+So the target format was right, but only reachable with one non-default config flag -- worth
+recording so nobody re-derives this from scratch, or worse, builds a `tests/`-directory-first
+tool against notebook-metadata-only output and can't find the tests at all.
+
+**What check.py implements** (`jupyterlite/check.py`, stdlib only -- `doctest`, `glob`,
+`inspect`, `io`, `os`, `contextlib`, `textwrap`): `check(name, tests_dir="tests")` loads
+`{tests_dir}/{name}.py`, runs its single supported suite's cases (asserts, matching
+`OKTestFile`, that there's exactly one suite, it's `type: doctest`, and setup/teardown are
+both empty -- rejected explicitly rather than silently ignored, same as real otter) against
+the caller's globals via `inspect.currentframe().f_back.f_globals`, and returns a
+`CheckResult` with `__repr__` and `_repr_html_`. `check_all()` does the same across every
+`tests_dir/*.py` in name order. Each case runs in its own `try/except`, so one case's
+exception can't take out the ones after it. `hidden` cases are skipped -- worth noting this is
+a *defensive addition beyond what real otter's own `OKTestFile.run()` does* (it doesn't filter
+by `hidden` at all), safe only because `otter assign` already never distributes hidden cases
+to students; kept anyway per the user's explicit spec, as a second layer in case a fuller
+(e.g. autograder-side) file ever ends up somewhere a student can reach it.
+
+**Conformance, the part the user said mattered most.** `jupyterlite/check_conformance.py`
+(not part of `make check` -- needs a real local `pip install otter-grader`, whose Docker/
+Playwright/pandas dependency tree has no business being a default dependency of every session
+touching this repo) runs identical starting globals through real otter's `OKTestFile` and
+through `check.py`, and diffs pass/fail *and* per-case results, not just the overall verdict.
+Five fixtures under `jupyterlite/check_conformance_fixtures/` (one taken verbatim from a real
+`otter assign` run -- `q1_real_otter_assign.py` -- the other four hand-written to cover gaps
+that fixture didn't: multi-line printed output, an expected-exception doctest, float-repr
+matching, and, deliberately, a three-case question where the *middle* case always fails on an
+undefined name to specifically test case isolation) x ten submissions (a correct and a broken
+version of each) = 10 comparisons. All ten matched real otter-grader exactly on the first run,
+including the case-isolation one (`real=[True, False, True]` `shim=[True, False, True]`) --
+which is some evidence the "read the source, mirror the approach" method actually worked,
+not just luck.
+
+**Also verified end to end inside a real running Pyodide kernel, not just this Mac's CPython**:
+wrote a `tests/q1.py` file from within a notebook cell, defined a correct `square` function,
+`import check; check.check('q1')`, got back `q1 passed! 🎉`. Confirms `doctest` and the rest of
+check.py's stdlib surface behave identically under Pyodide.
+
+**Where things live and why.** `jupyterlite/check.py` (like `ascii_art.py`) has no upstream
+equivalent, so it lives in `jupyterlite/`, not repo root. Added to `SHARED_FILES` in
+`tools/build_jupyterlite_content.py`, so it's a sibling file in every chapter's flat content
+directory with zero per-chapter wiring, same reasoning as `ascii_art.py`. The conformance
+script and its fixtures deliberately are **not** in `SHARED_FILES` -- confirmed they don't
+appear in `jupyterlite/content/` after a build -- since they're dev-only verification tooling,
+not something a student's browser has any reason to download.
+
+**Not yet done, on purpose:** no chapter currently ships a `tests/` directory or references
+`check.py` -- this is infrastructure ahead of content, exactly like `ascii_art.py`. The
+authoring workflow the user described (author one master notebook, run `otter assign` with
+`tests: files: true`, ship the student notebook + its `tests/` folder alongside the chapter in
+`jupyterlite/content/`, keep grading the hidden tests locally with real otter-grader) is ready
+to use whenever an exercise gets written that way -- nothing about it is chapter-specific.
+
+`projector/` unchanged; `make check` passes.
