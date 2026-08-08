@@ -1,7 +1,8 @@
 # Publishing
 
 How the website is built, and why it is built this way. Read this before
-changing anything in `jb/`.
+changing anything in `jb/`. Looking for which file to edit and what to run,
+rather than the architecture and reasoning? See `HOW_TO_EDIT.md` instead.
 
 ## The site is a Jupyter Book, not a Jekyll site
 
@@ -40,13 +41,14 @@ there during a build are copies and must never be committed.
 
 ## Add this to .gitignore
 
-Non-optional. Without it, every build leaves twenty mutated notebooks in
+Non-optional. Without it, every build leaves twenty-one mutated notebooks in
 `git status`, and the failure mode is committing solution-stripped copies over
 the real chapters.
 
 ```gitignore
 # Jupyter Book build artifacts
 jb/chap*.ipynb
+jb/jupyter_intro.ipynb
 jb/_build/
 ```
 

@@ -16,6 +16,42 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-08 — HOW_TO_EDIT.md added; jb/watch.sh committed
+
+### Added
+- `HOW_TO_EDIT.md`: task-oriented guide to editing this book by hand — which files are
+  source vs. generated, the everyday chapter-editing loop, the extra steps needed when a
+  change touches the JupyterLite-embedded notebooks (chap01, jupyter_intro), the current
+  manual four-place version-bump process, and a command reference. Companion to
+  `PUBLISHING.md` (architecture/why) and `CLAUDE.md` (upstream-content rules); pointed to
+  from both.
+- `jb/watch.sh` (this session's live-reload preview script, previously untracked) is now
+  part of the repo, since `HOW_TO_EDIT.md` documents it as the standard local-preview
+  workflow.
+
+See `AUDIT.md`, 2026-08-08 follow-up 11.
+
+## 2026-08-08 — jupyter_intro joins the left nav as its own live JupyterLite split view
+
+### Added
+- `jb/_toc.yml`: `jupyter_intro` (titled "About Jupyter Notebooks") is now the first entry
+  under "Start Here", ahead of `orientation`. It was never actually part of the built site
+  before this — `jb/build.sh`'s copy step only ever matched `chapNN` filenames — so this
+  also required extending that copy step, `jb/watch.sh`'s equivalent (and its
+  `sphinx-autobuild` ignore list), and `jb/prep_notebooks.py`'s glob to include it.
+- `chapters/jupyter_intro.ipynb` gets the same live-takeover treatment chap01 got below:
+  a sentinel cell that fills the page (right of the primary sidebar) with a live JupyterLite
+  instance of itself, tracking the sidebar's width via `ResizeObserver`. Same `CELL_PATCHES`
+  recursive-embed guard as chap01, added to `tools/build_jupyterlite_content.py`.
+- JupyterLite deploy bumped to `jupyterlite-v4/`. Also fixed, in the same pass: chap01's
+  iframe `src` and its link to this notebook were still hardcoded to `jupyterlite-v3` from
+  the last two rounds — both now point at `v4` too.
+
+### Changed
+- Nothing in `chapters/` outside the one new cell in `jupyter_intro.ipynb` described above.
+
+See `AUDIT.md`, 2026-08-08 follow-up 10.
+
 ## 2026-08-08 — chap01 becomes a live split view; top navbar removed sitewide
 
 ### Changed

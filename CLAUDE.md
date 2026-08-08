@@ -114,6 +114,8 @@ AUDIT.md                     working notes + handoff notes
 CHAPTER_MANIFEST.md          filename map, treatment, VA decision per chapter
 ATTRIBUTION.md               credit and licensing
 AP_MODIFICATIONS.md          what changed and why, in prose
+PUBLISHING.md                how the site is built, and why (architecture, mechanics)
+HOW_TO_EDIT.md               task-oriented: which file to edit, what to run
 CHANGELOG.md                 dated, append-only, summary level
 CHANGELOG_DETAIL.md          GENERATED from the ledger
 Makefile

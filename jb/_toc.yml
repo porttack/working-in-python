@@ -3,9 +3,14 @@ root: index
 
 parts:
 
-# Required reading, in the order a student should hit it.
+# Required reading, in the order a student should hit it. jupyter_intro goes
+# first: before anything else, a student needs to know what a notebook even
+# is, and it's the one page that runs live in JupyterLite rather than linking
+# out to Colab -- see AUDIT.md, 2026-08-08.
 - caption: Start Here
   chapters:
+    - file: jupyter_intro
+      title: About Jupyter Notebooks
     - file: orientation
     - file: chap00        # Downey's Preface, unedited
     - file: about

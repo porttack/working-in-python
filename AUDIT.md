@@ -2673,3 +2673,84 @@ no dead top nav) solid before that -- this round is aimed at exactly that, not a
 chapter's content.
 
 `make check` passes. `projector/chap01.ipynb` regenerated to match.
+
+## 2026-08-08 follow-up 10 -- jupyter_intro gets the same live-JupyterLite treatment, and a left-nav entry of its own
+
+User's framing: "About Jupyter" is really the first thing a student should look at, and it needs to
+run in JupyterLite, not Colab -- so give it the same left-nav-plus-live-iframe treatment chap01 got
+in follow-ups 7-8, not just the standalone new-tab link from follow-up 6.
+
+**`chapters/jupyter_intro.ipynb` was never actually wired into the JB site at all**, discovered
+while doing this: `jb/_toc.yml` had no entry for it, and `jb/build.sh`'s copy step
+(`cp ../chapters/chap[0-1][0-9].ipynb .`) only ever matched `chapNN` filenames, so the notebook
+was invisible to `jb build` regardless of `_toc.yml`. Fixed both: added `jupyter_intro` as the
+first entry under "Start Here" in `_toc.yml` (ahead of `orientation`, per the user's framing),
+with an explicit `title: About Jupyter Notebooks` since the notebook's own H1 (`*Think Python* on
+Jupyter`) is about to be visually buried under the iframe pane anyway, same as chap01's `# Welcome`
+already is. Also had to extend three places that assumed `chapNN` naming: `jb/build.sh`'s copy/rm
+steps, `jb/watch.sh`'s (untracked, this session's live-preview script) equivalent copy/rm steps and
+its `sphinx-autobuild --re-ignore` list (else the copy-into-jb/ step would retrigger its own watch
+loop), and `jb/prep_notebooks.py`'s `glob("chap*.ipynb")` (needed so its `%%expect`-stripping pass
+also covers jupyter_intro.ipynb's one `%%expect SyntaxError` cell).
+
+**The live-embed cell itself is chap01's follow-up-8/9 cell, copied and renamed.** Same fixed-position
+`#...-jupyterlite-pane` covering everything right of the primary sidebar, same `#pst-secondary-sidebar
+{ display: none }`, same `ResizeObserver` tracking the sidebar's live width, same `notebooks` (not
+`lab`) JupyterLite app for the same reason as chap01 (the book's own sidebar is the chapter nav; a
+second file-browser sidebar inside the iframe would be wasted width). Only the ids and the iframe's
+`?path=` changed. Added the matching `CELL_PATCHES` entry in `tools/build_jupyterlite_content.py`
+for the same recursive-embed reason as chap01 -- confirmed by inspecting the built
+`jupyterlite/content/jupyter_intro.ipynb` that the patch actually matched and replaced the cell with
+the one-line note, not left the recursive iframe in place.
+
+**Hit the "hardcoded jupyterlite-v3 literal" fragility flagged as open in follow-ups 8 and 9,
+immediately, by adding a second copy of it.** Since this round touches `jupyterlite/content/`
+again (the new `CELL_PATCHES` entry) it needs its own `VERSION` bump regardless, so used the
+occasion to fix both existing literals rather than add a third stale one: bumped `v3` to `v4` and
+updated chap01's iframe `src`, chap01's own `jupyterlite-v3` link to jupyter_intro (from follow-up
+6), and the new jupyter_intro cell, all to `v4` in the same pass, plus the matching literal inside
+`tools/build_jupyterlite_content.py`'s chap01 `CELL_PATCHES` key (that key has to stay byte-identical
+to the actual cell source or the tuple match silently fails and the recursion guard stops working --
+worth remembering for whoever does the next version bump, since nothing currently checks that these
+three copies agree). This is still a manual, easy-to-forget step, not a structural fix; flagging
+again rather than let it quietly become four hardcoded copies next time.
+
+**Verified for real**, same method as follow-ups 7/8: hand-replicated `build.sh` (`chapters/` wasn't
+dirty this time, but `_toc.yml`/`build.sh`/`prep_notebooks.py` changes needed a real `jb build .` to
+prove out, not just a content-build), copied `jupyterlite/_output` into `_build/html/jupyterlite-v4/`,
+served locally, drove with Playwright. Confirmed: "About Jupyter Notebooks" is the first, highlighted
+entry under "Start Here"; `jupyter_intro.html`'s pane has a 0.0px gap to the sidebar's live right edge
+at 1440px; the embedded notebook actually runs (cell `print('Hello')` shows its output) with the
+one-line placeholder where the recursive iframe would have gone; and chap01.html still works
+end-to-end after the `v3`->`v4` bump (0.0px gap, `Jupyter notebook introduction` link now points at
+`jupyterlite-v4`).
+
+`make check` passes (`build_blanks --check`, `check_sync`, `build_jupyterlite_content --check`).
+`projector/chap01.ipynb` and `projector/jupyter_intro.ipynb` regenerated to match.
+
+**Not done:** no attempt to make the version number non-hardcoded (e.g. templating it in from
+`jupyterlite/VERSION` at build time) -- would remove the whole class of bug but is a bigger change
+than this round asked for; noting it as the obvious next fix if this bites again. Also not touched:
+whether any other chapter gets the same live-takeover treatment -- still an open question from
+follow-up 7, unchanged.
+
+## 2026-08-08 follow-up 11 -- HOW_TO_EDIT.md added; jb/watch.sh committed
+
+User wants to edit by hand more and ask less over time, and correctly flagged that the important
+operational details from follow-ups 6-10 (source-vs-generated files, the `CELL_PATCHES` byte-match
+requirement, the four-places-by-hand version bump) exist only scattered across this file's history
+and this session's chat, not anywhere a human would think to look while actually editing. Added
+`HOW_TO_EDIT.md` at repo root: task-oriented, organized by "what are you trying to do" rather than
+chronologically, with a source-vs-generated table, the JupyterLite-specific editing/publish steps,
+a gotchas section (stale `jb/_build/`, browser caching, `watch.sh` never touching JupyterLite), and
+a command reference. Explicitly framed as the practical companion to `PUBLISHING.md` (architecture
+and why) and `CLAUDE.md` (upstream-content rules) rather than a replacement for either. Pointed to
+it from both. Also committed `jb/watch.sh` itself (this session's untracked live-preview script,
+referenced throughout the new doc) so the workflow it describes actually exists in the repo for
+the next person, rather than only in one person's working tree.
+
+User also flagged the four-place manual version-literal patching as something to automate next
+(hash-based versioning, substituted at build time) -- not done in this round; see whichever
+follow-up comes next for that.
+
+`make check` passes.

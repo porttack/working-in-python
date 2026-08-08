@@ -40,6 +40,7 @@ chapters/*.md
 
 # Jupyter Book build artifacts
 jb/chap*.ipynb
+jb/jupyter_intro.ipynb
 jb/_build/
 jb/conf.py
 

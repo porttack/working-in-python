@@ -28,9 +28,10 @@ if ! git diff --quiet -- ../chapters/; then
 fi
 
 # Clear any copies left from a previous run so a deleted chapter cannot linger.
-rm -f chap*.ipynb
+rm -f chap*.ipynb jupyter_intro.ipynb
 
 cp ../chapters/chap[0-1][0-9].ipynb .
+cp ../chapters/jupyter_intro.ipynb .
 
 # NOT OPTIONAL. Besides blanking solution cells, this injects the
 # (section_name)= MyST labels that every internal cross-reference in the book

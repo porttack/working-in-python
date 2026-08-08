@@ -36,8 +36,9 @@ def process_notebook(path):
     nbf.write(ntbk, path)
 
 
-# Collect a list of the notebooks in the content folder
-paths = glob("chap*.ipynb")
+# Collect a list of the notebooks in the content folder. jupyter_intro.ipynb
+# doesn't match chap*.ipynb but needs the same %%expect-stripping treatment.
+paths = glob("chap*.ipynb") + glob("jupyter_intro.ipynb")
 
 for path in sorted(paths):
     print('prepping', path)
