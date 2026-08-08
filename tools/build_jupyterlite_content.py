@@ -68,6 +68,55 @@ PRELOAD_ON_DEP = {
 # needed. See AUDIT.md, 2026-08-08.
 SHARED_FILES = ["ascii_art.py", "check.py"]
 CELL_PATCHES = {
+    # chap01's web page embeds a live JupyterLite iframe of chap01 itself (see
+    # AUDIT.md). Left as-is, that same cell would ship inside this very
+    # notebook, so a student already running it in JupyterLite would see it
+    # try to embed another copy of itself in an iframe, recursively. Replaced
+    # here, in the jupyterlite/content/ copy only, with a one-line note.
+    "chap01.ipynb": {
+        (
+            '<!-- apcsp:begin type="note" chapter="01" -->\n',
+            '**Try it here.** This chapter also runs live on this page, no sign-in and nothing to install.\n',
+            '\n',
+            '<style>\n',
+            '#pst-secondary-sidebar { display: none !important; }\n',
+            '#chap01-jupyterlite-pane {\n',
+            '  position: fixed;\n',
+            '  top: 0;\n',
+            '  right: 0;\n',
+            '  bottom: 0;\n',
+            '  left: 20%;\n',
+            '  z-index: 2000;\n',
+            '  background: #fff;\n',
+            '  overflow: hidden;\n',
+            '}\n',
+            '#chap01-jupyterlite-pane iframe {\n',
+            '  display: block;\n',
+            '  width: 100%;\n',
+            '  height: 100%;\n',
+            '  border: 0;\n',
+            '}\n',
+            '</style>\n',
+            '<div id="chap01-jupyterlite-pane">\n',
+            '<iframe src="jupyterlite-v3/notebooks/index.html?path=chap01.ipynb"></iframe>\n',
+            '</div>\n',
+            '<script>\n',
+            '(function () {\n',
+            '  var sidebar = document.getElementById("pst-primary-sidebar");\n',
+            '  var pane = document.getElementById("chap01-jupyterlite-pane");\n',
+            '  if (!sidebar || !pane) return;\n',
+            '  function positionPane() {\n',
+            '    pane.style.left = sidebar.getBoundingClientRect().right + "px";\n',
+            '  }\n',
+            '  new ResizeObserver(positionPane).observe(sidebar);\n',
+            '  positionPane();\n',
+            '})();\n',
+            '</script>\n',
+            '<!-- apcsp:end -->',
+        ): (
+            "*(You're already running this chapter live -- that's this page.)*",
+        ),
+    },
     "chap08.ipynb": {
         ("!head pg345_cleaned.txt",): (
             "print(''.join(open('pg345_cleaned.txt').readlines()[:10]), end='')",

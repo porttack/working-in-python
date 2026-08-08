@@ -2485,3 +2485,126 @@ renders with a working link, sitting below the untouched Colab paragraph, and th
 intro cross-reference (e.g. chap01's second one, in the "NOTE:" cell before the `abs 42` example)
 was touched -- same upstream-Colab-link pattern, left alone for the same reason, not evaluated
 for whether it's worth a similar note.
+
+## 2026-08-08 follow-up 7 -- prototype: chap01 embeds its own JupyterLite lab inline via iframe
+
+User's real question was a site-architecture one: should the whole site (title page, orientation,
+about) move *into* JupyterLite so a student lands in one integrated environment, or should the
+Jupyter Book stay the primary nav with JupyterLite embedded per-chapter, Colab/Codespace offered
+as alternatives? Recommended the second (JupyterLite is documented everywhere in this repo as the
+"Colab-outage fallback for chapters 1-11," not the primary vehicle; it also only covers chapters
+1-11, and its flat file-browser has no notion of a curated reading order, which is the entire
+reason `_toc.yml` exists). Agreed to prototype chapter 1 only before deciding anything broader.
+
+**What was built.** A new sentinel cell in `chapters/chap01.ipynb` (inserted after the existing
+Colab-fallback and Codespaces notes, before the `download()` cell), `type="note" chapter="01"`,
+containing a raw HTML `<iframe>` pointed at
+`jupyterlite-v3/notebooks/index.html?path=chap01.ipynb` -- a *relative* URL, deliberately, not
+`https://python.porttack.com/...` like the existing badges. Reason: `porttack/learn` embeds this
+repo's `gh-pages` branch as a git submodule serving at `learn.porttack.com/working-in-python/`
+(see `PUBLISHING.md`), and a relative path resolves correctly under both mount points since the
+JupyterLite output rides along at the same site root either way; an absolute domain link would
+silently strip a `learn.porttack.com` visitor out to the other domain instead of staying on the
+embedding page. Used the `notebooks` app (Notebook 7, single-document mode), not `lab` like the
+existing jupyter_intro note -- deliberately the opposite choice from follow-up 6, because that
+note is a standalone new-tab link where the `lab` file-browser sidebar is a feature, whereas an
+inline iframe is width-constrained and the Jupyter Book sidebar already provides chapter
+navigation, so a second file browser inside the iframe would just be wasted width.
+
+**The recursive-embed trap, caught before it shipped.** `chap01.ipynb` is also the JupyterLite
+copy's own source (`tools/build_jupyterlite_content.py`'s `CHAPTERS` map uses it unpatched) --
+so without intervention, a student already inside JupyterLite running chap01 would see the
+notebook try to iframe-embed *another instance of itself*. Fixed with a new `CELL_PATCHES` entry
+for `chap01.ipynb`, keyed on the new cell's exact source lines, replacing it with a one-line note
+("You're already running this chapter live -- that's this page.") in the `jupyterlite/content/`
+copy only -- same mechanism already used for chap08's `!head`/`!tail` rewrites, just the first
+time it's been used to blank a markdown cell rather than patch a code cell. Whenever this
+actually gets published, `jupyterlite/VERSION` will need its normal bump per the standing rule
+(this does change what ships in `jupyterlite/content/chap01.ipynb`) -- not done yet because
+nothing here has been published; noting it now so it isn't forgotten at commit time.
+
+**Verified for real, not just by inspection.** `build.sh` refuses to run against a dirty
+`chapters/` tree (by design), and this change intentionally isn't committed yet, so its
+local-build steps were replicated by hand instead of bypassing that gate: copied `chapters/
+chap0[0-1]*.ipynb` into `jb/`, ran `prep_notebooks.py`, `jb build .`, then separately built
+`jupyterlite/content/` and `jupyter lite build`, copying the output into `jb/_build/html/
+jupyterlite-v3/` exactly as `build.sh` does. Confirmed the raw `<iframe>` tag survives MyST/Sphinx
+untouched in the rendered `chap01.html`. Served the local build and drove it with Playwright: the
+iframe on `chap01.html` loads `jupyterlite-v3/notebooks/index.html?path=chap01.ipynb`, Pyodide
+boots inside it, and a real code cell (`30 + 12`) was clicked and run from the *parent* page
+context, producing `42` inside the iframe -- confirms this isn't just a rendering trick, the
+embedded notebook is fully live and interactive. Also confirmed the `jupyterlite/content/
+chap01.ipynb` copy shows the one-line replacement note instead of the iframe, i.e. the
+recursive-embed guard actually took effect where it matters.
+
+**Not yet decided or built:** whether to commit this (it's a spike, not yet treated as final
+copy/placement -- the note text, iframe height, and exactly where in the cell order it belongs
+are all easy to bikeshed and weren't the point of this round); whether other chapters 1-11 get
+the same treatment; and the bigger question the user raised in parallel -- a true persistent
+right-hand split view (chapter text scrolling on the left, JupyterLite fixed on the right) is a
+materially bigger lift than this inline embed, since sphinx-book-theme's page layout isn't
+naturally two-pane and would need a custom template/CSS override, not just a cell insertion. This
+prototype only answers "can chapter content embed a live JupyterLite instance of itself at all,
+inline in the page" -- yes -- not "is a persistent split-pane layout worth building."
+
+`make check` passes. `projector/chap01.ipynb` regenerated to match `chapters/chap01.ipynb`.
+
+## 2026-08-08 follow-up 8 -- chap01's iframe spike becomes a real split view; top navbar removed sitewide
+
+Follow-up 7's inline iframe left the chapter's own markdown visible in a narrow column between
+the primary sidebar and the iframe (it was `position:fixed; width:50vw`, not anchored to the
+sidebar's actual edge). User wanted the opposite of an inline embed: no chapter text at all on
+chapter 1, just the book's left nav, then JupyterLite filling literally everything else.
+
+**Iterated on the same sentinel cell (`chapters/chap01.ipynb`, cell 3) three times in this round**
+rather than layering new cells, since each change superseded the last:
+
+1. First pass: `position:fixed` pane anchored to `left:20%` (guessing the primary sidebar's
+   width from the theme's own CSS, since `pydata-sphinx-theme.css` sets `.bd-sidebar-primary`
+   to `width:25%` at one breakpoint and `sphinx-book-theme.css` overrides to `flex-basis:20%`
+   at another) plus `#pst-secondary-sidebar { display:none }` to drop the "Contents" outline
+   entirely, since the pane replaces that space too now. A hardcoded percentage would drift
+   whenever the sidebar's actual rendered width didn't match exactly, or when it responsively
+   collapses.
+2. Second pass, to close that drift for real: replaced the guess with a small inline `<script>`
+   that reads `#pst-primary-sidebar`'s live `getBoundingClientRect().right` and sets the pane's
+   `left` to that exact pixel value, re-measuring via `ResizeObserver` (not just a `resize`
+   listener) so it also reacts to the sidebar's own width changing independent of the window --
+   its CSS transition on toggle, or any theme breakpoint change. Verified with Playwright at two
+   viewport widths (1440px and 1100px, sidebar 281.6px and 220px respectively): gap between
+   sidebar's right edge and pane's left edge was exactly 0.0px both times.
+3. Third pass: user asked what's in the top navbar and whether it could go, sitewide, to
+   simplify. Read the actual rendered header (`<header id="pst-header" class="bd-header">`) --
+   it holds only a Search button (already duplicated verbatim in the primary sidebar itself, a
+   stock pydata-sphinx-theme behavior, so removing the top copy loses no functionality on
+   desktop) plus two mobile-only sidebar-toggle buttons (real loss, but out of scope for a
+   Chromebook-width classroom deployment). Rather than a chap01-only override, this belongs in
+   `jb/_static/custom.css` (the file that already carries the one other sitewide theme
+   correction, the `<hr>` opacity fix) so it applies to every page, not just chapter 1. Added
+   `.bd-header { display: none !important; }` there, plus `:root { --pst-header-height: 0px
+   !important; }` -- the zero-out matters because `.bd-sidebar-primary` and
+   `#pst-secondary-sidebar` both position themselves (`top`, `max-height`) relative to that one
+   variable, so overriding it once fixes both rather than hunting down every dependent rule
+   individually. Confirmed via Playwright that hiding just `.bd-header` without also zeroing the
+   variable would have left a 64px dead gap above the sidebar. The header-hiding CSS that had
+   briefly lived inside chap01's own cell (from mid-round, before this became a sitewide change)
+   was removed from there once it moved to `custom.css`, to avoid two copies of the same rule.
+
+**Verified end to end again after each pass**, same method as follow-up 7 (hand-replicate
+`build.sh`'s local-build steps since `chapters/` is intentionally left dirty/uncommitted through
+this whole round; `jb build .`; copy `jupyterlite/_output` into `_build/html/jupyterlite-v3/`;
+serve; drive with Playwright). Final state confirmed: on `chap01.html`, primary sidebar starts at
+`x:16,y:0`, pane starts at `x:297.59` with zero gap, spans full `y:0` to viewport bottom, stays
+fixed on scroll. On `index.html` and `chap02.html` (neither of which touches the new pane CSS at
+all): header hidden, sidebar starts at `y:0` with no gap, and -- the one thing that had to keep
+working -- chap02's own `#pst-secondary-sidebar` ("Contents") is still fully visible, since only
+chap01's cell hides that element, not the sitewide stylesheet.
+
+**Still true from follow-up 7, unchanged:** not yet committed as of this note (user's next
+message asks to commit, so this lands together with this note); the `jupyterlite-v3` version
+number in chap01's iframe `src` is still a hardcoded literal that will need a manual bump
+whenever `jupyterlite/VERSION` next changes; and the still-open bigger question -- generalizing
+this pattern to other chapters, and whether a resizable divider between the two panes is worth
+building -- is explicitly what the user asks about next.
+
+`make check` passes. `projector/chap01.ipynb` regenerated to match.

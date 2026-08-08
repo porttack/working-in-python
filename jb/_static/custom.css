@@ -10,3 +10,18 @@
   border-top-width: 2px;
   border-top-color: var(--pst-color-text-base);
 }
+
+/* Top navbar holds only a search button (Ctrl+K) and mobile sidebar-toggle
+   buttons; search is already duplicated in the primary sidebar itself (a
+   standard pydata-sphinx-theme feature), so nothing is lost on desktop.
+   Zeroing the header-height variable, rather than only hiding .bd-header,
+   also closes the gap it would otherwise leave above the primary sidebar
+   and secondary ("Contents") sidebar, both of which position themselves
+   relative to it. Known tradeoff: on narrow/mobile widths this also removes
+   the only visible way to open/close the primary sidebar. See AUDIT.md. */
+:root {
+  --pst-header-height: 0px !important;
+}
+.bd-header {
+  display: none !important;
+}

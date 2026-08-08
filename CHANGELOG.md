@@ -16,6 +16,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-08 — chap01 becomes a live split view; top navbar removed sitewide
+
+### Changed
+- `chapters/chap01.ipynb`: the chapter's page no longer shows its own markdown at all.
+  The left book-nav sidebar stays; everything else is a live JupyterLite instance of
+  chap01 itself, filling the page edge to edge. The pane's left edge tracks the primary
+  sidebar's actual rendered width via a small inline script (a `ResizeObserver`, not a
+  fixed percentage), so it holds even if the sidebar's width changes. The "Contents"
+  mini-outline sidebar is hidden on this page only, since the pane replaces that space
+  too. `tools/build_jupyterlite_content.py` gained a `CELL_PATCHES` entry so the
+  JupyterLite copy of chap01 shows a one-line note instead of trying to embed another
+  copy of itself.
+- `jb/_static/custom.css` (sitewide): removed the top navbar from every page. It held
+  only a search button, already duplicated in the primary sidebar by the theme itself,
+  and two mobile-only sidebar-toggle buttons (real loss, but out of scope for a
+  Chromebook-width classroom deployment).
+
+See `AUDIT.md`, 2026-08-08 follow-ups 7-8, for the full build/verification detail.
+
 ## 2026-08-07 — JupyterLite build scaffold, chap01 only (spike, not yet linked from a chapter)
 
 ### Added
