@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=73f2d6eb" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=888c0e54" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -65,10 +65,11 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/custom.js?v=e17ba024"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="How This Course Works" href="orientation.html" />
+    <link rel="next" title="Think Python on Jupyter" href="jupyter_intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -220,6 +221,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orientation.html">How This Course Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
@@ -414,6 +416,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-here">Start here</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-cover-and-when">What we cover, and when</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#also-here">Also here</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -427,8 +430,7 @@
                   
   <section id="working-in-python">
 <h1>Working in Python<a class="headerlink" href="#working-in-python" title="Link to this heading">#</a></h1>
-<p><em>adapted from Allen Downey’s</em> <strong>Think Python</strong>, <em>Third Edition</em></p>
-<p>The Python text for <strong>[CONFIRM: course name]</strong> at <strong>[CONFIRM: school]</strong>.</p>
+<p><em>(adapted from Allen Downey’s</em> <strong>Think Python</strong>, <em>Third Edition - see details at bottom)</em></p>
 <section id="start-here">
 <h2>Start here<a class="headerlink" href="#start-here" title="Link to this heading">#</a></h2>
 <p>Read <strong><a class="reference internal" href="orientation.html"><span class="std std-doc">How This Course Works</span></a></strong> first. Five minutes, and it
@@ -462,9 +464,22 @@ original, licensing</p></li>
 — every AP CSP topic, and which chapters cover it</p></li>
 <li><p><strong><a class="reference internal" href="todo.html"><span class="std std-doc">What’s Next</span></a></strong> — standards alignment and chapter work still in
 progress</p></li>
-<li><p><strong>[CONFIRM: link to syllabus]</strong></p></li>
-<li><p><strong>[CONFIRM: link to where assignments are turned in]</strong></p></li>
 </ul>
+<!-- apcsp:begin type="note" chapter="01" -->
+<hr class="docutils" />
+<p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
+<hr class="docutils" />
+<p><a class="reference external" href="https://allendowney.github.io/ThinkPython/index.html">Think Python: 3rd Edition</a></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>
+<p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+</section>
+<hr class="docutils" />
+<section id="standards-alignment">
+<h2>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.3">3.3 Mathematical Expressions</a>, <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.4">3.4 Strings</a> (Big Idea 3, 30–35% of the exam). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.2">1.2 Program Function and Purpose</a> and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
+<strong>California 9-12:</strong> no standard names this content on its own. California treats basic arithmetic and expressions as prior knowledge by this grade band.</p>
+<p>This chapter’s expressions and arithmetic operators are exactly what the exam calls mathematical expressions. Strings begin here too, but the exam’s full string content isn’t reached until chapter 8.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -505,11 +520,11 @@ progress</p></li>
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="orientation.html"
+       href="jupyter_intro.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">How This Course Works</p>
+        <p class="prev-next-title"><em>Think Python</em> on Jupyter</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -534,6 +549,7 @@ progress</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-here">Start here</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-cover-and-when">What we cover, and when</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#also-here">Also here</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">Standards alignment</a></li>
 </ul>
   </nav></div>
 

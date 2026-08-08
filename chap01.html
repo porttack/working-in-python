@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=73f2d6eb" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=888c0e54" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -63,6 +63,7 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap01';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/custom.js?v=e17ba024"></script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -217,6 +218,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orientation.html">How This Course Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
@@ -446,12 +448,51 @@
 <a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkPython/blob/v3/chapters/jupyter_intro.ipynb">click here for a short introduction</a>.</p>
 <p>Then, if you are not already running this notebook on Colab, <a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkPython/blob/v3/chapters/chap01.ipynb">click here to run this notebook on Colab</a>.</p>
 <!-- apcsp:begin type="note" chapter="01" -->
+<p>If Colab is unavailable on your network, you can also work through the <a class="reference external" href="https://python.porttack.com/jupyterlite-03a6882e29/lab/index.html?path=jupyter_intro.ipynb">Jupyter notebook introduction</a> in JupyterLite: it runs entirely in this browser tab, with no Google sign-in and nothing to install.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="01" -->
 <p>You can also work through this notebook in a GitHub Codespace: a full computer that runs in your browser, no installation required. You’ll be asked to sign in to GitHub if you aren’t already.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://codespaces.new/porttack/working-in-python?quickstart=1&amp;amp;devcontainer_path=.devcontainer/jupyter/devcontainer.json">Open in a notebook view</a> – a plain notebook interface, close to Colab’s.</p></li>
 <li><p><a class="reference external" href="https://codespaces.new/porttack/working-in-python?quickstart=1">Open in VS Code</a> – a full code editor.</p></li>
 </ul>
 <p>Either way, find this notebook in the file browser under <code class="docutils literal notranslate"><span class="pre">chapters/chap01.ipynb</span></code>. If you already have a Codespace for this repository, GitHub will offer to reopen it instead of starting a new one – do that, since only a few can be open at once.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="01" -->
+<p><strong>Try it here.</strong> This chapter also runs live on this page, no sign-in and nothing to install.
+Drag the thin divider next to the left nav to resize it.</p>
+<style>
+#pst-secondary-sidebar { display: none !important; }
+#chap01-jupyterlite-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 20%;
+  z-index: 2000;
+  background: #fff;
+  overflow: hidden;
+}
+#chap01-jupyterlite-pane iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+</style>
+<div id="chap01-jupyterlite-pane">
+<iframe src="jupyterlite-03a6882e29/notebooks/index.html?path=chap01.ipynb"></iframe>
+</div>
+<script>
+(function () {
+  var sidebar = document.getElementById("pst-primary-sidebar");
+  var pane = document.getElementById("chap01-jupyterlite-pane");
+  if (!sidebar || !pane) return;
+  function positionPane() {
+    pane.style.left = sidebar.getBoundingClientRect().right + "px";
+  }
+  new ResizeObserver(positionPane).observe(sidebar);
+  positionPane();
+})();
+</script>
 <!-- apcsp:end --><p>The following cell downloads a file and runs some code that is used specifically for this book.
 You don’t have to understand this code yet, but you should run it before you do anything else in this notebook.
 Remember that you can run the code by selecting the cell and pressing the play button (a triangle in a circle) or hold down <code class="docutils literal notranslate"><span class="pre">Shift</span></code> and press <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p>
