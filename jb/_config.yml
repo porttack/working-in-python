@@ -78,6 +78,10 @@ sphinx:
     html_extra_path: ['extra']
 
     # custom.css: raises the theme's default hr opacity (25%, barely visible)
-    # for article content. See jb/_static/custom.css for detail.
+    # for article content, removes the top navbar sitewide, and hides a
+    # sidebar-toggle button left non-functional by that removal. custom.js:
+    # draggable, persisted-width divider for the primary sidebar, sitewide.
+    # See jb/_static/ and AUDIT.md for detail.
     html_static_path: ['_static']
     html_css_files: ['custom.css']
+    html_js_files: ['custom.js']

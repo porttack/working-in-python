@@ -77,6 +77,7 @@ CELL_PATCHES = {
         (
             '<!-- apcsp:begin type="note" chapter="01" -->\n',
             '**Try it here.** This chapter also runs live on this page, no sign-in and nothing to install.\n',
+            'Drag the thin divider next to the left nav to resize it.\n',
             '\n',
             '<style>\n',
             '#pst-secondary-sidebar { display: none !important; }\n',

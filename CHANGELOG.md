@@ -35,6 +35,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 See `AUDIT.md`, 2026-08-08 follow-ups 7-8, for the full build/verification detail.
 
+## 2026-08-08 — Sitewide resizable sidebar; dead sidebar-toggle button removed
+
+### Added
+- `jb/_static/custom.js`: a draggable divider next to the primary (left nav) sidebar,
+  on every page. Chosen width persists in `localStorage` and applies sitewide, not
+  per-page — resizing on one chapter carries over to the home page, other chapters,
+  everywhere. Wired in via `jb/_config.yml`'s new `html_js_files`. `chapters/
+  chap01.ipynb`'s own copy of this control (added the same day, chap01-only) was
+  removed now that it's sitewide; that chapter's cell keeps only what's actually
+  chapter-specific — creating its JupyterLite pane and keeping it aligned with the
+  sidebar's current width, whatever resized it.
+
+### Fixed
+- `jb/_static/custom.css`: removed a "toggle primary sidebar" hamburger button that
+  the previous top-navbar removal left visible on every page doing nothing (it was
+  never wired to anything at this book's desktop-only, non-collapsible sidebar width).
+
+See `AUDIT.md`, 2026-08-08 follow-up 9.
+
 ## 2026-08-07 — JupyterLite build scaffold, chap01 only (spike, not yet linked from a chapter)
 
 ### Added

@@ -2608,3 +2608,68 @@ this pattern to other chapters, and whether a resizable divider between the two 
 building -- is explicitly what the user asks about next.
 
 `make check` passes. `projector/chap01.ipynb` regenerated to match.
+
+## 2026-08-08 follow-up 9 -- resizable sidebar divider, generalized sitewide; dead hamburger removed
+
+Built the resize control chap01-only first (a `<div>` + drag script embedded in its own cell),
+per the user's ask, then immediately found it needed to be sitewide: "I cannot adjust the width
+of the nav bar on any page except chapter 1." Moved the whole mechanism out of `chapters/
+chap01.ipynb` into `jb/_static/custom.js` (new file, wired into `jb/_config.yml` via
+`html_js_files: ['custom.js']`, parallel to the existing `html_css_files: ['custom.css']`) plus a
+few static rules added to `custom.css`. chap01's own cell shrank back down to just: create the
+JupyterLite pane, and a `ResizeObserver` on `#pst-primary-sidebar` to keep the pane's `left`
+matching it -- the actual drag-and-persist logic lives in one place now, and chap01's observer
+picks up width changes regardless of what caused them (the new sitewide resizer, or anything
+else), so there's no coupling between the two files beyond both watching the same element.
+
+`custom.js` generalizes the drag mechanism built in follow-up 8 almost unchanged: same
+`MIN_WIDTH`/`MAX_FRACTION` clamps, same `localStorage` persistence (key renamed
+`pst-sidebar-width-px`, sitewide rather than chap01-specific, confirmed by dragging on chap02,
+reloading, then loading `index.html` fresh and seeing the same width there), same
+pointer-events-none-during-drag fix for iframes -- generalized from "the one pane on chap01" to
+`document.querySelectorAll("iframe")`, since a future page could embed one anywhere and the fix
+costs nothing on pages with none. The resizer `<div>` itself is created by JS at runtime
+(`document.createElement`) rather than living in a template, since there's no per-page HTML hook
+to put it in otherwise -- this is the first sitewide UI element in the book that has to be
+injected this way rather than authored as markup.
+
+**Second, unrelated fix in the same round:** user reported "a toggle primary sidebar hamburger
+item on most pages that does nothing." Two elements share the classes `sidebar-toggle
+primary-toggle` in the built HTML: one inside `.bd-header` (already invisible, since follow-up 8
+hides that whole element) and one inside the per-article `.bd-header-article` block (GitHub/
+download/fullscreen/dark-mode buttons), which was never touched and so kept rendering at every
+width. Since this book's primary sidebar was never collapsible to begin with and the new resizer
+is the only sidebar control that does anything, hid it outright with `.sidebar-toggle.primary-
+toggle { display: none !important; }` in `custom.css` rather than investigating why
+pydata-sphinx-theme wasn't already collapsing it at wide viewports -- the user offered "fix it or
+get rid of it" and there's nothing for a fixed version to toggle in this design anyway.
+
+**Also, an aside during this round worth recording for future local testing:** after the header
+fix in follow-up 8, user reported "the top nav still exists for a few pages" (orientation, about).
+A fresh Playwright browser context against the exact same build showed it correctly hidden on
+every single page checked, including those two -- meaning the file/CSS was already correct
+sitewide and the discrepancy was the *browser*, not the site: `python3 -m http.server` sends no
+`Cache-Control` header, and across many rebuild-and-reopen cycles in the same browser session, a
+tab that was never hard-refreshed can keep serving a stale cached `custom.css` fetched before a
+given rule existed. Switched local testing to a small wrapper
+(`nocache_server.py`, scratch-only, not part of the repo) sending `Cache-Control: no-store` on
+every response, specifically to stop this recurring for the rest of this spike. Confirmed after
+the switch: still correct everywhere. Worth remembering distinctly from real bugs, since it wastes
+a debugging cycle if mistaken for one -- this local-only artifact has no bearing on the real site,
+which gets GitHub Pages' own (different, and irrelevant here) cache headers.
+
+**Verified via Playwright, this round:** sitewide resizer element present on all six pages
+checked (index, orientation, about, preface, chap01, chap02); hamburger hidden on all six; old
+chap01-only resizer element (`#chap01-resizer`) no longer present anywhere, confirming no
+duplicate divider; a drag on chap02 changed its sidebar width, persisted through a reload, and
+was visible on a subsequent load of `index.html` with no interaction there at all; chap01's pane
+still tracks the sidebar with a 0px gap using the new sitewide-driven width.
+
+**Still open:** everything listed as open in follow-up 8 remains open (hardcoded `jupyterlite-v3`
+literal in chap01's iframe `src`; whether other chapters get the JupyterLite-takeover treatment;
+a11y/mobile tradeoffs from removing the top navbar and its toggle buttons). User has signaled more
+pages may be added/removed/edited soon and mainly wants the general architecture (sitewide resize,
+no dead top nav) solid before that -- this round is aimed at exactly that, not at any specific
+chapter's content.
+
+`make check` passes. `projector/chap01.ipynb` regenerated to match.

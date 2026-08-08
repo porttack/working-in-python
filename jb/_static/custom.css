@@ -25,3 +25,30 @@
 .bd-header {
   display: none !important;
 }
+
+/* The in-article header (GitHub/download/fullscreen/dark-mode buttons) has
+   its own copy of the primary-sidebar toggle, meant to matter only at narrow
+   widths where the sidebar collapses. With the top navbar gone it was left
+   showing at every width and doing nothing there, since this book's primary
+   sidebar isn't collapsible in the first place -- our own resizer (custom.js)
+   is the only sidebar control now. Hidden outright rather than fixed, since
+   there's nothing for it to toggle. See AUDIT.md. */
+.sidebar-toggle.primary-toggle {
+  display: none !important;
+}
+
+/* Draggable divider for the primary sidebar, sitewide (custom.js creates and
+   positions this element; the CSS here is static and page-independent). */
+#pst-sidebar-resizer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  z-index: 2001;
+  cursor: col-resize;
+  background: transparent;
+}
+#pst-sidebar-resizer:hover,
+#pst-sidebar-resizer.dragging {
+  background: rgba(128, 128, 128, 0.4);
+}
