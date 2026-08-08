@@ -1,0 +1,12 @@
+/* sphinx-book-theme (via pydata-sphinx-theme) ships <hr> at 25% opacity
+   with color:inherit, which resolves to a barely-visible light grey line.
+   Force full opacity and the theme's own body-text color variable (which
+   already flips correctly between light/dark mode) instead of fighting
+   the opacity value. Scoped to article content so sidebar/modal/other
+   theme-chrome rules, which use the same bootstrap `hr` selector for
+   different purposes, are left alone. */
+.bd-article hr {
+  opacity: 1;
+  border-top-width: 2px;
+  border-top-color: var(--pst-color-text-base);
+}
