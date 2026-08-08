@@ -36,15 +36,31 @@ in JupyterLite. See AUDIT.md, 2026-08-08.
 
 jupyterlite/content/ is generated; regenerate with this script (or `make
 jupyterlite`), never hand-edit it.
+
+DEPLOY_PATH_PLACEHOLDER / --print-deploy-id: chap01.ipynb and jupyter_intro.ipynb
+each embed a live JupyterLite iframe of themselves, which needs to know the
+path it's deployed under (jupyterlite-<id>/...) -- but that path used to be a
+literal hardcoded in the source notebook, requiring a manual find-and-replace
+across several files every time it changed (see AUDIT.md, 2026-08-08 follow-ups
+8-10). Replaced with a placeholder token the source notebooks carry permanently
+(DEPLOY_PATH_PLACEHOLDER below) plus a deploy id computed here from a hash of
+everything that affects what ships in jupyterlite/content/ -- the CHAPTERS
+notebooks, their dependency files, SHARED_FILES, and this script itself.
+`--print-deploy-id` prints just that id, so jb/build.sh and jb/watch.sh can
+capture it once and pass it to jb/prep_notebooks.py (which does the matching
+substitution for the copies that ship on the JB site itself) without either
+script duplicating the hash logic. See AUDIT.md, 2026-08-08 follow-up 12.
 """
 import argparse
 import copy
+import hashlib
 import json
 import shutil
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+DEPLOY_PATH_PLACEHOLDER = "JUPYTERLITE_DEPLOY_PATH"
 CHAPTERS = {
     "jupyter_intro.ipynb": ["thinkpython.py"],
     "chap01.ipynb": ["thinkpython.py"],
@@ -99,7 +115,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap01-jupyterlite-pane">\n',
-            '<iframe src="jupyterlite-v4/notebooks/index.html?path=chap01.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap01.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -146,7 +162,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="jupyter-intro-jupyterlite-pane">\n',
-            '<iframe src="jupyterlite-v4/notebooks/index.html?path=jupyter_intro.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=jupyter_intro.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -186,6 +202,39 @@ CELL_PATCHES = {
     },
 }
 CONTENT_DIR = ROOT / "jupyterlite" / "content"
+
+
+def compute_deploy_id():
+    """Hash every input that affects what ships in jupyterlite/content/, so
+    the deploy path changes automatically whenever that content does, and
+    never needs a human to remember to bump anything. Order is fixed (not
+    dict/set iteration order) so the hash is reproducible run to run."""
+    digest = hashlib.sha256()
+    digest.update(Path(__file__).read_bytes())
+    dep_files = sorted({dep for deps in CHAPTERS.values() for dep in deps})
+    for notebook in sorted(CHAPTERS):
+        digest.update((ROOT / "chapters" / notebook).read_bytes())
+    for dep in dep_files:
+        digest.update((ROOT / dep).read_bytes())
+    for shared in sorted(SHARED_FILES):
+        digest.update((ROOT / "jupyterlite" / shared).read_bytes())
+    return f"jupyterlite-{digest.hexdigest()[:10]}"
+
+
+def substitute_deploy_path(cells, deploy_id):
+    substituted = []
+    for cell in cells:
+        source = cell.get("source", [])
+        is_list = isinstance(source, list)
+        text = "".join(source) if is_list else source
+        if DEPLOY_PATH_PLACEHOLDER not in text:
+            substituted.append(cell)
+            continue
+        text = text.replace(DEPLOY_PATH_PLACEHOLDER, deploy_id)
+        cell = copy.deepcopy(cell)
+        cell["source"] = text.splitlines(keepends=True) if is_list else text
+        substituted.append(cell)
+    return substituted
 
 
 def bootstrap_cell(modules):
@@ -264,6 +313,8 @@ def check():
 
 
 def build():
+    deploy_id = compute_deploy_id()
+
     if CONTENT_DIR.exists():
         shutil.rmtree(CONTENT_DIR)
     CONTENT_DIR.mkdir(parents=True)
@@ -283,6 +334,7 @@ def build():
 
         nb = json.loads(src.read_text())
         cells = apply_cell_patches(notebook, nb["cells"])
+        cells = substitute_deploy_path(cells, deploy_id)
         modules = preload_modules_for(deps)
         if modules:
             cells = [bootstrap_cell(modules)] + cells
@@ -296,14 +348,22 @@ def build():
                 return 1
             shutil.copy(dep_src, CONTENT_DIR / dep)
 
-    print(f"wrote {CONTENT_DIR} ({len(CHAPTERS)} notebook(s))")
+    print(f"wrote {CONTENT_DIR} ({len(CHAPTERS)} notebook(s), deploy id {deploy_id})")
     return 0
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
+    parser.add_argument(
+        "--print-deploy-id",
+        action="store_true",
+        help="print the content-derived deploy id (jupyterlite-<hash>) and exit",
+    )
     args = parser.parse_args()
+    if args.print_deploy_id:
+        print(compute_deploy_id())
+        return 0
     return check() if args.check else build()
 
 

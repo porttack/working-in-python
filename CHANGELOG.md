@@ -16,6 +16,29 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-08 — JupyterLite deploy path is now a content hash, not a hand-bumped VERSION
+
+### Added
+- `tools/build_jupyterlite_content.py`: `compute_deploy_id()` hashes every file that affects
+  `jupyterlite/content/` (the notebooks, their dependencies, `SHARED_FILES`, the script
+  itself) into `jupyterlite-<hash>`. New `--print-deploy-id` flag exposes it to shell scripts.
+  `chap01.ipynb` and `jupyter_intro.ipynb` now carry a stable placeholder
+  (`JUPYTERLITE_DEPLOY_PATH`) instead of a hardcoded path; `substitute_deploy_path()` fills in
+  the real id for the copy that ships inside JupyterLite, and a matching step in
+  `jb/prep_notebooks.py` (reading a `JUPYTERLITE_DEPLOY_ID` env var, computed once by
+  `jb/build.sh`/`jb/watch.sh`) does the same for the copy on the JB site.
+
+### Removed
+- `jupyterlite/VERSION` and the manual "bump it, then update three hardcoded copies of the
+  version number" process it required — replaced by the automatic hash above. This was the
+  fragility flagged (and, twice, actually hit) in the last several rounds.
+
+### Changed
+- `CLAUDE.md`, `PUBLISHING.md`, `HOW_TO_EDIT.md`: versioning sections rewritten to describe
+  the automatic hash instead of the manual bump.
+
+See `AUDIT.md`, 2026-08-08 follow-up 12.
+
 ## 2026-08-08 — HOW_TO_EDIT.md added; jb/watch.sh committed
 
 ### Added

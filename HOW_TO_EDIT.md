@@ -60,49 +60,49 @@ If you change this cell's text at all, update the matching `CELL_PATCHES` tuple
 to match exactly, or the swap silently stops happening and the recursive-iframe
 bug comes back (nothing will error — you'll just see it break in the browser).
 
+**The iframe `src`/link itself uses a placeholder, not a literal path** —
+`chap01.ipynb` and `jupyter_intro.ipynb` both carry the literal text
+`JUPYTERLITE_DEPLOY_PATH` where the real `jupyterlite-<hash>` path goes. Leave
+it as the placeholder in `chapters/`; it gets substituted automatically,
+separately, for each of the two copies that need a real value (the one on the
+JB site page, and the one inside `jupyterlite/content/`). You should basically
+never need to touch this — see the next section.
+
 **Rebuild and preview the JupyterLite copy:**
 ```
+DEPLOY_ID=$(python3 tools/build_jupyterlite_content.py --print-deploy-id)
 python3 tools/build_jupyterlite_content.py
 .venv/bin/jupyter lite build --contents jupyterlite/content --output-dir jupyterlite/_output
-cp -r jupyterlite/_output jb/_build/html/jupyterlite-vN     # vN = current jupyterlite/VERSION
+cp -r jupyterlite/_output "jb/_build/html/${DEPLOY_ID}"
 ```
 `watch.sh` won't clobber that directory on its own, but a fresh `./watch.sh
---clean` (or anything that deletes `jb/_build/`) will — just rerun the three
-commands above afterward.
+--clean` (or anything that deletes `jb/_build/`) will — just rerun the commands
+above afterward. Note the id is content-derived (see next section) — if you
+edited one of the two notebooks since your last rebuild, it will have changed,
+and the old directory name is simply the wrong one now; there's nothing to
+reconcile by hand, just rerun the four lines above.
 
-## Publishing for real (bumping VERSION) — currently a manual, four-place step
+## Publishing for real: the deploy path is automatic, not versioned by hand
 
-**This part is not automated yet.** `jb/build.sh` reads whatever's in
-`jupyterlite/VERSION` and deploys to that path; it does not decide when to
-change it. If you change anything that affects what ships inside
-`jupyterlite/content/` — either notebook's cells, a vendored dependency file,
-or `tools/build_jupyterlite_content.py` itself — and you're about to publish
-for real (`cd jb && ./build.sh`, no `--local`), you must, by hand, in this
-order:
+`tools/build_jupyterlite_content.py --print-deploy-id` hashes every file that
+affects what ships in `jupyterlite/content/` — both notebooks that embed
+themselves, every vendored dependency, and the script itself — into
+`jupyterlite-<hash>`. `jb/build.sh` computes this once, near the top, and
+threads it through everything downstream (`prep_notebooks.py`'s placeholder
+substitution, the JupyterLite build's own copy step). There is no `VERSION`
+file and nothing to bump: changing any of those inputs changes the hash,
+automatically, every time, and running the exact same inputs twice reproduces
+the exact same hash. Just:
 
-1. Bump `jupyterlite/VERSION` (e.g. `v4` → `v5`). Never reuse a number.
-2. Find every hardcoded `jupyterlite-v4` literal and change it to match:
-   ```
-   grep -rn "jupyterlite-v[0-9]" chapters/ tools/
-   ```
-   As of this writing that's `chapters/chap01.ipynb` (twice — its own iframe
-   `src`, and its link to `jupyter_intro.ipynb`), `chapters/jupyter_intro.ipynb`
-   (its iframe `src`), and `tools/build_jupyterlite_content.py` (the
-   `CELL_PATCHES` key for chap01's iframe cell, which must stay byte-identical
-   to the real cell).
-3. Regenerate `projector/` (`make projector`) since the chapter notebooks changed.
-4. Run `make check`.
-5. `cd jb && ./build.sh --local` first, verify locally, then `./build.sh` for real.
+1. Edit whatever needed editing.
+2. `make check`.
+3. `cd jb && ./build.sh --local` first, verify locally, then `./build.sh` for real.
 
-Skipping step 1 republishes under a URL a browser or school proxy may have
-already cached — this has actually happened once (see `AUDIT.md`, "republished
-... to the SAME jupyterlite-v1/"). Skipping step 2 leaves a stale, wrong version
-number baked into a notebook, which mostly still works (old content is never
-deleted mid-session) but is confusing and wrong the moment `VERSION` moves again.
-
-*This four-place manual step is the thing most worth automating next — see
-`AUDIT.md` for the standing note, and ask about it if it's not fixed yet by
-the time you read this.*
+This used to be a manual, four-place, easy-to-forget step (bump a `VERSION`
+file, then find and update three separate hardcoded copies of the version
+number) — see `AUDIT.md`, 2026-08-08 follow-ups 8-10, for the two times
+forgetting it actually broke something. Automated in follow-up 12; if you're
+reading this and it's gone manual again, something regressed.
 
 ## Adding a new chapter to the JupyterLite fallback
 
@@ -112,7 +112,7 @@ the time you read this.*
    `!`-prefixed shell-magic line not already covered by `CELL_PATCHES` or the
    guarded-download pattern, and fails loudly (rather than silently breaking
    inside JupyterLite) if it finds one.
-3. Follow the publish steps above (VERSION bump etc.) before it goes live.
+3. `make check`, then publish per the steps above — no separate versioning step needed.
 
 ## Adding or editing a page in the left nav (not a numbered chapter)
 

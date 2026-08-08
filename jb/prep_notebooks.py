@@ -1,10 +1,32 @@
-import nbformat as nbf
+import os
+import sys
 from glob import glob
+
+import nbformat as nbf
+
+# chap01.ipynb and jupyter_intro.ipynb each embed a live JupyterLite iframe of
+# themselves and carry this placeholder instead of a hardcoded deploy path
+# (see tools/build_jupyterlite_content.py). build.sh/watch.sh compute the real
+# id once (python3 ../tools/build_jupyterlite_content.py --print-deploy-id)
+# and pass it in via this env var so both copies -- this one and the one
+# inside jupyterlite/content/ -- end up pointing at the same path.
+DEPLOY_PATH_PLACEHOLDER = 'JUPYTERLITE_DEPLOY_PATH'
+DEPLOY_ID = os.environ.get('JUPYTERLITE_DEPLOY_ID')
 
 
 def process_cell(cell):
     # get tags
     tags = cell['metadata'].get('tags', [])
+
+    if DEPLOY_PATH_PLACEHOLDER in cell['source']:
+        if not DEPLOY_ID:
+            sys.exit(
+                f"error: a cell contains {DEPLOY_PATH_PLACEHOLDER} but "
+                "JUPYTERLITE_DEPLOY_ID is not set. Run via build.sh/watch.sh, "
+                "or set it by hand: JUPYTERLITE_DEPLOY_ID=$(python3 "
+                "../tools/build_jupyterlite_content.py --print-deploy-id)"
+            )
+        cell['source'] = cell['source'].replace(DEPLOY_PATH_PLACEHOLDER, DEPLOY_ID)
 
     # add hide-cell tag to solutions
     if cell['cell_type'] == 'code':

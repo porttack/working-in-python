@@ -116,6 +116,7 @@ ATTRIBUTION.md               credit and licensing
 AP_MODIFICATIONS.md          what changed and why, in prose
 PUBLISHING.md                how the site is built, and why (architecture, mechanics)
 HOW_TO_EDIT.md               task-oriented: which file to edit, what to run
+FUTURE_DEPLOYMENT.md         plan for moving publishing into GitHub Actions -- not built yet
 CHANGELOG.md                 dated, append-only, summary level
 CHANGELOG_DETAIL.md          GENERATED from the ledger
 Makefile
@@ -170,13 +171,13 @@ messages. Every new term goes into that chapter's glossary.
 ## JupyterLite versioning
 
 Every JupyterLite deploy (the Colab-outage fallback for chapters 1-11) is served from
-`jupyterlite-vN/`, never a bare `jupyterlite/`. **Bump `jupyterlite/VERSION` before
-republishing any change** to `jupyterlite/content/` or `tools/build_jupyterlite_content.py`,
-and never reuse a version number for different content. **Never add `?enableCache=true`** to
-a JupyterLite link. Both rules exist so a live deploy can never be masked by a stale copy in
-a student's browser or a school network's caching proxy -- a version bump means the new
-content is at a URL nobody has ever fetched before, which no cache policy can get wrong. See
-`PUBLISHING.md` for the mechanics and the full reasoning.
+`jupyterlite-<hash>/`, never a bare `jupyterlite/`. The hash is computed automatically from
+the content that ships (`tools/build_jupyterlite_content.py`'s `compute_deploy_id()`) --
+there is no `VERSION` file to bump and nothing to remember. **Never add `?enableCache=true`**
+to a JupyterLite link. Both this and the content-hashed path exist so a live deploy can never
+be masked by a stale copy in a student's browser or a school network's caching proxy -- a
+content change always lands at a URL nobody has ever fetched before, which no cache policy can
+get wrong. See `PUBLISHING.md` for the mechanics and the full reasoning.
 
 ## Context
 

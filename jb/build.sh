@@ -33,10 +33,21 @@ rm -f chap*.ipynb jupyter_intro.ipynb
 cp ../chapters/chap[0-1][0-9].ipynb .
 cp ../chapters/jupyter_intro.ipynb .
 
-# NOT OPTIONAL. Besides blanking solution cells, this injects the
-# (section_name)= MyST labels that every internal cross-reference in the book
-# depends on, and strips %%expect magic that would otherwise render as visible
-# junk. Skip it and the book builds fine with silently broken links.
+# chap01.ipynb and jupyter_intro.ipynb each embed a live JupyterLite iframe of
+# themselves and carry a placeholder (JUPYTERLITE_DEPLOY_PATH) instead of a
+# hardcoded deploy path. The id is a hash of everything that affects what
+# ships in jupyterlite/content/ (see tools/build_jupyterlite_content.py), so
+# it changes automatically whenever that content does -- nothing to bump by
+# hand, and it can never collide with a previous, differently-built deploy.
+# Computed once here and exported so prep_notebooks.py's substitution (below)
+# and the JupyterLite build's own copy (further below) agree on the same id.
+export JUPYTERLITE_DEPLOY_ID=$(cd .. && python3 tools/build_jupyterlite_content.py --print-deploy-id)
+
+# NOT OPTIONAL. Besides blanking solution cells and substituting the deploy id
+# above, this injects the (section_name)= MyST labels that every internal
+# cross-reference in the book depends on, and strips %%expect magic that
+# would otherwise render as visible junk. Skip it and the book builds fine
+# with silently broken links.
 python prep_notebooks.py
 
 jb build .
@@ -46,21 +57,18 @@ jb build .
 # ghp-import force-push below, which otherwise replaces the whole branch with
 # just _build/html. See AUDIT.md, 2026-08-07/08.
 #
-# Deployed under a versioned path (jupyterlite-vN/, not jupyterlite/) so a
-# republish can never be masked by a stale cached copy in a student's browser
-# or a school network's caching proxy -- a new version is a URL nobody has
-# ever fetched before, which no cache-control header or proxy policy can get
-# wrong. Bump ../jupyterlite/VERSION whenever content/ or
-# tools/build_jupyterlite_content.py changes meaningfully; never reuse a
-# version number for different content. See CLAUDE.md and PUBLISHING.md.
-JLVER=$(cat ../jupyterlite/VERSION)
+# Deployed under $JUPYTERLITE_DEPLOY_ID (computed above), not a bare
+# jupyterlite/, so a republish can never be masked by a stale cached copy in
+# a student's browser or a school network's caching proxy -- a content change
+# always lands at a URL nobody has ever fetched before, which no
+# cache-control header or proxy policy can get wrong. See CLAUDE.md and
+# PUBLISHING.md.
 (cd .. && python3 tools/build_jupyterlite_content.py && jupyter lite build --contents jupyterlite/content --output-dir jupyterlite/_output)
 # Sphinx's own build only manages files it knows about, so a jupyterlite* dir
-# from an older run (before versioning existed, or an old version number)
-# lingers in _build/html across runs unless swept here. Without this, a
-# stale one could ride along into the next ghp-import publish.
+# from an older run lingers in _build/html across runs unless swept here.
+# Without this, a stale one could ride along into the next ghp-import publish.
 rm -rf _build/html/jupyterlite _build/html/jupyterlite-*
-cp -r ../jupyterlite/_output "_build/html/jupyterlite-${JLVER}"
+cp -r ../jupyterlite/_output "_build/html/${JUPYTERLITE_DEPLOY_ID}"
 
 if [[ "${1:-}" == "--local" ]]; then
   echo
@@ -80,4 +88,4 @@ echo "Published. Verify before telling anyone:"
 echo "  1. https://python.porttack.com/ loads with CSS intact"
 echo "  2. a chapter's Open in Colab badge actually opens"
 echo "  3. an internal cross-reference resolves (chap10 -> earlier section)"
-echo "  4. https://python.porttack.com/jupyterlite-${JLVER}/notebooks/index.html?path=chap01.ipynb runs"
+echo "  4. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/notebooks/index.html?path=chap01.ipynb runs"

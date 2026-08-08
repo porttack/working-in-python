@@ -2754,3 +2754,63 @@ User also flagged the four-place manual version-literal patching as something to
 follow-up comes next for that.
 
 `make check` passes.
+
+## 2026-08-08 follow-up 12 -- JupyterLite deploy path is now a content hash, not a hand-bumped VERSION
+
+The thing flagged as open in follow-up 11 (and the two actual breakages logged in follow-ups 8-10):
+user said "let's do some make or hash thing... presumably that means patching files with the
+correct version/path on deployment, but so be it" -- explicitly signing off on exactly the design
+built here.
+
+**The mechanism.** `chapters/chap01.ipynb` and `chapters/jupyter_intro.ipynb` no longer contain a
+literal `jupyterlite-vN` anywhere. Both now carry a stable placeholder,
+`JUPYTERLITE_DEPLOY_PATH` (a new constant, `DEPLOY_PATH_PLACEHOLDER`, in
+`tools/build_jupyterlite_content.py`), in their iframe `src`/link. A new `compute_deploy_id()`
+there hashes (SHA-256, first 10 hex chars) every file that determines what actually ships in
+`jupyterlite/content/`: every notebook listed in `CHAPTERS`, every file any of them depends on,
+every `SHARED_FILES` entry, and the script's own source (so editing the patch/substitution logic
+itself also counts as a content change) -- in a fixed sort order, not dict/set iteration order, so
+the hash is reproducible across runs and across machines. Result:
+`jupyterlite-<10 hex chars>`, e.g. `jupyterlite-03a6882e29`.
+
+**Two places need the real value, and they get it two different ways.** Inside
+`jupyterlite/content/`, `build()` now calls a new `substitute_deploy_path(cells, deploy_id)` after
+`apply_cell_patches` -- deliberately after, so the two chap01/jupyter_intro `CELL_PATCHES` keys
+still match on the placeholder text (which never changes) rather than a moving version literal;
+this incidentally makes those keys permanently stable, fixing the other half of the fragility
+follow-up 10 flagged. `substitute_deploy_path` is otherwise generic: any cell containing the
+placeholder gets it replaced, whether or not that cell also happens to be one of the two patched
+ones (chap01's link to jupyter_intro is not patched out, and does need the real id even in the
+copy that ships inside JupyterLite itself). For the copies that ship on the JB site,
+`jb/prep_notebooks.py` does the equivalent substitution, reading the id from a new
+`JUPYTERLITE_DEPLOY_ID` environment variable (fails loudly, `sys.exit`, if a placeholder is found
+and the env var isn't set -- catches the case of running `jb build .` directly without going
+through `build.sh`/`watch.sh`). `--print-deploy-id` (new CLI flag) is the single source both
+scripts call to get that value, so the logic lives in exactly one place.
+
+**Wiring:** `jb/build.sh` computes `JUPYTERLITE_DEPLOY_ID` once, near the top (before
+`prep_notebooks.py` runs), and reuses it for the later `cp -r ../jupyterlite/_output
+"_build/html/${JUPYTERLITE_DEPLOY_ID}"` step and the final printed verification URL.
+`jb/watch.sh` does the same at startup, once (not per-rebuild -- it doesn't rebuild the JupyterLite
+side at all, so a fixed id for the session is what actually matches whatever's sitting in
+`_build/html/`); `export` there is enough to reach the `--pre-build` subprocess too, since it
+inherits the parent's environment.
+
+**Removed:** `jupyterlite/VERSION` (`git rm`), and the "bump VERSION" instructions in `CLAUDE.md`,
+`PUBLISHING.md`, and `HOW_TO_EDIT.md`, replaced with the hash-based description in each.
+
+**Verified for real**, same method as before: hand-replicated `build.sh` and `watch.sh`'s steps
+(both scripts' own dirty-tree/other guards made running them directly awkward mid-round), computed
+the id, ran `prep_notebooks.py` and confirmed zero occurrences of the placeholder and the expected
+`jupyterlite-03a6882e29` in both `chap01.ipynb` and `jupyter_intro.ipynb` afterward, ran a real `jb
+build .` + `jupyter lite build` + copy into `_build/html/jupyterlite-03a6882e29/`, served it, and
+drove it with Playwright: both pages load, both panes still show a 0.0px gap to the sidebar, and
+the id used by the JB-site copy and the id used by the JupyterLite-content copy are identical
+(computed from the same inputs, so this is expected, but confirmed rather than assumed).
+
+`make check` passes. `projector/chap01.ipynb` and `projector/jupyter_intro.ipynb` regenerated.
+
+**Not done:** no attempt to prune old `jupyterlite-<hash>` directories from a long-lived local
+`_build/html/` (only matters locally; `build.sh`'s `rm -rf _build/html/jupyterlite*` sweep already
+handles the real publish case). The FUTURE_DEPLOYMENT.md the user asked for (moving this whole
+flow into a GitHub Action) is separate, not-yet-written work -- see whichever follow-up covers that.

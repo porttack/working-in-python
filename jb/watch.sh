@@ -31,6 +31,17 @@ fi
 rm -f chap*.ipynb jupyter_intro.ipynb
 cp ../chapters/chap[0-1][0-9].ipynb .
 cp ../chapters/jupyter_intro.ipynb .
+
+# chap01.ipynb and jupyter_intro.ipynb carry a placeholder instead of a
+# hardcoded JupyterLite deploy path (see tools/build_jupyterlite_content.py);
+# prep_notebooks.py substitutes it using this id. Computed once here, at
+# startup, not per-rebuild -- watch.sh never rebuilds the JupyterLite side
+# itself (see HOW_TO_EDIT.md for that), so a fixed id for the whole session
+# is what actually matches whatever's sitting in jb/_build/html/. `export`
+# here reaches the --pre-build subprocess below too, since it inherits this
+# script's environment.
+export JUPYTERLITE_DEPLOY_ID=$(cd .. && python3 tools/build_jupyterlite_content.py --print-deploy-id)
+
 python prep_notebooks.py
 
 # jb build does this step implicitly. sphinx-autobuild drives sphinx
