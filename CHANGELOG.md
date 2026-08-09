@@ -16,6 +16,46 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Reverse-map links on the AP CSP and CA CS reference pages (preview)
+
+### Changed
+- `alignment/apcsp-standards-reference.html` and `alignment/ca-cs-standards-reference.html`:
+  every "Book chapters: N, M" line now links each chapter number individually — to the
+  chapter's Read Only page (chapters 1-2, the only ones with that Pass 4 chrome so far) or
+  to the plain chapter page otherwise. A preview of what the reverse map (standard ->
+  chapter) looks like rendered on the page, using the real AP/CA carrier data that already
+  existed from Pass 3. Not yet extended to the whole book or to CSTA/ICT (both still have no
+  carrier data to link).
+- CSTA and ICT/Anchor page generators updated with the same chapter-linking logic, gated to
+  the `working_in_python` source, so future regenerations behave consistently once those
+  frameworks have real carrier data. No visible change yet since neither has any.
+
+## 2026-08-09 — Standards schema grows a reverse map (`carriers[]`)
+
+### Changed
+- All four `standards/*.json` files: replaced the flat `"carrier": "X", "tp_chapters": [...]`
+  pair on every topic/standard (and, in `ca-ict-anchor.json`, every nested sub-item) with a
+  `"carriers": [{"source": "X", "chapters": [...]}]` array — 281 entries migrated, unassigned
+  becomes an empty array rather than the string `"unassigned"`. Groundwork for reverse-
+  mapping standards to chapters, and eventually to other content sources beyond this book.
+  `standards/README.md` documents the new shape.
+- CSTA and ICT/Anchor reference-page generators updated to read `carriers[]`; regenerated
+  and confirmed byte-identical output, since neither framework has any populated carriers
+  yet. AP CSP and CA CS pages unaffected — neither is regenerated from JSON at render time.
+
+## 2026-08-09 — CA links point at our own page, not CodeHS (chapters 1-3)
+
+### Changed
+- `type="standards"` sentinel in chap02 and chap03: the **California 9-12** label is no
+  longer a link to `codehs.com/standards/framework/CA_9-12`; each standard code it cites now
+  links individually to its own `#S-<code>` anchor on
+  `alignment/ca-cs-standards-reference.html` (e.g. `#S-9-12.AP.17`). Same convention already
+  used for the **AP CSP** label. chap01 unchanged — it cites no California standard, so
+  there was nothing to relink. `projector/` regenerated; `make check` passes.
+- `mods/pass-3-alignment.md`'s Amendments bullet and both Step 4 templates updated so
+  chapters 4-19 pick up the new convention automatically — the CodeHS carve-out is gone now
+  that a hosted CA page with per-standard anchors exists.
+
 ## 2026-08-09 — Three more standards reference pages: CA CS, CSTA 2026, CA ICT & Anchor
 
 ### Added

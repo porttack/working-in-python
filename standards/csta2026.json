@@ -21,8 +21,7 @@
     "Critical Thinking",
     "Resourcefulness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-PS-02",
@@ -38,8 +37,7 @@
     "Critical Thinking",
     "Creativity"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-PS-03",
@@ -54,8 +52,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-PS-04",
@@ -70,8 +67,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-PS-05",
@@ -87,8 +83,7 @@
     "Critical Thinking",
     "Sense of Belonging"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-ML-06",
@@ -104,8 +99,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-ML-07",
@@ -121,8 +115,7 @@
     "Reflectiveness",
     "Critical Thinking"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-ML-08",
@@ -138,8 +131,7 @@
     "Creativity",
     "Critical Thinking"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-IM-09",
@@ -155,8 +147,7 @@
     "Resourcefulness",
     "Critical Thinking"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-IM-10",
@@ -172,8 +163,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-ALG-IM-11",
@@ -189,8 +179,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-PD-12",
@@ -206,8 +195,7 @@
     "Critical Thinking",
     "Creativity"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-PD-13",
@@ -223,8 +211,7 @@
     "Resourcefulness",
     "Persistence"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-PD-14",
@@ -240,8 +227,7 @@
     "Reflectiveness",
     "Sense of Belonging"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-PD-15",
@@ -257,8 +243,7 @@
     "Sense of Belonging",
     "Persistence"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-VD-16",
@@ -274,8 +259,7 @@
     "Critical Thinking",
     "Persistence"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-RD-17",
@@ -291,8 +275,7 @@
     "Critical Thinking",
     "Persistence"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-RD-18",
@@ -308,8 +291,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-TR-19",
@@ -325,8 +307,7 @@
     "Reflectiveness",
     "Critical Thinking"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-PRO-TR-20",
@@ -342,8 +323,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-DAT-DC-21",
@@ -359,8 +339,7 @@
     "Critical Thinking",
     "Persistence"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-DAT-DC-22",
@@ -376,8 +355,7 @@
     "Critical Thinking",
     "Persistence"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-DAT-DC-23",
@@ -393,8 +371,7 @@
     "Persistence",
     "Critical Thinking"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-DAT-DC-24",
@@ -410,8 +387,7 @@
     "Critical Thinking",
     "Persistence"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-DAT-DI-25",
@@ -427,8 +403,7 @@
     "Critical Thinking",
     "Resourcefulness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-DAT-DI-26",
@@ -443,8 +418,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-DAT-IM-27",
@@ -460,8 +434,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-DAT-IM-28",
@@ -477,8 +450,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-HW-29",
@@ -493,8 +465,7 @@
    "dispositions": [
     "Critical Thinking"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-HW-30",
@@ -510,8 +481,7 @@
     "Critical Thinking",
     "Resourcefulness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-SE-31",
@@ -527,8 +497,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-SE-32",
@@ -544,8 +513,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-SE-33",
@@ -561,8 +529,7 @@
     "Critical Thinking",
     "Resourcefulness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-NT-34",
@@ -578,8 +545,7 @@
     "Creativity",
     "Critical Thinking"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-NT-35",
@@ -594,8 +560,7 @@
     "Critical Thinking",
     "Resourcefulness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-IM-36",
@@ -611,8 +576,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SYS-IM-37",
@@ -628,8 +592,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-HI-38",
@@ -645,8 +608,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-HI-39",
@@ -662,8 +624,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-ET-40",
@@ -679,8 +640,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-ET-41",
@@ -696,8 +656,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-ET-42",
@@ -713,8 +672,7 @@
     "Creativity",
     "Critical Thinking"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-HU-43",
@@ -730,8 +688,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-HU-44",
@@ -747,8 +704,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-CE-45",
@@ -764,8 +720,7 @@
     "Critical Thinking",
     "Reflectiveness"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   },
   {
    "code": "HS-SOC-CE-46",
@@ -781,8 +736,7 @@
     "Reflectiveness",
     "Sense of Belonging"
    ],
-   "tp_chapters": [],
-   "carrier": "unassigned"
+   "carriers": []
   }
  ]
 }

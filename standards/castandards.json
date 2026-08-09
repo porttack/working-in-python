@@ -1,153 +1,429 @@
 {
-  "meta": {
-    "source": "California K-12 Computer Science Standards (California Department of Education), reissued with framework alignment updates through Nov. 2023",
-    "extracted": "2026-07-30",
-    "source_pages": 270,
-    "grade_band_covered": "9-12",
-    "shape_note": "Extraction matches the expected shape exactly: five strands, thirty core 9-12 standards (CS.1-3, NI.4-7, DA.8-11, AP.12-22, IC.23-30). A separate '9-12 Specialty' set (9-12S.*, e.g. 9-12S.CS.1) exists in the same document for a more advanced/specialized pathway; it is a different, non-core standard set and is not indexed here."
+ "meta": {
+  "source": "California K-12 Computer Science Standards (California Department of Education), reissued with framework alignment updates through Nov. 2023",
+  "extracted": "2026-07-30",
+  "source_pages": 270,
+  "grade_band_covered": "9-12",
+  "shape_note": "Extraction matches the expected shape exactly: five strands, thirty core 9-12 standards (CS.1-3, NI.4-7, DA.8-11, AP.12-22, IC.23-30). A separate '9-12 Specialty' set (9-12S.*, e.g. 9-12S.CS.1) exists in the same document for a more advanced/specialized pathway; it is a different, non-core standard set and is not indexed here."
+ },
+ "standards": [
+  {
+   "code": "9-12.CS.1",
+   "strand": "CS",
+   "strand_name": "Computing Systems",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Computing systems hide their internal workings behind a simpler experience for the person using them.",
+   "note": "About hardware/device abstraction (e.g., a phone hiding its GPS hardware from the user), not software abstraction in code. Nothing in the book addresses this. Not covered by the AP crosswalk either -- a systems-level topic with no obvious carrier in either framework as currently scoped.",
+   "carriers": []
   },
-  "standards": [
-    { "code": "9-12.CS.1", "strand": "CS", "strand_name": "Computing Systems",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Computing systems hide their internal workings behind a simpler experience for the person using them.",
-      "tp_chapters": [], "carrier": "unassigned",
-      "note": "About hardware/device abstraction (e.g., a phone hiding its GPS hardware from the user), not software abstraction in code. Nothing in the book addresses this. Not covered by the AP crosswalk either -- a systems-level topic with no obvious carrier in either framework as currently scoped." },
-    { "code": "9-12.CS.2", "strand": "CS", "strand_name": "Computing Systems",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Application software, system software, and hardware form layers that each manage their own part of getting a task done.",
-      "tp_chapters": [], "carrier": "unassigned",
-      "note": "Not covered. Same status as CS.1 -- a hardware/systems topic outside this book's scope." },
-    { "code": "9-12.CS.3", "strand": "CS", "strand_name": "Computing Systems",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Troubleshooting a complex problem means researching, testing, and drawing on past experience with similar problems, and writing that process down so someone else can repeat it.",
-      "tp_chapters": [], "carrier": "unassigned",
-      "note": "The descriptive statement's examples (network connectivity, help-desk guidelines) are about systems/hardware troubleshooting, not code debugging. Every chapter's 'Debugging' section teaches the code-debugging skill this is adjacent to, but that carries AP CRD-1.4, not this standard as written -- deliberately not claiming credit here for a different skill." },
-
-    { "code": "9-12.NI.4", "strand": "NI", "strand_name": "Networks & the Internet",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Networks have to satisfy real performance demands -- latency, bandwidth, throughput -- for the organizations that depend on them.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.NI.5", "strand": "NI", "strand_name": "Networks & the Internet",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "The internet's design, including how it looks up addresses and routes traffic, is what lets it scale and stay reliable.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.NI.6", "strand": "NI", "strand_name": "Networks & the Internet",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Different security threats call for different defenses, and choosing between them is a tradeoff, not a solved problem.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.NI.7", "strand": "NI", "strand_name": "Networks & the Internet",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Cryptographic techniques protect data in transit, and symmetric and asymmetric approaches trade off differently for cost and use case.",
-      "tp_chapters": [], "carrier": "little_brother" },
-
-    { "code": "9-12.DA.8", "strand": "DA", "strand_name": "Data & Analysis",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "The same real-world thing -- a color, a character, an image -- can be represented digitally in more than one way, and converting between those representations is a normal task.",
-      "tp_chapters": [], "carrier": "supplement",
-      "note": "Same underlying content as AP DAT-1.A (data represented using bits). Taught in CS50T Multimedia, same as that AP topic." },
-    { "code": "9-12.DA.9", "strand": "DA", "strand_name": "Data & Analysis",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "How data is organized and where it's stored is a choice with real consequences for cost, speed, reliability, privacy, and integrity.",
-      "tp_chapters": [], "carrier": "supplement",
-      "note": "The CED's own worked example for this standard is file-size-vs-quality tradeoffs across image formats -- the same territory as AP DAT-1.D (data compression). Taught in CS50T Multimedia." },
-    { "code": "9-12.DA.10", "strand": "DA", "strand_name": "Data & Analysis",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Turning a data set into a visualization is itself a design choice that shapes what other people take away from it.",
-      "tp_chapters": [], "carrier": "unassigned",
-      "note": "Real gap: the book has no plotting/visualization content anywhere (no charting library is used in chapters 1-13). chap12's word-frequency and Markov work processes data but never visualizes it." },
-    { "code": "9-12.DA.11", "strand": "DA", "strand_name": "Data & Analysis",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "A computational model is only useful once it's been checked against real observations and adjusted where it doesn't match.",
-      "tp_chapters": [], "carrier": "unassigned",
-      "note": "Not covered. chap12's Markov text model is a model of sorts but the chapter never validates or refines it against real-world data the way this standard describes -- too loose a connection to claim as a carrier." },
-
-    { "code": "9-12.AP.12", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Solving a computational problem often means combining an algorithm you already know with one you design yourself.",
-      "tp_chapters": [7, 9], "carrier": "working_in_python",
-      "note": "chap07 develops a linear-search algorithm from scratch; chap09's 'Sorting lists' uses an existing (built-in) sort. Together they match 'combination of original and existing algorithms' well." },
-    { "code": "9-12.AP.13", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Once a problem needs more than a handful of related values, a collection replaces a pile of separately named variables.",
-      "tp_chapters": [9], "carrier": "working_in_python",
-      "note": "Direct match to chap09 (Lists)." },
-    { "code": "9-12.AP.14", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Different control structures for the same task read differently and run differently, and choosing between them is a real design decision.",
-      "tp_chapters": [5, 6], "carrier": "working_in_python",
-      "note": "Strong match: the CED's own worked example here is comparing iterative vs. recursive Fibonacci -- and chap06 has a 'Fibonacci' section built on chap05's recursion material. The book only ever demonstrates the recursive side (see the AP index's 3.8 Iteration note on the missing `while` loop), so the iterative half of this comparison is thinner than the recursive half." },
-    { "code": "9-12.AP.15", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "A program built around events -- a button press, a timer -- responds to things happening rather than running start to finish in one line.",
-      "tp_chapters": [], "carrier": "unassigned",
-      "note": "Real gap: every program in this book runs top-to-bottom to completion. There is no event-driven or GUI programming anywhere in chapters 1-13 (turtle graphics is imperative, not event-based)." },
-    { "code": "9-12.AP.16", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Breaking a big problem into smaller ones, each solved by its own procedure, module, or class, is what makes a complex program manageable.",
-      "tp_chapters": [3, 4], "carrier": "working_in_python",
-      "note": "chap03/chap04's function-decomposition material carries the procedure half directly. Chapters 14-19 (classes) carry the class-based half of this standard too, but that range is independent-study/post-AP pathway per the treatment matrix, not part of the Aug-Dec sequence this standard would be taught alongside." },
-    { "code": "9-12.AP.17", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "A program built from separate, interacting pieces -- including code someone else wrote -- is organized by modular design.",
-      "tp_chapters": [2, 4, 8], "carrier": "working_in_python",
-      "note": "Same evidence as AP AAP-3.D (Libraries): chap02 introduces `import`, chap04 (jupyturtle) and chap08 (`re`) are the worked examples." },
-    { "code": "9-12.AP.18", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Designing for a broad audience means building in a way to collect feedback from real users and revising the design in response.",
-      "tp_chapters": [], "carrier": "unassigned",
-      "note": "chap04's development plan is a solo, technical process -- it never involves gathering feedback from an audience of users. Real gap, distinct from AP.21/CRD-1.1's collaboration gap: this one is about user feedback, not teammate collaboration." },
-    { "code": "9-12.AP.19", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Using someone else's library or code comes with license terms that limit what you can do with it.",
-      "tp_chapters": [], "carrier": "unassigned",
-      "note": "Not covered. Same gap as AP CRD-2.H (acknowledging code from other sources) -- the book never discusses licensing or attribution of borrowed code, even though chap04/chap08 use libraries." },
-    { "code": "9-12.AP.20", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "A program gets better through repeated rounds of testing and fixing, aimed at more than just correctness -- performance and ease of use matter too.",
-      "tp_chapters": [4, 7], "carrier": "working_in_python",
-      "note": "chap04's development plan and chap07's doctest work carry the iterative-testing half. Usability and accessibility specifically -- this standard's other named dimensions -- aren't addressed anywhere in the book." },
-    { "code": "9-12.AP.21", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Building something as a team, in defined roles, with shared tools, is different work from building it alone.",
-      "tp_chapters": [], "carrier": "supplement",
-      "note": "Same practice as AP CRD-1.1 (Collaboration). Taught continuously, through lab pair work and the Create Performance Task, not as a standalone lesson." },
-    { "code": "9-12.AP.22", "strand": "AP", "strand_name": "Algorithms & Programming",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "As a program's design takes shape, writing the decisions down -- in whatever form fits -- is what makes the process legible to anyone else who looks at it later.",
-      "tp_chapters": [4], "carrier": "working_in_python",
-      "note": "chap04's docstrings and development-plan material carry the in-code documentation half. The graphics/presentation/demonstration forms of documentation this standard also names aren't part of the book." },
-
-    { "code": "9-12.IC.23", "strand": "IC", "strand_name": "Impacts of Computing",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Computing changes personal, social, economic, and cultural practices, not always for the better.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.IC.24", "strand": "IC", "strand_name": "Impacts of Computing",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Bias built into a computing artifact, often from assumptions its designers didn't question, has to be actively tested for and reduced.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.IC.25", "strand": "IC", "strand_name": "Impacts of Computing",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "The same algorithm often turns out to solve problems in fields far from where it was first designed.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.IC.26", "strand": "IC", "strand_name": "Impacts of Computing",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "New technologies reshape social, economic, and political structures in ways worth examining critically, not just adopting.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.IC.27", "strand": "IC", "strand_name": "Impacts of Computing",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Digital collaboration tools connect people across cultures and professions in ways that reshape how teams work together.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.IC.28", "strand": "IC", "strand_name": "Impacts of Computing",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Intellectual property law cuts both ways for innovation: it protects creators, but it can also limit what gets built next.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.IC.29", "strand": "IC", "strand_name": "Impacts of Computing",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "A lot of personal data is collected automatically, without the person it describes actively participating, and that raises its own privacy concerns.",
-      "tp_chapters": [], "carrier": "little_brother" },
-    { "code": "9-12.IC.30", "strand": "IC", "strand_name": "Impacts of Computing",
-      "grade_band": "9-12", "core": true,
-      "paraphrase": "Privacy laws and ethics differ across places and contexts, and evaluating a policy means weighing its social and economic tradeoffs.",
-      "tp_chapters": [], "carrier": "little_brother" }
-  ]
+  {
+   "code": "9-12.CS.2",
+   "strand": "CS",
+   "strand_name": "Computing Systems",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Application software, system software, and hardware form layers that each manage their own part of getting a task done.",
+   "note": "Not covered. Same status as CS.1 -- a hardware/systems topic outside this book's scope.",
+   "carriers": []
+  },
+  {
+   "code": "9-12.CS.3",
+   "strand": "CS",
+   "strand_name": "Computing Systems",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Troubleshooting a complex problem means researching, testing, and drawing on past experience with similar problems, and writing that process down so someone else can repeat it.",
+   "note": "The descriptive statement's examples (network connectivity, help-desk guidelines) are about systems/hardware troubleshooting, not code debugging. Every chapter's 'Debugging' section teaches the code-debugging skill this is adjacent to, but that carries AP CRD-1.4, not this standard as written -- deliberately not claiming credit here for a different skill.",
+   "carriers": []
+  },
+  {
+   "code": "9-12.NI.4",
+   "strand": "NI",
+   "strand_name": "Networks & the Internet",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Networks have to satisfy real performance demands -- latency, bandwidth, throughput -- for the organizations that depend on them.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.NI.5",
+   "strand": "NI",
+   "strand_name": "Networks & the Internet",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "The internet's design, including how it looks up addresses and routes traffic, is what lets it scale and stay reliable.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.NI.6",
+   "strand": "NI",
+   "strand_name": "Networks & the Internet",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Different security threats call for different defenses, and choosing between them is a tradeoff, not a solved problem.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.NI.7",
+   "strand": "NI",
+   "strand_name": "Networks & the Internet",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Cryptographic techniques protect data in transit, and symmetric and asymmetric approaches trade off differently for cost and use case.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.DA.8",
+   "strand": "DA",
+   "strand_name": "Data & Analysis",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "The same real-world thing -- a color, a character, an image -- can be represented digitally in more than one way, and converting between those representations is a normal task.",
+   "note": "Same underlying content as AP DAT-1.A (data represented using bits). Taught in CS50T Multimedia, same as that AP topic.",
+   "carriers": [
+    {
+     "source": "supplement",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.DA.9",
+   "strand": "DA",
+   "strand_name": "Data & Analysis",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "How data is organized and where it's stored is a choice with real consequences for cost, speed, reliability, privacy, and integrity.",
+   "note": "The CED's own worked example for this standard is file-size-vs-quality tradeoffs across image formats -- the same territory as AP DAT-1.D (data compression). Taught in CS50T Multimedia.",
+   "carriers": [
+    {
+     "source": "supplement",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.DA.10",
+   "strand": "DA",
+   "strand_name": "Data & Analysis",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Turning a data set into a visualization is itself a design choice that shapes what other people take away from it.",
+   "note": "Real gap: the book has no plotting/visualization content anywhere (no charting library is used in chapters 1-13). chap12's word-frequency and Markov work processes data but never visualizes it.",
+   "carriers": []
+  },
+  {
+   "code": "9-12.DA.11",
+   "strand": "DA",
+   "strand_name": "Data & Analysis",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "A computational model is only useful once it's been checked against real observations and adjusted where it doesn't match.",
+   "note": "Not covered. chap12's Markov text model is a model of sorts but the chapter never validates or refines it against real-world data the way this standard describes -- too loose a connection to claim as a carrier.",
+   "carriers": []
+  },
+  {
+   "code": "9-12.AP.12",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Solving a computational problem often means combining an algorithm you already know with one you design yourself.",
+   "note": "chap07 develops a linear-search algorithm from scratch; chap09's 'Sorting lists' uses an existing (built-in) sort. Together they match 'combination of original and existing algorithms' well.",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      7,
+      9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "9-12.AP.13",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Once a problem needs more than a handful of related values, a collection replaces a pile of separately named variables.",
+   "note": "Direct match to chap09 (Lists).",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "9-12.AP.14",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Different control structures for the same task read differently and run differently, and choosing between them is a real design decision.",
+   "note": "Strong match: the CED's own worked example here is comparing iterative vs. recursive Fibonacci -- and chap06 has a 'Fibonacci' section built on chap05's recursion material. The book only ever demonstrates the recursive side (see the AP index's 3.8 Iteration note on the missing `while` loop), so the iterative half of this comparison is thinner than the recursive half.",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      5,
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "code": "9-12.AP.15",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "A program built around events -- a button press, a timer -- responds to things happening rather than running start to finish in one line.",
+   "note": "Real gap: every program in this book runs top-to-bottom to completion. There is no event-driven or GUI programming anywhere in chapters 1-13 (turtle graphics is imperative, not event-based).",
+   "carriers": []
+  },
+  {
+   "code": "9-12.AP.16",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Breaking a big problem into smaller ones, each solved by its own procedure, module, or class, is what makes a complex program manageable.",
+   "note": "chap03/chap04's function-decomposition material carries the procedure half directly. Chapters 14-19 (classes) carry the class-based half of this standard too, but that range is independent-study/post-AP pathway per the treatment matrix, not part of the Aug-Dec sequence this standard would be taught alongside.",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      3,
+      4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "9-12.AP.17",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "A program built from separate, interacting pieces -- including code someone else wrote -- is organized by modular design.",
+   "note": "Same evidence as AP AAP-3.D (Libraries): chap02 introduces `import`, chap04 (jupyturtle) and chap08 (`re`) are the worked examples.",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      2,
+      4,
+      8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "9-12.AP.18",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Designing for a broad audience means building in a way to collect feedback from real users and revising the design in response.",
+   "note": "chap04's development plan is a solo, technical process -- it never involves gathering feedback from an audience of users. Real gap, distinct from AP.21/CRD-1.1's collaboration gap: this one is about user feedback, not teammate collaboration.",
+   "carriers": []
+  },
+  {
+   "code": "9-12.AP.19",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Using someone else's library or code comes with license terms that limit what you can do with it.",
+   "note": "Not covered. Same gap as AP CRD-2.H (acknowledging code from other sources) -- the book never discusses licensing or attribution of borrowed code, even though chap04/chap08 use libraries.",
+   "carriers": []
+  },
+  {
+   "code": "9-12.AP.20",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "A program gets better through repeated rounds of testing and fixing, aimed at more than just correctness -- performance and ease of use matter too.",
+   "note": "chap04's development plan and chap07's doctest work carry the iterative-testing half. Usability and accessibility specifically -- this standard's other named dimensions -- aren't addressed anywhere in the book.",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      4,
+      7
+     ]
+    }
+   ]
+  },
+  {
+   "code": "9-12.AP.21",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Building something as a team, in defined roles, with shared tools, is different work from building it alone.",
+   "note": "Same practice as AP CRD-1.1 (Collaboration). Taught continuously, through lab pair work and the Create Performance Task, not as a standalone lesson.",
+   "carriers": [
+    {
+     "source": "supplement",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.AP.22",
+   "strand": "AP",
+   "strand_name": "Algorithms & Programming",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "As a program's design takes shape, writing the decisions down -- in whatever form fits -- is what makes the process legible to anyone else who looks at it later.",
+   "note": "chap04's docstrings and development-plan material carry the in-code documentation half. The graphics/presentation/demonstration forms of documentation this standard also names aren't part of the book.",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "9-12.IC.23",
+   "strand": "IC",
+   "strand_name": "Impacts of Computing",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Computing changes personal, social, economic, and cultural practices, not always for the better.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.IC.24",
+   "strand": "IC",
+   "strand_name": "Impacts of Computing",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Bias built into a computing artifact, often from assumptions its designers didn't question, has to be actively tested for and reduced.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.IC.25",
+   "strand": "IC",
+   "strand_name": "Impacts of Computing",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "The same algorithm often turns out to solve problems in fields far from where it was first designed.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.IC.26",
+   "strand": "IC",
+   "strand_name": "Impacts of Computing",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "New technologies reshape social, economic, and political structures in ways worth examining critically, not just adopting.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.IC.27",
+   "strand": "IC",
+   "strand_name": "Impacts of Computing",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Digital collaboration tools connect people across cultures and professions in ways that reshape how teams work together.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.IC.28",
+   "strand": "IC",
+   "strand_name": "Impacts of Computing",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Intellectual property law cuts both ways for innovation: it protects creators, but it can also limit what gets built next.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.IC.29",
+   "strand": "IC",
+   "strand_name": "Impacts of Computing",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "A lot of personal data is collected automatically, without the person it describes actively participating, and that raises its own privacy concerns.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  },
+  {
+   "code": "9-12.IC.30",
+   "strand": "IC",
+   "strand_name": "Impacts of Computing",
+   "grade_band": "9-12",
+   "core": true,
+   "paraphrase": "Privacy laws and ethics differ across places and contexts, and evaluating a policy means weighing its social and economic tradeoffs.",
+   "carriers": [
+    {
+     "source": "little_brother",
+     "chapters": []
+    }
+   ]
+  }
+ ]
 }

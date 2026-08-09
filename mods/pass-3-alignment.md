@@ -23,13 +23,18 @@
   This superseded the earlier CodeHS-framework-page convention (still visible in commit
   b0a2f53 for chapters 1-3, later redone in the AUDIT.md handoff dated 2026-07-30 "Redo AP
   linking"); do not link to `codehs.com` for AP CSP going forward.
-- **Standards links, California.** Unchanged — still link the **California 9-12** label to
-  `https://codehs.com/standards/framework/CA_9-12`. We have not built our own hosted page for
-  the CA standards, so there is nowhere else to point yet. That page is a client-rendered grid
-  with no `id` attributes or anchor fragments — confirmed by fetching the raw HTML, not just
-  the rendered view — so the link can only reach the whole framework, never a specific row.
-  Don't invent a deeper URL. Link only the line that actually cites a code; leave a line
-  unlinked if it says "not assessed" or "no standard names this content on its own."
+- **Standards links, California.** As of 2026-08-09 we host our own CA CS standards
+  reference at `alignment/ca-cs-standards-reference.html`, deployed to
+  `https://python.porttack.com/alignment/ca-cs-standards-reference.html`, with a
+  `#S-<code>` anchor on every standard (e.g. `#S-9-12.AP.16`). Same treatment as AP CSP: do
+  not link the **California 9-12** label itself — link each individual code cited in the
+  line to its own anchor, e.g.
+  `[9-12.AP.16](https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.16)`.
+  This superseded the CodeHS-framework-page convention (still visible in commit b0a2f53 and
+  every chapter before this change; redone for chapters 1-3 in the AUDIT.md handoff dated
+  2026-08-09 "CA links point at our own page"); do not link to `codehs.com` for California
+  going forward. Link only the line that actually cites a code; leave a line unlinked if it
+  says "not assessed" or "no standard names this content on its own."
 
 ## Go...
 
@@ -188,7 +193,7 @@ read from the JSON; nothing hardcoded. Under 200 words. Signposting, not a secon
 ## Standards alignment
 
 **AP CSP:** [3.10 Lists](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.10), [3.2 Data Abstraction](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.2) — Big Idea 3, 30–35% of the exam
-**[California 9–12](https://codehs.com/standards/framework/CA_9-12):** 9-12.AP.14, 9-12.AP.16
+**California 9–12:** [9-12.AP.14](https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.14), [9-12.AP.16](https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.16)
 
 <One to three sentences of original prose connecting this chapter's Python to the way the
 exam frames the same idea. Heavily weighted topics only; light ones get the headers alone.>
@@ -201,11 +206,11 @@ exam frames the same idea. Heavily weighted topics only; light ones get the head
 ```
 
 The leading `---` is a markdown rule, matching the one already used in this cell's `note`
-sentinel — not a raw `<hr>` tag. The **AP CSP** label itself is never a link — link each
-individual topic citation to its own `#T-<code>` anchor on
-`alignment/apcsp-standards-reference.html`, in the order the topics are named. Only link
-the **California 9–12** label (still to the whole CodeHS framework page, no per-standard
-anchor exists there) when its line actually cites a code.
+sentinel — not a raw `<hr>` tag. Neither the **AP CSP** label nor the **California 9–12**
+label is ever a link — link each individual code citation to its own anchor instead: AP
+topics to `#T-<code>` on `alignment/apcsp-standards-reference.html`, CA standards to
+`#S-<code>` on `alignment/ca-cs-standards-reference.html`, in the order the codes are
+named. Leave a California line unlinked only when it cites no code.
 
 **Short form, chapters 14–19:**
 
@@ -216,16 +221,16 @@ anchor exists there) when its line actually cites a code.
 ## Standards alignment
 
 **AP CSP:** not assessed. Object-oriented programming is outside the AP CSP framework.
-**[California 9–12](https://codehs.com/standards/framework/CA_9-12):** <codes, if any>
+**California 9–12:** <codes, if any, each linked to its own `#S-<code>` anchor>
 
 Included because <one line: on-ramp to AP CSA, CMU 15-111, or a CA standard nothing else
 in the course reaches>.
 <!-- apcsp:end -->
 ```
 
-The **AP CSP** label is never linked (per the full-form note above); here it also cites no
-code, so there is doubly nothing to link. If a chapter's
-California line is also empty, leave that unlinked too.
+Neither label is ever linked (per the full-form note above); the **AP CSP** line here also
+cites no code, so there is doubly nothing to link. If a chapter's California line is also
+empty, leave that unlinked too.
 
 Telling a student "this is not on the exam, and here is why we're doing it anyway" is better
 information than silence.

@@ -3213,6 +3213,155 @@ as an alternative framing by the user this round, not decided either way), and t
 question of whether the theme's own built-in "Print to PDF" button is sufficient on its own or
 this `?readonly` page should be what people are pointed at for printing specifically.
 
+## 2026-08-09 — Reverse-map links on the reference pages (preview, chapters 1-3 real data)
+
+Follow-up to the `carriers[]` migration above, same session. Maintainer corrected an
+overstatement in that entry's handoff to me directly: AP CSP and CA CS are **not**
+carrier-empty — `working_in_python` carrier data for both has existed since Pass 3 and
+covers chapters 1-13, not just 1-3. Only CSTA 2026 and ICT/Anchor are genuinely empty (no
+alignment pass has run against either). Verified this by deriving a by-chapter view for
+chapters 1-3 straight from `carriers[]` and cross-checking it against both the hand-written
+chapter sentinels and `alignment/standards_alignment.md`'s existing "View 1 — By chapter"
+table — exact match on all three. Worth flagging: that table is hand-maintained prose today
+but is now fully re-derivable from `carriers[]`; regenerating it instead of hand-editing it
+is a real option for the "later, for the whole book" version of this work, not done here.
+
+**What was actually asked for this round:** not the full reverse-map view yet — just a
+look at what the standards *reference pages* look like once a `Book chapters: N, M` line
+turns into real links, specifically anticipating that some chapters have a Read Only page
+(Pass 4 chrome, chapters 1-2 only right now) and some don't (3 onward), so the two cases
+need to render side by side to judge how it reads.
+
+Added a `chapter_link(n)` helper (readonly URL for `n` in `{1, 2}`, plain chapter-page URL
+otherwise) and rewrote every non-empty `Book chapters:` line on
+`apcsp-standards-reference.html` (35 topics) and `ca-cs-standards-reference.html` (30
+standards) to link each chapter number individually — `title="Read Only page"` vs.
+`title="Chapter page"` on the two link kinds so the distinction is visible on hover without
+adding visual clutter. Applied directly via a regex rewrite over the meta line's existing
+text (both pages' "Carrier: X · Book chapters: Y" line has one consistent format), not a
+full page regeneration — the AP page in particular has no round-trip generator (its
+Learning-Objective/Essential-Knowledge prose was a one-off paraphrase pass, never folded
+back into `apcsp.json`), so a targeted rewrite was the only option that didn't risk losing
+content. Confirmed structurally sound afterward: AP page still has all 445 unique anchor
+ids and balanced tags (same count documented in the original 2026-07-30 entry), CA page
+clean at 36.
+
+Also updated the CSTA and ICT/Anchor generator scripts with the identical `chapter_link`
+logic, gated on `source == 'working_in_python'` (the only source with book-chapter-shaped
+locations right now), so all four pages behave the same way once those two frameworks
+actually get carrier data. Regenerated both and confirmed byte-identical output — nothing
+to link yet, so nothing visibly changed, exactly as expected.
+
+### For a future maintainer
+
+- Chapter-to-URL logic (`READONLY_CHAPTERS = {1, 2}`, else the plain `chapNN.html` page) now
+  lives in three places: the one-off regex script used on the AP/CA pages (not saved to
+  disk outside this session's scratchpad) and both the CSTA/ICT generators (also
+  scratchpad-only). **This set has to be updated by hand as Pass 4 covers more chapters** —
+  nothing reads Pass 4's actual progress automatically. If this reverse-map linking becomes
+  permanent, that set should probably be computed from something real (e.g., grep
+  `chapters/*.ipynb` for the Read Only link-bar entry) rather than hand-maintained in
+  N different places.
+- This was explicitly a preview/judge-the-look pass, not the "for the whole book" version
+  the maintainer said they want later — that version should probably be a real generator run
+  from `carriers[]` end to end (all chapters, all four frameworks, plus the coverage-
+  percentage idea floated earlier), not a regex patch over already-rendered HTML.
+
+## 2026-08-09 — Standards schema grows a reverse map (`carriers[]`)
+
+Maintainer wants to experiment with reverse-mapping standards to chapters — "which chapters
+carry standard X" rather than the existing per-chapter "Standards alignment" sentinel's
+"which standards does chapter N cite" — and said this same need will come up again for
+other content they have (not this repo, not described further). Also floated, explicitly as
+a think-about-it and not a request: eventually showing standards-coverage as a percentage,
+broken down by source.
+
+Gave the maintainer three shapes to choose from for where the reverse map should live: a
+`carriers[]` array added directly on each standard (one source of truth, multi-source-ready
+from day one); a separate crosswalk file per source (standards data stays source-agnostic,
+join happens at render time); or a chapter-keyed index instead of a standard-keyed one
+(answers "what does chapter 9 cover" directly, "who carries AP.12" means scanning it).
+Maintainer picked the first.
+
+**Migrated all four `standards/*.json` files** — `apcsp.json` (35 topics), `castandards.json`
+(30 standards), `csta2026.json` (46 standards), `ca-ict-anchor.json` (170 items across
+anchor standards, their sub-items, pathway standards, and their sub-items) — from a flat
+`"carrier": "X", "tp_chapters": [...]` pair to `"carriers": [{"source": "X", "chapters":
+[...]}]`. `"carrier": "unassigned"` (or absent) becomes `"carriers": []` — empty means
+unassigned, not "checked and found nothing," matching how the reference pages' provenance
+boxes already describe CSTA/ICT's placeholder state. 281 entries migrated total, done by
+script (mechanical restructuring of data that already existed, not new authoring), spot-
+checked across all four files afterward. `apcsp.json`'s `big_ideas[].carrier` is a different,
+coarser thing — a "primary carrier for this whole Big Idea" rollup label with no chapter
+list attached — and was deliberately left alone; migrating it would have been
+migrating a label, not a reverse map.
+
+**Regenerated CSTA and ICT/Anchor pages, confirmed byte-identical.** Both pages are built
+from a Python generator (living in scratchpad, not `tools/` — see the earlier ICT entry's
+"for a future maintainer" note on why). Updated both generators' carrier-rendering logic to
+read `carriers[]` instead of the old flat fields, rendering each source as "Carrier: X ·
+Book chapters: Y" and joining multiple sources with "; " if that ever happens. Since every
+CSTA and ICT entry currently has `carriers: []` (no alignment pass has run against either
+framework yet), the rendered output is byte-for-byte identical to before the migration —
+confirmed with a diff, not just assumed. The AP CSP and CA CS pages are unaffected by this
+change entirely: neither has a live generator that reads the JSON at render time (AP's
+build script lives only in a past session's scratchpad; the CA CS page was hand-written
+directly from `castandards.json`'s content), so their already-rendered HTML text is
+unchanged regardless of what the underlying JSON schema looks like now.
+
+### For a future maintainer
+
+- **Not built:** the actual reverse-map view (e.g. "chapter 9 carries these standards,
+  across every framework") and the coverage-percentage idea. Both are real next steps once
+  a second source besides `working_in_python`/`little_brother`/`supplement` actually has
+  data to put in a `carriers[]` entry — right now every non-`working_in_python` source has
+  empty `chapters` everywhere, so there's nothing yet to compute a percentage over or invert
+  into a chapter-keyed view.
+- **The `source` slug is free text, not a closed enum.** Adding the maintainer's other
+  content as a carrier is just adding a new `source` value the first time something
+  actually carries a standard for it — no schema change needed.
+- If this reverse-mapping work grows into something regularly regenerated, the two
+  generator scripts (CSTA, ICT/Anchor) are candidates for promotion into `tools/` — not
+  done here since the schema might still move once a second real source populates
+  `carriers[]`, and promoting a script to `tools/` implies more stability than that.
+
+## 2026-08-09 — CA links point at our own page, not CodeHS (chapters 1-3)
+
+Follow-up the "Redo AP CSP linking" entry above explicitly flagged as owed once a hosted CA
+page existed: chapters 1-3's `type="standards"` sentinel still had the **California 9-12**
+label linking out to `codehs.com/standards/framework/CA_9-12`, unlinked at the individual-
+code level, because that page had no per-standard anchors to point at. Now that
+`alignment/ca-cs-standards-reference.html` exists (see the entry below — written after this
+one chronologically but appearing later in this file since it documents the earlier step of
+the same session), it does.
+
+Same treatment the AP CSP label got: label itself un-linked, each cited code linked
+individually to its own `#S-<code>` anchor. Two chapters actually cite a California
+standard — chap02 (`9-12.AP.17`) and chap03 (`9-12.AP.16`) — chap01 doesn't, so nothing
+there to relink. Confirmed both anchors (`#S-9-12.AP.17`, `#S-9-12.AP.16`) exist on the page
+before wiring the links, same check the AP page's pass did.
+
+Hit the same `NotebookEdit` flattening issue AUDIT.md has already documented once (2026-07-30
+"Redo AP CSP linking"): the tool serializes an edited cell's `source` as one string instead
+of nbformat's list-of-lines, which turns a one-line content change into a full-cell rewrite
+in `git diff`. Re-split both touched cells back into lines
+(`str.splitlines(keepends=True)`) and re-serialized both notebooks with
+`json.dump(..., indent=1, ensure_ascii=False)` before regenerating `projector/` — confirmed
+both diffs are one line each afterward.
+
+Updated `mods/pass-3-alignment.md`'s Amendments bullet and both Step 4 templates so chapters
+4-19 pick up the our-own-anchor convention for California automatically, same as they
+already do for AP CSP — the CodeHS carve-out language is removed, not just amended, since
+there's no longer a reason for it to exist.
+
+### For a future maintainer
+
+- The California anchor prefix is `S-` (for "standard"), distinct from AP's `T-` (for
+  "topic") — `alignment/ca-cs-standards-reference.html` is flat (one paraphrase per
+  standard, no topic/LO/EK nesting), so there was no separate "topic" level to name instead.
+- Nothing else changed about how the California line reads — still just the label and a
+  comma-separated list of codes, same prose everywhere else in the sentinel untouched.
+
 ## 2026-08-09 — Three more standards reference pages (CA CS, CSTA 2026, CA ICT & Anchor)
 
 Maintainer request, out of pass (like the original AP CSP reference page): "make similar
