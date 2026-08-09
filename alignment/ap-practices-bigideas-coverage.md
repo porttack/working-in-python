@@ -11,6 +11,10 @@ Chapter links point at the source notebooks in `chapters/`. Topic codes link to 
 project's own hosted reference page, per the linking convention in
 `mods/pass-3-alignment.md` (never the College Board's own text).
 
+A hosted twin of this page lives at `alignment/ap-practices-bigideas-coverage.html` —
+same content, chapter numbers linking to the live site instead of local notebooks. It's
+the one in `jb/_toc.yml`'s nav; this `.md` is for reading in-repo.
+
 ---
 
 ## Practices
@@ -22,12 +26,12 @@ actually does, chapter after chapter — build the skill.
 
 | Practice | MCQ weight | What it asks a student to do | Built by this book? |
 |---|---|---|---|
-| [P1](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-P1) Computational Solution Design | 18–25% | Choosing procedures, data structures, and program structure to fit a problem before writing code. | **Strong.** chap04's development-plan section models this directly; the choice between list/dict/tuple in chap09–11 is this skill applied concretely. |
-| [P2](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-P2) Algorithms and Program Development | 20–28% | Writing, completing, and modifying code — expressions, conditionals, iteration, procedures. | **Strong.** This is most of what the book's exercises are, chapters 1–13. |
-| [P3](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-P3) Abstraction in Program Development | 7–12% | Using functions and data abstraction to manage complexity instead of repeating or inlining everything. | **Strong.** Functions from chap03 on; lists/dicts/tuples as abstraction in chap09–11. |
-| [P4](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-P4) Code Analysis | 12–19% | Reading code someone else wrote, tracing execution, predicting output, locating an error — without writing new code from scratch. | **Partial.** Every chapter's Debugging section builds the mindset, and chap07's doctest work is close, but the book rarely gives a finished snippet and asks "what does this print" or "where's the bug" the way MCQ trace questions do — its exercises default to write-new-code, not read-and-predict. **Coding-relevant gap** — see below. |
-| [P5](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-P5) Computing Innovations | 28–33% | Analyzing a computing innovation's purpose, data use, and effects — reading and writing about impact, not code. | **Not carried here, by design.** This is Big Idea 5's practice; it's [`little_brother`](https://porttack.com/2026/06/14/little-brother.html)'s job (see Big Idea 5 below), not a coding skill. |
-| [P6](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-P6) Responsible Computing | not MCQ-weighted (Create PT only) | Licensing, accessibility, and crediting sources inside a student's own project. | **Mostly not carried**, but one piece of this — crediting code taken from elsewhere — *is* a coding habit, not an impact-of-computing topic, and it has no counterpart anywhere in the book (`apcsp.json` topic 1.3's note). **Coding-relevant gap** — see below. |
+| [P1](https://python.porttack.com/alignment/apcsp-standards-reference.html#P1) Computational Solution Design | 18–25% | Choosing procedures, data structures, and program structure to fit a problem before writing code. | **Strong.** chap04's development-plan section models this directly; the choice between list/dict/tuple in chap09–11 is this skill applied concretely. |
+| [P2](https://python.porttack.com/alignment/apcsp-standards-reference.html#P2) Algorithms and Program Development | 20–28% | Writing, completing, and modifying code — expressions, conditionals, iteration, procedures. | **Strong.** This is most of what the book's exercises are, chapters 1–13. |
+| [P3](https://python.porttack.com/alignment/apcsp-standards-reference.html#P3) Abstraction in Program Development | 7–12% | Using functions and data abstraction to manage complexity instead of repeating or inlining everything. | **Strong.** Functions from chap03 on; lists/dicts/tuples as abstraction in chap09–11. |
+| [P4](https://python.porttack.com/alignment/apcsp-standards-reference.html#P4) Code Analysis | 12–19% | Reading code someone else wrote, tracing execution, predicting output, locating an error — without writing new code from scratch. | **Partial.** Every chapter's Debugging section builds the mindset, and chap07's doctest work is close, but the book rarely gives a finished snippet and asks "what does this print" or "where's the bug" the way MCQ trace questions do — its exercises default to write-new-code, not read-and-predict. **Coding-relevant gap** — see below. |
+| [P5](https://python.porttack.com/alignment/apcsp-standards-reference.html#P5) Computing Innovations | 28–33% | Analyzing a computing innovation's purpose, data use, and effects — reading and writing about impact, not code. | **Not carried here, by design.** This is Big Idea 5's practice; it's [`little_brother`](https://porttack.com/2026/06/14/little-brother.html)'s job (see Big Idea 5 below), not a coding skill. |
+| [P6](https://python.porttack.com/alignment/apcsp-standards-reference.html#P6) Responsible Computing | not MCQ-weighted (Create PT only) | Licensing, accessibility, and crediting sources inside a student's own project. | **Mostly not carried**, but one piece of this — crediting code taken from elsewhere — *is* a coding habit, not an impact-of-computing topic, and it has no counterpart anywhere in the book (`apcsp.json` topic 1.3's note). **Coding-relevant gap** — see below. |
 
 ---
 

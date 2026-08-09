@@ -1,0 +1,526 @@
+<title>AP CSP Coverage — Working in Python</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --ink: #1c211f;
+  --ink-soft: #4b534f;
+  --paper: #f5f6f3;
+  --paper-raised: #ffffff;
+  --line: #d8dcd6;
+  --line-soft: #e6e9e4;
+  --accent: #3e4c8c;
+  --accent-soft: #eceef7;
+  --accent-ink: #2c3768;
+  --strong: #3f7d5c;
+  --strong-bg: #e6efe9;
+  --partial: #b8863a;
+  --partial-bg: #f6ecda;
+  --gap: #b5533c;
+  --gap-bg: #f7e6e1;
+  --elsewhere: #64708a;
+  --elsewhere-bg: #eaecf1;
+  --track: #e3e5e0;
+  --serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e8e7e1;
+    --ink-soft: #aeb4ac;
+    --paper: #14181a;
+    --paper-raised: #1a1f21;
+    --line: #2c3230;
+    --line-soft: #232826;
+    --accent: #8e9fe8;
+    --accent-soft: #232a45;
+    --accent-ink: #b7c2f2;
+    --strong: #6cbf94;
+    --strong-bg: #1e2c25;
+    --partial: #d3a159;
+    --partial-bg: #2e2517;
+    --gap: #dc8a72;
+    --gap-bg: #322019;
+    --elsewhere: #9aa4bd;
+    --elsewhere-bg: #232733;
+    --track: #262b29;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e8e7e1;
+  --ink-soft: #aeb4ac;
+  --paper: #14181a;
+  --paper-raised: #1a1f21;
+  --line: #2c3230;
+  --line-soft: #232826;
+  --accent: #8e9fe8;
+  --accent-soft: #232a45;
+  --accent-ink: #b7c2f2;
+  --strong: #6cbf94;
+  --strong-bg: #1e2c25;
+  --partial: #d3a159;
+  --partial-bg: #2e2517;
+  --gap: #dc8a72;
+  --gap-bg: #322019;
+  --elsewhere: #9aa4bd;
+  --elsewhere-bg: #232733;
+  --track: #262b29;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid currentColor; opacity: 0.9; }
+a:hover { opacity: 1; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.page { max-width: 920px; margin: 0 auto; padding: 0 24px 96px; }
+
+/* ---- Header ---- */
+header.masthead {
+  padding: 40px 0 28px;
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+.eyebrow a { border-bottom: 1px dotted currentColor; text-transform: none; letter-spacing: 0.02em; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 38px);
+  line-height: 1.12;
+  margin: 0 0 12px;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.lede {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+.lede code { font-family: var(--mono); font-size: 0.92em; background: var(--line-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+
+/* ---- Stat strip ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 28px;
+}
+.stat { background: var(--paper-raised); padding: 16px 18px; }
+.stat .n {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1;
+}
+.stat .n small { font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+.stat .label { margin-top: 6px; font-size: 12.5px; color: var(--ink-soft); }
+.stat.book .n { color: var(--strong); }
+.stat.planned .n { color: var(--partial); }
+.stat.elsewhere .n { color: var(--elsewhere); }
+
+/* ---- Sticky nav ---- */
+nav.jump {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  margin: 0 -24px 40px;
+  padding: 0 24px;
+}
+.jump-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: none;
+}
+.jump-inner::-webkit-scrollbar { display: none; }
+.jump a {
+  border-bottom: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  padding: 6px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.jump a:hover { color: var(--ink); background: var(--line-soft); }
+.jump a.external { margin-left: auto; color: var(--accent-ink); }
+
+/* ---- Sections ---- */
+section { margin: 56px 0; }
+section > h2 {
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--ink);
+  scroll-margin-top: 60px;
+}
+.section-note { margin: 0 0 24px; color: var(--ink-soft); font-size: 14px; max-width: 64ch; }
+
+/* ---- Weight bar ---- */
+.weightbar {
+  position: relative;
+  height: 6px;
+  background: var(--track);
+  border-radius: 3px;
+  margin: 10px 0 4px;
+  overflow: hidden;
+}
+.weightbar .fill { position: absolute; top: 0; bottom: 0; background: var(--accent); border-radius: 3px; }
+.weightbar-label { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); letter-spacing: 0.02em; }
+
+/* ---- Practice cards ---- */
+.practice { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
+.practice:first-of-type { border-top: none; }
+.practice .pid { font-family: var(--mono); font-weight: 600; font-size: 15px; padding-top: 2px; }
+.practice .pid a { border-bottom: none; color: var(--accent-ink); }
+.practice .pid a:hover { border-bottom: 1px solid currentColor; }
+.practice .pname { font-weight: 600; margin: 0 0 3px; }
+.practice .pdesc { margin: 0 0 8px; color: var(--ink-soft); font-size: 14px; max-width: 60ch; }
+.verdict { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-bottom: 8px; }
+.verdict.strong { background: var(--strong-bg); color: var(--strong); }
+.verdict.partial { background: var(--partial-bg); color: var(--partial); }
+.verdict.no { background: var(--elsewhere-bg); color: var(--elsewhere); }
+.practice .why { margin: 0; font-size: 13.5px; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---- Big idea block ---- */
+.bigidea-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.bigidea-head .name { font-size: 13.5px; font-weight: 500; color: var(--ink-soft); }
+
+/* ---- Topic table ---- */
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.8px; background: var(--paper-raised); }
+th, td { padding: 10px 14px; text-align: left; vertical-align: top; }
+thead th {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 1px solid var(--line); font-weight: 600; white-space: nowrap;
+}
+tbody tr + tr td { border-top: 1px solid var(--line-soft); }
+td.code { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
+td.chapters { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink-soft); white-space: nowrap; }
+td.chapters a { color: var(--ink-soft); border-bottom: 1px dotted currentColor; }
+td.chapters a:hover { color: var(--accent-ink); }
+td.note { color: var(--ink-soft); font-size: 13px; max-width: 34ch; }
+
+.chip { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.chip.book { background: var(--strong-bg); color: var(--strong); }
+.chip.planned { background: var(--partial-bg); color: var(--partial); }
+.chip.else { background: var(--elsewhere-bg); color: var(--elsewhere); }
+a.chip.else { border-bottom: none; }
+a.chip.else:hover { text-decoration: underline; }
+
+/* ---- Gaps ---- */
+.gapgrid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+@media (max-width: 680px) { .gapgrid { grid-template-columns: 1fr; } }
+ol.gaplist { margin: 0; padding: 0 0 0 1.4em; }
+ol.gaplist li { margin-bottom: 14px; padding-left: 4px; }
+ol.gaplist li b { color: var(--ink); }
+ol.gaplist li p { margin: 3px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+.gapgrid .aside { background: var(--elsewhere-bg); border-radius: 10px; padding: 18px 20px; align-self: start; }
+.gapgrid .aside h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--elsewhere); }
+.gapgrid .aside ul { margin: 0; padding-left: 1.2em; font-size: 13.5px; color: var(--ink-soft); }
+.gapgrid .aside li { margin-bottom: 8px; }
+
+footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-soft); }
+footer code { font-family: var(--mono); background: var(--line-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+</style>
+
+<div class="page">
+
+<header class="masthead">
+  <p class="eyebrow">
+    <span>Working in Python · AP Computer Science Principles</span>
+    <a href="https://python.porttack.com/alignment/apcsp-standards-reference.html">↳ AP CSP Standards Reference</a>
+  </p>
+  <h1>AP CSP Coverage: Practices, Big Ideas, Topics</h1>
+  <p class="lede">Every Computational Thinking Practice, every Big Idea, and every topic inside it, mapped against what the book actually teaches — sourced from <code>standards/apcsp.json</code>. Chapters 14–19 carry no AP content and are omitted.</p>
+  <div class="stats">
+    <div class="stat book">
+      <div class="n">19<small>/35</small></div>
+      <div class="label">topics taught directly in this book</div>
+    </div>
+    <div class="stat planned">
+      <div class="n">7<small>/35</small></div>
+      <div class="label">planned elsewhere in the course, not yet in this book</div>
+    </div>
+    <div class="stat elsewhere">
+      <div class="n">9<small>/35</small></div>
+      <div class="label">carried by <a href="https://porttack.com/2026/06/14/little-brother.html"><em>Little Brother</em></a> (Big Ideas 4–5)</div>
+    </div>
+  </div>
+  <p class="section-note" style="margin-top:16px">This page maps topics. For the same question asked word by word — which AP CSP vocabulary terms the book actually uses — see <a href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a>.</p>
+</header>
+
+<nav class="jump">
+  <div class="jump-inner">
+    <a href="#practices">Practices</a>
+    <a href="#bi1">1 · Creative Dev.</a>
+    <a href="#bi2">2 · Data</a>
+    <a href="#bi3">3 · Algorithms &amp; Prog.</a>
+    <a href="#bi4">4 · Systems &amp; Networks</a>
+    <a href="#bi5">5 · Impact</a>
+    <a href="#gaps">Gaps, ranked</a>
+    <a class="external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">Standards reference ↗</a>
+  </div>
+</nav>
+
+<section id="practices">
+  <h2>Computational Thinking Practices</h2>
+  <p class="section-note">Skills tested across every Big Idea, not tied to one. "Coverage" here means whether the book's actual classroom activity builds the skill — not whether a topic is named.</p>
+
+  <div class="practice">
+    <div class="pid"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#P1">P1</a></div>
+    <div>
+      <p class="pname">Computational Solution Design</p>
+      <div class="weightbar"><div class="fill" style="left:54.5%; width:21.2%"></div></div>
+      <p class="weightbar-label">18–25% of MCQ</p>
+      <p class="pdesc">Choosing procedures, data structures, and program structure to fit a problem, before writing code.</p>
+      <span class="verdict strong">● Strong</span>
+      <p class="why">Chapter 4's development-plan section models this directly; choosing between list, dict, and tuple in chapters 9–11 is this skill applied concretely.</p>
+    </div>
+  </div>
+
+  <div class="practice">
+    <div class="pid"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#P2">P2</a></div>
+    <div>
+      <p class="pname">Algorithms and Program Development</p>
+      <div class="weightbar"><div class="fill" style="left:60.6%; width:24.2%"></div></div>
+      <p class="weightbar-label">20–28% of MCQ</p>
+      <p class="pdesc">Writing, completing, and modifying code: expressions, conditionals, iteration, procedures.</p>
+      <span class="verdict strong">● Strong</span>
+      <p class="why">This is most of what the book's exercises are, chapters 1–13.</p>
+    </div>
+  </div>
+
+  <div class="practice">
+    <div class="pid"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#P3">P3</a></div>
+    <div>
+      <p class="pname">Abstraction in Program Development</p>
+      <div class="weightbar"><div class="fill" style="left:21.2%; width:15.2%"></div></div>
+      <p class="weightbar-label">7–12% of MCQ</p>
+      <p class="pdesc">Using functions and data abstraction to manage complexity instead of repeating or inlining everything.</p>
+      <span class="verdict strong">● Strong</span>
+      <p class="why">Functions from chapter 3 on; lists, dicts, and tuples as abstraction in chapters 9–11.</p>
+    </div>
+  </div>
+
+  <div class="practice">
+    <div class="pid"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#P4">P4</a></div>
+    <div>
+      <p class="pname">Code Analysis</p>
+      <div class="weightbar"><div class="fill" style="left:36.4%; width:21.2%"></div></div>
+      <p class="weightbar-label">12–19% of MCQ</p>
+      <p class="pdesc">Reading code someone else wrote — tracing execution, predicting output, locating an error — without writing anything new.</p>
+      <span class="verdict partial">● Partial</span>
+      <p class="why">Every chapter's Debugging section builds the mindset, and chapter 7's doctest work is close, but exercises default to "write a function that…," not "here's a snippet — what does it print." <b>Coding-relevant gap, see below.</b></p>
+    </div>
+  </div>
+
+  <div class="practice">
+    <div class="pid"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#P5">P5</a></div>
+    <div>
+      <p class="pname">Computing Innovations</p>
+      <div class="weightbar"><div class="fill" style="left:84.8%; width:15.2%"></div></div>
+      <p class="weightbar-label">28–33% of MCQ</p>
+      <p class="pdesc">Analyzing a computing innovation's purpose, data use, and effects — reading and writing about impact, not code.</p>
+      <span class="verdict no">○ Not this book</span>
+      <p class="why">Big Idea 5's practice. Carried by <a href="https://porttack.com/2026/06/14/little-brother.html"><em>Little Brother</em></a>, by design — not a coding skill.</p>
+    </div>
+  </div>
+
+  <div class="practice">
+    <div class="pid"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#P6">P6</a></div>
+    <div>
+      <p class="pname">Responsible Computing</p>
+      <p class="weightbar-label">Create PT only — no MCQ weight</p>
+      <p class="pdesc">Licensing, accessibility, and crediting sources inside a student's own project.</p>
+      <span class="verdict partial">● Mostly not carried</span>
+      <p class="why">One piece — crediting code taken from elsewhere — is a coding habit with no counterpart anywhere in the book. <b>Coding-relevant gap, see below.</b></p>
+    </div>
+  </div>
+</section>
+
+<section id="bi1">
+  <div class="bigidea-head">
+    <h2>Big Idea 1 — Creative Development</h2>
+    <span class="name">CRD · 10–13% of MCQ</span>
+  </div>
+  <div class="weightbar" style="max-width:280px"><div class="fill" style="left:28.6%; width:8.6%"></div></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Topic</th><th>Title</th><th>Status</th><th>Chapters</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.1">1.1</a></td><td>Collaboration</td><td><span class="chip planned">planned</span></td><td class="chapters">—</td><td class="note">Lab pair work + Create PT, not a standalone lesson</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.2">1.2</a></td><td>Program Function and Purpose</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a>, <a href="https://python.porttack.com/chap05.html">5</a></td><td class="note">partial — no event-driven programming</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.3">1.3</a></td><td>Program Design and Development</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap04.html">4</a></td><td class="note">crediting others' code uncarried</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4</a></td><td>Identifying and Correcting Errors</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a>–<a href="https://python.porttack.com/chap13.html">13</a></td><td class="note">every chapter's Debugging section</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="bi2">
+  <div class="bigidea-head">
+    <h2>Big Idea 2 — Data</h2>
+    <span class="name">DAT · 17–22% of MCQ</span>
+  </div>
+  <div class="weightbar" style="max-width:280px"><div class="fill" style="left:48.6%; width:14.3%"></div></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Topic</th><th>Title</th><th>Status</th><th>Chapters</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.1">2.1</a></td><td>Binary Numbers</td><td><span class="chip planned">planned</span></td><td class="chapters">—</td><td class="note">CS50T Multimedia</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.2">2.2</a></td><td>Data Compression</td><td><span class="chip planned">planned</span></td><td class="chapters">—</td><td class="note">CS50T Multimedia</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.3">2.3</a></td><td>Extracting Information from Data</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap12.html">12</a>, <a href="https://python.porttack.com/chap13.html">13</a></td><td class="note">metadata specifically uncarried</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.4">2.4</a></td><td>Using Programs with Data</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap12.html">12</a>, <a href="https://python.porttack.com/chap13.html">13</a></td><td class="note">file/YAML/shelve work</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="bi3">
+  <div class="bigidea-head">
+    <h2>Big Idea 3 — Algorithms and Programming</h2>
+    <span class="name">AAP · 30–35% of MCQ</span>
+  </div>
+  <div class="weightbar" style="max-width:280px"><div class="fill" style="left:85.7%; width:14.3%"></div></div>
+  <p class="section-note">The book's core, and the exam's biggest single Big Idea.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Topic</th><th>Title</th><th>Status</th><th>Chapters</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.1">3.1</a></td><td>Variables and Assignments</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.2">3.2</a></td><td>Data Abstraction</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap09.html">9</a>, <a href="https://python.porttack.com/chap10.html">10</a>, <a href="https://python.porttack.com/chap11.html">11</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.3">3.3</a></td><td>Mathematical Expressions</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a>, <a href="https://python.porttack.com/chap02.html">2</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.4">3.4</a></td><td>Strings</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a>, <a href="https://python.porttack.com/chap08.html">8</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.5">3.5</a></td><td>Boolean Expressions</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.6">3.6</a></td><td>Conditionals</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.7">3.7</a></td><td>Nested Conditionals</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.8">3.8</a></td><td>Iteration</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap03.html">3</a>, <a href="https://python.porttack.com/chap07.html">7</a></td><td class="note"><b>no <code style="font-family:var(--mono)">while</code> anywhere</b></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.9">3.9</a></td><td>Developing Algorithms</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap06.html">6</a>, <a href="https://python.porttack.com/chap07.html">7</a></td><td class="note">incremental dev., linear search</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.10">3.10</a></td><td>Lists</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap09.html">9</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.11">3.11</a></td><td>Binary Search</td><td><span class="chip planned">planned</span></td><td class="chapters">—</td><td class="note">linear search taught; binary search never introduced</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.12">3.12</a></td><td>Calling Procedures</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap03.html">3</a>, <a href="https://python.porttack.com/chap06.html">6</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.13">3.13</a></td><td>Developing Procedures</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap03.html">3</a>, <a href="https://python.porttack.com/chap04.html">4</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.14">3.14</a></td><td>Libraries</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a>, <a href="https://python.porttack.com/chap04.html">4</a>, <a href="https://python.porttack.com/chap08.html">8</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.15">3.15</a></td><td>Random Values</td><td><span class="chip book">in book</span></td><td class="chapters"><a href="https://python.porttack.com/chap12.html">12</a></td><td class="note"></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.16">3.16</a></td><td>Simulations</td><td><span class="chip planned">planned</span></td><td class="chapters">—</td><td class="note">no simulation content in ch. 1–13</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.17">3.17</a></td><td>Algorithmic Efficiency</td><td><span class="chip planned">planned</span></td><td class="chapters">—</td><td class="note">no informal efficiency discussion</td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.18">3.18</a></td><td>Undecidable Problems</td><td><span class="chip planned">planned</span></td><td class="chapters">—</td><td class="note">conceptual, non-programming topic</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="bi4">
+  <div class="bigidea-head">
+    <h2>Big Idea 4 — Computer Systems and Networks</h2>
+    <span class="name">CSN · 11–15% of MCQ</span>
+  </div>
+  <div class="weightbar" style="max-width:280px"><div class="fill" style="left:31.4%; width:11.4%"></div></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Topic</th><th>Title</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-4.1">4.1</a></td><td>The Internet</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-4.2">4.2</a></td><td>Fault Tolerance</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-4.3">4.3</a></td><td>Parallel and Distributed Computing</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="bi5">
+  <div class="bigidea-head">
+    <h2>Big Idea 5 — Impact of Computing</h2>
+    <span class="name">IOC · 21–26% of MCQ</span>
+  </div>
+  <div class="weightbar" style="max-width:280px"><div class="fill" style="left:60.0%; width:14.3%"></div></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Topic</th><th>Title</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-5.1">5.1</a></td><td>Beneficial and Harmful Effects</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-5.2">5.2</a></td><td>Digital Divide</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-5.3">5.3</a></td><td>Computing Bias</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-5.4">5.4</a></td><td>Crowdsourcing</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-5.5">5.5</a></td><td>Legal and Ethical Concerns</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+        <tr><td class="code"><a href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-5.6">5.6</a></td><td>Safe Computing</td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="section-note" style="margin-top:16px">Big Ideas 4 and 5 carry zero topics in this book, entirely by design. Not a finding of this page.</p>
+</section>
+
+<section id="gaps">
+  <h2>What isn't covered, ranked by relevance to coding</h2>
+  <p class="section-note">The split below separates gaps about writing or reading code from gaps about computing's effect on the world. The second kind is expected and already carried elsewhere; the first kind is the one worth watching.</p>
+  <div class="gapgrid">
+    <div>
+      <ol class="gaplist">
+        <li><b>No <code style="font-family:var(--mono)">while</code> loop anywhere in the book</b> (topic 3.8).
+          <p>The single most consequential finding in this index. Indefinite iteration is taught only through recursion (ch. 5–6) — related, but not the same pseudocode construct the exam tests, and it can't produce the exam's condition-never-flips or zero-iteration edge cases.</p>
+        </li>
+        <li><b>Crediting code taken from another source</b> (topic 1.3, and the matching California gap).
+          <p>Not an abstract ethics topic — a habit needed while actually writing code. Nothing in the book models it.</p>
+        </li>
+        <li><b>Code Analysis as an exercise format</b> (Practice P4).
+          <p>Exercises default to "write a function that…" rather than "here's a snippet — what does it print, or where's the bug." Debugging sections build the mindset, not the trace-and-predict format the MCQ uses.</p>
+        </li>
+        <li><b>Event-driven programs</b> (part of topic 1.2).
+          <p>Every program in the book runs top to bottom; no event loop or callback anywhere.</p>
+        </li>
+        <li><b>Binary search, simulations, algorithmic efficiency, undecidable problems</b> (3.11, 3.16–3.18).
+          <p>All four are planned for the November algorithms block, not present in the book as written. Linear search is already taught (ch. 7), so binary search in particular is a direct next step, not a cold start.</p>
+        </li>
+      </ol>
+    </div>
+    <div class="aside">
+      <h3>Not coding-related — carried elsewhere</h3>
+      <ul>
+        <li>Binary numbers and data compression (2.1–2.2) — CS50T Multimedia.</li>
+        <li>Everything in Big Ideas 4 and 5, and Practice P5 — <a href="https://porttack.com/2026/06/14/little-brother.html"><em>Little Brother</em></a>'s territory. A different book's job, not a gap in this one.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Sourced from <code>standards/apcsp.json</code> (2026-07-30 extraction), cross-checked against <a href="https://python.porttack.com/alignment/standards_alignment.md">standards_alignment.md</a>. Every topic code above links to its entry on the <a href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a>; that page links back here. California, CSTA, and CA CTE (ICT) coverage is tracked separately.
+</footer>
+
+</div>

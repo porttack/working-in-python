@@ -1,0 +1,432 @@
+<title>AP CSP Vocabulary Coverage — Working in Python</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --ink: #1c211f;
+  --ink-soft: #4b534f;
+  --paper: #f5f6f3;
+  --paper-raised: #ffffff;
+  --line: #d8dcd6;
+  --line-soft: #e6e9e4;
+  --accent: #3e4c8c;
+  --accent-soft: #eceef7;
+  --accent-ink: #2c3768;
+  --strong: #3f7d5c;
+  --strong-bg: #e6efe9;
+  --partial: #b8863a;
+  --partial-bg: #f6ecda;
+  --gap: #b5533c;
+  --gap-bg: #f7e6e1;
+  --elsewhere: #64708a;
+  --elsewhere-bg: #eaecf1;
+  --track: #e3e5e0;
+  --serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e8e7e1;
+    --ink-soft: #aeb4ac;
+    --paper: #14181a;
+    --paper-raised: #1a1f21;
+    --line: #2c3230;
+    --line-soft: #232826;
+    --accent: #8e9fe8;
+    --accent-soft: #232a45;
+    --accent-ink: #b7c2f2;
+    --strong: #6cbf94;
+    --strong-bg: #1e2c25;
+    --partial: #d3a159;
+    --partial-bg: #2e2517;
+    --gap: #dc8a72;
+    --gap-bg: #322019;
+    --elsewhere: #9aa4bd;
+    --elsewhere-bg: #232733;
+    --track: #262b29;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e8e7e1;
+  --ink-soft: #aeb4ac;
+  --paper: #14181a;
+  --paper-raised: #1a1f21;
+  --line: #2c3230;
+  --line-soft: #232826;
+  --accent: #8e9fe8;
+  --accent-soft: #232a45;
+  --accent-ink: #b7c2f2;
+  --strong: #6cbf94;
+  --strong-bg: #1e2c25;
+  --partial: #d3a159;
+  --partial-bg: #2e2517;
+  --gap: #dc8a72;
+  --gap-bg: #322019;
+  --elsewhere: #9aa4bd;
+  --elsewhere-bg: #232733;
+  --track: #262b29;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid currentColor; opacity: 0.9; }
+a:hover { opacity: 1; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.page { max-width: 920px; margin: 0 auto; padding: 0 24px 96px; }
+
+/* ---- Header ---- */
+header.masthead {
+  padding: 40px 0 28px;
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+.eyebrow a { border-bottom: 1px dotted currentColor; text-transform: none; letter-spacing: 0.02em; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 38px);
+  line-height: 1.12;
+  margin: 0 0 12px;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.lede {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+.lede code { font-family: var(--mono); font-size: 0.92em; background: var(--line-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+
+/* ---- Stat strip ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 28px;
+}
+.stat { background: var(--paper-raised); padding: 16px 18px; }
+.stat .n {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1;
+}
+.stat .n small { font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+.stat .label { margin-top: 6px; font-size: 12.5px; color: var(--ink-soft); }
+.stat.book .n { color: var(--strong); }
+.stat.planned .n { color: var(--partial); }
+.stat.elsewhere .n { color: var(--elsewhere); }
+
+/* ---- Sticky nav ---- */
+nav.jump {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  margin: 0 -24px 40px;
+  padding: 0 24px;
+}
+.jump-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: none;
+}
+.jump-inner::-webkit-scrollbar { display: none; }
+.jump a {
+  border-bottom: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  padding: 6px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.jump a:hover { color: var(--ink); background: var(--line-soft); }
+.jump a.external { margin-left: auto; color: var(--accent-ink); }
+
+/* ---- Sections ---- */
+section { margin: 56px 0; }
+section > h2 {
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--ink);
+  scroll-margin-top: 60px;
+}
+.section-note { margin: 0 0 24px; color: var(--ink-soft); font-size: 14px; max-width: 64ch; }
+
+/* ---- Weight bar ---- */
+.weightbar {
+  position: relative;
+  height: 6px;
+  background: var(--track);
+  border-radius: 3px;
+  margin: 10px 0 4px;
+  overflow: hidden;
+}
+.weightbar .fill { position: absolute; top: 0; bottom: 0; background: var(--accent); border-radius: 3px; }
+.weightbar-label { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); letter-spacing: 0.02em; }
+
+/* ---- Practice cards ---- */
+.practice { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
+.practice:first-of-type { border-top: none; }
+.practice .pid { font-family: var(--mono); font-weight: 600; font-size: 15px; padding-top: 2px; }
+.practice .pid a { border-bottom: none; color: var(--accent-ink); }
+.practice .pid a:hover { border-bottom: 1px solid currentColor; }
+.practice .pname { font-weight: 600; margin: 0 0 3px; }
+.practice .pdesc { margin: 0 0 8px; color: var(--ink-soft); font-size: 14px; max-width: 60ch; }
+.verdict { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-bottom: 8px; }
+.verdict.strong { background: var(--strong-bg); color: var(--strong); }
+.verdict.partial { background: var(--partial-bg); color: var(--partial); }
+.verdict.no { background: var(--elsewhere-bg); color: var(--elsewhere); }
+.practice .why { margin: 0; font-size: 13.5px; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---- Big idea block ---- */
+.bigidea-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.bigidea-head .name { font-size: 13.5px; font-weight: 500; color: var(--ink-soft); }
+
+/* ---- Topic table ---- */
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.8px; background: var(--paper-raised); }
+th, td { padding: 10px 14px; text-align: left; vertical-align: top; }
+thead th {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 1px solid var(--line); font-weight: 600; white-space: nowrap;
+}
+tbody tr + tr td { border-top: 1px solid var(--line-soft); }
+td.code { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
+td.chapters { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink-soft); white-space: nowrap; }
+td.chapters a { color: var(--ink-soft); border-bottom: 1px dotted currentColor; }
+td.chapters a:hover { color: var(--accent-ink); }
+td.note { color: var(--ink-soft); font-size: 13px; max-width: 34ch; }
+
+.chip { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.chip.book { background: var(--strong-bg); color: var(--strong); }
+.chip.planned { background: var(--partial-bg); color: var(--partial); }
+.chip.else { background: var(--elsewhere-bg); color: var(--elsewhere); }
+a.chip.else { border-bottom: none; }
+a.chip.else:hover { text-decoration: underline; }
+
+/* ---- Gaps ---- */
+.gapgrid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+@media (max-width: 680px) { .gapgrid { grid-template-columns: 1fr; } }
+ol.gaplist { margin: 0; padding: 0 0 0 1.4em; }
+ol.gaplist li { margin-bottom: 14px; padding-left: 4px; }
+ol.gaplist li b { color: var(--ink); }
+ol.gaplist li p { margin: 3px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+.gapgrid .aside { background: var(--elsewhere-bg); border-radius: 10px; padding: 18px 20px; align-self: start; }
+.gapgrid .aside h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--elsewhere); }
+.gapgrid .aside ul { margin: 0; padding-left: 1.2em; font-size: 13.5px; color: var(--ink-soft); }
+.gapgrid .aside li { margin-bottom: 8px; }
+
+footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-soft); }
+footer code { font-family: var(--mono); background: var(--line-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+</style>
+
+<style>
+.chip.gap { background: var(--gap-bg); color: var(--gap); }
+a.chip.gap { border-bottom: none; }
+.venn-wrap { display: flex; justify-content: center; margin: 28px 0 12px; }
+.venn-wrap svg { max-width: 100%; height: auto; }
+.venn-caption { text-align: center; color: var(--ink-soft); font-size: 13px; max-width: 60ch; margin: 8px auto 0; }
+.methodology { background: var(--elsewhere-bg); border-radius: 10px; padding: 18px 20px; margin: 24px 0; }
+.methodology h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--elsewhere); }
+.methodology ul { margin: 0; padding-left: 1.2em; font-size: 13.5px; color: var(--ink-soft); }
+.methodology li { margin-bottom: 6px; }
+.bignote { font-size: 13px; color: var(--ink-soft); margin: -4px 0 18px; }
+td.gloss { max-width: 30ch; }
+</style>
+
+
+<div class="page">
+
+<header class="masthead">
+  <p class="eyebrow">
+    <span>Working in Python · AP Computer Science Principles</span>
+    <a href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">↳ Vocabulary by Chapter</a>
+  </p>
+  <h1>AP CSP Vocabulary Coverage</h1>
+  <p class="lede">Which AP CSP vocabulary this book teaches, under its own name or a documented synonym, and which it doesn't &mdash; compiled term by term, not just topic by topic.</p>
+  <div class="stats">
+    <div class="stat book">
+      <div class="n">39<small>/140</small></div>
+      <div class="label">terms taught in this book</div>
+    </div>
+    <div class="stat planned">
+      <div class="n">26<small>/140</small></div>
+      <div class="label">planned elsewhere in the course</div>
+    </div>
+    <div class="stat elsewhere">
+      <div class="n">75<small>/140</small></div>
+      <div class="label"><a href="https://porttack.com/2026/06/14/little-brother.html"><em>Little Brother</em></a>'s territory, or an open gap</div>
+    </div>
+  </div>
+</header>
+
+<div class="methodology">
+  <h3>Where this list comes from</h3>
+  <p style="margin:0 0 8px;font-size:13.5px;color:var(--ink-soft)"><b>There is no official AP CSP glossary</b> &mdash; the Course and Exam Description has no glossary appendix of its own (see <code>alignment/glossary-map.md</code>, repo-only, not hosted); its vocabulary lives scattered across Essential Knowledge prose and the Exam Reference Sheet's own naming. This list is <i>compiled</i>, not extracted, and every gloss below is written fresh in our own words &mdash; no third-party definition is reproduced.</p>
+  <ul>
+    <li>The official 2026 AP CSP <b>Exam Reference Sheet</b> (College Board) &mdash; pseudocode instructions, operators, Robot commands.</li>
+    <li>Term names only (not prose) from a community-compiled list at <a href="https://www.apcsexamprep.com/pages/ap-csp-vocabulary-list">apcsexamprep.com</a>.</li>
+    <li>Term names only (not prose) from Khan Academy's AP CSP vocabulary review page.</li>
+  </ul>
+  <p style="margin:8px 0 0;font-size:13px;color:var(--ink-soft)">Best-effort, not authoritative &mdash; there is no ground truth to check against. Treat <span class="chip gap">gap</span> rows as candidates to verify, not confirmed absences.</p>
+</div>
+
+<div class="venn-wrap">
+<svg viewBox="0 0 640 320" role="img" aria-label="Symbolic Venn diagram: Working in Python vocabulary and AP CSP vocabulary overlap in 39 terms">
+  <circle cx="255" cy="160" r="145" fill="var(--accent)" fill-opacity="0.16" stroke="var(--accent)" stroke-width="1.5"/>
+  <circle cx="400" cy="160" r="125" fill="var(--strong)" fill-opacity="0.16" stroke="var(--strong)" stroke-width="1.5"/>
+  <text x="150" y="55" text-anchor="middle" font-family="var(--sans)" font-size="13" font-weight="600" fill="var(--accent-ink)">Working in Python</text>
+  <text x="150" y="72" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--ink-soft)">~185 glossary terms</text>
+  <text x="500" y="55" text-anchor="middle" font-family="var(--sans)" font-size="13" font-weight="600" fill="var(--strong)">AP CSP</text>
+  <text x="500" y="72" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--ink-soft)">~140 compiled terms</text>
+  <text x="327" y="150" text-anchor="middle" font-family="var(--mono)" font-size="26" font-weight="700" fill="var(--ink)">39</text>
+  <text x="327" y="170" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">shared terms</text>
+  <text x="150" y="220" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">function, list, loop,</text>
+  <text x="150" y="236" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">variable, index, module,</text>
+  <text x="150" y="252" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">traversal, algorithm, API,</text>
+  <text x="150" y="268" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">infinite loop, sequencing &hellip;</text>
+  <text x="500" y="220" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">TCP/IP, encryption, bias,</text>
+  <text x="500" y="236" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">bandwidth, heuristic, bit,</text>
+  <text x="500" y="252" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">simulation, undecidable</text>
+  <text x="500" y="268" text-anchor="middle" font-family="var(--sans)" font-size="11.5" fill="var(--ink-soft)">problem &hellip;</text>
+</svg>
+</div>
+<p class="venn-caption">Symbolic, not literal &mdash; a Venn diagram plotting all 325 words individually would be illegible. Circle sizes and overlap are illustrative, not area-proportional.</p>
+
+<nav class="jump">
+  <div class="jump-inner">
+    <a href="#crd">1 &middot; Creative</a>
+    <a href="#dat">2 &middot; Data</a>
+    <a href="#aap">3 &middot; Algorithms</a>
+    <a href="#csn">4 &middot; Computer</a>
+    <a href="#ioc">5 &middot; Impact</a>
+    <a class="external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by chapter ↗</a>
+  </div>
+</nav>
+
+
+<section id="crd">
+  <div class="bigidea-head">
+    <h2>Big Idea 1 &mdash; Creative Development</h2>
+    <span class="name">CRD &middot; 10–13% of MCQ</span>
+  </div>
+  <p class="bignote">19 terms &mdash; 7 in book, 3 planned, 0 Little Brother, 9 gap.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>AP CSP term</th><th>Status</th><th>Working in Python</th><th>Ch.</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>Algorithm</b><br><span class="note" style="font-size:12px">A finite sequence of steps for solving a problem or completing a task.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Used constantly in the book's own prose (“Developing Algorithms,” ch. 6-7) but never itself a glossary headword.</td></tr><tr><td><b>Program</b><br><span class="note" style="font-size:12px">A sequence of instructions a computer can carry out.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Same as Algorithm: everywhere, but Downey never defines the word itself.</td></tr><tr><td><b>Code Segment</b><br><span class="note" style="font-size:12px">A snippet of pseudocode shown in an exam question, usually not a runnable whole program.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Exam-format vocabulary with no real analog outside the exam.</td></tr><tr><td><b>Computing Innovation</b><br><span class="note" style="font-size:12px">The CED's umbrella term for any program, physical device, or nonphysical concept built with computing.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Create Performance Task (see glossary-map.md).</td></tr><tr><td><b>Collaboration</b><br><span class="note" style="font-size:12px">Working with other people, and giving them credit, in a computing project.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Lab pair work + Create PT, not a standalone lesson.</td></tr><tr><td><b>Pair Programming</b><br><span class="note" style="font-size:12px">Two programmers sharing one workstation, one writing while the other reviews.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Create PT / classroom practice, not book content.</td></tr><tr><td><b>Program Documentation</b><br><span class="note" style="font-size:12px">Comments and other text that explain what code does and how to use it.</span></td><td><span class="chip book">in book</span></td><td>docstring</td><td class="chapters"><a href="https://python.porttack.com/chap04.html">4</a></td><td class="note">Python's realization of this idea; the word itself is Python-specific.</td></tr><tr><td><b>Comments</b><br><span class="note" style="font-size:12px">Text in a program, ignored by the interpreter, written for human readers.</span></td><td><span class="chip book">in book</span></td><td>comment</td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a></td><td class="note"></td></tr><tr><td><b>Syntax Error</b><br><span class="note" style="font-size:12px">An error that makes code impossible to parse and therefore impossible to run.</span></td><td><span class="chip book">in book</span></td><td>syntax error</td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a></td><td class="note"></td></tr><tr><td><b>Logic Error</b><br><span class="note" style="font-size:12px">A mistake that lets code run but produces the wrong result.</span></td><td><span class="chip book">in book</span></td><td>semantic error</td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a></td><td class="note">Same idea, different name — see the swap table.</td></tr><tr><td><b>Run-time Error</b><br><span class="note" style="font-size:12px">An error that only appears while a program is running.</span></td><td><span class="chip book">in book</span></td><td>runtime error</td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a></td><td class="note"></td></tr><tr><td><b>Overflow Error</b><br><span class="note" style="font-size:12px">An error from a number too large for the bits available to store it.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Python's integers have arbitrary precision, so this error class structurally doesn't arise in the language the book teaches.</td></tr><tr><td><b>Testing</b><br><span class="note" style="font-size:12px">Running a program on purpose to see whether it behaves correctly.</span></td><td><span class="chip book">in book</span></td><td>test discovery</td><td class="chapters"><a href="https://python.porttack.com/chap18.html">18</a></td><td class="note">Also ch. 7's pass/fail vocabulary; the word “testing” itself isn't a headword.</td></tr><tr><td><b>Test Cases</b><br><span class="note" style="font-size:12px">Specific inputs, with known correct outputs, used to check a program.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">The practice exists in exercises; the term is never named.</td></tr><tr><td><b>Hand Tracing</b><br><span class="note" style="font-size:12px">Working through code step by step on paper to predict what it does.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">A notebook-first book has no reason to teach this as its own skill; matches Practice P4's gap in ap-practices-bigideas-coverage.html.</td></tr><tr><td><b>Iterative Development Process</b><br><span class="note" style="font-size:12px">Repeatedly refining one part of a program before moving to the next.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Distinct from Incremental Development, which the book does name (see below).</td></tr><tr><td><b>Incremental Development Process</b><br><span class="note" style="font-size:12px">Writing and testing a program in small, working pieces, one at a time.</span></td><td><span class="chip book">in book</span></td><td>incremental development</td><td class="chapters"><a href="https://python.porttack.com/chap06.html">6</a></td><td class="note"></td></tr><tr><td><b>Event</b><br><span class="note" style="font-size:12px">An action — a click, a keypress, a message arriving — that can trigger code.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Already flagged in glossary-map.md as a real, unassigned gap.</td></tr><tr><td><b>Event-Driven Programming</b><br><span class="note" style="font-size:12px">Structuring a program around responding to events rather than running top to bottom.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Every program in this book runs top to bottom; no event loop anywhere.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="dat">
+  <div class="bigidea-head">
+    <h2>Big Idea 2 &mdash; Data</h2>
+    <span class="name">DAT &middot; 17–22% of MCQ</span>
+  </div>
+  <p class="bignote">23 terms &mdash; 2 in book, 15 planned, 0 Little Brother, 6 gap.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>AP CSP term</th><th>Status</th><th>Working in Python</th><th>Ch.</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>Binary</b><br><span class="note" style="font-size:12px">A number system with two digits, 0 and 1.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia (extending the existing bit/byte plan).</td></tr><tr><td><b>Bit</b><br><span class="note" style="font-size:12px">A single binary digit, 0 or 1.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Byte</b><br><span class="note" style="font-size:12px">A sequence of 8 bits.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Decimal</b><br><span class="note" style="font-size:12px">The base-10 number system people use by default.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Hexadecimal</b><br><span class="note" style="font-size:12px">A base-16 number system, often used to write byte values compactly.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Abstraction</b><br><span class="note" style="font-size:12px">Hiding implementation detail behind a simpler interface.</span></td><td><span class="chip book">in book</span></td><td>encapsulation / generalization</td><td class="chapters"><a href="https://python.porttack.com/chap04.html">4</a>, <a href="https://python.porttack.com/chap09.html">9</a>, <a href="https://python.porttack.com/chap10.html">10</a>, <a href="https://python.porttack.com/chap11.html">11</a></td><td class="note">Data abstraction specifically is AP topic 3.2; see the coverage map.</td></tr><tr><td><b>Analog Data</b><br><span class="note" style="font-size:12px">Values that vary smoothly and continuously, like sound pressure over time.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Digital Data</b><br><span class="note" style="font-size:12px">Values represented as discrete numbers rather than a continuous signal.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Sampling</b><br><span class="note" style="font-size:12px">Measuring an analog signal at regular intervals to store it digitally.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Lossless Data Compression</b><br><span class="note" style="font-size:12px">Shrinking data in a way that allows the original to be recovered exactly.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia (extending the existing plan).</td></tr><tr><td><b>Lossy Data Compression</b><br><span class="note" style="font-size:12px">Shrinking data by discarding some of it permanently.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Metadata</b><br><span class="note" style="font-size:12px">Data describing other data, like a file's size or a photo's timestamp.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Already flagged in ap-practices-bigideas-coverage.html as uncarried under topic 2.3.</td></tr><tr><td><b>Data</b><br><span class="note" style="font-size:12px">Values a program stores, moves, or acts on.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Used constantly as a plain word (“configuration data,” ch. 13); never its own headword.</td></tr><tr><td><b>Information</b><br><span class="note" style="font-size:12px">The meaning people draw from data.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Data Set</b><br><span class="note" style="font-size:12px">A named collection of related data.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Correlation</b><br><span class="note" style="font-size:12px">A statistical relationship between two variables.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Data Cleaning</b><br><span class="note" style="font-size:12px">Fixing or removing incorrect, incomplete, or malformed data before analysis.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Data Filtering</b><br><span class="note" style="font-size:12px">Selecting the subset of data that meets some condition.</span></td><td><span class="chip book">in book</span></td><td>filtering</td><td class="chapters"><a href="https://python.porttack.com/chap10.html">10</a></td><td class="note"></td></tr><tr><td><b>ASCII</b><br><span class="note" style="font-size:12px">An early standard mapping numbers to English-alphabet characters.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Unicode</b><br><span class="note" style="font-size:12px">A standard mapping numbers to characters from virtually every written language.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>RGB</b><br><span class="note" style="font-size:12px">Representing a color as three numbers: red, green, and blue intensity.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Pixel</b><br><span class="note" style="font-size:12px">One color sample in a digital image, the smallest unit of a picture.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr><tr><td><b>Roundoff Error</b><br><span class="note" style="font-size:12px">Error from representing a number with fewer digits than it needs.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">CS50T Multimedia.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="aap">
+  <div class="bigidea-head">
+    <h2>Big Idea 3 &mdash; Algorithms and Programming</h2>
+    <span class="name">AAP &middot; 30–35% of MCQ</span>
+  </div>
+  <p class="bignote">50 terms &mdash; 30 in book, 8 planned, 0 Little Brother, 12 gap.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>AP CSP term</th><th>Status</th><th>Working in Python</th><th>Ch.</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>Variable</b><br><span class="note" style="font-size:12px">A name that refers to a value.</span></td><td><span class="chip book">in book</span></td><td>variable</td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a></td><td class="note"></td></tr><tr><td><b>Constant</b><br><span class="note" style="font-size:12px">A named value that a program does not change after it's set.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Python has no language-level constant; not taught as its own idea.</td></tr><tr><td><b>Data Type</b><br><span class="note" style="font-size:12px">A category of value, like integer or string, that determines what operations apply.</span></td><td><span class="chip book">in book</span></td><td>type</td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a></td><td class="note"></td></tr><tr><td><b>Integer</b><br><span class="note" style="font-size:12px">A whole number, with no fractional part.</span></td><td><span class="chip book">in book</span></td><td>integer</td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a></td><td class="note"></td></tr><tr><td><b>String</b><br><span class="note" style="font-size:12px">A sequence of characters.</span></td><td><span class="chip book">in book</span></td><td>string</td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a></td><td class="note"></td></tr><tr><td><b>Boolean</b><br><span class="note" style="font-size:12px">A data type with exactly two values, true and false.</span></td><td><span class="chip book">in book</span></td><td>boolean expression</td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note"></td></tr><tr><td><b>List</b><br><span class="note" style="font-size:12px">An ordered, mutable collection of values.</span></td><td><span class="chip book">in book</span></td><td>list</td><td class="chapters"><a href="https://python.porttack.com/chap09.html">9</a></td><td class="note"></td></tr><tr><td><b>Index</b><br><span class="note" style="font-size:12px">A number that specifies the position of an element in a sequence.</span></td><td><span class="chip book">in book</span></td><td>index</td><td class="chapters"><a href="https://python.porttack.com/chap08.html">8</a></td><td class="note">0-based here; the exam's own notation is 1-based — see the swap table in glossary-map.md.</td></tr><tr><td><b>Expression</b><br><span class="note" style="font-size:12px">A combination of values, variables, and operators that produces a value.</span></td><td><span class="chip book">in book</span></td><td>expression</td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a></td><td class="note"></td></tr><tr><td><b>Assignment</b><br><span class="note" style="font-size:12px">Giving a variable a value.</span></td><td><span class="chip book">in book</span></td><td>assignment statement</td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a></td><td class="note">`=` here; `←` on the exam reference sheet.</td></tr><tr><td><b>Sequencing</b><br><span class="note" style="font-size:12px">Running the steps of an algorithm one after another, in order.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">The default behavior of every program in the book; never named as its own concept.</td></tr><tr><td><b>Selection</b><br><span class="note" style="font-size:12px">Choosing which of two paths to take based on a condition.</span></td><td><span class="chip book">in book</span></td><td>conditional statement</td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note">The single biggest name swap between this book and the exam — see glossary-map.md.</td></tr><tr><td><b>Iteration</b><br><span class="note" style="font-size:12px">Repeating a block of steps.</span></td><td><span class="chip book">in book</span></td><td>loop</td><td class="chapters"><a href="https://python.porttack.com/chap03.html">3</a>, <a href="https://python.porttack.com/chap07.html">7</a></td><td class="note">Definite iteration (`for`) only — this book has no `while` loop at all, so indefinite iteration (REPEAT UNTIL, below) is a real gap even though Iteration itself is covered.</td></tr><tr><td><b>Procedure</b><br><span class="note" style="font-size:12px">A named, reusable sequence of instructions.</span></td><td><span class="chip book">in book</span></td><td>function</td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a></td><td class="note">The exam's word for what this book calls a function.</td></tr><tr><td><b>Parameter</b><br><span class="note" style="font-size:12px">A variable listed in a function's definition, to be filled in by an argument.</span></td><td><span class="chip book">in book</span></td><td>parameter</td><td class="chapters"><a href="https://python.porttack.com/chap03.html">3</a></td><td class="note"></td></tr><tr><td><b>Argument</b><br><span class="note" style="font-size:12px">A value passed to a function when it's called.</span></td><td><span class="chip book">in book</span></td><td>argument</td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a></td><td class="note"></td></tr><tr><td><b>RETURN Statement</b><br><span class="note" style="font-size:12px">The instruction that sends a value back from a procedure to its caller.</span></td><td><span class="chip book">in book</span></td><td>return value</td><td class="chapters"><a href="https://python.porttack.com/chap06.html">6</a></td><td class="note"></td></tr><tr><td><b>Procedural Abstraction</b><br><span class="note" style="font-size:12px">Using a function's interface without needing to know how it works inside.</span></td><td><span class="chip book">in book</span></td><td>interface design</td><td class="chapters"><a href="https://python.porttack.com/chap04.html">4</a></td><td class="note"></td></tr><tr><td><b>Modularity</b><br><span class="note" style="font-size:12px">Splitting a program into independent, cooperating pieces.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">encapsulation/generalization (ch. 4) are adjacent, but “modularity” itself is never named.</td></tr><tr><td><b>Software Library</b><br><span class="note" style="font-size:12px">A collection of code someone else wrote, ready to import and reuse.</span></td><td><span class="chip book">in book</span></td><td>module</td><td class="chapters"><a href="https://python.porttack.com/chap02.html">2</a></td><td class="note"></td></tr><tr><td><b>API</b><br><span class="note" style="font-size:12px">A published description of how to call the procedures in a library.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Relational Operators</b><br><span class="note" style="font-size:12px">Operators, like `&lt;` and `==`, that compare two values and produce a Boolean.</span></td><td><span class="chip book">in book</span></td><td>relational operator</td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note"></td></tr><tr><td><b>Logical Operators</b><br><span class="note" style="font-size:12px">Operators, like `and`/`or`/`not`, that combine or invert Boolean values.</span></td><td><span class="chip book">in book</span></td><td>logical operator</td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note"></td></tr><tr><td><b>MOD</b><br><span class="note" style="font-size:12px">An operator that gives the remainder of dividing one integer by another.</span></td><td><span class="chip book">in book</span></td><td>modulus operator</td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note">`%` here; `MOD` on the exam reference sheet.</td></tr><tr><td><b>Nested Conditionals</b><br><span class="note" style="font-size:12px">A conditional statement inside the branch of another conditional statement.</span></td><td><span class="chip book">in book</span></td><td>nested conditional</td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note"></td></tr><tr><td><b>Infinite Loop</b><br><span class="note" style="font-size:12px">A loop whose condition never becomes false, so it never stops.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">“Infinite recursion” (ch. 5) is the book's only named version of this idea; the iterative case is never named.</td></tr><tr><td><b>Linear Search</b><br><span class="note" style="font-size:12px">Checking each element of a list in order until the target is found.</span></td><td><span class="chip book">in book</span></td><td>linear search</td><td class="chapters"><a href="https://python.porttack.com/chap07.html">7</a></td><td class="note"></td></tr><tr><td><b>Binary Search</b><br><span class="note" style="font-size:12px">Repeatedly halving a sorted list to find a target faster than linear search.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">November algorithms block; linear search is already taught, so this is a direct next step.</td></tr><tr><td><b>RANDOM</b><br><span class="note" style="font-size:12px">A procedure that returns an unpredictable value within some range.</span></td><td><span class="chip book">in book</span></td><td>pseudorandom</td><td class="chapters"><a href="https://python.porttack.com/chap12.html">12</a></td><td class="note">Python's `random` module, first used in ch. 12.</td></tr><tr><td><b>Simulation</b><br><span class="note" style="font-size:12px">A program that models a real process, often using randomness.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">November algorithms block.</td></tr><tr><td><b>Algorithmic Efficiency</b><br><span class="note" style="font-size:12px">How the running time or memory use of an algorithm grows as its input grows.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">November algorithms block.</td></tr><tr><td><b>Reasonable Time</b><br><span class="note" style="font-size:12px">A running time that grows no faster than a polynomial function of the input size.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">November algorithms block.</td></tr><tr><td><b>Unreasonable Time</b><br><span class="note" style="font-size:12px">A running time that grows faster than any polynomial in the input size.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">November algorithms block.</td></tr><tr><td><b>Heuristic</b><br><span class="note" style="font-size:12px">A technique that finds a good-enough answer without guaranteeing the best one.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">November algorithms block.</td></tr><tr><td><b>Decidable Problem</b><br><span class="note" style="font-size:12px">A problem some algorithm can always answer correctly for every input.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">November algorithms block.</td></tr><tr><td><b>Undecidable Problem</b><br><span class="note" style="font-size:12px">A problem for which no algorithm can always produce a correct answer.</span></td><td><span class="chip planned">planned</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">November algorithms block.</td></tr><tr><td><b>Traversal</b><br><span class="note" style="font-size:12px">Visiting each element of a sequence in turn.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">The book's single most common activity, but never named as its own term — “loop variable” (ch. 7) and “element” (ch. 9) are the closest adjacent headwords.</td></tr><tr><td><b>DISPLAY</b><br><span class="note" style="font-size:12px">The exam's instruction for printing a value.</span></td><td><span class="chip book">in book</span></td><td>print()</td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a></td><td class="note">Used from the very first function-call example; not itself a glossary headword.</td></tr><tr><td><b>INPUT</b><br><span class="note" style="font-size:12px">The exam's instruction for reading a value typed by the user.</span></td><td><span class="chip book">in book</span></td><td>input()</td><td class="chapters"><a href="https://python.porttack.com/chap05.html">5</a></td><td class="note">First used in ch. 5's code, verified directly against the notebooks.</td></tr><tr><td><b>REPEAT n TIMES</b><br><span class="note" style="font-size:12px">The exam's instruction for running a block a fixed number of times.</span></td><td><span class="chip book">in book</span></td><td>for loop</td><td class="chapters"><a href="https://python.porttack.com/chap03.html">3</a></td><td class="note"></td></tr><tr><td><b>REPEAT UNTIL</b><br><span class="note" style="font-size:12px">The exam's instruction for running a block until a condition becomes true.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">This book has no `while` loop anywhere — the single largest gap flagged in ap-practices-bigideas-coverage.html, and it lands here too.</td></tr><tr><td><b>INSERT</b><br><span class="note" style="font-size:12px">The exam's instruction for placing a value at a given position in a list.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">Verified directly: `.insert(` never appears in any chapter's code.</td></tr><tr><td><b>APPEND</b><br><span class="note" style="font-size:12px">The exam's instruction for adding a value to the end of a list.</span></td><td><span class="chip book">in book</span></td><td>.append()</td><td class="chapters"><a href="https://python.porttack.com/chap09.html">9</a></td><td class="note">First used in ch. 5's code; formalized as a list operation in ch. 9.</td></tr><tr><td><b>REMOVE</b><br><span class="note" style="font-size:12px">The exam's instruction for deleting a value from a list by position.</span></td><td><span class="chip book">in book</span></td><td>.remove()</td><td class="chapters"><a href="https://python.porttack.com/chap09.html">9</a></td><td class="note"></td></tr><tr><td><b>LENGTH</b><br><span class="note" style="font-size:12px">The exam's instruction for the number of elements in a list (or characters in a string).</span></td><td><span class="chip book">in book</span></td><td>len()</td><td class="chapters"><a href="https://python.porttack.com/chap01.html">1</a>, <a href="https://python.porttack.com/chap09.html">9</a></td><td class="note">Used on strings from ch. 1; formalized for lists in ch. 9.</td></tr><tr><td><b>FOR EACH</b><br><span class="note" style="font-size:12px">The exam's instruction for running a block once per element of a list.</span></td><td><span class="chip book">in book</span></td><td>for x in list</td><td class="chapters"><a href="https://python.porttack.com/chap07.html">7</a></td><td class="note"></td></tr><tr><td><b>MOVE_FORWARD</b><br><span class="note" style="font-size:12px">The exam's Robot instruction to move one grid square in the facing direction.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note">The book's turtle module (first used ch. 4) draws shapes rather than navigating a grid — a loose analog, not a match.</td></tr><tr><td><b>ROTATE_LEFT</b><br><span class="note" style="font-size:12px">The exam's Robot instruction to turn 90 degrees counterclockwise in place.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>ROTATE_RIGHT</b><br><span class="note" style="font-size:12px">The exam's Robot instruction to turn 90 degrees clockwise in place.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>CAN_MOVE</b><br><span class="note" style="font-size:12px">The exam's Robot instruction that tests whether a square is open to move into.</span></td><td><span class="chip gap">gap</span></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="csn">
+  <div class="bigidea-head">
+    <h2>Big Idea 4 &mdash; Computer Systems and Networks</h2>
+    <span class="name">CSN &middot; 11–15% of MCQ</span>
+  </div>
+  <p class="bignote">22 terms &mdash; 0 in book, 0 planned, 22 Little Brother, 0 gap.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>AP CSP term</th><th>Status</th><th>Working in Python</th><th>Ch.</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>Internet</b><br><span class="note" style="font-size:12px">The global network connecting the world's computer networks.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>World Wide Web</b><br><span class="note" style="font-size:12px">A system of linked pages and media delivered over the Internet.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Computer Network</b><br><span class="note" style="font-size:12px">A group of interconnected computing devices that can send or receive data.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Computing Device</b><br><span class="note" style="font-size:12px">Any physical device able to run a program.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Packet</b><br><span class="note" style="font-size:12px">A chunk of data, with addressing information attached, sent over a network.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Routing</b><br><span class="note" style="font-size:12px">Choosing a path for a packet across a network toward its destination.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Bandwidth</b><br><span class="note" style="font-size:12px">The maximum data rate a network connection can carry.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Protocol</b><br><span class="note" style="font-size:12px">An agreed-upon set of rules for how systems communicate.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>TCP</b><br><span class="note" style="font-size:12px">A protocol that reliably delivers packets in order, resending any that are lost.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>IP</b><br><span class="note" style="font-size:12px">The protocol that addresses devices and routes packets between them.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>IP Address</b><br><span class="note" style="font-size:12px">A number that identifies a device on a network.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>UDP</b><br><span class="note" style="font-size:12px">A lightweight protocol that sends packets without guaranteeing delivery or order.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>HTTP/HTTPS</b><br><span class="note" style="font-size:12px">The protocol web browsers and servers use to request and send pages.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>DNS</b><br><span class="note" style="font-size:12px">The system that translates domain names into IP addresses.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Router</b><br><span class="note" style="font-size:12px">A device that forwards packets between networks.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Scalability</b><br><span class="note" style="font-size:12px">A system's ability to keep working well as demand on it grows.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Fault Tolerance</b><br><span class="note" style="font-size:12px">A system's ability to keep working when some of its parts fail.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Redundancy</b><br><span class="note" style="font-size:12px">Duplicate parts or paths in a system, kept in reserve for when one fails.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Sequential Computing</b><br><span class="note" style="font-size:12px">Running the steps of a program one after another on one processor.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Parallel Computing</b><br><span class="note" style="font-size:12px">Splitting a task into pieces that run at the same time on multiple processors.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Distributed Computing</b><br><span class="note" style="font-size:12px">Using multiple separate devices, coordinating over a network, to run one program.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Speedup</b><br><span class="note" style="font-size:12px">How much faster a parallel version of a task runs compared to running it sequentially.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ioc">
+  <div class="bigidea-head">
+    <h2>Big Idea 5 &mdash; Impact of Computing</h2>
+    <span class="name">IOC &middot; 21–26% of MCQ</span>
+  </div>
+  <p class="bignote">26 terms &mdash; 0 in book, 0 planned, 26 Little Brother, 0 gap.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>AP CSP term</th><th>Status</th><th>Working in Python</th><th>Ch.</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><b>Digital Divide</b><br><span class="note" style="font-size:12px">Unequal access to computing or the Internet across groups of people.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Bias</b><br><span class="note" style="font-size:12px">A systematic skew in a computing system's outcomes, often inherited from its data or design.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Crowdsourcing</b><br><span class="note" style="font-size:12px">Gathering effort, data, or funding from many people over the Internet.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Citizen Science</b><br><span class="note" style="font-size:12px">Crowdsourcing applied to scientific research, using volunteer contributors.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Machine Learning</b><br><span class="note" style="font-size:12px">Building a model from data rather than writing its rules by hand.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Data Mining</b><br><span class="note" style="font-size:12px">Searching large data sets for patterns or relationships.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Intellectual Property</b><br><span class="note" style="font-size:12px">Legal ownership of a creative or intellectual work.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Copyright</b><br><span class="note" style="font-size:12px">The legal right to control copying and use of an original work.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Creative Commons</b><br><span class="note" style="font-size:12px">A licensing system letting creators specify how their work may be shared or reused.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Open Source</b><br><span class="note" style="font-size:12px">Software whose source code is published for anyone to view, use, or modify.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Open Access</b><br><span class="note" style="font-size:12px">Free public access to documents or data, such as research or government records.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Plagiarism</b><br><span class="note" style="font-size:12px">Presenting someone else's work or ideas as your own.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Personally Identifiable Information</b><br><span class="note" style="font-size:12px">Data that can identify a specific individual, directly or indirectly.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Encryption</b><br><span class="note" style="font-size:12px">Scrambling data so only someone with the right key can read it.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Symmetric Key Encryption</b><br><span class="note" style="font-size:12px">Encryption where the same key both encrypts and decrypts.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Public Key Encryption</b><br><span class="note" style="font-size:12px">Encryption using a public key to encrypt and a different, private key to decrypt.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Authentication</b><br><span class="note" style="font-size:12px">Verifying that a user is who they claim to be.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Multifactor Authentication</b><br><span class="note" style="font-size:12px">Authentication requiring more than one kind of proof of identity.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Phishing</b><br><span class="note" style="font-size:12px">Tricking someone into revealing private information, often via a fake message.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Malware</b><br><span class="note" style="font-size:12px">Software designed to damage, disrupt, or gain unauthorized access to a system.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Computer Virus</b><br><span class="note" style="font-size:12px">Malware that copies itself into other programs or files.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Keylogging</b><br><span class="note" style="font-size:12px">Secretly recording a user's keystrokes to capture passwords or other data.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Rogue Access Point</b><br><span class="note" style="font-size:12px">An unauthorized wireless access point set up to intercept network traffic.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Cookies</b><br><span class="note" style="font-size:12px">Small pieces of data a website stores in a browser to remember information about a visit.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Digital Certificate</b><br><span class="note" style="font-size:12px">A file that verifies a public key belongs to a particular person or organization.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr><tr><td><b>Certificate Authority</b><br><span class="note" style="font-size:12px">An organization trusted to issue and vouch for digital certificates.</span></td><td><a class="chip else" href="https://porttack.com/2026/06/14/little-brother.html">Little Brother</a></td><td>&mdash;</td><td class="chapters">&mdash;</td><td class="note"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<footer>
+  Compiled 2026-08-09. Cross-links: <code>alignment/glossary-map.md</code> (concept-level crosswalk, Pass 3, repo-only), the <a href="https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html">AP CSP Coverage Map</a> (topic-level), the <a href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a>, and <a href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a> (this book's own terms, unfiltered).
+</footer>
+
+</div>

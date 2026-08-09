@@ -5,6 +5,16 @@ vocabulary lives in Essential Knowledge prose and the Exam Reference Sheet's nam
 literal diff against Downey's `**term:** definition` entries would be mostly noise. This
 maps concepts instead.
 
+**A literal, word-by-word version of that diff was built anyway on 2026-08-09**, on
+maintainer request — `alignment/vocabulary-by-chapter.md` (every Downey glossary term, by
+chapter) and `alignment/ap-vocabulary-coverage.md` (a *compiled*, not extracted, AP CSP
+vocabulary list — see its methodology note — matched term by term against the book). The
+two documents complement each other: this one explains *why* a term does or doesn't need
+to transfer; that one just says whether the word appears. Hosted twins:
+[`vocabulary-by-chapter.html`](https://python.porttack.com/alignment/vocabulary-by-chapter.html)
+and
+[`ap-vocabulary-coverage.html`](https://python.porttack.com/alignment/ap-vocabulary-coverage.html).
+
 ## The table that actually costs students points
 
 Same term, different name. These are the substitutions most likely to cost a point on an
