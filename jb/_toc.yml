@@ -53,6 +53,8 @@ parts:
 - caption: Reference
   chapters:
     - file: todo
+    - url: https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html
+      title: AP CSP Coverage Map
     - url: https://python.porttack.com/alignment/apcsp-standards-reference.html
       title: AP CSP Standards Reference
     - url: https://python.porttack.com/alignment/ca-cs-standards-reference.html

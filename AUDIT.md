@@ -4021,3 +4021,40 @@ shouldn't count as "reflowing" upstream content, but confirm that reading holds 
 touching a chapter you haven't otherwise touched yet). Small enough in total that it probably
 doesn't need its own `mods/pass-N` file — track it here and in whichever pass next touches
 each named chapter, rather than spinning up a new pass for a 25-line mechanical fix.
+
+## 2026-08-09 follow-up — AP CSP coverage map wired into nav and cross-linked
+
+Maintainer feedback on the coverage map added earlier this session
+(`alignment/ap-practices-bigideas-coverage.md`): "This page is stand-alone. It is not in
+nav or even connected to the AP standards themselves." Two real issues, not one:
+
+1. **Not discoverable.** The `.md` isn't part of the Jupyter Book source (`jb/` only
+   tracks `index.md`/`orientation.md`/`about.md`/`_toc.yml`/config), so it never had a
+   chance to appear in the sidebar. Fixed by adding a hosted twin,
+   `alignment/ap-practices-bigideas-coverage.html`, styled to match the four existing
+   `*-standards-reference.html` pages (same CSS-variable light/dark pattern, same
+   `alignment/` location so it rides the existing `jb/extra/alignment` symlink into the
+   build via `html_extra_path`). Added to `jb/_toc.yml`'s Reference section as "AP CSP
+   Coverage Map," directly above the AP CSP Standards Reference entry. The `.md` stays too
+   — it's the version with relative links into `chapters/*.ipynb`, useful for repo-local
+   reading; the `.html` is the public one, with topic codes linking to
+   `apcsp-standards-reference.html` and chapter numbers linking to the live
+   `chapNN.html` pages instead.
+2. **One-directional link.** The coverage page already linked out to the standards
+   reference (topic codes to `#T-<code>` anchors), but the reference page had no way to
+   send a reader back. Added a one-line pointer on `apcsp-standards-reference.html`, right
+   after its provenance box, to the coverage map.
+
+**Also found and fixed while doing this, not reported by the maintainer:** the Practices
+table's six links pointed at `apcsp-standards-reference.html#T-P1` through `#T-P6`. The
+reference page's actual practice anchors are bare `#P1`-`#P6` — the `#T-` prefix is
+topic-only, confirmed by grepping `id="` on that page (`id="P1"`..`id="P6"` for practices,
+`id="T-1.1"` etc. for topics). All six links were silently landing at the top of the page
+instead of the right row. Corrected in both the `.md` and the new `.html`. Worth
+remembering for any future page that links to a specific practice: no `T-` prefix, unlike
+every other anchor on that page.
+
+**Not done:** did not run `jb build` to verify the new page renders inside the actual
+Jupyter Book sidebar/theme (no local build attempted this session) — the nav entry and the
+symlink mechanism are read from source, not tested end-to-end. Worth a `cd jb && ./build.sh
+--local` check before the next real publish, same as any other `_toc.yml` edit.

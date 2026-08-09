@@ -890,3 +890,21 @@ or `id`, so the link reaches the whole framework, not a specific row — noted i
 - `CLAUDE.md`'s Pass 3 status row pointed at a nonexistent `docs/pass-3-alignment.md`; the
   file has always lived at `mods/pass-3-alignment.md`. Corrected, and the status text
   updated to reflect Step 4 now covering chapters 1-8 across all four frameworks.
+
+## 2026-08-09 — AP CSP coverage map: wired into nav, linked both ways
+
+### Added
+- `alignment/ap-practices-bigideas-coverage.html`: the coverage-by-Practice/Big-Idea/topic
+  reference (previously a repo-only `.md`) as a hosted page matching the four
+  `*-standards-reference.html` pages' template, with topic and chapter numbers linking out
+  to `apcsp-standards-reference.html` and the live chapter pages respectively. Added to
+  `jb/_toc.yml`'s Reference section as "AP CSP Coverage Map."
+- `alignment/apcsp-standards-reference.html`: one-line pointer to the new coverage map,
+  right after the provenance box, so the connection runs both directions.
+
+### Fixed
+- `alignment/ap-practices-bigideas-coverage.md`'s Practices table linked
+  `apcsp-standards-reference.html#T-P1`..`#T-P6`; the page's actual practice anchors are
+  bare `#P1`..`#P6` (topics use `#T-<code>`, practices don't). All six links were landing
+  at the top of the page instead of the right row. Corrected in both the `.md` and the new
+  `.html`.
