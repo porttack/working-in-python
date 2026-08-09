@@ -74,10 +74,11 @@ CHAPTERS = {
     "chap09.ipynb": ["thinkpython.py", "diagram.py", "words.txt"],
     "chap10.ipynb": ["thinkpython.py", "diagram.py", "words.txt"],
     "chap11.ipynb": ["thinkpython.py", "diagram.py", "structshape.py", "words.txt", "pg345.txt"],
-    # Teacher-authored exercises notebook, separate from the chapter itself
-    # (not one of Downey's 19 chapters -- just needs the same JupyterLite
-    # treatment so its own link works). No deps: blank for now.
+    # Teacher-authored exercises notebooks, separate from the chapters
+    # themselves (not one of Downey's 19 chapters -- just needs the same
+    # JupyterLite treatment so its own link works). No deps: blank for now.
     "chap01-exercises.ipynb": [],
+    "chap02-exercises.ipynb": [],
 }
 PRELOAD_ON_DEP = {
     "diagram.py": ["matplotlib.pyplot"],
@@ -123,6 +124,61 @@ CELL_PATCHES = {
             '(function () {\n',
             '  var sidebar = document.getElementById("pst-primary-sidebar");\n',
             '  var pane = document.getElementById("chap01-jupyterlite-pane");\n',
+            '  if (!sidebar || !pane) return;\n',
+            '  // Only take over the viewport when running inside the Sphinx book site,\n',
+            '  // where the primary sidebar this pane is docked next to actually exists.\n',
+            '  // height:auto (rather than the 600px stylesheet fallback, which only\n',
+            '  // exists for contexts where this script never runs, e.g. viewing the raw\n',
+            '  // notebook in VS Code) lets top+bottom determine the height, so the pane\n',
+            '  // fills the whole right side, not a fixed 600px slice of it.\n',
+            '  pane.style.position = "fixed";\n',
+            '  pane.style.top = "0";\n',
+            '  pane.style.right = "0";\n',
+            '  pane.style.bottom = "0";\n',
+            '  pane.style.height = "auto";\n',
+            '  pane.style.zIndex = "2000";\n',
+            '  function positionPane() {\n',
+            '    pane.style.left = sidebar.getBoundingClientRect().right + "px";\n',
+            '  }\n',
+            '  new ResizeObserver(positionPane).observe(sidebar);\n',
+            '  positionPane();\n',
+            '})();\n',
+            '</script>\n',
+            '<!-- apcsp:end -->',
+        ): (
+            "*(You're already running this chapter live -- that's this page.)*",
+        ),
+    },
+    # chap02's page embeds a live JupyterLite iframe of itself, same
+    # recursive-embed problem and same fix as chap01.ipynb above.
+    "chap02.ipynb": {
+        (
+            '<!-- apcsp:begin type="note" chapter="02" -->\n',
+            '**Try it here.** This chapter also runs live on this page, no sign-in and nothing to install.\n',
+            'Drag the thin divider next to the left nav to resize it.\n',
+            '\n',
+            '<style>\n',
+            '#pst-secondary-sidebar { display: none !important; }\n',
+            '#chap02-jupyterlite-pane {\n',
+            '  display: block;\n',
+            '  height: 600px;\n',
+            '  background: #fff;\n',
+            '  overflow: hidden;\n',
+            '}\n',
+            '#chap02-jupyterlite-pane iframe {\n',
+            '  display: block;\n',
+            '  width: 100%;\n',
+            '  height: 100%;\n',
+            '  border: 0;\n',
+            '}\n',
+            '</style>\n',
+            '<div id="chap02-jupyterlite-pane">\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap02.ipynb"></iframe>\n',
+            '</div>\n',
+            '<script>\n',
+            '(function () {\n',
+            '  var sidebar = document.getElementById("pst-primary-sidebar");\n',
+            '  var pane = document.getElementById("chap02-jupyterlite-pane");\n',
             '  if (!sidebar || !pane) return;\n',
             '  // Only take over the viewport when running inside the Sphinx book site,\n',
             '  // where the primary sidebar this pane is docked next to actually exists.\n',

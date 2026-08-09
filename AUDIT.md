@@ -2978,3 +2978,66 @@ moved the "# Welcome" heading to just before "Programming as a way of thinking,"
 deferred by the user -- "it does not need to show up in the left nav (yet)"). It also doesn't have
 its own link bar or projector variant of its own; not asked for, not added. `data/exercise-ledger.json`
 untouched since there's no actual exercise content yet to log.
+
+**Note:** entries for the three commits between follow-up 16 and this one (chap01 drops then
+restores its embedded live pane, and the `jupyter_intro` 600px-height fix) were never written up
+here -- a gap in this log, not a correction to it. Left as-is; not this session's job to backfill.
+
+## 2026-08-08 follow-up 18 -- chapter 2 gets the full chapter-1 chrome treatment; recipe written up
+
+Chapter 1 has accumulated several site-chrome pieces over the last few sessions (link bar, embedded
+live pane, teacher exercises notebook, retail-link removal, attribution-note rule). This is the
+first time that whole bundle was applied to a second chapter, and the point of doing it now was
+also to write down the recipe (see `HOW_TO_EDIT.md`'s new "Applying the chapter-1 chrome treatment
+to another chapter" section) so chapters 3 and up don't require re-deriving it.
+
+**Done for chapter 2, exactly mirroring chapter 1's current state:**
+- `chapters/chap02-exercises.ipynb` added, same shape as `chap01-exercises.ipynb` (title cell +
+  one empty code cell), registered in `tools/build_jupyterlite_content.py`'s `CHAPTERS` with no
+  deps.
+- `chapters/chap02.ipynb`'s Bookshop/Amazon retail-links cell dropped (same cleanup chapter 1 got
+  in `f5aa6c0`).
+- Link bar added as the new first cell: Exercises (pointing at the new exercises notebook, marked
+  `**TODO:**` same as chapter 1's, since it's still blank) | JupyterLite | Colab | Markdown |
+  Download | Codespace (notebook) | Codespace (VS Code) | Blank (JupyterLite, the projector
+  variant).
+- Embedded live JupyterLite pane added as the second cell, id `chap02-jupyterlite-pane`, byte-for-
+  byte chapter 1's pane cell with `chap01`/`01` swapped for `chap02`/`02`. Matching `CELL_PATCHES`
+  entry added to `tools/build_jupyterlite_content.py` so the JupyterLite-hosted copy swaps it for
+  the placeholder note instead of recursively embedding itself, same mechanism as chapter 1.
+- Bottom attribution note fixed to open with the same `---` rule chapter 1's does (`f5aa6c0` added
+  this to chapter 1 only; chapter 2 had been left with the older, rule-less form until now).
+
+**Deliberately not touched:** chapter 2's Standards alignment block (already correct, done in Pass
+3 Step 4) and its exposition/exercise content (no chapter-surgery work happened this session).
+
+**Formatting hazard found and worked around, worth remembering:** editing an `.ipynb` cell's
+`source` through the `NotebookEdit` tool round-trips `<!--`/`-->` sequences through HTML-entity
+escaping (`&lt;`/`&gt;`) at least once observed this session, and separately stores the edited
+cell's `source` as a single string with `metadata` moved after it, rather than this repo's usual
+list-of-lines-with-metadata-before-source convention -- reformatting *every* other cell's key
+order the moment the whole notebook gets rewritten by a naive `json.dump`, because code cells key
+`source` after `outputs`/`execution_count` while markdown cells key it right after `metadata`, and
+a blanket reorder doesn't know that. First attempt this session produced a 366-line diff on a
+107-cell file before this was caught. Fixed by writing the new/changed cells directly as
+plain Python dicts (correct key order, `source` as a list of lines) and splicing them into the
+`cells` list with `json.dump(..., indent=1, ensure_ascii=False)`, rather than going through
+`NotebookEdit` for this kind of structural, byte-parity-sensitive copy. Confirmed the fix: a
+before/after round-trip of the *unedited* file through the same `json.dump` call reproduces it
+byte-for-byte (except the trailing newline) -- so the final diff against chapter 2 is exactly the
+four touched cells, nothing else. **If this recurs:** don't trust `NotebookEdit` for a
+`CELL_PATCHES`-matched cell or anything meant to be byte-identical to another chapter's cell;
+verify with `git diff --stat` before trusting the tool's own echo of what it wrote.
+
+**Verified:** `make projector && make check` clean (`blanks/` up to date, `check_sync` clean,
+`jupyterlite --check` clean: 14 chapters, 14 projector variants). Diff against chapter 1's own
+cells confirms parity: same link-bar shape (minus the "Exercises" wording, which is chapter-number-
+specific by design), same pane cell modulo the chapter number, same attribution-note opening.
+
+**Handoff, for chapter 3 (and the rest of 3-19 whenever this is next picked up):** follow
+`HOW_TO_EDIT.md`'s new recipe section top to bottom. The two things most likely to bite: (1) the
+`NotebookEdit` formatting hazard above -- do the cell edits as raw JSON splices, not through
+`NotebookEdit`, if byte-parity with another chapter's cell matters; (2) chapters 12+ are `keep`/
+`decide` or independent-study under the treatment matrix in `CLAUDE.md` -- the embedded-live-pane
+and JupyterLite-link-bar entries only make sense for a chapter that's actually `strip`/Live and
+registered in `CHAPTERS`; confirm before copying this pattern past chapter 11.

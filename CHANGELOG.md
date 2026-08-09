@@ -16,6 +16,30 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-08 — Chapter 2 gets the chapter-1 chrome treatment
+
+### Added
+- `chapters/chap02-exercises.ipynb`: blank teacher-exercises notebook, same shape as
+  `chap01-exercises.ipynb`. Registered in `tools/build_jupyterlite_content.py`'s `CHAPTERS`
+  (no deps).
+- `chapters/chap02.ipynb`: the same "ways to open this chapter" link bar chapter 1 has
+  (Exercises | JupyterLite | Colab | Markdown | Download | Codespace (notebook) | Codespace
+  (VS Code) | Blank), plus an embedded live JupyterLite pane. `tools/build_jupyterlite_content.py`
+  gets a matching `CELL_PATCHES` entry so the copy that ships inside JupyterLite swaps the pane
+  for a one-line note instead of recursively embedding itself.
+
+### Changed
+- `chapters/chap02.ipynb`: dropped the Bookshop/Amazon retail-links cell (same cleanup chapter 1
+  got in `f5aa6c0`). Closing attribution note now opens with the same `---` rule chapter 1's does,
+  so both chapters' bottom matter renders identically.
+- `HOW_TO_EDIT.md`: the link-bar section is no longer marked "pilot, chapter 1 only" now that a
+  second chapter carries it; added a consolidated recipe for applying the whole chapter-1 chrome
+  treatment (link bar, embedded pane, exercises notebook, retail-link removal, attribution rule)
+  to the next chapter in one pass.
+
+### Fixed
+- `projector/chap02.ipynb`, `jupyterlite/content/` regenerated; `make check` passes.
+
 ## 2026-08-08 — Projector variants in JupyterLite; chap01 gets a teacher exercises notebook
 
 ### Added
