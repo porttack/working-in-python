@@ -47,15 +47,18 @@
   `alignment/csta2026-standards-reference.html` and
   `alignment/ca-ict-anchor-standards-reference.html`. Same linking convention as AP/CA: never
   link the framework label itself, link each cited code to its own anchor.
-  **Status as of 2026-08-09: alignment done for chapters 1-3 only**, added alongside that
-  session's AP/CA carrier work, not as a full Step 1-3 pass — no `crosswalk.json` entries
-  exist yet between these two frameworks and AP/CA, and `standards_alignment.md`'s four
-  views haven't been extended to cover them. Chapters 4-19 need the same treatment: read the
-  chapter, check it against `csta2026.json`'s 46 standards and `ca-ict-anchor.json`'s 170
-  items, and be as willing to find nothing as something — CSTA's HS-band standards in
-  particular assume middle-school-level programming vocabulary is already established, so
-  many chapters (this book's own chapter 1, for instance) may legitimately carry none of
-  them, the same kind of honest gap Step 1 already normalized for AP/CA.
+  **Status as of 2026-08-09: alignment done for chapters 1-8.** Chapters 1-3 done in the
+  session that added these frameworks; chapters 4-8 done in a follow-up the same day. Still
+  not a full Step 1-3 pass for either framework — no `crosswalk.json` entries exist yet
+  between CSTA/ICT and AP/CA, and `standards_alignment.md`'s four views haven't been
+  extended to cover them. Chapters 9-19 need the same treatment: read the chapter, check it
+  against `csta2026.json`'s 46 standards and `ca-ict-anchor.json`'s 170 items, and be as
+  willing to find nothing as something — CSTA's HS-band standards in particular assume
+  middle-school-level programming vocabulary is already established, so some chapters (this
+  book's own chapter 1, for instance) may legitimately carry none of them, the same kind of
+  honest gap Step 1 already normalized for AP/CA. See the AUDIT.md handoff dated 2026-08-09
+  "Pass 3, Step 4 (all four frameworks), chapters 4-8" for the method and per-chapter
+  findings.
 
 ## Go...
 

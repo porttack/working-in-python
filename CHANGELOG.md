@@ -784,3 +784,21 @@ or `id`, so the link reaches the whole framework, not a specific row — noted i
   have no hosted CA reference page yet. `mods/pass-3-alignment.md`'s Amendments bullet and
   both Step 4 templates updated to match, so chapters 4-19 pick up the new convention.
   `projector/` regenerated; `make check` passes.
+
+## 2026-08-09 — Pass 3, Step 4 (all four frameworks), chapters 4-8
+
+### Added
+- `type="standards"` sentinel in chap04-chap08: extended to the 4-line citation format
+  (AP CSP, California 9-12, CSTA 2026, CA CTE (ICT)) that chapters 1-3 already carry.
+  CSTA 2026 and CA CTE (ICT) alignment is new for these five chapters — read against
+  `csta2026.json`'s 46 standards and `ca-ict-anchor.json`'s 170 items the same
+  genuine-matches-only way chapters 1-3 were. `standards/csta2026.json` and
+  `standards/ca-ict-anchor.json` gain real carrier data on 5 CSTA standards and 12
+  ICT/Anchor items; `alignment/csta2026-standards-reference.html` and
+  `alignment/ca-ict-anchor-standards-reference.html` patched to match.
+  `projector/` regenerated; `make check` and `make ledger` pass.
+
+### Fixed
+- `CLAUDE.md`'s Pass 3 status row pointed at a nonexistent `docs/pass-3-alignment.md`; the
+  file has always lived at `mods/pass-3-alignment.md`. Corrected, and the status text
+  updated to reflect Step 4 now covering chapters 1-8 across all four frameworks.

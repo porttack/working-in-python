@@ -169,9 +169,9 @@ footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; border-top: 1p
 <div class="topic" id="T-HS-ALG-PS-02">
 <h3><a class="anchor-link" href="#T-HS-ALG-PS-02" aria-label="Link to HS-ALG-PS-02">#</a><span class="code-badge">HS-ALG-PS-02</span></h3>
 <p class="paraphrase">An algorithm can be reworked to run more clearly or efficiently by wrapping repeated steps in a function and using loops or conditionals instead of restating logic.</p>
-<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap03.html" title="Chapter page">3</a></p>
+<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap03.html" title="Chapter page">3</a>, <a href="https://python.porttack.com/chap04.html" title="Chapter page">4</a>, <a href="https://python.porttack.com/chap05.html" title="Chapter page">5</a>, <a href="https://python.porttack.com/chap07.html" title="Chapter page">7</a></p>
 <p class="note">This is about restructuring code with existing constructs like functions and loops, not formal efficiency analysis or advanced recursive optimization.</p>
-<p class="note"><em>Alignment:</em> chap03 wraps repeated print statements in repeat/print_verse and introduces the for loop, matching this standard's function-plus-loop-instead-of-restated-logic framing. Optimizing for efficiency, the standard's other half, isn't addressed yet.</p>
+<p class="note"><em>Alignment:</em> chap03 wraps repeated print statements in repeat/print_verse and introduces the for loop, matching this standard's function-plus-loop-instead-of-restated-logic framing. chap04's Refactoring section is the chapter's own named term for exactly this. chap05's logical-operators-instead-of-nested-conditionals rewrite is the conditional half of the same idea. chap07's has_e progression (inline loop → function → boolean return) is another instance, headers only. Optimizing for efficiency, the standard's other half, isn't addressed anywhere.</p>
 <ul class="tag-list">
 <li>Computational Thinking: 6. Define computational problems.</li>
 <li>Computational Thinking: 7. Develop and use abstractions.</li>
@@ -294,9 +294,9 @@ footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; border-top: 1p
 <div class="topic" id="T-HS-PRO-PD-12">
 <h3><a class="anchor-link" href="#T-HS-PRO-PD-12" aria-label="Link to HS-PRO-PD-12">#</a><span class="code-badge">HS-PRO-PD-12</span></h3>
 <p class="paraphrase">Splitting a program into distinct, well-organized pieces -- functions, imported libraries, or objects -- makes the result easier to read and easier to reuse.</p>
-<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap03.html" title="Chapter page">3</a></p>
+<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap03.html" title="Chapter page">3</a>, <a href="https://python.porttack.com/chap04.html" title="Chapter page">4</a>, <a href="https://python.porttack.com/chap07.html" title="Chapter page">7</a></p>
 <p class="note">Straightforward decomposition is the target; elaborate design patterns or deep class hierarchies aren't expected.</p>
-<p class="note"><em>Alignment:</em> chap03's function definitions -- especially building print_verse out of first_two_lines/last_three_lines/repeat -- directly match splitting a program into reusable, readable pieces.</p>
+<p class="note"><em>Alignment:</em> chap03's function definitions -- especially building print_verse out of first_two_lines/last_three_lines/repeat -- directly match splitting a program into reusable, readable pieces. chap04's encapsulation/generalization/refactoring sequence (square → polygon → polyline, then circle → arc → polyline) is a stronger instance of the same standard. chap07's uses_none = not uses_any(...) and the exercises deriving uses_all from uses_only/uses_any (instead of a new loop) extend it again.</p>
 <ul class="tag-list">
 <li>Computational Thinking: 7. Develop and use abstractions.</li>
 <li>Computational Thinking: 8. Create computing technologies.</li>
@@ -307,9 +307,9 @@ footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; border-top: 1p
 <div class="topic" id="T-HS-PRO-PD-13">
 <h3><a class="anchor-link" href="#T-HS-PRO-PD-13" aria-label="Link to HS-PRO-PD-13">#</a><span class="code-badge">HS-PRO-PD-13</span></h3>
 <p class="paraphrase">Good program development leans on outside resources -- reference docs, existing libraries, simple APIs, and the features built into a development environment -- rather than reinventing everything from scratch.</p>
-<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap02.html?readonly" title="Read Only page">2</a></p>
+<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap02.html?readonly" title="Read Only page">2</a>, <a href="https://python.porttack.com/chap04.html" title="Chapter page">4</a>, <a href="https://python.porttack.com/chap07.html" title="Chapter page">7</a>, <a href="https://python.porttack.com/chap08.html" title="Chapter page">8</a></p>
 <p class="note">Using these resources well is the goal, not building new ones.</p>
-<p class="note"><em>Alignment:</em> chap02's `import math` and its use of math.pi/math.sqrt/math.pow is this book's first real use of an existing library. The rest of this standard -- API docs, IDE features -- isn't addressed.</p>
+<p class="note"><em>Alignment:</em> chap02's `import math` and its use of math.pi/math.sqrt/math.pow is this book's first real use of an existing library. chap04 (jupyturtle), chap07 (`from doctest import run_docstring_examples`), and chap08 (`re`) are secondary instances of the same pattern -- genuine but not new information each time, so headers only. The rest of this standard -- API docs, IDE features -- isn't addressed anywhere.</p>
 <ul class="tag-list">
 <li>Ethics &amp; Social Responsibility: 2. Respect others' rights and dignity when creating computing technologies.</li>
 <li>Computational Thinking: 9. Test and refine computing technologies.</li>
@@ -358,9 +358,9 @@ footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; border-top: 1p
 <div class="topic" id="T-HS-PRO-RD-17">
 <h3><a class="anchor-link" href="#T-HS-PRO-RD-17" aria-label="Link to HS-PRO-RD-17">#</a><span class="code-badge">HS-PRO-RD-17</span></h3>
 <p class="paraphrase">Reading someone else's code well means being able to explain what each moving part does -- a variable holding state, a loop repeating until some condition, a conditional branching on it -- and how those parts cooperate.</p>
-<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap03.html" title="Chapter page">3</a></p>
+<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap03.html" title="Chapter page">3</a>, <a href="https://python.porttack.com/chap05.html" title="Chapter page">5</a>, <a href="https://python.porttack.com/chap06.html" title="Chapter page">6</a>, <a href="https://python.porttack.com/chap07.html" title="Chapter page">7</a>, <a href="https://python.porttack.com/chap08.html" title="Chapter page">8</a></p>
 <p class="note">This is about tracing a manageable segment of code, not untangling a large system with many interacting structures.</p>
-<p class="note"><em>Alignment:</em> chap03's stack diagrams and tracebacks explain what a function's parameters and loop are doing, but conditionals (the other half of this standard's list) don't appear until chapter 5 -- partial.</p>
+<p class="note"><em>Alignment:</em> chap03's stack diagrams and tracebacks explain what a function's parameters and loop are doing, but conditionals (the standard's third element) don't appear until chapter 5 -- partial there. chap05's countdown stack trace and chap07's predict-the-output prompts (total, count, which doctest fails) complete the triad: a variable holding state, a loop or conditional, and how they cooperate. chap06's factorial trace and chap08's file-reading loop (a state variable, a loop repeating on a condition, a conditional branching on it) are further worked instances of the same standard.</p>
 <ul class="tag-list">
 <li>Computational Thinking: 6. Define computational problems.</li>
 <li>Computational Thinking: 7. Develop and use abstractions.</li>
@@ -436,8 +436,9 @@ footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; border-top: 1p
 <div class="topic" id="T-HS-DAT-DC-23">
 <h3><a class="anchor-link" href="#T-HS-DAT-DC-23" aria-label="Link to HS-DAT-DC-23">#</a><span class="code-badge">HS-DAT-DC-23</span></h3>
 <p class="paraphrase">Messy text data -- inconsistent capitalization, typos, a name and a date crammed into one field -- usually needs cleanup before it's useful, and a spreadsheet or short script can do that work.</p>
-<p class="meta">Carrier: unassigned &middot; Book chapters: &mdash;</p>
+<p class="meta">Carrier: working_in_python &middot; Book chapters: <a href="https://python.porttack.com/chap08.html" title="Chapter page">8</a></p>
 <p class="note">Recognizing where a pattern-matching tool like a regular expression would help is part of this; building a cleaning tool from scratch, or handling huge unstructured feeds, is not.</p>
+<p class="note"><em>Alignment:</em> chap08's is_special_line (stripping Gutenberg header/footer cruft) and re.sub-based British-to-American spelling normalization are direct instances of cleaning up messy text data with a pattern-matching tool -- close to a literal match for this standard's own scope note.</p>
 <ul class="tag-list">
 <li>Computational Thinking: 9. Test and refine computing technologies.</li>
 <li>Human-Centered Design: 11. Use iterative design processes.</li>

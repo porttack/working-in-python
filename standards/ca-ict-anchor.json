@@ -180,7 +180,15 @@
     {
      "code": "5.5",
      "paraphrase": "Tracking a problem to its source takes a structured, logical approach, not guesswork.",
-     "carriers": []
+     "carriers": [
+      {
+       "source": "working_in_python",
+       "chapters": [
+        5
+       ]
+      }
+     ],
+     "note": "chap05's Debugging section traces a symptom back to its structural cause rather than guessing: an indentation error reported at one line but caused by the line above, a decibels bug reported at line 5 but actually on line 4 (integer division). Headers only -- the chapter demonstrates this but doesn't name it as its own skill."
     },
     {
      "code": "5.6",
@@ -190,7 +198,15 @@
     {
      "code": "5.7",
      "paraphrase": "Some problems get solved by working through them repeatedly, refining the approach each pass.",
-     "carriers": []
+     "carriers": [
+      {
+       "source": "working_in_python",
+       "chapters": [
+        7
+       ]
+      }
+     ],
+     "note": "chap07's has_e build-up (inline loop, then encapsulated, then a boolean return, then parameterized) and the incremental construction of uses_any mirror this standard's start-rough-and-refine framing -- the same pattern as AP's 3.9 Developing Algorithms, from the Anchor-standard side."
     },
     {
      "code": "5.8",
@@ -204,11 +220,13 @@
       {
        "source": "working_in_python",
        "chapters": [
-        3
+        3,
+        4,
+        5
        ]
       }
      ],
-     "note": "chap03's 'Why functions?' section explicitly frames functions as a way to divide a big program into smaller, debuggable, reusable pieces -- a direct match."
+     "note": "chap03's 'Why functions?' section explicitly frames functions as a way to divide a big program into smaller, debuggable, reusable pieces -- a direct match. chap04's development plan is a literal, numbered decomposition procedure. chap05's recursive decomposition (countdown, the Sierpinski exercise splitting a triangle of degree n into three of degree n-1) is a purer instance of the same idea."
     },
     {
      "code": "5.10",
@@ -217,11 +235,13 @@
       {
        "source": "working_in_python",
        "chapters": [
-        3
+        3,
+        4,
+        6
        ]
       }
      ],
-     "note": "Calling repeat/print_twice without re-deriving what's inside them is a first, light instance of working through a layer of abstraction. Headers only -- the book doesn't use the word 'abstraction' this early; the connection here is implicit."
+     "note": "Calling repeat/print_twice without re-deriving what's inside them is a first, light instance of working through a layer of abstraction -- headers only, since the book doesn't use the word 'abstraction' this early and the connection is implicit. chap04's interface/implementation split (two different circle implementations sharing one interface) makes the concept explicit for the first time. chap06's leap of faith -- trusting a function's return value without re-examining its body -- is the clearest, most direct treatment of abstraction in the book so far."
     },
     {
      "code": "5.11",
@@ -231,7 +251,17 @@
     {
      "code": "5.12",
      "paraphrase": "Boolean logic underlies both decision-making and searching in computing.",
-     "carriers": []
+     "carriers": [
+      {
+       "source": "working_in_python",
+       "chapters": [
+        5,
+        7,
+        8
+       ]
+      }
+     ],
+     "note": "chap05's boolean expressions and logical operators feed directly into its if statements -- boolean logic driving decision-making is the chapter's structure, not just present in it. chap07's has_e/uses_any (booleans built from in/or) driving linear search, and chap08's re.search result tested against None, are the searching half of the same standard -- the single best new match found in either chapter."
     }
    ],
    "carriers": []
@@ -676,11 +706,12 @@
        {
         "source": "working_in_python",
         "chapters": [
-         1
+         1,
+         6
         ]
        }
       ],
-      "note": "chap01 introduces int, float, and str as distinct types with different encodings, and the type() function to check them -- a direct match."
+      "note": "chap01 introduces int, float, and str as distinct types with different encodings, and the type() function to check them -- a direct match. chap06's Checking types section (isinstance, a type-guarded factorial) extends it with a second, applied instance -- checking a type at runtime, not just naming types."
      },
      {
       "code": "C4.5",
@@ -704,7 +735,15 @@
      {
       "code": "C4.7",
       "paraphrase": "Data structures, arrays, objects, files, and databases are all ways of organizing a program's data.",
-      "carriers": []
+      "carriers": [
+       {
+        "source": "working_in_python",
+        "chapters": [
+         8
+        ]
+       }
+      ],
+      "note": "chap08's Writing files section (open, read mode vs 'w' mode, close) is a direct match for this standard's 'files' item."
      },
      {
       "code": "C4.8",
@@ -719,16 +758,29 @@
         "source": "working_in_python",
         "chapters": [
          2,
-         3
+         3,
+         4,
+         5,
+         6,
+         7,
+         8
         ]
        }
       ],
-      "note": "chap02 introduces variables; chap03 introduces functions, parameters, and the for loop, plus error handling via %%expect. Together they cover most of this standard's list -- branches (conditionals) and recursion aren't introduced until chapter 5."
+      "note": "chap02 introduces variables; chap03 introduces functions, parameters, and the for loop, plus error handling via %%expect. chap04 adds keyword arguments and more parameter work than chapters 2-3 combined. chap05 adds branches (conditionals) and chap06 adds recursion -- 'sometimes a function that calls itself' is this standard's own closing phrase, and chap06's factorial/fibonacci are exactly that. chap07 reinforces variables-holding-state (Updating variables) and a second error-recovery demo. chap08 adds branch-on-condition file-reading loops and TypeError/IndexError recovery. By chapter 8 this standard's full construct list is covered."
      },
      {
       "code": "C4.10",
       "paraphrase": "Different queueing, sorting, and searching algorithms trade off differently against each other.",
-      "carriers": []
+      "carriers": [
+       {
+        "source": "working_in_python",
+        "chapters": [
+         7
+        ]
+       }
+      ],
+      "note": "chap07's Search section explicitly names and builds the linear-search pattern -- the searching half of this standard. The trade-off half isn't reached; no second search algorithm exists yet to compare it against. Headers only."
      },
      {
       "code": "C4.11",
@@ -737,11 +789,12 @@
        {
         "source": "working_in_python",
         "chapters": [
-         2
+         2,
+         4
         ]
        }
       ],
-      "note": "chap02's Comments section is the 'comments for other programmers' half of this standard. The 'manuals for users' half isn't addressed."
+      "note": "chap02's Comments section is the 'comments for other programmers' half of this standard. chap04's Docstrings section is a more formal instance of the same half -- a documented contract rather than a plain comment, so a distinct but related carrier, not a repeat. The 'manuals for users' half still isn't addressed anywhere."
      }
     ],
     "carriers": []
@@ -769,7 +822,15 @@
      {
       "code": "C5.4",
       "paraphrase": "Testing is a distinct step applied to both software and the broader project.",
-      "carriers": []
+      "carriers": [
+       {
+        "source": "working_in_python",
+        "chapters": [
+         7
+        ]
+       }
+      ],
+      "note": "chap07's Doctest section -- docstring-embedded tests, a dedicated pass/fail vocabulary, and a runner function built for the purpose -- is close to a literal match for testing as its own distinct development step."
      },
      {
       "code": "C5.5",
@@ -785,11 +846,16 @@
         "chapters": [
          1,
          2,
-         3
+         3,
+         4,
+         5,
+         6,
+         7,
+         8
         ]
        }
       ],
-      "note": "Every chapter's Debugging section -- same pattern as AP CRD-1.4/CRD-2.I, already the carrier for AP topic 1.4 in every chapter."
+      "note": "Every chapter's Debugging section -- same pattern as AP CRD-1.4/CRD-2.I, already the carrier for AP topic 1.4 in every chapter. Headers only throughout; no single chapter's Debugging section is more chapter-specific than any other's."
      }
     ],
     "carriers": []

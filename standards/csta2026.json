@@ -41,11 +41,14 @@
     {
      "source": "working_in_python",
      "chapters": [
-      3
+      3,
+      4,
+      5,
+      7
      ]
     }
    ],
-   "note": "chap03 wraps repeated print statements in repeat/print_verse and introduces the for loop, matching this standard's function-plus-loop-instead-of-restated-logic framing. Optimizing for efficiency, the standard's other half, isn't addressed yet."
+   "note": "chap03 wraps repeated print statements in repeat/print_verse and introduces the for loop, matching this standard's function-plus-loop-instead-of-restated-logic framing. chap04's Refactoring section is the chapter's own named term for exactly this. chap05's logical-operators-instead-of-nested-conditionals rewrite is the conditional half of the same idea. chap07's has_e progression (inline loop → function → boolean return) is another instance, headers only. Optimizing for efficiency, the standard's other half, isn't addressed anywhere."
   },
   {
    "code": "HS-ALG-PS-03",
@@ -207,11 +210,13 @@
     {
      "source": "working_in_python",
      "chapters": [
-      3
+      3,
+      4,
+      7
      ]
     }
    ],
-   "note": "chap03's function definitions -- especially building print_verse out of first_two_lines/last_three_lines/repeat -- directly match splitting a program into reusable, readable pieces."
+   "note": "chap03's function definitions -- especially building print_verse out of first_two_lines/last_three_lines/repeat -- directly match splitting a program into reusable, readable pieces. chap04's encapsulation/generalization/refactoring sequence (square → polygon → polyline, then circle → arc → polyline) is a stronger instance of the same standard. chap07's uses_none = not uses_any(...) and the exercises deriving uses_all from uses_only/uses_any (instead of a new loop) extend it again."
   },
   {
    "code": "HS-PRO-PD-13",
@@ -231,11 +236,14 @@
     {
      "source": "working_in_python",
      "chapters": [
-      2
+      2,
+      4,
+      7,
+      8
      ]
     }
    ],
-   "note": "chap02's `import math` and its use of math.pi/math.sqrt/math.pow is this book's first real use of an existing library. The rest of this standard -- API docs, IDE features -- isn't addressed."
+   "note": "chap02's `import math` and its use of math.pi/math.sqrt/math.pow is this book's first real use of an existing library. chap04 (jupyturtle), chap07 (`from doctest import run_docstring_examples`), and chap08 (`re`) are secondary instances of the same pattern -- genuine but not new information each time, so headers only. The rest of this standard -- API docs, IDE features -- isn't addressed anywhere."
   },
   {
    "code": "HS-PRO-PD-14",
@@ -303,11 +311,15 @@
     {
      "source": "working_in_python",
      "chapters": [
-      3
+      3,
+      5,
+      6,
+      7,
+      8
      ]
     }
    ],
-   "note": "chap03's stack diagrams and tracebacks explain what a function's parameters and loop are doing, but conditionals (the other half of this standard's list) don't appear until chapter 5 -- partial."
+   "note": "chap03's stack diagrams and tracebacks explain what a function's parameters and loop are doing, but conditionals (the standard's third element) don't appear until chapter 5 -- partial there. chap05's countdown stack trace and chap07's predict-the-output prompts (total, count, which doctest fails) complete the triad: a variable holding state, a loop or conditional, and how they cooperate. chap06's factorial trace and chap08's file-reading loop (a state variable, a loop repeating on a condition, a conditional branching on it) are further worked instances of the same standard."
   },
   {
    "code": "HS-PRO-RD-18",
@@ -403,7 +415,15 @@
     "Persistence",
     "Critical Thinking"
    ],
-   "carriers": []
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      8
+     ]
+    }
+   ],
+   "note": "chap08's is_special_line (stripping Gutenberg header/footer cruft) and re.sub-based British-to-American spelling normalization are direct instances of cleaning up messy text data with a pattern-matching tool -- close to a literal match for this standard's own scope note."
   },
   {
    "code": "HS-DAT-DC-24",

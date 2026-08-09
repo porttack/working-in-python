@@ -3539,3 +3539,166 @@ additive `alignment/` page.
   differ enough (flat CA list vs. CSTA's concept/subconcept grouping vs. ICT's
   anchor-standards-plus-pathway split) that a shared generator would need real design, not
   a quick abstraction.
+
+## 2026-08-09 — Pass 3, Step 4 (all four frameworks), chapters 4-8
+
+Maintainer request: "do pass 3 (standards alignment on all 4 standards) for chapters 4 to
+8." Session started by re-reading `mods/pass-3-alignment.md` per `CLAUDE.md`'s instruction —
+found it describes only AP CSP + California 9-12, a two-framework scheme. Reading the actual
+notebooks (`chapters/chap01.ipynb`-`chap03.ipynb`) showed a 4-line citation format already in
+place (AP CSP, California 9-12, CSTA 2026, CA CTE (ICT)), added in the commits `c6c47e7`/
+`14eddc8`/`f02579c` — landed *after* this session's copy of `mods/pass-3-alignment.md` was
+first read but before the actual editing work started, since this repo apparently has more
+than one session working it concurrently. Re-read the pass file fresh before touching
+anything and confirmed it had, in fact, already been updated with the 4-line template and a
+new Amendments bullet — the apparent staleness was a snapshot-timing artifact, not a real gap.
+Lesson for next time: if a pass file's content contradicts what the chapters actually show,
+re-read before assuming the file is behind — it might be this session's read that's stale.
+
+**What did need fixing:** `CLAUDE.md`'s Pass 3 status line still said "Step 4 done for
+chapters 1-3 only" (silently true for AP/CA but misleading once CSTA/ICT existed) and pointed
+at a nonexistent `docs/pass-3-alignment.md` (no `docs/` directory exists in this repo; the
+real path has always been `mods/pass-3-alignment.md`, same typo pattern the Pass 1 row
+already carries a caveat for). Both fixed. Also: none of the three commits that added
+CSTA/ICT (`f02579c`, `14eddc8`, `c6c47e7`) has a `CHANGELOG.md` entry — flagging this gap
+rather than backfilling three retroactive entries for sessions this one wasn't part of.
+
+### Method
+
+Read chapters 4-8 in full against `csta2026.json`'s 46 HS standards and `ca-ict-anchor.json`'s
+170 items, the same genuine-matches-only discipline the chapters 1-3 session used — via five
+parallel research agents (one per chapter, research only, no edits), each also asked to
+sanity-check the already-indexed AP CSP/CA 9-12 carriers and recommend a prose-vs-headers-only
+split. Synthesized their findings myself before writing anything, verified every cited anchor
+actually exists on its reference page (`grep -c 'id="..."'` against all four
+`alignment/*-standards-reference.html` files) before wiring a single link, and trimmed each
+agent's fuller candidate list down to what fits "under 200 words... signposting, not a second
+textbook" — a few genuine findings per chapter got left uncited in the inline text (see below)
+even though they're real; not every true crosswalk pairing earns a sentence.
+
+### Findings by chapter
+
+- **chap04** (Functions and Interfaces): AP CSP breaks from the pure weight-based
+  prose/headers split for the first time — cites `1.3 Program Design and Development` (Big
+  Idea 1, 10-13%) in prose alongside `3.13 Developing Procedures` (Big Idea 3), because
+  chapter 4 is `1.3`'s *only* carrier in the whole book (per `apcsp.json`); relegating it to
+  headers-only would mean it never gets prose treatment anywhere. `1.4` and `3.14` stay
+  headers-only as usual. CSTA: `HS-PRO-PD-12` and `HS-ALG-PS-02` both strong (refactoring
+  `circle`→`arc`→`polyline` is a cleaner instance than chapter 3's own citation of
+  `HS-PRO-PD-12`). ICT: `C4.9` (Pathway C, parameters/keyword-arguments) and Anchor `5.9`/
+  `5.10` all strong — `5.10` upgraded from chapter 3's "headers only, implicit" to explicit,
+  since the development-plan section's interface/implementation split is the clearest
+  abstraction statement in the book so far. New vocabulary flag: keyword arguments
+  (`polygon(n=7, length=30)`) have no AP CSP pseudocode equivalent (positional-only calls).
+- **chap05** (Conditionals and Recursion): AP CSP prose capped at two AAP topics (`3.5`, `3.6`)
+  even though `3.7` Nested Conditionals also maps to a section header — the chapter itself
+  treats nested conditionals as secondary ("I suggest you avoid them when you can"), so `3.7`
+  joins `1.2`/`1.4` as headers-only, a content-driven call rather than a length-driven one.
+  CSTA: `HS-PRO-RD-17` and `HS-ALG-PS-02` both upgrade from chapter 3's partial citations to
+  full/strong here — chapter 3 was missing conditionals for the RD-17 triad and missing the
+  reworked-logic half for ALG-PS-02; chapter 5 supplies both. ICT: `C4.9` completes (branches
+  and recursion were its two missing pieces per chapter 3's own note); new findings Anchor
+  `5.12` (boolean logic → decision-making, currently uncited anywhere else) and Anchor `5.5`
+  (debugging traces a symptom to its structural cause, also a new citation). Vocabulary:
+  `%` vs. exam pseudocode's `MOD`.
+- **chap06** (Return Values): Thinnest CSTA showing of the batch — only `HS-PRO-RD-17`
+  (headers only); no CSTA HS standard names recursion or abstraction, and this book's
+  Turing-completeness discussion (a real, notable concept in this chapter) has no CSTA 2026
+  HS-band counterpart at all, a genuine framework gap worth knowing about rather than a
+  citation to force. ICT: `C4.9` completes fully here (recursion, "a function that calls
+  itself," is literally the standard's closing clause — `factorial`/`fibonacci` are the
+  clearest instance yet) and Anchor `5.10` upgrades again, from chapter 4's "explicit for the
+  first time" to the clearest statement yet (the "leap of faith" section is abstraction in
+  substance, if not in the word itself).
+- **chap07** (Iteration and Search): Incidental finding — `apcsp.json`'s note for AP topic
+  `1.4` claims "every chapter carries a Debugging section, confirmed by header scan," but
+  chapter 7 has no `## Debugging` header; the CRD-2.J-matching content (the `uses_any_incorrect`
+  failing-test walkthrough) lives inside `## Doctest` instead. Didn't fix the note's wording —
+  the underlying carrier claim is still true, just not "by header scan" for this one chapter —
+  flagging for whoever next touches that note. AP CSP `3.8` Iteration's citation now carries a
+  parenthetical ("the `for`-loop / definite-iteration half only") since chapter 7 is the last
+  chapter currently carrying that topic and this closes out its citations without reopening the
+  `while`-loop pedagogical question the AP index already deferred. Best cross-framework match
+  in the whole batch: ICT Anchor `5.12` (boolean logic driving search) and Pathway `C5.4`
+  (testing as its own step) both land almost as literal restatements of chapter 7's Doctest
+  section. Left several genuine but weaker/redundant ICT findings (Anchor `5.7`, `5.9`, `5.10`,
+  Pathway `C5.5`) out of the inline citation to stay under the word budget — `5.7` did make it
+  in as a headers-only sixth ICT code since it's the Anchor-standard mirror of AP's own `3.9`
+  finding and non-redundant with anything else cited; `5.9`/`5.10` were judged genuinely
+  redundant with chapter 3's existing citations and not extended to chapter 7's carrier list.
+- **chap08** (Strings and Regular Expressions): AP CSP `3.4` and `3.14` both get real prose
+  weight, not the usual one-prose-one-headers split for a chapter's two AAP topics — unlike
+  chapters 2/4 where library use was a minor aside, `re` organizes half of chapter 8
+  (Regular expressions, String substitution, half of Debugging), so it earns the same
+  treatment as `3.4`. New CSTA finding: `HS-DAT-DC-23` (messy-text cleanup via pattern
+  matching) is close to a literal match for `is_special_line`/`re.sub`-based normalization —
+  first Data & Analysis-cluster CSTA citation in the book (everything through chapter 7 was
+  Programming/Algorithms cluster only). New ICT finding: Pathway `C4.7` (files as a data
+  structure) for the Writing files section. Vocabulary flag, arguably the highest-value one
+  in this batch: this chapter's slices (`fruit[0:3]`, 0-based, end-exclusive) collide directly
+  with the exam pseudocode's 1-based, both-endpoints-inclusive convention — worth a line on
+  its own, distinct from the function/procedure and `%`/`MOD` swaps already flagged elsewhere.
+
+### `carriers[]`/`note` updates and reference-page patching
+
+Extended `carriers[].chapters` and rewrote `note` on 5 CSTA standards (`HS-PRO-PD-12`,
+`HS-PRO-PD-13`, `HS-PRO-RD-17`, `HS-ALG-PS-02`, `HS-DAT-DC-23` — the last going from `[]` to
+its first-ever carrier) and 12 ICT/Anchor items (`5.9`, `5.10`, `5.5`, `5.12`, `5.7`, `C4.9`,
+`C4.11`, `C5.6`, `C4.4`, `C4.7`, `C5.4`, `C4.10`) in `standards/csta2026.json` and
+`standards/ca-ict-anchor.json`, keeping the JSON in sync with exactly what each chapter's
+inline citation says (no carrier extended for a code that wasn't actually cited in that
+chapter's notebook text, even where a research agent found a genuine but weaker/redundant
+match — see chap07 above).
+
+No generator script for either reference page exists in `tools/` (per the standing note in
+the 2026-08-09 "Three more standards reference pages" entry above — these were always
+scratchpad one-offs). Same situation this session: wrote a one-off Python patch script
+(scratchpad only) that locates each touched anchor by its `id="T-<code>"` and rewrites its
+`Carrier:`/`Book chapters:` line and `<em>Alignment:</em>` note in place — inserting the
+`item-meta`/`item-note` span pair for ICT/Anchor `<li>` items that had none yet (5 of the 12:
+`5.5`, `5.12`, `5.7`, `C4.7`, `C5.4`, `C4.10`, all previously `carriers: []`), rather than
+regenerating either page from scratch. Confirmed both pages structurally sound afterward —
+52/173 unique anchor ids (unchanged from the 2026-08-09 "reverse-map preview" entry's count),
+balanced `<div>`/`<li>` tags — and confirmed the AP CSP and CA CS reference pages needed no
+changes, since their carrier data for chapters 4-8 was already correct from the original
+Pass 3 work.
+
+### Verification
+
+- `make projector && make check`: clean (23 files; blanks up to date; check_sync clean;
+  jupyterlite check clean).
+- `make ledger`: regenerates byte-identical, no changes to `data/exercise-ledger.json` or
+  `CHANGELOG_DETAIL.md` — expected, since Step 4 doesn't touch exercises and this batch wrote
+  no new ones.
+- `git diff --stat` on all five touched chapter notebooks: pure insertions into each file's
+  final cell (15-17 lines added, 1 line changed from unterminated to terminated with `\n`),
+  zero deletions elsewhere, cell counts unchanged from pre-edit.
+- Word count per chapter's full standards block (all four citation lines plus prose,
+  markdown links collapsed to their visible text): 177/162/148/166/161 words for chapters
+  4-8 respectively — all under the 200-word budget.
+- `tools/check_sync.py` validates AP CSP/CA 9-12 code citations against `apcsp.json`/
+  `castandards.json` only — it does not validate CSTA or ICT codes against their JSON files.
+  This isn't a regression from this session; the same gap existed for chapters 1-3 and
+  wasn't closed then either. Every CSTA/ICT anchor cited in chapters 4-8 was verified by hand
+  (`grep` against the reference pages) rather than by the tool. Worth closing at some point
+  the same way the AP/CA extractors were fixed in the original Step 4 session, but out of
+  scope for this batch.
+
+### For a future maintainer
+
+- **Chapters 9-19 need the same four-framework treatment.** Chapters 9-11 are still `decide`
+  on VA removal per Pass 2's order of work, but Pass 3 standards inserts are back matter and
+  explicitly not blocked by Pass 2 — a chapter can get its standards insert before its VA
+  surgery is settled.
+- **CHANGELOG.md has no entries for the three commits that introduced CSTA/ICT**
+  (`f02579c`, `14eddc8`, `c6c47e7`) or for this session's chapters 4-8 work being the
+  exception — see this session's own entry below. Whoever next has a clean slate might want
+  to backfill the three missing historical entries; this session did not, to avoid guessing
+  at details already fully captured in this file's own 2026-08-09 entries above.
+- **The Turing-completeness / CSTA gap (chap06) and the `1.4`-note-overstates-chap07 finding**
+  are both informational, not bugs to fix — logged here so nobody re-discovers them from
+  scratch.
+- No `crosswalk.json` entries exist yet between CSTA/ICT and AP/CA, and none of
+  `alignment/standards_alignment.md`'s four views mention either framework. Still true after
+  this session; unchanged from the standing note in the "Standards schema grows a reverse
+  map" entry above.
