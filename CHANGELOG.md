@@ -16,6 +16,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-08 — Chapter 1 gets a "ways to open this chapter" link bar (pilot)
+
+### Added
+- `chapters/chap01.ipynb`: a one-line link bar near the top — Exercises | JupyterLite | Colab |
+  Markdown | Download | Codespace (notebook) | Codespace (VS Code) — replacing what had been two
+  separate note cells (Colab-unavailable-use-JupyterLite, and the Codespace note); their
+  explanatory prose was kept, merged into one paragraph under the link row. Lives inside the
+  notebook itself rather than in any one renderer's chrome, so it shows up identically in Colab,
+  JupyterLite, a Codespace, a raw download, and the rendered page — one edit reaches everywhere the
+  notebook is opened. Pilot: chapter 1 only.
+- `HOW_TO_EDIT.md`: no new section needed — the existing "Editing something that also runs in
+  JupyterLite" section already documents this notebook's placeholder-substitution mechanics, which
+  this link bar reuses unchanged.
+
+### Reverted (documented, not shipped — see `AUDIT.md`, 2026-08-08 follow-up 13)
+- A `_toc.yml` `sections:` entry under `chap01`, meant to render as nested sidebar links: doesn't
+  work, nested `url:`-only entries never reach the sidebar in this theme.
+- A `custom.js`-injected `<details>/<summary>` disclosure under chapter 1's sidebar link: worked,
+  but added a second line to every chapter's entry in the contents, which wasn't wanted.
+
 ## 2026-08-08 — JupyterLite deploy path is now a content hash, not a hand-bumped VERSION
 
 ### Added

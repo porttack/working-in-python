@@ -2814,3 +2814,75 @@ the id used by the JB-site copy and the id used by the JupyterLite-content copy 
 `_build/html/` (only matters locally; `build.sh`'s `rm -rf _build/html/jupyterlite*` sweep already
 handles the real publish case). The FUTURE_DEPLOYMENT.md the user asked for (moving this whole
 flow into a GitHub Action) is separate, not-yet-written work -- see whichever follow-up covers that.
+
+## 2026-08-08 follow-up 13 -- "ways to open this chapter" link bar, inside the notebook itself (pilot: chapter 1)
+
+User's idea: six ways exist to run a chapter's notebook (rendered page, JupyterLite, Colab,
+Codespace notebook view, Codespace VS Code, raw download); surface links to the alternatives
+somewhere near the chapter. Two earlier shapes for this were tried and reverted before landing on
+what shipped -- both are worth remembering so they don't get retried.
+
+**First attempt (reverted): `_toc.yml` nested `sections:` under `chap01`, rendered in the left
+nav.** sphinx-external-toc does support a chapter having `sections:` children, and jb-book
+format's items-key for a leaf document is `sections` (confirmed by reading
+`sphinx_external_toc/parsing.py`'s `FILE_FORMATS` table). Gave `chap01` five `url:` children
+(JupyterLite via the same `JUPYTERLITE_DEPLOY_PATH` placeholder chap01's embedded pane already
+uses, Colab, both Codespace links, raw download), wired a gitignored `jb/_toc.generated.yml` +
+`--toc` flag into `build.sh`/`watch.sh` so the placeholder substitution never touched the tracked
+`_toc.yml`. Parsed and built without error. **Did not show up in the sidebar at all** -- traced it
+by hand: `sections:` entries whose only key is `url:` never get added to the toctree node's
+`includefiles` (only `file:`/`glob:` entries do, per
+`sphinx_external_toc/events.py::insert_toctrees`), and the sidebar's recursive nesting
+(`generate_toctree_html(..., includehidden=True, ...)`, confirmed by reading
+`sphinx_book_theme`'s `sbt-sidebar-nav.html`) walks strictly via `includefiles`
+(docname-to-docname), never via the display-only `entries` list url items land in. Setting
+`options: {hidden: false}` on the sub-toctree proved this empirically: the five links then
+rendered, but as a plain bullet list appended to the **bottom of chap01's own page body**, never
+in the sidebar. Confirmed by inspecting the actual pickled doctree
+(`pickle.load(open('_build/.doctrees/chap01.doctree','rb'))`), not just the rendered HTML.
+**Conclusion, worth remembering:** `_toc.yml` nesting is for real sub-*pages* only. It will matter
+again the day a second, exercises-only notebook per chapter shows up (also raised by the user in
+this same conversation) -- that *is* a `file:`, and nesting will work for it there.
+
+**Second attempt (reverted): a `<details>/<summary>` disclosure injected into the sidebar by
+`custom.js`.** Sidestepped the `_toc.yml` limitation above entirely by finding the chapter's
+sidebar `<li>` in the DOM after render and appending a native disclosure with the five links
+(browser handles the chevron/open-close, nothing to script for that part). Worked -- verified with
+Playwright, screenshots in both light and dark -- but the user's reaction on seeing it was that a
+second line under every chapter in the contents wasn't what they wanted, and that the alternate-
+access links belonged nearer the notebook itself, not the nav. Reverted (`custom.js`, `custom.css`,
+`build.sh` all back to their prior state).
+
+**What shipped: one markdown cell near the top of `chapters/chap01.ipynb` itself.** A single line
+of links -- `**Ways to open this chapter:** [Exercises](...) | [JupyterLite](...) | [Colab](...) |
+[Markdown](...) | [Download](...) | [Codespace (notebook)](...) | [Codespace (VS Code)](...)` --
+replacing what had been two separate note cells (the old Colab-unavailable-use-JupyterLite note and
+the old Codespace note; their explanatory prose was kept, merged into one paragraph under the link
+row). Landing this *inside the notebook* rather than in any one renderer's chrome means it shows up
+identically everywhere that notebook is opened -- Colab, JupyterLite, a Codespace, a raw download,
+*and* the JB-rendered page -- with one edit, which is also why the "Markdown" link matters: it's
+the only one of the six ways that a reader arriving via Colab/JupyterLite/Codespace/download would
+otherwise have no way back to. "Exercises" links to `#exercises` on the rendered page (confirmed
+that's the real MyST-generated anchor by grepping the built HTML) -- chap01 already has its own
+Exercises section, so this needed no new page; if a separate exercises-only notebook is added later
+per the user's other idea, this is the one link to repoint.
+
+**JupyterLite's placeholder substitution needed no new machinery** -- it's a notebook cell now, so
+the *existing* `prep_notebooks.py`/`JUPYTERLITE_DEPLOY_PATH` substitution that chap01's embedded
+pane already relies on covers this cell for free. Confirmed: `jb build .` after a real
+`prep_notebooks.py` run produced the real hash in this link, no `build.sh` changes needed at all
+(unlike either reverted attempt, both of which required their own substitution wiring).
+
+**Verified for real:** ran the real `cp`+`prep_notebooks.py`+`jb build .` sequence by hand (the
+same steps `build.sh` runs), served `_build/html` over `python3 -m http.server`, drove it with
+Playwright -- all seven links present in the right order with the real JupyterLite hash baked in,
+screenshot confirms it reads as one clean line under "Welcome" (had to hide chap01's own live
+JupyterLite pane for the screenshot, since that iframe is `position: fixed` full-viewport-height
+and was pointed at a hash directory that doesn't exist in this from-scratch local build --
+expected, unrelated to this change). `tools/build_jupyterlite_content.py --check` passes (no
+`CELL_PATCHES` entry referenced either cell that got edited/removed here, only the separate
+iframe-pane cell, which was untouched).
+
+**Not done / open:** chapters 2-19 (scoped as chapter 1 only, per the user's own framing). The
+"Exercises" link point at `#exercises` is a judgment call, not confirmed with the user -- flagged
+in the reply, not blocked on.

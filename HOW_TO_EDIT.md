@@ -124,6 +124,36 @@ copy filenames matching `chapNN.ipynb` or the ones explicitly listed by name.
 A new notebook page needs an explicit `cp` line added in both places (this bit
 us once with `jupyter_intro.ipynb` — see `AUDIT.md`, 2026-08-08 follow-up 10).
 
+## Adding a chapter's "ways to open this chapter" link bar
+
+Chapter 1 has a one-line link bar near the top — Exercises | JupyterLite |
+Colab | Markdown | Download | Codespace (notebook) | Codespace (VS Code) —
+inside a `type="note"` sentinel block, right after the chapter's opening
+cell. This is a pilot, chapter 1 only.
+
+**It's a markdown cell in the notebook itself, not sidebar or theme chrome.**
+Two other shapes were tried first and abandoned — a `_toc.yml` `sections:`
+entry (doesn't reach the sidebar unless every child is a real page, not a
+`url:`) and a `custom.js`-injected sidebar disclosure (worked, but added a
+second line to every chapter's entry in the contents, which wasn't wanted).
+See `AUDIT.md`, 2026-08-08 follow-up 13, for both. Putting the bar in the
+notebook instead means one edit shows up identically everywhere that
+notebook is opened — Colab, JupyterLite, a Codespace, a raw download, and the
+rendered page — which is also why the "Markdown" link matters: it's the only
+one of these that gets a reader who arrived via any of the other five *back*
+to the rendered page.
+
+**To add another chapter:** copy the pattern from chapter 1's link-bar cell,
+updating the chapter number throughout. For the JupyterLite link, use the
+same `JUPYTERLITE_DEPLOY_PATH` placeholder chap01's own embedded pane uses
+(see `tools/build_jupyterlite_content.py`) — never a hand-written hash; it
+needs no new substitution wiring, since it's a plain notebook cell and
+`prep_notebooks.py`/`jupyterlite/content`'s existing substitution already
+covers every cell in the notebook, not just the ones that had it before.
+Only add the JupyterLite link for a chapter that's actually in `CHAPTERS` in
+`tools/build_jupyterlite_content.py` — for a chapter that's `keep`/independent
+study (14-19, per the treatment matrix in `CLAUDE.md`), drop that one entry.
+
 ## Local preview gotchas
 
 - **`jb/_build/` isn't real output** — it's gitignored scratch, rebuilt from
