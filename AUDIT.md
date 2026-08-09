@@ -3759,3 +3759,44 @@ zero deviations for chapter 3, so there's nothing new to change about the recipe
 Follow `HOW_TO_EDIT.md`'s recipe / `mods/pass-4-chrome.md`'s Steps 1-8 the same way. Updated
 this file's Order of work section and `CLAUDE.md`'s Pass 4 status row to say chapters 1-3
 done, 4-11 pending.
+
+## 2026-08-09 follow-up — chapters 4-6 get the same chrome treatment
+
+Applied the established chapter-1/2/3 chrome pattern to chapters 4, 5, and 6 in one batch,
+following `mods/pass-4-chrome.md`'s Steps 1-8 exactly. No judgment calls needed — all three
+matched the reference pattern cleanly, same as chapter 3.
+
+**Done for each of chap04/chap05/chap06, exactly mirroring chapter 3's treatment:**
+- `chapters/chapNN-exercises.ipynb` added (blank, two-cell shape), registered in
+  `tools/build_jupyterlite_content.py`'s `CHAPTERS` with no deps.
+- Bookshop/Amazon retail-links cell dropped; link bar and embedded live JupyterLite pane
+  inserted as the new first two cells (`cbaNNbar`/`cbaNNpane` ids, correctly numbered —
+  not propagating chapter 2's stray `01`/`02` id mismatch noted in the chapter-3 handoff).
+  Matching `CELL_PATCHES` entries added to `tools/build_jupyterlite_content.py`, each
+  verified programmatically to fire (`apply_cell_patches` on the live notebook produces a
+  cell containing "already running", checked for all three chapters in one script).
+- Bottom attribution note given the leading `---` rule; all three chapters were missing it
+  (same gap as chapters 2 and 3 before their fixes — apparently every chapter written
+  before `f5aa6c0` has this gap, not just chapter 2. Chapters 7-11 should be checked too,
+  not assumed fixed).
+
+**Deliberately not touched:** each chapter's Standards alignment block (already correct,
+done in Pass 3 Step 4 for chapters 1-8) and exposition/exercise content.
+
+**Method note:** did all three chapters in one batched script (same `json.load`/mutate/
+`json.dump` approach as chapter 3, not `NotebookEdit`) rather than three separate passes,
+since the recipe has now held with zero deviations across four chapters running. `git diff
+--stat` on each of the three notebooks shows the same 74 insertions / 4 deletions shape as
+chapter 3's diff — confirms nothing chapter-specific went wrong in the batching.
+
+**Verified:** `make projector && make check` clean (27 source files up to date, `check_sync`
+clean, `jupyterlite --check` clean: 18 chapters, 18 projector variants — up from 15/15 before
+this batch). Headless-browser `?readonly` check not performed, same as chapters 1-3 (no
+headless-browser tooling available in this environment).
+
+**Handoff, for chapter 7 (and 8-11 whenever this is next picked up):** the pattern continues
+to hold with zero deviations across five chapters now (1-2 were the original derivation,
+3-6 have applied it unchanged). Worth explicitly checking chapters 7-11's attribution notes
+for the missing-`---`-rule gap before assuming it's isolated to chapters 2-6 — it may be
+universal to every chapter written before `f5aa6c0`. Updated `CLAUDE.md`'s Pass 4 status row
+and `mods/pass-4-chrome.md`'s Order of work section to say chapters 1-6 done, 7-11 pending.
