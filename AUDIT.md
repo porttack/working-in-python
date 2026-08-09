@@ -3702,3 +3702,60 @@ Pass 3 work.
   `alignment/standards_alignment.md`'s four views mention either framework. Still true after
   this session; unchanged from the standing note in the "Standards schema grows a reverse
   map" entry above.
+
+## 2026-08-09 follow-up — chapter 3 gets the chapter-1/2 chrome treatment
+
+Applied the chapter-1/2 chrome pattern to chapter 3, following `mods/pass-4-chrome.md`'s
+Steps 1-8 and `HOW_TO_EDIT.md`'s recipe section exactly. No judgment calls needed — chapter 3
+matched the reference pattern cleanly.
+
+**Done, exactly mirroring chapters 1-2's current state:**
+- `chapters/chap03-exercises.ipynb` added: copy of `chap02-exercises.ipynb`'s two-cell shape
+  (title cell + one empty code cell), heading changed to "Chapter 3 exercises", cell ids
+  changed to `chap03-exercises-title`/`chap03-exercises-cell`. Registered in
+  `tools/build_jupyterlite_content.py`'s `CHAPTERS` with an empty dependency list.
+- `chapters/chap03.ipynb`'s Bookshop/Amazon retail-links cell (the original first cell)
+  dropped.
+- Link bar inserted as the new first cell: Exercises (TODO, notebook still blank) |
+  JupyterLite | Colab | Read Only | Download | Blank (JupyterLite) — same shape as chapter
+  2's current bar (no Codespace entries, per the 2026-08-09 follow-up 19 decision to drop
+  those from chapters 1-2; carried forward here rather than reintroduced).
+- Embedded live JupyterLite pane inserted as the new second cell, id
+  `chap03-jupyterlite-pane`/`chap03-jupyterlite-note`, byte-for-byte chapter 2's pane cell
+  with `chap02`/`02` swapped for `chap03`/`03`, including the chapter-number-independent
+  `?readonly` guard copied verbatim. Matching `CELL_PATCHES` entry added to
+  `tools/build_jupyterlite_content.py`, verified programmatically to fire (per Step 5's
+  script: `apply_cell_patches` on the live `chap03.ipynb` produces a cell containing
+  "already running").
+- Bottom attribution note fixed to open with the `---` rule (chapter 3 was one of the
+  chapters written before `f5aa6c0` added this to chapter 1 and was still missing it,
+  same gap chapter 2 had before its own follow-up 18 fix).
+- Used plain `json.load`/mutate/`json.dump` (`indent=1, ensure_ascii=False`, cells as plain
+  dicts, correct key order) for every edit, not `NotebookEdit`, per the known formatting
+  hazard (`AUDIT.md` follow-up 18). `git diff --stat` on `chapters/chap03.ipynb` shows 74
+  insertions / 4 deletions — exactly the two new cells plus the two-line attribution
+  insertion, nothing reformatted.
+
+**Deliberately not touched:** chapter 3's Standards alignment block (already correct, done
+in Pass 3 Step 4) and its exposition/exercise content (no chapter-surgery work this
+session).
+
+**Cosmetic note, not a functional issue:** chapter 2's link-bar/pane markdown-cell `id`
+metadata fields are `cba01bar`/`cba02pane` (the first one never got its `01` updated to
+`02` when chapter 2 was created from chapter 1). `CELL_PATCHES` matches on cell *source*
+content, not `id`, so this never caused a bug — but rather than propagate the typo, chapter
+3's cells were given `cba03bar`/`cba03pane`. Flagging so a future session doesn't "fix"
+chapter 2 into a third, inconsistent pattern without noticing this was already slightly
+inconsistent.
+
+**Verified:** `make projector && make check` clean (24 source files up to date, `check_sync`
+clean, `jupyterlite --check` clean: 15 chapters, 15 projector variants — up from 14/14
+before this session, confirming both the new exercises notebook and chapter 3's `CELL_PATCHES`
+entry registered correctly). Headless-browser `?readonly` check not performed, same
+as chapters 1-2 (no headless-browser tooling available in this environment either).
+
+**Handoff, for chapter 4 (and 5-11 whenever this is next picked up):** the pattern held with
+zero deviations for chapter 3, so there's nothing new to change about the recipe itself.
+Follow `HOW_TO_EDIT.md`'s recipe / `mods/pass-4-chrome.md`'s Steps 1-8 the same way. Updated
+this file's Order of work section and `CLAUDE.md`'s Pass 4 status row to say chapters 1-3
+done, 4-11 pending.

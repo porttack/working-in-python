@@ -785,6 +785,23 @@ or `id`, so the link reaches the whole framework, not a specific row — noted i
   both Step 4 templates updated to match, so chapters 4-19 pick up the new convention.
   `projector/` regenerated; `make check` passes.
 
+## 2026-08-09 — Pass 4, chapter 3 chrome
+
+### Added
+- `chapters/chap03-exercises.ipynb`: blank teacher-exercises notebook, same two-cell shape
+  as `chap01-exercises.ipynb`/`chap02-exercises.ipynb`. Registered in
+  `tools/build_jupyterlite_content.py`'s `CHAPTERS` with no deps.
+- Link bar and embedded live JupyterLite pane added to `chap03.ipynb` as its first two
+  cells, matching chapters 1-2's current pattern exactly (Exercises/JupyterLite/Colab/Read
+  Only/Download/Blank, no Codespace links; `?readonly` escape hatch on the pane). Matching
+  `CELL_PATCHES` entry added to `tools/build_jupyterlite_content.py`, verified
+  programmatically to fire.
+
+### Fixed
+- `chap03.ipynb`'s Bookshop/Amazon retail-links cell dropped, and its bottom attribution
+  note given the leading `---` rule chapter 1 has had since `f5aa6c0` (chapter 3 was still
+  missing it, same gap chapter 2 had before its own fix).
+
 ## 2026-08-09 — Pass 3, Step 4 (all four frameworks), chapters 4-8
 
 ### Added

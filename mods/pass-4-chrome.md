@@ -58,9 +58,11 @@ before starting one.
    testing against the real deployed site (see `AUDIT.md`, 2026-08-08 follow-ups 13, 16, 18,
    and 2026-08-09 follow-ups 19–21). Treat these two chapters' current state as the reference
    pattern, not any single commit in isolation.
-2. **Chapters 3–11** — not started. Apply the pattern from chapters 1–2 exactly, one chapter
+2. **Chapter 3** — done, 2026-08-09, matched the reference pattern with zero deviations. See
+   `AUDIT.md`'s "chapter 3 gets the chapter-1/2 chrome treatment" handoff.
+3. **Chapters 4–11** — not started. Apply the pattern from chapters 1–3 exactly, one chapter
    (or a small batch) at a time, with `make check` passing before moving to the next.
-3. **Chapters 12–19** — out of scope entirely. Confirm this hasn't drifted (a chapter moving
+4. **Chapters 12–19** — out of scope entirely. Confirm this hasn't drifted (a chapter moving
    tiers in `CHAPTER_MANIFEST.md` would change it) before skipping them.
 
 ---
