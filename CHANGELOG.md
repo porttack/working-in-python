@@ -16,6 +16,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-08 — Fix chapter 1's live pane visual seam, and a recursive-iframe bug found along the way
+
+### Fixed
+- `chapters/chap01.ipynb`: the embedded live JupyterLite pane now has a `box-shadow`/`border-bottom`
+  so its edge reads as intentional, not a rendering glitch, now that `862a524` (capping the pane at
+  a fixed height instead of covering the whole page) is actually live for the first time.
+- `tools/build_jupyterlite_content.py`: `CELL_PATCHES` for `chap01.ipynb` and `jupyter_intro.ipynb`
+  had gone stale against `862a524`'s cell changes, so both notebooks were shipping a real
+  recursive-iframe cell (a notebook embedding a live copy of itself inside JupyterLite) instead of
+  the intended placeholder note. Fixed both keys. See `AUDIT.md`, 2026-08-08 follow-up 14.
+- `chapters/chap01.ipynb`: two cells had `source` stored as a single string rather than the usual
+  list-of-lines (a `NotebookEdit` artifact from this session) — harmless for rendering, but the
+  proximate cause of the `CELL_PATCHES` mismatch above, since the match is keyed on
+  `tuple(cell["source"])`. Normalized to match the rest of the file.
+
 ## 2026-08-08 — Chapter 1 gets a "ways to open this chapter" link bar (pilot)
 
 ### Added

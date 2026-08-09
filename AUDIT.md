@@ -2886,3 +2886,59 @@ iframe-pane cell, which was untouched).
 **Not done / open:** chapters 2-19 (scoped as chapter 1 only, per the user's own framing). The
 "Exercises" link point at `#exercises` is a judgment call, not confirmed with the user -- flagged
 in the reply, not blocked on.
+
+## 2026-08-08 follow-up 14 -- first real publish surfaces two bugs, both fixed: a stale CELL_PATCHES match, and a corrupted cell source format
+
+The link bar above was committed and published for real (first actual `./build.sh` publish, not
+`--local`, this session). The user reported the top ~2/3 of chapter 1's live page looking blank.
+Diagnosis, and what it actually was:
+
+**Not a new bug -- a design change from `862a524` going live for the first time.** Checked the
+*previous* published `gh-pages` commit directly (`git worktree add` against it) rather than
+guessing: before today, chap01's embedded JupyterLite pane was unconditionally full-viewport-height
+(`top:0; bottom:0` in the stylesheet, no `height` set) -- meaning it covered literally the entire
+page, always, and nobody could ever scroll down to chapter 1's own exercises or glossary. `862a524`
+(committed before this session started, never published until today) deliberately capped it at a
+fixed `height: 600px` so the rest of the page becomes reachable. Today's publish was the first time
+that change actually went live, and the visible seam between the live pane and the static content
+below it -- previously impossible to see, since nothing was ever below the fold -- read as broken.
+Fixed with a small, purely visual change: `box-shadow`/`border-bottom` on `#chap01-jupyterlite-pane`
+so the boundary reads as an intentional edge instead of two unrelated things touching. Confirmed
+with Playwright against the real local build (JupyterLite content built for real, not skipped).
+
+**A real, separate, pre-existing bug found while checking this: `CELL_PATCHES` no longer matched
+chap01.ipynb or jupyter_intro.ipynb's iframe-pane cell.** `862a524` restructured that cell's
+CSS/script (moved `position:fixed` etc. from the stylesheet into the sidebar-feature-detection JS,
+to stop the pane from covering unrelated UI when the notebook's raw HTML renders outside the book
+site) but never updated the matching `CELL_PATCHES` key in `tools/build_jupyterlite_content.py` to
+match the new text. Since `apply_cell_patches` does a silent dict lookup with no match/no-op
+warning, this had been failing quietly: the JupyterLite copies of both notebooks were shipping the
+*actual* recursive-iframe cell (a notebook trying to embed a live JupyterLite copy of itself, inside
+JupyterLite) instead of the intended one-line "you're already running this live" placeholder --
+confirmed by inspecting `jupyterlite/content/chap01.ipynb` directly after a build, before touching
+anything. `tools/build_jupyterlite_content.py --check` did not catch this; it only scans for
+unhandled `!`-prefixed shell magic, not for patch keys that no longer match anything. Fixed by
+updating both `CELL_PATCHES` keys to the current cell text (plus chap01's new box-shadow lines).
+No check currently guards against this class of bug recurring -- worth a real fix (e.g. `--check`
+warning on any `CELL_PATCHES` key with zero matches across all chapters) if this repo keeps editing
+these two cells; not done here, out of scope for this round.
+
+**A second real bug, this one mine: two cells edited via `NotebookEdit` earlier this session had
+`source` stored as a single JSON string instead of nbformat's usual list-of-lines.** Both are valid
+per the nbformat spec, and `nbformat.read()` (what `jb/prep_notebooks.py` uses) normalizes either
+form to a string in memory, so nothing rendered incorrectly and this was invisible until now. But
+`tools/build_jupyterlite_content.py` reads notebooks with plain `json.loads` (no normalization) and
+matches `CELL_PATCHES` keys via `tuple(cell["source"])` -- which, given a *string* rather than a
+*list*, iterates character-by-character, guaranteeing no match against a key written as a tuple of
+lines. This was the actual proximate cause of the failed match above for chap01 specifically (not
+just the stale key text). Fixed by rewriting both cells' `source` back to `text.splitlines
+(keepends=True)`, matching every other cell in the file. Diff-checked afterward: touches only those
+two cells' `source` field, nothing else reflows.
+
+**Verified for real, end to end:** `make check` passes (blanks, sync, jupyterlite). Rebuilt
+`jupyterlite/content/` and confirmed both notebooks' placeholder text now appears instead of the
+recursive iframe. Full local `build.sh --local` (real JupyterLite build, not skipped), served,
+driven with Playwright.
+
+**Not done / open:** no regression check added for "a `CELL_PATCHES` key stops matching its cell."
+The two Codespace links in chap01's link bar were never affected by any of this (different cells).
