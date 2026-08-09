@@ -36,6 +36,13 @@ the easy part of the year.
   original, licensing
 - **[AP CSP Standards Reference](https://python.porttack.com/alignment/apcsp-standards-reference.html)**
   — every AP CSP topic, and which chapters cover it
+- **[CA CS Standards Reference](https://python.porttack.com/alignment/ca-cs-standards-reference.html)**
+  — every core 9-12 California CS standard, and which chapters cover it
+- **[CSTA 2026 Standards Reference](https://python.porttack.com/alignment/csta2026-standards-reference.html)**
+  — the CSTA 2026 revision's High School-level standards (chapter alignment not done yet)
+- **[CA ICT & Anchor Standards Reference](https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html)**
+  — the CTE Anchor Standards plus the ICT sector's Software and Systems Development pathway
+  (chapter alignment not done yet)
 - **[What's Next](todo.md)** — standards alignment and chapter work still in
   progress
 

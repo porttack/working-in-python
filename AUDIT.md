@@ -3212,3 +3212,101 @@ earlier rounds: the possible all-markdown "print site" like upstream Think Pytho
 as an alternative framing by the user this round, not decided either way), and the standing
 question of whether the theme's own built-in "Print to PDF" button is sufficient on its own or
 this `?readonly` page should be what people are pointed at for printing specifically.
+
+## 2026-08-09 — Three more standards reference pages (CA CS, CSTA 2026, CA ICT & Anchor)
+
+Maintainer request, out of pass (like the original AP CSP reference page): "make similar
+pages" to `alignment/apcsp-standards-reference.html` for three more frameworks. Three
+different starting points, so three different amounts of new work:
+
+- **CA CS** — `standards/castandards.json` already existed (Pass 3). No extraction needed,
+  just a template port: `alignment/ca-cs-standards-reference.html`, same CSS/JS/anchor
+  convention as the AP page, strand-level sections instead of Big Idea/Topic/LO/EK (the CA
+  JSON is flat — one paraphrase per standard, no sub-breakdown), carrier/chapter data
+  carried straight through.
+- **CSTA 2026** — no extraction existed. Maintainer supplied `csta2026-standards.csv`
+  (dropped directly into `standards/`, moved to `scratch/standards-source/` before reading
+  it — see below). The CSV covers all of PK-12 across three tiers: 10 grade-band levels
+  (PK/K through Grade 5, then Middle School, then High School) plus two elective
+  specialization tiers, "Specialty I" (73 standards) and "Specialty II" (62 standards),
+  covering Data Science, Cybersecurity, AI, Game Development, Software Development,
+  Physical Computing, and X+CS. Scoped to the 46 "High School" level standards only,
+  deliberately excluding both grade-band levels below it and both Specialty tiers —
+  the same shape of exclusion `castandards.json`'s meta note already documents for the CA
+  framework's own "9-12 Specialty" set, applied here on my own judgment since it was the
+  obvious precedent, not something I checked back with the maintainer on. Worth a maintainer
+  look if that scoping call turns out wrong.
+- **CA ICT & Anchor** — no extraction existed. Maintainer supplied a PDF,
+  `CTEModelCurrStds-ICT.pdf` (California Career Technical Education Model Curriculum
+  Standards, ICT sector), same relocate-before-reading treatment. This sector has four
+  pathways (A. Information Support and Services, B. Networking, C. Software and Systems
+  Development, D. Games and Simulation) plus 11 Anchor Standards common to all 15 CTE
+  sectors sitewide. Asked the maintainer which pathway(s) map to this course before
+  extracting anything — confirmed **C only** (Software and Systems Development, the
+  programming-focused one). Indexed the 11 Anchor Standards in full (99 items including
+  sub-standards) plus Pathway C in full (71 items). A, B, and D are not indexed; add them
+  the same way if this course ever gets articulated toward one of those pathways too.
+
+**Source-file handling.** The maintainer initially placed both raw source files directly
+under `standards/` — the PDF was already covered by a `.gitignore` backstop
+(`standards/*.pdf`), but the CSV was not and showed as untracked. Per non-negotiable #1,
+raw framework extracts aren't supposed to live in the repo at all, even gitignored, so both
+moved to `scratch/standards-source/` (wholesale-ignored directory) before either got read.
+Flagged this to the maintainer rather than silently moving files without saying so.
+
+**Paraphrase method, scaled down from the AP page's.** The AP page's Pass 3 extension
+(397 EK-level items) used six parallel blind paraphrasing passes plus an automated n-gram
+check. This round's volume was smaller (46 CSTA + 170 ICT/Anchor items, each much shorter
+than an AP EK statement — most ICT items are one clause) and was paraphrased directly,
+single-pass, then verified the same way: a 6-word-shared-sequence n-gram script comparing
+every paraphrase against its exact source chunk.
+- **CSTA:** one hit (`HS-SYS-HW-30`, reused "device to solve a practical problem"),
+  rewritten. Re-checked clean at 6-gram; a stricter 5-gram pass turned up four more, all
+  benign (fixed terms like "machine learning model" or generic connective phrasing) —
+  same call the AP page's audit entry made for its own benign 5-gram survivors ("rogue
+  access point," "in a reasonable amount of time").
+- **ICT/Anchor:** twelve hits at 6-gram, all rewritten except one deliberately kept —
+  `C8.3`'s database-relationship-type names (one-to-one/one-to-many/many-to-many) and key
+  terminology (primary/foreign keys, indexes) have no substitute wording, same category as
+  the AP page's accepted "TCP/IP." A follow-up 5-gram pass on the rewritten items caught
+  nothing new worth changing (SI prefixes, programming-paradigm names, and similar fixed
+  vocabulary account for the rest of what a stricter threshold would flag).
+
+**Deliberately not done: chapter-alignment analysis.** The AP and CA pages both show
+`Carrier: working_in_python` / chapter numbers because that alignment work was Pass 3's
+actual job. Doing the equivalent for CSTA 2026 and ICT/Anchor — reading all 19 chapters
+against 216 new standards and making real coverage claims — is a comparably sized pass of
+its own, not something to fold into "build a reference page" without being asked. Both new
+JSON files carry `carrier: "unassigned"` and `tp_chapters: []` on every entry, and both
+pages' provenance boxes say explicitly that this is a placeholder, not a finding, so nobody
+reads an unassigned carrier as "checked and found no match."
+
+**Site wiring.** All three pages added to `jb/_toc.yml`'s Reference sidebar section and
+`jb/index.md`'s "Also here" list, same pattern as the existing AP CSP entry. Not done:
+rewiring the **California 9-12** citation label in chapters 1-3's `type="standards"`
+sentinels — currently still linking out to CodeHS per the 2026-07-30 "Redo AP CSP linking"
+entry above, which explicitly flagged this as follow-up once a hosted CA page existed. One
+now does. Left alone here since it wasn't asked for this round and changes chapter files,
+which the "raise rather than decide" list in `CLAUDE.md` treats more carefully than an
+additive `alignment/` page.
+
+### For a future maintainer
+
+- `standards/csta2026.json` and `standards/ca-ict-anchor.json` follow the same shape as
+  `apcsp.json`/`castandards.json` (code, paraphrase, carrier, tp_chapters) with two
+  additions: CSTA entries carry a `scope_note` (paraphrase of the standard's own "boundary
+  statement," i.e. what's explicitly in/out of scope) plus `practices`/`dispositions` tags;
+  ICT/Anchor entries nest sub-standards under each `X.0` as an `items` array.
+  `ca-ict-anchor.json` also separates `anchor_standards` from the single `pathway` object,
+  so adding pathway B or D later means adding a sibling `pathway` object, not restructuring.
+- If `csta2026-standards.csv` or `CTEModelCurrStds-ICT.pdf` ever gets updated (new CSTA
+  revision, new CTE standards cycle), regenerate both JSON files from scratch by re-running
+  the same read-and-paraphrase method — hand-patching risks losing the n-gram verification
+  that's already been done against the current source text.
+- Same regeneration caveat the AP page's audit entry already states applies here too: the
+  build scripts that turned each JSON file into its HTML page lived only in this session's
+  scratchpad, not `tools/`. Not scripted into the repo because turning a one-off paraphrase-
+  and-render pass into a maintained tool wasn't asked for and the three JSON shapes
+  differ enough (flat CA list vs. CSTA's concept/subconcept grouping vs. ICT's
+  anchor-standards-plus-pathway split) that a shared generator would need real design, not
+  a quick abstraction.

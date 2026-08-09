@@ -55,3 +55,9 @@ parts:
     - file: todo
     - url: https://python.porttack.com/alignment/apcsp-standards-reference.html
       title: AP CSP Standards Reference
+    - url: https://python.porttack.com/alignment/ca-cs-standards-reference.html
+      title: CA CS Standards Reference
+    - url: https://python.porttack.com/alignment/csta2026-standards-reference.html
+      title: CSTA 2026 Standards Reference
+    - url: https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html
+      title: CA ICT & Anchor Standards Reference

@@ -16,6 +16,43 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Three more standards reference pages: CA CS, CSTA 2026, CA ICT & Anchor
+
+### Added
+- `alignment/ca-cs-standards-reference.html`: same self-contained, searchable, anchor-linked
+  template as `apcsp-standards-reference.html`, built from the existing
+  `standards/castandards.json` (all 30 core 9-12 California CS standards, five strands).
+  Carries the same carrier/chapter data the Step 4 work already established.
+- `standards/csta2026.json` and `alignment/csta2026-standards-reference.html`: new
+  extraction, maintainer-supplied source (`csta2026-standards.csv`, kept in `scratch/`,
+  never committed, per non-negotiable #1). Covers the CSTA 2026 revision's 46 "High School"
+  level standards across five concepts. The CSV's two elective "Specialty" tiers (135
+  standards covering Data Science, Cybersecurity, AI, Game Development, Software
+  Development, Physical Computing, X+CS) are not indexed, mirroring how `castandards.json`
+  excludes the CA framework's own "9-12 Specialty" set.
+- `standards/ca-ict-anchor.json` and `alignment/ca-ict-anchor-standards-reference.html`:
+  new extraction from a maintainer-supplied PDF (`CTEModelCurrStds-ICT.pdf`, kept in
+  `scratch/`, never committed). Covers the 11 CTE Anchor Standards (common to all 15
+  industry sectors, 99 items including sub-standards) plus the ICT sector's Pathway C,
+  Software and Systems Development (71 items) — the pathway that maps to a Python
+  programming course, confirmed with the maintainer. The sector's other three pathways
+  (A. Information Support and Services, B. Networking, D. Games and Simulation) are not
+  indexed.
+- All three pages added to `jb/_toc.yml`'s Reference sidebar section and `jb/index.md`'s
+  "Also here" list, alongside the existing AP CSP page.
+
+### Notes
+- Every paraphrase in both new JSON files was checked against its source text with an
+  n-gram overlap script (6-word shared sequences), same method as the AP CSP page's pass.
+  CSTA: one hit found and rewritten. ICT/Anchor: twenty hits found and rewritten; one
+  remaining hit (`C8.3`, database relationship-type names and key terminology) is treated
+  as fixed technical vocabulary with no substitute wording, the same category as the AP
+  page's accepted "TCP/IP" and "rogue access point."
+- Unlike `apcsp.json` and `castandards.json`, no chapter-alignment pass has been run
+  against CSTA 2026 or the ICT/Anchor standards — every entry in both new JSON files
+  carries `carrier: "unassigned"` as a placeholder, not a finding. Both reference pages
+  say so explicitly in their provenance box.
+
 ## 2026-08-09 — Chapter chrome becomes its own pass (Pass 4)
 
 ### Added
