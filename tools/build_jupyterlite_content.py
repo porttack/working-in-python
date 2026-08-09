@@ -74,6 +74,10 @@ CHAPTERS = {
     "chap09.ipynb": ["thinkpython.py", "diagram.py", "words.txt"],
     "chap10.ipynb": ["thinkpython.py", "diagram.py", "words.txt"],
     "chap11.ipynb": ["thinkpython.py", "diagram.py", "structshape.py", "words.txt", "pg345.txt"],
+    # Teacher-authored exercises notebook, separate from the chapter itself
+    # (not one of Downey's 19 chapters -- just needs the same JupyterLite
+    # treatment so its own link works). No deps: blank for now.
+    "chap01-exercises.ipynb": [],
 }
 PRELOAD_ON_DEP = {
     "diagram.py": ["matplotlib.pyplot"],
@@ -213,6 +217,18 @@ CELL_PATCHES = {
     },
 }
 CONTENT_DIR = ROOT / "jupyterlite" / "content"
+# Every chapter in CHAPTERS that also has a generated projector/ copy (the
+# blanked-out version for live classroom projection, built by
+# tools/build_blanks.py -- see CLAUDE.md) gets that copy shipped into
+# JupyterLite too, automatically, under a "-projector" suffix. No separate
+# list to maintain: add a chapter to CHAPTERS as usual, and if
+# projector/<name> exists, its projector variant just comes along. See
+# AUDIT.md, 2026-08-08 follow-up 15.
+PROJECTOR_DIR = ROOT / "projector"
+
+
+def projector_output_name(notebook):
+    return notebook.removesuffix(".ipynb") + "-projector.ipynb"
 
 
 def compute_deploy_id():
@@ -225,6 +241,9 @@ def compute_deploy_id():
     dep_files = sorted({dep for deps in CHAPTERS.values() for dep in deps})
     for notebook in sorted(CHAPTERS):
         digest.update((ROOT / "chapters" / notebook).read_bytes())
+        projector_src = PROJECTOR_DIR / notebook
+        if projector_src.exists():
+            digest.update(projector_src.read_bytes())
     for dep in dep_files:
         digest.update((ROOT / dep).read_bytes())
     for shared in sorted(SHARED_FILES):
@@ -296,31 +315,61 @@ def is_handled_shell_magic_cell(notebook, cell):
     return False
 
 
+def check_shell_magic(notebook, src, label, problems):
+    if not src.exists():
+        problems.append(f"{label}: source file not found at {src}")
+        return
+    nb = json.loads(src.read_text())
+    for i, cell in enumerate(nb["cells"]):
+        if cell.get("cell_type") != "code":
+            continue
+        lines = "".join(cell.get("source", [])).splitlines()
+        if any(is_shell_magic_line(line) for line in lines):
+            if not is_handled_shell_magic_cell(notebook, cell):
+                problems.append(
+                    f"{label}: code cell {i} has an unhandled '!' shell-magic line "
+                    f"-- add a CELL_PATCHES entry (see AUDIT.md, 2026-08-08)"
+                )
+
+
 def check():
     problems = []
+    projector_count = 0
     for notebook in CHAPTERS:
-        src = ROOT / "chapters" / notebook
-        if not src.exists():
-            problems.append(f"{notebook}: source file not found at {src}")
-            continue
-        nb = json.loads(src.read_text())
-        for i, cell in enumerate(nb["cells"]):
-            if cell.get("cell_type") != "code":
-                continue
-            lines = "".join(cell.get("source", [])).splitlines()
-            if any(is_shell_magic_line(line) for line in lines):
-                if not is_handled_shell_magic_cell(notebook, cell):
-                    problems.append(
-                        f"{notebook}: code cell {i} has an unhandled '!' shell-magic line "
-                        f"-- add a CELL_PATCHES entry (see AUDIT.md, 2026-08-08)"
-                    )
+        check_shell_magic(notebook, ROOT / "chapters" / notebook, notebook, problems)
+        projector_src = PROJECTOR_DIR / notebook
+        if projector_src.exists():
+            check_shell_magic(
+                notebook, projector_src, f"{notebook} (projector)", problems
+            )
+            projector_count += 1
 
     if problems:
         for p in problems:
             print(f"error: {p}", file=sys.stderr)
         return 1
-    print(f"jupyterlite check: clean ({len(CHAPTERS)} chapters checked)")
+    print(
+        f"jupyterlite check: clean ({len(CHAPTERS)} chapters, "
+        f"{projector_count} projector variant(s) checked)"
+    )
     return 0
+
+
+def write_notebook_variant(src, notebook, deps, deploy_id, output_name):
+    """Read src (a chapters/ or projector/ notebook), apply the same
+    CELL_PATCHES/deploy-path/preload treatment as the regular chapter build,
+    and write it to CONTENT_DIR under output_name. notebook is always the
+    CHAPTERS key (e.g. "chap01.ipynb"), even for the projector variant, since
+    CELL_PATCHES and PRELOAD_ON_DEP are keyed by chapter, not by which
+    directory the source came from."""
+    nb = json.loads(src.read_text())
+    cells = apply_cell_patches(notebook, nb["cells"])
+    cells = substitute_deploy_path(cells, deploy_id)
+    modules = preload_modules_for(deps)
+    if modules:
+        cells = [bootstrap_cell(modules)] + cells
+    nb["cells"] = cells
+    (CONTENT_DIR / output_name).write_text(json.dumps(nb, indent=1))
 
 
 def build():
@@ -337,20 +386,13 @@ def build():
             return 1
         shutil.copy(shared_src, CONTENT_DIR / shared)
 
+    projector_count = 0
     for notebook, deps in CHAPTERS.items():
         src = ROOT / "chapters" / notebook
         if not src.exists():
             print(f"error: {src} not found", file=sys.stderr)
             return 1
-
-        nb = json.loads(src.read_text())
-        cells = apply_cell_patches(notebook, nb["cells"])
-        cells = substitute_deploy_path(cells, deploy_id)
-        modules = preload_modules_for(deps)
-        if modules:
-            cells = [bootstrap_cell(modules)] + cells
-        nb["cells"] = cells
-        (CONTENT_DIR / notebook).write_text(json.dumps(nb, indent=1))
+        write_notebook_variant(src, notebook, deps, deploy_id, notebook)
 
         for dep in deps:
             dep_src = ROOT / dep
@@ -359,7 +401,17 @@ def build():
                 return 1
             shutil.copy(dep_src, CONTENT_DIR / dep)
 
-    print(f"wrote {CONTENT_DIR} ({len(CHAPTERS)} notebook(s), deploy id {deploy_id})")
+        projector_src = PROJECTOR_DIR / notebook
+        if projector_src.exists():
+            write_notebook_variant(
+                projector_src, notebook, deps, deploy_id, projector_output_name(notebook)
+            )
+            projector_count += 1
+
+    print(
+        f"wrote {CONTENT_DIR} ({len(CHAPTERS)} notebook(s), "
+        f"{projector_count} projector variant(s), deploy id {deploy_id})"
+    )
     return 0
 
 
