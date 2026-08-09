@@ -3941,3 +3941,83 @@ their `?path=` links and `CELL_PATCHES` iframe entries should use the names alre
 in `CONTENT_NAMES` rather than reinventing the slug — `chap12.ipynb` through `chap19.ipynb`
 still need to be added to `CHAPTERS` itself (with real deps) before any of that ships,
 which is real Pass-2/Pass-4 work, not done here.
+
+## 2026-08-09 follow-up — found: every internal "[a previous section](tag)" cross-reference
+## in the book is broken; none fixed yet
+
+Discovered while spot-checking the deploy above against `PUBLISHING.md`'s own verification
+step ("an internal cross-reference resolves — chapter 10 links back to an earlier section").
+It doesn't: `chap10.html`'s `href="#section_dictionary_in_operator"` points at an anchor that
+doesn't exist on the page. Traced the cause: `jb/prep_notebooks.py` injects a MyST
+`(tag)=` label onto any cell whose nbformat `tags` metadata starts with `section` or
+`chapter` — but **no cell in any chapter has ever had such a tag**. A repo-wide check
+(`grep -c '"section_' chapters/*.ipynb`, then a full cell-metadata scan) confirms exactly one
+tagged cell exists in the entire `chapters/` tree, and it's `chap03.ipynb`'s `"blank"` tag —
+unrelated. This mechanism has been dead code since it was written; nothing ever exercised it
+against real chapter content, so `make check`/`jb build .`'s own cross-reference validation
+(`myst.xref_missing`) never got a chance to catch it either, because nobody looked at the
+build log closely enough to notice these specific warnings among everything else `jb build`
+prints (they don't fail the build).
+
+**Confirmed pre-existing, not caused by anything in this session** — the same broken
+`section_dictionary_in_operator` reference, with no matching tag, already existed in
+`chapters/chap10.ipynb` at commit `4e68f33` (before today's JupyterLite work started).
+
+**Full scope, via `jb build . 2>&1 | grep xref_missing`: 25 broken references across 8
+chapters.** For each, the chapter parenthetically named in the link text is a strong hint
+for where the real target section lives (verified for the three marked ✓ below by actually
+reading that chapter and finding the matching heading — do this for each remaining one
+before tagging; don't assume the hinted chapter is exactly right without checking, the
+prose sometimes says "an exercise" or "one of the exercises" rather than naming a specific
+section):
+
+| Referenced from | Missing target | Says it's in | Fix location (if found) |
+|---|---|---|---|
+| chap06.ipynb | `section_memos` | Chapter 10 | — |
+| chap07.ipynb | `section_docstring` | Chapter 4 | — |
+| chap10.ipynb | `section_debugging_factorial` | Chapter 6 | ✓ chap06.ipynb cell 112, `## Debugging` (factorial debugging example follows immediately) |
+| chap10.ipynb | `section_dictionary_in_operator` | (same chapter) | ✓ chap10.ipynb cell 32, `## The in operator` |
+| chap10.ipynb | `section_fibonacci` | Chapter 6 | ✓ chap06.ipynb cell 97, `## Fibonacci` |
+| chap13.ipynb | `section_exercise_11` | an exercise in Chapter 11 | — |
+| chap13.ipynb | `section_md5_digest` | (no chapter named — bare `[](...)`) | — |
+| chap13.ipynb | `section_storing_data_structure` | a previous section (same chapter?) | — |
+| chap13.ipynb | `section_walking_directories` | (no chapter named — bare `[](...)`) | — |
+| chap14.ipynb | `section_debugging_11` | Chapter 11 | — |
+| chap16.ipynb | `section_turtle_module` | Chapter 4 | — |
+| chap18.ipynb | `chapter_inheritance` | an exercise in Chapter 17 | — |
+| chap18.ipynb | `chapter_search` | Chapter 7 exercises | — |
+| chap18.ipynb | `chapter_tuples` | an exercise in Chapter 11 | — |
+| chap18.ipynb | `section_argument_pack` | Chapter 11 | — |
+| chap18.ipynb | `section_create_point` | Chapter 16 | — |
+| chap18.ipynb | `section_dictionary_subtraction` | Chapter 12 | — |
+| chap18.ipynb | `section_memos` | Chapter 10 | — |
+| chap18.ipynb | `section_palindrome_list` | Chapter 10 | — |
+| chap18.ipynb | `section_print_deck` | Chapter 17 | — |
+| chap18.ipynb | `section_word_list` | Chapter 9 | — |
+| chap19.ipynb | `section_debugging_11` | Chapter 11 | — |
+| chap19.ipynb | `section_debugging_12` | Chapter 12 | — |
+| chap19.ipynb | `section_debugging_14` | Chapter 14 | — |
+| chap19.ipynb | `section_encapsulation` | Chapter 4 | — |
+| chap19.ipynb | `section_incremental` | Chapter 6 | — |
+
+Two (`section_md5_digest`, `section_walking_directories`, both in chap13) use the bare MyST
+`[](tag)` autotext form rather than `[some text](tag)` — same underlying fix (tag the right
+cell), just note the link's visible text is auto-generated from the target, not written out,
+so double-check what it renders as once tagged.
+
+**Not fixed this session** — user's call, given the fix requires reading each named chapter
+to find and tag the right heading, one at a time, not a mechanical batch edit. The three ✓
+rows above are the only ones with a verified fix location; do those first since the
+investigation is already done, then work through the rest the same way (read the chapter
+named in the "Says it's in" column, find the heading that matches what the surrounding prose
+is talking about, add `"tags": ["<target>"]` to that cell's metadata via a plain
+`json.load`/mutate/`json.dump` — same caution as Pass 4's "What earlier sessions found," item
+2, about `NotebookEdit` reordering cell keys — then regenerate `projector/` and re-run
+`jb build . 2>&1 | grep xref_missing` to confirm that one line disappears).
+
+**Whoever picks this up:** this is chapter-content work (Pass 2/3 territory — CLAUDE.md's
+non-negotiable #2 still applies: this is a metadata-only addition, not a prose change, so it
+shouldn't count as "reflowing" upstream content, but confirm that reading holds before
+touching a chapter you haven't otherwise touched yet). Small enough in total that it probably
+doesn't need its own `mods/pass-N` file — track it here and in whichever pass next touches
+each named chapter, rather than spinning up a new pass for a 25-line mechanical fix.
