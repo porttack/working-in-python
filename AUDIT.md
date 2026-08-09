@@ -3847,3 +3847,97 @@ any future chapter, the way chap08 required here -- chapters 9-11 are not curren
 to have pre-existing entries (only chap08's shell-magic fix does), but confirm rather than
 assume. Updated `CLAUDE.md`'s Pass 4 status row and `mods/pass-4-chrome.md`'s Order of work
 section to say chapters 1-8 done, 9-11 pending.
+
+## 2026-08-09 follow-up — JupyterLite lab view: front page as a notebook, student-legible filenames
+
+Publishing/tooling work, orthogonal to Passes 1-4 (no chapter content touched, no pass
+status changed). Triggered by the user wanting a link from the front page to the
+JupyterLite *lab* view (the full multi-file workbench, as opposed to the single-chapter
+`notebooks/index.html?path=...` view every chapter's chrome already links to) and finding
+the lab file browser, once there, unusable — 49 files in one flat alphabetical list with
+no way to tell a chapter from a helper module from a classroom-projection copy.
+
+**Key constraint, discovered before designing anything:** JupyterLite's *lab* app cannot
+deep-link to a file the way the *notebooks* app's `?path=` does. Confirmed by reading the
+built JS bundles in `jupyterlite/_output/build/`: `?path=` is implemented in
+`@jupyter-notebook/application-extension:opener`, keyed on the `notebookPage` page-config
+option, which lab does not set. Lab instead routes through
+`@jupyterlab/application-extension:tree-resolver` matching a `/lab/tree/<file>` URL
+pathname — confirmed 404 on the live site (`curl` against
+`.../lab/tree/chap01.ipynb`). **This means sort order is the only lever available** for
+making the right file obvious in lab, which is the entire justification for the renaming
+below. If a future JupyterLite release adds a lab-side `?path=` (worth re-checking on any
+`jupyterlite-core` upgrade), the front-page link and the naming scheme both keep working
+regardless — this was additive, not a replacement for anything.
+
+**What shipped:**
+- `chapters/index.ipynb` replaces `jb/index.md` as the book's front page. Has to be a
+  notebook to carry the `JUPYTERLITE_DEPLOY_PATH` placeholder (`jb/prep_notebooks.py` only
+  ever substituted it in notebooks). While moving the content over, found and dropped a
+  stray duplicate "Standards alignment" block that had been appended to `jb/index.md` by
+  mistake at some point (chap01.ipynb already has the real one, at line 1306 there) —
+  confirmed with the user before dropping it.
+- `tools/build_jupyterlite_content.py`'s new `CONTENT_NAMES` dict renames every notebook
+  shipped into `jupyterlite/content/` to a student-legible name, grouped by leading
+  underscore count so JupyterLab's own file-browser sort (`localeCompare` with
+  `numeric: true`, confirmed by reading `jlab_core.*.js.map`) puts them in this order:
+  `___start-here.ipynb` / `___using-notebooks.ipynb` (front matter) → `__chapNN-<desc>`
+  (chapters) → `_exercisesNN-<desc>` (homework) → `teachNN-<desc>` (blanked
+  classroom-projection copies, renamed from `-projector`) → the untouched upstream helper
+  `.py`/`.txt` files. **`chapters/*.ipynb` filenames never changed** — this rename lives
+  entirely in the output layer, zero upstream divergence, per CLAUDE.md non-negotiable #2.
+- Root `overrides.json` sets `sortNotebooksFirst` on
+  `@jupyterlab/filebrowser-extension:browser` — required, not cosmetic: without it, `teach*`
+  (starts with a letter, unlike the old `blank-`/`-projector`) sorts alphabetically *among*
+  the helper files instead of with the other notebooks. Verified by building into a fresh
+  `--output-dir` (bypassing the existing `.jupyterlite.doit.db` cache — see next paragraph)
+  and confirming `jupyter-lite.json`'s `settingsOverrides` carries exactly this key.
+- The `-projector` suffix is retired for a `teach` name that's now opt-in per notebook
+  (`CONTENT_NAMES`'s `"teach"` key, absent = no blanked copy ships) rather than automatic
+  for any notebook with a `projector/` copy. This incidentally fixed a real pre-existing
+  bug: eight `chapNN-exercises-projector.ipynb` files were shipping for chapters 1-8 even
+  though the exercises notebooks are a title and one empty cell — a blanked copy of that is
+  meaningless. `CONTENT_NAMES` is pre-populated for chapters 9-19 too (not yet in
+  `CHAPTERS`), generated from each chapter's own H1 rather than hand-typed, with chapters
+  12-13 getting a `"teach"` key and 14-19 not, matching CLAUDE.md's treatment matrix (full
+  blank markers through ch. 13, none from ch. 14 on) — so whoever runs chapters 9-19's
+  chrome pass has the naming convention already settled.
+
+**Found, not fixed (pre-existing, unrelated to this work):** `.jupyterlite.doit.db`'s
+incremental build cache causes `jupyter-lite.json`'s `settingsOverrides` to *merge into*,
+never replace, whatever was there before (`SettingsAddon.patch_one_overrides` in
+`jupyterlite_core`, confirmed by reading it). Concretely: the dead
+`@jupyterlite/pyodide-kernel-extension:kernel` `loadPyodideOptions` override that
+2026-08-08's entries above say was deleted after being found to have no effect is *still*
+appearing in every local build's `jupyterlite/_output/jupyter-lite.json`, because no
+`overrides.json` source for it exists anywhere in the repo anymore but the doit cache never
+recomputes the merge from scratch. A `jupyter lite build` into a brand-new `--output-dir`
+does not reproduce it — confirming the doit cache, not some hidden source file, is the
+carrier. Not touched here since it's cosmetic (an inert settings key) and out of scope; flag
+if a future settingsOverrides change doesn't seem to be landing — the fix is deleting
+`.jupyterlite.doit.db` (and `jupyterlite/_output/`) before rebuilding, not debugging the
+override itself.
+
+**Verified:** `make check` clean (21 chapters, 12 teach variants, down from 20/20 before —
+`index.ipynb` added, the 8 exercises-projector variants dropped). Every `CELL_PATCHES` key
+in `tools/build_jupyterlite_content.py` re-checked byte-for-byte against the current
+`chapters/*.ipynb` sources by script (not by eye) after the chrome-link rename, chapters
+1-8 plus `jupyter_intro.ipynb`. Full local `jb build .` (bypassing `build.sh`'s dirty-tree
+guard by hand, since these are legitimate uncommitted edits mid-session — never touched
+`ghp-import`): front-page workbench link substitutes the real hash, chap01's chrome links
+and self-embedding iframe resolve to the new filenames, the recursive-embed `CELL_PATCHES`
+swap still fires inside the JupyterLite copy, and chap10's internal cross-reference still
+resolves after adding `index.ipynb` to `prep_notebooks.py`'s glob (no new
+`myst.xref_missing` warnings versus what chapters 9-19's own pre-existing gaps already
+produce). Served the built site locally and curl-verified `/index.html`, `/chap01.html`,
+and both `jupyterlite-<hash>/notebooks/...` and `jupyterlite-<hash>/lab/index.html` return
+200 with the expected content. Sort-order grouping verified at the config level (confirmed
+`sortNotebooksFirst` reaches the running app's merged config, and re-derived the exact
+comparator from the built bundle) rather than a literal screenshot — no headless-browser
+tooling available in this environment, consistent with every prior pass-4 entry above.
+
+**Handoff:** nothing left half-finished here. If chapters 9-19 gain chrome in a future pass,
+their `?path=` links and `CELL_PATCHES` iframe entries should use the names already sitting
+in `CONTENT_NAMES` rather than reinventing the slug — `chap12.ipynb` through `chap19.ipynb`
+still need to be added to `CHAPTERS` itself (with real deps) before any of that ships,
+which is real Pass-2/Pass-4 work, not done here.

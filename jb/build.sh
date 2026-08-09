@@ -28,13 +28,15 @@ if ! git diff --quiet -- ../chapters/; then
 fi
 
 # Clear any copies left from a previous run so a deleted chapter cannot linger.
-rm -f chap*.ipynb jupyter_intro.ipynb
+rm -f chap*.ipynb jupyter_intro.ipynb index.ipynb
 
 cp ../chapters/chap[0-1][0-9].ipynb .
 cp ../chapters/jupyter_intro.ipynb .
+cp ../chapters/index.ipynb .
 
 # chap01.ipynb and jupyter_intro.ipynb each embed a live JupyterLite iframe of
-# themselves and carry a placeholder (JUPYTERLITE_DEPLOY_PATH) instead of a
+# themselves, and index.ipynb links to the JupyterLite lab view; all three
+# carry a placeholder (JUPYTERLITE_DEPLOY_PATH) instead of a
 # hardcoded deploy path. The id is a hash of everything that affects what
 # ships in jupyterlite/content/ (see tools/build_jupyterlite_content.py), so
 # it changes automatically whenever that content does -- nothing to bump by
@@ -92,4 +94,5 @@ echo "Published. Verify before telling anyone:"
 echo "  1. https://python.porttack.com/ loads with CSS intact"
 echo "  2. a chapter's Open in Colab badge actually opens"
 echo "  3. an internal cross-reference resolves (chap10 -> earlier section)"
-echo "  4. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/notebooks/index.html?path=chap01.ipynb runs"
+echo "  4. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/notebooks/index.html?path=__chap01-welcome.ipynb runs"
+echo "  5. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/lab/index.html shows the grouped file browser"

@@ -28,12 +28,13 @@ if [[ "${1:-}" == "--clean" ]]; then
   rm -rf _build
 fi
 
-rm -f chap*.ipynb jupyter_intro.ipynb
+rm -f chap*.ipynb jupyter_intro.ipynb index.ipynb
 cp ../chapters/chap[0-1][0-9].ipynb .
 cp ../chapters/jupyter_intro.ipynb .
+cp ../chapters/index.ipynb .
 
-# chap01.ipynb and jupyter_intro.ipynb carry a placeholder instead of a
-# hardcoded JupyterLite deploy path (see tools/build_jupyterlite_content.py);
+# chap01.ipynb, jupyter_intro.ipynb, and index.ipynb carry a placeholder instead
+# of a hardcoded JupyterLite deploy path (see tools/build_jupyterlite_content.py);
 # prep_notebooks.py substitutes it using this id. Computed once here, at
 # startup, not per-rebuild -- watch.sh never rebuilds the JupyterLite side
 # itself (see HOW_TO_EDIT.md for that), so a fixed id for the whole session
@@ -53,6 +54,7 @@ exec sphinx-autobuild . _build/html \
   --watch ../chapters \
   --re-ignore '.*/jb/chap[0-9]+\.ipynb$' \
   --re-ignore '.*/jb/jupyter_intro\.ipynb$' \
+  --re-ignore '.*/jb/index\.ipynb$' \
   --re-ignore '.*/jb/_build/.*' \
-  --pre-build "bash -c 'rm -f chap*.ipynb jupyter_intro.ipynb && cp ../chapters/chap[0-1][0-9].ipynb . && cp ../chapters/jupyter_intro.ipynb . && python prep_notebooks.py'" \
+  --pre-build "bash -c 'rm -f chap*.ipynb jupyter_intro.ipynb index.ipynb && cp ../chapters/chap[0-1][0-9].ipynb . && cp ../chapters/jupyter_intro.ipynb . && cp ../chapters/index.ipynb . && python prep_notebooks.py'" \
   --open-browser

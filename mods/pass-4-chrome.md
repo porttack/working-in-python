@@ -91,12 +91,16 @@ Insert as the new first cell, inside a `type="note"` sentinel block:
 
 Exercises (pointing at the notebook from Step 1, marked `**TODO:**` if it's still blank) |
 JupyterLite | Colab | Read Only | Download | Codespace (notebook) | Codespace (VS Code) |
-Blank (JupyterLite) — copy the exact shape from chapter 1 or 2's link-bar cell, updating the
-chapter number throughout.
+Teach Copy (JupyterLite) — copy the exact shape from chapter 1 or 2's link-bar cell, updating
+the chapter number throughout.
 
-- **JupyterLite / Blank links** use the `JUPYTERLITE_DEPLOY_PATH` placeholder (see
-  `tools/build_jupyterlite_content.py`) — never a hand-written hash. No new substitution
+- **JupyterLite / Exercises / Teach Copy links** use the `JUPYTERLITE_DEPLOY_PATH` placeholder
+  (see `tools/build_jupyterlite_content.py`) — never a hand-written hash. No new substitution
   wiring needed; it's a plain notebook cell and the existing substitution covers every cell.
+  **The `?path=` filename after the placeholder is not `chapNN.ipynb`/`chapNN-exercises.ipynb`/
+  `chapNN-projector.ipynb`** — see `mods/pass-5-jupyterlite-lab.md` ("Adding a chapter's
+  chrome links") for the `CONTENT_NAMES`-derived names to use instead. Getting this wrong
+  doesn't error anywhere; the link just 404s in a browser.
 - **Read Only** points at `https://python.porttack.com/chapNN.html?readonly` — the same
   rendered page, with the query flag from Step 4. Not a separate page.
 - **Download** points at `https://python.porttack.com/_sources/chapNN.ipynb` with an
@@ -112,10 +116,13 @@ chapter number throughout.
 Insert as the new second cell — copy chapter 1's or 2's pane cell verbatim, substituting the
 chapter number in the sentinel's `chapter="NN"` attribute, the `id="chapNN-jupyterlite-pane"`
 and `id="chapNN-jupyterlite-note"` (each appears twice: the HTML element and the script's
-`getElementById` call), and the iframe's `?path=chapNN.ipynb`. Nothing else changes chapter
-to chapter — in particular, the script's `URLSearchParams(location.search).has("readonly")`
-guard, which hides both the pane and its note and returns before any positioning logic runs,
-is chapter-number-independent and must be copied exactly.
+`getElementById` call), and the iframe's `?path=` value — the `CONTENT_NAMES`-derived name
+(see Step 3's note above), not `chapNN.ipynb`. Nothing else changes chapter to chapter — in
+particular, the script's `URLSearchParams(location.search).has("readonly")` guard, which
+hides both the pane and its note and returns before any positioning logic runs, is
+chapter-number-independent and must be copied exactly. (That same guard is also why
+`?readonly` survives a click through the left nav sitewide — see `jb/_static/custom.js` — so
+nothing extra is needed here for that to work.)
 
 ## Step 5 — Matching `CELL_PATCHES` entry
 

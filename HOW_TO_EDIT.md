@@ -13,12 +13,19 @@ step — hand edits there are silently lost.
 
 | Edit this (source) | Never this (generated) |
 |---|---|
-| `chapters/chapNN.ipynb`, `chapters/jupyter_intro.ipynb` | `projector/*.ipynb`, `jb/chapNN.ipynb`, `jb/jupyter_intro.ipynb`, `jupyterlite/content/*` |
-| `jb/index.md`, `orientation.md`, `about.md`, `_toc.yml`, `_config.yml` | `jb/_build/` (the whole rendered site) |
+| `chapters/chapNN.ipynb`, `chapters/jupyter_intro.ipynb`, `chapters/index.ipynb` | `projector/*.ipynb`, `jb/chapNN.ipynb`, `jb/jupyter_intro.ipynb`, `jb/index.ipynb`, `jupyterlite/content/*` |
+| `jb/orientation.md`, `jb/about.md`, `jb/todo.md`, `_toc.yml`, `_config.yml` | `jb/_build/` (the whole rendered site) |
 | `tools/build_jupyterlite_content.py`, `jupyterlite/*.py` (the ones with no upstream file to fork, e.g. `ascii_art.py`, `check.py`) | `jupyterlite/_output/` |
 
 If you're not sure which column a file is in: `git status` after a build. If a
 build step keeps re-touching a file you didn't edit, it's generated.
+
+**The book's front page (`https://python.porttack.com/`) is `chapters/index.ipynb`,
+not markdown.** It has to be a notebook so it can carry the same
+`JUPYTERLITE_DEPLOY_PATH` placeholder every chapter uses (its link to the
+JupyterLite workbench) — see the next section. Edit it like any other fork-authored
+notebook (it has no upstream original, so no sentinel blocks are needed, same as
+`chapters/chapNN-exercises.ipynb`).
 
 ## Everyday editing: chapter text, exercises, glossary
 
@@ -44,7 +51,11 @@ build step keeps re-touching a file you didn't edit, it's generated.
 
 Right now, two notebooks embed a *live* JupyterLite instance of themselves,
 filling the page next to the left nav: `chap01.ipynb` and `jupyter_intro.ipynb`
-("About Jupyter Notebooks"). If you're editing one of those:
+("About Jupyter Notebooks"). `chapters/index.ipynb` links to the JupyterLite
+*lab* view (the full workbench) instead of embedding an iframe of itself, so it
+carries the same placeholder (next bullet) but none of the `CELL_PATCHES`
+recursive-embed handling below applies to it. If you're editing chap01 or
+jupyter_intro:
 
 **The tutorial text/code cells** — edit normally, no extra steps beyond the
 everyday flow above. `watch.sh` shows your text changes immediately; the
@@ -61,12 +72,21 @@ to match exactly, or the swap silently stops happening and the recursive-iframe
 bug comes back (nothing will error — you'll just see it break in the browser).
 
 **The iframe `src`/link itself uses a placeholder, not a literal path** —
-`chap01.ipynb` and `jupyter_intro.ipynb` both carry the literal text
-`JUPYTERLITE_DEPLOY_PATH` where the real `jupyterlite-<hash>` path goes. Leave
-it as the placeholder in `chapters/`; it gets substituted automatically,
-separately, for each of the two copies that need a real value (the one on the
-JB site page, and the one inside `jupyterlite/content/`). You should basically
+`chap01.ipynb`, `jupyter_intro.ipynb`, and `index.ipynb` all carry the literal
+text `JUPYTERLITE_DEPLOY_PATH` where the real `jupyterlite-<hash>` path goes.
+Leave it as the placeholder in `chapters/`; it gets substituted automatically,
+separately, for each of the copies that need a real value (the one on the JB
+site page, and the one inside `jupyterlite/content/`). You should basically
 never need to touch this — see the next section.
+
+**The `?path=` filename after the placeholder is not the chapter's real
+filename** — `tools/build_jupyterlite_content.py`'s `CONTENT_NAMES` dict maps
+`chapters/chapNN.ipynb` to a student-legible name in the JupyterLite file
+browser (e.g. `chap01.ipynb` → `__chap01-welcome.ipynb`); every `?path=` link
+in a chapter's chrome cell and every `CELL_PATCHES` iframe `src` must use that
+mapped name, not the bare `chapNN.ipynb`. If you rename a chapter's title (its
+first `# ` line), update `CONTENT_NAMES` to match and re-run the two
+verification checks below.
 
 **Rebuild and preview the JupyterLite copy:**
 ```

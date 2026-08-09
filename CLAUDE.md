@@ -5,7 +5,7 @@ homework text for a high school AP Computer Science Principles course in Califor
 
 ## Read this first
 
-Work happens in four passes. **Read only the pass file for the pass you are running.**
+Work happens in five passes. **Read only the pass file for the pass you are running.**
 Do not read the other pass files; they will fill your context with work that isn't yours.
 
 | Pass | File | Mode | Status |
@@ -14,6 +14,7 @@ Do not read the other pass files; they will fill your context with work that isn
 | 2. Chapter surgery | `mods/pass-2-surgery.md` | destructive edits + authoring | in progress — ch. 1–8 done (the whole "chapters 3–8" batch, across three sessions); ch. 9–19 pending. All four book-wide kind-A replacement exercises are now written. Pacing question still open. See `AUDIT.md` |
 | 3. Standards alignment | `mods/pass-3-alignment.md` | analysis + additive back matter | in progress — Steps 1–3 done (both indexes, `standards/crosswalk.json`, all three `alignment/*.md` docs); Step 4 done for chapters 1–8, all four frameworks (AP CSP, CA 9-12, CSTA 2026, CA CTE/ICT — the latter two added 2026-08-09, out of this pass's original scope). Chapters 9–19 and Step 5 not started. See `AUDIT.md` |
 | 4. Chapter chrome | `mods/pass-4-chrome.md` | destructive edits (front/back matter only — link bar, embedded pane, exercises notebook, attribution rule) | in progress — ch. 1–2 done, built up across several rounds of live testing against the deployed site; ch. 3–8 done 2026-08-09, matched the pattern exactly (ch. 8 needed a `CELL_PATCHES` merge, not a fresh key — see `AUDIT.md`); ch. 9–11 pending; ch. 12–19 out of scope (independent-study/post-exam tier gets none of this). See `AUDIT.md` |
+| 5. JupyterLite lab & naming | `mods/pass-5-jupyterlite-lab.md` | additive tooling (`chapters/index.ipynb`, `CONTENT_NAMES`, `overrides.json`, `custom.js`) + a small piece of every future Pass 2/4 chapter | in progress — front page, naming foundation for everything currently in `CHAPTERS`, and sticky `?readonly` nav done 2026-08-09; `CONTENT_NAMES` pre-populated for ch. 9–19 ahead of Passes 2/4 reaching them, not yet wired into `CHAPTERS`. See `AUDIT.md` |
 
 Keep the Status column current. Each pass ends by appending a handoff note to `AUDIT.md`
 so the next pass can start cold. If you weren't told which pass to run, read the last

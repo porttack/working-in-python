@@ -16,6 +16,41 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — JupyterLite lab view: front page as a notebook, student-legible filenames
+
+### Added
+- `chapters/index.ipynb`: the book's front page (`https://python.porttack.com/`) is now a
+  fork-authored notebook, not `jb/index.md` (deleted). Same content, plus a new link to the
+  JupyterLite *lab* view (the full workbench, as opposed to the single-chapter view every
+  chapter's chrome already links to) — needed the front page to carry the
+  `JUPYTERLITE_DEPLOY_PATH` placeholder the same way `chap01.ipynb`/`jupyter_intro.ipynb` do,
+  which only notebooks can. Dropped a stray "Standards alignment" block that had been
+  duplicated onto `jb/index.md` by mistake (chap01.ipynb already carries the real one).
+- `tools/build_jupyterlite_content.py` gains `CONTENT_NAMES`: every notebook shipped into
+  `jupyterlite/content/` gets a student-legible name instead of the raw `chapters/` filename
+  (e.g. `chap02.ipynb` → `__chap02-variables-and-statements.ipynb`), grouped by an
+  underscore-prefix scheme (front matter, chapters, exercises, teach copies, then the
+  upstream helper `.py`/`.txt` files) so the JupyterLite lab file browser reads in order
+  instead of 49 names in one flat alphabetical list. `chapters/*.ipynb` filenames themselves
+  are untouched — the rename lives entirely in the JupyterLite output layer. Pre-populated
+  for chapters 9-19 (not yet in `CHAPTERS`) so the naming convention is settled before those
+  chapters get their chrome pass.
+- Root `overrides.json`: `sortNotebooksFirst` on the JupyterLab file browser, required for
+  the new names to group correctly (`teach*` sorts alphabetically among the helper files
+  otherwise).
+- The old `-projector` suffix is retired in favor of `teach<NN>-<desc>.ipynb`, and is now
+  opt-in per notebook (`CONTENT_NAMES`'s optional `"teach"` key) rather than automatic for
+  every notebook with a `projector/` copy — drops eight meaningless
+  `chapNN-exercises-projector.ipynb` variants (a title and one empty cell, blanked) that
+  were shipping for no reason.
+
+### Changed
+- Chapters 1-8's chrome link bar and self-embedding iframe (and the matching
+  `CELL_PATCHES` entries) updated to the new JupyterLite filenames; "Blank (JupyterLite)"
+  relabeled "Teach Copy (JupyterLite)" to match.
+- `jb/build.sh`, `jb/watch.sh`, `jb/prep_notebooks.py` updated to copy/prep
+  `chapters/index.ipynb` alongside the chapter notebooks.
+
 ## 2026-08-09 — CSTA 2026 and CA ICT/Anchor alignment, chapters 1-3
 
 ### Added

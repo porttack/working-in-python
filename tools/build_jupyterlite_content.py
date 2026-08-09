@@ -62,6 +62,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DEPLOY_PATH_PLACEHOLDER = "JUPYTERLITE_DEPLOY_PATH"
 CHAPTERS = {
+    "index.ipynb": [],
     "jupyter_intro.ipynb": ["thinkpython.py"],
     "chap01.ipynb": ["thinkpython.py"],
     "chap02.ipynb": ["thinkpython.py", "diagram.py"],
@@ -85,6 +86,85 @@ CHAPTERS = {
     "chap06-exercises.ipynb": [],
     "chap07-exercises.ipynb": [],
     "chap08-exercises.ipynb": [],
+}
+# Student-legible names for what CHAPTERS ships into the flat JupyterLite lab
+# file browser, keyed by the same CHAPTERS notebook name -- chapters/*.ipynb
+# itself never changes (see CLAUDE.md non-negotiable #2). Underscore-prefix
+# groups sort ahead of the upstream helper .py/.txt files below them, most
+# underscores first: "___" front matter, "__" chapters, "_" exercises. "teach"
+# is the optional fourth entry -- the blanked classroom-projection copy built
+# from projector/<name> -- and is deliberately *absent* for entries that have
+# no live-instruction use for one (index.ipynb, the exercises notebooks,
+# which are a title and one empty cell). A missing "teach" key means build()
+# ships no blanked variant for that notebook at all, even if build_blanks.py
+# happens to have produced one in projector/. See CLAUDE.md's treatment
+# matrix and AUDIT.md for why "teach" (not "blank"/"projector") sorts among
+# the notebooks only if @jupyterlab/filebrowser-extension:browser's
+# sortNotebooksFirst is set -- see the repo-root overrides.json.
+CONTENT_NAMES = {
+    "index.ipynb": {"name": "___start-here.ipynb"},
+    "jupyter_intro.ipynb": {
+        "name": "___using-notebooks.ipynb",
+        "teach": "teach-using-notebooks.ipynb",
+    },
+    "chap01.ipynb": {"name": "__chap01-welcome.ipynb", "teach": "teach01-welcome.ipynb"},
+    "chap02.ipynb": {
+        "name": "__chap02-variables-and-statements.ipynb",
+        "teach": "teach02-variables-and-statements.ipynb",
+    },
+    "chap03.ipynb": {"name": "__chap03-functions.ipynb", "teach": "teach03-functions.ipynb"},
+    "chap04.ipynb": {
+        "name": "__chap04-functions-and-interfaces.ipynb",
+        "teach": "teach04-functions-and-interfaces.ipynb",
+    },
+    "chap05.ipynb": {
+        "name": "__chap05-conditionals-and-recursion.ipynb",
+        "teach": "teach05-conditionals-and-recursion.ipynb",
+    },
+    "chap06.ipynb": {
+        "name": "__chap06-return-values.ipynb",
+        "teach": "teach06-return-values.ipynb",
+    },
+    "chap07.ipynb": {
+        "name": "__chap07-iteration-and-search.ipynb",
+        "teach": "teach07-iteration-and-search.ipynb",
+    },
+    "chap08.ipynb": {
+        "name": "__chap08-strings-and-regex.ipynb",
+        "teach": "teach08-strings-and-regex.ipynb",
+    },
+    "chap09.ipynb": {"name": "__chap09-lists.ipynb", "teach": "teach09-lists.ipynb"},
+    "chap10.ipynb": {"name": "__chap10-dictionaries.ipynb", "teach": "teach10-dictionaries.ipynb"},
+    "chap11.ipynb": {"name": "__chap11-tuples.ipynb", "teach": "teach11-tuples.ipynb"},
+    # Chapters 12-13: not yet in CHAPTERS above (pass-2/pass-4 haven't reached
+    # them), but CLAUDE.md's treatment matrix gives them full blank markers
+    # (teacher decision on VA removal, blank markers full), same as 1-11 --
+    # so they get a "teach" name here already, ready for whenever they're
+    # added to CHAPTERS.
+    "chap12.ipynb": {
+        "name": "__chap12-text-analysis-and-generation.ipynb",
+        "teach": "teach12-text-analysis-and-generation.ipynb",
+    },
+    "chap13.ipynb": {
+        "name": "__chap13-files-and-databases.ipynb",
+        "teach": "teach13-files-and-databases.ipynb",
+    },
+    # Chapters 14-19: independent-study tier, no blank markers by design (see
+    # CLAUDE.md treatment matrix) -- so no "teach" name, same as index.ipynb.
+    "chap14.ipynb": {"name": "__chap14-classes-and-functions.ipynb"},
+    "chap15.ipynb": {"name": "__chap15-classes-and-methods.ipynb"},
+    "chap16.ipynb": {"name": "__chap16-classes-and-objects.ipynb"},
+    "chap17.ipynb": {"name": "__chap17-inheritance.ipynb"},
+    "chap18.ipynb": {"name": "__chap18-python-extras.ipynb"},
+    "chap19.ipynb": {"name": "__chap19-final-thoughts.ipynb"},
+    "chap01-exercises.ipynb": {"name": "_exercises01-welcome.ipynb"},
+    "chap02-exercises.ipynb": {"name": "_exercises02-variables-and-statements.ipynb"},
+    "chap03-exercises.ipynb": {"name": "_exercises03-functions.ipynb"},
+    "chap04-exercises.ipynb": {"name": "_exercises04-functions-and-interfaces.ipynb"},
+    "chap05-exercises.ipynb": {"name": "_exercises05-conditionals-and-recursion.ipynb"},
+    "chap06-exercises.ipynb": {"name": "_exercises06-return-values.ipynb"},
+    "chap07-exercises.ipynb": {"name": "_exercises07-iteration-and-search.ipynb"},
+    "chap08-exercises.ipynb": {"name": "_exercises08-strings-and-regex.ipynb"},
 }
 PRELOAD_ON_DEP = {
     "diagram.py": ["matplotlib.pyplot"],
@@ -123,7 +203,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap01-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap01.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap01-welcome.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -184,7 +264,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap02-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap02.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap02-variables-and-statements.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -245,7 +325,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap03-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap03.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap03-functions.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -306,7 +386,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap04-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap04.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap04-functions-and-interfaces.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -367,7 +447,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap05-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap05.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap05-conditionals-and-recursion.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -428,7 +508,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap06-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap06.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap06-return-values.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -489,7 +569,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap07-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap07.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap07-iteration-and-search.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -550,7 +630,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="jupyter-intro-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=jupyter_intro.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=___using-notebooks.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -614,7 +694,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap08-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=chap08.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap08-strings-and-regex.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -671,18 +751,22 @@ CELL_PATCHES = {
     },
 }
 CONTENT_DIR = ROOT / "jupyterlite" / "content"
-# Every chapter in CHAPTERS that also has a generated projector/ copy (the
-# blanked-out version for live classroom projection, built by
-# tools/build_blanks.py -- see CLAUDE.md) gets that copy shipped into
-# JupyterLite too, automatically, under a "-projector" suffix. No separate
-# list to maintain: add a chapter to CHAPTERS as usual, and if
-# projector/<name> exists, its projector variant just comes along. See
-# AUDIT.md, 2026-08-08 follow-up 15.
+# A CHAPTERS entry ships its blanked live-instruction copy (built by
+# tools/build_blanks.py into projector/ -- see CLAUDE.md) only if
+# CONTENT_NAMES gives it a "teach" name AND projector/<name> exists. Both
+# conditions matter: without the CONTENT_NAMES gate, every notebook with a
+# projector/ copy would ship one, including the exercises notebooks (a title
+# and one empty cell -- a blanked copy of that is meaningless clutter). See
+# AUDIT.md, 2026-08-08 follow-up 15 and 2026-08-09 (naming pass).
 PROJECTOR_DIR = ROOT / "projector"
 
 
-def projector_output_name(notebook):
-    return notebook.removesuffix(".ipynb") + "-projector.ipynb"
+def content_name_for(notebook):
+    return CONTENT_NAMES.get(notebook, {}).get("name", notebook)
+
+
+def teach_name_for(notebook):
+    return CONTENT_NAMES.get(notebook, {}).get("teach")
 
 
 def compute_deploy_id():
@@ -788,15 +872,15 @@ def check_shell_magic(notebook, src, label, problems):
 
 def check():
     problems = []
-    projector_count = 0
+    teach_count = 0
     for notebook in CHAPTERS:
         check_shell_magic(notebook, ROOT / "chapters" / notebook, notebook, problems)
         projector_src = PROJECTOR_DIR / notebook
-        if projector_src.exists():
+        if projector_src.exists() and teach_name_for(notebook):
             check_shell_magic(
-                notebook, projector_src, f"{notebook} (projector)", problems
+                notebook, projector_src, f"{notebook} (teach)", problems
             )
-            projector_count += 1
+            teach_count += 1
 
     if problems:
         for p in problems:
@@ -804,7 +888,7 @@ def check():
         return 1
     print(
         f"jupyterlite check: clean ({len(CHAPTERS)} chapters, "
-        f"{projector_count} projector variant(s) checked)"
+        f"{teach_count} teach variant(s) checked)"
     )
     return 0
 
@@ -840,13 +924,13 @@ def build():
             return 1
         shutil.copy(shared_src, CONTENT_DIR / shared)
 
-    projector_count = 0
+    teach_count = 0
     for notebook, deps in CHAPTERS.items():
         src = ROOT / "chapters" / notebook
         if not src.exists():
             print(f"error: {src} not found", file=sys.stderr)
             return 1
-        write_notebook_variant(src, notebook, deps, deploy_id, notebook)
+        write_notebook_variant(src, notebook, deps, deploy_id, content_name_for(notebook))
 
         for dep in deps:
             dep_src = ROOT / dep
@@ -855,16 +939,15 @@ def build():
                 return 1
             shutil.copy(dep_src, CONTENT_DIR / dep)
 
+        teach_name = teach_name_for(notebook)
         projector_src = PROJECTOR_DIR / notebook
-        if projector_src.exists():
-            write_notebook_variant(
-                projector_src, notebook, deps, deploy_id, projector_output_name(notebook)
-            )
-            projector_count += 1
+        if projector_src.exists() and teach_name:
+            write_notebook_variant(projector_src, notebook, deps, deploy_id, teach_name)
+            teach_count += 1
 
     print(
         f"wrote {CONTENT_DIR} ({len(CHAPTERS)} notebook(s), "
-        f"{projector_count} projector variant(s), deploy id {deploy_id})"
+        f"{teach_count} teach variant(s), deploy id {deploy_id})"
     )
     return 0
 

@@ -59,8 +59,9 @@ def process_notebook(path):
 
 
 # Collect a list of the notebooks in the content folder. jupyter_intro.ipynb
-# doesn't match chap*.ipynb but needs the same %%expect-stripping treatment.
-paths = glob("chap*.ipynb") + glob("jupyter_intro.ipynb")
+# and index.ipynb don't match chap*.ipynb but need the same deploy-path
+# substitution (index.ipynb links to the JupyterLite lab view).
+paths = glob("chap*.ipynb") + glob("jupyter_intro.ipynb") + glob("index.ipynb")
 
 for path in sorted(paths):
     print('prepping', path)
