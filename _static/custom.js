@@ -61,3 +61,25 @@ document.addEventListener("DOMContentLoaded", function () {
     window.localStorage.setItem(STORAGE_KEY, sidebar.getBoundingClientRect().width);
   });
 });
+
+// ?readonly stays sticky across the left nav: each chapter's own chrome checks
+// this flag to hide its embedded live JupyterLite pane (see chap01.ipynb etc.,
+// and CELL_PATCHES in tools/build_jupyterlite_content.py), but every nav click
+// is a normal full-page navigation to a plain chapNN.html href with no query
+// string, so the flag would otherwise be lost on the very next click. Sitewide
+// because it has to re-run on every page landed on, not just the one it
+// started from -- each page rewrites its own sidebar links for whatever the
+// student clicks next.
+document.addEventListener("DOMContentLoaded", function () {
+  if (!new URLSearchParams(window.location.search).has("readonly")) return;
+  var sidebar = document.getElementById("pst-primary-sidebar");
+  if (!sidebar) return;
+
+  sidebar.querySelectorAll("a[href]").forEach(function (a) {
+    var href = a.getAttribute("href");
+    if (!href || href.indexOf("?") !== -1) return;
+    if (href.indexOf("#") === 0) return;
+    if (/^[a-z]+:/i.test(href)) return; // external scheme (https:, mailto:, ...)
+    a.setAttribute("href", href + "?readonly");
+  });
+});

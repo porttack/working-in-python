@@ -420,6 +420,9 @@
       }
     },
     "settingsOverrides": {
+      "@jupyterlab/filebrowser-extension:browser": {
+        "sortNotebooksFirst": true
+      },
       "@jupyterlite/pyodide-kernel-extension:kernel": {
         "loadPyodideOptions": {
           "packages": [

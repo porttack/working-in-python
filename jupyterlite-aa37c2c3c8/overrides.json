@@ -1,7 +1,0 @@
-{
-  "@jupyterlite/pyodide-kernel-extension:kernel": {
-    "loadPyodideOptions": {
-      "packages": ["matplotlib", "pyyaml"]
-    }
-  }
-}
