@@ -3213,6 +3213,86 @@ as an alternative framing by the user this round, not decided either way), and t
 question of whether the theme's own built-in "Print to PDF" button is sufficient on its own or
 this `?readonly` page should be what people are pointed at for printing specifically.
 
+## 2026-08-09 — CSTA 2026 and CA ICT/Anchor alignment, chapters 1-3
+
+Maintainer follow-up to the reverse-map preview above: do the real alignment work for CSTA
+2026 and CA ICT/Anchor — not just schema — for chapters 1-3, since AP/CA already have it,
+and update the chapters themselves to show it. Also asked to keep `mods/pass-3-alignment.md`
+current as a new framework gets tracked, which the AP/CA convention already models.
+
+**Method.** Read chapters 1-3 in full (chap02/chap03 were already in context from earlier
+this session; chap01 read fresh) against all 46 CSTA HS standards and all 170 ICT/Anchor
+items, looking for genuine matches rather than filling every line — Step 3's "a crosswalk
+that claims everything corresponds is useless" standard applied here even though this isn't
+formally Step 3. Found:
+
+- **CSTA 2026:** nothing in chapter 1 — its High School band assumes basic
+  expressions/types are already established by middle school, a legitimate gap, not a
+  miss. Chapter 2: `HS-PRO-PD-13` (libraries, via `import math`), headers only. Chapter 3:
+  `HS-PRO-PD-12` (splitting a program into reusable functions — strong, direct match),
+  `HS-PRO-RD-17` and `HS-ALG-PS-02` (headers only — conditionals and formal efficiency
+  analysis, the other halves of each standard, aren't reached until later chapters).
+- **CA ICT/Anchor:** chapter 1: Pathway `C4.4` (data types — `int`/`float`/`str`, `type()`)
+  and `C4.6` (language syntax — syntax errors), plus Anchor `C5.6` (debugging as QA,
+  headers only). Chapter 2: `C4.6` again (chapter 2's Debugging section explicitly names
+  "syntax error"), `C4.9` (variables — the "variables to hold state" clause), `C4.11`
+  (comments, the "for other programmers" half only), `C5.6` again. Chapter 3: `C4.9` again
+  (functions, parameters, the `for` loop, `%%expect` error handling — the single strongest
+  match found across either framework), Anchor `5.9` (decomposing a problem into smaller
+  components — chap03's own "Why functions?" section says almost exactly this), `5.10`
+  (abstraction, headers only, a light/implicit connection), `C5.6` again.
+- **Deliberately not cited anywhere:** the ICT Anchor Standards' soft-skill clusters
+  (Communications, Career Planning, Health and Safety, Ethics, Leadership, most of
+  Technical Knowledge and Skills) and Pathway C's systems-development/requirements/database/
+  web/AI clusters (C1-C3, C6-C10). None of it is about program content at the level
+  chapters 1-3 teach; forcing a citation into any of it would have been exactly the kind of
+  everything-corresponds crosswalk Step 3 warns against.
+
+**Populated `carriers`/`note` on 4 CSTA standards and 7 ICT/Anchor items** (in
+`standards/csta2026.json` and `standards/ca-ict-anchor.json`), each `note` explaining the
+match the same way `apcsp.json`'s existing carrier notes do. Discovered while doing this
+that the reference-page generators didn't actually render carrier/note data for ICT/Anchor
+*sub-items* at all (only the top-level `X.0` entries) — all 7 of the new ICT findings live
+on sub-items, so without this fix none of today's work would have shown up on the page.
+Fixed both generators (CSTA also needed the separate alignment `note` field rendered
+alongside its existing `scope_note`), regenerated, confirmed structurally sound (52/173
+unique ids, balanced tags on both pages).
+
+**Updated chapters 1, 2, and 3's `type="standards"` sentinel** to a 4-line citation format
+(AP CSP, California 9-12, CSTA 2026, CA CTE (ICT)), each new line following the established
+convention: label never linked, each code linked to its own anchor, "not carried" written
+out rather than left blank when chapter 1's CSTA line is genuinely empty. Added one
+connecting sentence per chapter's prose paragraph tying the new citations to the existing
+AP/CA ones rather than bolting on a second, disconnected paragraph. Re-flattened all three
+notebooks' touched cell back into `source` lines after the known `NotebookEdit` flattening
+issue (see the 2026-07-30 entry that first documented it) — confirmed one-line-per-addition
+diffs afterward. `projector/` regenerated; `make check` passes.
+
+**Updated `mods/pass-3-alignment.md`** with a new Amendments bullet documenting CSTA 2026
+and ICT/Anchor as tracked frameworks (source files, JSON shape, reference-page anchor
+convention, current status), and extended the Step 4 full-form and short-form templates
+from a 2-line to a 4-line citation block, including the "write 'not carried' rather than
+force a match" instruction explicitly, so it isn't lost the next time someone reaches for
+the template.
+
+### For a future maintainer
+
+- **This is not a full Step 1-3 pass for either framework** — no `crosswalk.json` entries
+  exist yet between CSTA/ICT and AP/CA, and `standards_alignment.md`'s four views haven't
+  been extended to cover them. What exists now is citation-level alignment for chapters 1-3
+  only, done the same session as the reverse-map preview work, using the same read-the-
+  chapter-and-judge-honestly method Step 1 established for AP/CA.
+- **Chapters 4-19 need the same treatment**, framework by framework, chapter by chapter.
+  Expect CSTA in particular to carry nothing for long stretches — its HS-band standards
+  are pitched at a capstone level (AI evaluation, data science, cybersecurity, career
+  reflection) that this book's early chapters don't reach at all; that will change once
+  later chapters cover lists, files, and text processing, but don't force early citations
+  to compensate.
+- The ICT/Anchor generator's item-level rendering gap (carriers/notes not shown on
+  sub-items) is fixed now, but it's a reminder that a schema change to the JSON doesn't
+  automatically mean the render side picked it up — always regenerate and read the actual
+  output, not just diff the JSON, before considering data "on the page."
+
 ## 2026-08-09 — Reverse-map links on the reference pages (preview, chapters 1-3 real data)
 
 Follow-up to the `carriers[]` migration above, same session. Maintainer corrected an

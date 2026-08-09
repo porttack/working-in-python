@@ -16,6 +16,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — CSTA 2026 and CA ICT/Anchor alignment, chapters 1-3
+
+### Added
+- `standards/csta2026.json` and `standards/ca-ict-anchor.json` gain real `carriers` data for
+  the first time: 4 CSTA standards and 7 ICT/Anchor items, each tied to chapter 1, 2, or 3
+  with a note explaining the match. Both reference-page generators fixed to actually render
+  carrier/note data on ICT/Anchor sub-items (previously only shown on top-level entries) and
+  regenerated.
+- Chapters 1, 2, and 3's `type="standards"` sentinel extended from AP CSP + California to a
+  4-line citation block adding CSTA 2026 and CA CTE (ICT), following the same
+  never-link-the-label, link-each-code convention. Chapter 1's CSTA line reads "not
+  carried" — a real finding, not a gap in the work: CSTA's High School band assumes basic
+  expressions and types are already covered by middle school.
+- `mods/pass-3-alignment.md` updated with a new Amendments bullet tracking CSTA 2026 and
+  ICT/Anchor, and both Step 4 templates extended to the 4-line format.
+
 ## 2026-08-09 — Reverse-map links on the AP CSP and CA CS reference pages (preview)
 
 ### Changed

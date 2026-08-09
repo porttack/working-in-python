@@ -35,6 +35,27 @@
   2026-08-09 "CA links point at our own page"); do not link to `codehs.com` for California
   going forward. Link only the line that actually cites a code; leave a line unlinked if it
   says "not assessed" or "no standard names this content on its own."
+- **Two more frameworks, added 2026-08-09: CSTA 2026 and CA CTE (ICT).** Out of this pass's
+  original scope (AP CSP + CA CS only) but requested by the maintainer and treated the same
+  way. `standards/csta2026.json` (46 "High School"-level CSTA 2026 standards; the CSV's
+  lower grade bands and two elective "Specialty" tiers are not indexed) and
+  `standards/ca-ict-anchor.json` (the 11 cross-sector CTE Anchor Standards plus ICT Pathway
+  C, Software and Systems Development — the pathway that maps to this course; the sector's
+  other three pathways are not indexed) both follow the same shape as `apcsp.json` — a
+  `carriers` array per standard, `[]` when unassigned — and both have their own reference
+  page with a `#T-<code>` anchor per standard:
+  `alignment/csta2026-standards-reference.html` and
+  `alignment/ca-ict-anchor-standards-reference.html`. Same linking convention as AP/CA: never
+  link the framework label itself, link each cited code to its own anchor.
+  **Status as of 2026-08-09: alignment done for chapters 1-3 only**, added alongside that
+  session's AP/CA carrier work, not as a full Step 1-3 pass — no `crosswalk.json` entries
+  exist yet between these two frameworks and AP/CA, and `standards_alignment.md`'s four
+  views haven't been extended to cover them. Chapters 4-19 need the same treatment: read the
+  chapter, check it against `csta2026.json`'s 46 standards and `ca-ict-anchor.json`'s 170
+  items, and be as willing to find nothing as something — CSTA's HS-band standards in
+  particular assume middle-school-level programming vocabulary is already established, so
+  many chapters (this book's own chapter 1, for instance) may legitimately carry none of
+  them, the same kind of honest gap Step 1 already normalized for AP/CA.
 
 ## Go...
 
@@ -194,6 +215,8 @@ read from the JSON; nothing hardcoded. Under 200 words. Signposting, not a secon
 
 **AP CSP:** [3.10 Lists](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.10), [3.2 Data Abstraction](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.2) — Big Idea 3, 30–35% of the exam
 **California 9–12:** [9-12.AP.14](https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.14), [9-12.AP.16](https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.16)
+**CSTA 2026:** [HS-PRO-PD-12](https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-12) <or: not carried — see the CSTA amendment above on legitimate gaps>
+**CA CTE (ICT):** [C4.9](https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C4.9) <codes from either the Anchor Standards or Pathway C, whichever actually apply>
 
 <One to three sentences of original prose connecting this chapter's Python to the way the
 exam frames the same idea. Heavily weighted topics only; light ones get the headers alone.>
@@ -206,11 +229,15 @@ exam frames the same idea. Heavily weighted topics only; light ones get the head
 ```
 
 The leading `---` is a markdown rule, matching the one already used in this cell's `note`
-sentinel — not a raw `<hr>` tag. Neither the **AP CSP** label nor the **California 9–12**
-label is ever a link — link each individual code citation to its own anchor instead: AP
-topics to `#T-<code>` on `alignment/apcsp-standards-reference.html`, CA standards to
-`#S-<code>` on `alignment/ca-cs-standards-reference.html`, in the order the codes are
-named. Leave a California line unlinked only when it cites no code.
+sentinel — not a raw `<hr>` tag. None of the four framework labels is ever a link — link
+each individual code citation to its own anchor instead: AP topics to `#T-<code>` on
+`alignment/apcsp-standards-reference.html`; CA standards to `#S-<code>` on
+`alignment/ca-cs-standards-reference.html`; CSTA standards to `#T-<code>` on
+`alignment/csta2026-standards-reference.html`; CA CTE (ICT) codes to `#T-<code>` on
+`alignment/ca-ict-anchor-standards-reference.html`. Codes in the order they're named. Leave
+a line unlinked only when it cites no code — and for CSTA/ICT specifically, write "not
+carried" rather than a link when that's genuinely the finding; don't force a match to avoid
+an empty line.
 
 **Short form, chapters 14–19:**
 
@@ -222,15 +249,17 @@ named. Leave a California line unlinked only when it cites no code.
 
 **AP CSP:** not assessed. Object-oriented programming is outside the AP CSP framework.
 **California 9–12:** <codes, if any, each linked to its own `#S-<code>` anchor>
+**CSTA 2026:** <codes, if any, each linked to its own `#T-<code>` anchor>
+**CA CTE (ICT):** <codes, if any, each linked to its own `#T-<code>` anchor>
 
 Included because <one line: on-ramp to AP CSA, CMU 15-111, or a CA standard nothing else
 in the course reaches>.
 <!-- apcsp:end -->
 ```
 
-Neither label is ever linked (per the full-form note above); the **AP CSP** line here also
-cites no code, so there is doubly nothing to link. If a chapter's California line is also
-empty, leave that unlinked too.
+No label is ever linked (per the full-form note above); the **AP CSP** line here also cites
+no code, so there is doubly nothing to link. If a chapter's California, CSTA, or ICT line
+is also empty, leave that unlinked too.
 
 Telling a student "this is not on the exam, and here is why we're doing it anyway" is better
 information than silence.

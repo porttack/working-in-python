@@ -200,12 +200,28 @@
     {
      "code": "5.9",
      "paraphrase": "A large problem becomes tractable once it's broken into smaller components.",
-     "carriers": []
+     "carriers": [
+      {
+       "source": "working_in_python",
+       "chapters": [
+        3
+       ]
+      }
+     ],
+     "note": "chap03's 'Why functions?' section explicitly frames functions as a way to divide a big program into smaller, debuggable, reusable pieces -- a direct match."
     },
     {
      "code": "5.10",
      "paraphrase": "Layers of abstraction let you work with a system without tracking every detail underneath it.",
-     "carriers": []
+     "carriers": [
+      {
+       "source": "working_in_python",
+       "chapters": [
+        3
+       ]
+      }
+     ],
+     "note": "Calling repeat/print_twice without re-deriving what's inside them is a first, light instance of working through a layer of abstraction. Headers only -- the book doesn't use the word 'abstraction' this early; the connection here is implicit."
     },
     {
      "code": "5.11",
@@ -656,7 +672,15 @@
      {
       "code": "C4.4",
       "paraphrase": "Data has types, and those types get encoded in specific ways.",
-      "carriers": []
+      "carriers": [
+       {
+        "source": "working_in_python",
+        "chapters": [
+         1
+        ]
+       }
+      ],
+      "note": "chap01 introduces int, float, and str as distinct types with different encodings, and the type() function to check them -- a direct match."
      },
      {
       "code": "C4.5",
@@ -666,7 +690,16 @@
      {
       "code": "C4.6",
       "paraphrase": "Every programming language has its own syntax, and using it correctly matters.",
-      "carriers": []
+      "carriers": [
+       {
+        "source": "working_in_python",
+        "chapters": [
+         1,
+         2
+        ]
+       }
+      ],
+      "note": "chap01 introduces syntax errors (missing parentheses, illegal quote marks); chap02's Debugging section explicitly names 'syntax error' as one of three error kinds. Both are about a language's own syntax rules, matching this standard directly."
      },
      {
       "code": "C4.7",
@@ -681,7 +714,16 @@
      {
       "code": "C4.9",
       "paraphrase": "A working program leans on a shared toolkit of constructs -- branches and loops, reusable procedures and functions that take parameters, variables to hold state, ways to recover from errors, and sometimes a function that calls itself.",
-      "carriers": []
+      "carriers": [
+       {
+        "source": "working_in_python",
+        "chapters": [
+         2,
+         3
+        ]
+       }
+      ],
+      "note": "chap02 introduces variables; chap03 introduces functions, parameters, and the for loop, plus error handling via %%expect. Together they cover most of this standard's list -- branches (conditionals) and recursion aren't introduced until chapter 5."
      },
      {
       "code": "C4.10",
@@ -691,7 +733,15 @@
      {
       "code": "C4.11",
       "paraphrase": "Development work needs documentation aimed at more than one audience -- comments for other programmers, manuals for users.",
-      "carriers": []
+      "carriers": [
+       {
+        "source": "working_in_python",
+        "chapters": [
+         2
+        ]
+       }
+      ],
+      "note": "chap02's Comments section is the 'comments for other programmers' half of this standard. The 'manuals for users' half isn't addressed."
      }
     ],
     "carriers": []
@@ -729,7 +779,17 @@
      {
       "code": "C5.6",
       "paraphrase": "Debugging is part of quality assurance, not separate from it.",
-      "carriers": []
+      "carriers": [
+       {
+        "source": "working_in_python",
+        "chapters": [
+         1,
+         2,
+         3
+        ]
+       }
+      ],
+      "note": "Every chapter's Debugging section -- same pattern as AP CRD-1.4/CRD-2.I, already the carrier for AP topic 1.4 in every chapter."
      }
     ],
     "carriers": []

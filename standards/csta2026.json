@@ -37,7 +37,15 @@
     "Critical Thinking",
     "Creativity"
    ],
-   "carriers": []
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      3
+     ]
+    }
+   ],
+   "note": "chap03 wraps repeated print statements in repeat/print_verse and introduces the for loop, matching this standard's function-plus-loop-instead-of-restated-logic framing. Optimizing for efficiency, the standard's other half, isn't addressed yet."
   },
   {
    "code": "HS-ALG-PS-03",
@@ -195,7 +203,15 @@
     "Critical Thinking",
     "Creativity"
    ],
-   "carriers": []
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      3
+     ]
+    }
+   ],
+   "note": "chap03's function definitions -- especially building print_verse out of first_two_lines/last_three_lines/repeat -- directly match splitting a program into reusable, readable pieces."
   },
   {
    "code": "HS-PRO-PD-13",
@@ -211,7 +227,15 @@
     "Resourcefulness",
     "Persistence"
    ],
-   "carriers": []
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      2
+     ]
+    }
+   ],
+   "note": "chap02's `import math` and its use of math.pi/math.sqrt/math.pow is this book's first real use of an existing library. The rest of this standard -- API docs, IDE features -- isn't addressed."
   },
   {
    "code": "HS-PRO-PD-14",
@@ -275,7 +299,15 @@
     "Critical Thinking",
     "Persistence"
    ],
-   "carriers": []
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      3
+     ]
+    }
+   ],
+   "note": "chap03's stack diagrams and tracebacks explain what a function's parameters and loop are doing, but conditionals (the other half of this standard's list) don't appear until chapter 5 -- partial."
   },
   {
    "code": "HS-PRO-RD-18",
