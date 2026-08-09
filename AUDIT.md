@@ -2942,3 +2942,39 @@ driven with Playwright.
 
 **Not done / open:** no regression check added for "a `CELL_PATCHES` key stops matching its cell."
 The two Codespace links in chap01's link bar were never affected by any of this (different cells).
+
+## 2026-08-08 follow-up 16 -- projector variants in JupyterLite; chap01 gets a real teacher-exercises notebook
+
+**Projector (blanked-for-demo) notebooks now ship in JupyterLite too, for every chapter
+automatically.** `tools/build_jupyterlite_content.py`: any `CHAPTERS` entry with a matching
+`projector/<name>` on disk gets a second copy written into `jupyterlite/content/` under a
+`-projector` suffix (e.g. `chap01-projector.ipynb`), through the same `CELL_PATCHES`/deploy-path/
+preload treatment as the regular copy -- refactored that per-notebook logic into
+`write_notebook_variant()` so there's one code path, not two. `compute_deploy_id()` now hashes the
+projector source too, so editing a blank changes the hash same as editing the chapter itself. No
+new list to maintain: this rides on `CHAPTERS`, the existing extension point for adding a chapter.
+`check()` scans both copies for unhandled shell magic now, not just the regular one.
+
+**This requires `projector/` to be fresh before the JupyterLite build runs**, since
+`build_jupyterlite_content.py` reads it directly rather than generating it. `jb/build.sh` and the
+`Makefile`'s `jupyterlite` target both now run `tools/build_blanks.py --dst projector` immediately
+before it, so a stale `projector/` can't ship silently. `jb/watch.sh` untouched (never builds the
+JupyterLite side at all, per existing design).
+
+**Verified:** built for real locally (`build.sh --local`), confirmed `chap01-projector.ipynb`
+loads standalone in JupyterLite (screenshot: banner cell, link bar, live-embed placeholder, and an
+actual blanked example -- "arithmetic operator" etc. -- all present and correct).
+
+**Separately, `chapters/chap01-exercises.ipynb` now exists**: a blank notebook for the user's own
+future exercises, distinct from Downey's chapter content. Registered in `CHAPTERS` with no deps
+(nothing to vendor yet) purely so it's servable in JupyterLite. Chap01's link-bar "Exercises" entry
+now points there (`?path=chap01-exercises.ipynb`) instead of the `#exercises` anchor on the
+rendered page, which was always a stand-in for exactly this. Also includes the user's own manual
+edit to chap01.ipynb from the same round: merged the old "Welcome" cell into the link-bar note,
+moved the "# Welcome" heading to just before "Programming as a way of thinking," cleared a stale
+`execution_count`.
+
+**Not done / open:** the new exercises notebook doesn't show up in the left nav yet (explicitly
+deferred by the user -- "it does not need to show up in the left nav (yet)"). It also doesn't have
+its own link bar or projector variant of its own; not asked for, not added. `data/exercise-ledger.json`
+untouched since there's no actual exercise content yet to log.

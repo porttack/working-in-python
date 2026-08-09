@@ -16,6 +16,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-08 — Projector variants in JupyterLite; chap01 gets a teacher exercises notebook
+
+### Added
+- `tools/build_jupyterlite_content.py`: every chapter's `projector/` (blanked-for-demo) copy now
+  also ships in JupyterLite automatically, as `<chapter>-projector.ipynb` alongside the regular
+  chapter -- no separate list to maintain, it rides on `CHAPTERS`. `jb/build.sh` and `make
+  jupyterlite` regenerate `projector/` first so this can't ship stale.
+- `chapters/chap01-exercises.ipynb`: blank notebook for teacher-authored exercises, separate from
+  the chapter itself. Servable in JupyterLite; not yet in the left nav (deferred).
+
+### Changed
+- `chapters/chap01.ipynb`: the link bar's "Exercises" entry now opens
+  `chap01-exercises.ipynb` in JupyterLite instead of the `#exercises` anchor on the rendered page.
+
 ## 2026-08-08 — Fix chapter 1's live pane visual seam, and a recursive-iframe bug found along the way
 
 ### Fixed
