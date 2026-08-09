@@ -3126,3 +3126,40 @@ and left alone, two deferred by the user's own choice.
 `tools/build_jupyterlite_content.py`, `AUDIT.md`, `CHANGELOG.md` -- user explicitly chose to hold
 off on commit/push/deploy until more issues are found and batched. Do not commit on their behalf
 without being asked again.
+
+## 2026-08-09 follow-up 20 -- cowsay auto-install reverted; "Try it here" pane text fixed for real
+
+Two corrections from the user after follow-up 19 shipped and got tested live.
+
+**cowsay auto-install fully reverted, at the user's explicit request** ("I was wrong about
+cowsay -- remove it... I thought you were going to build it in a different way. My mistake.").
+Removed `ALWAYS_PIPLITE_PACKAGES`, the piplite branch of `bootstrap_cell()`, and the
+`write_notebook_variant()` condition change -- `tools/build_jupyterlite_content.py` is back to
+exactly its pre-follow-19 state for this piece (diffed against that commit to confirm). cowsay
+is opt-in via `ascii_art.use('cowsay')` again, same as pyfiglet/art/ascii_magic. Whatever the
+"different way" the user had in mind is still open -- not re-litigated here, wait for them to
+raise it.
+
+**The "Try it here" pane text was never actually fixed by follow-up 19 -- it was never in scope
+that round.** The user's live-testing note two rounds ago named this exact issue (the pane
+cell's visible text assumes the JB site's live-pane context -- sidebar, divider -- and reads
+confusingly everywhere else the same cell renders unstyled: Colab, raw download, a Codespace).
+It got investigated and *explained* in that round's response but explicitly deferred, not
+fixed. Fixed now: `chapters/chap01.ipynb`, `chap02.ipynb`, and `jupyter_intro.ipynb` (same bug,
+same text, fixed for consistency though not explicitly asked about) all get
+`*Ignore this cell — used when running JupyterLite.*` in place of the two-line "Try it here...
+drag the thin divider" text. This is a `CELL_PATCHES`-matched cell in all three files, so the
+byte-for-byte keys in `tools/build_jupyterlite_content.py` had to change in lockstep --
+updated all three, then verified programmatically (`apply_cell_patches()` called directly
+against each chapter's current cells) that the patch still fires before trusting it, per the
+standing warning in `HOW_TO_EDIT.md` about this exact failure mode.
+
+**Verified:** `make projector && make check` clean. `git diff --stat` shows only the intended
+lines changed in each of the six touched files (three `chapters/`, three `projector/`, plus
+`tools/build_jupyterlite_content.py`) -- no reformatting blowout this time.
+
+**Not yet re-verified against a real deploy** -- these fixes are uncommitted as of this
+entry; `jb/build.sh --local` was attempted and correctly refused (its own safety check: won't
+build with uncommitted changes in `chapters/`), so the actual rendered page hasn't been
+re-checked yet. Confirm the pane text renders correctly on the live site after the next
+publish, same as the checklist for follow-up 19's fixes.

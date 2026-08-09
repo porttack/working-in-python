@@ -16,6 +16,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Revert cowsay auto-install; fix the "Try it here" pane text everywhere it isn't the live pane
+
+### Changed
+- `chapters/chap01.ipynb`, `chap02.ipynb`, `jupyter_intro.ipynb`: the embedded-pane cell's
+  visible text was written assuming the JB site's live-pane context, so it read literally and
+  confusingly everywhere else the cell renders unstyled (Colab, raw download, Codespace/VS
+  Code) — "**Try it here**... drag the thin divider" when there's no divider or live pane to
+  speak of there. Replaced with `*Ignore this cell — used when running JupyterLite.*` in all
+  three. `tools/build_jupyterlite_content.py`'s matching `CELL_PATCHES` keys (chap01, chap02,
+  jupyter_intro) updated to the new text so the JupyterLite-hosted copy still correctly swaps
+  it for the "you're already running this live" placeholder — verified the patch still matches
+  in all three.
+
+### Reverted
+- `tools/build_jupyterlite_content.py`: undid the cowsay auto-install added earlier this
+  session (`ALWAYS_PIPLITE_PACKAGES`, the piplite branch of `bootstrap_cell()`) at the user's
+  request — back to `ascii_art.use('cowsay')` being the only way to get it, same as before.
+
 ## 2026-08-09 — Link-bar fixes; cowsay auto-installs in every JupyterLite notebook
 
 ### Changed

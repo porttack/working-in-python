@@ -83,16 +83,6 @@ CHAPTERS = {
 PRELOAD_ON_DEP = {
     "diagram.py": ["matplotlib.pyplot"],
 }
-# Pure-Python packages not in Pyodide's own curated package set (see
-# ascii_art.py), installed via piplite in every chapter's bootstrap cell --
-# unlike PRELOAD_ON_DEP above, this isn't keyed to a chapter's deps, it
-# applies everywhere in CHAPTERS. The point is a plain `import cowsay` typed
-# by a student (or by us) resolves instantly with no ascii_art.use() ceremony
-# and no ModuleNotFoundError, the same way matplotlib already does for
-# chapters that need it. Kept to genuinely tiny packages: this is a real
-# per-browser-session network fetch (25 KB for cowsay), not something bundled
-# into our own build -- see AUDIT.md, 2026-08-09.
-ALWAYS_PIPLITE_PACKAGES = ["cowsay"]
 # Files that live in jupyterlite/ itself (not repo root, not chapter deps) and
 # get copied once into the flat content/ directory, where every chapter's
 # notebook can see and import them as a sibling file -- no per-chapter wiring
@@ -109,8 +99,7 @@ CELL_PATCHES = {
     "chap01.ipynb": {
         (
             '<!-- apcsp:begin type="note" chapter="01" -->\n',
-            '**Try it here.** This chapter also runs live on this page, no sign-in and nothing to install.\n',
-            'Drag the thin divider next to the left nav to resize it.\n',
+            '*Ignore this cell — used when running JupyterLite.*\n',
             '\n',
             '<style>\n',
             '#pst-secondary-sidebar { display: none !important; }\n',
@@ -164,8 +153,7 @@ CELL_PATCHES = {
     "chap02.ipynb": {
         (
             '<!-- apcsp:begin type="note" chapter="02" -->\n',
-            '**Try it here.** This chapter also runs live on this page, no sign-in and nothing to install.\n',
-            'Drag the thin divider next to the left nav to resize it.\n',
+            '*Ignore this cell — used when running JupyterLite.*\n',
             '\n',
             '<style>\n',
             '#pst-secondary-sidebar { display: none !important; }\n',
@@ -219,8 +207,7 @@ CELL_PATCHES = {
     "jupyter_intro.ipynb": {
         (
             '<!-- apcsp:begin type="note" -->\n',
-            '**Try it here.** This notebook also runs live on this page, no sign-in and nothing to install.\n',
-            'Drag the thin divider next to the left nav to resize it.\n',
+            '*Ignore this cell — used when running JupyterLite.*\n',
             '\n',
             '<style>\n',
             '#pst-secondary-sidebar { display: none !important; }\n',
@@ -340,20 +327,14 @@ def substitute_deploy_path(cells, deploy_id):
     return substituted
 
 
-def bootstrap_cell(modules, piplite_packages=()):
-    lines = []
-    if piplite_packages:
-        lines.append("import piplite\n")
-        lines.append(f"await piplite.install({list(piplite_packages)!r})\n")
-    lines.extend(f"import {m}\n" for m in piplite_packages)
-    lines.extend(f"import {m}\n" for m in modules)
+def bootstrap_cell(modules):
     return {
         "cell_type": "code",
         "execution_count": None,
         "id": "jupyterlite-preload-bootstrap",
         "metadata": {},
         "outputs": [],
-        "source": lines,
+        "source": [f"import {m}\n" for m in modules],
     }
 
 
@@ -445,8 +426,8 @@ def write_notebook_variant(src, notebook, deps, deploy_id, output_name):
     cells = apply_cell_patches(notebook, nb["cells"])
     cells = substitute_deploy_path(cells, deploy_id)
     modules = preload_modules_for(deps)
-    if modules or ALWAYS_PIPLITE_PACKAGES:
-        cells = [bootstrap_cell(modules, ALWAYS_PIPLITE_PACKAGES)] + cells
+    if modules:
+        cells = [bootstrap_cell(modules)] + cells
     nb["cells"] = cells
     (CONTENT_DIR / output_name).write_text(json.dumps(nb, indent=1))
 
