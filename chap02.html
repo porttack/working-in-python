@@ -440,16 +440,15 @@
                 <article class="bd-article">
                   
   <!-- apcsp:begin type="note" chapter="02" -->
-<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-1edcc89f23/notebooks/index.html?path=chap02-exercises.ipynb">Chapter Exercises</a></p>
+<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-1b580ed0a3/notebooks/index.html?path=chap02-exercises.ipynb">Chapter Exercises</a></p>
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-1edcc89f23/notebooks/index.html?path=chap02.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-1b580ed0a3/notebooks/index.html?path=chap02.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap02.ipynb">Colab</a> |
-<a class="reference external" href="https://python.porttack.com/chap02.html">Markdown</a> |
+<a class="reference external" href="https://python.porttack.com/chap02.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap02.ipynb" download="chap02.ipynb">Download</a> |
-<a class="reference external" href="https://python.porttack.com/jupyterlite-1edcc89f23/notebooks/index.html?path=chap02-projector.ipynb">Blank (JupyterLite)</a></p>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-1b580ed0a3/notebooks/index.html?path=chap02-projector.ipynb">Blank (JupyterLite)</a></p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="02" -->
-<p><strong>Try it here.</strong> This chapter also runs live on this page, no sign-in and nothing to install.
-Drag the thin divider next to the left nav to resize it.</p>
+<p id="chap02-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #chap02-jupyterlite-pane {
@@ -466,13 +465,20 @@ Drag the thin divider next to the left nav to resize it.</p>
 }
 </style>
 <div id="chap02-jupyterlite-pane">
-<iframe src="jupyterlite-1edcc89f23/notebooks/index.html?path=chap02.ipynb"></iframe>
+<iframe src="jupyterlite-1b580ed0a3/notebooks/index.html?path=chap02.ipynb"></iframe>
 </div>
 <script>
 (function () {
-  var sidebar = document.getElementById("pst-primary-sidebar");
+  var note = document.getElementById("chap02-jupyterlite-note");
   var pane = document.getElementById("chap02-jupyterlite-pane");
-  if (!sidebar || !pane) return;
+  if (!pane) return;
+  if (new URLSearchParams(location.search).has("readonly")) {
+    pane.style.display = "none";
+    if (note) note.style.display = "none";
+    return;
+  }
+  var sidebar = document.getElementById("pst-primary-sidebar");
+  if (!sidebar) return;
   // Only take over the viewport when running inside the Sphinx book site,
   // where the primary sidebar this pane is docked next to actually exists.
   // height:auto (rather than the 600px stylesheet fallback, which only
