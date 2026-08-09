@@ -16,6 +16,34 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Link-bar fixes; cowsay auto-installs in every JupyterLite notebook
+
+### Changed
+- `chapters/chap01.ipynb`, `chapters/chap02.ipynb`: dropped both Codespace links from the
+  link bar. Download link now points at `https://python.porttack.com/_sources/chapNN.ipynb`
+  (the copy Sphinx already publishes, served as `application/x-ipynb+json` rather than
+  `raw.githubusercontent.com`'s `text/plain`) with an explicit `download` attribute, so it
+  saves to disk instead of opening as raw JSON in the browser.
+- `tools/build_jupyterlite_content.py`: `bootstrap_cell()` now also handles piplite-only
+  packages (installed via `await piplite.install(...)` before import), and a new
+  `ALWAYS_PIPLITE_PACKAGES` list (currently just `["cowsay"]`) gets bootstrapped into every
+  notebook in `CHAPTERS`, not just ones with a matching `PRELOAD_ON_DEP` entry. A plain
+  `import cowsay` now resolves instantly in any chapter's JupyterLite copy, no
+  `ascii_art.use()` ceremony needed — same idea as the existing matplotlib preload, just not
+  tied to a chapter dependency. Confirmed via a real `jupyter lite build`: the bootstrap cell
+  survives intact into `jupyterlite/_output`.
+
+### Investigated, not changed
+- Whether to pre-bundle matplotlib/cowsay into our own build output: no, and no need to.
+  Neither Pyodide's runtime nor any package wheel lives in `jupyterlite/_output` or our
+  `gh-pages` branch — both are fetched live from `cdn.jsdelivr.net`/`pypi.org` by the
+  student's browser. Confirmed the `loadPyodideOptions.packages` preload-at-init config is
+  still broken in `jupyterlite-pyodide-kernel` 0.8.2 (the latest release), so the bootstrap-
+  cell approach remains the only reliable mechanism.
+- The site's existing "Print to PDF" button (via `window.print()`, already wired with a
+  sidebar-hiding print stylesheet) already gives a standalone-for-printing view — holding off
+  on building a new page for this until it's confirmed that doesn't already cover the need.
+
 ## 2026-08-08 — Chapter 2 gets the chapter-1 chrome treatment
 
 ### Added

@@ -3041,3 +3041,88 @@ specific by design), same pane cell modulo the chapter number, same attribution-
 `decide` or independent-study under the treatment matrix in `CLAUDE.md` -- the embedded-live-pane
 and JupyterLite-link-bar entries only make sense for a chapter that's actually `strip`/Live and
 registered in `CHAPTERS`; confirm before copying this pattern past chapter 11.
+
+## 2026-08-09 follow-up 19 -- live-testing round on chapters 1-2: Codespace links dropped, Download fixed, cowsay auto-installs everywhere
+
+First real usage pass on the deployed site (`python.porttack.com`, plus the discovery that
+`learn.porttack.com` is a *separate* repo, `porttack/learn`, embedding this one's `gh-pages`
+branch as a git submodule pinned to an exact commit -- doesn't move on its own, needs
+`git submodule update --remote working-in-python` run in that other repo whenever the live
+copy there should catch up). Six issues surfaced; three fixed this session, one investigated
+and left alone, two deferred by the user's own choice.
+
+**Fixed:**
+1. **Both Codespace links dropped** from `chap01.ipynb`/`chap02.ipynb`'s link bar, per direct
+   request. `devcontainer.json` itself untouched -- just the two link-bar entries.
+2. **Download link fixed.** Was `raw.githubusercontent.com/.../chapNN.ipynb`, served as
+   `text/plain` -- browsers render that inline instead of downloading. Switched to
+   `https://python.porttack.com/_sources/chapNN.ipynb` (confirmed published, `curl -I` shows
+   `content-type: application/x-ipynb+json`, a type with no browser-native inline renderer)
+   plus an explicit `download="chapNN.ipynb"` HTML attribute (markdown link syntax can't carry
+   one, so this line is raw HTML in the cell instead of `[text](url)`). Verified both chapters
+   still pass `check_sync`/inline-HTML-in-markdown renders fine in Jupyter/Colab/JupyterLite.
+3. **cowsay now auto-installs in every JupyterLite notebook**, not just on `ascii_art.use()`.
+   `tools/build_jupyterlite_content.py`: `bootstrap_cell()` generalized to also emit
+   `await piplite.install([...])` for packages outside Pyodide's native curated set (cowsay
+   isn't in Pyodide's own package repo, confirmed via its `pyodide-lock.json` -- unlike
+   matplotlib, which is). New `ALWAYS_PIPLITE_PACKAGES = ["cowsay"]`, applied unconditionally
+   in `write_notebook_variant()` regardless of a chapter's `PRELOAD_ON_DEP` deps (matplotlib
+   stays dep-keyed; cowsay doesn't need to be, it's cheap enough everywhere). Verified end to
+   end: a real `jupyter lite build` produced `jupyterlite/_output/files/chap01.ipynb` with the
+   bootstrap cell intact (`import piplite` / `await piplite.install(['cowsay'])` / `import
+   cowsay`), for a chapter (chap01) that has zero `PRELOAD_ON_DEP` matches on its own --
+   confirming the two mechanisms compose correctly (chap02 gets both cowsay *and* matplotlib
+   in the same cell). **Not verified in an actual browser** -- no headless-browser tooling
+   (playwright/selenium/chromium) available in this session's environment to execute the
+   Pyodide kernel for real; relies on `ascii_art.py`'s already-proven `await
+   piplite.install(name)` pattern being correct, plus the build pipeline preserving the cell
+   unmodified. **First real in-browser check is still owed** before calling this fully done.
+
+**Investigated and left alone (verified as correct behavior, not bugs):**
+4. **The `import matplotlib.pyplot` bootstrap cell in chap02's JupyterLite copy, absent from
+   `chapters/chap02.ipynb` and from Colab.** Not a bug -- Colab reads `chapters/chap02.ipynb`
+   directly from GitHub; JupyterLite reads a separately generated copy at
+   `jupyterlite/content/chap02.ipynb`, and the bootstrap cell is inserted only into that
+   generated copy, never written back to `chapters/`. Confirmed the underlying constraint is
+   real and current: `loadPyodideOptions.packages` (the "proper" preload-at-kernel-init
+   config) is still non-functional in `jupyterlite-pyodide-kernel` 0.8.2, which is also the
+   latest release on PyPI as of this session -- no version bump available to fix it. The
+   bootstrap-cell trick remains the only working mechanism.
+5. **File-size / load-time question, asked before building anything.** Measured against the
+   live CDNs rather than estimating: Pyodide's core runtime is ~13 MB (wasm+js+stdlib.zip,
+   paid by every JupyterLite notebook regardless), matplotlib's full dependency closure
+   (numpy, pillow, fonttools, kiwisolver, etc.) is ~35.7 MB, cowsay is 25 KB, and the other
+   `ascii_art.py` extras run 0.6-1.8 MB each (pyfiglet's bundled fonts make it the heaviest at
+   1.76 MB). Critically: **none of this lands in our own build.** `jupyterlite/_output`
+   contains no `.wasm` files and no package wheels for any of these -- confirmed by direct
+   search. Pyodide's `pyodideUrl` default (`cdn.jsdelivr.net`) and piplite's PyPI fallback mean
+   every one of these bytes is fetched live by the student's browser and cached there, not
+   bundled into `gh-pages`. So the tradeoff is entirely about first-run latency in the
+   student's browser, not our own repo or deploy size.
+6. **Whether Colab already has these other novelty packages preinstalled**, asked when
+   deciding whether to add more to `ALWAYS_PIPLITE_PACKAGES`. Checked pyjokes (46 KB) and
+   emoji (594 KB) as candidates; the honest answer is that Colab's default image doesn't carry
+   *any* of these (cowsay included) -- only the data-science stack (numpy/pandas/matplotlib/
+   etc.). User decided cowsay only, for now; pyjokes/emoji not added.
+
+**Deferred, by explicit user choice, not forgotten:**
+- **The "Try it here" pane text on Colab/raw-download views** (nonsensical outside the book
+  site's sidebar context) -- real issue, wants a decision (reword vs. extend `CELL_PATCHES` to
+  more contexts), not touched.
+- **A standalone printable page** -- before building anything new, found that the theme
+  already ships a "Print to PDF" button (`window.print()`, in the article header, not the
+  navbar this repo removed) with a working print stylesheet that already hides the
+  sidebar/nav. Recommended trying that first rather than building a new page; not yet
+  confirmed against what the user actually wants (a possible all-markdown "print site" like
+  upstream Think Python's own).
+- **"Blank" pointing at `projector/` instead of upstream's `blank/`** -- confirmed upstream's
+  `blank/chapNN.ipynb` (all code cells emptied except the setup cell, all prose intact) is
+  genuinely different from our own `projector/` (prose-blank-and-prompt teaching copy, meant
+  per `CLAUDE.md` for working through *as a group*, not for typing fresh code live). User's
+  call: leave "Blank" pointed at `projector/` for now.
+
+**State at end of session:** working tree has uncommitted changes across `chapters/chap01.ipynb`,
+`chapters/chap02.ipynb`, `projector/chap01.ipynb`, `projector/chap02.ipynb`,
+`tools/build_jupyterlite_content.py`, `AUDIT.md`, `CHANGELOG.md` -- user explicitly chose to hold
+off on commit/push/deploy until more issues are found and batched. Do not commit on their behalf
+without being asked again.
