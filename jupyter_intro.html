@@ -441,12 +441,8 @@ Drag the thin divider next to the left nav to resize it.</p>
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #jupyter-intro-jupyterlite-pane {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 20%;
-  z-index: 2000;
+  display: block;
+  height: 600px;
   background: #fff;
   overflow: hidden;
 }
@@ -458,13 +454,20 @@ Drag the thin divider next to the left nav to resize it.</p>
 }
 </style>
 <div id="jupyter-intro-jupyterlite-pane">
-<iframe src="jupyterlite-03a6882e29/notebooks/index.html?path=jupyter_intro.ipynb"></iframe>
+<iframe src="jupyterlite-4e420c880c/notebooks/index.html?path=jupyter_intro.ipynb"></iframe>
 </div>
 <script>
 (function () {
   var sidebar = document.getElementById("pst-primary-sidebar");
   var pane = document.getElementById("jupyter-intro-jupyterlite-pane");
   if (!sidebar || !pane) return;
+  // Only take over the viewport when running inside the Sphinx book site,
+  // where the primary sidebar this pane is docked next to actually exists.
+  pane.style.position = "fixed";
+  pane.style.top = "0";
+  pane.style.right = "0";
+  pane.style.bottom = "0";
+  pane.style.zIndex = "2000";
   function positionPane() {
     pane.style.left = sidebar.getBoundingClientRect().right + "px";
   }
