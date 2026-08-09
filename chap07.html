@@ -443,10 +443,66 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>You can order print and ebook versions of <em>Think Python 3e</em> from
-<a class="reference external" href="https://bookshop.org/a/98697/9781098155438">Bookshop.org</a> and
-<a class="reference external" href="https://www.amazon.com/_/dp/1098155432?smid=ATVPDKIKX0DER&amp;amp;_encoding=UTF8&amp;amp;tag=oreilly20-20&amp;amp;_encoding=UTF8&amp;amp;tag=greenteapre01-20&amp;amp;linkCode=ur2&amp;amp;linkId=e2a529f94920295d27ec8a06e757dc7c&amp;amp;camp=1789&amp;amp;creative=9325">Amazon</a>.</p>
-<div class="cell docutils container">
+  <!-- apcsp:begin type="note" chapter="07" -->
+<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-aa37c2c3c8/notebooks/index.html?path=chap07-exercises.ipynb">Chapter Exercises</a></p>
+<p><strong>Other Ways to open this chapter:</strong>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-aa37c2c3c8/notebooks/index.html?path=chap07.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap07.ipynb">Colab</a> |
+<a class="reference external" href="https://python.porttack.com/chap07.html?readonly">Read Only</a> |
+<a href="https://python.porttack.com/_sources/chap07.ipynb" download="chap07.ipynb">Download</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-aa37c2c3c8/notebooks/index.html?path=chap07-projector.ipynb">Blank (JupyterLite)</a></p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="07" -->
+<p id="chap07-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
+<style>
+#pst-secondary-sidebar { display: none !important; }
+#chap07-jupyterlite-pane {
+  display: block;
+  height: 600px;
+  background: #fff;
+  overflow: hidden;
+}
+#chap07-jupyterlite-pane iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+</style>
+<div id="chap07-jupyterlite-pane">
+<iframe src="jupyterlite-aa37c2c3c8/notebooks/index.html?path=chap07.ipynb"></iframe>
+</div>
+<script>
+(function () {
+  var note = document.getElementById("chap07-jupyterlite-note");
+  var pane = document.getElementById("chap07-jupyterlite-pane");
+  if (!pane) return;
+  if (new URLSearchParams(location.search).has("readonly")) {
+    pane.style.display = "none";
+    if (note) note.style.display = "none";
+    return;
+  }
+  var sidebar = document.getElementById("pst-primary-sidebar");
+  if (!sidebar) return;
+  // Only take over the viewport when running inside the Sphinx book site,
+  // where the primary sidebar this pane is docked next to actually exists.
+  // height:auto (rather than the 600px stylesheet fallback, which only
+  // exists for contexts where this script never runs, e.g. viewing the raw
+  // notebook in VS Code) lets top+bottom determine the height, so the pane
+  // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.position = "fixed";
+  pane.style.top = "0";
+  pane.style.right = "0";
+  pane.style.bottom = "0";
+  pane.style.height = "auto";
+  pane.style.zIndex = "2000";
+  function positionPane() {
+    pane.style.left = sidebar.getBoundingClientRect().right + "px";
+  }
+  new ResizeObserver(positionPane).observe(sidebar);
+  positionPane();
+})();
+</script>
+<!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
@@ -1260,6 +1316,7 @@ If you have a working version of <code class="docutils literal notranslate"><spa
 </div>
 </div>
 <!-- apcsp:begin type="note" chapter="07" -->
+<hr class="docutils" />
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
 <hr class="docutils" />
 <!-- apcsp:end -->
