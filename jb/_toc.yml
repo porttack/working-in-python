@@ -57,6 +57,10 @@ parts:
       title: AP CSP Coverage Map
     - url: https://python.porttack.com/alignment/apcsp-standards-reference.html
       title: AP CSP Standards Reference
+    - url: https://python.porttack.com/alignment/vocabulary-by-chapter.html
+      title: Vocabulary by Chapter
+    - url: https://python.porttack.com/alignment/ap-vocabulary-coverage.html
+      title: AP CSP Vocabulary Coverage
     - url: https://python.porttack.com/alignment/ca-cs-standards-reference.html
       title: CA CS Standards Reference
     - url: https://python.porttack.com/alignment/csta2026-standards-reference.html

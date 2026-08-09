@@ -4058,3 +4058,80 @@ every other anchor on that page.
 Jupyter Book sidebar/theme (no local build attempted this session) — the nav entry and the
 symlink mechanism are read from source, not tested end-to-end. Worth a `cd jb && ./build.sh
 --local` check before the next real publish, same as any other `_toc.yml` edit.
+
+## 2026-08-09 — Vocabulary by chapter, and AP CSP vocabulary coverage (word-level, not topic-level)
+
+Maintainer request: pull every vocabulary word out of every chapter, find a list of AP CSP
+vocabulary, and compare the two sets (a Venn, acknowledged up front as symbolic — a literal
+per-word Venn at this size would be illegible).
+
+**Confirmed by direct inspection, not memory:** Downey's chapters do carry their own
+vocabulary section — a `## Glossary` markdown cell at the end of chapters 1–18 (`**term:**
+definition`), 185 terms total. Chapter 19 ("Final thoughts") has none. Extracted
+mechanically (`chapters/chap*.ipynb` → per-chapter term/definition pairs) into
+**`alignment/vocabulary-by-chapter.md`** + hosted twin `vocabulary-by-chapter.html`.
+
+**No official AP CSP glossary exists** — `alignment/glossary-map.md` had already
+established this in an earlier pass (the CED has no glossary appendix of its own). So there
+was nothing to extract for the AP side; a list had to be *compiled*. Sourced from three
+places, none of them the CED itself: the official 2026 AP CSP Exam Reference Sheet (fetched
+and `pdftotext`'d directly — bare pseudocode/operator/Robot keyword names only, not the
+explanatory prose, so this stays clean of non-negotiable #1), and term *names only* (not
+prose) from two third-party study lists the maintainer pointed at
+(apcsexamprep.com/pages/ap-csp-vocabulary-list and a Khan Academy vocabulary-review page the
+maintainer pasted in full). Every gloss written for the resulting 140-term list is original
+wording — no third-party definition was reproduced, on either the CED or the two study-list
+sources. This is explicitly **best-effort, not authoritative**: there is no ground truth to
+extract against, so gaps below are candidates to check, not confirmed absences.
+
+**Method for matching, not assumption:** before marking anything "in book," the notebooks'
+actual code cells were grepped directly for `input(`, `turtle`, `.append(`, `.remove(`,
+`.insert(`, `len(`, and `random` to get first-use chapters right rather than guessing from
+memory. Two findings worth flagging on their own: **`.insert()` never appears in any
+chapter's code** (APPEND and REMOVE are both used, INSERT genuinely is not — a real,
+previously-unlogged gap), and `turtle` first appears in **chapter 4**, which confirms
+(rather than assumes) the hinted-but-unverified fix location for the `section_turtle_module`
+broken cross-reference logged earlier in this file (still not fixed — this session didn't
+touch that, just corroborated the hint).
+
+**Result:** 140 AP CSP terms compiled across the 5 Big Ideas — 39 taught in this book
+(directly or under a documented synonym already in `glossary-map.md`'s swap table), 26
+planned elsewhere in the course (the November algorithms block, or CS50T Multimedia — the
+CS50T assignment is *extended* here from the existing bit/byte/compression items to the rest
+of that same encoding cluster: ASCII, Unicode, RGB, pixel, decimal, hexadecimal, analog/
+digital data, sampling, roundoff error — a reasonable inference made this session, not
+previously logged, worth confirming CS50T Multimedia actually reaches all of it), 48 carried
+by *Little Brother* (all of Big Ideas 4 and 5, uniformly, matching the topic-level call
+already made in `ap-practices-bigideas-coverage.html`), and 27 genuine gaps. The single
+largest gap, unsurprising given `ap-practices-bigideas-coverage.html` already flagged it at
+the topic level: **REPEAT UNTIL** (indefinite iteration / `while`) has no vocabulary match
+here because the book has no `while` loop anywhere — confirmed again at the word level, not
+just the topic level.
+
+Written up in **`alignment/ap-vocabulary-coverage.md`** + hosted twin
+`ap-vocabulary-coverage.html`, big-idea by big-idea, each term tagged `book` / `planned` /
+`else` (Little Brother) / `gap`, with the matching Working-in-Python term and chapter cited
+wherever one exists. The hosted twin draws the symbolic two-circle Venn as inline SVG
+(explicitly labeled non-area-proportional, per the maintainer's own framing of the ask) using
+the same CSS-variable design system as the other `alignment/*.html` pages — the shared
+`<style>` block was extracted verbatim from `ap-practices-bigideas-coverage.html` rather than
+rewritten, so all five reference pages stay visually identical. One new chip class,
+`chip.gap`, was added using the `--gap`/`--gap-bg` tokens that already existed in that shared
+CSS but were unused until now.
+
+**Wiring, both directions, same convention as the last "AP CSP coverage map" handoff:**
+both new pages added to `jb/_toc.yml`'s Reference section; `apcsp-standards-reference.html`
+and `ap-practices-bigideas-coverage.html` each got a new one-line pointer to
+`ap-vocabulary-coverage.html`; `glossary-map.md` got a paragraph pointing at both new pages,
+framed as the word-level companion to its own concept-level mapping. One link that would
+have been dead: `alignment/glossary-map.md` has no hosted `.html` twin (it was never added to
+`_toc.yml`, unlike the other `alignment/*.md` files that got the reference-page treatment) —
+both new pages reference it as `<code>alignment/glossary-map.md</code>` (repo-only, no href)
+rather than link to a URL that would 404.
+
+**Not done:** no per-term AP topic-code citation (e.g., linking "Selection" to topic 3.6)
+— grouped by Big Idea only, to keep scope bounded. `jb build` not run locally to verify the
+two new pages render correctly in the actual sidebar (same caveat as the last `_toc.yml`
+edit, still outstanding). The CS50T Multimedia carrier extension for the Big Idea 2 encoding
+cluster is this session's inference, not a previously-agreed decision — worth the maintainer
+confirming or correcting it explicitly.

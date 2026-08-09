@@ -1,0 +1,774 @@
+<title>Vocabulary by Chapter — Working in Python</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --ink: #1c211f;
+  --ink-soft: #4b534f;
+  --paper: #f5f6f3;
+  --paper-raised: #ffffff;
+  --line: #d8dcd6;
+  --line-soft: #e6e9e4;
+  --accent: #3e4c8c;
+  --accent-soft: #eceef7;
+  --accent-ink: #2c3768;
+  --strong: #3f7d5c;
+  --strong-bg: #e6efe9;
+  --partial: #b8863a;
+  --partial-bg: #f6ecda;
+  --gap: #b5533c;
+  --gap-bg: #f7e6e1;
+  --elsewhere: #64708a;
+  --elsewhere-bg: #eaecf1;
+  --track: #e3e5e0;
+  --serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e8e7e1;
+    --ink-soft: #aeb4ac;
+    --paper: #14181a;
+    --paper-raised: #1a1f21;
+    --line: #2c3230;
+    --line-soft: #232826;
+    --accent: #8e9fe8;
+    --accent-soft: #232a45;
+    --accent-ink: #b7c2f2;
+    --strong: #6cbf94;
+    --strong-bg: #1e2c25;
+    --partial: #d3a159;
+    --partial-bg: #2e2517;
+    --gap: #dc8a72;
+    --gap-bg: #322019;
+    --elsewhere: #9aa4bd;
+    --elsewhere-bg: #232733;
+    --track: #262b29;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e8e7e1;
+  --ink-soft: #aeb4ac;
+  --paper: #14181a;
+  --paper-raised: #1a1f21;
+  --line: #2c3230;
+  --line-soft: #232826;
+  --accent: #8e9fe8;
+  --accent-soft: #232a45;
+  --accent-ink: #b7c2f2;
+  --strong: #6cbf94;
+  --strong-bg: #1e2c25;
+  --partial: #d3a159;
+  --partial-bg: #2e2517;
+  --gap: #dc8a72;
+  --gap-bg: #322019;
+  --elsewhere: #9aa4bd;
+  --elsewhere-bg: #232733;
+  --track: #262b29;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid currentColor; opacity: 0.9; }
+a:hover { opacity: 1; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.page { max-width: 920px; margin: 0 auto; padding: 0 24px 96px; }
+
+/* ---- Header ---- */
+header.masthead {
+  padding: 40px 0 28px;
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+.eyebrow a { border-bottom: 1px dotted currentColor; text-transform: none; letter-spacing: 0.02em; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 38px);
+  line-height: 1.12;
+  margin: 0 0 12px;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.lede {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+.lede code { font-family: var(--mono); font-size: 0.92em; background: var(--line-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+
+/* ---- Stat strip ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 28px;
+}
+.stat { background: var(--paper-raised); padding: 16px 18px; }
+.stat .n {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1;
+}
+.stat .n small { font-size: 14px; font-weight: 500; color: var(--ink-soft); }
+.stat .label { margin-top: 6px; font-size: 12.5px; color: var(--ink-soft); }
+.stat.book .n { color: var(--strong); }
+.stat.planned .n { color: var(--partial); }
+.stat.elsewhere .n { color: var(--elsewhere); }
+
+/* ---- Sticky nav ---- */
+nav.jump {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  margin: 0 -24px 40px;
+  padding: 0 24px;
+}
+.jump-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: none;
+}
+.jump-inner::-webkit-scrollbar { display: none; }
+.jump a {
+  border-bottom: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  padding: 6px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.jump a:hover { color: var(--ink); background: var(--line-soft); }
+.jump a.external { margin-left: auto; color: var(--accent-ink); }
+
+/* ---- Sections ---- */
+section { margin: 56px 0; }
+section > h2 {
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--ink);
+  scroll-margin-top: 60px;
+}
+.section-note { margin: 0 0 24px; color: var(--ink-soft); font-size: 14px; max-width: 64ch; }
+
+/* ---- Weight bar ---- */
+.weightbar {
+  position: relative;
+  height: 6px;
+  background: var(--track);
+  border-radius: 3px;
+  margin: 10px 0 4px;
+  overflow: hidden;
+}
+.weightbar .fill { position: absolute; top: 0; bottom: 0; background: var(--accent); border-radius: 3px; }
+.weightbar-label { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); letter-spacing: 0.02em; }
+
+/* ---- Practice cards ---- */
+.practice { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
+.practice:first-of-type { border-top: none; }
+.practice .pid { font-family: var(--mono); font-weight: 600; font-size: 15px; padding-top: 2px; }
+.practice .pid a { border-bottom: none; color: var(--accent-ink); }
+.practice .pid a:hover { border-bottom: 1px solid currentColor; }
+.practice .pname { font-weight: 600; margin: 0 0 3px; }
+.practice .pdesc { margin: 0 0 8px; color: var(--ink-soft); font-size: 14px; max-width: 60ch; }
+.verdict { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; margin-bottom: 8px; }
+.verdict.strong { background: var(--strong-bg); color: var(--strong); }
+.verdict.partial { background: var(--partial-bg); color: var(--partial); }
+.verdict.no { background: var(--elsewhere-bg); color: var(--elsewhere); }
+.practice .why { margin: 0; font-size: 13.5px; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---- Big idea block ---- */
+.bigidea-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.bigidea-head .name { font-size: 13.5px; font-weight: 500; color: var(--ink-soft); }
+
+/* ---- Topic table ---- */
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.8px; background: var(--paper-raised); }
+th, td { padding: 10px 14px; text-align: left; vertical-align: top; }
+thead th {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 1px solid var(--line); font-weight: 600; white-space: nowrap;
+}
+tbody tr + tr td { border-top: 1px solid var(--line-soft); }
+td.code { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
+td.chapters { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink-soft); white-space: nowrap; }
+td.chapters a { color: var(--ink-soft); border-bottom: 1px dotted currentColor; }
+td.chapters a:hover { color: var(--accent-ink); }
+td.note { color: var(--ink-soft); font-size: 13px; max-width: 34ch; }
+
+.chip { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.chip.book { background: var(--strong-bg); color: var(--strong); }
+.chip.planned { background: var(--partial-bg); color: var(--partial); }
+.chip.else { background: var(--elsewhere-bg); color: var(--elsewhere); }
+a.chip.else { border-bottom: none; }
+a.chip.else:hover { text-decoration: underline; }
+
+/* ---- Gaps ---- */
+.gapgrid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+@media (max-width: 680px) { .gapgrid { grid-template-columns: 1fr; } }
+ol.gaplist { margin: 0; padding: 0 0 0 1.4em; }
+ol.gaplist li { margin-bottom: 14px; padding-left: 4px; }
+ol.gaplist li b { color: var(--ink); }
+ol.gaplist li p { margin: 3px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+.gapgrid .aside { background: var(--elsewhere-bg); border-radius: 10px; padding: 18px 20px; align-self: start; }
+.gapgrid .aside h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--elsewhere); }
+.gapgrid .aside ul { margin: 0; padding-left: 1.2em; font-size: 13.5px; color: var(--ink-soft); }
+.gapgrid .aside li { margin-bottom: 8px; }
+
+footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-soft); }
+footer code { font-family: var(--mono); background: var(--line-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+</style>
+
+<style>
+.chip.gap { background: var(--gap-bg); color: var(--gap); }
+a.chip.gap { border-bottom: none; }
+.tablewrap { margin-bottom: 8px; }
+.venn-wrap { display: flex; justify-content: center; margin: 28px 0 12px; }
+.venn-wrap svg { max-width: 100%; height: auto; }
+.venn-caption { text-align: center; color: var(--ink-soft); font-size: 13px; max-width: 56ch; margin: 0 auto; }
+.methodology { background: var(--elsewhere-bg); border-radius: 10px; padding: 18px 20px; margin: 20px 0; }
+.methodology h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--elsewhere); }
+.methodology ul { margin: 0; padding-left: 1.2em; font-size: 13.5px; color: var(--ink-soft); }
+.methodology li { margin-bottom: 6px; }
+.bignote { font-size: 13px; color: var(--ink-soft); margin: 4px 0 16px; }
+</style>
+
+
+<div class="page">
+
+<header class="masthead">
+  <p class="eyebrow">
+    <span>Working in Python · Book Vocabulary</span>
+    <a href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">↳ AP CSP Vocabulary Coverage</a>
+  </p>
+  <h1>Vocabulary by Chapter</h1>
+  <p class="lede">Every term from Downey's own chapter-ending <code>Glossary</code> sections, chapters 1&ndash;18, in reading order. This is the book's own vocabulary, exactly as written &mdash; not a paraphrase, not a standards crosswalk.</p>
+  <div class="stats">
+    <div class="stat book">
+      <div class="n">185</div>
+      <div class="label">glossary terms, chapters 1&ndash;18</div>
+    </div>
+    <div class="stat planned">
+      <div class="n">18</div>
+      <div class="label">chapters with a Glossary section</div>
+    </div>
+    <div class="stat elsewhere">
+      <div class="n">1</div>
+      <div class="label">chapter with none &mdash; ch. 19, &ldquo;Final thoughts&rdquo;</div>
+    </div>
+  </div>
+</header>
+
+<nav class="jump">
+  <div class="jump-inner">
+    <a href="#ch01">1</a>
+    <a href="#ch02">2</a>
+    <a href="#ch03">3</a>
+    <a href="#ch04">4</a>
+    <a href="#ch05">5</a>
+    <a href="#ch06">6</a>
+    <a href="#ch07">7</a>
+    <a href="#ch08">8</a>
+    <a href="#ch09">9</a>
+    <a href="#ch10">10</a>
+    <a href="#ch11">11</a>
+    <a href="#ch12">12</a>
+    <a href="#ch13">13</a>
+    <a href="#ch14">14</a>
+    <a href="#ch15">15</a>
+    <a href="#ch16">16</a>
+    <a href="#ch17">17</a>
+    <a href="#ch18">18</a>
+    <a class="external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP coverage ↗</a>
+  </div>
+</nav>
+
+
+<section id="ch01">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap01.html">Chapter 1</a> &mdash; Welcome</h2>
+    <span class="name">17 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">arithmetic operator</td><td>A symbol, like `+` and `*`, that denotes an arithmetic operation like addition or multiplication.</td></tr>
+        <tr><td class="code">integer</td><td>A type that represents numbers with no fractional or decimal part.</td></tr>
+        <tr><td class="code">floating-point</td><td>A type that represents integers and numbers with decimal parts.</td></tr>
+        <tr><td class="code">integer division</td><td>An operator, `//`, that divides two numbers and rounds down to an integer.</td></tr>
+        <tr><td class="code">expression</td><td>A combination of variables, values, and operators.</td></tr>
+        <tr><td class="code">value</td><td>An integer, floating-point number, or string — or one of other kinds of values we will see later.</td></tr>
+        <tr><td class="code">function</td><td>A named sequence of statements that performs some useful operation. Functions may or may not take arguments and may or may not produce a result.</td></tr>
+        <tr><td class="code">function call</td><td>An expression — or part of an expression — that runs a function. It consists of the function name followed by an argument list in parentheses.</td></tr>
+        <tr><td class="code">syntax error</td><td>An error in a program that makes it impossible to parse — and therefore impossible to run.</td></tr>
+        <tr><td class="code">string</td><td>A type that represents sequences of characters.</td></tr>
+        <tr><td class="code">concatenation</td><td>Joining two strings end-to-end.</td></tr>
+        <tr><td class="code">type</td><td>A category of values. The types we have seen so far are integers (type `int`), floating-point numbers (type ` float`), and strings (type `str`).</td></tr>
+        <tr><td class="code">operand</td><td>One of the values on which an operator operates.</td></tr>
+        <tr><td class="code">natural language</td><td>Any of the languages that people speak that evolved naturally.</td></tr>
+        <tr><td class="code">formal language</td><td>Any of the languages that people have designed for specific purposes, such as representing mathematical ideas or computer programs. All programming languages are formal languages.</td></tr>
+        <tr><td class="code">bug</td><td>An error in a program.</td></tr>
+        <tr><td class="code">debugging</td><td>The process of finding and correcting errors.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch02">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap02.html">Chapter 2</a> &mdash; Variables and Statements</h2>
+    <span class="name">15 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">variable</td><td>A name that refers to a value.</td></tr>
+        <tr><td class="code">assignment statement</td><td>A statement that assigns a value to a variable.</td></tr>
+        <tr><td class="code">state diagram</td><td>A graphical representation of a set of variables and the values they refer to.</td></tr>
+        <tr><td class="code">keyword</td><td>A special word used to specify the structure of a program.</td></tr>
+        <tr><td class="code">import statement</td><td>A statement that reads a module file so we can use the variables and functions it contains.</td></tr>
+        <tr><td class="code">module</td><td>A file that contains Python code, including function definitions and sometimes other statements.</td></tr>
+        <tr><td class="code">dot operator</td><td>The operator, `.`, used to access a function in another module by specifying the module name followed by a dot and the function name.</td></tr>
+        <tr><td class="code">evaluate</td><td>Perform the operations in an expression in order to compute a value.</td></tr>
+        <tr><td class="code">statement</td><td>One or more lines of code that represent a command or action.</td></tr>
+        <tr><td class="code">execute</td><td>Run a statement and do what it says.</td></tr>
+        <tr><td class="code">argument</td><td>A value provided to a function when the function is called.</td></tr>
+        <tr><td class="code">comment</td><td>Text included in a program that provides information about the program but has no effect on its execution.</td></tr>
+        <tr><td class="code">runtime error</td><td>An error that causes a program to display an error message and exit.</td></tr>
+        <tr><td class="code">exception</td><td>An error that is detected while the program is running.</td></tr>
+        <tr><td class="code">semantic error</td><td>An error that causes a program to do the wrong thing, but not to display an error message.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch03">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap03.html">Chapter 3</a> &mdash; Functions</h2>
+    <span class="name">10 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">function definition</td><td>A statement that creates a function.</td></tr>
+        <tr><td class="code">header</td><td>The first line of a function definition.</td></tr>
+        <tr><td class="code">body</td><td>The sequence of statements inside a function definition.</td></tr>
+        <tr><td class="code">function object</td><td>A value created by a function definition. The name of the function is a variable that refers to a function object.</td></tr>
+        <tr><td class="code">parameter</td><td>A name used inside a function to refer to the value passed as an argument.</td></tr>
+        <tr><td class="code">loop</td><td>A statement that runs one or more statements, often repeatedly.</td></tr>
+        <tr><td class="code">local variable</td><td>A variable defined inside a function, and which can only be accessed inside the function.</td></tr>
+        <tr><td class="code">stack diagram</td><td>A graphical representation of a stack of functions, their variables, and the values they refer to.</td></tr>
+        <tr><td class="code">frame</td><td>A box in a stack diagram that represents a function call. It contains the local variables and parameters of the function.</td></tr>
+        <tr><td class="code">traceback</td><td>A list of the functions that are executing, printed when an exception occurs.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch04">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap04.html">Chapter 4</a> &mdash; Functions and Interfaces</h2>
+    <span class="name">11 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">interface design</td><td>A process for designing the interface of a function, which includes the parameters it should take.</td></tr>
+        <tr><td class="code">canvas</td><td>A window used to display graphical elements including lines, circles, rectangles, and other shapes.</td></tr>
+        <tr><td class="code">encapsulation</td><td>The process of transforming a sequence of statements into a function definition.</td></tr>
+        <tr><td class="code">generalization</td><td>The process of replacing something unnecessarily specific (like a number) with something appropriately general (like a variable or parameter).</td></tr>
+        <tr><td class="code">keyword argument</td><td>An argument that includes the name of the parameter.</td></tr>
+        <tr><td class="code">refactoring</td><td>The process of modifying a working program to improve function interfaces and other qualities of the code.</td></tr>
+        <tr><td class="code">development plan</td><td>A process for writing programs.</td></tr>
+        <tr><td class="code">docstring</td><td>A string that appears at the top of a function definition to document the function's interface.</td></tr>
+        <tr><td class="code">multiline string</td><td>A string enclosed in triple quotes that can span more than one line of a program.</td></tr>
+        <tr><td class="code">precondition</td><td>A requirement that should be satisfied by the caller before a function starts.</td></tr>
+        <tr><td class="code">postcondition</td><td>A requirement that should be satisfied by the function before it ends.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch05">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap05.html">Chapter 5</a> &mdash; Conditionals and Recursion</h2>
+    <span class="name">15 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">recursion</td><td>The process of calling the function that is currently executing.</td></tr>
+        <tr><td class="code">modulus operator</td><td>An operator, `%`, that works on integers and returns the remainder when one number is divided by another.</td></tr>
+        <tr><td class="code">boolean expression</td><td>An expression whose value is either `True` or `False`.</td></tr>
+        <tr><td class="code">relational operator</td><td>One of the operators that compares its operands: `==`, `!=`, `&gt;`, `&lt;`, `&gt;=`, and `&lt;=`.</td></tr>
+        <tr><td class="code">logical operator</td><td>One of the operators that combines boolean expressions, including `and`, `or`, and `not`.</td></tr>
+        <tr><td class="code">conditional statement</td><td>A statement that controls the flow of execution depending on some condition.</td></tr>
+        <tr><td class="code">condition</td><td>The boolean expression in a conditional statement that determines which branch runs.</td></tr>
+        <tr><td class="code">block</td><td>One or more statements indented to indicate they are part of another statement.</td></tr>
+        <tr><td class="code">branch</td><td>One of the alternative sequences of statements in a conditional statement.</td></tr>
+        <tr><td class="code">chained conditional</td><td>A conditional statement with a series of alternative branches.</td></tr>
+        <tr><td class="code">nested conditional</td><td>A conditional statement that appears in one of the branches of another conditional statement.</td></tr>
+        <tr><td class="code">recursive</td><td>A function that calls itself is recursive.</td></tr>
+        <tr><td class="code">base case</td><td>A conditional branch in a recursive function that does not make a recursive call.</td></tr>
+        <tr><td class="code">infinite recursion</td><td>A recursion that doesn't have a base case, or never reaches it. Eventually, an infinite recursion causes a runtime error.</td></tr>
+        <tr><td class="code">newline</td><td>A character that creates a line break between two parts of a string.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch06">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap06.html">Chapter 6</a> &mdash; Return Values</h2>
+    <span class="name">7 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">return value</td><td>The result of a function. If a function call is used as an expression, the return value is the value of the expression.</td></tr>
+        <tr><td class="code">pure function</td><td>A function that does not display anything or have any other effect, other than returning a return value.</td></tr>
+        <tr><td class="code">dead code</td><td>Part of a program that can never run, often because it appears after a `return` statement.</td></tr>
+        <tr><td class="code">incremental development</td><td>A program development plan intended to avoid debugging by adding and testing only a small amount of code at a time.</td></tr>
+        <tr><td class="code">scaffolding</td><td>Code that is used during program development but is not part of the final version.</td></tr>
+        <tr><td class="code">Turing complete</td><td>A language, or subset of a language, is Turing complete if it can perform any computation that can be described by an algorithm.</td></tr>
+        <tr><td class="code">input validation</td><td>Checking the parameters of a function to make sure they have the correct types and values</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch07">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap07.html">Chapter 7</a> &mdash; Iteration and Search</h2>
+    <span class="name">11 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">loop variable</td><td>A variable defined in the header of a `for` loop.</td></tr>
+        <tr><td class="code">file object</td><td>An object that represents an open file and keeps track of which parts of the file have been read or written.</td></tr>
+        <tr><td class="code">method</td><td>A function that is associated with an object and called using the dot operator.</td></tr>
+        <tr><td class="code">update</td><td>An assignment statement that give a new value to a variable that already exists, rather than creating a new variables.</td></tr>
+        <tr><td class="code">initialize</td><td>Create a new variable and give it a value.</td></tr>
+        <tr><td class="code">increment</td><td>Increase the value of a variable.</td></tr>
+        <tr><td class="code">decrement</td><td>Decrease the value of a variable.</td></tr>
+        <tr><td class="code">counter</td><td>A variable used to count something, usually initialized to zero and then incremented.</td></tr>
+        <tr><td class="code">linear search</td><td>A computational pattern that searches through a sequence of elements and stops when it finds what it is looking for.</td></tr>
+        <tr><td class="code">pass</td><td>If a test runs and the result is as expected, the test passes.</td></tr>
+        <tr><td class="code">fail</td><td>If a test runs and the result is not as expected, the test fails.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch08">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap08.html">Chapter 8</a> &mdash; Strings and Regular Expressions</h2>
+    <span class="name">12 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">sequence</td><td>An ordered collection of values where each value is identified by an integer index.</td></tr>
+        <tr><td class="code">character</td><td>An element of a string, including letters, numbers, and symbols.</td></tr>
+        <tr><td class="code">index</td><td>An integer value used to select an item in a sequence, such as a character in a string. In Python indices start from `0`.</td></tr>
+        <tr><td class="code">slice</td><td>A part of a string specified by a range of indices.</td></tr>
+        <tr><td class="code">empty string</td><td>A string that contains no characters and has length `0`.</td></tr>
+        <tr><td class="code">object</td><td>Something a variable can refer to. An object has a type and a value.</td></tr>
+        <tr><td class="code">immutable</td><td>If the elements of an object cannot be changed, the object is immutable.</td></tr>
+        <tr><td class="code">invocation</td><td>An expression — or part of an expression — that calls a method.</td></tr>
+        <tr><td class="code">regular expression</td><td>A sequence of characters that defines a search pattern.</td></tr>
+        <tr><td class="code">pattern</td><td>A rule that specifies the requirements a string has to meet to constitute a match.</td></tr>
+        <tr><td class="code">string substitution</td><td>Replacement of a string, or part of a string, with another string.</td></tr>
+        <tr><td class="code">shell command</td><td>A statement in a shell language, which is a language used to interact with an operating system.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch09">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap09.html">Chapter 9</a> &mdash; Lists</h2>
+    <span class="name">9 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">list</td><td>An object that contains a sequence of values.</td></tr>
+        <tr><td class="code">element</td><td>One of the values in a list or other sequence.</td></tr>
+        <tr><td class="code">nested list</td><td>A list that is an element of another list.</td></tr>
+        <tr><td class="code">delimiter</td><td>A character or string used to indicate where a string should be split.</td></tr>
+        <tr><td class="code">equivalent</td><td>Having the same value.</td></tr>
+        <tr><td class="code">identical</td><td>Being the same object (which implies equivalence).</td></tr>
+        <tr><td class="code">reference</td><td>The association between a variable and its value.</td></tr>
+        <tr><td class="code">aliased</td><td>If there is more than one variable that refers to an object, the object is aliased.</td></tr>
+        <tr><td class="code">attribute</td><td>One of the named values associated with an object.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch10">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap10.html">Chapter 10</a> &mdash; Dictionaries</h2>
+    <span class="name">12 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">dictionary</td><td>An object that contains key-value pairs, also called items.</td></tr>
+        <tr><td class="code">item</td><td>In a dictionary, another name for a key-value pair.</td></tr>
+        <tr><td class="code">key</td><td>An object that appears in a dictionary as the first part of a key-value pair.</td></tr>
+        <tr><td class="code">value</td><td>An object that appears in a dictionary as the second part of a key-value pair. This is more specific than our previous use of the word "value".</td></tr>
+        <tr><td class="code">mapping</td><td>A relationship in which each element of one set corresponds to an element of another set.</td></tr>
+        <tr><td class="code">hash table</td><td>A collection of key-value pairs organized so that we can look up a key and find its value efficiently.</td></tr>
+        <tr><td class="code">hashable</td><td>Immutable types like integers, floats and strings are hashable. Mutable types like lists and dictionaries are not.</td></tr>
+        <tr><td class="code">hash function</td><td>A function that takes an object and computes an integer that is used to locate a key in a hash table.</td></tr>
+        <tr><td class="code">accumulator</td><td>A variable used in a loop to add up or accumulate a result.</td></tr>
+        <tr><td class="code">filtering</td><td>Looping through a sequence and selecting or omitting elements.</td></tr>
+        <tr><td class="code">call graph</td><td>A diagram that shows every frame created during the execution of a program, with an arrow from each caller to each callee.</td></tr>
+        <tr><td class="code">memo</td><td>A computed value stored to avoid unnecessary future computation.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch11">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap11.html">Chapter 11</a> &mdash; Tuples</h2>
+    <span class="name">6 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">pack</td><td>Collect multiple arguments into a tuple.</td></tr>
+        <tr><td class="code">unpack</td><td>Treat a tuple (or other sequence) as multiple arguments.</td></tr>
+        <tr><td class="code">zip object</td><td>The result of calling the built-in function `zip`, can be used to loop through a sequence of tuples.</td></tr>
+        <tr><td class="code">enumerate object</td><td>The result of calling the built-in function `enumerate`, can be used to loop through a sequence of tuples.</td></tr>
+        <tr><td class="code">sort key</td><td>A value, or function that computes a value, used to sort the elements of a collection.</td></tr>
+        <tr><td class="code">data structure</td><td>A collection of values, organized to perform certain operations efficiently.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch12">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap12.html">Chapter 12</a> &mdash; Text Analysis and Generation</h2>
+    <span class="name">8 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">default value</td><td>The value assigned to a parameter if no argument is provided.</td></tr>
+        <tr><td class="code">override</td><td>To replace a default value with an argument.</td></tr>
+        <tr><td class="code">deterministic</td><td>A deterministic program does the same thing each time it runs, given the same inputs.</td></tr>
+        <tr><td class="code">pseudorandom</td><td>A pseudorandom sequence of numbers appears to be random, but is generated by a deterministic program.</td></tr>
+        <tr><td class="code">bigram</td><td>A sequence of two elements, often words.</td></tr>
+        <tr><td class="code">trigram</td><td>A sequence of three elements.</td></tr>
+        <tr><td class="code">n-gram</td><td>A sequence of an unspecified number of elements.</td></tr>
+        <tr><td class="code">rubber duck debugging</td><td>A way of debugging by explaining a problem aloud to an inanimate object.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch13">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap13.html">Chapter 13</a> &mdash; Files and Databases</h2>
+    <span class="name">16 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">ephemeral</td><td>An ephemeral program typically runs for a short time and, when it ends, its data are lost.</td></tr>
+        <tr><td class="code">persistent</td><td>A persistent program runs indefinitely and keeps at least some of its data in permanent storage.</td></tr>
+        <tr><td class="code">directory</td><td>A collection of files and other directories.</td></tr>
+        <tr><td class="code">current working directory</td><td>The default directory used by a program unless another directory is specified.</td></tr>
+        <tr><td class="code">path</td><td>A string that specifies a sequence of directories, often leading to a file.</td></tr>
+        <tr><td class="code">relative path</td><td>A path that starts from the current working directory, or some other specified directory.</td></tr>
+        <tr><td class="code">absolute path</td><td>A path that does not depend on the current directory.</td></tr>
+        <tr><td class="code">f-string</td><td>A string that has the letter `f` before the opening quotation mark, and contains one or more expressions in curly braces.</td></tr>
+        <tr><td class="code">configuration data</td><td>Data, often stored in a file, that specifies what a program should do and how.</td></tr>
+        <tr><td class="code">serialization</td><td>Converting an object to a string.</td></tr>
+        <tr><td class="code">deserialization</td><td>Converting a string to an object.</td></tr>
+        <tr><td class="code">database</td><td>A file whose contents are organized to perform certain operations efficiently.</td></tr>
+        <tr><td class="code">key-value stores</td><td>A database whose contents are organized like a dictionary with keys that correspond to values.</td></tr>
+        <tr><td class="code">binary mode</td><td>A way of opening a file so the contents are interpreted as sequence of bytes rather than a sequence of characters.</td></tr>
+        <tr><td class="code">hash function</td><td>A function that takes and object and computes an integer, which is sometimes called a digest.</td></tr>
+        <tr><td class="code">digest</td><td>The result of a hash function, especially when it is used to check whether two objects are the same.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch14">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap14.html">Chapter 14</a> &mdash; Classes and Functions</h2>
+    <span class="name">12 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">object-oriented programming</td><td>A style of programming that uses objects to organize code and data.</td></tr>
+        <tr><td class="code">class</td><td>A programmer-defined type. A class definition creates a new class object.</td></tr>
+        <tr><td class="code">class object</td><td>An object that represents a class — it is the result of a class definition.</td></tr>
+        <tr><td class="code">instantiation</td><td>The process of creating an object that belongs to a class.</td></tr>
+        <tr><td class="code">instance</td><td>An object that belongs to a class.</td></tr>
+        <tr><td class="code">attribute</td><td>A variable associated with an object, also called an instance variable.</td></tr>
+        <tr><td class="code">object diagram</td><td>A graphical representation of an object, its attributes, and their values.</td></tr>
+        <tr><td class="code">format specifier</td><td>In an f-string, a format specifier determines how a value is converted to a string.</td></tr>
+        <tr><td class="code">pure function</td><td>A function that does not modify its parameters or have any effect other than returning a value.</td></tr>
+        <tr><td class="code">functional programming style</td><td>A way of programming that uses pure functions whenever possible.</td></tr>
+        <tr><td class="code">prototype and patch</td><td>A way of developing programs by starting with a rough draft and gradually adding features and fixing bugs.</td></tr>
+        <tr><td class="code">design-first development</td><td>A way of developing programs with more careful planning that prototype and patch.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch15">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap15.html">Chapter 15</a> &mdash; Classes and Methods</h2>
+    <span class="name">8 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">object-oriented language</td><td>A language that provides features to support object-oriented programming, notably user-defined types.</td></tr>
+        <tr><td class="code">method</td><td>A function that is defined inside a class definition and is invoked on instances of that class.</td></tr>
+        <tr><td class="code">receiver</td><td>The object a method is invoked on.</td></tr>
+        <tr><td class="code">static method</td><td>A method that can be invoked without an object as receiver.</td></tr>
+        <tr><td class="code">instance method</td><td>A method that must be invoked with an object as receiver.</td></tr>
+        <tr><td class="code">special method</td><td>A method that changes the way operators and some functions work with an object.</td></tr>
+        <tr><td class="code">operator overloading</td><td>The process of using special methods to change the way operators with with user-defined types.</td></tr>
+        <tr><td class="code">invariant</td><td>A condition that should always be true during the execution of a program.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch16">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap16.html">Chapter 16</a> &mdash; Classes and Objects</h2>
+    <span class="name">3 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">shallow copy</td><td>A copy operation that does not copy nested objects.</td></tr>
+        <tr><td class="code">deep copy</td><td>A copy operation that also copies nested objects.</td></tr>
+        <tr><td class="code">polymorphism</td><td>The ability of a method or operator to work with multiple types of objects.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch17">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap17.html">Chapter 17</a> &mdash; Inheritance</h2>
+    <span class="name">8 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">inheritance</td><td>The ability to define a new class that is a modified version of a previously defined class.</td></tr>
+        <tr><td class="code">encode</td><td>To represent one set of values using another set of values by constructing a mapping between them.</td></tr>
+        <tr><td class="code">class variable</td><td>A variable defined inside a class definition, but not inside any method.</td></tr>
+        <tr><td class="code">totally ordered</td><td>A set of objects is totally ordered if we can compare any two elements and the results are consistent.</td></tr>
+        <tr><td class="code">delegation</td><td>When one method passes responsibility to another method to do most or all of the work.</td></tr>
+        <tr><td class="code">parent class</td><td>A class that is inherited from.</td></tr>
+        <tr><td class="code">child class</td><td>A class that inherits from another class.</td></tr>
+        <tr><td class="code">specialization</td><td>A way of using inheritance to create a new class that is a specialized version of an existing class.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch18">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap18.html">Chapter 18</a> &mdash; Python Extras</h2>
+    <span class="name">5 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">factory</td><td>A function used to create objects, often passed as a parameter to a function.</td></tr>
+        <tr><td class="code">conditional expression</td><td>An expression that uses a conditional to select one of two values.</td></tr>
+        <tr><td class="code">list comprehension</td><td>A concise way to loop through a sequence and create a list.</td></tr>
+        <tr><td class="code">generator expression</td><td>Similar to a list comprehension except that it does not create a list.</td></tr>
+        <tr><td class="code">test discovery</td><td>A process used to find and run tests.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+
+<footer>
+  Full definitions and provenance in the repo-local twin of this page. Cross-links: the
+  <code>alignment/glossary-map.md</code> (concept-level crosswalk, Pass 3, repo-only),
+  the <a href="https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html">AP CSP Coverage Map</a>
+  (topic-level), and the <a href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a>.
+</footer>
+
+
+</div>

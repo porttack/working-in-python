@@ -16,6 +16,30 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Vocabulary by chapter, and AP CSP vocabulary coverage (word-level)
+
+### Added
+- `alignment/vocabulary-by-chapter.md` + hosted `vocabulary-by-chapter.html`: every term
+  from Downey's own chapter-ending `## Glossary` sections, chapters 1-18 (185 terms), by
+  chapter. Chapter 19 has no glossary section.
+- `alignment/ap-vocabulary-coverage.md` + hosted `ap-vocabulary-coverage.html`: a
+  *compiled* (not extracted — no official AP CSP glossary exists) 140-term AP CSP
+  vocabulary list, sourced from the official Exam Reference Sheet's keyword names plus
+  term names only (not prose) from two third-party study lists, with original glosses.
+  Each term tagged `book` / `planned` / `else` (*Little Brother*) / `gap` against this
+  book's own vocabulary, with the matching term and chapter cited where one exists. The
+  hosted twin includes a symbolic (explicitly non-area-proportional) two-circle Venn
+  diagram of the two vocabularies, as inline SVG.
+- Both new pages added to `jb/_toc.yml`'s Reference section; one-line pointers added to
+  `apcsp-standards-reference.html` and `ap-practices-bigideas-coverage.html`, and a
+  paragraph added to `glossary-map.md` framing the new pages as its word-level companion.
+
+### Fixed
+- Confirmed, not assumed: `.insert()` never appears in any chapter's code (a real,
+  previously-unlogged vocabulary gap against AP's INSERT), and `turtle` first appears in
+  chapter 4 — corroborating (not yet fixing) the `section_turtle_module` broken
+  cross-reference logged earlier in `AUDIT.md`.
+
 ## 2026-08-09 — JupyterLite lab view: front page as a notebook, student-legible filenames
 
 ### Added
