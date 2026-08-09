@@ -250,6 +250,9 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="todo.html">What’s Next</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
 </ul>
 
     </div>
@@ -428,6 +431,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.9.7. Exercise</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">7.10. Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -1263,8 +1267,19 @@ If you have a working version of <code class="docutils literal notranslate"><spa
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>
 <p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+<!-- apcsp:begin type="standards" chapter="07" -->
 </section>
 </section>
+<hr class="docutils" />
+<section id="standards-alignment">
+<h2><span class="section-number">7.10. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.8">3.8 Iteration</a> (the <code class="docutils literal notranslate"><span class="pre">for</span></code>-loop / definite-iteration half only) and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.9">3.9 Developing Algorithms</a> (Big Idea 3, 30–35% of the exam). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
+<strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.12">9-12.AP.12</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.20">9-12.AP.20</a>
+<strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-12">HS-PRO-PD-12</a>, <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-RD-17">HS-PRO-RD-17</a>. Also <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-ALG-PS-02">HS-ALG-PS-02</a> and <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-13">HS-PRO-PD-13</a>, headers only.
+<strong>CA CTE (ICT):</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C4.9">C4.9</a> (Pathway C), <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C5.4">C5.4</a>, and <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-5.12">5.12</a> (Anchor Standards). Also <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C4.10">C4.10</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C5.6">C5.6</a>, and <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-5.7">5.7</a>, headers only.</p>
+<p>Chapter 7 builds a linear search — <code class="docutils literal notranslate"><span class="pre">has_e</span></code>, then the more general <code class="docutils literal notranslate"><span class="pre">uses_any</span></code> — out of a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and the <code class="docutils literal notranslate"><span class="pre">in</span></code> operator, and tests it with doctest instead of print statements. That’s 3.9’s incremental-algorithm pattern and California’s AP.12/AP.20 directly, and CSTA’s function-reuse and code-tracing standards in different words. The chapter’s strongest cross-framework match is boolean logic itself: <code class="docutils literal notranslate"><span class="pre">in</span></code>-based tests driving search is exactly what CTE’s Anchor 5.12 names, and doctest is CTE’s testing-as-its-own-step standard in practice.</p>
+<p><strong>Indexing:</strong> the exam’s pseudocode has no <code class="docutils literal notranslate"><span class="pre">in</span></code>-style containment check. It spells out the same search as an explicit <code class="docutils literal notranslate"><span class="pre">FOR</span> <span class="pre">EACH</span></code> loop with an <code class="docutils literal notranslate"><span class="pre">IF</span></code>.</p>
+<!-- apcsp:end --></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1351,6 +1366,7 @@ If you have a working version of <code class="docutils literal notranslate"><spa
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.9.7. Exercise</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">7.10. Standards alignment</a></li>
 </ul>
   </nav></div>
 
