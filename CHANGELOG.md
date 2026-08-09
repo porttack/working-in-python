@@ -16,6 +16,48 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Chapter chrome becomes its own pass (Pass 4)
+
+### Added
+- `mods/pass-4-chrome.md`: the link bar / embedded pane / exercises notebook / attribution
+  bundle chapters 1-2 have been carrying gets its own pass file, matching the format of
+  passes 1-3. Moved (not duplicated) from `HOW_TO_EDIT.md`'s "Adding a chapter's ways to open
+  this chapter link bar" and "Applying the chapter-1 chrome treatment" sections, updated to
+  include this session's `?readonly`/"Read Only" mechanism and the `NotebookEdit` formatting
+  hazard. `CLAUDE.md`'s pass table gets a fourth row; `HOW_TO_EDIT.md` keeps only the
+  underlying non-chapter-specific mechanics and points here for the per-chapter checklist.
+
+## 2026-08-09 — A real Read Only page for chapters 1-2, via a ?readonly flag on the same URL
+
+### Added
+- `chapters/chap01.ipynb`, `chap02.ipynb`, `jupyter_intro.ipynb`: the embedded-pane script now
+  checks `new URLSearchParams(location.search).has("readonly")` and, if present, hides both the
+  pane and its note entirely instead of doing anything else -- leaving just the chapter's plain
+  rendered content. The "Ignore this cell" note text is now wrapped in `<p id="...-note">` so the
+  script can target and hide it specifically. Same URL as the normal chapter page
+  (`chapNN.html`), just with `?readonly` appended -- no new Sphinx page, no new `_toc.yml` entry,
+  no duplicate notebook to keep in sync.
+
+### Changed
+- `chapters/chap01.ipynb`, `chap02.ipynb`: renamed the link bar's "Markdown" entry to "Read
+  Only" and pointed it at `https://python.porttack.com/chapNN.html?readonly` instead of the bare
+  page. Previously this link led to the exact same page the embedded live pane takes over --
+  functionally identical to the "JupyterLite" link, not a plain readable page at all, which is
+  why it never actually worked for printing or in-page search (browsers generally can't
+  search into cross-frame iframe content, and the pane covered the article either way).
+  `tools/build_jupyterlite_content.py`'s three matching `CELL_PATCHES` keys (chap01, chap02,
+  jupyter_intro) updated to the new cell text; verified programmatically that all three patches
+  still fire.
+
+### Verified
+- The new script logic in isolation, three branches, via Node with a stubbed `document`/
+  `location` (no headless browser available in this session): `?readonly` hides both pane and
+  note and never touches `position`; normal mode with a sidebar present goes fixed and positions
+  correctly; normal mode without a sidebar (Colab) leaves the pane completely untouched, same as
+  before this change. `make check` clean. Not yet verified against a real published page --
+  `jb/build.sh --local` correctly refuses to run against an uncommitted `chapters/` tree, so the
+  actual rendered `?readonly` page hasn't been eyeballed in a real browser yet.
+
 ## 2026-08-09 — Revert cowsay auto-install; fix the "Try it here" pane text everywhere it isn't the live pane
 
 ### Changed

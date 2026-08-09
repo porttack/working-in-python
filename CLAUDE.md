@@ -5,7 +5,7 @@ homework text for a high school AP Computer Science Principles course in Califor
 
 ## Read this first
 
-Work happens in three passes. **Read only the pass file for the pass you are running.**
+Work happens in four passes. **Read only the pass file for the pass you are running.**
 Do not read the other pass files; they will fill your context with work that isn't yours.
 
 | Pass | File | Mode | Status |
@@ -13,6 +13,7 @@ Do not read the other pass files; they will fill your context with work that isn
 | 1. Survey and scaffold | `docs/pass-1-survey.md` (actually at `mods/pass-1-survey.md` — see `AUDIT.md` handoff) | read-only + tooling | done, see `AUDIT.md` handoff |
 | 2. Chapter surgery | `mods/pass-2-surgery.md` | destructive edits + authoring | in progress — ch. 1–8 done (the whole "chapters 3–8" batch, across three sessions); ch. 9–19 pending. All four book-wide kind-A replacement exercises are now written. Pacing question still open. See `AUDIT.md` |
 | 3. Standards alignment | `docs/pass-3-alignment.md` | analysis + additive back matter | in progress — Steps 1–3 done (both indexes, `standards/crosswalk.json`, all three `alignment/*.md` docs); Step 4 done for chapters 1–3 only (standards inserts + `tools/check_sync.py` fix). Chapters 4–19 and Step 5 not started. See `AUDIT.md` |
+| 4. Chapter chrome | `mods/pass-4-chrome.md` | destructive edits (front/back matter only — link bar, embedded pane, exercises notebook, attribution rule) | in progress — ch. 1–2 done, built up across several rounds of live testing against the deployed site; ch. 3–11 pending; ch. 12–19 out of scope (independent-study/post-exam tier gets none of this). See `AUDIT.md` |
 
 Keep the Status column current. Each pass ends by appending a handoff note to `AUDIT.md`
 so the next pass can start cold. If you weren't told which pass to run, read the last

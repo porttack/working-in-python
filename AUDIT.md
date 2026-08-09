@@ -3163,3 +3163,52 @@ entry; `jb/build.sh --local` was attempted and correctly refused (its own safety
 build with uncommitted changes in `chapters/`), so the actual rendered page hasn't been
 re-checked yet. Confirm the pane text renders correctly on the live site after the next
 publish, same as the checklist for follow-up 19's fixes.
+
+## 2026-08-09 follow-up 21 -- a real Read Only page for chapters 1-2
+
+User's framing: "did we create a non-jupyterlite version of our site... for the markdown link
+in chap01 and chap02. We never fixed this." Correct -- it was flagged two rounds ago
+(follow-up 19's response, "Markdown link -> JupyterLite instead of a print-friendly static
+page") and never actually fixed, only discussed. This round fixes it.
+
+**What was actually broken:** the link bar's "Markdown" entry pointed at `chapNN.html` -- the
+real Sphinx-rendered page -- which sounds right, except chapters 1 and 2 are exactly the two
+chapters whose embedded-pane script takes over that same page's content area (`position:
+fixed`, full right side, z-index 2000) the instant it loads. So `chapNN.html` was never a
+plain readable page for these two chapters specifically; it rendered identically to clicking
+the "JupyterLite" link, just via the book site's chrome. That's why print and in-page search
+never worked through it -- there was no plain-text page to print or search, only the live pane
+(and browsers generally can't search into cross-origin/same-origin iframe content anyway).
+
+**Fix chosen, and why not the alternatives:** a `?readonly` query flag on the *same* URL,
+checked by the pane's own script, rather than (a) a second Sphinx page/notebook pair to keep
+in sync forever, or (b) an orphan `_toc.yml` entry. `new URLSearchParams(location.search)
+.has("readonly")` in the script: if present, hide the pane and its note (`<p id="...-note">`,
+newly wrapped so the script has something to target) and return immediately, before any of the
+position-fixing logic runs. Zero new build machinery, zero new files, one URL. Applied to all
+three notebooks carrying this pane cell (chap01, chap02, jupyter_intro) for consistency, even
+though only chap01/chap02 have a link bar to point at it from -- same reasoning as fixing
+jupyter_intro's pane text alongside chap01/chap02's in follow-up 20.
+
+**Link bar relabeled** "Markdown" -> "Read Only", pointing at `chapNN.html?readonly`.
+`tools/build_jupyterlite_content.py`'s three `CELL_PATCHES` keys updated in lockstep (byte-for-
+byte match required) and reverified programmatically that all three still fire after the edit --
+this is exactly the failure mode `HOW_TO_EDIT.md` warns about, so it's checked every time now
+rather than assumed.
+
+**Verified, with a real constraint noted:** the three script branches (readonly / normal-with-
+sidebar / normal-without-sidebar, i.e. Colab) were exercised in Node with a stubbed `document`
+and `location` -- confirmed each does exactly what it should (hide-and-return / fixed-position-
+and-place-correctly / untouched passthrough). `make check` clean. **Not yet seen in an actual
+browser against the published site** -- no headless-browser tooling in this session's
+environment, and `jb/build.sh --local` correctly refuses to build against the currently
+uncommitted `chapters/` tree (its own safety guard, working as intended, not a bug to route
+around). First real check is owed after this gets committed and built.
+
+**Open, not addressed here:** whether "Read Only" should extend past chapters 1-2 once more
+chapters get the link-bar/embedded-pane treatment (mechanically trivial to repeat, per
+`HOW_TO_EDIT.md`'s recipe, once a chapter actually has a pane to guard). Also still open from
+earlier rounds: the possible all-markdown "print site" like upstream Think Python's own (raised
+as an alternative framing by the user this round, not decided either way), and the standing
+question of whether the theme's own built-in "Print to PDF" button is sufficient on its own or
+this `?readonly` page should be what people are pointed at for printing specifically.

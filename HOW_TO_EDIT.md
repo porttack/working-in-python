@@ -124,101 +124,13 @@ copy filenames matching `chapNN.ipynb` or the ones explicitly listed by name.
 A new notebook page needs an explicit `cp` line added in both places (this bit
 us once with `jupyter_intro.ipynb` — see `AUDIT.md`, 2026-08-08 follow-up 10).
 
-## Adding a chapter's "ways to open this chapter" link bar
+## Applying chapters 1-2's chrome treatment to another chapter
 
-Chapters 1 and 2 have a one-line link bar near the top — Exercises |
-JupyterLite | Colab | Markdown | Download | Codespace (notebook) | Codespace
-(VS Code) | Blank (JupyterLite) — inside a `type="note"` sentinel block,
-right after the chapter's opening cell.
-
-**It's a markdown cell in the notebook itself, not sidebar or theme chrome.**
-Two other shapes were tried first and abandoned — a `_toc.yml` `sections:`
-entry (doesn't reach the sidebar unless every child is a real page, not a
-`url:`) and a `custom.js`-injected sidebar disclosure (worked, but added a
-second line to every chapter's entry in the contents, which wasn't wanted).
-See `AUDIT.md`, 2026-08-08 follow-up 13, for both. Putting the bar in the
-notebook instead means one edit shows up identically everywhere that
-notebook is opened — Colab, JupyterLite, a Codespace, a raw download, and the
-rendered page — which is also why the "Markdown" link matters: it's the only
-one of these that gets a reader who arrived via any of the other five *back*
-to the rendered page.
-
-**To add another chapter:** copy the pattern from chapter 1 or 2's link-bar
-cell, updating the chapter number throughout. For the JupyterLite link, use
-the same `JUPYTERLITE_DEPLOY_PATH` placeholder those chapters' own embedded
-panes use (see `tools/build_jupyterlite_content.py`) — never a hand-written
-hash; it needs no new substitution wiring, since it's a plain notebook cell
-and `prep_notebooks.py`/`jupyterlite/content`'s existing substitution already
-covers every cell in the notebook, not just the ones that had it before.
-Only add the JupyterLite link for a chapter that's actually in `CHAPTERS` in
-`tools/build_jupyterlite_content.py` — for a chapter that's `keep`/independent
-study (14-19, per the treatment matrix in `CLAUDE.md`), drop that one entry.
-
-## Applying the chapter-1 chrome treatment to another chapter
-
-Chapters 1 and 2 both carry a bundle of site-chrome pieces that has nothing to
-do with chapter-surgery content (Pass 2 in `CLAUDE.md`/`AUDIT.md`) — it's
-purely about how the chapter is opened and how it's framed at top and bottom.
-This is the checklist to repeat for chapter 3 and onward, in order. See
-`AUDIT.md`, 2026-08-08 follow-up 18, for the chapter-2 pass this was written
-from.
-
-**Only for chapters that are Live/`strip` (1–11 per the treatment matrix in
-`CLAUDE.md`) and already listed in `CHAPTERS` in
-`tools/build_jupyterlite_content.py`.** Chapters 12+ are `keep`/independent
-study or post-exam and don't get the embedded pane or the JupyterLite link —
-confirm the chapter's row in `CHAPTER_MANIFEST.md` before starting.
-
-1. **Add the exercises notebook.** Create `chapters/chapNN-exercises.ipynb`:
-   copy `chap01-exercises.ipynb` exactly, changing only the `# Chapter N
-   exercises` heading and the two cell ids. Register it in `CHAPTERS` in
-   `tools/build_jupyterlite_content.py` with an empty dependency list (`[]`)
-   — it has no deps until it has real content.
-2. **Drop the retail-links cell**, if the chapter still has one — a leading
-   markdown cell offering Bookshop.org/Amazon print-edition links. Delete it
-   outright; nothing takes its place.
-3. **Insert the link bar** as the new first cell (see the section above for
-   its exact shape), pointing the Exercises link at the notebook from step 1
-   and the Blank link at `chapNN-projector.ipynb`.
-4. **Insert the embedded live pane** as the new second cell — copy chapter
-   1's or 2's pane cell verbatim, substituting the chapter number in the
-   sentinel's `chapter="NN"` attribute, the `id="chapNN-jupyterlite-pane"`
-   (both places it appears), and the iframe's `?path=chapNN.ipynb`. Nothing
-   else in that cell changes chapter to chapter.
-5. **Add a matching `CELL_PATCHES` entry** in
-   `tools/build_jupyterlite_content.py` for `"chapNN.ipynb"`, keyed on the
-   exact tuple of lines from step 4, so the copy that ships inside
-   JupyterLite swaps the live pane for a one-line placeholder note instead of
-   recursively embedding itself. If the key doesn't match byte-for-byte, this
-   silently does nothing — see the `NotebookEdit` warning below.
-6. **Fix the bottom attribution note** to open with a `---` rule before
-   "**Working in Python** — modified by...", the same as chapter 1's (added
-   there in `f5aa6c0`) — some earlier chapters were written before that fix
-   and are missing it.
-7. **Regenerate and check:** `make projector && make check`. This also
-   catches a missing/incorrect `CELL_PATCHES` entry (`jupyterlite --check`
-   scans for unhandled `!`-shell-magic, though the recursive-embed case
-   itself has no automated check yet — eyeball the built
-   `jupyterlite/content/chapNN.ipynb` for the placeholder note if in doubt).
-8. **Log it**: a `CHANGELOG.md` entry and an `AUDIT.md` follow-up, same shape
-   as the chapter-2 one this recipe came from.
-
-**Watch out for `NotebookEdit` on cells that need to be byte-identical to
-another chapter's cell** (steps 3–5 above). At least once, editing a cell's
-`source` through that tool has HTML-entity-escaped `<!--`/`-->` into
-`&lt;`/`&gt;`, and separately stored the edited cell with `source` as a
-single string and `metadata` moved after it rather than this repo's usual
-list-of-lines/metadata-before-source convention — which, if the whole
-notebook then gets rewritten by a naive `json.dump`, reorders *every* cell's
-keys the moment code cells (which key `source` after `outputs`) get mixed
-into the same blanket fix as markdown cells. Both are easy to miss because
-the tool's own echo of what it wrote looks correct. **Before trusting it**,
-run `git diff --stat` on the notebook — a handful of touched cells should
-produce a small diff; if it's hundreds of lines for a few intended changes,
-something reformatted the whole file. If that happens, `git checkout` the
-file and redo the edit as a plain Python `json.load`/mutate/`json.dump`
-(`indent=1, ensure_ascii=False`, cells as plain dicts in the correct key
-order) instead of through `NotebookEdit`.
+The link bar, the embedded live JupyterLite pane, the exercises notebook, and
+the closing attribution rule are their own pass — **`mods/pass-4-chrome.md`**
+— not covered here. That file has the per-chapter checklist and the current
+`NotebookEdit` gotcha; this file only covers the underlying mechanics they
+depend on (below) and the plumbing that isn't chapter-specific.
 
 ## Local preview gotchas
 
