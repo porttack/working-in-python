@@ -785,6 +785,26 @@ or `id`, so the link reaches the whole framework, not a specific row — noted i
   both Step 4 templates updated to match, so chapters 4-19 pick up the new convention.
   `projector/` regenerated; `make check` passes.
 
+## 2026-08-09 — Pass 4, chapters 7-8 chrome
+
+### Added
+- `chapters/chap07-exercises.ipynb`, `chap08-exercises.ipynb`: blank teacher-exercises
+  notebooks, same shape as chapters 1-6's. Registered in
+  `tools/build_jupyterlite_content.py`'s `CHAPTERS` with no deps.
+- Link bar and embedded live JupyterLite pane added to `chap07.ipynb` and `chap08.ipynb`
+  as their first two cells, matching the established pattern exactly. Matching
+  `CELL_PATCHES` entries added to `tools/build_jupyterlite_content.py`, each verified
+  programmatically to fire. Chapter 8's pane patch was merged into its existing
+  `CELL_PATCHES` entry (which already rewrote its `!head`/`!tail` shell-magic cells)
+  rather than added as a second top-level key, since a duplicate dict-literal key
+  would have silently dropped one entry or the other; confirmed both sets of patches
+  still fire on the live notebook.
+
+### Fixed
+- `chap07.ipynb`, `chap08.ipynb`: Bookshop/Amazon retail-links cell dropped from each,
+  and each bottom attribution note given the leading `---` rule (both were still
+  missing it, same universal pre-`f5aa6c0` gap as chapters 2-6).
+
 ## 2026-08-09 — Pass 4, chapters 4-6 chrome
 
 ### Added

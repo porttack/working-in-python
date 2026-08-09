@@ -3800,3 +3800,50 @@ to hold with zero deviations across five chapters now (1-2 were the original der
 for the missing-`---`-rule gap before assuming it's isolated to chapters 2-6 — it may be
 universal to every chapter written before `f5aa6c0`. Updated `CLAUDE.md`'s Pass 4 status row
 and `mods/pass-4-chrome.md`'s Order of work section to say chapters 1-6 done, 7-11 pending.
+
+## 2026-08-09 follow-up — chapters 7-8 get the same chrome treatment; chap08's CELL_PATCHES merge
+
+Applied the established chrome pattern to chapters 7 and 8, following `mods/pass-4-chrome.md`'s
+Steps 1-8. One real wrinkle this time, flagged in advance before touching anything:
+**`chap08.ipynb` already had a `CELL_PATCHES` entry** (the pre-existing `!head`/`!tail`
+shell-magic-to-pure-Python rewrites, unrelated to chrome, documented in this script's own
+module docstring). `CELL_PATCHES` is a Python dict literal; a second top-level
+`"chap08.ipynb": {...}` key would not error, would not merge -- it would just silently make
+whichever one comes later in the source win, dropping the other chapter's patches with no
+warning from `--check` or anything else. Resolved by inserting the new pane-cell tuple as an
+additional key inside chap08's *existing* sub-dict, not a new top-level entry. Verified both
+sets of patches fire together on the same `apply_cell_patches` call (pane note appears *and*
+the `!head`/`!tail` rewrites still fire) before moving on — this is the kind of thing that
+would otherwise ship broken with no local signal, since `make check` only validates against
+`CHAPTERS`, not against `CELL_PATCHES` having exactly one entry per file.
+
+**Done for each of chap07/chap08, otherwise identical to chapters 3-6's treatment:**
+- `chapters/chapNN-exercises.ipynb` added (blank, two-cell shape), registered in `CHAPTERS`
+  with no deps.
+- Bookshop/Amazon retail-links cell dropped; link bar and embedded live JupyterLite pane
+  inserted as the new first two cells (`cba07bar`/`cba07pane`, `cba08bar`/`cba08pane` ids).
+- Bottom attribution note given the leading `---` rule; both chapters were missing it,
+  confirming the suspicion from the chapters 4-6 handoff that this gap is universal to
+  every chapter written before `f5aa6c0`, not isolated to a few. Chapters 9-11 should be
+  assumed to have the same gap until checked, not assumed fixed.
+
+**Deliberately not touched:** each chapter's Standards alignment block (already correct,
+done in Pass 3 Step 4 for chapters 1-8 -- chapter 8 is the last chapter with that work
+done; chapters 9-11 don't have it yet, a Pass 3 concern, not this pass's).
+
+**Verified:** `make projector && make check` clean (29 source files up to date, `check_sync`
+clean, `jupyterlite --check` clean: 20 chapters, 20 projector variants — up from 18/18
+before this batch). `git diff --stat` on both touched chapter notebooks: same 74
+insertions / 4 deletions shape as every previous chapter in this pass. Headless-browser
+`?readonly` check not performed, same reason as every prior chapter this pass.
+
+**Handoff, for chapter 9 (and 10-11 whenever this is next picked up):** chapters 9-11 are
+still `decide` on VA removal per Pass 2's order of work (`CHAPTER_MANIFEST.md`), but per
+`mods/pass-4-chrome.md`'s own note, chrome is orthogonal to chapter-surgery content and can
+run before/after/interleaved with it -- confirm this is still true (no VA-removal work has
+landed on 9-11 yet that would conflict) before assuming it's safe to proceed the same way.
+Also: check `CELL_PATCHES` for an existing entry before writing a fresh top-level key for
+any future chapter, the way chap08 required here -- chapters 9-11 are not currently known
+to have pre-existing entries (only chap08's shell-magic fix does), but confirm rather than
+assume. Updated `CLAUDE.md`'s Pass 4 status row and `mods/pass-4-chrome.md`'s Order of work
+section to say chapters 1-8 done, 9-11 pending.

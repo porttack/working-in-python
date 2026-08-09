@@ -58,12 +58,16 @@ before starting one.
    testing against the real deployed site (see `AUDIT.md`, 2026-08-08 follow-ups 13, 16, 18,
    and 2026-08-09 follow-ups 19–21). Treat these two chapters' current state as the reference
    pattern, not any single commit in isolation.
-2. **Chapters 3–6** — done, 2026-08-09, matched the reference pattern with zero deviations
-   (chapter 3 first, then 4-6 as a batch once the recipe proved stable). See `AUDIT.md`'s
-   "chapter 3 gets the chapter-1/2 chrome treatment" and "chapters 4-6 get the same chrome
-   treatment" handoffs.
-3. **Chapters 7–11** — not started. Apply the pattern from chapters 1–6 exactly, one chapter
-   (or a small batch) at a time, with `make check` passing before moving to the next.
+2. **Chapters 3–8** — done, 2026-08-09, matched the reference pattern (chapter 3 first, then
+   4-6 as a batch, then 7-8). Chapter 8 needed one wrinkle: it already had a `CELL_PATCHES`
+   entry (its `!head`/`!tail` shell-magic fixes) that the new pane patch had to be merged
+   into rather than added as a second top-level key. See `AUDIT.md`'s "chapter 3 gets the
+   chapter-1/2 chrome treatment", "chapters 4-6 get the same chrome treatment", and
+   "chapters 7-8 get the same chrome treatment; chap08's CELL_PATCHES merge" handoffs.
+3. **Chapters 9–11** — not started. Apply the pattern from chapters 1–8 exactly, one chapter
+   (or a small batch) at a time, with `make check` passing before moving to the next. Check
+   each for a pre-existing `CELL_PATCHES` entry before writing a fresh top-level key, the
+   way chapter 8 required.
 4. **Chapters 12–19** — out of scope entirely. Confirm this hasn't drifted (a chapter moving
    tiers in `CHAPTER_MANIFEST.md` would change it) before skipping them.
 
