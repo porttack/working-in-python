@@ -16,6 +16,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Supplementary homework exercises for chapters 1-4
+
+### Added
+- `chapters/chap01-exercises.ipynb`, `chap02-exercises.ipynb`, `chap03-exercises.ipynb`,
+  `chap04-exercises.ipynb`: filled in with original homework exercise sets (previously
+  blank placeholders). Each has a name/timestamp identification cell and rename-before-
+  download submission instructions (`answersNN-<first name>.ipynb`, to avoid identical
+  filenames colliding when many students submit), plus invisible `<!-- teacher: ~N min
+  -->` time-estimate comments. Chapters 2-4 are fully independent homework with no
+  in-class walkthrough. Chapter 4's packet is that chapter's sole graded artifact --
+  `chap04.ipynb`'s own 5 native exercises (90 minutes) are practice only, not collected,
+  to avoid double-checking the same material in two files.
+- `chapters/chap01.ipynb`: two new exercises inside a `type="exercise"` sentinel -- a
+  fix-a-`TypeError` exercise and a markdown-answer exercise -- serving as the live
+  in-class demo for two response formats then reused directly in the homework packets.
+- `data/exercise-ledger.json`: 21 new entries for the above (2 in `chap01`, 5 each in
+  `chap01-exercises` through `chap03-exercises`, 4 in `chap04-exercises`).
+- `tools/build_jupyterlite_content.py`: registered `jupyturtle.py` as a
+  `chap04-exercises.ipynb` dependency, since its exercises now use turtle graphics and
+  the notebook has no shared runtime with `chap04.ipynb`.
+
 ## 2026-08-09 — Vocabulary by chapter, and AP CSP vocabulary coverage (word-level)
 
 ### Added

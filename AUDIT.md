@@ -4135,3 +4135,101 @@ two new pages render correctly in the actual sidebar (same caveat as the last `_
 edit, still outstanding). The CS50T Multimedia carrier extension for the Big Idea 2 encoding
 cluster is this session's inference, not a previously-agreed decision — worth the maintainer
 confirming or correcting it explicitly.
+
+## 2026-08-09 follow-up — supplementary homework exercises, chapters 1-4
+
+This isn't Pass 2/3/4/5 proper — it's new territory: original homework exercises for the
+teacher-authored `chapNN-exercises.ipynb` files (blank since Pass 4/5), which are distinct
+from Downey's own in-chapter exercises and are what students actually submit for grading.
+
+**Chapter 1.** Two mechanics get demoed live in `chap01.ipynb` itself before homework uses
+them: a fix-a-`TypeError` exercise and a markdown-answer exercise, both inside a
+`type="exercise"` sentinel (two new ledger entries, `ch01-ex05`/`ch01-ex06`, kind `native`,
+`action: added`, no `replacement_id` — these are not VA replacements, Pass 2's four-exercise
+cap doesn't apply to them). `chap01-exercises.ipynb` filled in with 5 homework exercises
+reusing both mechanics (order-of-operations, cookie-splitting, name banner, fix-a-TypeError
+with a different broken expression than the demo's, and a markdown-answer reflection),
+~30 min.
+
+**Chapter 2.** Fully independent homework, no in-class walkthrough — a deliberate shift the
+maintainer is testing starting here: students work the whole chapter alone, submit the
+exercises notebook, and get "verify they aren't stuck," not exercise-by-exercise grading.
+Five exercises, ~35 min: a trace-the-values exercise (first one in the book — deferred from
+chapter 1 since no variables/reassignment existed yet to trace), a three-part "Python as a
+calculator" exercise tied to the maintainer's concurrent Math 2 class (Pythagorean theorem,
+isosceles triangle height, ramp angle with sin/cos — legs chosen as scaled 3-4-5 triples so
+two of the three parts self-check with clean integers during independent work; the third
+deliberately doesn't, echoing the chapter's own floating-point-imprecision note), an
+arguments/TypeError predict-then-run, a bad-comment/good-comment exercise, and the reflection.
+
+**Chapter 3.** Same independent-work model. Five exercises, ~33 min, deliberately probing the
+two ideas none of Downey's own 4 native exercises touch: local scope (a `set_mood`/`feeling`
+exercise reproducing the chapter's own `cat` example with new names) and reading a traceback
+(a fresh three-function call chain with a typo, distinct from the chapter's own
+`cat_twice`/`print_twice` example). Also one function-composition exercise (`shout`/`greet`)
+and one light chapter-1/2 review folded into new content (a Pythagorean-theorem calculation
+wrapped in a print-based function) rather than a standalone drill, per the maintainer's "a
+little review, not too much" instruction. One correction made during authoring: the
+composition exercise originally used `.upper()`, a string method not yet taught this early
+(first string methods appear well after chapter 3) — caught and rewritten to use plain
+concatenation instead. Confirmed with the maintainer: chapters 3 and 4 both never introduce
+`return` (chapter 4 is genuinely about interface design and turtle graphics, not return
+values — that's chapter 6), so every new exercise through chapter 4 stays print/draw-based.
+
+**Chapter 4.** Different shape entirely, because Downey's own 5 native exercises already run
+90 minutes (the heaviest of any chapter 1-4 by a wide margin — also the densest by every
+other measure checked: word count, code-line count) and, per the maintainer, are practice
+only, never collected. Rather than add a second graded file on top of that load (the
+maintainer's objection: "I have to look at things twice"), `chap04-exercises.ipynb` **is**
+this chapter's sole graded artifact, and the calendar absorbs the load instead — the
+maintainer plans a longer (2-3 day) due date rather than a single-evening assignment. Kept
+deliberately light on exercise count (4, ~33 min) but each one required real design work:
+- an original "draw your initials" exercise (curved letters approximated with short turning
+  segments, echoing the chapter's own circle-as-polygon idea) instead of a `cross` exercise
+  that read too close to the chapter's own shape exercises;
+- a "pinwheel" exercise (overlapping rotated squares) that replaced an earlier "growing
+  spiral" draft after the maintainer preferred its visual payoff;
+- the interface-vs-implementation question (pure code-reading, the only one across chapters
+  1-4 with no writing, deliberate given how much writing the rest of the chapter demands);
+- the now-standard reflection, explicitly placed last per the maintainer's question about
+  keeping that pattern going.
+
+The maintainer also asked about a Mandelbrot-set or Game-of-Life exercise here. Neither is
+possible yet — both need conditionals (`if`/`else`, not taught until chapter 5), and Game of
+Life additionally needs a 2D grid (lists, chapter 9+). Flagged, not built:
+**Mandelbrot as ASCII art is a strong fit for chapter 6** (return values — the natural shape
+is an `escape_time(c)` function that returns a number), **Game of Life for chapter 9+** once
+lists exist. Not logged anywhere else yet; worth remembering when those chapters' exercises
+come up.
+
+**Technical note for `chap04-exercises.ipynb` specifically:** it's a separate notebook with
+no shared runtime with `chap04.ipynb`, so it needed its own `jupyturtle` bootstrap (`download`
++ `from jupyturtle import ...`) and its own copy of the chapter's `jump` helper function —
+neither carries over automatically. `tools/build_jupyterlite_content.py`'s `CHAPTERS` dict
+updated to list `jupyturtle.py` as this notebook's dependency (was `[]`); the exercises
+notebooks were being served via JupyterLite with no vendored deps at all until now, which
+happened to be fine for chapters 1-3 (pure stdlib) but would have silently required a live
+network fetch for chapter 4 without this fix.
+
+**Convention established across all four packets, worth keeping for chapters 5+:** a
+`## Before you start` cell with a name variable and a rename-before-download instruction
+(`answersNN-<first name>.ipynb`, e.g. `answers02-jordan.ipynb`) so many students' identically
+named downloads don't collide in Schoology; a name/timestamp code cell they re-run right
+before submitting; invisible `<!-- teacher: ~N min -->` comments per exercise (same HTML-
+comment mechanism as `<!--blank-only:-->`, but not that marker itself — time estimates
+aren't spoken prompts); and a closing submission-reminder cell restating the rename/download/
+upload steps. A markdown-answer reflection question, always last, has become a running
+pattern every chapter's packet now includes.
+
+**Ledger:** 92 → 113 entries this session (21 new) — `ch01-ex05`/`ch01-ex06` in `chap01`; 5
+each in `chap01-exercises` through `chap03-exercises`; 4 in `chap04-exercises`. All
+`kind: native`, `action: added`, `replacement_id: null` — none of this is a VA replacement,
+so Pass 2's "four total, across the whole book" cap for kind-A replacements is untouched.
+`make ledger` regenerated `CHANGELOG_DETAIL.md` cleanly after each chapter's additions.
+`make check` passes (blanks, sync, jupyterlite all clean).
+
+**Not done / open:** chapters 5+ have no exercises notebooks filled in yet. No decision made
+yet about whether the "fully independent, submit the packet, verify they aren't stuck"
+model (chapters 2-4) is what chapter 1 retroactively becomes too, or stays the live-demo
+model it was designed around. The Mandelbrot/Game-of-Life placement above is a suggestion,
+not a commitment — revisit when chapters 6 and 9 actually come up.

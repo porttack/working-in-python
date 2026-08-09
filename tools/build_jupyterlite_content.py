@@ -55,12 +55,21 @@ import argparse
 import copy
 import hashlib
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DEPLOY_PATH_PLACEHOLDER = "JUPYTERLITE_DEPLOY_PATH"
+# Matches the absolute link every chapter's chrome uses to reach another
+# JupyterLite notebook (Exercises / JupyterLite / Teach Copy), e.g.
+# "https://python.porttack.com/jupyterlite-<hash>/notebooks/index.html?path=X"
+# -- see relativize_sibling_links(). Anchored to the surrounding parens of a
+# markdown link target `(url)`, not just the URL text, so this can never touch
+# an HTML attribute value (e.g. a self-embedding iframe's src="...") even for
+# a future chapter that adds one without a matching CELL_PATCHES entry yet.
+SIBLING_LINK_RE = re.compile(r"\(https://\S*?/notebooks/index\.html\?path=([^)\s\"]+)\)")
 CHAPTERS = {
     "index.ipynb": [],
     "jupyter_intro.ipynb": ["thinkpython.py"],
@@ -77,11 +86,12 @@ CHAPTERS = {
     "chap11.ipynb": ["thinkpython.py", "diagram.py", "structshape.py", "words.txt", "pg345.txt"],
     # Teacher-authored exercises notebooks, separate from the chapters
     # themselves (not one of Downey's 19 chapters -- just needs the same
-    # JupyterLite treatment so its own link works). No deps: blank for now.
+    # JupyterLite treatment so its own link works). Deps listed per-notebook
+    # as its own exercises start using external modules; blank otherwise.
     "chap01-exercises.ipynb": [],
     "chap02-exercises.ipynb": [],
     "chap03-exercises.ipynb": [],
-    "chap04-exercises.ipynb": [],
+    "chap04-exercises.ipynb": ["jupyturtle.py"],
     "chap05-exercises.ipynb": [],
     "chap06-exercises.ipynb": [],
     "chap07-exercises.ipynb": [],
@@ -805,6 +815,38 @@ def substitute_deploy_path(cells, deploy_id):
     return substituted
 
 
+def relativize_sibling_links(cells):
+    """Every chapter's chrome links to its Exercises/JupyterLite/Teach Copy
+    notebook via the *notebooks* app's absolute ?path= URL -- correct on the JB
+    site and from Colab, where that's the only way to reach JupyterLite at all.
+    But once a chapter is already running *inside* JupyterLite (lab or
+    notebooks), that same absolute URL points at a different, self-contained
+    JupyterLite application, and JupyterLab's own markdown-link renderer forces
+    target="_blank" on it (confirmed by reading the built bundle's rendermime
+    handleUrls/isLocal: any href with a URL scheme is treated as external).
+    That's a full second application loading in a new browser tab, not a tab
+    inside the session the student is already in.
+
+    The notebook these links point at is always a flat sibling file in this
+    same jupyterlite/content/ directory, so once a notebook ships *inside*
+    JupyterLite, rewrite the link down to a bare relative filename -- no
+    scheme, so isLocal is true, so JupyterLab resolves and opens it as a tab
+    in the current session instead. See AUDIT.md, 2026-08-09."""
+    relativized = []
+    for cell in cells:
+        source = cell.get("source", [])
+        is_list = isinstance(source, list)
+        text = "".join(source) if is_list else source
+        new_text = SIBLING_LINK_RE.sub(lambda m: f"({m.group(1)})", text)
+        if new_text == text:
+            relativized.append(cell)
+            continue
+        cell = copy.deepcopy(cell)
+        cell["source"] = new_text.splitlines(keepends=True) if is_list else new_text
+        relativized.append(cell)
+    return relativized
+
+
 def bootstrap_cell(modules):
     return {
         "cell_type": "code",
@@ -903,6 +945,7 @@ def write_notebook_variant(src, notebook, deps, deploy_id, output_name):
     nb = json.loads(src.read_text())
     cells = apply_cell_patches(notebook, nb["cells"])
     cells = substitute_deploy_path(cells, deploy_id)
+    cells = relativize_sibling_links(cells)
     modules = preload_modules_for(deps)
     if modules:
         cells = [bootstrap_cell(modules)] + cells

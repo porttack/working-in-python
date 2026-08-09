@@ -9,7 +9,7 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap01
 
-5 exercise(s).
+7 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -17,7 +17,21 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch01-ex02 | Make deliberate syntax errors (plus sign, missing operator, parentheses) and observe messages | native | kept | — | 15 | 15 |
 | ch01-ex03 | Guess the type of several expressions before checking with type() | native | kept | — | 10 | 10 |
 | ch01-ex04 | Practice arithmetic word problems: seconds in a time, miles from km, calories burned | native | kept | — | 25 | 25 |
+| ch01-ex05 | Fix a TypeError two different ways, using str then int | native | added | — | None | 6 |
+| ch01-ex06 | Explain the difference between / and // in a markdown answer cell | native | added | — | None | 4 |
 | ch01-va01 | Ask a virtual assistant: bitwise operators, order of operations, round arguments, modulus | B | removed | — | 0 | 0 |
+
+## chap01-exercises
+
+5 exercise(s).
+
+| ID | Anchor | Kind | Action | Replacement | Min before | Min after |
+|---|---|---|---|---|---|---|
+| ch01ex-hw01 | Order-of-operations lab: Celsius-to-Fahrenheit conversion, predict then run | native | added | — | None | 6 |
+| ch01ex-hw02 | Splitting cookies: integer division and leftover without the modulus operator | native | added | — | None | 5 |
+| ch01ex-hw03 | Name banner using string concatenation and repetition, plus len() | native | added | — | None | 8 |
+| ch01ex-hw04 | Fix a TypeError two different ways, using str then int | native | added | — | None | 6 |
+| ch01ex-hw05 | Reflection: debugging something that wasn't code | native | added | — | None | 4 |
 
 ## chap02
 
@@ -28,6 +42,18 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch02-ex01 | Make deliberate errors with assignment order, chained assignment, and imports | native | kept | — | 15 | 15 |
 | ch02-ex02 | Practice using the interpreter as a calculator: sphere volume, trig identity, math.e | native | edited | — | 25 | 25 |
 | ch02-va01 | Ask a virtual assistant: keywords, int/float/str as names, built-in functions, math module | B | removed | — | 0 | 0 |
+
+## chap02-exercises
+
+5 exercise(s).
+
+| ID | Anchor | Kind | Action | Replacement | Min before | Min after |
+|---|---|---|---|---|---|---|
+| ch02ex-hw01 | Trace the values: predict variable state across sequential reassignment | native | added | — | None | 8 |
+| ch02ex-hw02 | Python as a calculator: Pythagorean theorem, isosceles triangle height, ramp angle with sin/cos | native | added | — | None | 12 |
+| ch02ex-hw03 | Arguments and TypeError: round() with one, two, and three arguments | native | added | — | None | 6 |
+| ch02ex-hw04 | Bad comment, good comment on a single assignment line | native | added | — | None | 5 |
+| ch02ex-hw05 | Reflection: which error type (syntax/runtime/semantic) is hardest to notice | native | added | — | None | 4 |
 
 ## chap03
 
@@ -41,6 +67,18 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch03-ex04 | Write a program that prints the '99 Bottles of Beer' song | native | kept | — | 25 | 25 |
 | ch03-va01 | Ask a virtual assistant: spaces vs tabs, writing/debugging functions with a VA | B | removed | — | 0 | 0 |
 
+## chap03-exercises
+
+5 exercise(s).
+
+| ID | Anchor | Kind | Action | Replacement | Min before | Min after |
+|---|---|---|---|---|---|---|
+| ch03ex-hw01 | Scope check: local variable disappears outside the function, reproducing the chapter's cat example | native | added | — | None | 7 |
+| ch03ex-hw02 | Read the traceback: identify the call chain and fix a typo three functions deep | native | added | — | None | 6 |
+| ch03ex-hw03 | Functions calling functions: shout and greet | native | added | — | None | 8 |
+| ch03ex-hw04 | Math + functions review: Pythagorean theorem wrapped in a print-based function | native | added | — | None | 8 |
+| ch03ex-hw05 | Reflection: functions calling functions vs. the for loop | native | added | — | None | 4 |
+
 ## chap04
 
 6 exercise(s).
@@ -53,6 +91,17 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch04-ex04 | Write functions to draw a pie made of triangular segments | native | kept | — | 20 | 20 |
 | ch04-ex05 | Write a function called petal and use it to draw a flower | native | kept | — | 25 | 25 |
 | ch04-va01 | Ask a virtual assistant: writing a spiral-drawing function with jupyturtle | B | removed | — | 0 | 0 |
+
+## chap04-exercises
+
+4 exercise(s).
+
+| ID | Anchor | Kind | Action | Replacement | Min before | Min after |
+|---|---|---|---|---|---|---|
+| ch04ex-hw01 | Draw your initials with the turtle, one function per letter | native | added | — | None | 13 |
+| ch04ex-hw02 | Pinwheel: overlapping rotated squares | native | added | — | None | 10 |
+| ch04ex-hw03 | Interface vs. implementation: the two versions of circle | native | added | — | None | 5 |
+| ch04ex-hw04 | Reflection: encapsulation, generalization, and refactoring -- which felt natural | native | added | — | None | 5 |
 
 ## chap05
 
@@ -227,8 +276,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 92
+Total exercises: 113
 
-By kind: A=4, B=8, native=80
+By kind: A=4, B=8, native=101
 
-By action: added=3, edited=6, kept=72, removed=11
+By action: added=24, edited=6, kept=72, removed=11
