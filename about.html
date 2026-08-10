@@ -63,12 +63,10 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'about';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="_static/custom.js?v=e17ba024"></script>
+    <script src="_static/custom.js?v=f6e6cac9"></script>
     <link rel="author" title="About these documents" href="#" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Welcome" href="chap01.html" />
-    <link rel="prev" title="Preface" href="chap00.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -170,6 +168,8 @@
       
       
       
+        
+      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -217,11 +217,10 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orientation.html">How This Course Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">About This Book</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="nav bd-sidenav">
@@ -249,7 +248,13 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="todo.html">What’s Next</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html">AP CSP Coverage Map</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
 </ul>
 
     </div>
@@ -413,7 +418,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-not-use-a-curriculum-that-already-exists">Why not use a curriculum that already exists?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-downeys-book-specifically">Why Downey’s book specifically</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-jupyter-notebooks">Why Jupyter notebooks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-no-ai-assistants-in-the-first-semester">Why no AI assistants in the first semester</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-no-ai-assistants">Why no AI assistants</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-was-changed">What was changed</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-book-does-not-cover">What this book does not cover</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-and-attribution">License and attribution</a></li>
@@ -480,8 +485,6 @@ than it sounds like it should. Learning to program means learning two languages:
 Python, and the language people use to talk about Python. Downey is deliberate
 about the second one. Students who have it can read an error message, read
 documentation, and ask a precise question. Students who do not are stuck.</p>
-<p>I emailed Downey to tell him I was doing this. The license did not require it.
-Telling an author that his work is being used is just what you do.</p>
 </section>
 <section id="why-jupyter-notebooks">
 <h2>Why Jupyter notebooks<a class="headerlink" href="#why-jupyter-notebooks" title="Link to this heading">#</a></h2>
@@ -489,8 +492,8 @@ Telling an author that his work is being used is just what you do.</p>
 the first week of school, and that week is expensive.</p>
 <p>Notebooks let a student open a chapter in a browser, run the examples, break
 them, and fix them, in the same document they are reading. The chapter is not
-a description of the code. It is the code. Every chapter here opens in Google
-Colab from a badge, with nothing to install.</p>
+a description of the code. It is the code. Every chapter here opens in JupyterLite
+with nothing to install.</p>
 <p>There is a real cost, which I want to state plainly rather than pretend away.
 Notebooks encourage running cells out of order and leaving state lying around,
 which is a genuinely bad habit, and they are not how professional Python is
@@ -498,27 +501,16 @@ written. We address that directly later in the year by moving to files and a
 terminal. The first semester’s priority is removing every obstacle between a
 student and a running program.</p>
 </section>
-<section id="why-no-ai-assistants-in-the-first-semester">
-<h2>Why no AI assistants in the first semester<a class="headerlink" href="#why-no-ai-assistants-in-the-first-semester" title="Link to this heading">#</a></h2>
-<p>This is the most distinctive rule in the course and the one I get asked about
-most, including by people who think it is either obvious or foolish.</p>
+<section id="why-no-ai-assistants">
+<h2>Why no AI assistants<a class="headerlink" href="#why-no-ai-assistants" title="Link to this heading">#</a></h2>
+<p>I taught Harvard’s cs50ap for two years with a prompt engineered AI <a class="reference external" href="https://cs50.ai">cs50.ai</a>. It helped some students. But too many students used it to do the cs50 problem sets. And later assessments proved they didn’t really retain content.</p>
 <p>The original book takes the opposite position. Downey wrote the third edition
 partly to teach students to use virtual assistants well, and he is not wrong to.
-Those sections are removed here for the fall and the removals are documented.</p>
-<p>The reason is narrow and specific. The AP Create Performance Task requires
-students to submit a program and then explain how it works, in writing and on
-video, from their own understanding. The College Board permits AI assistance on
-the task. I permit it too, starting in January, with attribution. But you cannot
-explain code you did not write, and you cannot get good at explaining code by
-watching something else produce it.</p>
+Those sections are removed here.</p>
 <p>Learning to program involves a specific unpleasant experience: you have a broken
 program, you do not know why, and you have to reason your way to the cause. That
 experience is the mechanism by which the skill is acquired. An assistant removes
 it. Skipping it feels like progress and is not.</p>
-<p>So: no assistants until January, then assistants permitted with attribution, on
-the theory that by then a student has enough foundation to evaluate what the
-assistant hands them. Evaluating it is the actual professional skill. It is
-downstream of the other one, not a substitute for it.</p>
 <p>We spend real class time on why this line is drawn where it is. Students are
 invited to disagree out loud.</p>
 </section>
@@ -539,10 +531,6 @@ and to the California 9–12 computer science standards.</p></li>
 exercises can stay ungraded practice.</p></li>
 <li><p><strong>Fill-in-the-blank projector versions generated</strong> from the chapters for
 live coding in class. These are built by script, never edited by hand.</p></li>
-<li><p><strong>Scope reduced.</strong> Chapters 1 through 11 are the fall semester. Chapters 12
-and 13 come after the exam. Chapters 14 through 19, which cover
-object-oriented programming, are left entirely untouched as independent study
-for students who want more.</p></li>
 </ul>
 <p>Every addition is wrapped in comment sentinels, so what is Downey’s and what is
 mine can be separated mechanically at any time.</p>
@@ -550,8 +538,7 @@ mine can be separated mechanically at any time.</p>
 <section id="what-this-book-does-not-cover">
 <h2>What this book does not cover<a class="headerlink" href="#what-this-book-does-not-cover" title="Link to this heading">#</a></h2>
 <p>This is a division of labor, not a gap I failed to fill.</p>
-<p><em>Working in Python</em> carries the algorithms and programming content of AP CSP
-almost entirely, and part of the creative development content through its
+<p><em>Working in Python</em> carries a considerable portion of the algorithms and programming content of AP CSP, and part of the creative development content through its
 treatment of debugging, incremental development, and testing. It reaches some of
 the data material through file and CSV work.</p>
 <p>It does not cover binary representation, data compression, computer networks,
@@ -561,9 +548,6 @@ carried by a separate unit built around Cory Doctorow’s novel <em>Little Broth
 plus three computing innovation investigations. That unit is not a supplement.
 It is structurally load-bearing, and it is where most of the course’s writing and
 argument happens.</p>
-<p>If you are adopting this book for your own course, understand that you are
-adopting a programming text, not an AP CSP curriculum. You will need to bring the
-rest.</p>
 </section>
 <section id="license-and-attribution">
 <h2>License and attribution<a class="headerlink" href="#license-and-attribution" title="Link to this heading">#</a></h2>
@@ -580,8 +564,7 @@ you, buy his. Full details in <a class="reference internal" href="#ATTRIBUTION.m
 <section id="corrections">
 <h2>Corrections<a class="headerlink" href="#corrections" title="Link to this heading">#</a></h2>
 <p>Errors introduced by this adaptation are mine. Corrections and suggestions are
-welcome at <strong>[CONFIRM: contact address]</strong> or as an issue on
-<strong>[CONFIRM: repo URL]</strong>. If you are reporting a typo, quoting part of the
+welcome at <strong><a class="reference external" href="mailto:ericbrown&#37;&#52;&#48;porttack&#46;com">ericbrown<span>&#64;</span>porttack<span>&#46;</span>com</a></strong>. If you are reporting a typo, quoting part of the
 sentence it appears in makes it much easier to find than a page number.</p>
 <p>Errors in the original book should go to Downey at <code class="docutils literal notranslate"><span class="pre">feedback&#64;thinkpython.com</span></code>.
 Please do not send him mine.</p>
@@ -618,24 +601,6 @@ Please do not send him mine.</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="chap00.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Preface</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="chap01.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>Welcome</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -657,7 +622,7 @@ Please do not send him mine.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-not-use-a-curriculum-that-already-exists">Why not use a curriculum that already exists?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-downeys-book-specifically">Why Downey’s book specifically</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-jupyter-notebooks">Why Jupyter notebooks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-no-ai-assistants-in-the-first-semester">Why no AI assistants in the first semester</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-no-ai-assistants">Why no AI assistants</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-was-changed">What was changed</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-book-does-not-cover">What this book does not cover</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-and-attribution">License and attribution</a></li>

@@ -67,7 +67,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="About This Book" href="about.html" />
+    <link rel="next" title="1. Welcome" href="chap01.html" />
     <link rel="prev" title="How This Course Works" href="orientation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -221,7 +221,6 @@
 <li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orientation.html">How This Course Works</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="nav bd-sidenav">
@@ -419,8 +418,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-is-this-book-for">Who Is This Book For?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-the-book">Goals of the Book</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#navigating-the-book">Navigating the Book</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#doing-the-work-by-hand">Doing the work by hand</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-new-in-the-third-edition">What’s new in the third edition?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-in-python-modifications"><u>Working in Python</u> Modifications</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-for-teachers">Resources for Teachers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">Acknowledgments</a></li>
@@ -435,20 +433,16 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>You can order print and ebook versions of <em>Think Python 3e</em> from
-<a class="reference external" href="https://bookshop.org/a/98697/9781098155438">Bookshop.org</a> and
-<a class="reference external" href="https://www.amazon.com/_/dp/1098155432?smid=ATVPDKIKX0DER&amp;amp;_encoding=UTF8&amp;amp;tag=oreilly20-20&amp;amp;_encoding=UTF8&amp;amp;tag=greenteapre01-20&amp;amp;linkCode=ur2&amp;amp;linkId=e2a529f94920295d27ec8a06e757dc7c&amp;amp;camp=1789&amp;amp;creative=9325">Amazon</a>.</p>
-<section id="preface">
+  <section id="preface">
 <h1>Preface<a class="headerlink" href="#preface" title="Link to this heading">#</a></h1>
+<p><em>(adapted from Allen Downey’s</em> <strong>Think Python</strong>, <em>Third Edition - see details at bottom)</em></p>
 <section id="who-is-this-book-for">
 <h2>Who Is This Book For?<a class="headerlink" href="#who-is-this-book-for" title="Link to this heading">#</a></h2>
 <p>If you want to learn to program, you have come to the right place.
 Python is one of the best programming languages for beginners – and it is also one of the most in-demand skills.</p>
-<p>You have also come at the right time, because learning to program now is probably easier than ever.
-With virtual assistants like ChatGPT, you don’t have to learn alone.
-Throughout this book, I’ll suggest ways you can use these tools to accelerate your learning.</p>
+<p>You have also come at the right time, because learning to program now is probably easier than ever.</p>
 <p>This book is primarily for people who have never programmed before and people who have some experience in another programming language.
-If you have substantial experience in Python, you might find the first few chapters too slow.</p>
+If you have substantial experience in Python, you might find the first few chapters a bit slow. They’re still foundational.</p>
 <p>One of the challenges of learning to program is that you have to learn <em>two</em> languages: one is the programming language itself; the other is the vocabulary we use to talk about programs.
 If you learn only the programming language, you are likely to have problems when you need to interpret an error message, read documentation, talk to another person, or use virtual assistants.
 If you have done some programming, but you have not also learned this second language, I hope you find this book helpful.</p>
@@ -486,37 +480,17 @@ Chapter 18 presents some of these features.</p>
 <p>Finally, Chapter 19 presents my parting thoughts and suggestions for continuing your programming journey.</p>
 <!-- apcsp:begin type="note" chapter="00" -->
 </section>
-<section id="doing-the-work-by-hand">
-<h2>Doing the work by hand<a class="headerlink" href="#doing-the-work-by-hand" title="Link to this heading">#</a></h2>
-<p>In the first semester of this course, you write the code yourself.
-Do not use a virtual assistant or a chatbot to write code for you, and do not paste an exercise into one to get an answer.
-The work in the fall is to learn the language by hand.
-The policy changes in the spring, and your teacher will tell you when.</p>
+<section id="working-in-python-modifications">
+<h2><u>Working in Python</u> Modifications<a class="headerlink" href="#working-in-python-modifications" title="Link to this heading">#</a></h2>
+<p>This content builds on the excllent book <u>Think Python, 3rd edition</u> by Allen B. Downey.</p>
+<p>The following things have been changed:</p>
+<ul class="simple">
+<li><p>Remove recommendations to use AI (virtual assistants). While this can be a good idea for some self motivated individuals, it frequently leads to cognative offloading in a way that reduces retention. And it is a violation of policy in some schools.</p></li>
+<li><p>JupyterLite containers are the default notebook container. This runs completely in the browser and is quite fast. Google Colab is blocked at my school, but JupyterLite works just fine.</p></li>
+<li><p>Chapter exercises are available. These differ from the practice exercises in each chapter. I assign these to my high school students and ask them to submit their notebooks.</p></li>
+<li><p>Alignment with standards has been completed. This helps a teacher understand where supplemental content is required.</p></li>
+</ul>
 <!-- apcsp:end --></section>
-<section id="whats-new-in-the-third-edition">
-<h2>What’s new in the third edition?<a class="headerlink" href="#whats-new-in-the-third-edition" title="Link to this heading">#</a></h2>
-<p>The biggest changes in this edition were driven by two new technologies – Jupyter notebooks and virtual assistants.</p>
-<p>Each chapter of this book is a Jupyter notebook, which is a document that contains both ordinary text and code.
-For me, that makes it easier to write the code, test it, and keep it consistent with the text.
-For you, it means you can run the code, modify it, and work on the exercises, all in one place.
-Instructions for working with the notebooks are in the first chapter.</p>
-<p>The other big change is that I’ve added advice for working with virtual assistants like ChatGPT and using them to accelerate your learning.
-When the previous edition of this book was published in 2016, the predecessors of these tools were far less useful and most people were unaware of them.
-Now they are a standard tool for software engineering, and I think they will be a transformational tool for learning to program – and learning a lot of other things, too.</p>
-<p>The other changes in the book were motivated by my regrets about the second edition.</p>
-<p>The first is that I did not emphasize software testing.
-That was already a regrettable omission in 2016, but with the advent of virtual assistants, automated testing has become even more important.
-So this edition presents Python’s most widely-used testing tools, <code class="docutils literal notranslate"><span class="pre">doctest</span></code> and <code class="docutils literal notranslate"><span class="pre">unittest</span></code>, and includes several exercises where you can practice working with them.</p>
-<p>My other regret is that the exercises in the second edition were uneven – some were more interesting than others and some were too hard.
-Moving to Jupyter notebooks helped me develop and test a more engaging and effective sequence of exercises.</p>
-<p>In this revision, the sequence of topics is almost the same, but I rearranged a few of the chapters and compressed two short chapters into one.
-Also, I expanded the coverage of strings to include regular expressions.</p>
-<p>A few chapters use turtle graphics.
-In previous editions, I used Python’s <code class="docutils literal notranslate"><span class="pre">turtle</span></code> module, but unfortunately it doesn’t work in Jupyter notebooks.
-So I replaced it with a new turtle module that should be easier to use.</p>
-<p>Finally, I rewrote a substantial fraction of the text, clarifying places that needed it and cutting back in places where I was not as concise as I could be.</p>
-<p>I am very proud of this new edition – I hope you like it!</p>
-</section>
 <section id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
 <p>For most programming languages, including Python, there are many tools you can use to write and run programs.
@@ -527,13 +501,7 @@ In general, there are two kinds of IDEs:</p>
 <li><p>Others work primarily with notebooks, which are documents that contain text and code.</p></li>
 </ul>
 <p>For beginners, I recommend starting with a notebook development environment like Jupyter.</p>
-<p>The notebooks for this book are available from an online repository at <a class="reference external" href="https://allendowney.github.io/ThinkPython">https://allendowney.github.io/ThinkPython</a>.</p>
-<p>There are two ways to use them:</p>
-<ul class="simple">
-<li><p>You can download the notebooks and run them on your own computer. In that case, you have to install Python and Jupyter, which is not hard, but if you want to learn Python, it can be frustrating to spend a lot of time installing software.</p></li>
-<li><p>An alternative is to run the notebooks on Colab, which is a Jupyter environment that runs in a web browser, so you don’t have to install anything. Colab is operated by Google, and it is free to use.</p></li>
-</ul>
-<p>If you are just getting started, I strongly recommend you start with Colab.</p>
+<p>The notebooks for this book are available from an online repository at <a class="reference external" href="https://python.porttack.com">https://python.porttack.com</a> (or, for the upstream book, Think Python, at <a class="reference external" href="https://allendowney.github.io/ThinkPython">https://allendowney.github.io/ThinkPython</a>).</p>
 </section>
 <section id="resources-for-teachers">
 <h2>Resources for Teachers<a class="headerlink" href="#resources-for-teachers" title="Link to this heading">#</a></h2>
@@ -563,6 +531,7 @@ If you include at least part of the sentence the error appears in, that
 makes it easy for me to search. Page and section numbers are fine, too,
 but not quite as easy to work with. Thanks!</p>
 <!-- apcsp:begin type="note" chapter="00" -->
+<hr class="docutils" />
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
 <hr class="docutils" />
 <!-- apcsp:end -->
@@ -613,11 +582,11 @@ but not quite as easy to work with. Thanks!</p>
       </div>
     </a>
     <a class="right-next"
-       href="about.html"
+       href="chap01.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">About This Book</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Welcome</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -642,8 +611,7 @@ but not quite as easy to work with. Thanks!</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-is-this-book-for">Who Is This Book For?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-the-book">Goals of the Book</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#navigating-the-book">Navigating the Book</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#doing-the-work-by-hand">Doing the work by hand</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-new-in-the-third-edition">What’s new in the third edition?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-in-python-modifications"><u>Working in Python</u> Modifications</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-for-teachers">Resources for Teachers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">Acknowledgments</a></li>

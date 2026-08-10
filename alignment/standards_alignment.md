@@ -56,8 +56,8 @@ pass.
 | 1.2 | Program Function and Purpose | working_in_python | 1, 5 | partial — no event-driven programming |
 | 1.3 | Program Design and Development | working_in_python | 4 | CRD-2.H (crediting others' code) uncarried |
 | 1.4 | Identifying and Correcting Errors | working_in_python | 1–13 | every chapter's Debugging section |
-| 2.1 | Binary Numbers | supplement | — | CS50T Multimedia |
-| 2.2 | Data Compression | supplement | — | CS50T Multimedia |
+| 2.1 | Binary Numbers | unassigned | — | real gap — CS50T Multimedia dropped 2026-08-09, not taught since year one; Pico I2C chapter is a partial, non-closing touchpoint (hex/byte notation) |
+| 2.2 | Data Compression | unassigned | — | real gap — CS50T Multimedia dropped 2026-08-09, same reason; no replacement identified |
 | 2.3 | Extracting Information from Data | working_in_python | 12, 13 | |
 | 2.4 | Using Programs with Data | working_in_python | 12, 13 | |
 | 3.1 | Variables and Assignments | working_in_python | 2 | |
@@ -96,8 +96,8 @@ From `standards/castandards.json`.
 | 9-12.NI.5 | Networks & the Internet | little_brother | — | |
 | 9-12.NI.6 | Networks & the Internet | little_brother | — | |
 | 9-12.NI.7 | Networks & the Internet | little_brother | — | |
-| 9-12.DA.8 | Data & Analysis | supplement | — | CS50T Multimedia |
-| 9-12.DA.9 | Data & Analysis | supplement | — | CS50T Multimedia |
+| 9-12.DA.8 | Data & Analysis | unassigned | — | real gap — CS50T Multimedia dropped 2026-08-09, not taught since year one; Pico I2C chapter is a partial, non-closing touchpoint |
+| 9-12.DA.9 | Data & Analysis | unassigned | — | real gap — CS50T Multimedia dropped 2026-08-09, same reason; scope is broader than compression alone anyway |
 | 9-12.DA.10 | Data & Analysis | unassigned | — | data visualization — no plotting/charting anywhere in the book |
 | 9-12.DA.11 | Data & Analysis | unassigned | — | validating a model against real data |
 | 9-12.AP.12 | Algorithms & Programming | working_in_python | 7, 9 | |
@@ -117,11 +117,19 @@ From `standards/castandards.json`.
 
 ## View 4 — Gaps
 
-### Unassigned in the AP framework
-None. All 35 AP CSP topics have a carrier (`working_in_python`, `little_brother`, or
-`supplement`) as of this pass.
+### Unassigned in the AP framework (2 topics, newly opened 2026-08-09)
+- **2.1 Binary Numbers, 2.2 Data Compression** — both were carried by CS50T Multimedia as
+  of this pass's original writing. Removed per teacher confirmation that CS50T hasn't
+  actually been taught since year one, so the assignment was stale, not real coverage.
+  The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14) teaches hexadecimal
+  as compact byte notation for device addresses — a partial, authentic touchpoint for 2.1
+  — but doesn't walk through binary place-value or binary<->decimal conversion, and
+  doesn't touch compression at all, so neither topic is closed. No replacement identified
+  for either as of this note.
 
-### Unassigned in the CA framework (8 standards, no carrier yet)
+### Unassigned in the CA framework (10 standards, no carrier yet)
+- **9-12.DA.8, 9-12.DA.9** — same removal as AP 2.1/2.2 above (both were routed to the same
+  stale CS50T Multimedia assignment); see that note for the Pico partial-touchpoint detail.
 - **9-12.CS.1, 9-12.CS.2** — hardware/computing-systems abstraction. Neither this book nor
   Little Brother covers computer hardware internals. No plausible carrier identified.
 - **9-12.CS.3** — troubleshooting. Deliberately kept separate from AP CRD-1.4 (see the

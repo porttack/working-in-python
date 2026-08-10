@@ -51,7 +51,7 @@ With a proposed carrier for each — most are the already-established supplement
 | event / event-driven | a program structured around responding to user or system triggers rather than running top-to-bottom | unassigned — real gap, see `alignment/standards_alignment.md` |
 | heuristic | an approach that produces a good-enough, not-guaranteed-optimal solution | supplement (November algorithms block) |
 | decidable / undecidable problem | a problem for which no algorithm can always produce a correct yes/no answer | supplement (November algorithms block) |
-| bit / byte, lossy / lossless compression | binary representation and data-compression vocabulary | supplement (CS50T Multimedia) |
+| bit / byte, lossy / lossless compression | binary representation and data-compression vocabulary | unassigned — real gap as of 2026-08-09; CS50T Multimedia dropped, not taught since year one. Pico/MicroPython I2C chapter has a partial touchpoint for byte/hex notation, none for compression. |
 | digital divide | unequal access to computing/internet by socioeconomic, geographic, or demographic line | little_brother |
 | crowdsourcing / citizen science | obtaining input or data from large distributed groups over the internet | little_brother |
 | fault tolerance | a system's ability to keep working when some of its parts fail | little_brother |
