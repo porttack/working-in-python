@@ -6,9 +6,8 @@ Principles course. It is an adaptation of Allen Downey's
 used and redistributed under the license Downey chose for it.
 
 This page explains why it exists, what was changed, and what it deliberately
-does not do. If you are a student in the course, the page you want is
-[How This Course Works](orientation.md). This one is written for teachers,
-parents, and anyone who found the repo and wondered what they were looking at.
+does not do. It is written for teachers, parents, and anyone who found the
+repo and wondered what they were looking at.
 
 ---
 
