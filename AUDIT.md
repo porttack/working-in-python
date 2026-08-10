@@ -4279,3 +4279,38 @@ are being accepted. Whoever picks this up next should read that file's "no assig
 carrier" section fresh rather than assume CS50T is still live — grep for "CS50T" turning up
 only historical notes (this entry, the CHANGELOG, and each corrected file's own "previously
 X, removed 2026-08-09" note) is the expected, correct state.
+
+## 2026-08-09 follow-up — Stable JupyterLite links, outside any pass
+
+Not part of any of the five passes — a publishing-infra fix, prompted by the maintainer
+hitting the actual failure mode: a `jupyterlite-<hash>/notebooks/index.html?path=...` link
+pasted into Schoology breaks on the next rebuild, since the hash changes and the old link
+just 404s. First instinct was Cloudflare (a Redirect Rule or Worker, since the domain sits
+behind it) but the maintainer said to skip that and solve it here instead. Cloudflare was
+also a worse fit on inspection anyway: the redirect target changes every publish, so a
+dashboard rule would need hand-editing weekly, and a self-updating Worker+KV setup means
+scripting the Cloudflare API and managing a token — more infra than this repo has anywhere
+else.
+
+**What was done.** `jb/build.sh` now writes `current/notebooks/index.html` and
+`current/lab/index.html` right after the `jupyterlite-<hash>/` copy: each is a tiny
+JS-redirect page pointing at that run's `$JUPYTERLITE_DEPLOY_ID`, preserving the query
+string. Since `ghp-import -f` force-pushes the whole `gh-pages` branch every publish, these
+two files are regenerated with the current hash automatically — nothing to remember, no
+Schoology link ever needs re-editing. Verified locally with `./build.sh --local`: served
+`_build/html/` over `python3 -m http.server` and confirmed
+`current/notebooks/index.html?path=X` redirects to `jupyterlite-<hash>/notebooks/index.html?path=X`
+with the query string intact, landing on the real build. `PUBLISHING.md` (new "Stable links
+for Schoology" note plus verification step 8) and `CHANGELOG.md` updated.
+
+**Tradeoff, accepted deliberately.** This reopens a sliver of the caching problem the hash
+existed to close (see PUBLISHING.md's "why the path is content-hashed"): for up to the 600s
+GitHub Pages `Cache-Control` window after a republish, a cached `current/...` redirect can
+still point at the *previous* hash, so a reload briefly runs the old build instead of
+404ing. Judged better than the status quo — a link that's stale for ten minutes beats one
+that's permanently dead.
+
+**Not done.** No change to how the hash itself is computed or communicated to the maintainer
+(`--print-deploy-id` still the source of truth for scripts); this only adds the alias on top.
+Nothing else in the site got a `current/`-style alias — just the two JupyterLite entry
+points that actually get pasted into Schoology.

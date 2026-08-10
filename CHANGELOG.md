@@ -16,6 +16,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Stable JupyterLite links for Schoology
+
+### Added
+- `jb/build.sh` now also writes `current/notebooks/index.html` and `current/lab/index.html`:
+  tiny pages that redirect (query string preserved) to that build's real
+  `jupyterlite-<hash>/...` path. Regenerated on every publish since `ghp-import -f`
+  replaces the whole branch, so a link posted once to Schoology
+  (`https://python.porttack.com/current/notebooks/index.html?path=...`) keeps working
+  across every future rebuild instead of 404ing the moment the hash changes.
+
+### Changed
+- `PUBLISHING.md`: documented the `current/` alias and its caching tradeoff (a redirect
+  can point at the previous build for up to the 600s `Cache-Control` window after a
+  republish), and added it as verification step 8.
+
 ## 2026-08-09 — Retire the CS50T Multimedia carrier for binary numbers/data compression
 
 ### Changed

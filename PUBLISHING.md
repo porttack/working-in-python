@@ -122,6 +122,21 @@ an old `jupyterlite-<hash>/` URL 404s on reload rather than silently running
 stale content, which for a live classroom fallback is the failure mode you
 want.
 
+**Stable links for Schoology.** Posting a hashed URL directly into Schoology
+means every republish breaks it -- there's no way to edit a hash into a link
+that's already been handed to a class. `build.sh` also writes
+`current/notebooks/index.html` and `current/lab/index.html`: tiny pages that
+redirect (preserving the query string) to that run's real
+`jupyterlite-<hash>/...` path. `ghp-import -f` replaces the whole branch each
+publish, so these two files are always regenerated pointing at whatever just
+shipped -- paste `https://python.porttack.com/current/notebooks/index.html?path=...`
+into Schoology once and it never needs editing again. This does reopen a
+sliver of the caching problem the hash exists to close: for up to the 600s
+`Cache-Control` window after a republish, a cached `current/...` redirect
+could still point at the *previous* hash, so a reload briefly runs the old
+build instead of 404ing. Accepted deliberately -- a Schoology link that goes
+stale for ten minutes beats one that's permanently dead.
+
 ## First deploy, in order
 
 Each step fails independently, so verify each before starting the next.
@@ -147,6 +162,10 @@ Each step fails independently, so verify each before starting the next.
    in that order (`___start-here.ipynb` first) -- this depends on the repo-root
    `overrides.json` (`sortNotebooksFirst`) reaching the build; see `AUDIT.md`,
    2026-08-09.
+8. Verify `https://python.porttack.com/current/notebooks/index.html?path=__chap01-welcome.ipynb`
+   redirects to the same hashed URL from step 7 and runs. This is the link to
+   actually hand to students (Schoology, etc.) -- see "Stable links for
+   Schoology" above.
 
 ## Later, not now
 

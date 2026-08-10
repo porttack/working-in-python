@@ -76,6 +76,29 @@ jb build .
 rm -rf _build/html/jupyterlite _build/html/jupyterlite-*
 cp -r ../jupyterlite/_output "_build/html/${JUPYTERLITE_DEPLOY_ID}"
 
+# Stable aliases so a link pasted once into Schoology survives every future
+# rebuild: current/{notebooks,lab}/index.html just redirect to this run's
+# $JUPYTERLITE_DEPLOY_ID, preserving the query string (?path=...). Since
+# ghp-import force-pushes the whole branch, these two files are regenerated
+# with the new hash on every publish -- nothing to re-edit in Schoology, ever.
+mkdir -p _build/html/current/notebooks _build/html/current/lab
+for view in notebooks lab; do
+  cat > "_build/html/current/${view}/index.html" <<REDIRECT
+<!doctype html>
+<meta charset="utf-8">
+<title>Redirecting to current build&hellip;</title>
+<script>
+  location.replace("/${JUPYTERLITE_DEPLOY_ID}/${view}/index.html" + location.search);
+</script>
+<p>Redirecting to the current build&hellip;
+<a id="fallback" href="#">click here</a> if nothing happens.</p>
+<script>
+  document.getElementById("fallback").href =
+    "/${JUPYTERLITE_DEPLOY_ID}/${view}/index.html" + location.search;
+</script>
+REDIRECT
+done
+
 if [[ "${1:-}" == "--local" ]]; then
   echo
   echo "Local build only. Output in jb/_build/html/index.html"
@@ -96,3 +119,4 @@ echo "  2. a chapter's Open in Colab badge actually opens"
 echo "  3. an internal cross-reference resolves (chap10 -> earlier section)"
 echo "  4. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/notebooks/index.html?path=__chap01-welcome.ipynb runs"
 echo "  5. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/lab/index.html shows the grouped file browser"
+echo "  6. https://python.porttack.com/current/notebooks/index.html?path=__chap01-welcome.ipynb redirects and runs"
