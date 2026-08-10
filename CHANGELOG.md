@@ -16,6 +16,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Hide the About page; preface and About content tweaks
+
+### Removed
+- `about.md` unlinked: dropped from `jb/_toc.yml`'s left nav, and its links from
+  `orientation.md` and the front page (`chapters/index.ipynb`) removed. The file itself is
+  untouched and stays in the repo, just orphaned from navigation, so it can be relinked
+  later.
+
+### Changed
+- `jb/about.md`: reworded the AI-assistants section (dropped the January assistants-with-
+  attribution policy in favor of a flat "removed" statement, added a CS50AI teaching
+  anecdote as rationale), swapped Colab references for JupyterLite, removed the "scope
+  reduced" bullet and the "adopting this book" caveat, and filled in the real corrections
+  contact (`ericbrown@porttack.com`) in place of the `[CONFIRM: ...]` placeholders.
+- `chapters/chap00.ipynb` (Downey's Preface): removed the Bookshop/Amazon purchase-link
+  cell and all ChatGPT/virtual-assistant references, replaced the "What's new in the third
+  edition" retrospective with a "Working in Python Modifications" summary, and pointed the
+  notebook-access instructions at JupyterLite instead of Colab.
+
 ## 2026-08-09 — Stable JupyterLite links for Schoology
 
 ### Added

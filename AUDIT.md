@@ -4314,3 +4314,27 @@ that's permanently dead.
 (`--print-deploy-id` still the source of truth for scripts); this only adds the alias on top.
 Nothing else in the site got a `current/`-style alias — just the two JupyterLite entry
 points that actually get pasted into Schoology.
+
+## 2026-08-09 follow-up — About page hidden; preface/About content tweaks, outside any pass
+
+Also outside the five passes — nav cleanup plus content edits to two meta pages, at the
+maintainer's request.
+
+**What was done.** `about.md` removed from `jb/_toc.yml`'s "Start Here" part, and its two
+inbound links (`orientation.md`'s closing paragraph, and the "Also here" list on the front
+page, `chapters/index.ipynb`) deleted. `about.md` itself is untouched and still in the repo
+— hidden, not deleted, so it can be relinked if the maintainer changes their mind. The
+front-page edit went into `chapters/index.ipynb` (the source of truth per `HOW_TO_EDIT.md`),
+not `jb/index.ipynb` (the generated copy); the copy will pick up the fix on the next
+`jb/build.sh` run.
+
+The maintainer separately hand-edited `jb/about.md` and `chapters/chap00.ipynb` (Downey's
+Preface) before asking to commit. Both drop Colab/ChatGPT references in favor of
+JupyterLite and a flatter "no AI assistants" stance, and `about.md` gets a real corrections
+contact in place of the `[CONFIRM: ...]` placeholders. Detail in `CHANGELOG.md`'s matching
+entry. Since `chap00.ipynb` is no longer unedited, corrected `_toc.yml`'s comment on that
+line (`# Downey's Preface, unedited` → `# Downey's Preface`).
+
+**Not done.** No rebuild (`jb/build.sh` not run), so `jb/index.ipynb` still has the stale
+About link until the next publish. `ATTRIBUTION.md` and `about.md`'s own License section
+weren't touched — the corrections-contact and licensing content there still matches.

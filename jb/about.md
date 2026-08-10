@@ -58,9 +58,6 @@ Python, and the language people use to talk about Python. Downey is deliberate
 about the second one. Students who have it can read an error message, read
 documentation, and ask a precise question. Students who do not are stuck.
 
-I emailed Downey to tell him I was doing this. The license did not require it.
-Telling an author that his work is being used is just what you do.
-
 ## Why Jupyter notebooks
 
 Because the alternative is asking fourteen-year-olds to install a toolchain in
@@ -68,8 +65,8 @@ the first week of school, and that week is expensive.
 
 Notebooks let a student open a chapter in a browser, run the examples, break
 them, and fix them, in the same document they are reading. The chapter is not
-a description of the code. It is the code. Every chapter here opens in Google
-Colab from a badge, with nothing to install.
+a description of the code. It is the code. Every chapter here opens in JupyterLite
+with nothing to install.
 
 There is a real cost, which I want to state plainly rather than pretend away.
 Notebooks encourage running cells out of order and leaving state lying around,
@@ -78,31 +75,18 @@ written. We address that directly later in the year by moving to files and a
 terminal. The first semester's priority is removing every obstacle between a
 student and a running program.
 
-## Why no AI assistants in the first semester
+## Why no AI assistants
 
-This is the most distinctive rule in the course and the one I get asked about
-most, including by people who think it is either obvious or foolish.
+I taught Harvard's cs50ap for two years with a prompt engineered AI [cs50.ai](https://cs50.ai). It helped some students. But too many students used it to do the cs50 problem sets. And later assessments proved they didn't really retain content.
 
 The original book takes the opposite position. Downey wrote the third edition
 partly to teach students to use virtual assistants well, and he is not wrong to.
-Those sections are removed here for the fall and the removals are documented.
-
-The reason is narrow and specific. The AP Create Performance Task requires
-students to submit a program and then explain how it works, in writing and on
-video, from their own understanding. The College Board permits AI assistance on
-the task. I permit it too, starting in January, with attribution. But you cannot
-explain code you did not write, and you cannot get good at explaining code by
-watching something else produce it.
+Those sections are removed here.
 
 Learning to program involves a specific unpleasant experience: you have a broken
 program, you do not know why, and you have to reason your way to the cause. That
 experience is the mechanism by which the skill is acquired. An assistant removes
 it. Skipping it feels like progress and is not.
-
-So: no assistants until January, then assistants permitted with attribution, on
-the theory that by then a student has enough foundation to evaluate what the
-assistant hands them. Evaluating it is the actual professional skill. It is
-downstream of the other one, not a substitute for it.
 
 We spend real class time on why this line is drawn where it is. Students are
 invited to disagree out loud.
@@ -124,10 +108,6 @@ as evidence for the AP Course Audit. In summary:
   exercises can stay ungraded practice.
 - **Fill-in-the-blank projector versions generated** from the chapters for
   live coding in class. These are built by script, never edited by hand.
-- **Scope reduced.** Chapters 1 through 11 are the fall semester. Chapters 12
-  and 13 come after the exam. Chapters 14 through 19, which cover
-  object-oriented programming, are left entirely untouched as independent study
-  for students who want more.
 
 Every addition is wrapped in comment sentinels, so what is Downey's and what is
 mine can be separated mechanically at any time.
@@ -136,8 +116,7 @@ mine can be separated mechanically at any time.
 
 This is a division of labor, not a gap I failed to fill.
 
-*Working in Python* carries the algorithms and programming content of AP CSP
-almost entirely, and part of the creative development content through its
+*Working in Python* carries a considerable portion of the algorithms and programming content of AP CSP, and part of the creative development content through its
 treatment of debugging, incremental development, and testing. It reaches some of
 the data material through file and CSV work.
 
@@ -148,10 +127,6 @@ carried by a separate unit built around Cory Doctorow's novel *Little Brother*,
 plus three computing innovation investigations. That unit is not a supplement.
 It is structurally load-bearing, and it is where most of the course's writing and
 argument happens.
-
-If you are adopting this book for your own course, understand that you are
-adopting a programming text, not an AP CSP curriculum. You will need to bring the
-rest.
 
 ## License and attribution
 
@@ -170,8 +145,7 @@ you, buy his. Full details in [`ATTRIBUTION.md`](ATTRIBUTION.md).
 ## Corrections
 
 Errors introduced by this adaptation are mine. Corrections and suggestions are
-welcome at **[CONFIRM: contact address]** or as an issue on
-**[CONFIRM: repo URL]**. If you are reporting a typo, quoting part of the
+welcome at **ericbrown@porttack.com**. If you are reporting a typo, quoting part of the
 sentence it appears in makes it much easier to find than a page number.
 
 Errors in the original book should go to Downey at `feedback@thinkpython.com`.
