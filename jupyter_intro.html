@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Think Python on Jupyter &#8212; Working in Python</title>
+    <title>Working in Python on Jupyter &#8212; Working in Python</title>
   
   
   
@@ -405,7 +405,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Think Python on Jupyter</h1>
+    <h1>Working in Python on Jupyter</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -415,7 +415,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-notebook">What is a notebook?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-notebook">What is a notebook?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-kinds-of-cells">Two kinds of cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quick-look-at-markdown">A quick look at Markdown</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-for-think-python">Code for <em>Think Python</em></a></li>
 </ul>
             </nav>
@@ -428,18 +432,15 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="think-python-on-jupyter">
-<h1><em>Think Python</em> on Jupyter<a class="headerlink" href="#think-python-on-jupyter" title="Link to this heading">#</a></h1>
-<p>This is an introduction to Jupyter notebooks for people reading the third edition of <a class="reference external" href="https://greenteapress.com/wp/think-python-3rd-edition"><em>Think Python</em></a> by Allen B. Downey.</p>
+  <section id="working-in-python-on-jupyter">
+<h1><em>Working in Python</em> on Jupyter<a class="headerlink" href="#working-in-python-on-jupyter" title="Link to this heading">#</a></h1>
+<p>This is an introduction to Jupyter notebooks for people using <em>Working in Python</em>, a high school course adapted from the third edition of <a class="reference external" href="https://greenteapress.com/wp/think-python-3rd-edition"><em>Think Python</em></a> by Allen B. Downey.</p>
 <p>A Jupyter notebook is a document that contains text, code, and results from running the code.
 You can read a notebook like a book, but you can also run the code, modify it, and develop new programs.</p>
 <p>Jupyter notebooks run in a web browser, so you can run them without installing any new software.
-But they have to connect to a Jupyter server.</p>
-<p>You can install and run a server yourself, but to get started it is easier to use a service like <a class="reference external" href="https://colab.research.google.com/">Colab</a>, which is operated by Google.</p>
-<p><a class="reference external" href="https://allendowney.github.io/ThinkPython">On the starting page for the book</a> you will find a link for each chapter.
-If you click on one of these links, it opens a notebook on Colab.</p>
-<p>If you are reading this notebook on Colab, you should see an orange logo in the upper left that looks like the letters <code class="docutils literal notranslate"><span class="pre">CO</span></code>.</p>
-<p>If you are not running this notebook on Colab, <a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkPython/blob/v3/chapters/jupyter_intro.ipynb">you can click here to open it on Colab</a>.</p>
+But they have to connect to a Jupyter server somewhere.</p>
+<p>On this site, that part is already taken care of: every chapter opens as a ready-to-run notebook directly in your browser, with nothing to install and no account required.</p>
+<p><a class="reference external" href="https://python.porttack.com">On the starting page for the book</a> you will find a link for each chapter. Most chapters also offer a Google Colab link as an alternative, if you’d rather work there instead.</p>
 <!-- apcsp:begin type="note" -->
 <p id="jupyter-intro-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
 <style>
@@ -458,7 +459,7 @@ If you click on one of these links, it opens a notebook on Colab.</p>
 }
 </style>
 <div id="jupyter-intro-jupyterlite-pane">
-<iframe src="jupyterlite-3b8e9305fb/notebooks/index.html?path=___using-notebooks.ipynb"></iframe>
+<iframe src="jupyterlite-b263669602/notebooks/index.html?path=___using-notebooks.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -496,7 +497,16 @@ If you click on one of these links, it opens a notebook on Colab.</p>
 <p>A Jupyter notebook is made up of cells, where each cell contains either text or code.
 This cell contains text.</p>
 <p>The following cell contains code.</p>
-<div class="cell docutils container">
+<!-- apcsp:begin type="note" -->
+<section id="two-kinds-of-cells">
+<h3>Two kinds of cells<a class="headerlink" href="#two-kinds-of-cells" title="Link to this heading">#</a></h3>
+<p>Every cell in a notebook is one of two types:</p>
+<ul class="simple">
+<li><p>A <strong>markdown cell</strong> holds formatted text — headings, paragraphs, lists, links. This cell is a markdown cell.</p></li>
+<li><p>A <strong>code cell</strong> holds Python code that Jupyter runs when you press “Run”.</p></li>
+</ul>
+<p>You can tell which kind a cell is by what happens when you run it: a markdown cell re-renders as formatted text, while a code cell executes and (usually) prints a result underneath.</p>
+<!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span>
 </pre></div>
@@ -515,10 +525,45 @@ If you press this button, Jupyter runs the code in the cell and displays the res
 And if it’s a notebook you didn’t write, you might get a warning message.
 If you are running a notebook from a source you trust, which I hope includes me, you can press “Run Anyway”.</p>
 <p>Instead of clicking the “Play” button, you can also run the code in a cell by holding down <code class="docutils literal notranslate"><span class="pre">Shift</span></code> and pressing <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p>
-<p>If you are running this notebook on Colab, you should see buttons in the top left that say “+ Code” and “+ Text”.  The first one adds a code cell and the second adds a text cell.
-If you want to try them out, select this cell by clicking on it, then press the “+ Text” button.
-A new cell should appear below this one.</p>
-<p>Add some text to the cell.
+<p>Most Jupyter interfaces, including the one on this site, also let you add a new cell below the one you’re on — usually with a “+” button in the toolbar. Try it: select this cell, then add a new cell below it.</p>
+<!-- apcsp:begin type="note" -->
+</section>
+<section id="a-quick-look-at-markdown">
+<h3>A quick look at Markdown<a class="headerlink" href="#a-quick-look-at-markdown" title="Link to this heading">#</a></h3>
+<p>Markdown formats text using plain characters instead of buttons. Some of the most common markup:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>You type</p></th>
+<th class="head"><p>You get</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">Heading</span></code></p></td>
+<td><p>a large heading</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">Subheading</span></code></p></td>
+<td><p>a smaller heading</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">**bold**</span></code></p></td>
+<td><p><strong>bold</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*italic*</span></code></p></td>
+<td><p><em>italic</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">`code`</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">code</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[text](url)</span></code></p></td>
+<td><p>a link</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">item</span></code></p></td>
+<td><p>a bulleted list item</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Double-click any markdown cell in this notebook — including this one — to see its raw Markdown source. Press <code class="docutils literal notranslate"><span class="pre">Shift</span></code>+<code class="docutils literal notranslate"><span class="pre">Enter</span></code> to render it back to formatted text.</p>
+<!-- apcsp:end --><p>Add some text to the cell.
 You can use the buttons to format it, or you can mark up the text using <a class="reference external" href="https://www.markdownguide.org/basic-syntax/">Markdown</a>.
 When you are done, hold down <code class="docutils literal notranslate"><span class="pre">Shift</span></code> and press <code class="docutils literal notranslate"><span class="pre">Enter</span></code>, which will format the text you just typed and then move to the next cell.</p>
 <p>At any time Jupyter is in one of two modes:</p>
@@ -541,6 +586,7 @@ You’ll see several ways you can save the notebook.</p>
 <li><p>If you have a GitHub account, you can save it on GitHub.</p></li>
 <li><p>Or if you want to save the notebook on your computer, select “Download” and then “Download .ipynb” The suffix “.ipynb” indicates that it is a notebook file, as opposed to “.py”, which indicates a file that contains Python code only.</p></li>
 </ul>
+</section>
 </section>
 <section id="code-for-think-python">
 <h2>Code for <em>Think Python</em><a class="headerlink" href="#code-for-think-python" title="Link to this heading">#</a></h2>
@@ -576,19 +622,10 @@ The last line “imports” this code, which means we can use the code in the no
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-    <span class="nb">abs</span> <span class="mi">42</span>
-        <span class="o">^</span>
-<span class="ne">SyntaxError</span>: invalid syntax
-</pre></div>
-</div>
-</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">%%expect</span></code> is not part of Python – it is a Jupyter “magic command” that indicates that we expect the cell to product an error.
 When you see this command, it means that the error is deliberate, usually intended to warn you about a common pitfall.</p>
-<p>For more about running Jupyter notebooks on Colab, <a class="reference external" href="https://colab.research.google.com/notebooks/basic_features_overview.ipynb">click here</a>.</p>
-<p>Or, if you are ready to get started, <a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkPython/blob/v3/chapters/chap01.ipynb">click here to read Chapter 1</a>.</p>
+<p>Or, if you are ready to get started, <a class="reference external" href="https://python.porttack.com/chap01.html">click here to read Chapter 1</a>.</p>
 <!-- apcsp:begin type="note" -->
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
 <hr class="docutils" />
@@ -665,7 +702,11 @@ When you see this command, it means that the error is deliberate, usually intend
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-notebook">What is a notebook?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-notebook">What is a notebook?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-kinds-of-cells">Two kinds of cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quick-look-at-markdown">A quick look at Markdown</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-for-think-python">Code for <em>Think Python</em></a></li>
 </ul>
   </nav></div>
