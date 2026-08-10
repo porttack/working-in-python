@@ -25,12 +25,6 @@ not a new decision, just verified against the indexes):
   not Little Brother. Don't assume IC.27 is automatically covered just because 1.1 is
   handled elsewhere — they're related, not identical (see `standards/crosswalk.json`).
 
-**CS50T Multimedia carries:**
-- AP 2.1 (Binary Numbers) and 2.2 (Data Compression).
-- CA DA.8 (representing real-world data as bits) and DA.9 (storage/format tradeoffs,
-  whose own worked example is image-compression quality-vs-size — the same territory as
-  AP 2.2).
-
 **The November algorithms block carries:**
 - AP 3.11 (Binary Search), 3.16 (Simulations), 3.17 (Algorithmic Efficiency), 3.18
   (Undecidable Problems).
@@ -45,9 +39,19 @@ not a new decision, just verified against the indexes):
 
 ## What has no assigned carrier anywhere (real gaps, not yet supplemented)
 
-These don't have a home in this book, Little Brother, CS50T Multimedia, the November
-block, or lab practice. Listed here so they don't quietly stay uncovered:
+These don't have a home in this book, Little Brother, the November block, or lab
+practice. Listed here so they don't quietly stay uncovered:
 
+- **AP 2.1 (Binary Numbers) and 2.2 (Data Compression); CA DA.8 and DA.9** — opened
+  2026-08-09. Previously assigned to a supplement called CS50T Multimedia; removed per
+  teacher confirmation that it hasn't actually been taught since year one, so the
+  assignment was stale rather than real coverage. The Pico/MicroPython unit's I2C chapter
+  (source/rpi-pico-2e ch.14, "Digital communication protocols") teaches hexadecimal as
+  compact byte notation for I2C device addresses — a partial, authentic touchpoint for 2.1
+  and DA.8 — but doesn't cover binary place-value/conversion explicitly, and doesn't touch
+  data compression at all, so 2.2/DA.9 remain fully open regardless. No replacement
+  identified for either pair yet; see `apcsp-python-scope-sequence.md` in the `learn` repo's
+  `_program-notes/` for the live discussion.
 - **AP CRD-2.H / CA AP.19** — crediting or licensing code taken from another source.
   Notable because chap04 and chap08 *use* borrowed libraries without ever discussing this.
 - **CA AP.15** — event-driven/GUI programming. No event loop anywhere in the book.
@@ -60,10 +64,9 @@ block, or lab practice. Listed here so they don't quietly stay uncovered:
 - **CA DA.11** — refining a computational model against real data.
 
 None of these are large enough on their own to justify a new supplement course the way
-CS50T Multimedia or the November block do — they're individual standards, not whole
-strands. Whether to patch them with a short lesson, fold them into an existing
-supplement, or accept the gap is a call for whoever owns the course calendar, not this
-pass.
+the November block does — they're individual standards, not whole strands. Whether to
+patch them with a short lesson, fold them into an existing supplement, or accept the gap
+is a call for whoever owns the course calendar, not this pass.
 
 ## The one coverage question that cuts across all of the above
 

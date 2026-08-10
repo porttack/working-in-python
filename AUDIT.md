@@ -4233,3 +4233,49 @@ yet about whether the "fully independent, submit the packet, verify they aren't 
 model (chapters 2-4) is what chapter 1 retroactively becomes too, or stays the live-demo
 model it was designed around. The Mandelbrot/Game-of-Life placement above is a suggestion,
 not a commitment — revisit when chapters 6 and 9 actually come up.
+
+## 2026-08-09 follow-up — CS50T Multimedia retired as a carrier; Pass 3 correction
+
+Not a new pass — a correction inside Pass 3's territory, prompted by a scope-and-sequence
+conversation happening in parallel in the `learn` repo (`_program-notes/
+apcsp-python-scope-sequence.md` and `cs50p-teacher-guide.md`, both gitignored drafts there,
+not in this repo). The maintainer said plainly: "cs50T is crap and we need to remove that —
+it is out of date and I've never taught it after the first year."
+
+**What was done.** Pass 3, Step 4 had assigned AP 2.1 (Binary Numbers), 2.2 (Data
+Compression), and CA 9-12.DA.8/DA.9 to a supplement called CS50T Multimedia. That
+assignment is now removed everywhere it appeared: `standards/apcsp.json`,
+`castandards.json`, `crosswalk.json` (the source-of-truth `carrier`/`note` fields, now
+`carriers: []` matching the convention used for every other real gap), and the five derived
+markdown views (`supplement-plan.md`, `standards_alignment.md`, `ap-vocabulary-coverage.md`,
+`ap-practices-bigideas-coverage.md`, `glossary-map.md`) — counts, tables, and prose all
+corrected to match, not just the carrier name swapped out. The `.html` twins under
+`alignment/` were **not** hand-edited; they're `jb/build.sh` output and due for a rebuild,
+same as `projector/` would be after a `chapters/` change.
+
+**What was decided.** Nothing yet, deliberately — this is a "raise rather than decide"
+case (a standard just lost its plausible carrier). What's on record instead is one *partial*
+factual finding, checked directly rather than assumed: the maintainer wondered out loud
+whether the Pico/MicroPython unit's I2C material might surface some of this authentically
+(hardware I2C addressing genuinely needs hex). Read the actual source EPUB
+(`~/src/learn/source/rpi-pico-2e/book.epub`, chapter 14, "Digital communication protocols:
+I2C and SPI") to check rather than guess: it does have a real, worked explanation of
+hexadecimal as compact byte notation for I2C device addresses ("each byte is exactly two
+[hex] digits") and touches bit-rate/baud informally — genuine touchpoints for 2.1/DA.8's
+hex-and-byte vocabulary. It does **not** walk through binary place-value or binary↔decimal
+conversion, and has nothing at all on data compression — so it's a partial touchpoint for
+2.1/DA.8 at best, and no touchpoint whatsoever for 2.2/DA.9. Logged into every corrected
+file's notes so a future pass doesn't read "Pico covers this" as "Pico closes this."
+
+**What's still open.** No carrier assigned for any of the four standards. Options on the
+table, none chosen: teach hex/binary deliberately around the Pico I2C unit rather than
+relying on its passing mention (2.1/DA.8 only — still leaves 2.2/DA.9 fully open);
+something built around CS50 AP's C-based bits/bytes/data-types treatment (the maintainer's
+original interest, "I like how C data types work" — flagged in the `learn` repo
+conversation as being more about fixed-width types and overflow than AP 2.1's actual
+binary-numbers scope, so may be enrichment rather than required coverage either way); or
+accept the gap for now the way `supplement-plan.md`'s other individually-small standards
+are being accepted. Whoever picks this up next should read that file's "no assigned
+carrier" section fresh rather than assume CS50T is still live — grep for "CS50T" turning up
+only historical notes (this entry, the CHANGELOG, and each corrected file's own "previously
+X, removed 2026-08-09" note) is the expected, correct state.

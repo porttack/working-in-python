@@ -27,9 +27,9 @@
       "note": "Tempting to pair these -- both are nominally 'troubleshooting' -- but CA CS.3's own worked examples are network connectivity and help-desk guidelines, a systems-level skill, not code debugging. Every chapter's Debugging section carries AP CRD-1.4; it does not carry CA CS.3. Logged as 'related' specifically so this book doesn't get credited for a standard it doesn't actually teach." },
 
     { "ap": "2.1", "ca": "9-12.DA.8", "strength": "strong",
-      "note": "Same content: representing real-world data (characters, numbers, color) in bits. Neither is carried by this book; both are CS50T Multimedia." },
+      "note": "Same content: representing real-world data (characters, numbers, color) in bits. Neither is carried by this book. Both real gaps as of 2026-08-09 -- previously routed to CS50T Multimedia, dropped per teacher confirmation it hasn't been taught since year one. The Pico I2C chapter is a partial, non-closing touchpoint for hex/byte notation; see apcsp.json's 2.1 note." },
     { "ap": "2.2", "ca": "9-12.DA.9", "strength": "partial",
-      "note": "CA DA.9's own worked example is file-size-vs-quality tradeoffs across image formats, which is data compression -- the same territory as AP's 2.2. But DA.9's stated scope is broader (storage location, cost, reliability, privacy), not compression alone. Both routed to CS50T Multimedia regardless." },
+      "note": "CA DA.9's own worked example is file-size-vs-quality tradeoffs across image formats, which is data compression -- the same territory as AP's 2.2. But DA.9's stated scope is broader (storage location, cost, reliability, privacy), not compression alone. Both real gaps as of 2026-08-09, same reason as the 2.1/DA.8 pair above -- no replacement identified for either." },
 
     { "ap": "3.2", "ca": "9-12.AP.13", "strength": "strong",
       "note": "Both are 'group related values so the program can treat them as one thing instead of separate variables.' chap09 (Lists), chap10 (Dictionaries), and chap11 (Tuples) satisfy both." },

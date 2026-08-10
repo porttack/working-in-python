@@ -50,8 +50,8 @@ actually does, chapter after chapter — build the skill.
 
 | Topic | Title | Carrier | Chapters | Note |
 |---|---|---|---|---|
-| [2.1](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.1) | Binary Numbers | supplement | — | CS50T Multimedia |
-| [2.2](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.2) | Data Compression | supplement | — | CS50T Multimedia |
+| [2.1](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.1) | Binary Numbers | unassigned | — | real gap as of 2026-08-09 — CS50T Multimedia dropped, not taught since year one |
+| [2.2](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.2) | Data Compression | unassigned | — | real gap as of 2026-08-09 — CS50T Multimedia dropped, same reason |
 | [2.3](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.3) | Extracting Information from Data | working_in_python | [12](../chapters/chap12.ipynb), [13](../chapters/chap13.ipynb) | metadata specifically uncarried |
 | [2.4](https://python.porttack.com/alignment/apcsp-standards-reference.html#T-2.4) | Using Programs with Data | working_in_python | [12](../chapters/chap12.ipynb), [13](../chapters/chap13.ipynb) | file/YAML/shelve work |
 
@@ -106,9 +106,10 @@ labor is stated in `alignment/supplement-plan.md`, not a finding of this documen
 
 ## What isn't covered, ranked by relevance to coding
 
-35 topics total: 19 `working_in_python` (54%), 7 `supplement` (20%, planned for the
-November algorithms block or CS50T but not currently in the book itself), 9
-[`little_brother`](https://porttack.com/2026/06/14/little-brother.html) (26%, all of Big Ideas 4–5). The split below separates gaps that are
+35 topics total: 19 `working_in_python` (54%), 5 `supplement` (14%, planned for the
+November algorithms block but not currently in the book itself), 9
+[`little_brother`](https://porttack.com/2026/06/14/little-brother.html) (26%, all of Big Ideas 4–5), 2 `unassigned` (6%, binary numbers and data
+compression — see below). The split below separates gaps that are
 about writing or reading code from gaps that are about computing's effects on the world —
 the second kind is expected and already covered elsewhere; the first kind is the one worth
 watching.
@@ -134,10 +135,15 @@ watching.
    3.16–3.18).** All four are `supplement` — planned for the November algorithms block, not
    absent by design, but not yet present in the book as written. Linear search is taught
    (chap07) so 3.11 in particular is a direct, nameable next step rather than a cold start.
+6. **Binary numbers and data compression (2.1–2.2), opened 2026-08-09.** Previously listed
+   below as "carried elsewhere" by CS50T Multimedia; that supplement is confirmed dropped
+   (not taught since year one), so this is now a real, unassigned gap rather than coverage.
+   The Pico/MicroPython unit's I2C chapter has a partial, authentic touchpoint for
+   hexadecimal-as-byte-notation (2.1), but nothing for data compression (2.2) at all — see
+   `standards/apcsp.json`'s note on topic 2.1 for detail. No replacement plan yet.
 
 ### Not coding-related, carried elsewhere (lower priority for this book)
 
-- Binary numbers and data compression (2.1–2.2) — CS50T Multimedia.
 - Everything in Big Ideas 4 and 5, and Practice P5 — [`little_brother`](https://porttack.com/2026/06/14/little-brother.html)'s territory, per
   `supplement-plan.md`. Not a gap in this book; a different book's job.
 

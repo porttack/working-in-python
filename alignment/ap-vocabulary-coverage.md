@@ -61,21 +61,27 @@ A literal Venn — every word plotted — would be illegible at this size (185 x
 
 ## Big Idea 2 — Data (DAT)
 
-23 terms — 2 in book, 15 planned, 0 Little Brother, 6 gap.
+23 terms — 2 in book, 0 planned, 0 Little Brother, 21 gap.
+
+CS50T Multimedia, previously logged as the plan for the whole binary/encoding cluster
+below, was removed 2026-08-09 — teacher confirms it hasn't actually been taught since
+year one, so every term that pointed to it reverts to `gap`. The Pico/MicroPython unit's
+I2C chapter (source/rpi-pico-2e ch.14) is a partial, real touchpoint for the hex/byte
+terms specifically (see notes), but not a full replacement plan.
 
 | AP CSP term | Status | Working in Python | Chapter | Note |
 |---|---|---|---|---|
-| **Binary** | planned | — | — | CS50T Multimedia (extending the existing bit/byte plan). |
-| **Bit** | planned | — | — | CS50T Multimedia. |
-| **Byte** | planned | — | — | CS50T Multimedia. |
-| **Decimal** | planned | — | — | CS50T Multimedia. |
-| **Hexadecimal** | planned | — | — | CS50T Multimedia. |
+| **Binary** | gap | — | — | CS50T Multimedia dropped 2026-08-09. Pico ch.14 covers hexadecimal, not binary place-value directly — doesn't close this. |
+| **Bit** | gap | — | — | CS50T Multimedia dropped 2026-08-09. Pico ch.14 uses "bit" informally (bit-rate, bit banging) but never defines it as a concept. |
+| **Byte** | gap | — | — | CS50T Multimedia dropped 2026-08-09. Pico ch.14 does define this one directly ("each byte is exactly two [hex] digits") — the strongest touchpoint in this cluster, but a single mention, not a taught unit. |
+| **Decimal** | gap | — | — | CS50T Multimedia dropped 2026-08-09. Pico ch.14 contrasts decimal with hexadecimal in passing. |
+| **Hexadecimal** | gap | — | — | CS50T Multimedia dropped 2026-08-09. Pico ch.14 has a real explanation of hex as compact byte notation for I2C addresses — the strongest touchpoint in this cluster, worth building on deliberately rather than assuming it's already "taught." |
 | **Abstraction** | in book | encapsulation / generalization | 4, 9, 10, 11 | Data abstraction specifically is AP topic 3.2; see the coverage map. |
-| **Analog Data** | planned | — | — | CS50T Multimedia. |
-| **Digital Data** | planned | — | — | CS50T Multimedia. |
-| **Sampling** | planned | — | — | CS50T Multimedia. |
-| **Lossless Data Compression** | planned | — | — | CS50T Multimedia (extending the existing plan). |
-| **Lossy Data Compression** | planned | — | — | CS50T Multimedia. |
+| **Analog Data** | gap | — | — | CS50T Multimedia dropped 2026-08-09; no replacement identified, and Pico ch.14 doesn't touch this. |
+| **Digital Data** | gap | — | — | CS50T Multimedia dropped 2026-08-09; same as Analog Data. |
+| **Sampling** | gap | — | — | CS50T Multimedia dropped 2026-08-09; no replacement identified. |
+| **Lossless Data Compression** | gap | — | — | CS50T Multimedia dropped 2026-08-09; no replacement identified. |
+| **Lossy Data Compression** | gap | — | — | CS50T Multimedia dropped 2026-08-09; no replacement identified. |
 | **Metadata** | gap | — | — | Already flagged in ap-practices-bigideas-coverage.html as uncarried under topic 2.3. |
 | **Data** | gap | — | — | Used constantly as a plain word (“configuration data,” ch. 13); never its own headword. |
 | **Information** | gap | — | — |  |
@@ -83,11 +89,11 @@ A literal Venn — every word plotted — would be illegible at this size (185 x
 | **Correlation** | gap | — | — |  |
 | **Data Cleaning** | gap | — | — |  |
 | **Data Filtering** | in book | filtering | 10 |  |
-| **ASCII** | planned | — | — | CS50T Multimedia. |
-| **Unicode** | planned | — | — | CS50T Multimedia. |
-| **RGB** | planned | — | — | CS50T Multimedia. |
-| **Pixel** | planned | — | — | CS50T Multimedia. |
-| **Roundoff Error** | planned | — | — | CS50T Multimedia. |
+| **ASCII** | gap | — | — | CS50T Multimedia dropped 2026-08-09; no replacement identified, and Pico ch.14 doesn't touch this. |
+| **Unicode** | gap | — | — | CS50T Multimedia dropped 2026-08-09; same as ASCII. |
+| **RGB** | gap | — | — | CS50T Multimedia dropped 2026-08-09; no replacement identified. |
+| **Pixel** | gap | — | — | CS50T Multimedia dropped 2026-08-09; no replacement identified. |
+| **Roundoff Error** | gap | — | — | CS50T Multimedia dropped 2026-08-09; no replacement identified. |
 
 ## Big Idea 3 — Algorithms and Programming (AAP)
 
@@ -210,7 +216,7 @@ A literal Venn — every word plotted — would be illegible at this size (185 x
 
 ## Methodology notes, explicitly
 
-- `planned` for Big Idea 2's encoding cluster (ASCII, Unicode, RGB, pixel, decimal, hexadecimal, analog/digital data, sampling, roundoff error) extends the already-stated CS50T Multimedia plan for bit/byte/compression (see `glossary-map.md`) to the rest of that same topic cluster — a reasonable inference made in this pass, not something previously logged. Confirm CS50T Multimedia actually reaches all of these before relying on it.
+- Big Idea 2's entire encoding cluster (bit, byte, binary, decimal, hexadecimal, ASCII, Unicode, RGB, pixel, analog/digital data, sampling, compression, roundoff error) was `planned` against CS50T Multimedia as of this pass's original writing. Removed 2026-08-09 — teacher confirms CS50T hasn't been taught since year one, so that was stale, not real coverage. All reverted to `gap`; see the notes in Big Idea 2's table for which terms have a partial Pico/MicroPython I2C touchpoint (hex, byte) versus none at all (everything else in the cluster).
 - Big Ideas 4 and 5 are marked `else` (*Little Brother*) uniformly, matching the topic-level call already made in `ap-practices-bigideas-coverage.html`.
 - "in book" includes documented synonyms (procedure/function, selection/conditional, etc.) from `glossary-map.md`'s swap table, not just exact name matches.
 - `.insert()`, `while`, and Robot-style grid navigation were checked directly against the notebooks' code cells this session, not assumed.

@@ -16,6 +16,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — Retire the CS50T Multimedia carrier for binary numbers/data compression
+
+### Changed
+- `standards/apcsp.json` (topics 2.1, 2.2), `standards/castandards.json` (9-12.DA.8, DA.9),
+  and `standards/crosswalk.json`: removed "CS50T Multimedia" as the carrier for AP Binary
+  Numbers/Data Compression and their CA counterparts. Teacher confirmation: that supplement
+  hasn't actually been taught since year one, so the assignment was stale, not real
+  coverage. All four now read as real, unassigned gaps (`carriers: []`), matching the
+  convention used elsewhere for gaps with no plausible carrier.
+- `alignment/supplement-plan.md`, `standards_alignment.md`, `ap-vocabulary-coverage.md`,
+  `ap-practices-bigideas-coverage.md`, `glossary-map.md`: updated to match — CS50T
+  references removed, topic/vocabulary counts corrected, and a note added that the
+  Pico/MicroPython unit's I2C chapter (`source/rpi-pico-2e` ch.14, read from the source
+  EPUB to confirm) is a partial, non-closing touchpoint for hex/byte notation (2.1, DA.8)
+  but has nothing for data compression (2.2, DA.9). No replacement carrier decided yet —
+  see the `learn` repo's `_program-notes/apcsp-python-scope-sequence.md` for the live
+  discussion. Hosted `.html` twins under `alignment/` not regenerated here; they're
+  `jb/build.sh` output, due for a rebuild.
+
 ## 2026-08-09 — Supplementary homework exercises for chapters 1-4
 
 ### Added
