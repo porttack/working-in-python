@@ -4315,6 +4315,45 @@ that's permanently dead.
 Nothing else in the site got a `current/`-style alias — just the two JupyterLite entry
 points that actually get pasted into Schoology.
 
+## 2026-08-09 follow-up 2 — `current/` link broke on the `learn.porttack.com` mirror
+
+Maintainer reported the new stable link works on `python.porttack.com` but not on
+`https://learn.porttack.com/current/notebooks/index.html?path=...`. Checked the actual
+`porttack/learn` repo locally (`~/src/learn`) rather than guessing: it embeds this repo's
+`gh-pages` branch as a submodule at `working-in-python/` (confirmed in PUBLISHING.md's
+coupling-hazards section, and by `git submodule status` in that repo), so the real path is
+`learn.porttack.com/working-in-python/current/...`, not `learn.porttack.com/current/...` —
+the maintainer's link was missing the mount prefix. But fixing the URL alone wasn't enough:
+read the submodule's actual checked-out `working-in-python/current/notebooks/index.html`
+and found the bug — the redirect target from the previous follow-up was root-absolute
+(`/jupyterlite-<hash>/...`), which is only correct when the site is served from the domain
+root. Under `learn.porttack.com`'s `/working-in-python/` mount it resolves to
+`learn.porttack.com/jupyterlite-<hash>/...`, which doesn't exist.
+
+**What was done.** Changed both redirect targets in `jb/build.sh` from
+`/${JUPYTERLITE_DEPLOY_ID}/${view}/index.html` to `../../${JUPYTERLITE_DEPLOY_ID}/${view}/index.html`.
+`current/notebooks/index.html` and `jupyterlite-<hash>/notebooks/index.html` are always
+siblings one level below wherever the site root is, so `../../<hash>/...` lands on the right
+target under both a root mount and a subpath mount, with nothing site-specific to configure.
+Verified the resolution math with `urllib.parse.urljoin` against both
+`https://python.porttack.com/current/notebooks/index.html` and
+`https://learn.porttack.com/working-in-python/current/notebooks/index.html` (and the `lab`
+equivalents) — both resolve to the correct `.../jupyterlite-<hash>/<view>/index.html`.
+Confirmed the substituted output against the real current deploy id
+(`jupyterlite-3b8e9305fb`, matching both `--print-deploy-id` and what's actually pinned in
+the `learn` submodule right now). `PUBLISHING.md` updated with the reasoning; `CHANGELOG.md`
+gets a `### Fixed` entry under the same 2026-08-09 heading rather than a new dated section,
+since it corrects the same day's unreleased addition.
+
+**Not done / open.** Didn't touch anything in the `porttack/learn` repo itself — that
+submodule pin already happened to include `current/` (last bumped same day, "Update
+documentation"), so no submodule bump was needed to see the fix once `gh-pages` is
+republished here. Whether `learn.porttack.com`'s copy of `current/` stays close to
+`python.porttack.com`'s going forward depends entirely on how often someone runs
+`git submodule update --remote working-in-python` over there — that's a pre-existing,
+documented staleness tradeoff (PUBLISHING.md's coupling hazards), not something this fix
+changes either way.
+
 ## 2026-08-09 follow-up — About page hidden; preface/About content tweaks, outside any pass
 
 Also outside the five passes — nav cleanup plus content edits to two meta pages, at the

@@ -71,6 +71,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   can point at the previous build for up to the 600s `Cache-Control` window after a
   republish), and added it as verification step 8.
 
+### Fixed
+- The `current/` redirect used a root-absolute path (`/jupyterlite-<hash>/...`), which
+  resolves correctly on `python.porttack.com` but not on `learn.porttack.com`, which embeds
+  this repo's `gh-pages` branch as a submodule under `/working-in-python/` instead of the
+  domain root. Changed to a relative path (`../../jupyterlite-<hash>/...`) so it resolves
+  correctly regardless of mount point.
+
 ## 2026-08-09 — Retire the CS50T Multimedia carrier for binary numbers/data compression
 
 ### Changed

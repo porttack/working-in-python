@@ -81,6 +81,10 @@ cp -r ../jupyterlite/_output "_build/html/${JUPYTERLITE_DEPLOY_ID}"
 # $JUPYTERLITE_DEPLOY_ID, preserving the query string (?path=...). Since
 # ghp-import force-pushes the whole branch, these two files are regenerated
 # with the new hash on every publish -- nothing to re-edit in Schoology, ever.
+# The redirect target is relative (../../<hash>/...), not root-absolute, so
+# this also works when this gh-pages branch is embedded as a submodule under
+# a subpath -- see porttack/learn, which serves it at
+# learn.porttack.com/working-in-python/ instead of the domain root.
 mkdir -p _build/html/current/notebooks _build/html/current/lab
 for view in notebooks lab; do
   cat > "_build/html/current/${view}/index.html" <<REDIRECT
@@ -88,13 +92,13 @@ for view in notebooks lab; do
 <meta charset="utf-8">
 <title>Redirecting to current build&hellip;</title>
 <script>
-  location.replace("/${JUPYTERLITE_DEPLOY_ID}/${view}/index.html" + location.search);
+  location.replace("../../${JUPYTERLITE_DEPLOY_ID}/${view}/index.html" + location.search);
 </script>
 <p>Redirecting to the current build&hellip;
 <a id="fallback" href="#">click here</a> if nothing happens.</p>
 <script>
   document.getElementById("fallback").href =
-    "/${JUPYTERLITE_DEPLOY_ID}/${view}/index.html" + location.search;
+    "../../${JUPYTERLITE_DEPLOY_ID}/${view}/index.html" + location.search;
 </script>
 REDIRECT
 done

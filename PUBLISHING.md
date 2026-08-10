@@ -137,6 +137,18 @@ could still point at the *previous* hash, so a reload briefly runs the old
 build instead of 404ing. Accepted deliberately -- a Schoology link that goes
 stale for ten minutes beats one that's permanently dead.
 
+The redirect target is a **relative** path (`../../<hash>/...`), not
+root-absolute, on purpose: `porttack/learn` embeds this repo's `gh-pages`
+branch as a submodule and serves it at `learn.porttack.com/working-in-python/`,
+not the domain root (see the submodule coupling hazard above). A root-absolute
+`/jupyterlite-<hash>/...` redirect resolves correctly on `python.porttack.com`
+but 404s on `learn.porttack.com`, since it skips the `/working-in-python/`
+prefix; a relative redirect resolves correctly under either mount point with
+no site-specific configuration. Same submodule-pin caveat applies as
+everywhere else on that mirror: `current/` there is only as current as the
+last `git submodule update --remote working-in-python` in that repo, not
+truly live.
+
 ## First deploy, in order
 
 Each step fails independently, so verify each before starting the next.
