@@ -4338,3 +4338,61 @@ line (`# Downey's Preface, unedited` → `# Downey's Preface`).
 **Not done.** No rebuild (`jb/build.sh` not run), so `jb/index.ipynb` still has the stale
 About link until the next publish. `ATTRIBUTION.md` and `about.md`'s own License section
 weren't touched — the corrections-contact and licensing content there still matches.
+
+## 2026-08-09 — AP CSP vocabulary coverage rebuilt from a real course-priority list
+
+Maintainer supplied `data/ap-vocabulary-source.md` (now committed to the repo as-is — it
+declares itself "the single source; downstream artifacts are generated from it, not edited
+independently," so it gets a real file rather than living only in chat): a curated,
+teacher-authored AP CSP vocabulary list for this specific course offering, with Tier
+(Concept/Label/Fact — actual instructional cost, not just exam frequency), HF/KA/WR flags
+(high-frequency, Khan-covered, written-response prompt language), original definitions and
+notes, a 10-item Python-vs-exam misconception bank, and an explicit exclusion list
+(the whole pseudocode notation block and Robot commands — recognition items on the exam's
+own reference sheet, not vocabulary to teach).
+
+**`alignment/ap-vocabulary-coverage.md` + `.html` rebuilt from this file, not the previous
+compiled 140-term list.** The previous list (apcsexamprep.com + Khan Academy + the Exam
+Reference Sheet, compiled without course-specific priority) is superseded — every term not
+in the maintainer's new list was dropped, per explicit instruction. New count: 144 terms
+(66 Concept / 46 Label / 32 Fact), of which 38 are taught in this book, 11 planned
+elsewhere in the course, 54 *Little Brother*'s territory, and 41 open gaps. This page adds
+the one thing the source file explicitly doesn't have: the Working-in-Python chapter
+mapping, reusing the WiP status/term/chapter classification from the previous version where
+the term carried over unchanged, and freshly classifying the ~17 terms new to this list
+(`Debugging`→ch01, `Boolean expression`→ch05, `Element`→ch09, `Concatenation`→ch01,
+`Compound conditional`→ch05 via logical operator, `Data abstraction`→ch04/09-11; the
+Program purpose/function/input/output cluster, `Substring`, `Computing system`, `Packet
+switching`, `Open standard` are gaps; `Aggregation of information`, `Anonymization`,
+`Beneficial and harmful effects` default to Little Brother, matching Big Idea 5's uniform
+carrier).
+
+**Also fixed, caught while merging:** the maintainer's own edit to `glossary-map.md` (made
+directly, not through this session) already recorded that the CS50T Multimedia unit — the
+previously-assumed carrier for the whole Big Idea 2 encoding cluster (binary, bit, byte,
+hex, ASCII, Unicode, RGB, pixel, compression) — was dropped and hasn't been taught since
+year one, with a Pico/MicroPython I2C chapter offering only a partial touchpoint for
+byte/hex notation, none for compression. The previous version of this page still had all of
+that cluster marked `planned` against CS50T Multimedia. Corrected to `gap` here, with the
+I2C partial-touchpoint noted specifically on Binary/Bit/Byte/Hexadecimal rather than the
+whole cluster, since that's as far as the touchpoint actually reaches.
+
+**Page redesigned around Tier**, not just Big Idea: a `.tier` badge (C/L/F) per row, HF/KA/WR
+as small marked flags, plus the WiP status chip, WiP term, and chapter — same house CSS
+system as the other `alignment/*.html` pages, extended with `.tier`/`.flag`/`.legend` rules.
+Added a "Python-first misconception bank" section (the source file's §4, as an HTML table)
+since it's squarely about the same Python/AP divergence this page already tracks per-term.
+
+**Left out of the public hosted page, deliberately:** the source file's classroom-logistics
+header (teacher name, room number, exact class period, cohort size, binder/printing specs).
+That's real content but it's operational planning detail for the teacher, not something a
+public reference page linked from the book's own student-facing nav needs to expose. It's
+preserved verbatim in `data/ap-vocabulary-source.md` (repo-only) for anyone regenerating
+downstream artifacts. Worth flagging back to the maintainer in case the choice should go the
+other way — nothing in it is sensitive, it just isn't reader-relevant on that particular
+page.
+
+**Not done:** none of `data/ap-vocabulary-source.md`'s other five build targets (§6 —
+printed glossary, teach-list checklist, warm-up generator JSON seed, expanded Peer
+Instruction bank, WR-tier drill set) were built. The source file's own instruction is "ask
+for these individually," and only the vocabulary-coverage merge was requested this session.

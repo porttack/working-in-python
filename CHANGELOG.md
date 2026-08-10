@@ -16,6 +16,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-09 — AP CSP vocabulary coverage rebuilt from a real course-priority list
+
+### Added
+- `data/ap-vocabulary-source.md`: this course's own curated AP CSP vocabulary list (144
+  terms), with Tier (Concept/Label/Fact instructional cost), HF/KA/WR flags, original
+  definitions and notes, a 10-item Python-vs-exam misconception bank, and an explicit
+  exclusion list. Declares itself the single source for downstream artifacts.
+
+### Changed
+- `alignment/ap-vocabulary-coverage.md` + `.html` rebuilt entirely from the new source
+  file, replacing the previous compiled 140-term list. Every term not in the new list was
+  dropped. Adds the Working-in-Python chapter mapping the source file doesn't have; page
+  redesigned around Tier, with a new misconception-bank section.
+
+### Fixed
+- The Big Idea 2 encoding cluster (binary, bit, byte, hex, ASCII, RGB, compression, ...)
+  was marked `planned` against a CS50T Multimedia unit that (per the maintainer's own
+  `glossary-map.md` edit) was dropped and hasn't been taught since year one. Corrected to
+  `gap`, with a narrower note where the Pico/MicroPython I2C unit has a partial touchpoint
+  (byte/hex notation only).
+
 ## 2026-08-09 — Hide the About page; preface and About content tweaks
 
 ### Removed
