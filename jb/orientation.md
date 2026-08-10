@@ -121,3 +121,8 @@ In this order:
 Being stuck is not evidence that you are bad at this. Everyone who writes code is
 stuck most of the time. The difference between people who program and people who
 gave up is entirely a matter of what they do in minute fifteen.
+
+---
+
+*Curious about why this book exists at all, or what changed from the original?
+That is on the [About](about.md) page. It is not required reading.*

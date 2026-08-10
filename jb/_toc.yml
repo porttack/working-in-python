@@ -11,8 +11,8 @@ parts:
   chapters:
     - file: jupyter_intro
       title: About Jupyter Notebooks
-    - file: orientation
     - file: chap00        # Downey's Preface
+    - file: about
 
 # All nineteen chapters live in ONE numbered part, deliberately.
 #
