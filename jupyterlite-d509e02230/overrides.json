@@ -1,0 +1,15 @@
+{
+  "@jupyterlab/filebrowser-extension:browser": {
+    "sortNotebooksFirst": true
+  },
+  "@jupyterlab/cell-toolbar-extension:plugin": {
+    "toolbar": [
+      {
+        "name": "run-cell",
+        "command": "notebook:run-cell-and-select-next",
+        "icon": "ui-components:run",
+        "rank": 0
+      }
+    ]
+  }
+}
