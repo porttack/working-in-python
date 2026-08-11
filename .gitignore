@@ -54,3 +54,4 @@ jb/conf.py
 jupyterlite/content/
 jupyterlite/_output/
 .jupyterlite.doit.db
+.DS_Store
