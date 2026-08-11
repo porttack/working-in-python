@@ -4435,3 +4435,32 @@ page.
 printed glossary, teach-list checklist, warm-up generator JSON seed, expanded Peer
 Instruction bank, WR-tier drill set) were built. The source file's own instruction is "ask
 for these individually," and only the vocabulary-coverage merge was requested this session.
+
+---
+
+## 2026-08-10 — Stale JupyterLite filenames fixed at the build-script level
+
+User noticed the JupyterLite lab notebook still listed `chapNN.ipynb`-style files after the
+2026-08-09 `CONTENT_NAMES` rename. Investigated with an Explore agent; root cause matched
+the "Found, not fixed" note above almost exactly, just with a different symptom.
+
+`tools/build_jupyterlite_content.py`'s renaming wiring itself is correct -- a fresh
+`jupyterlite/content/` regen has zero literal `chapNN.ipynb` names, chapters 1-11 all
+carry `CONTENT_NAMES`'s renamed forms. The leak is downstream: `jupyterlite/_output/files/`
+(what `jupyter lite build` actually publishes) had 38 leftover pre-rename notebooks
+timestamped Aug 8-9, before the rename commit, sitting alongside the 31 correctly-renamed
+ones -- because the doit-based incremental build only adds/updates outputs for sources
+still present in `--contents`, never prunes an output whose source was renamed/removed.
+
+**Fix:** `jb/build.sh` and the `Makefile`'s `jupyterlite` target now `rm -rf
+jupyterlite/_output .jupyterlite.doit.db` immediately before invoking `jupyter lite
+build`, so every build is effectively from-scratch on the output side. Verified with a
+local `make jupyterlite`: `_output/files/` now contains exactly the 31 expected renamed
+files, zero `chap[0-9][0-9]*.ipynb` stragglers, `jupyter-lite.json`'s storage-name pins and
+the run-cell toolbar override both present in the built output.
+
+**Not investigated:** whether the *deployed* gh-pages site (as opposed to a local build)
+currently shows the stale files -- no rebuild/publish has happened since this session's
+earlier `overrides.json`/`jupyter-lite.json` commits, and the gh-pages push is still on
+hold per the user's explicit request (they want to time it for when no one's
+mid-exercise). Whoever does that push should expect it to also clear this.

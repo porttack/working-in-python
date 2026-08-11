@@ -16,6 +16,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-10 — Fix stale filenames surviving in the JupyterLite lab view
+
+### Fixed
+- `jb/build.sh` and `Makefile`'s `jupyterlite` target now `rm -rf jupyterlite/_output
+  .jupyterlite.doit.db` before every build. `jupyter lite build` is an incremental doit
+  build that only adds/updates outputs still present in `jupyterlite/content/`; it never
+  prunes an old output whose source was renamed or removed. Every chapter renamed by
+  `CONTENT_NAMES` (2026-08-09) had its pre-rename filename (`chap01.ipynb`,
+  `chap02-exercises.ipynb`, etc.) lingering forever in `_output/files/` alongside the
+  correct one, visible in the lab file browser. Flagged as a risk but not fixed in
+  AUDIT.md's 2026-08-09 entry (there it only affected a dead `settingsOverrides` key,
+  judged cosmetic); this is the same mechanism causing a user-visible symptom.
+
 ## 2026-08-09 — AP CSP vocabulary coverage rebuilt from a real course-priority list
 
 ### Added

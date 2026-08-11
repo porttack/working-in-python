@@ -69,7 +69,13 @@ jb build .
 # directly (for the projector-variant notebooks it ships alongside each
 # regular chapter, see AUDIT.md 2026-08-08 follow-up 15), so a stale
 # projector/ would ship stale content with no error to notice it by.
-(cd .. && python3 tools/build_blanks.py --dst projector && python3 tools/build_jupyterlite_content.py && jupyter lite build --contents jupyterlite/content --output-dir jupyterlite/_output)
+#
+# _output and the doit cache are wiped first: jupyter lite build is an
+# incremental doit build that only adds/updates outputs still present in
+# jupyterlite/content/, never prunes ones whose source was renamed or
+# removed -- so a chapter renamed by CONTENT_NAMES left its old filename
+# behind in _output/files/ forever. See AUDIT.md.
+(cd .. && rm -rf jupyterlite/_output .jupyterlite.doit.db && python3 tools/build_blanks.py --dst projector && python3 tools/build_jupyterlite_content.py && jupyter lite build --contents jupyterlite/content --output-dir jupyterlite/_output)
 # Sphinx's own build only manages files it knows about, so a jupyterlite* dir
 # from an older run lingers in _build/html across runs unless swept here.
 # Without this, a stale one could ride along into the next ghp-import publish.
