@@ -1397,7 +1397,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": false,
-    "note": "New homework exercise in chap02-exercises.ipynb. First trace-table exercise in the book -- deferred from chapter 1 since no variables/reassignment existed yet to trace."
+    "note": "New homework exercise in chap02-exercises.ipynb. First trace-table exercise in the book -- deferred from chapter 1 since no variables/reassignment existed yet to trace. Prompt text (no solution cell) also previewed in chap02.ipynb's new 'Extra Exercises' section, 2026-08-11, so students encounter the homework while reading the chapter instead of only via the separate Exercises link."
   },
   {
     "chapter": "chap02-exercises",
@@ -1411,7 +1411,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 12,
     "self_verifying": false,
-    "note": "New homework exercise in chap02-exercises.ipynb, three parts, mirrors the register of the chapter's own ch02-ex02 (sphere volume / trig identity). Ties to concurrent Math 2 content per the user. Legs/sides chosen as scaled 3-4-5 triples (9-12-15, 6-8-10) so parts a/b self-check with clean integer answers during independent work; part c intentionally does not self-check cleanly, echoing the chapter's own floating-point-imprecision note so students don't mistake it for a bug."
+    "note": "New homework exercise in chap02-exercises.ipynb, three parts, mirrors the register of the chapter's own ch02-ex02 (sphere volume / trig identity). Ties to concurrent Math 2 content per the user. Legs/sides chosen as scaled 3-4-5 triples (9-12-15, 6-8-10) so parts a/b self-check with clean integer answers during independent work; part c intentionally does not self-check cleanly, echoing the chapter's own floating-point-imprecision note so students don't mistake it for a bug. Prompt text (no solution cell) also previewed in chap02.ipynb's new 'Extra Exercises' section, 2026-08-11."
   },
   {
     "chapter": "chap02-exercises",
@@ -1425,7 +1425,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 6,
     "self_verifying": false,
-    "note": "New homework exercise in chap02-exercises.ipynb."
+    "note": "New homework exercise in chap02-exercises.ipynb. Prompt text (no solution cell) also previewed in chap02.ipynb's new 'Extra Exercises' section, 2026-08-11."
   },
   {
     "chapter": "chap02-exercises",
@@ -1439,7 +1439,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New homework exercise in chap02-exercises.ipynb, mirrors the chapter's own v = 8 redundant-vs-useful comment example with new code."
+    "note": "New homework exercise in chap02-exercises.ipynb, mirrors the chapter's own v = 8 redundant-vs-useful comment example with new code. Prompt text (no solution cell) also previewed in chap02.ipynb's new 'Extra Exercises' section, 2026-08-11."
   },
   {
     "chapter": "chap02-exercises",
@@ -1453,7 +1453,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 4,
     "self_verifying": false,
-    "note": "New homework exercise in chap02-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard."
+    "note": "New homework exercise in chap02-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard. Prompt text (minus the 'answer in the markdown cell below' instruction, which doesn't apply outside the submittable notebook) also previewed in chap02.ipynb's new 'Extra Exercises' section, 2026-08-11."
   },
   {
     "chapter": "chap03-exercises",

@@ -4525,3 +4525,105 @@ changes, by design -- see the script's own comment). `make check` plus the direc
 jupyterlite rebuild were judged sufficient verification for a two-line-per-file text
 substitution; whoever runs the next real publish should treat that as the actual
 end-to-end check.
+
+---
+
+## 2026-08-11 — chap02 previews its take-home homework as "Extra Exercises"
+
+User's concern: `chap02-exercises.ipynb` (the graded, Schoology-submitted homework
+notebook) is only reachable via the "Exercises" link in `chap02.ipynb`'s chrome bar --
+nothing stops a student from clicking straight through without ever reading the chapter.
+Asked to "copy chap02-exercises in chap02" so the homework itself nudges reading.
+
+Raised rather than decided, since a straight file copy would have dragged in stuff that
+only makes sense in the submittable notebook (name/timestamp cell, rename-before-download
+Schoology instructions, empty `# Solution goes here` cells) and because this changes a
+pattern shared by every `chap0N-exercises.ipynb` chapter (1, 3-8), which is Pass 4's
+territory, already built and tested over several sessions. Confirmed three things with the
+user before touching anything: (1) copy only the five exercise prompts as read-only preview
+text, not the full notebook; (2) heading reads "Extra Exercises", not "Homework" (matches
+the user's own second suggestion, chosen to stay distinct from the chapter's own upstream
+"## Exercises" heading two sections above it and to avoid implying grading happens here);
+(3) chapter 2 only for now -- explicitly not rolled out to chapters 1, 3-8 pending a look at
+how this one reads.
+
+**What changed:** `chapters/chap02.ipynb` gains a new "## Extra Exercises" section (six
+markdown cells, each its own `type="exercise" chapter="02"` sentinel per `CLAUDE.md`'s
+Non-negotiable #2, since every cell is 100% new content) inserted right after the chapter's
+own upstream "## Exercises" section and before the closing attribution note. Content is the
+five homework prompts from `chap02-exercises.ipynb`, trimmed of everything submission-
+specific: dropped the "Before you start" name cell, the rename/Schoology instructions, the
+`<!-- teacher: ~N min -->` timing comments (invisible either way, but chap02.ipynb has no
+existing convention of carrying them and this isn't a lesson-planning document), Exercise
+2's intervening `# Solution goes here` cells (its three parts are now one continuous
+markdown cell), and the closing line of Exercise 5 that pointed at "the markdown cell below"
+(no such cell exists in this read-only preview). Intro sentence explicitly tells the student
+the real work happens in the linked Exercises notebook.
+
+**Mechanics:** did this with a plain Python `json.load`/mutate/`json.dump` script, not
+`NotebookEdit`, per the caution in `mods/pass-4-chrome.md` item 2. First attempt used
+`ensure_ascii=False` and reformatted one unrelated pre-existing line (`—` -> literal
+em dash) elsewhere in the file, inflating the diff outside the intended change --
+`git diff` caught it immediately. Reverted with `git checkout` and redid the dump with
+`ensure_ascii=True` to match this file's existing encoding convention exactly. Worth adding
+to the pass-4 caution list: check `ensure_ascii` matches the target file's existing style
+(`grep -c '\\\\u' file.ipynb` before touching it), not just cell key order/source shape.
+Final diff is 97 pure insertion lines, nothing else touched.
+
+**Ledger:** did not create new `data/exercise-ledger.json` entries -- these are the same
+five exercises already logged as `chap02-exercises`/`ch02ex-hw01` through `ch02ex-hw05`,
+now additionally previewed in a second location, not new exercises. Instead appended a
+sentence to each of those five entries' `note` field recording the new preview location.
+
+**Verified:** `make projector && make check` clean (30 blanks up to date, check_sync clean,
+jupyterlite check clean). `projector/chap02.ipynb` regenerated and diffs identically to the
+`chapters/` change (no blank markers in the new prose). `data/exercise-ledger.json`
+re-validated as parseable JSON after the note edits.
+
+**Not done:** no change to `chap02-exercises.ipynb` itself, the chrome-bar "Exercises" link,
+or any other chapter. Did not touch `mods/pass-4-chrome.md`'s documented pattern -- this is
+additive chapter-body content (Pass 2 territory: exposition/exercises), orthogonal to the
+chrome pass's link bar and embedded pane, per that file's own scope note.
+
+**Open:** whether to extend this to chapters 1 and 3-8 (same `chap0N-exercises.ipynb`
+structure already in place) is explicitly deferred to the user, not decided here. If it
+becomes the standard pattern, `mods/pass-4-chrome.md` should gain a step for it so the next
+`chap0N-exercises.ipynb` chapter gets it automatically instead of by request each time.
+
+---
+
+## 2026-08-11 — chap02's stale execution counts nulled, for grading
+
+Follow-up in the same session: user clarified they'll grade `chap02.ipynb` itself, not
+`chap02-exercises.ipynb` -- and specifically because of the "Extra Exercises" preview just
+added, want to be able to tell whether a student actually worked the chapter or skipped
+straight to it. That check only works if unrun cells read as `null`.
+
+**Found:** `chapters/chap02.ipynb`'s 49 code cells carried non-null, sequential
+`execution_count` values (1-48, one untouched) baked in from upstream -- Downey's own
+"Updating the notebooks" commits, predating this fork. Every core chapter file
+(`chap01`, `chap03`-`chap18`) has the same pattern; only the fork-authored
+`chap0N-exercises.ipynb` files were already clean. This means every cell in the committed
+`chap02.ipynb` already looked "already run" before a student ever opened it -- exactly
+backwards from what grading-by-execution-count needs. `projector/chap02.ipynb` was
+*already* clean, because `tools/build_blanks.py` strips `execution_count` when it builds
+`projector/` from `chapters/` -- so this gap only existed in the source file, silently
+fixed downstream without anyone having decided to fix it upstream too.
+
+**Fix:** nulled `execution_count` on all 48 affected code cells in `chapters/chap02.ipynb`
+(outputs were already empty everywhere). Same `json.load`/mutate/`json.dump` mechanics as
+the Extra Exercises change above (`ensure_ascii=True`, matching this file's convention).
+`git diff` confirms the change touched only `"execution_count": N,` -> `"execution_count":
+null,` lines, one per affected cell, nothing else.
+
+**Verified:** `make projector && make check` clean. Post-change, both `chapters/chap02.ipynb`
+and `projector/chap02.ipynb` show 0 non-null `execution_count` across all 49 code cells.
+
+**Not done, flagged for a decision, not made here:** every other core chapter file
+(`chap01`, `chap03`-`chap19`) still has this same pre-existing upstream execution-count
+baggage in `chapters/`. Left alone -- the user asked for chapter 2 specifically, tied to a
+grading plan for that one chapter, not a repo-wide hygiene sweep. If more chapters get
+graded the same way, or if this should just be fixed everywhere on principle (it's a direct
+violation of `CLAUDE.md`'s own "no committed outputs, no execution counts" hygiene rule),
+that's worth raising as its own pass rather than doing quietly alongside an unrelated
+content change.

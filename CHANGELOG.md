@@ -16,6 +16,35 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-11 — chap02 previews its homework as "Extra Exercises"
+
+### Added
+- `chapters/chap02.ipynb`: new "## Extra Exercises" section, six markdown cells inside
+  `type="exercise"` sentinels, inserted after the chapter's own upstream "## Exercises"
+  section and before the closing attribution note. Previews the five homework prompts
+  from `chap02-exercises.ipynb` as read-only text (no name/timestamp cell, no
+  rename/Schoology submission instructions, no `# Solution goes here` cells, no
+  `<!-- teacher: ~N min -->` timing comments -- none of that applies inside the reading
+  chapter) with a pointer back to the real Exercises notebook, linked from the chrome bar,
+  where students actually do and submit the work. Intent: a student skimming straight to
+  the separate Exercises notebook via the chrome-bar link currently never has to open
+  `chap02.ipynb` at all; this puts the homework where reading the chapter is what surfaces
+  it.
+- `data/exercise-ledger.json`: appended a note to each of the five existing
+  `chap02-exercises`/`ch02ex-hw01`-`ch02ex-hw05` entries recording the new preview
+  location. No new ledger entries -- these are the same five exercises, not new ones.
+
+### Changed
+- `projector/chap02.ipynb`: regenerated (`make projector`) to pick up the new section;
+  no blank markers in it, so it renders identically to `chapters/chap02.ipynb`.
+- `chapters/chap02.ipynb`: nulled the `execution_count` on all 48 code cells that had one
+  (inherited, non-null, from upstream -- `projector/chap02.ipynb` already had these
+  stripped by `build_blanks.py`, so this only affected the source file). Grading chapter 2
+  itself now, not the separate exercises notebook: a student who skips straight to "Extra
+  Exercises" without running the chapter's own cells will show `null` on everything they
+  skipped, instead of the pre-baked 1-48 that made every cell look already-run regardless
+  of what the student actually did.
+
 ## 2026-08-11 — Fork thinkpython.py as working_in_python.py
 
 ### Changed
