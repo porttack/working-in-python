@@ -4464,3 +4464,64 @@ currently shows the stale files -- no rebuild/publish has happened since this se
 earlier `overrides.json`/`jupyter-lite.json` commits, and the gh-pages push is still on
 hold per the user's explicit request (they want to time it for when no one's
 mid-exercise). Whoever does that push should expect it to also clear this.
+
+---
+
+## 2026-08-11 — thinkpython.py forked and renamed working_in_python.py
+
+User noticed every notebook still downloads `thinkpython.py` from
+`github.com/AllenDowney/ThinkPython` and wanted the flexibility to tune the support
+module themselves. Investigated first: the file was already vendored at the repo root and
+tracked in git, byte-identical to upstream -- the only thing stopping a local edit from
+reaching students was that all 19 setup cells (chap01-18, jupyter_intro) hardcoded
+Downey's GitHub URL, so a fresh Colab/JupyterLite run always re-fetched his original
+regardless of what the local copy said.
+
+Flagged before editing that `AP_MODIFICATIONS.md`'s Naming section already documented a
+deliberate prior decision to leave `thinkpython.py` untouched, specifically citing
+Non-negotiable #2 (never rewrite upstream content). User chose to consciously override
+that policy for this one file, wanting the ability to diverge going forward. Confirmed
+the target name is `working_in_python.py` (matching the fork's own title), not
+`thinking_in_python.py` (an earlier back-and-forth in this session before landing on the
+right name -- corrected in-session before anything was committed).
+
+**Scope, confirmed by grep before editing:** exactly 19 notebooks reference it
+(chap01-18 + jupyter_intro; chap00 and chap19 don't use the module at all). Zero
+qualified `thinkpython.foo(...)` calls anywhere in code cells -- it's only ever
+`import`ed, never called by name in visible code, which capped the blast radius to just
+the download URL and the import statement. One upstream prose sentence (in
+`jupyter_intro.ipynb`) names the file by name and needed a matching edit. Also touched:
+`tools/build_jupyterlite_content.py`'s per-chapter companion-file lists (12 entries).
+
+**Found and deliberately left alone:** `chapters/build.sh` (Downey's own unused upstream
+build script) and `blank/*.ipynb` (a full pristine-upstream directory, all 20 chapters,
+last touched by Downey's own "Updating the blank notebooks" commits, predating this
+fork's work and not referenced by any tooling in this repo) both mention `thinkpython.py`
+but are vestigial upstream content, not part of what this fork serves or builds --
+neither was touched. `ThinkPython_v3_Full.md` (a vendored full-book reference dump) was
+similarly left alone.
+
+**Mechanics:** did the text substitution with a plain Python script operating on raw file
+text (not json.load/dump), specifically to avoid nbformat/json reformatting the rest of
+each notebook and blowing up the diff. Learned the hard way that `NotebookEdit` collapses
+a cell's `source` from the standard list-of-lines form into one long string -- used it
+once for the `jupyter_intro.ipynb` prose cell, caught the reformatting in the diff, and
+rewrote that one cell's JSON back to the list form by hand afterward. Worth remembering:
+prefer raw text substitution over `NotebookEdit` for small in-place edits where diff
+shape matters.
+
+**Verified:** `make check` clean (30 blanks up to date, check_sync clean, jupyterlite
+check clean). Full local `make jupyterlite` rebuild confirms `working_in_python.py` ships
+byte-identical to the repo-root copy, zero `thinkpython.py` remnants anywhere in
+`_output/files/`. `projector/` regenerated from the updated `chapters/`.
+
+**Also updated:** `AP_MODIFICATIONS.md`'s Naming section (documents the override and why)
+and `ATTRIBUTION.md` (still credits Downey's original under MIT -- a rename doesn't
+change the license obligation).
+
+**Not done:** did not run `jb/build.sh --local`'s full Sphinx book build end-to-end in
+this session (its dirty-tree guard refuses to run against uncommitted `chapters/`
+changes, by design -- see the script's own comment). `make check` plus the direct
+jupyterlite rebuild were judged sufficient verification for a two-line-per-file text
+substitution; whoever runs the next real publish should treat that as the actual
+end-to-end check.

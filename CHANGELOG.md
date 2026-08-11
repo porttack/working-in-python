@@ -16,6 +16,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-11 — Fork thinkpython.py as working_in_python.py
+
+### Changed
+- Every notebook's setup cell (`chap01`–`chap18`, `jupyter_intro`) downloaded the book's
+  support module straight from `github.com/AllenDowney/ThinkPython`. Even though the file
+  was already vendored at this repo's root, edits to that local copy never reached a
+  student, since a fresh Colab or JupyterLite run always re-fetched Downey's original.
+  Renamed the vendored copy `working_in_python.py` and repointed every download URL at
+  this repo's own raw URL instead, so future edits to the support module actually ship.
+  Also updated: `tools/build_jupyterlite_content.py`'s per-chapter companion-file lists,
+  and the one sentence in `jupyter_intro.ipynb` that names the file by name. Consciously
+  reverses the "leave thinkpython.py untouched" policy recorded in `AP_MODIFICATIONS.md`;
+  see that file's Naming section for the reasoning, and `ATTRIBUTION.md` for the
+  still-applicable MIT credit to Downey.
+
 ## 2026-08-10 — Fix stale filenames surviving in the JupyterLite lab view
 
 ### Fixed

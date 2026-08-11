@@ -72,18 +72,18 @@ DEPLOY_PATH_PLACEHOLDER = "JUPYTERLITE_DEPLOY_PATH"
 SIBLING_LINK_RE = re.compile(r"\(https://\S*?/notebooks/index\.html\?path=([^)\s\"]+)\)")
 CHAPTERS = {
     "index.ipynb": [],
-    "jupyter_intro.ipynb": ["thinkpython.py"],
-    "chap01.ipynb": ["thinkpython.py"],
-    "chap02.ipynb": ["thinkpython.py", "diagram.py"],
-    "chap03.ipynb": ["thinkpython.py", "diagram.py"],
-    "chap04.ipynb": ["thinkpython.py", "diagram.py", "jupyturtle.py"],
-    "chap05.ipynb": ["thinkpython.py", "diagram.py", "jupyturtle.py"],
-    "chap06.ipynb": ["thinkpython.py", "diagram.py"],
-    "chap07.ipynb": ["thinkpython.py", "diagram.py", "words.txt"],
-    "chap08.ipynb": ["thinkpython.py", "diagram.py", "words.txt", "pg345.txt", "pg1184.txt"],
-    "chap09.ipynb": ["thinkpython.py", "diagram.py", "words.txt"],
-    "chap10.ipynb": ["thinkpython.py", "diagram.py", "words.txt"],
-    "chap11.ipynb": ["thinkpython.py", "diagram.py", "structshape.py", "words.txt", "pg345.txt"],
+    "jupyter_intro.ipynb": ["working_in_python.py"],
+    "chap01.ipynb": ["working_in_python.py"],
+    "chap02.ipynb": ["working_in_python.py", "diagram.py"],
+    "chap03.ipynb": ["working_in_python.py", "diagram.py"],
+    "chap04.ipynb": ["working_in_python.py", "diagram.py", "jupyturtle.py"],
+    "chap05.ipynb": ["working_in_python.py", "diagram.py", "jupyturtle.py"],
+    "chap06.ipynb": ["working_in_python.py", "diagram.py"],
+    "chap07.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
+    "chap08.ipynb": ["working_in_python.py", "diagram.py", "words.txt", "pg345.txt", "pg1184.txt"],
+    "chap09.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
+    "chap10.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
+    "chap11.ipynb": ["working_in_python.py", "diagram.py", "structshape.py", "words.txt", "pg345.txt"],
     # Teacher-authored exercises notebooks, separate from the chapters
     # themselves (not one of Downey's 19 chapters -- just needs the same
     # JupyterLite treatment so its own link works). Deps listed per-notebook

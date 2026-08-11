@@ -33,9 +33,20 @@ the name changes again; only the current-state references above are.
 Left untouched, deliberately: every reference to Downey's own book and its actual GitHub
 repository (`AllenDowney/ThinkPython`) inside upstream chapter content, `ATTRIBUTION.md`,
 and the vendored reference material (`ThinkPython_v3_Full.md`, `ThinkPythonSolutions/`,
-`thinkpython.py`, the notebook zips). None of that names this fork — it names the book
-this fork is adapted from, and per Non-negotiable #2, upstream content doesn't get
-rewritten.
+the notebook zips). None of that names this fork — it names the book this fork is
+adapted from, and per Non-negotiable #2, upstream content doesn't get rewritten.
+
+**Exception: `thinkpython.py` → `working_in_python.py` (2026-08-11).** Every chapter's
+setup cell downloaded this support module straight from `AllenDowney/ThinkPython`, so
+even though the file was already vendored at the repo root, any edit to the local copy
+never reached a student — a fresh Colab or JupyterLite run always re-fetched Downey's
+original. Renamed and repointed at this repo's own raw URL
+(`github.com/porttack/working-in-python`) across all 19 notebooks that use it
+(`chap01`–`chap18`, `jupyter_intro`), `tools/build_jupyterlite_content.py`'s companion-file
+lists, and the one sentence in `jupyter_intro.ipynb` that names the file by name. This
+consciously reverses the "left untouched" policy above for this one file, in order to let
+future edits to the support module actually reach students. Downey's original file is
+still MIT-licensed and still credited — see `ATTRIBUTION.md`.
 
 ## Virtual-assistant material
 

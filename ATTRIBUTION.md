@@ -34,7 +34,11 @@ description of what a code means is paraphrased in this project's own words. See
 ## Third-party assets
 
 - `words.txt`, `photos.zip`, and the Jupyter/turtle-graphics helper modules
-  (`thinkpython.py`, `diagram.py`, `structshape.py`, `Turtle.py`) are distributed with the
-  upstream repository under its stated licenses; see upstream for details.
+  (`diagram.py`, `structshape.py`, `Turtle.py`) are distributed with the upstream
+  repository under its stated licenses; see upstream for details.
 - Photos in `photos.zip` are downloaded from [Lorem Picsum](https://picsum.photos/), a
   placeholder-image service (credited in `chap13.md`).
+- `working_in_python.py` is a fork of upstream's `thinkpython.py`, renamed and vendored at
+  this repo's own root so edits to it reach students (see `AP_MODIFICATIONS.md`, Naming).
+  It remains [MIT-licensed](https://mit-license.org/), copyright 2024 Allen B. Downey, per
+  upstream's stated code license; the rename does not change that.
