@@ -4627,3 +4627,27 @@ graded the same way, or if this should just be fixed everywhere on principle (it
 violation of `CLAUDE.md`'s own "no committed outputs, no execution counts" hygiene rule),
 that's worth raising as its own pass rather than doing quietly alongside an unrelated
 content change.
+
+---
+
+## 2026-08-11 — chap01 and chap03 get the same treatment, under time pressure before class
+
+Same request extended to chapters 1 and 3: "Extra Exercises" preview section (from
+`chap01-exercises.ipynb` / `chap03-exercises.ipynb`) plus nulled `execution_count`. Applied
+the exact chap02 pattern -- confirmed programmatically (cell-by-cell dict compare against
+HEAD, ignoring `execution_count`) that each file's diff is exactly 6 new cells added plus
+`execution_count` nulling on existing code cells, nothing else touched. `make projector &&
+make check` clean.
+
+One wrinkle: `chap01.ipynb` already had literal (unescaped) `—` characters on disk, unlike
+chap02/chap03 which use `—`; used `ensure_ascii=False` for that file's dump and
+`ensure_ascii=True` for chap03's, matching each file's pre-existing convention rather than
+assuming one setting repo-wide. Confirmed with `grep -c` before writing either file.
+
+`data/exercise-ledger.json` got the same preview-location note appended to
+`ch01ex-hw01`-`05` and `ch03ex-hw01`-`05` -- no new entries.
+
+Session cut short here at the user's request (time pressure before class) to move to
+commit/push/deploy. Chapters 4-8 (same `chap0N-exercises.ipynb` structure) not touched;
+whether this becomes the standard pattern for those, and whether the repo-wide stale-
+exec-count issue gets swept, are both still open per the 2026-08-11 chap02 handoff above.

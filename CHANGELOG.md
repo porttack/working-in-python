@@ -45,6 +45,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   skipped, instead of the pre-baked 1-48 that made every cell look already-run regardless
   of what the student actually did.
 
+## 2026-08-11 — chap01 and chap03 get the same "Extra Exercises" + null exec-count treatment
+
+### Added
+- `chapters/chap01.ipynb`, `chapters/chap03.ipynb`: same "Extra Exercises" preview
+  section added to chap02.ipynb above, sourced from `chap01-exercises.ipynb` /
+  `chap03-exercises.ipynb`'s five homework prompts each, minus submission mechanics.
+- `data/exercise-ledger.json`: appended a preview-location note to the existing
+  `ch01ex-hw01`-`05` and `ch03ex-hw01`-`05` entries. No new entries.
+
+### Changed
+- `chapters/chap01.ipynb`, `chapters/chap03.ipynb`: nulled stale upstream
+  `execution_count`s on all code cells (48 and 38 respectively), same reasoning as
+  chap02's exec-count fix.
+- `projector/chap01.ipynb`, `projector/chap03.ipynb`: regenerated.
+
 ## 2026-08-11 — Fork thinkpython.py as working_in_python.py
 
 ### Changed
