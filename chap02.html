@@ -432,7 +432,15 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.11.2. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">2.12. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">2.12. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-trace-the-values">2.12.1. Exercise 1: trace the values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-python-as-a-calculator-math-class-edition">2.12.2. Exercise 2: Python as a calculator, math-class edition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-arguments-and-typeerror">2.12.3. Exercise 3: arguments and TypeError</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-bad-comment-good-comment">2.12.4. Exercise 4: bad comment, good comment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">2.12.5. Exercise 5: reflection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">2.13. Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -445,13 +453,13 @@
                 <article class="bd-article">
                   
   <!-- apcsp:begin type="note" chapter="02" -->
-<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-d509e02230/notebooks/index.html?path=_exercises02-variables-and-statements.ipynb">Chapter Exercises</a></p>
+<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=_exercises02-variables-and-statements.ipynb">Chapter Exercises</a></p>
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-d509e02230/notebooks/index.html?path=__chap02-variables-and-statements.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=__chap02-variables-and-statements.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap02.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap02.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap02.ipynb" download="chap02.ipynb">Download</a> |
-<a class="reference external" href="https://python.porttack.com/jupyterlite-d509e02230/notebooks/index.html?path=teach02-variables-and-statements.ipynb">Teach Copy (JupyterLite)</a></p>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=teach02-variables-and-statements.ipynb">Teach Copy (JupyterLite)</a></p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="02" -->
 <p id="chap02-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
 <style>
@@ -470,7 +478,7 @@
 }
 </style>
 <div id="chap02-jupyterlite-pane">
-<iframe src="jupyterlite-d509e02230/notebooks/index.html?path=__chap02-variables-and-statements.ipynb"></iframe>
+<iframe src="jupyterlite-958e6104d2/notebooks/index.html?path=__chap02-variables-and-statements.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -1046,7 +1054,56 @@ Then use <code class="docutils literal notranslate"><span class="pre">math.cos</
 </ul>
 <p>You might notice that the last result is slightly different from the other two.
 See if you can find out which is correct.</p>
-<!-- apcsp:begin type="note" chapter="02" -->
+<!-- apcsp:begin type="exercise" chapter="02" -->
+</section>
+</section>
+<section id="extra-exercises">
+<h2><span class="section-number">2.12. </span>Extra Exercises<a class="headerlink" href="#extra-exercises" title="Link to this heading">#</a></h2>
+<p>These five exercises are your homework for this chapter, about 35 minutes total. You’ll do the actual work in the separate <strong>Exercises</strong> notebook, linked at the top of this chapter – this section previews the questions so you know what’s coming while you read.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
+<section id="exercise-1-trace-the-values">
+<h3><span class="section-number">2.12.1. </span>Exercise 1: trace the values<a class="headerlink" href="#exercise-1-trace-the-values" title="Link to this heading">#</a></h3>
+<p>Below is a short sequence of assignment statements. Before you run the cell, write down (in a comment above each line) what you think the value of each variable is <em>after</em> that line runs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Then run the cell and check your predictions. If any were wrong, add a comment explaining what you missed.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
+</section>
+<section id="exercise-2-python-as-a-calculator-math-class-edition">
+<h3><span class="section-number">2.12.2. </span>Exercise 2: Python as a calculator, math-class edition<a class="headerlink" href="#exercise-2-python-as-a-calculator-math-class-edition" title="Link to this heading">#</a></h3>
+<p><strong>Part a.</strong> A right triangle has legs of length 9 and 12. The Pythagorean theorem says the hypotenuse <code class="docutils literal notranslate"><span class="pre">c</span></code> satisfies <code class="docutils literal notranslate"><span class="pre">c**2</span> <span class="pre">=</span> <span class="pre">a**2</span> <span class="pre">+</span> <span class="pre">b**2</span></code>. Create variables <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> with these values, then compute <code class="docutils literal notranslate"><span class="pre">c</span></code> using <code class="docutils literal notranslate"><span class="pre">math.sqrt</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code>. Display the result.</p>
+<p><strong>Part b.</strong> An isosceles triangle has two equal sides of length 10 and a base of length 12. The height from the top down to the base splits the triangle into two right triangles, each with a base of 6 – so it’s the same theorem again, with different numbers. Compute the height and store it in a variable named <code class="docutils literal notranslate"><span class="pre">height</span></code>. Display the result.</p>
+<p><strong>Part c.</strong> A ramp is 20 feet long and makes a 30-degree angle with the ground. The height it rises is <code class="docutils literal notranslate"><span class="pre">length</span> <span class="pre">*</span> <span class="pre">sin(angle)</span></code>.</p>
+<p>One catch: <code class="docutils literal notranslate"><span class="pre">math.sin</span></code> expects the angle in radians, not degrees, so convert first with <code class="docutils literal notranslate"><span class="pre">math.radians</span></code>. Compute the height the ramp rises, then compute how far it extends horizontally along the ground using <code class="docutils literal notranslate"><span class="pre">math.cos</span></code> the same way.</p>
+<p>Note: the height won’t come out to a perfectly clean <code class="docutils literal notranslate"><span class="pre">10.0</span></code> – you’ll get something like <code class="docutils literal notranslate"><span class="pre">9.999999999999998</span></code>. That’s the same floating-point-imprecision effect from the chapter’s own trig-identity exercise, not a mistake in your code.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
+</section>
+<section id="exercise-3-arguments-and-typeerror">
+<h3><span class="section-number">2.12.3. </span>Exercise 3: arguments and TypeError<a class="headerlink" href="#exercise-3-arguments-and-typeerror" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Predict what <code class="docutils literal notranslate"><span class="pre">round(3.14159,</span> <span class="pre">2)</span></code> displays, then run it.</p></li>
+<li><p>Now run <code class="docutils literal notranslate"><span class="pre">round(3.14159,</span> <span class="pre">2,</span> <span class="pre">5)</span></code>. In a comment, explain what kind of <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> this is – too many arguments, too few, or the wrong type?</p></li>
+<li><p>Now run <code class="docutils literal notranslate"><span class="pre">round()</span></code> with no arguments at all. In a comment, explain what kind of <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> this one is, and how it’s different from part 2.</p></li>
+</ol>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
+</section>
+<section id="exercise-4-bad-comment-good-comment">
+<h3><span class="section-number">2.12.4. </span>Exercise 4: bad comment, good comment<a class="headerlink" href="#exercise-4-bad-comment-good-comment" title="Link to this heading">#</a></h3>
+<p>Here’s a line of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp</span> <span class="o">=</span> <span class="mf">98.6</span>
+</pre></div>
+</div>
+<p>Write two versions of this line below, each with a different comment: one that’s redundant with the code (like the chapter’s <code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">8</span>&#160; <span class="pre">#</span> <span class="pre">assign</span> <span class="pre">8</span> <span class="pre">to</span> <span class="pre">v</span></code> example), and one that adds real information the code doesn’t already show.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
+</section>
+<section id="exercise-5-reflection">
+<h3><span class="section-number">2.12.5. </span>Exercise 5: reflection<a class="headerlink" href="#exercise-5-reflection" title="Link to this heading">#</a></h3>
+<p>Of the three error types from this chapter – syntax, runtime, and semantic – which do you think would be hardest to notice you’d made? Why?</p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="02" -->
 <hr class="docutils" />
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
 <hr class="docutils" />
@@ -1060,7 +1117,7 @@ See if you can find out which is correct.</p>
 </section>
 <hr class="docutils" />
 <section id="standards-alignment">
-<h2><span class="section-number">2.12. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.13. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
 <p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.1">3.1 Variables and Assignments</a>, <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.14">3.14 Libraries</a> (Big Idea 3, 30–35% of the exam). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
 <strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.17">9-12.AP.17</a>
 <strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-13">HS-PRO-PD-13</a>, headers only — the libraries half of the standard; the rest is chapter 4’s territory.
@@ -1151,7 +1208,15 @@ See if you can find out which is correct.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.11.2. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">2.12. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">2.12. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-trace-the-values">2.12.1. Exercise 1: trace the values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-python-as-a-calculator-math-class-edition">2.12.2. Exercise 2: Python as a calculator, math-class edition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-arguments-and-typeerror">2.12.3. Exercise 3: arguments and TypeError</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-bad-comment-good-comment">2.12.4. Exercise 4: bad comment, good comment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">2.12.5. Exercise 5: reflection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">2.13. Standards alignment</a></li>
 </ul>
   </nav></div>
 
