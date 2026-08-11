@@ -432,7 +432,15 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.11.4. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">3.12. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">3.12. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-scope-check">3.12.1. Exercise 1: scope check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-read-the-traceback">3.12.2. Exercise 2: read the traceback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functions-calling-functions">3.12.3. Exercise 3: functions calling functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-math-functions-review">3.12.4. Exercise 4: math + functions review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">3.12.5. Exercise 5: reflection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">3.13. Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -445,13 +453,13 @@
                 <article class="bd-article">
                   
   <!-- apcsp:begin type="note" chapter="03" -->
-<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=_exercises03-functions.ipynb">Chapter Exercises</a></p>
+<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=_exercises03-functions.ipynb">Chapter Exercises</a></p>
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=__chap03-functions.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=__chap03-functions.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap03.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap03.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap03.ipynb" download="chap03.ipynb">Download</a> |
-<a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=teach03-functions.ipynb">Teach Copy (JupyterLite)</a></p>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=teach03-functions.ipynb">Teach Copy (JupyterLite)</a></p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="03" -->
 <p id="chap03-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
 <style>
@@ -470,7 +478,7 @@
 }
 </style>
 <div id="chap03-jupyterlite-pane">
-<iframe src="jupyterlite-958e6104d2/notebooks/index.html?path=__chap03-functions.ipynb"></iframe>
+<iframe src="jupyterlite-9c8a97a9cc/notebooks/index.html?path=__chap03-functions.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -1011,7 +1019,58 @@ You don’t have to completely understand this example—we’ll learn more abou
 </div>
 </div>
 </div>
-<!-- apcsp:begin type="note" chapter="03" -->
+<!-- apcsp:begin type="exercise" chapter="03" -->
+</section>
+</section>
+<section id="extra-exercises">
+<h2><span class="section-number">3.12. </span>Extra Exercises<a class="headerlink" href="#extra-exercises" title="Link to this heading">#</a></h2>
+<p>These five exercises are your homework for this chapter, about 33 minutes total. You’ll do the actual work in the separate <strong>Exercises</strong> notebook, linked at the top of this chapter – this section previews the questions so you know what’s coming while you read.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
+<section id="exercise-1-scope-check">
+<h3><span class="section-number">3.12.1. </span>Exercise 1: scope check<a class="headerlink" href="#exercise-1-scope-check" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">set_mood</span></code> that takes a parameter <code class="docutils literal notranslate"><span class="pre">mood</span></code>, creates a local variable named <code class="docutils literal notranslate"><span class="pre">feeling</span></code> equal to <code class="docutils literal notranslate"><span class="pre">mood</span></code>, and prints <code class="docutils literal notranslate"><span class="pre">feeling</span></code>.</p>
+<p>Call <code class="docutils literal notranslate"><span class="pre">set_mood('excited')</span></code>. Then, in a new line below the call, try to <code class="docutils literal notranslate"><span class="pre">print(feeling)</span></code>.</p>
+<p>In a comment, explain what error you get and why – what does the chapter’s <code class="docutils literal notranslate"><span class="pre">cat</span></code> example (in the “Variables and parameters are local” section) have to do with what just happened here?</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
+</section>
+<section id="exercise-2-read-the-traceback">
+<h3><span class="section-number">3.12.2. </span>Exercise 2: read the traceback<a class="headerlink" href="#exercise-2-read-the-traceback" title="Link to this heading">#</a></h3>
+<p>Run the cell below. It raises a <code class="docutils literal notranslate"><span class="pre">NameError</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">announce</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">anouncement</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">daily_update</span><span class="p">(</span><span class="n">topic</span><span class="p">):</span>
+    <span class="n">announce</span><span class="p">(</span><span class="n">topic</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">morning_routine</span><span class="p">():</span>
+    <span class="n">daily_update</span><span class="p">(</span><span class="s1">&#39;Good morning!&#39;</span><span class="p">)</span>
+
+<span class="n">morning_routine</span><span class="p">()</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>In a comment, name all three functions in the call chain, in the order the traceback lists them.</p></li>
+<li><p>In a comment, say which one of the three was actually running when the error happened – the other two just called it.</p></li>
+<li><p>Fix the bug (it’s a typo) so the cell runs correctly.</p></li>
+</ol>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
+</section>
+<section id="exercise-3-functions-calling-functions">
+<h3><span class="section-number">3.12.3. </span>Exercise 3: functions calling functions<a class="headerlink" href="#exercise-3-functions-calling-functions" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">shout</span></code> that takes a parameter <code class="docutils literal notranslate"><span class="pre">word</span></code> and prints the word followed by <code class="docutils literal notranslate"><span class="pre">'!!!'</span></code>, using string concatenation from chapter 1.</p>
+<p>Then write a function called <code class="docutils literal notranslate"><span class="pre">greet</span></code> that takes a parameter <code class="docutils literal notranslate"><span class="pre">name</span></code> and calls <code class="docutils literal notranslate"><span class="pre">shout</span></code> to print a greeting that includes the name, the same way <code class="docutils literal notranslate"><span class="pre">print_verse</span></code> in the chapter called <code class="docutils literal notranslate"><span class="pre">first_two_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">last_three_lines</span></code> instead of doing everything itself.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
+</section>
+<section id="exercise-4-math-functions-review">
+<h3><span class="section-number">3.12.4. </span>Exercise 4: math + functions review<a class="headerlink" href="#exercise-4-math-functions-review" title="Link to this heading">#</a></h3>
+<p>Remember the Pythagorean theorem exercise from chapter 2? Write a function called <code class="docutils literal notranslate"><span class="pre">show_hypotenuse</span></code> that takes two parameters, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, computes the hypotenuse using <code class="docutils literal notranslate"><span class="pre">math.sqrt</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code> the same way you did there (remember to <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span></code> first), and prints a sentence with the result – something like <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">hypotenuse</span> <span class="pre">is</span> <span class="pre">15.0</span></code>.</p>
+<p>Call it with a few different pairs of leg lengths to check that it works, including <code class="docutils literal notranslate"><span class="pre">9</span></code> and <code class="docutils literal notranslate"><span class="pre">12</span></code>.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
+</section>
+<section id="exercise-5-reflection">
+<h3><span class="section-number">3.12.5. </span>Exercise 5: reflection<a class="headerlink" href="#exercise-5-reflection" title="Link to this heading">#</a></h3>
+<p>Which do you think is more useful to you right now: functions calling other functions, or the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop? Why?</p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="03" -->
 <hr class="docutils" />
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
 <hr class="docutils" />
@@ -1025,7 +1084,7 @@ You don’t have to completely understand this example—we’ll learn more abou
 </section>
 <hr class="docutils" />
 <section id="standards-alignment">
-<h2><span class="section-number">3.12. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">3.13. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
 <p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.12">3.12 Calling Procedures</a>, <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.13">3.13 Developing Procedures</a> (Big Idea 3, 30–35% of the exam). <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.8">3.8 Iteration</a> (the chapter’s first <code class="docutils literal notranslate"><span class="pre">for</span></code> loop) and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> also begin here, headers only.
 <strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.16">9-12.AP.16</a>
 <strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-12">HS-PRO-PD-12</a>. Also <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-RD-17">HS-PRO-RD-17</a> and <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-ALG-PS-02">HS-ALG-PS-02</a>, headers only.
@@ -1118,7 +1177,15 @@ You don’t have to completely understand this example—we’ll learn more abou
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.11.4. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">3.12. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">3.12. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-scope-check">3.12.1. Exercise 1: scope check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-read-the-traceback">3.12.2. Exercise 2: read the traceback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functions-calling-functions">3.12.3. Exercise 3: functions calling functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-math-functions-review">3.12.4. Exercise 4: math + functions review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">3.12.5. Exercise 5: reflection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">3.13. Standards alignment</a></li>
 </ul>
   </nav></div>
 

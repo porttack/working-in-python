@@ -434,7 +434,15 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.9.6. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">1.10. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">1.10. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-order-of-operations">1.10.1. Exercise 1: order of operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-splitting-cookies">1.10.2. Exercise 2: splitting cookies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-name-banner">1.10.3. Exercise 3: name banner</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-fix-the-typeerror">1.10.4. Exercise 4: fix the TypeError</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">1.10.5. Exercise 5: reflection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">1.11. Standards alignment</a></li>
 </ul>
 </li>
 </ul>
@@ -450,13 +458,13 @@
                 <article class="bd-article">
                   
   <!-- apcsp:begin type="note" chapter="01" -->
-<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=_exercises01-welcome.ipynb">Chapter Exercises</a></p>
+<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=_exercises01-welcome.ipynb">Chapter Exercises</a></p>
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=__chap01-welcome.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=__chap01-welcome.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap01.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap01.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap01.ipynb" download="chap01.ipynb">Download</a> |
-<a class="reference external" href="https://python.porttack.com/jupyterlite-958e6104d2/notebooks/index.html?path=teach01-welcome.ipynb">Teach Copy (JupyterLite)</a></p>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=teach01-welcome.ipynb">Teach Copy (JupyterLite)</a></p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="01" -->
 <p id="chap01-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
 <style>
@@ -475,7 +483,7 @@
 }
 </style>
 <div id="chap01-jupyterlite-pane">
-<iframe src="jupyterlite-958e6104d2/notebooks/index.html?path=__chap01-welcome.ipynb"></iframe>
+<iframe src="jupyterlite-9c8a97a9cc/notebooks/index.html?path=__chap01-welcome.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -1085,7 +1093,54 @@ If you don’t, you can do the exercise without them – and then we’ll see th
 <!-- apcsp:begin type="exercise" chapter="01" -->
 <p>In your own words, what’s the difference between <code class="docutils literal notranslate"><span class="pre">/</span></code> and <code class="docutils literal notranslate"><span class="pre">//</span></code>? Answer in the markdown cell below – double-click it to edit, then press <code class="docutils literal notranslate"><span class="pre">Shift+Enter</span></code> to render it.</p>
 <!-- apcsp:end --><p><em>Type your answer here.</em></p>
-<!-- apcsp:begin type="note" chapter="01" -->
+<!-- apcsp:begin type="exercise" chapter="01" -->
+</section>
+</section>
+<section id="extra-exercises">
+<h2><span class="section-number">1.10. </span>Extra Exercises<a class="headerlink" href="#extra-exercises" title="Link to this heading">#</a></h2>
+<p>These five exercises are your homework for this chapter, about 30 minutes total. You’ll do the actual work in the separate <strong>Exercises</strong> notebook, linked at the top of this chapter – this section previews the questions so you know what’s coming while you read.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
+<section id="exercise-1-order-of-operations">
+<h3><span class="section-number">1.10.1. </span>Exercise 1: order of operations<a class="headerlink" href="#exercise-1-order-of-operations" title="Link to this heading">#</a></h3>
+<p>The formula for converting Celsius to Fahrenheit is <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">C</span> <span class="pre">*</span> <span class="pre">9/5</span> <span class="pre">+</span> <span class="pre">32</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Write an expression that converts 20°C to Fahrenheit. Predict the answer before you run the cell.</p></li>
+<li><p>Now write <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">*</span> <span class="pre">9</span> <span class="pre">/</span> <span class="pre">(5</span> <span class="pre">+</span> <span class="pre">32)</span></code> using the same value of <code class="docutils literal notranslate"><span class="pre">C</span></code>. In a comment, explain in one sentence why this gives a different — and wrong — answer.</p></li>
+</ol>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
+</section>
+<section id="exercise-2-splitting-cookies">
+<h3><span class="section-number">1.10.2. </span>Exercise 2: splitting cookies<a class="headerlink" href="#exercise-2-splitting-cookies" title="Link to this heading">#</a></h3>
+<p>You have 23 cookies to split evenly among 5 students.</p>
+<ol class="arabic simple">
+<li><p>Write an expression using <code class="docutils literal notranslate"><span class="pre">//</span></code> for how many whole cookies each student gets.</p></li>
+<li><p>Without using the <code class="docutils literal notranslate"><span class="pre">%</span></code> operator (we haven’t covered it yet), write an expression using only <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, and <code class="docutils literal notranslate"><span class="pre">//</span></code> for how many cookies are left over.</p></li>
+</ol>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
+</section>
+<section id="exercise-3-name-banner">
+<h3><span class="section-number">1.10.3. </span>Exercise 3: name banner<a class="headerlink" href="#exercise-3-name-banner" title="Link to this heading">#</a></h3>
+<p>Using <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">*</span></code>, build a one-line banner that includes your name, decorated with a border made of a repeated character (for example, dashes or asterisks).</p>
+<p>Then use <code class="docutils literal notranslate"><span class="pre">len</span></code> on your name and answer in a comment: is the number <code class="docutils literal notranslate"><span class="pre">len</span></code> gives you what you expected? Why or why not?</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
+</section>
+<section id="exercise-4-fix-the-typeerror">
+<h3><span class="section-number">1.10.4. </span>Exercise 4: fix the TypeError<a class="headerlink" href="#exercise-4-fix-the-typeerror" title="Link to this heading">#</a></h3>
+<p>The cell below raises a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;Score: &#39;</span> <span class="o">+</span> <span class="mi">95</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>In a comment, explain what the error message means, using the names of the two operand types it mentions.</p></li>
+<li><p>Fix the code so it runs, using <code class="docutils literal notranslate"><span class="pre">str</span></code>.</p></li>
+<li><p>Then fix the same problem a different way, using <code class="docutils literal notranslate"><span class="pre">int</span></code> on a numeric string instead.</p></li>
+</ol>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
+</section>
+<section id="exercise-5-reflection">
+<h3><span class="section-number">1.10.5. </span>Exercise 5: reflection<a class="headerlink" href="#exercise-5-reflection" title="Link to this heading">#</a></h3>
+<p>Describe a time you debugged something that wasn’t code – a recipe, a Wi-Fi problem, directions that didn’t work. What was the “bug,” and how did you find it?</p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="01" -->
 <hr class="docutils" />
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
 <hr class="docutils" />
@@ -1099,7 +1154,7 @@ If you don’t, you can do the exercise without them – and then we’ll see th
 </section>
 <hr class="docutils" />
 <section id="standards-alignment">
-<h2><span class="section-number">1.10. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">1.11. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
 <p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.3">3.3 Mathematical Expressions</a>, <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.4">3.4 Strings</a> (Big Idea 3, 30–35% of the exam). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.2">1.2 Program Function and Purpose</a> and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
 <strong>California 9-12:</strong> no standard names this content on its own. California treats basic arithmetic and expressions as prior knowledge by this grade band.
 <strong>CSTA 2026:</strong> not carried. CSTA’s High School band assumes basic expressions and types are already established by middle school.
@@ -1193,7 +1248,15 @@ If you don’t, you can do the exercise without them – and then we’ll see th
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.9.6. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">1.10. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">1.10. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-order-of-operations">1.10.1. Exercise 1: order of operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-splitting-cookies">1.10.2. Exercise 2: splitting cookies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-name-banner">1.10.3. Exercise 3: name banner</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-fix-the-typeerror">1.10.4. Exercise 4: fix the TypeError</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">1.10.5. Exercise 5: reflection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">1.11. Standards alignment</a></li>
 </ul>
 </li>
 </ul>
