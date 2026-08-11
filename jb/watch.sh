@@ -21,6 +21,15 @@
 # to wipe _build/ first and force every page to render from scratch:
 #
 #   ./watch.sh --clean
+#
+# Alongside sphinx-autobuild's own --open-browser window (whatever the OS
+# default browser is, sized however that browser last left it), this also
+# opens a second, independent Safari window pinned to 390x844 -- an iPhone
+# 12/13/14 portrait viewport -- so a chapter's embedded JupyterLite pane can
+# be checked at actual phone width without resizing, or disturbing, the
+# normal-size window. Defaults to jupyter_intro.html; override with:
+#
+#   PHONE_PATH=chap03.html ./watch.sh
 
 set -euo pipefail
 
@@ -49,6 +58,27 @@ python prep_notebooks.py
 # directly, so conf.py has to be generated once, up front, ourselves.
 # jb/conf.py is gitignored; treat it as disposable, like jb/chap*.ipynb.
 jb config sphinx .
+
+# Backgrounded so it never blocks the exec below. Polls instead of reusing
+# sphinx-autobuild's own --open-browser delay/race (see utils.open_browser in
+# the sphinx_autobuild package: it opens the browser, via a fixed sleep, then
+# starts uvicorn -- the browser request often lands before the port exists)
+# because a Safari window that opens before anything is listening does not
+# retry, it just shows "can't connect".
+PHONE_PATH="${PHONE_PATH:-jupyter_intro.html}"
+(
+  for _ in $(seq 1 60); do
+    curl -s -o /dev/null "http://127.0.0.1:8000/" && break
+    sleep 0.5
+  done
+  osascript <<OSA
+tell application "Safari"
+  activate
+  make new document with properties {URL:"http://127.0.0.1:8000/$PHONE_PATH"}
+  set bounds of front window to {80, 80, 470, 924}
+end tell
+OSA
+) &
 
 exec sphinx-autobuild . _build/html \
   --watch ../chapters \
