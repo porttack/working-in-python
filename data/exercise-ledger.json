@@ -1537,7 +1537,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 13,
     "self_verifying": false,
-    "note": "New homework exercise in chap04-exercises.ipynb. This notebook is the graded artifact for chapter 4 -- chap04.ipynb's own 5 native exercises (90 min) are practice only, not collected. Uses forward/left/right/jump only; curved letters are approximated with short turning segments, echoing the chapter's own circle-as-polygon idea."
+    "note": "New homework exercise in chap04-exercises.ipynb. This notebook is the graded artifact for chapter 4 -- chap04.ipynb's own 5 native exercises (90 min) are practice only, not collected. Uses forward/left/right/jump only; curved letters are approximated with short turning segments, echoing the chapter's own circle-as-polygon idea. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16."
   },
   {
     "chapter": "chap04-exercises",
@@ -1551,7 +1551,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 10,
     "self_verifying": false,
-    "note": "New homework exercise in chap04-exercises.ipynb. Replaces an earlier draft of this exercise (a growing square spiral) after the user preferred the pinwheel's visual payoff. Has students redefine square() themselves since this notebook has no shared state with chap04.ipynb."
+    "note": "New homework exercise in chap04-exercises.ipynb. Replaces an earlier draft of this exercise (a growing square spiral) after the user preferred the pinwheel's visual payoff. Has students redefine square() themselves since this notebook has no shared state with chap04.ipynb. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. The pinwheel function students write here is reused immediately by the new ch04ex-hw05 docstring exercise, positioned right after this one as Exercise 3."
   },
   {
     "chapter": "chap04-exercises",
@@ -1565,7 +1565,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New homework exercise in chap04-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Pure code-reading, no writing -- deliberate given how much writing the rest of the chapter demands."
+    "note": "New homework exercise in chap04-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Pure code-reading, no writing -- deliberate given how much writing the rest of the chapter demands. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. Renumbered from Exercise 3 to Exercise 4 in both notebooks, 2026-08-16, to make room for the new docstrings exercise (ch04ex-hw05), inserted right after pinwheel; this ledger id is unchanged, only the on-page heading number moved."
   },
   {
     "chapter": "chap04-exercises",
@@ -1579,6 +1579,20 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New homework exercise in chap04-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard."
+    "note": "New homework exercise in chap04-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard. Prompt text also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. Renumbered from Exercise 4 to Exercise 5 in both notebooks, 2026-08-16, to make room for the new docstrings exercise (ch04ex-hw05), inserted right after pinwheel; this ledger id is unchanged, only the on-page heading number moved."
+  },
+  {
+    "chapter": "chap04-exercises",
+    "id": "ch04ex-hw05",
+    "anchor": "Docstrings: add a docstring to the pinwheel function and verify it with help()",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 5,
+    "self_verifying": true,
+    "note": "New homework exercise in chap04-exercises.ipynb, 2026-08-16, added by explicit user request: docstrings matter and students should be checked on writing one and confirming it with help(), not just reading the chapter's Docstrings section. Positioned as Exercise 3, immediately after pinwheel (ch04ex-hw02, Exercise 2), since it reuses that function rather than introducing new code -- interface-vs-implementation (ch04ex-hw03) and reflection (ch04ex-hw04) shifted down to Exercise 4 and 5 to make room. self_verifying: true because help()'s output directly shows whether the docstring exists and renders as intended. Prompt text (no solution cell) also previewed, in the same Exercise 3 position, in chap04.ipynb's new 'Extra Exercises' section. Bumped the intro cell's exercise count/time estimate in chap04-exercises.ipynb from 'four exercises... 33 minutes' to 'five exercises... 38 minutes' to match."
   }
 ]

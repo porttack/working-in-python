@@ -4705,3 +4705,65 @@ stays hidden even with `sphinx-book-theme.js` script-blocked). The submodule pin
 `porttack/learn` won't pick this up until that repo's own
 `git submodule update --remote working-in-python` runs after the next `gh-pages` push, per
 the existing coupling-hazard note in `PUBLISHING.md`.
+
+---
+
+## 2026-08-16 — chap04 gets the chap01-03 treatment, plus a new docstrings exercise
+
+Extended the "Extra Exercises" preview + nulled `execution_count` pattern to chapter 4, and
+separately, at the user's explicit request, added a new graded exercise: write a function
+with a docstring, then confirm it with `help()`. User's framing: docstrings matter, and
+writing one isn't the same as confirming a student knows it actually works and is checkable
+-- that's what `help()` is for.
+
+**Placement, corrected mid-session:** first draft appended the new exercise at the very end
+(after reflection), matching how earlier chapters' new-content additions had gone. User
+caught this immediately -- it belongs right after Exercise 2 (pinwheel), since it directly
+reuses the `pinwheel` function students just wrote, not off on its own as an afterthought.
+Redid both files with the new exercise as **Exercise 3**, bumping the old Exercise 3
+(interface vs. implementation) and Exercise 4 (reflection) down to 4 and 5. Caught and fixed
+a second-order mistake from the same wrong-placement draft: the `chap04.ipynb` preview and
+the actual `chap04-exercises.ipynb` briefly disagreed on which exercise was numbered 4 vs.
+5 (preview had docstrings=4/reflection=5; the real notebook had reflection=4/docstrings=5)
+-- fixed by rebuilding the preview to match the corrected notebook exactly, verified by
+diffing each file's `### Exercise N:` headings side by side before moving on.
+
+**What changed:**
+- `chapters/chap04-exercises.ipynb`: new Exercise 3 (docstrings on `pinwheel` + `help()`),
+  old Exercise 3/4 renumbered to 4/5 (heading text only -- no other content touched), intro
+  cell's count/time bumped from "four exercises... 33 minutes" to "five... 38 minutes".
+  This file's cells use a different, more inconsistent convention than chap01-03's
+  (`source` as a plain string rather than a list of lines, and markdown cells ordering
+  `metadata`/`source` differently across cells within the same file -- likely a residue of
+  `NotebookEdit` having touched it in an earlier session, per the caution in
+  `mods/pass-4-chrome.md` item 2). Matched the convention of the *immediately adjacent*
+  cells for each edit rather than picking one convention file-wide, so the diff stays
+  minimal cell-by-cell.
+- `chapters/chap04.ipynb`: same "Extra Exercises" section as chap01-03, all five prompts in
+  the same order as the real notebook, plus a note that the chapter's own turtle-drawing
+  exercises above (rectangle/rhombus/parallelogram/pie/flower) are practice, not graded.
+  Nulled `execution_count` on all 47 affected code cells, same as chap01-03.
+- `data/exercise-ledger.json`: new `ch04ex-hw05` entry for the docstrings exercise
+  (`self_verifying: true`, since `help()`'s output is the check). Existing `ch04ex-hw03`
+  and `ch04ex-hw04` got a note recording their heading-number shift to 4/5 -- ledger ids
+  themselves are unchanged, only the on-page numbers moved, so history stays traceable.
+
+**Verified:** programmatic cell-by-cell diff against HEAD (ignoring `execution_count`)
+confirmed exactly 6 cells added to `chap04.ipynb`, nothing else changed, both before and
+after the reordering fix. `make projector && make check` clean. `git diff --stat` on
+`chap04-exercises.ipynb` is a handful of lines, not a full-file rewrite.
+
+**Found, not fixed:** the chrome link bar (Pass 4) on chapters 1-4 all still say **TODO:**
+in front of the "Chapter Exercises" link
+(`**TODO:** [Chapter Exercises](.../?path=_exercisesNN-....ipynb)`), left over from before
+those notebooks had real content. `chap01-exercises.ipynb` through `chap04-exercises.ipynb`
+were all filled in back on 2026-08-09 (see that date's CHANGELOG entries), so this has been
+stale for a week -- the live site currently tells students their homework link is a TODO.
+This is Pass 4 (chrome) territory, not Pass 2, and touches a pattern shared across every
+chapter with the pane/link-bar treatment, so flagging rather than fixing it as a drive-by
+inside this chapter-4 content session. Whoever picks this up next: it's a one-line removal
+per chapter (`**TODO:** ` prefix), same fix in all four files.
+
+**Open, same as prior handoffs:** chapters 5-8 (same `chap0N-exercises.ipynb` structure)
+still untouched by this pattern; whether to extend it further, sweep the repo-wide stale
+exec-count issue, or fix the stale TODO markers above, are all still the user's call.

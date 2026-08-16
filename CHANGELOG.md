@@ -69,6 +69,30 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   chap02's exec-count fix.
 - `projector/chap01.ipynb`, `projector/chap03.ipynb`: regenerated.
 
+## 2026-08-16 — chap04 gets "Extra Exercises" + null exec counts, plus a new docstrings exercise
+
+### Added
+- `chapters/chap04-exercises.ipynb`: new Exercise 3, "docstrings" -- students add a
+  docstring to the `pinwheel` function they wrote in Exercise 2 (following the chapter's
+  own `polyline` example), re-run that cell, then run `help(pinwheel)` and confirm it
+  renders. Added at the user's explicit request: writing a docstring isn't enough on its
+  own to confirm a student understands it works -- checking with `help()` is the point.
+  Interface-vs-implementation and reflection, previously Exercises 3 and 4, shift down to
+  4 and 5 to make room right after pinwheel, which the new exercise depends on.
+- `chapters/chap04.ipynb`: same "Extra Exercises" preview section as chap01-03, sourced
+  from `chap04-exercises.ipynb`'s five (now) homework prompts, in the same order,
+  including the new docstrings exercise. Notes that the chapter's own turtle-drawing
+  exercises above it (rectangle, rhombus, parallelogram, pie, flower) are practice, not
+  graded -- this is the graded homework.
+- `data/exercise-ledger.json`: new `ch04ex-hw05` entry for the docstrings exercise;
+  appended preview-location notes to `ch04ex-hw01`-`04`, and renumbering notes to
+  `ch04ex-hw03`/`04` recording their heading-number shift (ledger ids unchanged).
+
+### Changed
+- `chapters/chap04.ipynb`: nulled stale upstream `execution_count`s on all 47 code cells
+  that had one, same reasoning as chap01-03.
+- `projector/chap04.ipynb`, `projector/chap04-exercises.ipynb`: regenerated.
+
 ## 2026-08-11 — Fork thinkpython.py as working_in_python.py
 
 ### Changed
