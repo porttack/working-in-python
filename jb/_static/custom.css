@@ -65,3 +65,21 @@
     display: none !important;
   }
 }
+
+/* chap01-chap08 and jupyter_intro each embed a live JupyterLite pane --
+   #chapNN-jupyterlite-pane / #jupyter-intro-jupyterlite-pane, injected
+   directly in the chapter source (see tools/build_jupyterlite_content.py's
+   CELL_PATCHES for the exact markup every one of those chapters ships). Its
+   own inline <style> block sets `display: block` unconditionally, and its
+   script docks it with `position: fixed; z-index: 2000` beside the sidebar --
+   neither is scoped to screen-only, and it's not one of the theme's chrome
+   regions (.bd-sidebar-primary etc.) that sphinx-book-theme.js's noprint
+   mechanism covers. Left alone, printing one of these chapters prints a
+   full-height fixed box on top of the article text. `!important` is required
+   here since the pane's own rule has none and an id selector otherwise beats
+   this attribute selector on specificity. */
+@media print {
+  [id$="-jupyterlite-pane"] {
+    display: none !important;
+  }
+}

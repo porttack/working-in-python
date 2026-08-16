@@ -16,7 +16,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
-## 2026-08-16 — Print CSS fallback for the primary sidebar
+## 2026-08-16 — Print CSS fallback for the primary sidebar and JupyterLite panes
 
 ### Fixed
 - `jb/_static/custom.css`: added a plain `@media print` rule hiding `.bd-sidebar-primary`
@@ -24,6 +24,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   added by `sphinx-book-theme.js` at page load, with no CSS-only fallback if that script
   doesn't run in time. See `AUDIT.md` for the investigation, including ruling out the
   `porttack/learn` submodule mount as the actual cause.
+- `jb/_static/custom.css`: added a second `@media print` rule, `[id$="-jupyterlite-pane"]`,
+  hiding the live JupyterLite iframe embedded in chap01-08 and `jupyter_intro`. That pane's
+  own CSS sets `display: block` and `position: fixed` unconditionally, with no print
+  scoping and no coverage from the theme's `noprint` mechanism, so printing one of those
+  chapters printed a full-height fixed box on top of the article text. See `AUDIT.md`.
 
 ## 2026-08-11 — chap02 previews its homework as "Extra Exercises"
 

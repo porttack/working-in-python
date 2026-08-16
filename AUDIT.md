@@ -4706,6 +4706,35 @@ stays hidden even with `sphinx-book-theme.js` script-blocked). The submodule pin
 `git submodule update --remote working-in-python` runs after the next `gh-pages` push, per
 the existing coupling-hazard note in `PUBLISHING.md`.
 
+**Follow-up, same session: the real trigger was the embedded JupyterLite pane, not the
+sidebar.** User recalled the print bug specifically on a page with both the left nav *and*
+a live JupyterLite iframe -- narrower than "print is broken," and it pointed at something
+the sidebar fix above doesn't touch at all. Checked `chapters/chap01.ipynb` directly (not
+just the built HTML): chap01-chap08 and `jupyter_intro` each embed a
+`#chapNN-jupyterlite-pane` block (exact markup mirrored in
+`tools/build_jupyterlite_content.py`'s `CELL_PATCHES`, which is what swaps it for a plain
+note in the JupyterLite content mirror, to avoid a page recursively embedding itself). That
+block's own inline `<style>` sets `display: block` on the pane unconditionally -- no
+screen-only scoping -- and its script docks it with `position: fixed; z-index: 2000`
+beside the sidebar. It is not one of the theme's chrome regions
+(`.bd-header`/`.bd-sidebar-primary`/`.bd-sidebar-secondary`/`.bd-footer*`) that
+`sphinx-book-theme.js`'s `noprint` mechanism covers (confirmed by grepping the actual
+selector list out of the vendored JS), so nothing -- not the theme, not the fix above --
+ever hid it. Printing one of these eight chapters would print a full-height fixed box on
+top of the article text, matching the user's description exactly (chapters without this
+pane, e.g. 9+, would never show it).
+
+**Fix:** added a second `@media print` rule to `jb/_static/custom.css`, `[id$="-jupyterlite-
+pane"] { display: none !important; }`. An attribute-selector on the id suffix covers all
+nine current panes (chap01-08, jupyter_intro) and any future chapter that gets the same
+treatment, without editing each notebook's `CELL_PATCHES`-mirrored cell. `!important`
+required: the pane's own rule has none, but it's an id selector (specificity 1,0,0), which
+beats a bare attribute selector (0,1,0) without it.
+
+**Not done:** same caveat as above -- not rebuilt/republished this session. Whoever
+verifies the sidebar fix by printing a plain chapter should also print one of chap01-08 (or
+`jupyter_intro`) specifically, since that's the only way to exercise this second rule.
+
 ---
 
 ## 2026-08-16 — chap04 gets the chap01-03 treatment, plus a new docstrings exercise
