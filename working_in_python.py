@@ -3,6 +3,36 @@ import io
 import re
 
 
+# ANSI escape codes for colored/formatted print() output. These work in a
+# real terminal and in JupyterLite's output renderer without installing
+# anything (no pip install needed, unlike colorama).
+RESET = "\033[0m"
+BOLD = "\033[1m"
+UNDERLINE = "\033[4m"
+
+BLACK = "\033[30m"
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+MAGENTA = "\033[35m"
+CYAN = "\033[36m"
+WHITE = "\033[37m"
+
+
+def colored(text, color, bold=False):
+    """Wrap text in ANSI codes so it prints in the given color.
+
+    text: string
+    color: one of the color constants above, e.g. RED
+    bold: boolean
+
+    returns: string
+    """
+    style = BOLD + color if bold else color
+    return f"{style}{text}{RESET}"
+
+
 def extract_function_name(text):
     """Find a function definition and return its name.
 
