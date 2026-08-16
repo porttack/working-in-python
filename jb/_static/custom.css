@@ -52,3 +52,16 @@
 #pst-sidebar-resizer.dragging {
   background: rgba(128, 128, 128, 0.4);
 }
+
+/* The theme only hides the primary (left nav) sidebar on print by adding a
+   `.noprint` class via JavaScript on page load (sphinx-book-theme.js); its own
+   print stylesheet never targets `.bd-sidebar-primary` directly. If that JS
+   doesn't run before print -- blocked script, print-preview snapshot taken
+   before it settles -- nothing hides the sidebar and it prints. This rule is
+   a plain-CSS fallback, independent of that JS, confirmed by curling the
+   built site: the server-rendered HTML never carries `noprint` on its own. */
+@media print {
+  .bd-sidebar-primary {
+    display: none !important;
+  }
+}

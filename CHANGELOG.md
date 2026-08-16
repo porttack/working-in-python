@@ -16,6 +16,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-16 — Print CSS fallback for the primary sidebar
+
+### Fixed
+- `jb/_static/custom.css`: added a plain `@media print` rule hiding `.bd-sidebar-primary`
+  (the left nav) unconditionally. The theme only hid it on print via a `.noprint` class
+  added by `sphinx-book-theme.js` at page load, with no CSS-only fallback if that script
+  doesn't run in time. See `AUDIT.md` for the investigation, including ruling out the
+  `porttack/learn` submodule mount as the actual cause.
+
 ## 2026-08-11 — chap02 previews its homework as "Extra Exercises"
 
 ### Added

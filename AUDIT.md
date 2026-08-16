@@ -4651,3 +4651,57 @@ Session cut short here at the user's request (time pressure before class) to mov
 commit/push/deploy. Chapters 4-8 (same `chap0N-exercises.ipynb` structure) not touched;
 whether this becomes the standard pattern for those, and whether the repo-wide stale-
 exec-count issue gets swept, are both still open per the 2026-08-11 chap02 handoff above.
+
+---
+
+## 2026-08-16 — Print CSS fallback for the primary sidebar
+
+User reported the left nav (primary sidebar) sometimes showing up in printed/print-preview
+output, reportedly on the `porttack/learn`-submodule-served copy
+(`learn.porttack.com/working-in-python/`). A prior session (not this one) had already
+established the mechanism: `sphinx-book-theme.js` adds a `.noprint` class to the sidebar/
+header/footer on `DOMContentLoaded`, and only then does the theme's print stylesheet hide
+it via `.noprint{display:none!important}` — there's no plain `@media print` rule targeting
+`.bd-sidebar-primary` directly.
+
+**Investigated the submodule angle specifically, since that's what distinguished this
+report from a plain "print is broken" bug.** Curled both live mounts
+(`python.porttack.com/chap02.html` and `learn.porttack.com/working-in-python/chap02.html`)
+and diffed: byte-identical (matching md5). Every `_static` asset needed by the print
+mechanism — `sphinx-book-theme.js`, `custom.js` — returns 200 on both mounts; all asset
+references in the built HTML are relative, so the `/working-in-python/` path prefix doesn't
+break anything. Confirmed the server-rendered HTML never carries `noprint` on its own (it's
+JS-only, both mounts). **Conclusion: the submodule mount isn't actually the differentiator**
+— whatever caused the nav to print would print identically at the root domain. Left open,
+not resolved: which browser/extension the user actually printed from. Likely a blocked-
+script or print-preview-timing issue per the prior session's theory, but this was never
+confirmed against a specific browser.
+
+**Fix applied regardless, since the underlying gap is real:** added a plain `@media print`
+rule to `jb/_static/custom.css` hiding `.bd-sidebar-primary` unconditionally, independent of
+the theme's JS. Harmless if the JS-added `.noprint` class is already present (redundant, not
+conflicting); the theme's own print layout (`margin-left:2rem` etc. on `.bd-main
+.bd-content`) already assumes a hidden sidebar unconditionally, so this doesn't fight
+anything. No sentinel needed — `custom.css` is entirely fork-authored, not upstream content.
+
+**Also investigated, and explicitly NOT fixed:** a genuine console error on the same pages,
+`SyntaxError: Identifier 'THEBE_JS_URL' has already been declared` — two identical inline
+`<script>` tags (plus a duplicated `togglebuttonSelector` var) sandwiching
+`sphinx-thebe.js` in the built `<head>`. Checked whether this was introduced by this fork's
+`jb/_config.yml` (it isn't — no thebe config there at all) or specific to the submodule
+build (it isn't — confirmed byte-identical on both mounts, see above). Then checked
+Downey's own live site, `allendowney.github.io/ThinkPython/chap02.html`: same exact
+duplication, same two scripts around `sphinx-thebe.js`. This is a pre-existing upstream
+Jupyter Book / sphinx-thebe defect, present in the same form in the site we forked from —
+not something this repo's config caused, and not related to the print bug (separate
+`<script>` tag from the sidebar-hiding one). Left alone: fixing it would mean patching
+vendored theme/extension internals, in direct tension with `CLAUDE.md`'s "pull Downey's
+corrections next year" goal, to silence a console warning with no visible effect.
+
+**Not done:** no local `jb/build.sh` rebuild or `gh-pages` push this session — the CSS
+change is committed to `main` only. Whoever next runs a real publish should treat that as
+the actual verification (print-preview `chap02.html` post-build and confirm the sidebar
+stays hidden even with `sphinx-book-theme.js` script-blocked). The submodule pin in
+`porttack/learn` won't pick this up until that repo's own
+`git submodule update --remote working-in-python` runs after the next `gh-pages` push, per
+the existing coupling-hazard note in `PUBLISHING.md`.
