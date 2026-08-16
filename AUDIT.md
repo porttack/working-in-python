@@ -4796,3 +4796,194 @@ per chapter (`**TODO:** ` prefix), same fix in all four files.
 **Open, same as prior handoffs:** chapters 5-8 (same `chap0N-exercises.ipynb` structure)
 still untouched by this pattern; whether to extend it further, sweep the repo-wide stale
 exec-count issue, or fix the stale TODO markers above, are all still the user's call.
+
+---
+
+## 2026-08-16 — Long session: print investigation -> download investigation -> "Copy Notebook"
+## button -> docstring reminders -> exercises-notebook deprecation decision
+
+Started from what looked like a narrow print-CSS bug and ended up somewhere very different.
+Recording the full arc here since several dead ends are worth knowing about before anyone
+re-attempts them, and because a real architectural decision came out of it (last section).
+
+**Print CSS (already committed, `73089ee` and `6bcaf09`, described in this file's own
+2026-08-16 entries above -- not repeated here).** Two `@media print` rules added to
+`jb/_static/custom.css`: hides `.bd-sidebar-primary` (the theme only hid it via a JS-added
+`.noprint` class, no CSS fallback) and `[id$="-jupyterlite-pane"]` (the embedded live
+JupyterLite pane on chap01-08/jupyter_intro, never covered by the theme's noprint mechanism
+at all). Both confirmed against the actual built CSS/JS, not guessed.
+
+**The real motivating problem, underneath the print question: students on managed
+Chromebooks can't download `.ipynb` files from the embedded JupyterLite pane.** Investigated
+thoroughly, ruling out each candidate with direct evidence rather than inference chains:
+- File System Access API (`showSaveFilePicker`) blocked by Chrome policy -- ruled out by
+  grepping the actual built `jupyterlite/_output` bundle: zero references to
+  `showSaveFilePicker`/`showOpenFilePicker` anywhere. The real download code (in
+  `jlab_core.c0153ee.js`) is a standard `Blob` + `URL.createObjectURL` + synthetic
+  `<a download>` click -- a `blob:` URL, not File System Access at all.
+- The managed profile's `URLBlocklist` (user shared the full list) blocking `data://*` /
+  `filesystem//*` -- ruled out once the above showed the real download uses neither scheme,
+  and `blob:` doesn't appear anywhere in that list either.
+- GoGuardian / a school network content filter -- ruled out: reproduces at home, signed into
+  the student profile, no school network involved at all, confirmed not on GoGuardian.
+- **Confirmed by direct test:** downloading a `.ipynb` from an unrelated site (a raw GitHub
+  link -- a genuine server-initiated HTTP download) succeeded on the same student profile.
+  Only the `blob:`-URL JupyterLite download fails. This is the one clean signal in the whole
+  investigation and held up regardless of which exact Chrome mechanism is responsible.
+
+**Built a fix for that, then paused it for a compliance reason, not a technical one.** A
+stateless Cloudflare Worker (`cloudflare-worker/`) that echoes a POST body back as a real
+`Content-Disposition: attachment` download -- same shape as the GitHub download that's
+proven to work -- plus a `working_in_python.py` helper routing a file through it via a hidden
+form POST. User caught, correctly, that routing student work through a personal Cloudflare
+account with no district data-processing agreement is a FERPA problem regardless of good
+intentions. **Stashed, not committed:** `git stash list` shows
+`stash@{0}: "download-relay: paused pending FERPA review"`, containing `AUDIT.md`,
+`CHANGELOG.md`, `working_in_python.py` (an earlier version), and `cloudflare-worker/`. Not
+resolved, not abandoned -- needs either a vetted vendor, a Workspace-bound Apps Script (also
+flagged as needing its own compliance check, not assumed safe), or district sign-off before
+any version of this ships. Do not `git stash pop` this without re-confirming the compliance
+question is actually settled.
+
+**Pivoted to print-to-PDF as an alternative delivery path, which turned into a second
+dead end, fully diagnosed but not fixable within this offline JupyterLite build:**
+- First theory, `windowingMode` (JupyterLab's cell-virtualization setting, default
+  `contentVisibility`): tried forcing it to `none` via `overrides.json` and separately via
+  live "User Preferences" in the Advanced Settings Editor. Confirmed via that same settings
+  editor that the *effective* value was `"full"` -- matching neither the schema default nor
+  either override -- meaning some other settings layer (possibly `jupyterlite-pyodide-kernel`
+  or `jupyterlite-core`'s own bundled defaults) wins over `overrides.json` for this key,
+  never fully traced. Moot regardless -- see next point.
+- Real root cause, confirmed by reading the actual CSS shipped in the build: the notebook's
+  cell list lives inside `.jp-WindowedPanel-outer { height: 100%; overflow: auto; }`, with
+  cells absolutely positioned inside it. Printing a fixed-height scrolling container only
+  ever captures whatever's currently scrolled into view -- completely independent of
+  `windowingMode`, which only governs whether off-screen cells are attached to the DOM at
+  all, a separate question from whether print can see past the current scroll position.
+  Tried a `@media print` override forcing `overflow: visible` / `height: auto` /
+  `position: static` on that container (injected via a `<style>` tag from
+  `working_in_python.py`, since there's no server to serve a real stylesheet) -- **did not
+  work when live-tested.** JupyterLab likely re-asserts dimensions via inline styles from JS,
+  which can beat even `!important` in an injected stylesheet. Not pursued further. **This
+  code was removed, not left in the repo half-working** -- printing JupyterLite's own
+  notebook UI is a dead end for now.
+
+**What actually shipped instead: a "Copy Notebook" button.** Automates a gesture already
+confirmed to work by hand -- selecting with the mouse from the first cell through the last,
+then copying, pastes into a document correctly (images included), where Jupyter's own
+Ctrl+A/copy produces an internal clipboard format that doesn't. Lives in
+`working_in_python.py` as `show_copy_notebook_button()`, called automatically on import and
+callable again anywhere (used to place a second copy right where it's actually needed --
+see below). Several iterations, each a real lesson:
+- First version used `document.body`/`document.head` injection for a `position: fixed`
+  button (same technique that worked for the print-CSS `<style>` tag injection). **Rendered
+  nothing when live-tested, cause never diagnosed.** Not worth chasing further given a
+  simpler alternative existed.
+- Rewrote as a plain `IPython.display.HTML` cell-output button (the same mechanism as
+  displaying an image) -- confirmed working immediately. Lesson banked: prefer the most
+  standard/basic rendering path available before reaching for anything cleverer, especially
+  when nothing here can be tested by the agent directly -- every layer of cleverness beyond
+  "the thing Jupyter already knows how to display" was a place this session got stuck.
+- `position: sticky` (not `fixed`) added after that, once the basic button was confirmed --
+  keeps it pinned to the top of the notebook's own scroll area without needing the
+  DOM-injection approach that didn't render.
+- Bug found and fixed: the button's label permanently changed to "Copied!..." with no
+  reset, making it look dead after one click. Was a regression from simplifying an earlier
+  draft that did have a `setTimeout` reset; added back.
+- Execution-count prompts ("In [1]:") don't get copied by design, not bug: confirmed by
+  reading the actual CSS that `.jp-InputPrompt`/`.jp-OutputPrompt` both carry a deliberate
+  `user-select: none` (JupyterLab's own comment: "Disable text selection"). Worked around by
+  toggling `user-select` back to `text` on just those elements for the moment of copying,
+  then reverting immediately after.
+- A real toolbar/menu entry was requested repeatedly and investigated twice, both dead ends:
+  `ipylab` registers commands cleanly from Python, but only its JS half is vendored in this
+  build -- confirmed its Python wheel is absent from the offline piplite index, so
+  `import ipylab` fails with no network available. `window.jupyterapp` would work without
+  ipylab, but JupyterLite only exposes it via a build flag with a documented, unresolved
+  upstream bug (`jupyterlite/jupyterlite#681`) through the normal config path. Sticky
+  positioning was accepted as covering most of the practical need instead.
+- Wording changed from "paste into a Google Doc" to "paste into a document" -- this project
+  may be used by other teachers/schools not on Google Workspace.
+
+**Docstring reminders, a second, smaller feature riding on the same mechanism.**
+`working_in_python.enable_docstring_reminders()`: registers an IPython `post_run_cell` hook
+that parses the just-executed cell's own source with `ast` and displays a small non-blocking
+warning if any function defined in that cell lacks a docstring. Deliberately scoped to the
+cell's own source (not the live namespace or notebook history), so re-running earlier cells
+doesn't re-trigger it. Wired into `chap05.ipynb` through `chap18.ipynb` -- chapters from
+where docstrings are taught (chapter 4) onward -- via one line added right after each
+chapter's existing `import working_in_python` cell. **Caught and fixed a real mistake before
+committing:** first pass wrote all of chap05-18 with `ensure_ascii=True`; chap09-18 actually
+use the literal (non-escaped) em-dash convention, and the blanket setting silently corrupted
+existing em-dashes/non-breaking-spaces elsewhere in those files. Caught by `git diff` showing
+extra unexplained changes, reverted with `git checkout`, redone per-file with the correct
+`ensure_ascii` (checked via literal-byte grep, not guessed) before proceeding. Worth
+repeating from earlier audit entries: always verify `ensure_ascii` per file, this is now the
+second time it's bitten a session.
+
+**Copy button wired into two more places, after a real miscommunication worth recording:**
+User asked for it "at the end of the extra exercises." First interpretation: the separate
+`chap0N-exercises.ipynb` homework files (added there, right after "Exercise 5: reflection,"
+before the closing Schoology-submission instructions -- chapters 1-4 only, since 5-8's
+exercises files are still empty stubs, 2 cells each, no real content yet; scaffolding them
+now was raised and explicitly deferred by the user to a later session to avoid conflicting
+with whoever's actively authoring that content). **This was not what the user meant.** They
+meant the "## Extra Exercises" section that's embedded *inside* the chapter notebooks
+themselves (`chap01.ipynb`-`chap04.ipynb`), visible in the live JupyterLite pane on the
+book's own chapter pages -- a completely different file. Added there too, right after
+"Exercise 5: reflection" and before the closing attribution note, plus a markdown heading
+("### Finished? Copy your work") after the user flagged that a bare code cell right after a
+reflection question could read as part of the exercise. Also corrected that cell's sentinel
+type from `exercise` to `note` while touching it (it's a tool, not graded content -- matches
+the type already used for the JupyterLite-pane note elsewhere in the same file).
+
+**Companion-file plumbing:** none of the `chap0N-exercises.ipynb` files previously imported
+`working_in_python` at all (confirmed by grep before assuming otherwise). Added the
+download-and-import cell (the same pattern chapter notebooks already use) to chap01-04's
+exercises files, and added `working_in_python.py` to all 8 exercises notebooks' companion-
+file lists in `tools/build_jupyterlite_content.py` (needed for the import to resolve inside
+JupyterLite, where there's no network fallback).
+
+**Chrome-bar cleanup:** the stale `**TODO:** [Chapter Exercises](...)` link flagged in this
+file's own 2026-08-11 chap04 handoff (as "chapters 1-4, one-line fix, whoever picks this up
+next") turned out to also be present in chapters 5-8 (that chrome treatment was extended to
+5-8 by the concurrent session working in parallel with this one today -- checked the actual
+files rather than trusting the older handoff's chapter range). Removed the whole line
+(not just the `**TODO:** ` prefix) from the chrome bar in all 8 chapters, per the decision
+below.
+
+**Decision, not yet acted on beyond the chrome-bar removal above: the separate
+`chap0N-exercises.ipynb` files are being deprecated.** Exercises will live entirely inside
+each chapter notebook going forward (matching how chapter 2 grading already worked, per the
+2026-08-11 handoff: graded via `chap02.ipynb` itself, not the separate exercises file). User
+will handle the actual migration (moving real answerable exercise content into each
+chapter's "Extra Exercises" section, deciding what happens to the Schoology submission
+instructions, deciding whether/when to delete the `-exercises.ipynb` files and their ledger
+entries) in a separate session. **Flagging for whoever picks that up, and for the concurrent
+Pass-2/4 session if it reaches this before that happens:** the `-exercises.ipynb` files are
+now unlinked from the chrome bar but still present, still built into JupyterLite, and still
+referenced by `tools/build_jupyterlite_content.py`'s `CONTENT_NAMES`/`CHAPTERS`/companion-
+file dicts and by `data/exercise-ledger.json`. Don't delete them or their tooling entries
+without checking this decision is actually ready to execute -- right now only the chrome-bar
+link is gone, nothing else has moved.
+
+**Reverted before committing:** the `windowingMode: "none"` override in the repo-root
+`overrides.json`, added during the abandoned print investigation above. Left in place it
+would have disabled cell virtualization entirely with no remaining benefit (the print
+approach it was for was dropped) and a real cost -- worse scroll performance on exactly the
+low-end Chromebooks this project targets. Confirmed `overrides.json` is back to its
+pre-session state before commit.
+
+**Verified:** `make check` clean throughout (blanks/projector regenerated after every
+`chapters/` edit). All touched notebooks confirmed valid JSON. All diffs checked with
+`git diff` before moving on, specifically watching for the `ensure_ascii` mismatch class of
+bug called out above.
+
+**Not verified, because it can't be from here:** everything in `working_in_python.py` was
+read carefully against documented Pyodide/JupyterLab/ipylab behavior and cross-checked
+against the actual built CSS/JS bundle wherever possible, but none of it has run in a real
+browser end-to-end except the parts the user explicitly tested live in this session (the
+Copy Notebook button's core mechanism, confirmed working; the docstring reminder, not yet
+tested by the user as of this note). Whoever deploys this for real should verify the
+docstring reminder actually fires correctly in chapters 5+ before relying on it with
+students.

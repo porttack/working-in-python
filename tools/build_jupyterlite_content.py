@@ -88,14 +88,17 @@ CHAPTERS = {
     # themselves (not one of Downey's 19 chapters -- just needs the same
     # JupyterLite treatment so its own link works). Deps listed per-notebook
     # as its own exercises start using external modules; blank otherwise.
-    "chap01-exercises.ipynb": [],
-    "chap02-exercises.ipynb": [],
-    "chap03-exercises.ipynb": [],
-    "chap04-exercises.ipynb": ["jupyturtle.py"],
-    "chap05-exercises.ipynb": [],
-    "chap06-exercises.ipynb": [],
-    "chap07-exercises.ipynb": [],
-    "chap08-exercises.ipynb": [],
+    # working_in_python.py on every one of these: each ends with a cell
+    # calling its show_copy_notebook_button(), and chapters 5-8 additionally
+    # call enable_docstring_reminders() -- see AUDIT.md, 2026-08-16.
+    "chap01-exercises.ipynb": ["working_in_python.py"],
+    "chap02-exercises.ipynb": ["working_in_python.py"],
+    "chap03-exercises.ipynb": ["working_in_python.py"],
+    "chap04-exercises.ipynb": ["working_in_python.py", "jupyturtle.py"],
+    "chap05-exercises.ipynb": ["working_in_python.py"],
+    "chap06-exercises.ipynb": ["working_in_python.py"],
+    "chap07-exercises.ipynb": ["working_in_python.py"],
+    "chap08-exercises.ipynb": ["working_in_python.py"],
 }
 # Student-legible names for what CHAPTERS ships into the flat JupyterLite lab
 # file browser, keyed by the same CHAPTERS notebook name -- chapters/*.ipynb

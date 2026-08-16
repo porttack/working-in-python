@@ -16,6 +16,45 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-16 — "Copy Notebook" button and docstring reminders for JupyterLite
+
+### Added
+- `working_in_python.py`: `show_copy_notebook_button()`, shown automatically on import and
+  callable again anywhere. Copies the whole notebook (code, output, images) for pasting into
+  a document — automates the mouse gesture already confirmed to paste correctly, since
+  Jupyter's own Ctrl+A/copy doesn't. Sticky-positioned so it stays visible while scrolling.
+  Works around a real limitation along the way: execution-count prompts carry a deliberate
+  `user-select: none` in JupyterLab's own CSS, so they're excluded and re-enabled just for
+  the moment of copying.
+- `working_in_python.py`: `enable_docstring_reminders()` — a non-blocking warning (via an
+  IPython `post_run_cell` hook + `ast`) when a cell defines a function with no docstring.
+  Wired into `chap05.ipynb`–`chap18.ipynb` (chapters from where docstrings are taught
+  onward).
+- `chap01.ipynb`–`chap04.ipynb`: a "Finished? Copy your work" cell added to the end of the
+  "## Extra Exercises" section, right after Exercise 5.
+- `chap01-exercises.ipynb`–`chap04-exercises.ipynb`: the same copy button added at the end,
+  and (previously missing) an `import working_in_python` cell to support it.
+- `tools/build_jupyterlite_content.py`: `working_in_python.py` added as a companion file for
+  all 8 `chap0N-exercises.ipynb` notebooks.
+
+### Fixed
+- `chap01.ipynb`–`chap08.ipynb`: removed the stale `**TODO:** [Chapter Exercises](...)` chrome-
+  bar link (flagged in the 2026-08-11 handoff for chapters 1-4; also found present in 5-8).
+  Removed outright rather than just fixing the label — see `AUDIT.md`: the separate
+  `chap0N-exercises.ipynb` notebooks are being deprecated, exercises will live entirely
+  inside each chapter going forward.
+
+### Investigated, not shipped
+- A download relay (Cloudflare Worker) for students on managed Chromebooks who can't
+  download `.ipynb` from JupyterLite — built and then paused for a FERPA concern (routing
+  student work through an unvetted third party), not a technical one. Stashed
+  (`git stash list`), not committed. See `AUDIT.md` for the full investigation, including
+  ruling out the File System Access API, Chrome's `URLBlocklist`, and GoGuardian in turn.
+- Printing JupyterLite's own notebook UI — real root cause found (a fixed-height, internally-
+  scrolling container that clips anything off-screen from print, independent of any notebook
+  setting), but no working fix inside this offline build. Abandoned in favor of the copy
+  button above; see `AUDIT.md`.
+
 ## 2026-08-16 — Print CSS fallback for the primary sidebar and JupyterLite panes
 
 ### Fixed
