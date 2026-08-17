@@ -21,6 +21,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   absolute and not the placeholder. See "Stable links for Schoology" and the submodule-pin
   caveat in `PUBLISHING.md`.
 
+## 2026-08-17 — temporary 404 compat shim for old JupyterLite hash links
+
+### Added
+- `jb/extra/404.html` (copied verbatim to the site root, like `CNAME`): on a 404, if the
+  requested path is a retired `jupyterlite-<hash>/lab/index.html` or
+  `jupyterlite-<hash>/notebooks/index.html`, redirects to the equivalent `current/` entry
+  point, preserving the query string. Covers bookmarked or shared links built from a hash
+  that stopped being the current build (every JupyterLite publish ships under a fresh hash,
+  see `PUBLISHING.md`). Does not, and cannot, rescue a still-open tab's requests for that old
+  build's own JS/wasm assets, or unsaved browser-side notebook state from that old build.
+  `python.porttack.com`-only: GitHub Pages only honors a custom `404.html` at a site's own
+  root, and the `learn.porttack.com` mirror (which embeds this repo's `gh-pages` branch as a
+  submodule under `/working-in-python/`) has no root `404.html` of its own, so this shim is
+  inert there. Meant to be temporary — see the removal plan in `AUDIT.md`'s
+  2026-08-17 follow-up entry.
+
 ## [Unreleased]
 
 ### Added

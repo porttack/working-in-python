@@ -5929,3 +5929,51 @@ had a problem, and it does.
 **Nothing built.** No changes to `working_in_python.py` or any chapter's exercises-boundary
 cell in this entry -- investigation and reporting only, as instructed. Not urgent before
 chapter 6 is reached.
+
+## 2026-08-17 follow-up — front page JupyterLite Lab link fixed, then a 404 compat shim for old hashes
+
+**Front page link, done.** `chapters/index.ipynb`'s "JupyterLite Lab" link used the
+`JUPYTERLITE_DEPLOY_PATH` placeholder, same as `chap01.ipynb`'s and `jupyter_intro.ipynb`'s
+embedded iframes -- correct on `python.porttack.com` (each publish substitutes that build's
+own hash) but not under the `porttack/learn` submodule mount: that repo pins `gh-pages` to a
+fixed commit (see the 2026-08-09 follow-up 2 entry above for the same class of bug), so the
+relative embedded link freezes at whatever hash was live when that commit was pinned, and can
+break outright once a later force-push makes that commit unreachable. Repointed at the
+absolute `https://python.porttack.com/current/lab/index.html` redirect instead, which always
+resolves against the live primary site regardless of the submodule's pin state. `make
+projector` regenerated `projector/index.ipynb` to match; `make check` clean; committed,
+pushed, built, and published (`gh-pages` at `fdaa152`, deploy id `jupyterlite-c4a294cb98`).
+Verified live after GitHub Pages' ~10s propagation delay: front page links to `current/`,
+`current/lab/index.html` redirects to the new hash, the new hash's `lab/index.html` returns
+200.
+
+**404 compat shim, added after that, for students holding an old hardcoded hash.** Even with
+the front-page link fixed, anything that captured a raw `jupyterlite-<hash>/...` URL before
+today (a bookmark, a link pasted somewhere other than the `current/` alias, chapter
+cross-references baked into an old deploy) 404s the moment that hash stops being the current
+build -- by design, per PUBLISHING.md ("an old `jupyterlite-<hash>/` URL 404s on reload rather
+than silently running stale content"). Added `jb/extra/404.html` (copied verbatim to the site
+root like `CNAME`, per `_config.yml`'s `html_extra_path`): on any 404, if
+`location.pathname` matches `.../jupyterlite-<hash>/(lab|notebooks)/index.html`, it
+redirects to `.../current/(lab|notebooks)/index.html`, preserving the query string. Matches
+on the path alone (not an absolute URL) so whatever precedes the hash segment is kept as-is.
+
+Deliberately does **not** try to rescue a still-open tab's requests for that old build's own
+JS/wasm assets (genuinely gone) or unsaved browser-side notebook state (same caveat the front
+page's Platform Notes already state). Checked the actual `porttack/learn` repo
+(`~/src/learn`) before claiming this covers the submodule mirror too, and it doesn't: GitHub
+Pages only honors a custom `404.html` at a site's own root, and `learn.porttack.com` is its
+own Jekyll site with no `404.html` of its own today -- our copy living inside the
+`working-in-python/` submodule subdirectory is inert there. Told the user this fix is
+`python.porttack.com`-only; a companion `404.html` in the `learn` repo's own root would be
+needed to cover that mirror, out of scope here (different repo).
+
+**This is meant to be temporary -- removal plan.** The shim exists to cover links created
+before 2026-08-17 (today's front-page fix). Once no plausible outstanding old link can still
+be in circulation -- a rough heuristic: after the fall semester this shim was added in has
+fully ended (mid-December 2026 per the course calendar in CLAUDE.md), or sooner if nobody's
+reported using a bookmarked JupyterLite link by then -- delete `jb/extra/404.html`, drop it
+from `CHANGELOG.md`'s entry only in spirit (leave the historical entry as-is, changelogs are
+append-only), and note the removal in a new dated `AUDIT.md` entry. Whoever removes it should
+first grep recent JupyterLite usage/support questions for any sign the shim is still catching
+real traffic before deleting it.

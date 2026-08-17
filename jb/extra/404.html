@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Page not found</title>
+<style>
+  body { font-family: sans-serif; max-width: 40em; margin: 4em auto; line-height: 1.5; }
+</style>
+<script>
+  // TEMPORARY compat shim, added 2026-08-17 -- see AUDIT.md for the removal plan and
+  // CHANGELOG.md for why. Every JupyterLite publish ships under a fresh jupyterlite-<hash>/
+  // path (PUBLISHING.md, "JupyterLite caching, and why the path is content-hashed"), so a
+  // bookmarked or shared link built from an older hash 404s once that hash is no longer the
+  // current build. This rescues exactly that case: if the 404'd path is a retired hash's
+  // lab/ or notebooks/ entry point, redirect to the current build's equivalent entry point,
+  // preserving the ?path=... query string. Matches on location.pathname alone (not an
+  // absolute URL), so whatever precedes "jupyterlite-<hash>/" -- "/" on python.porttack.com,
+  // "/working-in-python/" if this ever gets served under the porttack/learn submodule mount
+  // -- is kept as-is rather than assumed.
+  //
+  // Does not, and cannot, rescue: a still-open tab's requests for that old build's own JS/
+  // wasm assets (those are genuinely gone, by design -- see PUBLISHING.md), or any unsaved
+  // browser-side notebook state from that old build (see the front page's Platform Notes).
+  var m = location.pathname.match(/^(.*\/)jupyterlite-[0-9a-f]+\/(lab|notebooks)\/index\.html$/);
+  if (m) {
+    location.replace(m[1] + "current/" + m[2] + "/index.html" + location.search + location.hash);
+  }
+</script>
+<h1>Page not found</h1>
+<p>If you followed an old JupyterLite link, you should be redirected automatically.
+Otherwise, <a href="/">return to the front page</a>.</p>
