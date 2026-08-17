@@ -5555,3 +5555,231 @@ link) -- the merge only affects `chapters/chap04.ipynb` itself, which is the sam
 opens, so the change applies there too, but this session has no way to open a Colab session
 and confirm nothing about the `download()`/`%autoreload` sequence behaves differently when
 combined with the (Colab-irrelevant) `check_for_update()` call now sharing its cell.
+
+## 2026-08-16 — chap05 extra credit: fractal tree / Collatz, choose-one pair
+
+Requested as a standalone task (given to this session simply as "extra credit section,
+final"), separate from the chap04 homework-restructure work in the entries above. Added a
+new extra-credit section at the end of chap05.ipynb's exercises, directly modeled on
+chap04's spiral: worth 0.5 points, a choose-one pair (fractal tree or Collatz, not both,
+doing both earns no additional credit), never a substitute for a required exercise.
+
+**Fractal tree builds on `draw`, chap05's existing reading exercise (`ch05-ex04`).** That
+cell already shows a complete, working recursive branch-drawing function with hardcoded
+`angle = 50` and `factor = 0.6`. The new exercise asks students to write their own version as
+a named `tree(length)` function with a clear base case, then generalize it by promoting
+`angle` and `factor` to parameters -- the same move chapter 4 itself makes turning `circle`
+into `arc`. Solution cell followed by a demo cell (`Here's what the result might look
+like...`), matching the chapter's own convention for the koch and draw_sierpinski solutions.
+Demo calls `tree(length=80, angle=30, factor=0.7)` -- deliberately different values from
+`draw`'s own 50/0.6, since the point of generalizing is that the student's own function
+should draw a differently-shaped tree than the reading example did.
+
+**Collatz has no demo cell, on purpose.** Its output is the sequence of numbers itself, so
+showing the expected output would hand students the answer -- unlike the fractal tree, where
+the output is a picture whose exact shape still depends on parameters the student chooses.
+
+**The section's intro cell points students at the koch/snowflake cells (`ch05-ex05`) as
+already-completed code.** Those cells ship with "Solution goes here" like everything else in
+the notebook -- they are not pre-filled in the shipped file. The pointer only makes sense
+from a student's vantage point after they've done the required exercises in order; it is not
+a claim about what ships. Worth remembering if a future pass ever reorders the chapter so
+students could reach the extra-credit section before the koch exercise.
+
+**Open, not decided by this task:** chap05's required exercises (time-since-epoch,
+is_triangle, stack-diagram prediction, the `draw`/koch/sierpinski trio) still have none of
+the chap04 homework-restructure treatment -- no "Extra Exercises" heading, no numbering, no
+choose-one pairing among required exercises, no `time_check()` cell. `CLAUDE.md`'s pass-2
+status line says chapters 3-8 are "done," but that refers to VA-removal and kind-A
+replacement work (see the 2026-08-09/2026-08-11 entries above), not this newer
+homework-restructure wave, which chap04 is so far the only chapter to have received. This
+task deliberately did not start that work uninvited -- it was asked for only the extra-credit
+section, referencing the chapter's existing structure as-is. Whether chap05 (and 06-08) get
+the same numbering/choose-one/time-check treatment chap04 got is an open question for
+whoever picks this up next; raise it rather than assume either way.
+
+**Verified:** `make check` clean (`build_blanks --check`, `check_sync`,
+`build_jupyterlite_content --check`). `data/exercise-ledger.json` gained `ch05-tree` and
+`ch05-collatz` entries; `make ledger` regenerated `CHANGELOG_DETAIL.md` clean. `git diff
+upstream/v3 -- chapters/chap05.ipynb` shows the new cells are pure additions (new cell IDs),
+not edits to any upstream cell. File written via a direct `json.dump(...,
+ensure_ascii=True)` script rather than `NotebookEdit`, per this session's own earlier-logged
+finding that `NotebookEdit` doesn't respect this repo's escaped-non-ASCII convention;
+confirmed no stray literal curly quotes landed in the file (checked for `’` in the raw
+bytes, not just the rendered text, since ensure_ascii encodes it invisibly to a plain grep).
+`projector/chap04.ipynb` also came out modified by `make projector` in this session --
+pre-existing drift from `chapters/chap04.ipynb` having been edited without a projector
+rebuild in an earlier session (unrelated to chap05 work here), picked up incidentally by
+running `make check`/`make projector` and left regenerated rather than reverted, since
+projector is generated and this is exactly what keeping it in sync is supposed to do.
+
+**Also verified: a reference `tree(length, angle, factor)`, run headlessly against the real
+`jupyturtle.py` (via the repo's `.venv`, which has the `IPython` dependency `jupyturtle.py`
+needs and that this session's bare `python3` lacked), with the same body as `draw` but
+`angle`/`factor` promoted to parameters.** Called with the demo cell's own values,
+`tree(80, 30, 0.7)`: terminated without error and the turtle returned to within floating-point
+error of its exact starting position (`(150, 75)` to `(149.999999999999994,
+74.99999999999997)`), confirming the left/recurse/right-twice/recurse/left/back turn sequence
+is symmetric and closes correctly at these parameter values -- not just a restatement of
+`draw`'s own already-known-correct geometry, since `back(length)` here is being paired with
+turn angles that are runtime parameters rather than `draw`'s hardcoded `50`.
+
+**Not verified, because it can't be from here:** what the tree actually looks like rendered
+-- only the turtle's final logical position and the absence of a runtime error were checked
+headlessly, not the rendered SVG/HTML output. Worth a real look in a browser before this goes
+in front of students, same as any new turtle-drawing code in this project.
+
+## 2026-08-16 — chap05 gets the chap04 homework treatment, closing the open question above
+
+The "open, not decided" question from the entry directly above was resolved within the same
+day: the user clarified that the earlier "extra credit section" task had actually been the
+whole homework-restructure job, and two rounds of prompt edits had accidentally overwritten
+its full scope down to just the extra-credit piece. This entry is the rest of that job.
+
+**Reported before editing, as asked:** the extra-credit section had landed as its own H2
+(`## Extra credit...`), a sibling of `## Exercises` rather than nested in it, but with no
+`## Extra Exercises` section in between -- so it read as tacked onto Downey's ungraded
+practice. Confirmed chap05 had no `## Extra Exercises` heading at all (Task 0(a)). Confirmed
+Task 5 (deleting `chap05-exercises.ipynb`) was already done, but as a side effect of the
+book-wide `-exercises.ipynb` retirement two entries above, not chap05-specific work. Confirmed
+Task 3 (marking the three turtle exercises optional) was not started.
+
+**Built chap04.ipynb's exact structure onto chap05, section by section.** Read chap04 cell by
+cell first, as instructed, rather than working from memory of it. Order: practice-note +
+`## Extra Exercises` intro -> Exercises 1-6 (each prompt, then answer cell(s)) -> time check ->
+extra credit (relocated) -> "Finished? Copy your work" (new to this chapter). The three turtle
+exercises above (`draw`, koch, Sierpiński -- `ch05-ex04/05/07`) each got their own
+`*This one is optional...*` note cell, identical wording to chap04's pie/flower notes.
+
+**Exercise design decisions, one per exercise:**
+- **`letter_grade`/`rps_winner` (Ex 1/2, choose-one):** built to be structurally identical
+  (prompt, solution, "test your function" note, four test cells each) so neither reads as
+  more "real." `rps_winner`'s test cases needed a genuine correctness check, not just
+  plausible-looking ones -- caught and fixed a real bug this session: `rps_winner('paper',
+  'rock')` was labeled `# should be b wins` but paper actually beats rock, so the correct
+  label is `a wins`. Verified all four rps test cases against a reference win-table in plain
+  Python before shipping; changed the fourth case to `('rock', 'paper')` (correctly `b wins`)
+  rather than relabel the wrong pairing.
+- **`is_leap_year` (Ex 3):** test cases deliberately hit the century-year exception (1900:
+  divisible by 4, not by 400, not a leap year) rather than only easy cases, so a naive
+  "divisible by 4" solution fails visibly instead of passing by luck on softer test data.
+- **`countdown_by_two` debug (Ex 4):** recovered the actual original buggy function verbatim
+  from git history (`git show e46eaa2:chapters/chap05.ipynb`, the last commit before Pass 2's
+  `62b4ffe` stripped the whole VA section) rather than reconstructing one -- same body,
+  same bug, reported back to the user as instructed. Verified headlessly in plain Python
+  (no jupyturtle needed for this one): `countdown_by_two(6)` reaches `n == 0` cleanly (6, 4,
+  2, 0); `countdown_by_two(5)` skips past `0` into negative odd numbers forever, since the
+  base case is `n == 0` exactly, not `n <= 0`, and never terminates until Python's own
+  recursion-depth limit raises `RecursionError` -- confirmed both behaviors by running a
+  local copy of the function under `sys.setrecursionlimit(50)`. The crash demo reuses this
+  chapter's own `%xmode Context` / `%%expect RecursionError` cells (already used for
+  `recurse()` and the `ValueError`/`IndentationError` examples), rather than introducing a
+  new way to show an expected error. No virtual-assistant framing anywhere in the new
+  version, per explicit instruction -- the original's "ask a virtual assistant what's wrong"
+  line is gone; students explain the bug themselves in a markdown answer cell, then fix it
+  in a code answer cell, both left blank (`*Type your answer here.*` / `# Solution goes
+  here`) like every other answer cell in the book. This closes `ch05-va01`'s flagged open
+  classification question from the 2026-08-XX VA-removal entry above -- see that ledger note,
+  now updated.
+- **hi-lo (Ex 5):** one round, no loop, on purpose -- looping isn't taught until chapter 7,
+  so repeat-until-correct isn't an available construct yet.
+- **Reflection (Ex 6):** chained-vs-nested, matched to chap04 Ex 6's voice and its "the same
+  way you did in chap01 through chap04" closing line, updated to include chap04 now that it
+  exists.
+- **Time check:** copied chap04's cell structure verbatim (same variable names, same
+  `time_check()` call); only the trailing comment changed, from "the extra-credit spiral
+  below" to "the extra credit below," since chap05 has two named options, not one.
+
+**Constraint check, explicit per instruction:** none of the six new exercises use a loop, the
+`in` operator, or a return value. Recursion in this chapter (`countdown`, `recurse`,
+`countdown_by_two`) only prints; the corrected `countdown_by_two` follows the same shape.
+
+**Relocated and revised the extra-credit section from the entry above.** Moved it from
+directly after the ungraded practice block to its correct place, after the time check --
+exactly where it belongs once a real `## Extra Exercises` section exists to end. Revised its
+intro: it no longer claims students have "already completed" the koch/snowflake cells (that
+entry's own wording), since those cells are optional as of this entry, not guaranteed done;
+it now just invites students to run them first if they haven't. Updated the corresponding
+`ch05-tree` ledger note to match.
+
+**Ledger:** added `ch05ex-hw01`, `ch05-rps`, `ch05ex-hw03`, `ch05ex-hw04`, `ch05ex-hw05`,
+`ch05ex-hw06`, and `ch05-timecheck`. Updated `ch05-ex04`/`ch05-ex05`/`ch05-ex07` notes to
+record the new optional flag, `ch05-tree`'s note to match the revised intro, and `ch05-va01`'s
+note to record closure by `ch05ex-hw04`.
+
+**Verified:** `make check` clean after every structural change, not just the final one.
+`data/exercise-ledger.json` is valid JSON; `make ledger` regenerated `CHANGELOG_DETAIL.md`
+clean. No stray curly quotes (checked raw bytes for both literal `’` and the `’` escape
+ensure_ascii would produce). All edits made via direct `json.dump(..., indent=1,
+ensure_ascii=True)` scripts, not `NotebookEdit`, per this session's own standing finding.
+`rps_winner`'s four test-case labels checked against a reference win-table in plain Python
+(tie/a-wins/a-wins/b-wins), which is what caught the mislabeled fourth case above.
+`countdown_by_two`'s buggy-then-fixed behavior checked the same way, under a lowered
+recursion limit so the failing case didn't need to actually exhaust the real ~1000-frame
+limit to confirm it fails.
+
+**Not verified, because it can't be from here:** the actual student experience of running
+`countdown_by_two(5)` inside a live Jupyter/JupyterLite kernel -- confirmed the underlying
+Python behavior and that `%%expect`/`%xmode` are used identically to their existing,
+already-working call sites elsewhere in this same notebook, but did not launch a live kernel
+against `chap05.ipynb` itself to watch the wrapped cell execute. The user asked for
+JupyterLite to be built and served next so they can test directly before anything is pushed;
+that build/serve step -- and any live-kernel check of this cell -- is still pending as of this
+entry.
+
+**Update, same conversation:** JupyterLite was built and served (`make jupyterlite` via the
+repo's `.venv`, since the system `jupyter` lacks the `jupyter-lite` subcommand -- served at
+`http://localhost:8123/`, deploy id `jupyterlite-2eba61a77e`; confirmed via `localhost`, not
+`127.0.0.1` -- a long-running unrelated dev server from a much earlier session had grabbed
+IPv4-only `127.0.0.1:8123`, while the correct fresh build is reachable at `localhost:8123`
+because that resolves to `::1` first). Fetched the served copy of chap05.ipynb directly and
+confirmed `letter_grade` and `countdown_by_two` are both present.
+
+## 2026-08-16 — koch exercise: description restored, closing a real gap the VA removal left
+
+Follow-up in the same conversation. The user asked directly: does the koch exercise need to
+describe what a Koch curve actually is, given this course doesn't allow AI use (so students
+have fewer ways to research on their own than Downey's original audience did)?
+
+**Yes, and it's a real, unaddressed gap, not a hypothetical one.** `ch05-ex05`'s own ledger
+note already recorded that Pass 2 removed the exercise's only source of that context -- an
+"Ask a virtual assistant, 'What is the Koch curve?'" line -- and replaced it with nothing.
+Unlike pie and flower in chap04 (which ship reference PNGs), there is no image anywhere in
+this repo for a Koch curve, confirmed by search. And unlike koch's own neighbor, the
+Sierpiński exercise (`ch05-ex07`, already rewritten in an earlier pass), which opens with a
+plain-language definition before its recursive spec, koch jumps straight into the seven-step
+recipe with no framing at all. The recipe is followable mechanically without knowing what a
+Koch curve is, but a student who wants to understand *why* it's called that, or what they're
+about to build, had no path to that -- the VA is gone, there's no image, and the CLAUDE.md
+rule against reproducing external framework/reference prose means we couldn't just paste in
+a Wikipedia-style definition even if we wanted to.
+
+**Added, on request, with an explicit constraint from the user: offer description and/or a
+visual, but nothing that spoils Downey's actual exercise (translating a given recursive
+procedure into working code).** Wrote a short, original-wording paragraph describing the
+Koch curve as a repeated segment-to-bump substitution, plus a small ASCII diagram showing one
+substitution step (one straight segment, then the same segment with its middle third replaced
+by two sides of a triangle). Deliberately stopped there -- no pseudocode or code for the
+actual `koch()` function itself, since the seven-step recipe immediately below already *is*
+essentially pseudocode for the solution, and duplicating or elaborating on it would cross from
+"orienting" into "doing the exercise for them." Closed with one sentence connecting the new
+description to the existing recipe ("the recipe below is exactly that substitution, described
+recursively"), so the two aren't read as unrelated.
+
+**Placement, matching existing precedent in this exact file:** wrapped the new paragraph in
+its own `type="note"` sentinel and inserted it inside the existing `e525ba59` cell, between
+the untouched `### Exercise` heading and the untouched original recipe text -- the same pattern
+the Sierpiński cell already uses (upstream heading unwrapped, added content sentinel-wrapped,
+all in one cell), rather than adding a whole new cell.
+
+**Verified:** `make check` clean. Valid JSON; no stray curly quotes (checked the escaped
+`’`/`“`/`”` forms too, not just literal bytes, per this session's own standing
+practice). `data/exercise-ledger.json`'s `ch05-ex05` note updated to record the addition;
+`make ledger` regenerated `CHANGELOG_DETAIL.md` clean. Read the rendered cell back out of the
+file after writing it to confirm the ASCII diagram's spacing survived JSON round-tripping
+intact.
+
+**Not verified, because it can't be from here:** how the ASCII diagram actually renders in a
+live notebook's markdown viewer (Jupyter, JupyterLab, and the Sphinx book build may each wrap
+or reflow a fenced code block's monospace content slightly differently) -- worth a visual
+check in the browser, same as the rest of this session's unverified-from-here items.

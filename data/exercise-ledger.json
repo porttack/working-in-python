@@ -361,7 +361,7 @@
     "est_minutes_before": 15,
     "est_minutes_after": 15,
     "self_verifying": false,
-    "note": "Kind-C VA aside removed from the closing line ('try asking a virtual assistant' if unsure how the function works). Task and cells unchanged."
+    "note": "Kind-C VA aside removed from the closing line ('try asking a virtual assistant' if unsure how the function works). Task and cells unchanged. 2026-08-16: marked optional (a new note cell, 'try it if you have time, but it isn't expected', matching chap04's pie/flower treatment) now that a separate, required 'Extra Exercises' section exists below -- this exercise and koch/Sierpinski (ch05-ex05, ch05-ex07) are the three turtle-based practice exercises in the original Downey section, which is ungraded."
   },
   {
     "chapter": "chap05",
@@ -375,7 +375,7 @@
     "est_minutes_before": 25,
     "est_minutes_after": 25,
     "self_verifying": true,
-    "note": "Opens with a VA prompt ('What is the Koch curve?') as a warm-up; the graded task is writing koch, not evaluating the VA's answer -- classified C, not A. Pass 2: removed the opening VA line; exercise now opens directly with the numbered recursive recipe."
+    "note": "Opens with a VA prompt ('What is the Koch curve?') as a warm-up; the graded task is writing koch, not evaluating the VA's answer -- classified C, not A. Pass 2: removed the opening VA line; exercise now opens directly with the numbered recursive recipe. 2026-08-16: marked optional, same reasoning and same new note cell as ch05-ex04. 2026-08-16, same day: removing the VA line had left a real gap -- with no VA to ask 'what is this' and no image (unlike the pie/flower exercises, which ship PNGs), students had no way to picture the shape before diving into the recursive recipe, and AI use isn't allowed in this course so they can't just look it up. Added a short, original-wording description (the segment-replaces-itself-with-a-bump substitution) plus a small ASCII diagram of one substitution step, wrapped in its own note sentinel ahead of the untouched numbered recipe. Deliberately conceptual only -- no pseudocode or code of the actual koch() function -- so it orients students without doing the exercise for them."
   },
   {
     "chapter": "chap05",
@@ -403,7 +403,133 @@
     "est_minutes_before": null,
     "est_minutes_after": 20,
     "self_verifying": false,
-    "note": "Replacement for the removed kind-A exercise. Gives the recursive definition of a Sierpinski triangle (base case + three half-size corner triangles) and points at penup/pendown for repositioning, without dictating exact turtle commands. The recursive algorithm was verified independently -- simulated headlessly against jupyturtle and checked to reproduce the exact standard Sierpinski-gasket edge set at depths 0-4 -- before being reduced to the geometric description given to students; a naive forward/back-only version (the common textbook snippet) was tested first and found to visibly drift off-target at depth >= 2, which is why the exercise points at penup/pendown instead. Same function name/parameters and the same demo/solution cells as the original, so the diff is limited to the prompt text."
+    "note": "Replacement for the removed kind-A exercise. Gives the recursive definition of a Sierpinski triangle (base case + three half-size corner triangles) and points at penup/pendown for repositioning, without dictating exact turtle commands. The recursive algorithm was verified independently -- simulated headlessly against jupyturtle and checked to reproduce the exact standard Sierpinski-gasket edge set at depths 0-4 -- before being reduced to the geometric description given to students; a naive forward/back-only version (the common textbook snippet) was tested first and found to visibly drift off-target at depth >= 2, which is why the exercise points at penup/pendown instead. Same function name/parameters and the same demo/solution cells as the original, so the diff is limited to the prompt text. 2026-08-16: marked optional, same reasoning and same new note cell as ch05-ex04."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05ex-hw01",
+    "anchor": "letter_grade(score): chained conditional mapping a 0-100 score to a letter grade",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 10,
+    "self_verifying": false,
+    "note": "New Exercise 1 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Half of a choose-one pair with Exercise 2 (rps_winner, ch05-rps) -- a student does either, not both, and doing both earns no extra credit -- so the two carry identical (empty) standards tagging and structurally identical cells (prompt, solution, 'test your function' note, four boundary test-call cells) so neither reads as the more 'real' option. Test cases sit on the grade-boundary values (89/90, 59/60) rather than mid-range ones, so a chained conditional with an off-by-one in its comparisons fails visibly. No loop, no `in` operator, no return value -- chapter 5 hasn't taught the first two, and this chapter's recursion only prints, per direct instruction."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05-rps",
+    "anchor": "rps_winner(a, b): chained conditional with and/or for rock-paper-scissors",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 10,
+    "self_verifying": false,
+    "note": "New Exercise 2 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16, the other half of the choose-one pair with Exercise 1 (letter_grade, ch05ex-hw01) -- see that entry for the identical-tagging/identical-cell-shape requirement. Test cases cover a tie and both possible winners (a wins, b wins), one extra case beyond the minimum so its cell count matches ch05ex-hw01's four exactly. No `in` operator -- the three winning matchups are written out with `and`/`or`, not membership checks, since chapter 5 hasn't taught `in` (chapter 7 does)."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05ex-hw03",
+    "anchor": "is_leap_year(year): modulus plus logical operators for the century-year exception",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 10,
+    "self_verifying": false,
+    "note": "New Exercise 3 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Required, not choose-one. Test cases (2000 Yes, 1900 No, 2024 Yes, 2023 No) specifically exercise the century-year exception -- 1900 is divisible by 4 but not by 400, the case a naive 'divisible by 4' check gets wrong -- so a student who skips the exception fails a visible test rather than passing by luck."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05ex-hw04",
+    "anchor": "Debug countdown_by_two: recovered original function, infinite-recurses on odd starting values",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 8,
+    "self_verifying": true,
+    "note": "New Exercise 4 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16, closing the open classification question ch05-va01 raised about this same function (see that entry). The buggy `countdown_by_two` was recovered verbatim from git history (commit e46eaa2, the pre-Pass-2 chap05.ipynb) rather than reconstructed -- same function body, same bug. Reframed as a plain debugging exercise with no virtual-assistant framing: students run it with an even and an odd starting value (6 works, 5 doesn't -- its `n == 0` base case is never hit once `n` goes odd, so it recurses past zero into negative numbers until Python's own recursion-depth limit raises RecursionError, the same failure mode the chapter's own `recurse()` example already covers), explain what's wrong and for which inputs in a markdown answer cell, then write and test a corrected version in a code answer cell. The crash demo reuses the chapter's own `%xmode Context` / `%%expect RecursionError` convention (already used for `recurse()` and elsewhere in the chapter) rather than introducing a new way to show an expected error. self_verifying: true because the assertion under test (does the corrected function actually terminate for both even and odd inputs) is directly checkable by running it, the same way `is_triangle`'s test cases are."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05ex-hw05",
+    "anchor": "High-low, one round: input(), int(), chained conditional, no loop",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 5,
+    "self_verifying": false,
+    "note": "New Exercise 5 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Deliberately one round only, no loop -- looping isn't taught until chapter 7, and repeating rounds until a correct guess is exactly the kind of construct this chapter can't yet express. Builds directly on this chapter's own `input()`/`int()` material earlier in the chapter."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05ex-hw06",
+    "anchor": "Reflection: chained vs. nested conditionals, which felt more natural",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 5,
+    "self_verifying": false,
+    "note": "New Exercise 6 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16, reusing the markdown-answer mechanic established in chapter 1 and matched to chap04 Exercise 6's voice. Free-response; not tied to any AP/CA standard."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05-timecheck",
+    "anchor": "Time check: report time spent using the existing time_check() helper",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 2,
+    "self_verifying": true,
+    "note": "New unnumbered section in chap05.ipynb, added 2026-08-16, between Exercise 6 (reflection) and the extra credit. Copies chap04's ch04-timecheck cell structure exactly (same variable names, same time_check() call), wording adjusted only for 'the extra credit below' (chap05 has two choose-one options, not one named spiral). Uses the same time_check() helper added to working_in_python.py for chap04; no code changes needed here."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05-tree",
+    "anchor": "Fractal tree (extra credit): write tree(length), then generalize with angle and factor parameters",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 15,
+    "self_verifying": false,
+    "note": "New extra-credit section at the end of chap05.ipynb's exercises, added 2026-08-16. Unnumbered, worth 0.5 points, a choose-one pair with ch05-collatz -- a student does either, not both, and doing both earns no extra credit -- and never a substitute for a required exercise. Builds directly on the `draw` function students saw earlier in the chapter (ch05-ex04): asks for the same branching shape as its own named, generalized function, with `angle` and `factor` promoted from hardcoded constants to parameters, echoing chapter 4's own `circle`-to-`arc` generalization. 2026-08-16, same day: revised the intro cell's wording after ch05-ex04/ex05/ex07 (draw/koch/Sierpinski) were marked optional -- it no longer claims students have 'already completed' the koch/snowflake cells, since that's no longer guaranteed; it now just invites them to run those cells first if they haven't."
+  },
+  {
+    "chapter": "chap05",
+    "id": "ch05-collatz",
+    "anchor": "Collatz (extra credit): write a recursive collatz(n) that prints the sequence down to 1",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 10,
+    "self_verifying": false,
+    "note": "New extra-credit section at the end of chap05.ipynb's exercises, added 2026-08-16, immediately after ch05-tree. Unnumbered, worth 0.5 points, the other half of the choose-one pair with ch05-tree, and never a substitute for a required exercise. No demo cell -- unlike the fractal tree, the output is text (the sequence itself), so showing it would give away the answer."
   },
   {
     "chapter": "chap05",
@@ -417,7 +543,7 @@
     "est_minutes_before": 0,
     "est_minutes_after": 0,
     "self_verifying": false,
-    "note": "Bare suggested-prompt section under Exercises, no ### Exercise heading and no Solution cell anywhere in it. Includes an embedded countdown_by_two debugging vignette ('paste the solution it provides back here and test it') that reads like it could independently qualify as kind A on the same logic as the chap17 Kangaroo exercise; Pass 1's audit did not call it out separately. Removed under the existing kind-B classification without adding a second replacement -- flagged in AUDIT.md for confirmation, since Step 2 caps replacements at four and warns against padding."
+    "note": "Bare suggested-prompt section under Exercises, no ### Exercise heading and no Solution cell anywhere in it. Includes an embedded countdown_by_two debugging vignette ('paste the solution it provides back here and test it') that reads like it could independently qualify as kind A on the same logic as the chap17 Kangaroo exercise; Pass 1's audit did not call it out separately. Removed under the existing kind-B classification without adding a second replacement -- flagged in AUDIT.md for confirmation, since Step 2 caps replacements at four and warns against padding. 2026-08-16: closed by ch05ex-hw04, which restores the countdown_by_two function (recovered verbatim from git history, commit e46eaa2, pre-Pass-2) as a plain debugging exercise with no virtual-assistant framing reintroduced -- see that entry."
   },
   {
     "chapter": "chap06",

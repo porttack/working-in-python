@@ -16,6 +16,65 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-16 — koch exercise gets back a description of what it's drawing
+
+### Added
+- `chapters/chap05.ipynb`: a short, original-wording description of what a Koch curve is
+  (the segment-replaces-itself-with-a-bump substitution), plus a small ASCII diagram of one
+  substitution step, ahead of the exercise's existing numbered recursive recipe. Pass 2 had
+  removed the chapter's only source of this context (an "ask a virtual assistant" line) and
+  never replaced it -- a real gap, since this course doesn't allow AI use, so students had no
+  way to picture the shape first. Deliberately conceptual only, no pseudocode or code for the
+  actual `koch()` function, so it orients without spoiling the exercise.
+- `data/exercise-ledger.json`: `ch05-ex05`'s note updated to record the addition.
+
+## 2026-08-16 — chap05 gets the chap04 homework treatment: Extra Exercises, choose-one pair, time check, extra credit
+
+### Added
+- `chapters/chap05.ipynb`: a new `## Extra Exercises` section, structurally matching
+  chap04's -- intro, six numbered exercises (a choose-one pair plus four required), a time
+  check, extra credit, then a "Finished? Copy your work" cell. Required work is five
+  exercises (whichever of 1/2, plus 3-6), about 38 minutes, same framing chap04 uses.
+  - Exercise 1 (`letter_grade`) and Exercise 2 (`rps_winner`) are the choose-one pair --
+    interchangeable for grading, identical standards tagging, structurally identical cells
+    (prompt, solution, "test your function" note, four test-call cells) so neither reads as
+    the more "real" option. `letter_grade`'s tests sit on the grade boundaries (89/90,
+    59/60); `rps_winner`'s cover a tie and both possible winners.
+  - Exercise 3 (`is_leap_year`) tests the century-year exception directly (1900 is
+    divisible by 4 but not 400).
+  - Exercise 4 restores `countdown_by_two` as a plain debugging exercise, no
+    virtual-assistant framing: the buggy function was recovered verbatim from git history
+    (commit `e46eaa2`, pre-Pass-2) rather than reconstructed. Works for even starting
+    values, infinite-recurses past zero for odd ones -- the same failure mode the chapter's
+    own `recurse()` example already covers, demonstrated with the chapter's existing
+    `%xmode Context` / `%%expect RecursionError` convention rather than a new one. Two
+    answer cells (markdown, then code), closing the open classification question `ch05-va01`
+    raised about this exact function.
+  - Exercise 5 is a one-round hi-lo game (`input()`, `int()`, chained conditional, no
+    loop -- looping isn't taught until chapter 7). Exercise 6 is the reflection question,
+    matched to chap04 Exercise 6's voice.
+  - None of the six exercises use loops, the `in` operator, or a return value -- chapter 5
+    hasn't taught the first two, and this chapter's recursion only prints, per direct
+    instruction.
+  - The intro adds one sentence flagging that `enable_docstring_reminders()`'s warning is
+    expected starting this chapter and how to satisfy it.
+- `chapters/chap05.ipynb`: the three turtle-based exercises in Downey's original
+  (ungraded) `## Exercises` section -- `draw`, koch, and Sierpiński -- are now marked
+  optional, matching chap04's treatment of pie and flower.
+- `chapters/chap05.ipynb`: a "Finished? Copy your work" cell, matching chap04's, added for
+  the first time to this chapter.
+- `data/exercise-ledger.json`: entries for all six new exercises, the time check, and the
+  three newly-optional practice exercises; `ch05-va01`'s note updated to record closure.
+
+### Changed
+- `chapters/chap05.ipynb`: the extra-credit section (fractal tree / Collatz, added earlier
+  this session) moved from directly after the ungraded practice exercises to its correct
+  place, after the time check -- it had landed with no `## Extra Exercises` section to sit
+  inside, which this entry fixes. Its intro no longer claims students have "already
+  completed" the koch/snowflake cells, since those are optional as of this entry; it now
+  just invites them to run those cells first if they haven't.
+- `data/exercise-ledger.json`: `ch05-tree`'s note updated to match the revised intro wording.
+
 ## 2026-08-16 — Title Case filenames; teach/blank copies stop shipping to JupyterLite for now
 
 ### Fixed

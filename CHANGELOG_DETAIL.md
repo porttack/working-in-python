@@ -81,10 +81,11 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap05
 
-8 exercise(s).
+17 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
+| ch05-collatz | Collatz (extra credit): write a recursive collatz(n) that prints the sequence down to 1 | native | added | — | None | 10 |
 | ch05-ex01 | Compute h:m:s from seconds since the Unix epoch using integer division and modulus | native | kept | — | 15 | 15 |
 | ch05-ex02 | Determine whether three given stick lengths can form a triangle | native | kept | — | 25 | 25 |
 | ch05-ex03 | Predict the output of a program and draw a stack diagram | native | kept | — | 5 | 5 |
@@ -92,7 +93,15 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch05-ex05 | Write a function called koch that draws a Koch curve | native | edited | — | 25 | 25 |
 | ch05-ex06 | Ask a virtual assistant for a program that draws a Sierpinski triangle, then debug it | A | removed | — | 20 | 0 |
 | ch05-ex07 | Write draw_sierpinski(size, degree): a recursive Sierpinski triangle, no VA involved | native | added | ch05-ex06 | None | 20 |
+| ch05-rps | rps_winner(a, b): chained conditional with and/or for rock-paper-scissors | native | added | — | None | 10 |
+| ch05-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
+| ch05-tree | Fractal tree (extra credit): write tree(length), then generalize with angle and factor parameters | native | added | — | None | 15 |
 | ch05-va01 | Ask a virtual assistant: modulus/xor, chained-vs-nested conditionals, countdown_by_two debugging | B | removed | — | 0 | 0 |
+| ch05ex-hw01 | letter_grade(score): chained conditional mapping a 0-100 score to a letter grade | native | added | — | None | 10 |
+| ch05ex-hw03 | is_leap_year(year): modulus plus logical operators for the century-year exception | native | added | — | None | 10 |
+| ch05ex-hw04 | Debug countdown_by_two: recovered original function, infinite-recurses on odd starting values | native | added | — | None | 8 |
+| ch05ex-hw05 | High-low, one round: input(), int(), chained conditional, no loop | native | added | — | None | 5 |
+| ch05ex-hw06 | Reflection: chained vs. nested conditionals, which felt more natural | native | added | — | None | 5 |
 
 ## chap06
 
@@ -252,8 +261,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 117
+Total exercises: 126
 
-By kind: A=4, B=8, native=105
+By kind: A=4, B=8, native=114
 
-By action: added=28, edited=6, kept=72, removed=11
+By action: added=37, edited=6, kept=72, removed=11
