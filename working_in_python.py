@@ -261,3 +261,26 @@ def enable_docstring_reminders():
     ip = get_ipython()
     if ip is not None:
         ip.events.register("post_run_cell", _check)
+
+
+def time_check(chapter=0, exercises=0, longest=""):
+    """Print a summary of time spent, and remind the student if it's incomplete.
+
+    chapter: whole minutes spent reading the chapter and its practice exercises
+    exercises: whole minutes spent on the numbered extra exercises
+    longest: string naming which exercise took longest, e.g. "Exercise 1"
+    """
+
+    def fmt(minutes):
+        hours, remainder = divmod(minutes, 60)
+        return f"{hours}h{remainder:02d}m" if hours else f"{remainder}m"
+
+    total = chapter + exercises
+    print(f"Chapter time: {fmt(chapter)}")
+    print(f"Exercise time: {fmt(exercises)}")
+    print(f"Total: {fmt(total)}")
+    if longest:
+        print(f"Longest: {longest}")
+
+    if chapter == 0 or exercises == 0 or not longest:
+        print(colored("Reminder: fill this in completely before you submit.", YELLOW, bold=True))

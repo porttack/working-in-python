@@ -4987,3 +4987,115 @@ Copy Notebook button's core mechanism, confirmed working; the docstring reminder
 tested by the user as of this note). Whoever deploys this for real should verify the
 docstring reminder actually fires correctly in chapters 5+ before relying on it with
 students.
+
+## 2026-08-16 — chap04 homework restructure: house exercise, choose-one pairing, time
+## check, spiral (due Thursday, assigned Monday)
+
+Same day as the long session above, separate conversation. Scope was narrow and explicit
+going in: "All notebook work happens in chapters/chap04.ipynb, in its 'Extra Exercises'
+section." Eight numbered tasks, diff shown and confirmed after each one (or each cluster).
+
+**`working_in_python.py`:** added `time_check(chapter=0, exercises=0, longest="")`. Prints
+chapter/exercise/total time (`XhYYm` at an hour or more, else `Ym`, via `divmod`), then the
+`longest` string if non-empty, then a plain-English reminder -- wrapped in `colored()` but
+never *only* color, since students paste into a Google Doc and ANSI may not survive --
+whenever `chapter`, `exercises`, or `longest` is left at its default. Deliberately named
+`exercises`, not `extra`, per explicit instruction: `extra credit` is the spiral, and the
+two parameter/concept names must not collide.
+
+**A numbering conflict surfaced before any notebook edit, and got raised rather than
+guessed at (twice).** The instructions renumbered pinwheel/interface/reflection after
+inserting the new house exercise, but never mentioned the existing docstrings exercise
+(Exercise 3 at the time) -- keeping it would make six numbered exercises against a stated
+"five numbered exercises, four required" arithmetic. Asked the user; answer was to keep
+docstrings, not drop it, and place it as "Exercise 1" -- which itself conflicted with the
+docstrings prompt's own text ("go back to your `pinwheel` function from Exercise 2"), since
+pinwheel would then fall *after* docstrings and these chapters explicitly tell students to
+work "in order." Asked again; resolution: docstrings stays at position 3 (after the
+choose-one pair), rewritten to reference whichever function the student built in Exercise 1
+or 2 (`draw_initials()` or `draw_house()`) instead of pinwheel, removing the dependency
+entirely. Final numbering: 1 initials / 2 house (choose one, identical standards tagging,
+neither replaces the other), 3 docstrings, 4 pinwheel, 5 interface-vs-implementation, 6
+reflection. Required work is five exercises (whichever of 1/2, plus 3-6), about 38 minutes
+-- the arithmetic in the original instructions ("four exercises, 33 minutes") was written
+assuming docstrings would be dropped and was corrected once the user chose otherwise.
+
+**`chap04.ipynb` "Extra Exercises" section, in order:** intro rewritten with the choose-one
+framing and corrected totals; Exercise 1 and the new Exercise 2 (house) headings both marked
+"(do 1 or 2)"; house exercise (`draw_wall`/`draw_roof`/`draw_door`/`draw_house`, ~13 min,
+`<!-- teacher: -->` timing comment) inserted with its own solution cell -- unlike the other
+five numbered exercises here, which remain preview-only text pointing at the separate
+`chap04-exercises.ipynb` (that split is exactly the open gap below); docstrings prompt
+rewritten per the resolution above; pinwheel/interface/reflection headings renumbered (their
+prompt text otherwise untouched); "Time check" (ungraded on the numbers, graded on being
+filled in, ~2 min) and "Spiral (extra credit)" (~10 min, 0.5 points, written fresh in the
+chapter's own voice -- **no virtual-assistant framing reintroduced**, per explicit
+instruction, even though Downey's original spiral suggestion lived inside the VA section
+this repo already removed) inserted in that order after reflection, before the existing
+"Finished? Copy your work" cell (whose own text said "isn't part of Exercise 5" -- updated
+to Exercise 6 to match). Also: one-line "this one is optional" notes added after the pie and
+flower prompts in the chapter's own *ungraded* Exercises section (rectangle/rhombus/
+parallelogram remain the expected practice set) -- inserted as their own sentinel-wrapped
+`type="note"` cells rather than editing the upstream prompt text, per the never-reflow-
+upstream-content rule.
+
+**Editing mechanics:** `chap04.ipynb` stores cell `source` as a list of lines and escapes
+non-ASCII (`—` etc.); `chap04-exercises.ipynb` stores `source` as one string with
+literal em-dashes. Checked both explicitly before writing anything, per this file's own
+repeated `ensure_ascii` warning. For `chap04.ipynb`'s multi-cell insert/renumber, used a
+Python script driving `json.load`/`json.dump` (checked indent width against the file first
+-- `indent=1`, not the `data/exercise-ledger.json` convention of `indent=2`, learned the
+hard way below); for the two single-cell text swaps in `chap04-exercises.ipynb`, used
+`NotebookEdit` instead, since that file's per-cell key ordering isn't uniform and a JSON
+round-trip would have reformatted every cell in the file, not just the two touched.
+
+**`data/exercise-ledger.json` -- caught a formatting mistake before it became a 3000-line
+diff.** First pass wrote the new entries with `json.dump(..., indent=4)`, matching a
+plausible-looking default rather than actually checking the file. `git diff --stat` showed
+1638 insertions / 1596 deletions for what should have been ~50 lines changed -- a hard stop,
+not a nitpick, since it would have buried the real content changes in a wall of reindented
+context and made this genuinely hard to review. Reverted with `git checkout --`, confirmed
+the file's real indent (`2`, via `python3 -m json.tool` comparison), redone. Added three new
+entries (`ch04-house`, `ch04-spiral`, `ch04-timecheck`, chapter `chap04` to match where their
+solution cells actually live, not `chap04-exercises`); appended to the existing `note` on
+`ch04ex-hw01` (initials, now choose-one-paired with house) and on `ch04ex-hw02` through
+`ch04ex-hw05` (pinwheel/interface/reflection/docstrings) documenting the preview/actual
+divergence described below; replaced the empty `note` on `ch04-ex04`/`ch04-ex05` (pie/
+flower) to record the new optional-marker cells.
+
+**`chap04-exercises.ipynb`:** only touched for the Task 7 submission-footer fix, and only
+after confirming that was actually in scope -- the original instruction said "Remove any
+`answers04-<name>` rename-and-download instructions from chapter 4," but `chap04.ipynb`
+itself had no such text left to remove (the Copy Notebook button already replaced it there,
+per this file's own same-day entry above); the literal target was `chap04-exercises.ipynb`'s
+"Before you start" and closing cells, which is outside the session's stated scope and inside
+the deprecation this file already flagged as deferred. Raised it; user said to go ahead and
+touch this one file for this one thing. Did only that -- rename/download/Schoology language
+replaced with the same "paste into a Google Doc" / Copy Notebook framing used elsewhere --
+and did **not** touch this file's own exercise numbering or content, which still reads
+initials(1)/pinwheel(2)/docstrings(3, still referencing pinwheel)/interface(4)/reflection(5).
+
+**Known gap, explicitly deferred rather than fixed:** `chap04.ipynb` now tells students that
+Exercises 1 and 3-6 are "previewed here" but answered in the separate
+`chap04-exercises.ipynb`, while Task 7's premise -- pasting "the whole chapter" into a
+Google Doc to submit -- only captures `chap04.ipynb` itself. The house/spiral/time-check
+work (which lives entirely in `chap04.ipynb`) would be submitted; the other five exercises'
+actual answers (in `chap04-exercises.ipynb`) would not be, unless students are separately
+told to also paste that file. Raised with the user; explicitly told this is "not this
+session's problem" and to leave it for the dedicated exercises-file migration this file
+already has on record as deferred (see the 2026-08-16 "Long session" entry above). Whoever
+picks up that migration should treat chap04 as the worked example of what "exercises live
+entirely inside the chapter notebook" looks like in practice (house/spiral/time-check are
+that pattern already) and finish applying it to the other five.
+
+**Verified:** `make check` clean after every `chapters/` edit (`build_blanks.py` regenerated
+`projector/` each time; `check_sync.py` and `build_jupyterlite_content.py --check` both
+clean). Both touched notebooks confirmed valid JSON, execution counts null, no outputs, on
+every new or edited code cell. `git diff` inspected after each task before moving to the
+next, per the user's explicit request.
+
+**Not verified, because it can't be from here:** `time_check()`'s output was checked from a
+plain Python shell (IPython not available in this environment), not inside an actual
+JupyterLite/Colab session -- the formatting and reminder logic are correct against the
+spec, but the function has not been run inside a real notebook. Whoever teaches this chapter
+should run it once for real before Monday.

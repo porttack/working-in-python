@@ -16,6 +16,48 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-16 — chap04 homework: house exercise, choose-one pairing, time check, spiral
+
+### Added
+- `working_in_python.py`: `time_check(chapter=0, exercises=0, longest="")` — prints a
+  chapter/exercise/total time summary (`XhYYm` at an hour or more, `Ym` below that, via
+  `divmod`) and a plain-text reminder, using `colored()` but readable with color stripped,
+  when any argument is left at its default.
+- `chap04.ipynb`: new Exercise 2, "draw a house from parts" (`draw_wall`/`draw_roof`/
+  `draw_door`/`draw_house`), a choose-one alternative to Exercise 1 (initials) — a student
+  does either, not both, and both carry identical standards tagging so grading never
+  depends on which one is picked.
+- `chap04.ipynb`: unnumbered "Time check" section (graded on completion, not on the
+  numbers) and an unnumbered "Spiral (extra credit)" section at the end of "Extra
+  Exercises," worth 0.5 points and never a substitute for a required exercise. The spiral
+  prompt is written fresh, replacing the one Downey originally placed inside the "Ask a
+  virtual assistant" section that was removed earlier in this pass — no VA framing
+  reintroduced.
+- `chap04.ipynb`: one-line "this one is optional" notes added after the pie and flower
+  prompts in the chapter's own (ungraded) Exercises section; rectangle/rhombus/
+  parallelogram remain the expected practice set.
+
+### Changed
+- `chap04.ipynb`: Exercises 1 and 2 headings marked "(do 1 or 2)"; docstrings (Exercise 3)
+  rewritten to reference the student's own choose-one function instead of pinwheel, so it
+  no longer depends on an exercise assigned later; pinwheel/interface/reflection renumbered
+  to Exercises 4/5/6. The "Extra Exercises" intro rewritten with the choose-one framing,
+  required-work total (five exercises, ~38 min), and the time-check/spiral pointers.
+- `chap04-exercises.ipynb`: "Before you start" and closing-footer cells no longer tell
+  students to rename and download the file for Schoology; both now point at the
+  Copy-Notebook button already at the end of that file, consistent with the paste-into-a-
+  doc submission model.
+
+### Known gap, not resolved this pass
+- `chap04.ipynb`'s five previewed exercises (1, 3-6) still direct students to answer in
+  the separate `chap04-exercises.ipynb`, but only that chapter file — not the exercises
+  file — is now told to be pasted whole into a submission doc. The house/spiral/time-check
+  exercises live only in `chap04.ipynb` and would be captured; the other five would not.
+  Left as-is per explicit instruction pending the deferred exercises-file migration
+  (see `AUDIT.md`). `data/exercise-ledger.json` notes on `ch04ex-hw02` through `ch04ex-hw05`
+  also flag that those exercises' `chap04.ipynb` preview numbering/content is now out of
+  sync with the unchanged `chap04-exercises.ipynb` answer file.
+
 ## 2026-08-16 — "Copy Notebook" button and docstring reminders for JupyterLite
 
 ### Added

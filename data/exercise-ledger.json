@@ -235,7 +235,7 @@
     "est_minutes_before": 20,
     "est_minutes_after": 20,
     "self_verifying": true,
-    "note": ""
+    "note": "2026-08-16: added a one-line note (\"This one is optional -- try it if you have time, but it isn't expected.\") in its own sentinel-wrapped markdown cell (type=\"note\") right after the prompt, marking it optional practice within the chapter's own native Exercises section. Rectangle, rhombus, and parallelogram remain the expected practice set. The upstream prompt itself is untouched -- the note is a separate added cell, not a rewrite."
   },
   {
     "chapter": "chap04",
@@ -249,7 +249,7 @@
     "est_minutes_before": 25,
     "est_minutes_after": 25,
     "self_verifying": true,
-    "note": ""
+    "note": "2026-08-16: added the same one-line optional note as ch04-ex04 (pie), in its own sentinel-wrapped markdown cell (type=\"note\") right after the prompt. Rectangle, rhombus, and parallelogram remain the expected practice set. The upstream prompt itself is untouched."
   },
   {
     "chapter": "chap04",
@@ -264,6 +264,48 @@
     "est_minutes_after": 0,
     "self_verifying": false,
     "note": "Bare suggested-prompt section, no attached graded task. Removed whole, no replacement."
+  },
+  {
+    "chapter": "chap04",
+    "id": "ch04-house",
+    "anchor": "Draw a house from parts: draw_wall, draw_roof, draw_door, draw_house",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 13,
+    "self_verifying": false,
+    "note": "New Exercise 2 in chap04.ipynb's 'Extra Exercises' section, added 2026-08-16 as a choose-one alternative to Exercise 1 (draw your initials, ch04ex-hw01). The two are interchangeable for grading -- a student does either, not both, and doing both earns no extra credit -- so they carry identical standards tagging and must never make a student's score depend on which one they picked. Uses forward/left/right/jump only, same as initials; a round window is approximated with short straight segments, echoing the chapter's circle-as-polygon idea. Unlike the other five numbered exercises (previewed in chap04.ipynb but answered in chap04-exercises.ipynb), this one has its actual solution cell directly in chap04.ipynb -- see AUDIT.md for the open question this raises about the submission model now that students paste the whole chapter into a doc."
+  },
+  {
+    "chapter": "chap04",
+    "id": "ch04-spiral",
+    "anchor": "Spiral (extra credit): draw a spiral with forward and left, segments growing each time",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 10,
+    "self_verifying": false,
+    "note": "New extra-credit section at the end of chap04.ipynb's 'Extra Exercises', added 2026-08-16. Unnumbered, worth 0.5 points, and never a substitute for a required exercise. Downey's chapter text originally suggested a spiral inside the 'Ask a virtual assistant' section (removed whole, see ch04-va01's note); this prompt was rewritten from scratch, in the chapter's own voice, with no virtual-assistant framing reintroduced. The loop body is nearly identical to polygon from the chapter -- the only difference is that segment length grows each time through."
+  },
+  {
+    "chapter": "chap04",
+    "id": "ch04-timecheck",
+    "anchor": "Time check: report time spent using the new time_check() helper",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 2,
+    "self_verifying": true,
+    "note": "New unnumbered section in chap04.ipynb, added 2026-08-16, between reflection (Exercise 6) and the extra-credit spiral. Graded on being filled in, never on the numbers reported -- there's no right answer, and low numbers don't score better. Uses the new time_check() helper added to working_in_python.py this session (chapter/exercises minutes plus a free-text 'longest' field), which prints a reminder -- using colored(), but readable with color stripped -- if any argument is left at its default. self_verifying: true because the reminder itself flags an unfilled cell before submission."
   },
   {
     "chapter": "chap05",
@@ -1537,7 +1579,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 13,
     "self_verifying": false,
-    "note": "New homework exercise in chap04-exercises.ipynb. This notebook is the graded artifact for chapter 4 -- chap04.ipynb's own 5 native exercises (90 min) are practice only, not collected. Uses forward/left/right/jump only; curved letters are approximated with short turning segments, echoing the chapter's own circle-as-polygon idea. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16."
+    "note": "New homework exercise in chap04-exercises.ipynb. This notebook is the graded artifact for chapter 4 -- chap04.ipynb's own 5 native exercises (90 min) are practice only, not collected. Uses forward/left/right/jump only; curved letters are approximated with short turning segments, echoing the chapter's own circle-as-polygon idea. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. As of 2026-08-16, this is now half of a choose-one pair with the new house exercise (ch04-house, in chap04.ipynb) -- a student does either Exercise 1 (this one) or Exercise 2 (house), not both; the two are interchangeable for grading and carry identical standards tagging, so a student's score never depends on which one they picked."
   },
   {
     "chapter": "chap04-exercises",
@@ -1551,7 +1593,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 10,
     "self_verifying": false,
-    "note": "New homework exercise in chap04-exercises.ipynb. Replaces an earlier draft of this exercise (a growing square spiral) after the user preferred the pinwheel's visual payoff. Has students redefine square() themselves since this notebook has no shared state with chap04.ipynb. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. The pinwheel function students write here is reused immediately by the new ch04ex-hw05 docstring exercise, positioned right after this one as Exercise 3."
+    "note": "New homework exercise in chap04-exercises.ipynb. Replaces an earlier draft of this exercise (a growing square spiral) after the user preferred the pinwheel's visual payoff. Has students redefine square() themselves since this notebook has no shared state with chap04.ipynb. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. The pinwheel function students write here is reused immediately by the new ch04ex-hw05 docstring exercise, positioned right after this one as Exercise 3. 2026-08-16 (later same day): chap04.ipynb's preview heading for this exercise was renumbered from Exercise 2 to Exercise 4, to make room for the new house exercise (Exercise 2) and docstrings staying at Exercise 3. chap04-exercises.ipynb itself (the actual graded artifact) was NOT changed -- there, this exercise remains Exercise 2. The preview and answer file are now out of sync on this exercise's number; flagged in AUDIT.md for the deferred exercises-file migration to resolve."
   },
   {
     "chapter": "chap04-exercises",
@@ -1565,7 +1607,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New homework exercise in chap04-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Pure code-reading, no writing -- deliberate given how much writing the rest of the chapter demands. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. Renumbered from Exercise 3 to Exercise 4 in both notebooks, 2026-08-16, to make room for the new docstrings exercise (ch04ex-hw05), inserted right after pinwheel; this ledger id is unchanged, only the on-page heading number moved."
+    "note": "New homework exercise in chap04-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Pure code-reading, no writing -- deliberate given how much writing the rest of the chapter demands. Prompt text (no solution cell) also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. Renumbered from Exercise 3 to Exercise 4 in both notebooks, 2026-08-16, to make room for the new docstrings exercise (ch04ex-hw05), inserted right after pinwheel; this ledger id is unchanged, only the on-page heading number moved. 2026-08-16 (later same day): chap04.ipynb's preview heading was renumbered again, from Exercise 4 to Exercise 5, for the same reason as ch04ex-hw02 above. chap04-exercises.ipynb itself was NOT changed -- there, this exercise remains Exercise 4. Preview/answer-file numbering is out of sync; see AUDIT.md."
   },
   {
     "chapter": "chap04-exercises",
@@ -1579,7 +1621,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New homework exercise in chap04-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard. Prompt text also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. Renumbered from Exercise 4 to Exercise 5 in both notebooks, 2026-08-16, to make room for the new docstrings exercise (ch04ex-hw05), inserted right after pinwheel; this ledger id is unchanged, only the on-page heading number moved."
+    "note": "New homework exercise in chap04-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard. Prompt text also previewed in chap04.ipynb's new 'Extra Exercises' section, 2026-08-16. Renumbered from Exercise 4 to Exercise 5 in both notebooks, 2026-08-16, to make room for the new docstrings exercise (ch04ex-hw05), inserted right after pinwheel; this ledger id is unchanged, only the on-page heading number moved. 2026-08-16 (later same day): chap04.ipynb's preview heading was renumbered again, from Exercise 5 to Exercise 6, for the same reason as ch04ex-hw02 above. chap04-exercises.ipynb itself was NOT changed -- there, this exercise remains Exercise 5. Preview/answer-file numbering is out of sync; see AUDIT.md."
   },
   {
     "chapter": "chap04-exercises",
@@ -1593,6 +1635,6 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": true,
-    "note": "New homework exercise in chap04-exercises.ipynb, 2026-08-16, added by explicit user request: docstrings matter and students should be checked on writing one and confirming it with help(), not just reading the chapter's Docstrings section. Positioned as Exercise 3, immediately after pinwheel (ch04ex-hw02, Exercise 2), since it reuses that function rather than introducing new code -- interface-vs-implementation (ch04ex-hw03) and reflection (ch04ex-hw04) shifted down to Exercise 4 and 5 to make room. self_verifying: true because help()'s output directly shows whether the docstring exists and renders as intended. Prompt text (no solution cell) also previewed, in the same Exercise 3 position, in chap04.ipynb's new 'Extra Exercises' section. Bumped the intro cell's exercise count/time estimate in chap04-exercises.ipynb from 'four exercises... 33 minutes' to 'five exercises... 38 minutes' to match."
+    "note": "New homework exercise in chap04-exercises.ipynb, 2026-08-16, added by explicit user request: docstrings matter and students should be checked on writing one and confirming it with help(), not just reading the chapter's Docstrings section. Positioned as Exercise 3, immediately after pinwheel (ch04ex-hw02, Exercise 2), since it reuses that function rather than introducing new code -- interface-vs-implementation (ch04ex-hw03) and reflection (ch04ex-hw04) shifted down to Exercise 4 and 5 to make room. self_verifying: true because help()'s output directly shows whether the docstring exists and renders as intended. Prompt text (no solution cell) also previewed, in the same Exercise 3 position, in chap04.ipynb's new 'Extra Exercises' section. Bumped the intro cell's exercise count/time estimate in chap04-exercises.ipynb from 'four exercises... 33 minutes' to 'five exercises... 38 minutes' to match. Updated 2026-08-16 (later same day): chap04.ipynb's preview text for this exercise was rewritten to reference the student's Exercise 1/2 choose-one function (draw_initials or draw_house) instead of pinwheel, since the new house exercise pushed pinwheel to Exercise 4 in that file's preview numbering and this exercise needed to stand on its own at Exercise 3 without depending on an exercise assigned later. chap04-exercises.ipynb itself (the actual graded artifact) was NOT changed -- there, this exercise remains Exercise 3 and still references pinwheel (Exercise 2 in that file). The chap04.ipynb preview and chap04-exercises.ipynb answer file are now out of sync on this exercise's content and numbering; flagged in AUDIT.md for the deferred exercises-file migration to resolve."
   }
 ]
