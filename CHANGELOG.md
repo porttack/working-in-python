@@ -16,6 +16,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-17 — download() docstring, chapters 5-18
+
+### Fixed
+- `chapters/chap05.ipynb` through `chap18.ipynb`: added an identical one-line docstring to
+  `download()` in every chapter's setup cell (`"""Download a file if it isn't already here,
+  and return its filename."""`). From chapter 5 on, `enable_docstring_reminders()` is active,
+  so this cell was warning about its own code before a student had written anything --
+  `download()` was defined identically in all 14 chapters, confirmed before editing, and
+  nothing else in any setup cell was undocumented.
+
 ## 2026-08-16 — koch exercise gets back a description of what it's drawing
 
 ### Added

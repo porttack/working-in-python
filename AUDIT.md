@@ -5783,3 +5783,149 @@ intact.
 live notebook's markdown viewer (Jupyter, JupyterLab, and the Sphinx book build may each wrap
 or reflow a fenced code block's monospace content slightly differently) -- worth a visual
 check in the browser, same as the rest of this session's unverified-from-here items.
+
+## 2026-08-17 — download() docstrings, chapters 5-18; the docstring-reminder-noise inventory
+## and a decision, chapter 5; scoping (not building) a fix for chapters 6-18
+
+**download() docstring, done for chapters 5-18.** Every chapter from 5 on calls
+`enable_docstring_reminders()`, which warns on any undocumented function defined in the cell
+that just ran. `download()` itself, defined identically in every chapter's setup cell, was
+undocumented -- so the very first cell a student runs in every chapter from 5 on warned about
+its own scaffolding before the student had written a line. Checked all 14 chapters first:
+`download()` has the exact same body everywhere, and nothing else in any setup cell is
+undocumented. Added the same one-line docstring
+(`"""Download a file if it isn't already here, and return its filename."""`) to all 14 --
+`chapters/chap05.ipynb` through `chap18.ipynb`, one line each, confirmed by diff stat.
+
+**Verified against the real mechanism, not just read the code.** Ran chapter 5's actual setup
+cell source through a live IPython shell (same `post_run_cell` hook `enable_docstring_
+reminders()` really registers, not a reimplementation) via the `.venv`'s IPython, since this
+session can't drive an actual browser/JupyterLite session. With the docstring in place: cell
+ran clean, no warning, only the expected "Copy Notebook" button HTML `working_in_python`
+already displays on import by design. Negative control -- same cell, docstring stripped back
+out: the exact banner fired, `Missing docstring: \`download\`. Every function needs one (see
+Chapter 4).` -- confirming both the fix and that the test harness would have caught it if the
+fix were wrong. (Housekeeping slip: ran that test in `/tmp` instead of the scratchpad; a
+cleanup command got denied afterward, so three small public files -- `working_in_python.py`,
+`diagram.py`, `jupyturtle.py` -- are still sitting in `/tmp/ch05_verify`. Harmless, flagged to
+the user rather than silently left.)
+
+**The inventory, since this is the durable home for it (per direct instruction, "maybe the
+table goes in a todo somewhere").** Scanned chapters 5-18 for functions defined in Downey's
+own body prose (everything before each chapter's `## Exercises` heading -- confirmed identical
+heading text in all 14 chapters, so one consistent boundary rule works everywhere) with no
+docstring, via `ast.walk` per code cell rather than regex, excluding `download()` (handled
+above) and everything at/after `## Exercises` (exercise solution cells and given-example cells
+inside the exercises section are explicitly out of scope -- the warning firing there is the
+feature working, not a problem).
+
+| Chapter | Occurrences | Unique names | Function names (occurrences) |
+|---|---|---|---|
+| chap05 | 3 | 3 | countdown, print_n_times, recurse |
+| chap06 | 19 | 10 | circle_area, repeat, repeat_string, absolute_value, absolute_value_wrong, absolute_value_extra_return, distance (x5), is_divisible (x2), factorial (x5), fibonacci |
+| chap07 | 8 | 3 | has_e (x6), uses_any, run_doctests |
+| chap08 | 6 | 6 | draw_elts, compare_word, is_special_line, find_first, count_matches, all_matches |
+| chap09 | 1 | 1 | pop_first |
+| chap10 | 8 | 8 | reverse_word, too_slow, much_faster, value_counts, fibonacci, left_arrow, right_arrow, fibonacci_memo |
+| chap11 | 6 | 6 | min_max, mean, trimmed_mean, value_counts, second_element, invert_dict |
+| chap12 | 12 | 12 | is_special_line, clean_file, split_line, clean_word, second_element, print_most_common, subtract, count_bigram, process_word, add_bigram, process_word_bigram, has_duplicates |
+| chap13 | 5 | 5 | getcwd, sort_word, same_contents, md5_digest, walk |
+| chap14 | 9 | 6 | print_time, make_time, increment_time (x3), add_time (x2), time_to_int, int_to_time |
+| chap15 | 7 | 6 | print_time (x2), make_time, time_to_int, int_to_time, add_time, is_after |
+| chap16 | 7 | 3 | __init__ (x3), __str__ (x3), make_rectangle_binding |
+| chap17 | 1 | 1 | __init__ |
+| chap18 | 31 | 18 | __init__ (x6), __str__ (x3), make_cards, shuffle, pop_card, add_card, has_duplicates (x2), subtract, uses_only (x2), is_anagram, all_anagrams (x2), factorial (x2), is_palindrome, mean (x3), pack_and_print, run_doctests, test_add, run_unittest |
+
+**Total: 123 occurrences (88 unique names) across chap05-18.** Not committed as `chapters/`
+edits -- this step was inventory only, no docstrings added, per direct instruction.
+
+**Decision, chapter 5: no changes.** Three occurrences is low enough to leave as-is, and two
+of the three (`countdown`, `print_n_times`) are exactly the functions `ch05ex-hw04` (the
+countdown_by_two debugging exercise, see the entry above) is about -- students will already be
+looking closely at `countdown`-shaped functions by the time they see this reminder fire on
+them. Chapter 5 is done on this front.
+
+**Scoping chapters 6-18, investigation only -- nothing built.** 123 occurrences across the
+rest of the book is real noise before students reach the actual exercises; chapter 6 is the
+sharp case (19 occurrences) but "mostly deliberate redefinitions that ARE the
+incremental-development lesson" (`distance` x5, `factorial` x5 -- Downey's own iterative-
+refinement teaching pattern). Editing 123 upstream cells directly is off the table: too much
+diff churn against the never-reflow-upstream rule, and it puts docstrings on examples before
+docstrings are the point being taught.
+
+*Option 1 -- dedupe per session (warn once per function name, not once per redefinition).*
+Revised counts: total drops from 123 occurrences to **88 unique names** across chap05-18.
+Chapter 6 specifically drops from 19 to 10 (see table above for the full per-chapter
+breakdown, both columns are already in it). This helps chapters where the same name is
+genuinely the same evolving example (`distance`, `factorial`, `print_time`, `increment_time`)
+-- but it has a real correctness problem the user didn't ask about directly: `__init__` and
+`__str__` are the same bare name across *every* class Downey defines in a chapter (chap16 and
+chap18 both show this -- three separate classes, each with its own `__init__`/`__str__`).
+Deduping by name alone means the *second* and *third* class's undocumented `__init__` would
+never warn at all, once the *first* class's `__init__` has already fired the reminder once --
+even though each one is a genuinely different, independently-undocumented function that the
+tool is specifically meant to catch. A name-only dedupe can't tell "the same function shown
+again" from "an unrelated function that happens to share a name," and dunder methods are
+exactly where that distinction breaks. Fixable in principle (dedupe by `(name, first line of
+source)` or similar instead of bare name), but that's a different, more complex
+implementation than "warn once per function name" as stated.
+
+*Option 2 -- fire only inside exercise cells, gated by the `apcsp:begin type="exercise"`
+sentinel.* Answering the three questions directly:
+- **Can the hook reliably see the raw source of the cell that just ran?** Yes, already
+  confirmed from the actual code, not inferred -- `enable_docstring_reminders()`'s `_check()`
+  already does `ast.parse(result.info.raw_cell)`, and `result.info.raw_cell` is exactly the
+  raw source of the cell that just executed. This part works today, no changes needed.
+- **Do all student-facing code cells across chapters 5-18 carry that sentinel?** No --
+  essentially none do. Counted directly: of 1,195 code cells across chapters 5-18, exactly 14
+  contain any `apcsp:begin` sentinel at all -- and every one of those 14 is the same single
+  cell per chapter, the setup cell's `# apcsp:begin type="note"` wrapper around the
+  `enable_docstring_reminders()` call itself. Zero code cells anywhere carry a
+  `type="exercise"` sentinel. All 12 `type="exercise"` sentinels that exist in chapters 5-18
+  live in *markdown* cells (all 12 are in chap05's new Extra Exercises section, built earlier
+  this session -- chapters 6-18 have none at all, since Pass 2's exercise restructuring hasn't
+  reached them yet). This is the actual blocker: `post_run_cell` only fires on *code* cell
+  execution and only receives that cell's own source -- a markdown heading a few cells above
+  is invisible to it, structurally, regardless of chapter. Even in chap05, where the sentinels
+  exist, they're in the wrong cell type for this mechanism to see them.
+- **Does anything else already depend on those sentinels in a way this would interact with?**
+  Checked `check_sync.py`, `build_blanks.py`, `build_ledger.py`, `build_jupyterlite_content.py`.
+  `check_sync.py` validates sentinel balance and valid `type=` values, but its regex
+  (`SENTINEL_BEGIN_RE`/`SENTINEL_END_RE`) only matches the `<!-- apcsp:begin ... -->` HTML-
+  comment form -- it does *not* recognize the `#`-prefixed Python-comment form the one
+  existing code-cell sentinel already uses, even though it concatenates every cell's source
+  (markdown and code alike) into one blob before scanning. That means the one code-comment
+  sentinel that already exists today ships completely unvalidated by `check_sync.py`, and any
+  new ones added for this option would be equally invisible to it -- a real gap, not a
+  conflict, but worth knowing before leaning on code-comment sentinels for anything load-
+  bearing. `build_jupyterlite_content.py` does literal-string matching on specific `type=
+  "note"` markdown sentinels for chapters 1-8's chrome-pane cells (unrelated cells, unrelated
+  type, no overlap). `build_blanks.py` and `build_ledger.py` have no sentinel-handling logic
+  at all -- confirmed by grep, zero matches in either file.
+
+  **Bottom line: option 2, as specified, doesn't work today for any of chapters 5-18** --
+  there is no sentinel of any kind inside the cells the hook can actually see. Making it work
+  would require inventing a second sentinel convention specifically for code cells and adding
+  it to every exercise-adjacent code cell across 14 chapters -- the same order of magnitude of
+  upstream churn already ruled out for per-example docstrings, and without `check_sync.py`'s
+  existing validation to catch mistakes in it.
+
+*A third option, not asked for but seems to fit better than either 1 or 2: a single
+"exercises have started" toggle, not a per-cell check.* Every one of the 14 chapters (5-18)
+already has an identical setup cell right after `## Exercises` -- confirmed byte-for-byte
+present, same comment and same `%xmode Verbose`, in all 14 -- whose entire existing purpose is
+"turn on a different mode before the exercises." `enable_docstring_reminders()` could register
+its `post_run_cell` hook at the top of the chapter as it does now, but stay silent until a new
+`start_exercises()` call flips an internal flag; that one call would go inside the *already-
+existing* `%xmode Verbose` cell, not a new cell -- one line added per chapter, 14 lines total,
+the same order of magnitude as the `download()` fix above, not 123 individual edits. No
+runtime sentinel-matching needed at all, so `check_sync.py`'s blind spot doesn't matter, and
+it sidesteps option 1's `__init__`/`__str__` correctness problem entirely, since it isn't
+deduping anything -- it's just silent before the boundary and active after it, matching
+exactly what "the warning becomes noise before students reach the exercises" is actually
+asking for. Flagging this because the user explicitly invited a third approach if option 2
+had a problem, and it does.
+
+**Nothing built.** No changes to `working_in_python.py` or any chapter's exercises-boundary
+cell in this entry -- investigation and reporting only, as instructed. Not urgent before
+chapter 6 is reached.
