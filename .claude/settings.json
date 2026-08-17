@@ -1,6 +1,5 @@
 {
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Bash(make projector)",
       "Bash(make check)",
@@ -10,12 +9,13 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git restore *)",
-      "Bash(nbstripout *)"
-    ],
-    "ask": [
-      "Bash(git push *)",
-      "Bash(git rm *)",
-      "Bash(git checkout *)"
+      "Bash(nbstripout *)",
+      "Bash(python3 -c ' *)",
+      "Bash(.venv/bin/python3 -c ' *)",
+      "Bash(git mv *)",
+      "Bash(sphinx-autobuild --help)",
+      "Bash(jupyter nbconvert *)",
+      "Bash(xxd)"
     ],
     "deny": [
       "Edit(blank/**)",
@@ -23,6 +23,12 @@
       "Write(projector/**)",
       "Edit(projector/**)",
       "Bash(rm -rf *)"
-    ]
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git rm *)",
+      "Bash(git checkout *)"
+    ],
+    "defaultMode": "acceptEdits"
   }
 }
