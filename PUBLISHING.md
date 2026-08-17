@@ -165,16 +165,16 @@ Each step fails independently, so verify each before starting the next.
    impression of the course.
 6. Verify an internal cross-reference resolves. Chapter 10 links back to an
    earlier section; click it.
-7. Verify `https://python.porttack.com/<hash>/notebooks/index.html?path=__chap01-welcome.ipynb`
+7. Verify `https://python.porttack.com/<hash>/notebooks/index.html?path=Chapter01-Welcome.ipynb`
    (get the current `<hash>` with `python3 tools/build_jupyterlite_content.py
    --print-deploy-id`, or read it off the last build's own printed output) loads and
    runs -- Colab-outage fallback, chapters 1-11 only, see `AUDIT.md`. Also verify
    `https://python.porttack.com/<hash>/lab/index.html` opens the full workbench with
-   the file browser grouped front-matter/chapters/exercises/teach-copies/helper-files,
-   in that order (`___start-here.ipynb` first) -- this depends on the repo-root
-   `overrides.json` (`sortNotebooksFirst`) reaching the build; see `AUDIT.md`,
-   2026-08-09.
-8. Verify `https://python.porttack.com/current/notebooks/index.html?path=__chap01-welcome.ipynb`
+   the file browser grouping notebooks ahead of helper files (`_start-here.ipynb` first,
+   then each chapter's own notebook/teach-copy/exercises variants sorted together by
+   name) -- this depends on the repo-root `overrides.json` (`sortNotebooksFirst`)
+   reaching the build; see `AUDIT.md`, 2026-08-09 and 2026-08-16 (naming cleanup).
+8. Verify `https://python.porttack.com/current/notebooks/index.html?path=Chapter01-Welcome.ipynb`
    redirects to the same hashed URL from step 7 and runs. This is the link to
    actually hand to students (Schoology, etc.) -- see "Stable links for
    Schoology" above.

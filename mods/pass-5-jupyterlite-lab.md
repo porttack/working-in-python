@@ -65,7 +65,7 @@ ships into JupyterLite; check `CHAPTERS` for that.
    `CONTENT_NAMES` covering everything currently in `CHAPTERS` (index, jupyter_intro,
    chapters 1–11, the eight exercises notebooks), root `overrides.json`, and the
    `?readonly`-persists-through-the-left-nav feature in `jb/_static/custom.js`.
-2. **Chapters 9–11** — `CONTENT_NAMES` entries already exist (`__chap09-lists.ipynb` etc.,
+2. **Chapters 9–11** — `CONTENT_NAMES` entries already exist (`chapter09-lists.ipynb` etc.,
    with `teach` names). Chrome links not yet updated because Pass 4 hasn't written these
    chapters' link bar/embedded pane yet. When it does, use "Adding a chapter's chrome links"
    below instead of copying a literal `chapNN.ipynb` from an earlier chapter.
@@ -86,8 +86,9 @@ When Pass 4 writes a chapter's link bar and embedded pane for the first time
 `CONTENT_NAMES`, not the bare chapter filename:
 
 - Chapter link (`?path=chapNN.ipynb`) → `CONTENT_NAMES["chapNN.ipynb"]["name"]`
-- Exercises link (`?path=chapNN-exercises.ipynb`) →
-  `CONTENT_NAMES["chapNN-exercises.ipynb"]["name"]`
+- There is no separate Exercises link/notebook anymore (superseded 2026-08-16 -- see
+  `mods/pass-4-chrome.md`'s Step 1 and `AUDIT.md`). Homework lives in the chapter's own
+  `## Extra Exercises` section instead.
 - "Blank"/Teach Copy link (`?path=chapNN-projector.ipynb`) →
   `CONTENT_NAMES["chapNN.ipynb"]["teach"]` — and use the label **"Teach Copy (JupyterLite)"**,
   not "Blank (JupyterLite)" (retired along with the `-projector` suffix; chapters 1–8 already

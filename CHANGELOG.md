@@ -16,6 +16,195 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Nothing in `chapters/` yet — Pass 1 is read-only analysis plus tooling.
 
+## 2026-08-16 — Title Case filenames; teach/blank copies stop shipping to JupyterLite for now
+
+### Fixed
+- `working_in_python.py`: added `console.log` diagnostics to `check_for_update()` at every
+  branch (entry, guard checks, fetch status, comparison result, error) -- the function had
+  no logging at all, so a live test that produced no banner was genuinely ambiguous ("ran
+  and found no update" vs. "never ran" vs. "silently errored"). Live-tested end to end after
+  adding it: confirmed the whole mechanism works (fetch, compare, banner) once a real
+  version mismatch exists.
+- `chapters/chap04.ipynb`: merged the `download()` cell, the `import working_in_python` +
+  `%autoreload` cell, and the `check_for_update()` call into one cell. Per direct feedback
+  after the live test: `check_for_update()` only runs when its own cell executes, and a
+  student reading top-to-bottom (not doing Run All) might never run a cell that exists only
+  to check for updates. Folding it into the setup cell every student has to run anyway (to
+  get their imports) means the check can't be skipped without also skipping the imports
+  themselves.
+
+### Changed
+- All JupyterLite-visible filenames are now Title Case, including the `Chapter` prefix
+  itself (`Chapter02-Variables-and-Statements.ipynb`, `_Start-Here.ipynb`,
+  `_Using-Notebooks.ipynb`) -- small words ("and") stay lowercase. The two temporary
+  chapter 2/3 aliases (`__chap02-variables-and-statements.ipynb`,
+  `__chap03-functions.ipynb`) are deliberately NOT recapitalized -- they exist only to match
+  whatever exact path a student's browser may already have cached from before the naming
+  cleanup, so they have to stay byte-for-byte what they always were.
+- Reverted the "teach" copy filename from a `-teach` suffix back to a `teach` *prefix*
+  (`teach01-welcome.ipynb`, not `chapter01-welcome-teach.ipynb`) -- the suffix version sorted
+  each teach copy next to its own chapter; the prefix sorts all teach copies together, after
+  every chapter, which is what was actually wanted. This was a same-day regression, caught
+  and fixed before it went anywhere.
+
+### Removed
+- Teach/blank copies no longer ship into `jupyterlite/content/` at all (`tools/
+  build_jupyterlite_content.py`'s new `SHIP_TEACH_COPIES = False` flag). What to call this
+  file and how to make it sort sensibly in the flat JupyterLite lab file browser turned into
+  an extended back-and-forth with no fully clean answer -- "blank" (matching this repo's own
+  "blank markers" terminology) sorts before chapters alphabetically; "teach" sorts after but
+  reintroduces wording this project had deliberately moved away from; capitalizing either
+  doesn't change sort order at all (confirmed from the actual built JupyterLab source: the
+  file-browser comparator uses `localeCompare` with `sensitivity: "base"`, which is
+  case-insensitive by definition). Decided to stop shipping it into the student-facing lab
+  entirely for now rather than ship a compromise, with a real teacher-facing lab/manifest
+  left as future work. All the underlying build logic (`CONTENT_NAMES`'s `teach` key,
+  `teach_name_for()`, the `write_notebook_variant()` call) is untouched, just gated behind
+  the one flag -- turning it back on is a one-line change once there's a real plan for where
+  these copies belong.
+- The "Blank (JupyterLite)" / "Teach Copy (JupyterLite)" chrome-bar link removed from
+  chapters 1-8, since it would otherwise point at a file no longer shipped. Easy to re-add
+  once the above is resolved.
+
+## 2026-08-16 — All -exercises.ipynb files retired; no-scaffold-without-content rule
+
+### Removed
+- `chapters/chap01-exercises.ipynb`, `chap02-exercises.ipynb`, `chap03-exercises.ipynb`
+  (real homework content, already submitted -- migrated first, see Changed below) and
+  `chap05-exercises.ipynb` through `chap08-exercises.ipynb` (empty 2-cell stubs, no content
+  ever written, nothing to migrate) -- deleted outright, along with their `projector/`
+  copies and their `CHAPTERS`/`CONTENT_NAMES` entries in `tools/build_jupyterlite_content.py`.
+  Chapter 4's own `-exercises.ipynb` was already retired earlier the same day; this closes
+  out the pattern repo-wide. No chapter in the book now has homework in a separate notebook.
+- `chapters/chap04.ipynb`: removed two answer cells (docstrings, pinwheel) that were bare
+  `# Solution goes here` with no starter code -- a student adds their own cell for those now.
+  Kept the ones that seed real starter code (`make_turtle()` for the turtle exercises,
+  the three `time_check()` variables) and the two markdown "type your answer here" cells
+  (a written-response placeholder isn't the same as a content-free code stub, and per
+  direct feedback the answer belongs in its own new cell, not the prompt cell).
+- Stripped the visible `# apcsp:begin`/`# apcsp:end` comment wrapper from every plain code
+  cell that's a whole new addition (the copy-button call in `chap01.ipynb`-`chap04.ipynb`,
+  chapter 4's remaining answer/time-check cells) -- a whole new cell is self-evidently an
+  addition in any diff without a comment marking it, unlike prose folded into an existing
+  upstream cell where the sentinel actually disambiguates old from new. Per feedback that
+  the visible comments read as confusing and unpolished to a student. Markdown sentinels
+  are untouched (HTML comments there are genuinely invisible when rendered, so they cost
+  nothing visually).
+
+### Added
+- `chapters/chap01.ipynb`, `chap03.ipynb`: two exercises whose "solution" cell in the
+  now-deleted exercises files was actually the exercise's own starter code (a deliberately
+  broken expression/function to run and debug), not a blank placeholder -- migrated as real
+  cells into each chapter's own `## Extra Exercises` prompt (chapter 1's "fix the TypeError,"
+  chapter 3's "read the traceback"), and the redundant inert code block that had been
+  duplicating the same snippet inside the prompt text itself was removed.
+- `chapters/chap01.ipynb`, `chap02.ipynb`, `chap03.ipynb`: "Extra Exercises" intro no longer
+  says work is answered in a separate notebook -- matches chapter 4's wording now that none
+  of the book has one.
+- `mods/pass-4-chrome.md`, `mods/pass-5-jupyterlite-lab.md`: corrected instructions that
+  would have told a future session (chapters 9-11) to recreate the separate-exercises-file
+  pattern, or reference an Exercises chrome-bar link, that this pass eliminated.
+
+## 2026-08-16 — Book-wide filename cleanup; version-check banner; time_check polish
+
+### Added
+- `tools/build_jupyterlite_content.py`: `ALIASES` dict -- temporarily serves chapters 2
+  and 3's identical content under both their new canonical name and their old
+  (pre-cleanup) served name, so any student with in-progress work already cached in their
+  browser's IndexedDB under the old path can still reach it. Chapter 4 doesn't need one
+  (not live for students until Monday, under the new name from the start). Meant to be
+  removed after a few days; the corresponding `porttack/learn` submodule's `_config.yml`
+  `include:` entries for these two alias filenames should be removed at the same time.
+- `working_in_python.py`: `check_for_update(version, filename)` -- shows a non-blocking
+  banner ("A newer version of this chapter has been published") if the currently-served
+  copy of a notebook differs from the one baked into the running session, detected via a
+  plain `fetch(..., {cache: 'no-store'})` against `files/<name>` (bypassing JupyterLite's
+  own IndexedDB-backed storage entirely, which is what makes a stale copy invisible to an
+  ordinary reload). Never overwrites anything automatically -- offers a Reload button only.
+  Wired into `chap04.ipynb` via a placeholder call (`check_for_update("JUPYTERLITE_DEPLOY_PATH",
+  ...)`), substituted at build time the same way the embedded JupyterLite iframe links
+  already are. Whether the Reload button actually pulls fresh content, versus needing a
+  manual file-browser delete-and-reopen, is unverified from here -- flagged for live testing.
+
+### Changed
+- `working_in_python.py`: `time_check()` no longer prints a "fill this in" reminder --
+  that logic was removed entirely. The reminder now lives as a plain comment at the top of
+  the notebook cell that calls it, above the three variables a student fills in
+  (`chapter_minutes`, `extra_exercises_minutes`, `longest`), per direct feedback that a
+  runtime-printed reminder was confusing and that the cell should read as three lines of
+  data, nothing cleverer.
+- `working_in_python.py`: `show_copy_notebook_button()` now also toggles `margin: 0;
+  line-height: normal` on every `.cm-line` element for the moment of copying, then reverts
+  it -- an attempted fix for code cells pasting into Google Docs with exaggerated
+  (~triple) line spacing, based on reading the actual built CSS (`.cm-editor`'s inherited
+  `line-height` applied per source-line block) rather than guessing. Unverified whether
+  this fully resolves the Google Docs symptom -- flagged for live testing.
+- `chapters/chap04.ipynb`: removed em dashes from every piece of exercise text authored
+  this pass (intro, Exercises 1-4, time check, spiral, "Finished? Copy your work") --
+  17 instances rewritten as separate sentences or parentheticals, per feedback that the
+  density read as an obvious AI tell.
+- **Book-wide filename cleanup** (`tools/build_jupyterlite_content.py`'s `CONTENT_NAMES`,
+  and every chapter 1-8 plus `jupyter_intro.ipynb`'s own chrome-bar links, self-embedding
+  iframe `src`, and matching `CELL_PATCHES` entry): dropped the `___`/`__`/`_` prefix
+  naming scheme (front matter / chapters / exercises) in favor of plain, student-legible
+  names -- `chapter04-functions-and-interfaces.ipynb`, with `-teach` and `-exercises`
+  suffixes for those variants, clustering each chapter's own files together alphabetically
+  instead of grouping by file *type*. Front matter (`_start-here.ipynb`,
+  `_using-notebooks.ipynb`) keeps a single leading underscore specifically so it still
+  sorts first under `overrides.json`'s `sortNotebooksFirst`, which groups notebooks ahead
+  of helper `.py`/`.txt` files but has no other chapter-order awareness of its own.
+  Chapter 4 in particular gets a genuinely new filename (not just new content under the
+  old name) precisely because JupyterLite's browser storage (IndexedDB, via `localforage`)
+  persists by path under a fixed `contentsStorageName` -- a same-path content update is
+  invisible to any browser that already opened the old version, no matter how the page is
+  reloaded. A new path is the only way to guarantee every student gets the current content
+  regardless of browsing history. See `AUDIT.md` for the full investigation, including why
+  `check_for_update()` alone can't retroactively warn browsers that already hold a copy
+  from before that function existed (chapter 4's rename is what actually closes that gap
+  for this transition; `check_for_update()` is for *future* same-name updates only).
+- Two `CELL_PATCHES` entries (`chap04.ipynb`, `jupyter_intro.ipynb`) were caught and fixed
+  mid-pass after an interrupted first rename attempt left them matching an already-stale
+  filename -- see `AUDIT.md`. Added a standing verification step (compares every
+  `CELL_PATCHES` key against the actual notebook content) rather than trusting `--check`
+  alone, which doesn't catch this failure mode.
+- `PUBLISHING.md`, `HOW_TO_EDIT.md`, `mods/pass-5-jupyterlite-lab.md`: example filenames
+  and file-browser sort-order descriptions updated to match the new naming scheme.
+
+## 2026-08-16 — chap04-exercises.ipynb deleted; all chapter 4 homework now lives in chap04.ipynb
+
+### Added
+- `chap04.ipynb`: real answer cells for Exercises 1, 3, 4, 5, and 6 (previously
+  preview-only, pointing students at the separate exercises notebook) -- code cells for
+  initials, docstrings, and pinwheel; markdown "Type your answer here" cells for
+  interface-vs-implementation and reflection, with each prompt's "Answer in the markdown
+  cell below" pointer restored to match.
+
+### Changed
+- `chap04.ipynb`: fixed a physical cell-ordering bug from the previous pass -- pinwheel
+  (labeled Exercise 4) sat before docstrings (labeled Exercise 3) in reading order, even
+  though the headings were renumbered correctly. Cells now read 1-6 in order.
+- `chap04.ipynb`: "Extra Exercises" intro no longer mentions a separate answer notebook;
+  everything is answered in this chapter now.
+- `tools/build_jupyterlite_content.py`: removed the `chap04-exercises.ipynb` entry from
+  `CHAPTERS` and `CONTENT_NAMES`. Chapters 1-3 and 5-8's exercises notebooks are untouched
+  -- this migration is chapter 4 only, since those chapters are already submitted.
+- `data/exercise-ledger.json`: `ch04ex-hw01` through `ch04ex-hw05` now record `chapter:
+  "chap04"` instead of `"chap04-exercises"`, and their notes no longer describe a
+  preview/answer-file desync, since there is only one file now.
+
+### Removed
+- `chapters/chap04-exercises.ipynb` and `projector/chap04-exercises.ipynb`, deleted
+  outright (`git rm`). Its student-facing content (name/timestamp cell, redundant
+  turtle/jump setup, and the "Finished? Copy your work" cell) was not carried over --
+  see `AUDIT.md` for the full inventory and disposition of every cell.
+
+### Fixed
+- Closes the gap flagged in the previous entry below and recorded as deferred in
+  `AUDIT.md`: since students submit by pasting the whole chapter into a Google Doc,
+  having graded answers split across two files meant half of a choose-one pair (the
+  house exercise) was captured on submission and the other half (initials) was not.
+  All six numbered exercises, the time check, and the spiral now live in one file.
+
 ## 2026-08-16 — chap04 homework: house exercise, choose-one pairing, time check, spiral
 
 ### Added

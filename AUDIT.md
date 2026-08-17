@@ -5099,3 +5099,459 @@ plain Python shell (IPython not available in this environment), not inside an ac
 JupyterLite/Colab session -- the formatting and reminder logic are correct against the
 spec, but the function has not been run inside a real notebook. Whoever teaches this chapter
 should run it once for real before Monday.
+
+## 2026-08-16 — chap04-exercises.ipynb deleted, book-wide filename cleanup, version-check
+## banner, four rounds of live-feedback polish
+
+Same day, new conversation, picking up right where the "chap04 homework restructure"
+handoff above left off. Started as "migrate chap04-exercises.ipynb's content into
+chap04.ipynb and delete the file" and grew twice: once into a caching investigation that
+changed how every chapter in the book is named, and once into a round of direct feedback
+on the previous session's own output (em dashes, a confusing runtime reminder, a copy-paste
+line-height bug). Recording the full arc since several dead ends and near-misses are worth
+knowing about.
+
+**Migration, as scoped (chapter 4 only; chap01-03's exercises files explicitly untouched,
+already submitted).** Inventoried every cell in `chap04-exercises.ipynb` before touching
+anything (name/timestamp cell, redundant turtle/jump setup, five prompts, five solution
+cells, a duplicate copy-button). Two things flagged and resolved with the user rather than
+guessed: (1) no home for the name/timestamp cell in `chap04.ipynb` -- decided to skip it
+entirely, the Google Doc itself identifies the student now; (2) a physical cell-ordering
+bug found while mapping cells, left over from the previous session -- pinwheel (labeled
+Exercise 4) sat *before* docstrings (labeled Exercise 3) in reading order, because that
+session renumbered headings without moving cells. Fixed while adding the new answer cells.
+Gave Exercises 1, 3, 4, 5, 6 real solution cells (previously preview-only, pointing at the
+now-deleted file); restored each prompt's "Answer in the markdown cell below" pointer where
+an answer cell now actually follows it. Deleted `chapters/chap04-exercises.ipynb` and
+`projector/chap04-exercises.ipynb` via `git rm`; removed its `CONTENT_NAMES`/`CHAPTERS`
+entries from `tools/build_jupyterlite_content.py`; grepped the repo afterward and confirmed
+zero remaining references outside generated build output. `make check` clean throughout.
+
+**Built and served JupyterLite locally for the first time this session** (`make
+jupyterlite` + `make jupyterlite-serve`) -- discovered the repo's own `jupyter` on `PATH`
+isn't the project's; the venv at `.venv/` has `jupyterlite-core`, the global one doesn't.
+Anyone repeating this needs `source .venv/bin/activate` first, `make jupyterlite` alone
+fails with "Jupyter command `jupyter-lite` not found."
+
+**Round 1 of live feedback, all fixed:** (1) `time_check()` restructured per direct
+instruction -- `chapter_minutes`/`extra_exercises_minutes`/`longest` as three plain
+variables with a comment-only reminder above them, not a function that prints one; the
+"fill this in" logic was removed from `working_in_python.py` entirely, not just muted. (2)
+17 em dashes removed from every piece of chapter 4 exercise text authored this pass, per
+feedback that the density read as an obvious AI tell -- rewritten as separate sentences or
+parentheticals, matching `CLAUDE.md`'s own (previously unenforced by us) "em dashes
+sparingly" style rule. (3) Copy-Notebook button's line-height bug: code cells were pasting
+into Google Docs at roughly triple line spacing. Read the actual built CSS (grepped the
+JupyterLite build's own JS bundles for `.cm-line`/`.cm-editor` rules, found
+`--jp-code-line-height` resolves to ~1.3, inherited by each CodeMirror 6 line's own block
+div) rather than guessing, and added a toggle-and-revert (`margin: 0; line-height: normal`
+on every `.cm-line`, same pattern as the existing prompt-selection toggle) around the copy
+operation. **Not verified from here** -- I can't paste into a real Google Doc from this
+environment; flagged for the user to re-test.
+
+**The caching investigation -- this is the part that grew the scope.** User reported the
+JupyterLite banner test (see below) never fired, and separately that a force-reloaded
+browser still showed old content. Read the actual `jupyter-lite.json` and the built JS:
+JupyterLite persists notebook contents in IndexedDB via `localforage`, under a
+`contentsStorageName` that is a **fixed string** (`"working-in-python-contents"`, in the
+repo-root `jupyter-lite.json`) -- the same on every single build. That's deliberate (lets a
+student close their browser mid-chapter and resume later) but means the existing
+`jupyterlite-<hash>/` URL-path cache-busting strategy (documented in `CLAUDE.md`) does
+**not** solve this: IndexedDB is scoped by (origin, storage name), not URL path, so a new
+hash still points at the same IndexedDB database. A same-path content update is invisible
+to any browser that already opened the old path, no matter how many times it's reloaded.
+Confirmed no built-in JupyterLite mechanism exists to override this via a URL query
+parameter (checked `PageConfig.getOption` usage in the built bundle -- only a hardcoded
+`path` param is read from the URL for opening a notebook; arbitrary PageConfig keys like
+`enableMemoryStorage` are baked in at build time only, not URL-overridable).
+
+Proposed, then built with the user's go-ahead, `check_for_update(version, filename)` in
+`working_in_python.py`: fetches the currently-served copy of the same file directly (`fetch`
+with `cache: 'no-store'`, straight HTTP, bypassing IndexedDB and the Jupyter services layer
+entirely -- deliberately avoids `window.jupyterapp`/the ServiceManager API, both already
+flagged unreliable in this exact JupyterLite build per this file's own 2026-08-16 "Copy
+Notebook" entry above), compares it against the version baked into the running session via
+the same `DEPLOY_PATH_PLACEHOLDER`-substitution mechanism already used for the embedded
+iframe links (no new placeholder invented), and shows a banner with a Reload button if they
+differ. Deliberately does nothing automatically. **Reload's actual effect is unverified**
+-- whether it re-seeds fresh content or whether a manual file-browser delete-and-reopen is
+needed instead is exactly the kind of JupyterLite internals question that needs a live
+round-trip test, which only the user can do.
+
+**The bootstrap problem, caught by the user, not by me:** `check_for_update()` only exists
+in the notebook version that ships *with* it -- any browser that already has an *older*
+copy of `chap04.ipynb` cached (e.g. the user's own test browser from earlier in this
+session) has no such code to run at all, so no banner can ever fire for that transition.
+The fix isn't more detection code, it's a new path: renaming the file guarantees a fresh
+IndexedDB seed regardless of any script, for every browser, unconditionally. User proposed
+a `-v2` suffix for exactly this reason.
+
+**Scope grew again, deliberately, to a full book-wide rename**, after asking the user to
+confirm given the size (offered "chapter 4 only, `-v2`, ship Monday, cleanup later" as the
+safer option first). User chose the full cleanup. Surveyed before touching anything: which
+chapters actually self-embed a live iframe of themselves (`grep`ped for
+`JUPYTERLITE_DEPLOY_PATH` combined with `<iframe`) -- found chapters 1-8 and
+`jupyter_intro.ipynb` all do (not just chap01/chap04, which is what the module docstring in
+`tools/build_jupyterlite_content.py` implied; that comment was already stale before this
+session). Confirmed no chapter cross-references another chapter's filename anywhere (each
+only self-references), which simplified the actual edit surface a lot. Chapters 9-19 and
+every remaining `-exercises.ipynb` file needed **only** a `CONTENT_NAMES` dict entry change,
+zero in-notebook edits, since they don't self-reference their own served name at all.
+
+Dropped the `___`/`__`/`_` prefix scheme (front matter/chapters/exercises) for plain names
+-- `chapterNN-<title>.ipynb`, `-teach`/`-exercises` suffixes for those variants -- which
+clusters each chapter's own files together alphabetically instead of grouping by file
+*type*. One regression caught before it shipped: `overrides.json`'s `sortNotebooksFirst`
+only groups notebooks ahead of helper `.py`/`.txt` files, nothing more -- it doesn't
+understand chapter order. Dropping `___start-here.ipynb`'s prefix entirely would have made
+it sort *after* every `chapterNN` entry alphabetically (`s` > `c`), losing its
+"first thing a student sees" position, which was clearly a deliberate design goal (see this
+file's 2026-08-09 "front page as a notebook" entry). Fixed by keeping a single leading
+underscore on just the two front-matter files (`_start-here.ipynb`, `_using-notebooks.ipynb`)
+-- `_` sorts before lowercase letters, so they still land first among notebooks, without
+reintroducing the multi-tier prefix scheme everywhere else.
+
+Executed as one script per concern (front-matter/chapter/teach/exercises name table applied
+as a single substring-replacement pass across every affected `chapters/*.ipynb` file and
+`tools/build_jupyterlite_content.py` itself, since `CONTENT_NAMES` and `CELL_PATCHES` are
+just Python string literals containing these filenames as data) -- chosen over hand-editing
+each `CELL_PATCHES` tuple individually, which is exactly the kind of transcription work that
+caused the bug described next.
+
+**Caught mid-pass, before committing:** two `CELL_PATCHES` entries (`chap04.ipynb`,
+`jupyter_intro.ipynb`) were left matching an already-stale filename from an *earlier*,
+interrupted rename attempt within this same session (the initial `-v2`-only rename for
+chapter 4, abandoned when the user proposed the full cleanup instead, before its
+`CELL_PATCHES` entry had been updated to match). `apply_cell_patches()` does an exact tuple
+match with no fallback and no warning on a miss -- a stale key doesn't error, it just quietly
+stops applying, which is exactly the recursive-self-embedding-iframe bug this patch exists
+to prevent. Caught by a `grep` sweep for old-style filename fragments across the whole repo
+turning up two remaining hits inside `tools/build_jupyterlite_content.py` itself, not
+inside any `chapters/` file. Fixed both, then added a standing verification step (loads
+`CELL_PATCHES`, checks every key against the actual current cell sources in
+`chapters/*.ipynb`, not just the two that had just broken) precisely because `make check`'s
+own `--check` flag does not catch this failure mode -- it only checks for unhandled `!`
+shell-magic lines, not for a `CELL_PATCHES` key that no longer matches anything. Worth
+repeating for whoever touches `CELL_PATCHES` next: there is no automated guard against a
+stale key besides this one manual verification script; consider adding it to `--check`
+properly in a future pass.
+
+**Also fixed while in these files, not previously caught:** the module docstring's claim
+("chap01.ipynb and jupyter_intro.ipynb each embed a live JupyterLite iframe of themselves")
+was already incomplete before this session -- left as-is rather than rewritten, since fixing
+prose accuracy in a docstring wasn't this pass's job and the actual `CHAPTERS`/`CELL_PATCHES`
+dicts are the source of truth regardless of what the comment above them claims.
+
+**`learn.porttack.com`, new information from the user, not yet independently verified from
+inside that repo beyond reading its config:** it mounts this repo as a git submodule
+(`porttack/learn`'s `.gitmodules`, path `working-in-python`, tracking this repo's `gh-pages`
+branch -- **not** `v3`), served by Jekyll at a nested path (`learn.porttack.com/working-in-python/...`).
+Confirmed via `../learn` on this machine: `_config.yml` has explicit `include:` rules
+(`_static`, `_sources`, `_sphinx_design_static`, `__*.ipynb`, `_exercises*.ipynb`) needed
+specifically because Jekyll would otherwise silently drop underscore-prefixed paths --
+**this include list itself is now stale** after today's naming cleanup (the `__*.ipynb`
+pattern no longer matches any real chapter file, and `_exercises*.ipynb` only still matches
+the 7 remaining old-style exercises files, not the new `-exercises.ipynb` suffix style).
+Whoever bumps the `working-in-python` submodule pointer in `porttack/learn` next should
+also update these Jekyll `include:` patterns, or the renamed files may not ship on
+`learn.porttack.com` even though they build correctly here. Since it's a submodule pinned
+to a specific commit, `learn.porttack.com` does **not** pick up any of today's changes
+automatically -- someone has to bump the pointer and republish that site separately, which
+lines up with what the user already said: chapter 4 goes out Monday specifically because
+that push hasn't happened yet. This also means today's chapter 4 rename is very likely safe
+for real students regardless of the bootstrap problem discussed above -- nobody has opened
+any version of chapter 4 on `learn.porttack.com` yet, since it was never pushed there before
+today's work. Not independently confirmed (no visibility into whether any student has
+somehow already reached a pre-Monday copy some other way); flagged as an assumption, not a
+verified fact.
+
+**Verified:** `make check` clean after every edit. Wrote and ran a standalone script (not
+part of `tools/`, scratch-only) that loads `CELL_PATCHES` and confirms every key matches an
+actual cell in the corresponding `chapters/*.ipynb` file -- all 9 entries (chap01-08,
+jupyter_intro) clean after the fixes above. Repo-wide `grep` for every old-style filename
+fragment (`__chap`, `_exercises0N`, `teachNN-`, `___start-here`, `___using-notebooks`,
+`teach-using-notebooks`, the abandoned `-v2` names) returns zero hits outside generated
+build output (`jb/_build/`, `jupyterlite/content/`, `jupyterlite/_output/`, which regenerate
+from source and were rebuilt anyway). Spot-checked three different chapters' served files
+(chap01, chap04, chap08) plus the front-matter file over the local server, all 200 OK,
+all self-referencing links internally consistent with their own new served name.
+
+**Not verified, because it can't be from here, all flagged for the user to test live before
+this ships:** (1) whether `check_for_update()`'s Reload button actually pulls fresh content
+or needs a manual file-browser delete-and-reopen instead; (2) whether the `.cm-line`
+line-height toggle actually fixes the Google Docs paste symptom; (3) `time_check()`'s new
+three-variable cell, restyled per feedback but not yet re-run in a real notebook since the
+restyle.
+
+**Addendum, same session, right after the above:** user asked for aliases for chapters 2
+and 3 specifically, so students with in-progress work already cached under the old served
+names aren't cut off by the rename. Added an `ALIASES` dict to
+`tools/build_jupyterlite_content.py` (`"chap02.ipynb": ["__chap02-variables-and-statements.ipynb"]`,
+same for chap03) and one line in `build()` that calls the existing `write_notebook_variant()`
+a second time per alias -- no new logic, reuses the exact same `CELL_PATCHES`/deploy-path/
+preload treatment as the canonical copy. Chapter 4 deliberately excluded: nothing to alias,
+since it isn't live for students until Monday and starts fresh under the new name. Verified
+the alias and canonical outputs are byte-identical JSON (`diff` after `python3 -m json.tool`
+on both) and both serve `200` locally. Meant to be temporary -- remove the `ALIASES` entries
+after a few days, once no student could plausibly still need the old paths.
+
+Then went into `../learn` (the `porttack/learn` repo, confirmed via its own `CLAUDE.md`
+this time, not just `.gitmodules`) and updated `_config.yml`'s `include:` list, which the
+"Not verified" item above had flagged as likely stale. Confirmed the actual mechanism from
+that repo's own documentation: Jekyll's `include:` matches bare basenames only, one
+directory at a time, so a nested/prefixed pattern never works there -- meaning the fix is
+just updating which bare filenames are listed. Removed `"__*.ipynb"` and
+`"_exercises*.ipynb"` (both now dead: no canonical chapter/teach/exercises file is
+underscore-prefixed anymore, so Jekyll's own default inclusion already covers them, no
+`include:` entry needed at all) and replaced them with four explicit literals: the two
+front-matter files (`_start-here.ipynb`, `_using-notebooks.ipynb`) and the two temporary
+chapter 2/3 aliases above. Also fixed the corresponding stale prose in that repo's own
+`CLAUDE.md`, which described the now-obsolete `__*.ipynb`/`_exercises*.ipynb` patterns as
+current. Did not touch anything else in `../learn` (no submodule bump, no commit) --
+that's a separate repo with its own workflow; left for the user to commit there directly.
+
+## 2026-08-16 — Sentinel-comment cleanup, no-scaffold-without-content rule, all
+## remaining -exercises.ipynb files retired
+
+Same day, same conversation, direct feedback on the previous entry's own output. Four
+things, each changing what came before it, worth reading in order.
+
+**Sentinel comments were leaking into student-visible code.** Markdown sentinels
+(`<!-- apcsp:begin ... -->`) are genuinely invisible when rendered -- real HTML comments.
+Code sentinels (`# apcsp:begin ...`) are not; Python has no invisible-comment equivalent, so
+every one of those lines is plain visible text in the cell a student opens. Flagged as
+"confusing and unpolished." Re-examined the actual rule this was following (`CLAUDE.md`
+non-negotiable #2, "every addition goes inside a sentinel block") and concluded the
+comment-wrapping was adding no real tracking value for *whole new cells* specifically --
+a brand-new cell is self-evidently an addition in any diff against upstream, sentinel or
+not; the rule's real job is disambiguating new text folded into an *existing* upstream
+cell, which doesn't apply to a cell that didn't exist before. Stripped the wrapper from
+every plain new code cell across chapters 1-4 (the copy-button call, present in all four;
+chapter 4's remaining exercise/time-check cells) -- confirmed via `grep` this was the exact
+same one-line pattern in each of chapters 1-4, not something to reinvent per chapter.
+Chapters 5-8 have a different, unrelated sentinel-wrapped line (`enable_docstring_reminders()`,
+appended to their setup cell) -- left alone, out of scope, user hasn't raised it.
+
+**Reopened "why do we need answer cells at all."** Defended keeping them initially (matches
+Downey's own upstream convention, reduces Jupyter-UI friction for first-time programmers).
+User's actual position, once stated plainly: a bare `# Solution goes here` with nothing
+else isn't worth a cell -- a student can add their own -- but a cell that seeds real
+*starter code* (a `make_turtle()` call before drawing, three named variables to fill in,
+a deliberately broken expression to debug) still earns its place. Applied retroactively to
+chapter 4: removed the docstrings and pinwheel answer cells (bare, no starter code), kept
+every `make_turtle()`-seeded one and the `time_check()` cell. Markdown "type your answer
+here" cells for Exercise 5/6 were kept on explicit instruction -- a written-response
+placeholder isn't the same kind of empty as a code stub, and the user was specific that the
+answer belongs in its own new cell, not merged into the prompt cell itself.
+
+**This reopened the "delete `chapNN-exercises.ipynb`" conversation for chapters 1, 2, 3,
+and 5-8** -- user asked for aliases for chapters 2/3 (handled above), then separately asked
+to get rid of the `_exercise...` files visible in the JupyterLite lab view entirely,
+confirmed on follow-up to mean actually deleting the source files, for all seven remaining
+chapters (not just 1-3). Checked cell counts before touching anything: chap01/02/03's
+exercises files have real content (15-19 cells, matching what AUDIT.md already knew --
+"already submitted"); chap05-08's are still the empty 2-cell stubs flagged as such in an
+earlier entry this file already has on record ("since 5-8's exercises files are still
+empty stubs, 2 cells each, no real content yet"). That distinction mattered: 5-8 could be
+deleted with zero migration (nothing in them to lose), but 1-3 needed the same kind of care
+chapter 4 got.
+
+Applying the no-bare-placeholder rule just confirmed above to chapters 1-3's actual
+content turned up two real exceptions, not just bare stubs: chapter 1's "fix the TypeError"
+(`'Score: ' + 95`, the deliberately broken expression students run and then fix) and
+chapter 3's "read the traceback" (a small buggy `announce`/`daily_update`/`morning_routine`
+call chain with a typo) are *not* placeholders -- they're the exercise's own setup code,
+with nothing to run and debug without it. Checked both chapters' own `## Extra Exercises`
+prompts first: both already described "the cell below" as if a real cell existed, when in
+fact the buggy code only ever lived in the soon-to-be-deleted exercises file, shown to
+readers only as an inert markdown code block. Migrated both as real, runnable cells right
+after their prompts, then removed the now-redundant inert code block from each prompt
+(showing the same snippet twice, once dead and once live, would have been worse than either
+alone). Every *other* exercise across chapters 1-3 checked out as a genuine bare
+`# Solution goes here` placeholder -- no cell added for those, per the rule above.
+
+Deleted all seven files (`chap01/02/03/05/06/07/08-exercises.ipynb`) and their `projector/`
+copies via `git rm`; removed their `CHAPTERS`/`CONTENT_NAMES` entries and the now-empty
+surrounding comment block in `tools/build_jupyterlite_content.py`; updated chapters 1-3's
+"Extra Exercises" intro text to stop pointing at a separate notebook, matching chapter 4's
+own wording from earlier today. Rebuilt (`jupyterlite/content/` now has zero `-exercises`
+files, confirmed by listing) and re-ran the full check suite.
+
+**Found and fixed two now-broken instructions in pass files for future work,** while
+grepping the repo for anything still referencing the deleted files -- not something to skip
+just because they're pass files:
+- `mods/pass-4-chrome.md`'s Step 1 told whoever reaches chapters 9-11 next to create a new
+  `chapNN-exercises.ipynb` by copying `chap01-exercises.ipynb` -- a file that no longer
+  exists, instructing the exact pattern this session just eliminated repo-wide. Rewritten to
+  describe the current, actual pattern (exercises live in the chapter's own `## Extra
+  Exercises` section; a cell only when there's real starter code) with a pointer at
+  chapters 1-4 as worked examples.
+- `mods/pass-5-jupyterlite-lab.md` had an "Exercises link" bullet in its chrome-links
+  reference table that no longer corresponds to anything. Replaced with a note that no such
+  link exists anymore. (A second, historical "eight exercises notebooks" mention elsewhere
+  in the same file, dated 2026-08-09 describing what was true then, was left alone --
+  that's a status snapshot, not present-tense guidance, same reasoning applied to `AUDIT.md`
+  entries throughout this project.)
+- `data/exercise-ledger.json`: the 15 entries for chapters 1-3's homework exercises
+  (`ch01ex-hw01`-`05`, `ch02ex-hw01`-`05`, `ch03ex-hw01`-`05`) had their `chapter` field
+  changed from `chapNN-exercises` to `chapNN` and a migration note appended to each,
+  distinguishing the two now-migrated real-starter-code cells from the rest. Chapters
+  5-8 never had ledger entries for their empty stub files, so nothing to update there.
+  Regenerated `CHANGELOG_DETAIL.md` from the ledger afterward.
+
+**Verified:** `make check` clean after every edit in this entry. `jupyterlite/content/`
+rebuilt and confirmed to contain zero `-exercises` files by directory listing. Repo-wide
+`grep` for every deleted filename turns up only expected hits -- historical notes in
+`data/exercise-ledger.json` and this file's own entries describing what was deleted, no
+live/dead code references left pointing at a file that's actually gone.
+
+**Verified, correcting the above:** both migrated buggy-code cells were actually run (plain
+`python3`, not a notebook, but the errors themselves don't depend on the environment) --
+`'Score: ' + 95` raises `TypeError: can only concatenate str (not "int") to str`, and the
+`announce`/`daily_update`/`morning_routine` chain raises `NameError: name 'anouncement' is
+not defined`. Both match what each exercise's prompt describes.
+
+## 2026-08-16 — The teach/blank naming saga: capitalization, a real sort-order
+## regression, an actual localeCompare finding, and a decision to stop shipping it
+
+Same day, same conversation, immediately following the entry above. Worth recording in
+full because it took five rounds to land, and the eventual answer -- stop shipping the
+thing entirely -- is not what anyone was trying to build toward at the start.
+
+**Round 1: capitalization.** User wanted Title Case filenames (`blank01-Welcome.ipynb`,
+small words like "and" staying lowercase) and pointed out the teach-copy filename should
+have stayed a *prefix*, not the `-teach` suffix this session had just switched it to earlier
+the same day -- the suffix version sorted each teach copy next to its own chapter; the
+prefix sorts all teach copies together, after every chapter, which was the actual point.
+Reverted the suffix-back-to-prefix change first (mechanical, matches what the naming was
+before that regression), then applied Title Case across every chapter, front-matter file,
+and teach copy via the same substring-substitution-table approach as earlier renames in this
+file -- except the two temporary chapter 2/3 aliases, deliberately left all-lowercase, since
+recapitalizing them would break the one thing they exist for: matching whatever exact,
+never-recapitalized path a student's browser might already have cached.
+
+**Round 2: "blank" broke the sort fix.** User's separate ask -- rename "teach" to "blank,"
+matching this repo's own established "blank markers" terminology (`build_blanks.py`,
+`projector/`) instead of the "Teach Copy" label a prior session had deliberately chosen --
+was applied together with the capitalization. Missed, until directly caught by the user,
+that "blank" starts with `b` and "chapter" starts with `c`: `b < c`, so blank copies now
+sorted *before* chapters, undoing the exact fix Round 1 had just made. The two asks (call it
+"blank," make it sort after chapters) were in direct tension and this wasn't caught before
+shipping the change -- should have checked the actual resulting sort order immediately after
+applying a rename motivated by sort order, not after the user found it.
+
+**Round 3: does capitalizing the prefix fix the sort order?** User proposed capitalizing
+`Chapter`/`blank` specifically, reasoning that uppercase might sort before lowercase in
+"jupyter's impl." Rather than guess, read the actual built JupyterLab source this time:
+`sortFileNamesNaturally` (default `true`) drives a comparator that does
+`e.name.localeCompare(t.name, locale, {numeric: true, sensitivity: "base"})`.
+`sensitivity: "base"` is a real `Intl.Collator` setting whose spec meaning is literally
+case-insensitive comparison (`a` = `A` under it) -- so capitalization cannot affect sort
+order here, full stop, confirmed from source rather than asserted from general JS knowledge.
+This also gave a precise, evidence-based answer to a question asked twice in this
+conversation (how does `ascii_art.py` avoid sorting first): `sortNotebooksFirst` partitions
+into two buckets -- notebooks, then everything else -- before the natural-sort comparator
+ever runs, so a `.py` file can never outrank a `.ipynb` file regardless of its name.
+
+**Round 4: word choice, properly laid out.** With capitalization ruled out as a sort-order
+lever, the only ways to make a word sort after "chapter" are (a) pick a word starting with a
+letter after `c`, or (b) don't rely on alphabetical position at all. Recommended "Teacher"/
+"Teach" (starts with `t`, sorts correctly, matches prior precedent) over "blank" (starts with
+`b`, would need to accept the wrong sort position) or "Empty" (starts with `e`, sorts
+correctly but introduces a third distinct word for a concept this repo already calls "blank"
+internally in `build_blanks.py`/`projector/` -- flagged this specifically since the *link
+label* had just been changed to "Blank (JupyterLite)" two rounds earlier, and "Empty" as the
+filename while the label says "Blank" would recreate the identical file/label mismatch this
+whole saga started by trying to fix in the *teach/blank* direction).
+
+**Round 5: stop shipping it, for now.** User's actual resolution, once all the tradeoffs
+were on the table: don't ship teach/blank copies into the JupyterLite lab at all right now.
+Sidesteps the sort-order and word-choice questions entirely rather than picking a compromise
+-- there's no filename to argue about if the file isn't there. Implemented as a single
+`SHIP_TEACH_COPIES = False` flag gating the one `write_notebook_variant()` call in `build()`
+that would otherwise write the projector-sourced copy; every other piece of the existing
+machinery (`CONTENT_NAMES`'s `teach` key per chapter, `teach_name_for()`, the dict comment
+explaining the naming scheme) was left completely in place, specifically so re-enabling this
+later is a one-line flip, not a rebuild, whenever there's an actual plan for a separate
+teacher-facing lab/manifest (the user's own stated future direction, not attempted this
+session). Removed the now-dead "Blank (JupyterLite)"/"Teach Copy (JupyterLite)" chrome-bar
+link from chapters 1-8 (confirmed identical pattern across all eight via a script, not
+copy-pasted by hand) rather than leave a link with no working destination.
+
+**Verified:** `make check` clean after every step in this entry, not just the final one --
+in particular, re-ran the `CELL_PATCHES`-matches-actual-cell-content verification script
+after the capitalization rename, after the prefix revert, and after the chrome-bar link
+removal, since every one of those touched the exact same self-embedding-iframe cells that
+already broke once earlier this session. Rebuilt `jupyterlite/content/` after the final
+decision and confirmed by directory listing: zero `teach`/`blank` files ship, chapter files
+serve `200`, and the old `blank04-...` path now correctly `404`s instead of serving stale
+content.
+
+**Not verified, because it can't be from here:** none of this round's changes actually
+needed live browser verification (no new runtime behavior, only filenames and a removed
+link) -- everything here was confirmed via `make check`, the `CELL_PATCHES` script, and
+direct HTTP checks against the locally-served build.
+
+## 2026-08-16 — check_for_update() actually verified live, then hardened against being
+## skippable
+
+Same day, same conversation, immediately following the `Chapter` capitalization. The
+version-check banner (built and flagged as unverified in an earlier entry) finally got a
+real live test, and it turned up a real design gap worth recording.
+
+**No console output on the first live attempt, and it turned out to be uninformative by
+design.** User ran the original test plan, got no banner, checked DevTools, saw nothing new
+logged -- but `check_for_update()`'s JS had zero `console.log` calls anywhere, including
+inside its `.catch()`. "No new messages" was therefore consistent with three completely
+different situations (never ran, ran and found no mismatch, ran and silently failed) and
+couldn't distinguish them. Added logging at every branch -- entry, both early-return guards,
+the constructed fetch URL, the fetch's HTTP status, the actual match/mismatch result, and
+the caught error -- before asking for another attempt, rather than keep guessing blind.
+
+**Live-tested end to end, twice, and it worked both times.** Baseline (fresh incognito,
+current build, no changes): logs showed the fetch succeeding and correctly reporting a
+match, no banner -- confirming the whole plumbing (URL construction, `fetch`, string
+comparison) works correctly on its own. Then the actual stale-version scenario: made a
+one-line test edit to `chap04.ipynb`'s intro text, rebuilt (`make check` +
+`make jupyterlite`), reloaded the *same* incognito tab (not a new one -- the whole point is
+testing whether an existing session notices a change) and re-ran cells: logs showed
+`contains my version? false`, then the banner actually appeared. First real live
+confirmation this mechanism works, after two earlier rounds of pure static-analysis
+reasoning about what *should* happen.
+
+**Real gap the user caught immediately after seeing it work: the check only ran because the
+test forced Run All Cells, which isn't a realistic student workflow.** `check_for_update()`
+lived in its own dedicated cell; if a student reads top-to-bottom running cells as they go
+(the actual expected pattern) but never happens to run that one specific cell -- or reopens
+a session and only runs cells further down, assuming earlier setup already happened -- the
+check silently never fires. No amount of the check being *correct* helps if it doesn't
+*run*. Fixed by merging the `download()` cell, the `import working_in_python`/`%autoreload`
+cell, and the `check_for_update()` call into one single cell -- since every student has to
+run that cell anyway to get `working_in_python`, `diagram`, and `jupyturtle` available, the
+update check now rides along with something genuinely unskippable rather than living in an
+easily-ignored cell of its own. Re-verified after merging: fetched the freshly-built copy
+directly and confirmed the merged cell contains the download/import/autoreload/
+check_for_update sequence in the right order with the deploy id correctly substituted.
+
+**Incidental fix, caught while re-reading the merged cell's diff:** the `NotebookEdit` tool
+(used for the test edit to `chap04.ipynb`'s intro sentence) had written that file with a
+literal em dash instead of `chap04.ipynb`'s established escaped-`—` convention --
+confirmed via the same byte-level check used throughout this project (AUDIT.md's own
+repeated warning about this exact class of bug). The subsequent cell-merge edit, done via a
+direct `json.dump(..., ensure_ascii=True)` script rather than `NotebookEdit`, incidentally
+corrected it back. Worth remembering for next time: `NotebookEdit` does not appear to
+respect a file's existing `ensure_ascii` convention -- prefer the script-based approach for
+any file where that convention has already been confirmed to matter.
+
+**Verified:** `make check` clean after the merge. The `CELL_PATCHES`-matches-actual-content
+script re-run and clean (the merge didn't touch the self-embedding iframe cell, but checked
+anyway, same discipline as every other structural edit this session). Fetched the rebuilt
+served copy directly and confirmed cell count, cell order, and the substituted deploy id by
+hand, not just via `make check`.
+
+**Not verified, because it can't be from here:** whether merging these cells changes
+anything about the Colab experience (the same notebook is also opened via a Colab badge
+link) -- the merge only affects `chapters/chap04.ipynb` itself, which is the same file Colab
+opens, so the change applies there too, but this session has no way to open a Colab session
+and confirm nothing about the `download()`/`%autoreload` sequence behaves differently when
+combined with the (Colab-irrelevant) `check_for_update()` call now sharing its cell.

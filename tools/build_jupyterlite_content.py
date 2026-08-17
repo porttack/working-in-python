@@ -84,101 +84,117 @@ CHAPTERS = {
     "chap09.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
     "chap10.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
     "chap11.ipynb": ["working_in_python.py", "diagram.py", "structshape.py", "words.txt", "pg345.txt"],
-    # Teacher-authored exercises notebooks, separate from the chapters
-    # themselves (not one of Downey's 19 chapters -- just needs the same
-    # JupyterLite treatment so its own link works). Deps listed per-notebook
-    # as its own exercises start using external modules; blank otherwise.
-    # working_in_python.py on every one of these: each ends with a cell
-    # calling its show_copy_notebook_button(), and chapters 5-8 additionally
-    # call enable_docstring_reminders() -- see AUDIT.md, 2026-08-16.
-    "chap01-exercises.ipynb": ["working_in_python.py"],
-    "chap02-exercises.ipynb": ["working_in_python.py"],
-    "chap03-exercises.ipynb": ["working_in_python.py"],
-    "chap04-exercises.ipynb": ["working_in_python.py", "jupyturtle.py"],
-    "chap05-exercises.ipynb": ["working_in_python.py"],
-    "chap06-exercises.ipynb": ["working_in_python.py"],
-    "chap07-exercises.ipynb": ["working_in_python.py"],
-    "chap08-exercises.ipynb": ["working_in_python.py"],
 }
 # Student-legible names for what CHAPTERS ships into the flat JupyterLite lab
 # file browser, keyed by the same CHAPTERS notebook name -- chapters/*.ipynb
-# itself never changes (see CLAUDE.md non-negotiable #2). Underscore-prefix
-# groups sort ahead of the upstream helper .py/.txt files below them, most
-# underscores first: "___" front matter, "__" chapters, "_" exercises. "teach"
-# is the optional fourth entry -- the blanked classroom-projection copy built
-# from projector/<name> -- and is deliberately *absent* for entries that have
-# no live-instruction use for one (index.ipynb, the exercises notebooks,
-# which are a title and one empty cell). A missing "teach" key means build()
-# ships no blanked variant for that notebook at all, even if build_blanks.py
-# happens to have produced one in projector/. See CLAUDE.md's treatment
-# matrix and AUDIT.md for why "teach" (not "blank"/"projector") sorts among
-# the notebooks only if @jupyterlab/filebrowser-extension:browser's
-# sortNotebooksFirst is set -- see the repo-root overrides.json.
+# itself never changes (see CLAUDE.md non-negotiable #2).
+#
+# Naming, since the 2026-08-16 cleanup (see AUDIT.md): front matter keeps a
+# single leading underscore (`_Start-Here.ipynb`, `_Using-Notebooks.ipynb`) so
+# it still sorts first; every chapter is `ChapterNN-<Title>.ipynb`, no prefix,
+# so chapters cluster together right after front matter; the blanked
+# classroom-projection copy (built from `projector/<name>`) is `blankNN-<Title>.ipynb`
+# -- a *prefix*, deliberately, so blank copies sort as their own group *after*
+# every chapter, not interleaved chapter-by-chapter. This is the one
+# deliberate exception to "no prefix." Multi-word titles are Title Case with
+# small words ("and") lowercase: `Chapter02-Variables-and-Statements.ipynb`.
+#
+# The dict key below is still `"teach"` (an internal identifier used
+# throughout this script -- `teach_name_for()`, `teach_count`, etc.) even
+# though the filename it produces and the chrome-bar link label both say
+# "Blank" now, not "Teach" -- renaming the key itself would be a much larger,
+# purely-internal refactor with no user-facing benefit. Don't be confused by
+# the mismatch; the key name and what it ships are simply different things.
+# A missing "teach" key means build() ships no blank variant at all for that
+# notebook, even if build_blanks.py happens to have produced one in
+# projector/ -- deliberately absent for entries with no live-instruction use
+# for one (index.ipynb, chapters 14-19). This whole grouping only works
+# because @jupyterlab/filebrowser-extension:browser's sortNotebooksFirst is
+# set in the repo-root overrides.json, which buckets every notebook ahead of
+# every helper .py/.txt file first, then sorts alphabetically within each
+# bucket.
 CONTENT_NAMES = {
-    "index.ipynb": {"name": "___start-here.ipynb"},
+    "index.ipynb": {"name": "_Start-Here.ipynb"},
     "jupyter_intro.ipynb": {
-        "name": "___using-notebooks.ipynb",
-        "teach": "teach-using-notebooks.ipynb",
+        "name": "_Using-Notebooks.ipynb",
+        "teach": "blank-Using-Notebooks.ipynb",
     },
-    "chap01.ipynb": {"name": "__chap01-welcome.ipynb", "teach": "teach01-welcome.ipynb"},
+    "chap01.ipynb": {"name": "Chapter01-Welcome.ipynb", "teach": "blank01-Welcome.ipynb"},
     "chap02.ipynb": {
-        "name": "__chap02-variables-and-statements.ipynb",
-        "teach": "teach02-variables-and-statements.ipynb",
+        "name": "Chapter02-Variables-and-Statements.ipynb",
+        "teach": "blank02-Variables-and-Statements.ipynb",
     },
-    "chap03.ipynb": {"name": "__chap03-functions.ipynb", "teach": "teach03-functions.ipynb"},
+    "chap03.ipynb": {"name": "Chapter03-Functions.ipynb", "teach": "blank03-Functions.ipynb"},
     "chap04.ipynb": {
-        "name": "__chap04-functions-and-interfaces.ipynb",
-        "teach": "teach04-functions-and-interfaces.ipynb",
+        "name": "Chapter04-Functions-and-Interfaces.ipynb",
+        "teach": "blank04-Functions-and-Interfaces.ipynb",
     },
     "chap05.ipynb": {
-        "name": "__chap05-conditionals-and-recursion.ipynb",
-        "teach": "teach05-conditionals-and-recursion.ipynb",
+        "name": "Chapter05-Conditionals-and-Recursion.ipynb",
+        "teach": "blank05-Conditionals-and-Recursion.ipynb",
     },
     "chap06.ipynb": {
-        "name": "__chap06-return-values.ipynb",
-        "teach": "teach06-return-values.ipynb",
+        "name": "Chapter06-Return-Values.ipynb",
+        "teach": "blank06-Return-Values.ipynb",
     },
     "chap07.ipynb": {
-        "name": "__chap07-iteration-and-search.ipynb",
-        "teach": "teach07-iteration-and-search.ipynb",
+        "name": "Chapter07-Iteration-and-Search.ipynb",
+        "teach": "blank07-Iteration-and-Search.ipynb",
     },
     "chap08.ipynb": {
-        "name": "__chap08-strings-and-regex.ipynb",
-        "teach": "teach08-strings-and-regex.ipynb",
+        "name": "Chapter08-Strings-and-Regex.ipynb",
+        "teach": "blank08-Strings-and-Regex.ipynb",
     },
-    "chap09.ipynb": {"name": "__chap09-lists.ipynb", "teach": "teach09-lists.ipynb"},
-    "chap10.ipynb": {"name": "__chap10-dictionaries.ipynb", "teach": "teach10-dictionaries.ipynb"},
-    "chap11.ipynb": {"name": "__chap11-tuples.ipynb", "teach": "teach11-tuples.ipynb"},
+    "chap09.ipynb": {"name": "Chapter09-Lists.ipynb", "teach": "blank09-Lists.ipynb"},
+    "chap10.ipynb": {"name": "Chapter10-Dictionaries.ipynb", "teach": "blank10-Dictionaries.ipynb"},
+    "chap11.ipynb": {"name": "Chapter11-Tuples.ipynb", "teach": "blank11-Tuples.ipynb"},
     # Chapters 12-13: not yet in CHAPTERS above (pass-2/pass-4 haven't reached
     # them), but CLAUDE.md's treatment matrix gives them full blank markers
     # (teacher decision on VA removal, blank markers full), same as 1-11 --
     # so they get a "teach" name here already, ready for whenever they're
     # added to CHAPTERS.
     "chap12.ipynb": {
-        "name": "__chap12-text-analysis-and-generation.ipynb",
-        "teach": "teach12-text-analysis-and-generation.ipynb",
+        "name": "Chapter12-Text-Analysis-and-Generation.ipynb",
+        "teach": "blank12-Text-Analysis-and-Generation.ipynb",
     },
     "chap13.ipynb": {
-        "name": "__chap13-files-and-databases.ipynb",
-        "teach": "teach13-files-and-databases.ipynb",
+        "name": "Chapter13-Files-and-Databases.ipynb",
+        "teach": "blank13-Files-and-Databases.ipynb",
     },
     # Chapters 14-19: independent-study tier, no blank markers by design (see
     # CLAUDE.md treatment matrix) -- so no "teach" name, same as index.ipynb.
-    "chap14.ipynb": {"name": "__chap14-classes-and-functions.ipynb"},
-    "chap15.ipynb": {"name": "__chap15-classes-and-methods.ipynb"},
-    "chap16.ipynb": {"name": "__chap16-classes-and-objects.ipynb"},
-    "chap17.ipynb": {"name": "__chap17-inheritance.ipynb"},
-    "chap18.ipynb": {"name": "__chap18-python-extras.ipynb"},
-    "chap19.ipynb": {"name": "__chap19-final-thoughts.ipynb"},
-    "chap01-exercises.ipynb": {"name": "_exercises01-welcome.ipynb"},
-    "chap02-exercises.ipynb": {"name": "_exercises02-variables-and-statements.ipynb"},
-    "chap03-exercises.ipynb": {"name": "_exercises03-functions.ipynb"},
-    "chap04-exercises.ipynb": {"name": "_exercises04-functions-and-interfaces.ipynb"},
-    "chap05-exercises.ipynb": {"name": "_exercises05-conditionals-and-recursion.ipynb"},
-    "chap06-exercises.ipynb": {"name": "_exercises06-return-values.ipynb"},
-    "chap07-exercises.ipynb": {"name": "_exercises07-iteration-and-search.ipynb"},
-    "chap08-exercises.ipynb": {"name": "_exercises08-strings-and-regex.ipynb"},
+    "chap14.ipynb": {"name": "Chapter14-Classes-and-Functions.ipynb"},
+    "chap15.ipynb": {"name": "Chapter15-Classes-and-Methods.ipynb"},
+    "chap16.ipynb": {"name": "Chapter16-Classes-and-Objects.ipynb"},
+    "chap17.ipynb": {"name": "Chapter17-Inheritance.ipynb"},
+    "chap18.ipynb": {"name": "Chapter18-Python-Extras.ipynb"},
+    "chap19.ipynb": {"name": "Chapter19-Final-Thoughts.ipynb"},
 }
+# Temporary aliases, 2026-08-16 naming cleanup: chapters 2 and 3 may already have
+# students' in-progress work cached in their browser's IndexedDB under the OLD
+# served name (JupyterLite's own storage is keyed by path -- see AUDIT.md).
+# Serving the identical content under both the new canonical name and these old
+# names keeps that cached work reachable, since the old path still resolves to a
+# real, current file. Chapter 4 doesn't need one -- it's not live for students
+# until Monday, under the new name from the start. Remove these entries after a
+# few days, once no student could plausibly still need the old path.
+ALIASES = {
+    "chap02.ipynb": ["__chap02-variables-and-statements.ipynb"],
+    "chap03.ipynb": ["__chap03-functions.ipynb"],
+}
+# Whether to actually ship teach/blank copies into jupyterlite/content/ at
+# all, 2026-08-16. Deliberately False for now -- what to call this file
+# (teach/blank/teacher/etc.) and how to make it sort correctly in the lab
+# file browser turned into an extended back-and-forth with no fully clean
+# answer (every option either mismatches the file/label wording or sorts in
+# an awkward position -- see AUDIT.md). Decided to stop shipping it into the
+# student-facing lab entirely for now, planning to revisit with a genuinely
+# separate teacher-facing lab/manifest later, rather than ship a compromise.
+# CONTENT_NAMES still carries a "teach" key per chapter and teach_name_for()
+# still resolves it -- none of that logic was removed, only gated here, so
+# turning this back on later is a one-line flip once there's a real plan for
+# where these copies should live. See CHANGELOG.md, 2026-08-16.
+SHIP_TEACH_COPIES = False
 PRELOAD_ON_DEP = {
     "diagram.py": ["matplotlib.pyplot"],
 }
@@ -216,7 +232,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap01-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap01-welcome.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter01-Welcome.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -277,7 +293,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap02-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap02-variables-and-statements.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter02-Variables-and-Statements.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -338,7 +354,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap03-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap03-functions.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter03-Functions.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -399,7 +415,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap04-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap04-functions-and-interfaces.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter04-Functions-and-Interfaces.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -460,7 +476,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap05-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap05-conditionals-and-recursion.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -521,7 +537,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap06-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap06-return-values.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter06-Return-Values.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -582,7 +598,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap07-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap07-iteration-and-search.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter07-Iteration-and-Search.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -643,7 +659,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="jupyter-intro-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=___using-notebooks.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=_Using-Notebooks.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -707,7 +723,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap08-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=__chap08-strings-and-regex.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter08-Strings-and-Regex.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',
@@ -977,6 +993,8 @@ def build():
             print(f"error: {src} not found", file=sys.stderr)
             return 1
         write_notebook_variant(src, notebook, deps, deploy_id, content_name_for(notebook))
+        for alias_name in ALIASES.get(notebook, []):
+            write_notebook_variant(src, notebook, deps, deploy_id, alias_name)
 
         for dep in deps:
             dep_src = ROOT / dep
@@ -987,7 +1005,7 @@ def build():
 
         teach_name = teach_name_for(notebook)
         projector_src = PROJECTOR_DIR / notebook
-        if projector_src.exists() and teach_name:
+        if SHIP_TEACH_COPIES and projector_src.exists() and teach_name:
             write_notebook_variant(projector_src, notebook, deps, deploy_id, teach_name)
             teach_count += 1
 

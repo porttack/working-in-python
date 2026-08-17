@@ -82,7 +82,7 @@ never need to touch this — see the next section.
 **The `?path=` filename after the placeholder is not the chapter's real
 filename** — `tools/build_jupyterlite_content.py`'s `CONTENT_NAMES` dict maps
 `chapters/chapNN.ipynb` to a student-legible name in the JupyterLite file
-browser (e.g. `chap01.ipynb` → `__chap01-welcome.ipynb`); every `?path=` link
+browser (e.g. `chap01.ipynb` → `Chapter01-Welcome.ipynb`); every `?path=` link
 in a chapter's chrome cell and every `CELL_PATCHES` iframe `src` must use that
 mapped name, not the bare `chapNN.ipynb`. If you rename a chapter's title (its
 first `# ` line), update `CONTENT_NAMES` to match and re-run the two

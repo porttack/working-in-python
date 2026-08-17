@@ -1,5 +1,6 @@
 import contextlib
 import io
+import json
 import re
 
 
@@ -158,6 +159,29 @@ except (ImportError, NameError):
 # picks them up. Worked around by toggling `user-select` back to `text` on
 # just those elements for the moment of copying, then reverting it.
 #
+# Code cells pasted into Google Docs showed exaggerated (~triple) line
+# spacing, confirmed by the user as *between individual lines within a cell*,
+# not between cells. Not reproducible from here -- only shows up after Google
+# Docs' own paste-from-web handling, not in the JupyterLite view itself.
+# CodeMirror 6 renders each code line as its own `.cm-line` block div
+# (`display: block`, confirmed in the built CSS); a first attempt just forced
+# `margin: 0; line-height: normal` on each one, which the user confirmed did
+# NOT fully fix it. Most likely explanation: Google Docs treats each
+# block-level element in pasted HTML as its own paragraph and applies its own
+# default paragraph spacing, regardless of the source's inline margin/
+# line-height -- tweaking those values on a still-block-level element doesn't
+# stop Docs from treating it as a paragraph in the first place. Second
+# attempt, still in place: temporarily switch every `.cm-line` from
+# `display: block` to `display: inline` and insert a real `<br>` after each
+# one, for the moment of copying only -- this changes the DOM shape itself
+# (one continuous inline flow with explicit soft line breaks) rather than
+# just styling still-separate blocks, which should read as ONE paragraph with
+# line breaks to Google Docs instead of N paragraphs. Deliberately keeps each
+# line's syntax-highlighting spans intact (doesn't replace their content),
+# only changes how the lines are laid out relative to each other. Still
+# unverified whether this fully fixes the symptom -- flagged for the user to
+# re-test live again.
+#
 # Known limitation: cells scrolled out of view may not be attached to the
 # DOM at all (JupyterLab's own cell virtualization -- separate from
 # anything in this file). If a long notebook copies incomplete, scroll all
@@ -190,6 +214,16 @@ try:
         p.style.userSelect = 'text';
         p.style.webkitUserSelect = 'text';
       });
+      var codeLines = nb.querySelectorAll('.cm-line');
+      var insertedBreaks = [];
+      codeLines.forEach(function (l) {
+        l.style.margin = '0';
+        l.style.lineHeight = 'normal';
+        l.style.display = 'inline';
+        var br = document.createElement('br');
+        l.insertAdjacentElement('afterend', br);
+        insertedBreaks.push(br);
+      });
       var sel = window.getSelection();
       sel.removeAllRanges();
       var range = document.createRange();
@@ -200,6 +234,12 @@ try:
       prompts.forEach(function (p) {
         p.style.userSelect = '';
         p.style.webkitUserSelect = '';
+      });
+      insertedBreaks.forEach(function (br) { br.remove(); });
+      codeLines.forEach(function (l) {
+        l.style.margin = '';
+        l.style.lineHeight = '';
+        l.style.display = '';
       });
       var b = this;
       var original = b.textContent;
@@ -264,7 +304,7 @@ def enable_docstring_reminders():
 
 
 def time_check(chapter=0, exercises=0, longest=""):
-    """Print a summary of time spent, and remind the student if it's incomplete.
+    """Print a summary of time spent on this chapter.
 
     chapter: whole minutes spent reading the chapter and its practice exercises
     exercises: whole minutes spent on the numbered extra exercises
@@ -282,5 +322,78 @@ def time_check(chapter=0, exercises=0, longest=""):
     if longest:
         print(f"Longest: {longest}")
 
-    if chapter == 0 or exercises == 0 or not longest:
-        print(colored("Reminder: fill this in completely before you submit.", YELLOW, bold=True))
+
+def check_for_update(version, filename):
+    """Show a banner if a newer build of this notebook has been published.
+
+    version: this build's deploy id -- pass the literal string
+        "JUPYTERLITE_DEPLOY_PATH"; tools/build_jupyterlite_content.py
+        substitutes the real value in only the built copy, same as it
+        already does for the embedded JupyterLite iframe links. Never edit
+        chapters/*.ipynb to hardcode a real value here.
+    filename: this notebook's own filename as served under files/, e.g.
+        "chapter04-functions-and-interfaces.ipynb"
+
+    Fetches the currently-served copy of this same file straight from the
+    server (bypassing JupyterLite's own browser storage, which is what
+    normally makes a stale copy invisible to a plain reload) and compares it
+    against `version`. Does nothing automatically -- only offers a button.
+
+    No-op if the placeholder was never substituted (Colab, a plain local
+    install, or `chapters/` opened directly, none of which go through the
+    JupyterLite build) or if there's no JupyterLite notebook DOM to attach
+    the banner to.
+    """
+    try:
+        from IPython.display import HTML, display
+    except ImportError:
+        return
+
+    display(HTML(f"""
+<script>
+(function () {{
+  var version = {json.dumps(version)};
+  var filename = {json.dumps(filename)};
+  console.log('[check_for_update] running, version=', version, 'filename=', filename);
+  if (version.indexOf('JUPYTERLITE_DEPLOY_PATH') !== -1) {{
+    console.log('[check_for_update] placeholder never substituted, skipping');
+    return;
+  }}
+  var nb = document.querySelector('.jp-Notebook');
+  if (!nb) {{
+    console.log('[check_for_update] no .jp-Notebook found, skipping');
+    return;
+  }}
+  var url = new URL('../files/' + filename, location.href);
+  console.log('[check_for_update] fetching', url.href);
+  fetch(url, {{cache: 'no-store'}})
+    .then(function (r) {{
+      console.log('[check_for_update] fetch status', r.status);
+      return r.text();
+    }})
+    .then(function (text) {{
+      var found = text.indexOf(version) !== -1;
+      console.log('[check_for_update] served copy contains my version?', found,
+        '(fetched length', text.length, ')');
+      if (found) return;
+      console.log('[check_for_update] mismatch -- showing banner');
+      var bar = document.createElement('div');
+      bar.style.cssText = 'position: sticky; top: 0; z-index: 20; ' +
+        'background: #fff3cd; border-bottom: 2px solid #ffca2c; ' +
+        'padding: 8px 12px; font-size: 13px; display: flex; ' +
+        'align-items: center; gap: 10px; color: #664d03;';
+      bar.innerHTML = 'A newer version of this chapter has been published. ' +
+        'Reloading may not always pick it up -- if the page still looks the ' +
+        'same after reloading, tell your teacher. ' +
+        '<button style="padding:4px 10px;cursor:pointer;">Reload</button>';
+      bar.querySelector('button').onclick = function () {{ location.reload(); }};
+      if (nb.parentElement) {{
+        nb.parentElement.insertBefore(bar, nb);
+      }} else {{
+        document.body.insertBefore(bar, document.body.firstChild);
+      }}
+    }})
+    .catch(function (err) {{ console.log('[check_for_update] fetch failed', err); }});
+}})();
+</script>
+"""))
