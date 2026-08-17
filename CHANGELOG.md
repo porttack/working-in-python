@@ -5,6 +5,21 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-17 — remove leftover test string from chap04
+
+### Fixed
+- `chapters/chap04.ipynb` / `projector/chap04.ipynb`: removed a `(test edit for banner
+  check)` string left in the chapter's opening paragraph from a 2026-08-16 deliberate edit
+  that verified `working_in_python.check_for_update()`'s update-available banner fires on a
+  content change (see `AUDIT.md`, 2026-08-16). It worked, but the edit was never reverted
+  and shipped live, so any visitor whose browser had already opened chap04's embedded
+  JupyterLite notebook got a permanent mismatch banner that no amount of clicking Reload
+  could clear -- `check_for_update` compares the live file against a copy JupyterLite keeps
+  in IndexedDB keyed by filename, and `location.reload()` never touches that store. Removing
+  the stray text and republishing stops new visitors from tripping the mismatch; browsers
+  already showing the banner need their site storage for python.porttack.com cleared, not
+  just a reload.
+
 ## 2026-08-17 — front page JupyterLite Lab link survives the learn.porttack.com submodule pin
 
 ### Fixed
