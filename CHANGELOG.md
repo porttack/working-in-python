@@ -5,6 +5,22 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-17 — front page JupyterLite Lab link survives the learn.porttack.com submodule pin
+
+### Fixed
+- `chapters/index.ipynb`: the "JupyterLite Lab" link used the `JUPYTERLITE_DEPLOY_PATH`
+  placeholder like `chap01.ipynb`'s and `jupyter_intro.ipynb`'s embedded iframes, which is
+  correct on `python.porttack.com` (each publish substitutes that build's own hash, so it's
+  always self-consistent there) but not on the `porttack/learn` mirror: that repo embeds this
+  one's `gh-pages` branch as a submodule pinned to a fixed commit, so the relative embedded
+  link freezes at whatever hash was live when that commit was pinned, and could break
+  outright if a later force-push makes that commit unreachable and it gets garbage
+  collected. Repointed at the absolute `https://python.porttack.com/current/lab/index.html`
+  redirect instead, so the link always resolves against the live primary site regardless of
+  the submodule's pin state. Added an HTML comment next to the link recording why it's
+  absolute and not the placeholder. See "Stable links for Schoology" and the submodule-pin
+  caveat in `PUBLISHING.md`.
+
 ## [Unreleased]
 
 ### Added
