@@ -52,3 +52,34 @@
 #pst-sidebar-resizer.dragging {
   background: rgba(128, 128, 128, 0.4);
 }
+
+/* The theme only hides the primary (left nav) sidebar on print by adding a
+   `.noprint` class via JavaScript on page load (sphinx-book-theme.js); its own
+   print stylesheet never targets `.bd-sidebar-primary` directly. If that JS
+   doesn't run before print -- blocked script, print-preview snapshot taken
+   before it settles -- nothing hides the sidebar and it prints. This rule is
+   a plain-CSS fallback, independent of that JS, confirmed by curling the
+   built site: the server-rendered HTML never carries `noprint` on its own. */
+@media print {
+  .bd-sidebar-primary {
+    display: none !important;
+  }
+}
+
+/* chap01-chap08 and jupyter_intro each embed a live JupyterLite pane --
+   #chapNN-jupyterlite-pane / #jupyter-intro-jupyterlite-pane, injected
+   directly in the chapter source (see tools/build_jupyterlite_content.py's
+   CELL_PATCHES for the exact markup every one of those chapters ships). Its
+   own inline <style> block sets `display: block` unconditionally, and its
+   script docks it with `position: fixed; z-index: 2000` beside the sidebar --
+   neither is scoped to screen-only, and it's not one of the theme's chrome
+   regions (.bd-sidebar-primary etc.) that sphinx-book-theme.js's noprint
+   mechanism covers. Left alone, printing one of these chapters prints a
+   full-height fixed box on top of the article text. `!important` is required
+   here since the pane's own rule has none and an id selector otherwise beats
+   this attribute selector on specificity. */
+@media print {
+  [id$="-jupyterlite-pane"] {
+    display: none !important;
+  }
+}

@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=888c0e54" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -437,7 +437,23 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.14.6. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">5.15. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">5.15. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-letter-grade-do-1-or-2">5.15.1. Exercise 1: letter_grade (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-rps-winner-do-1-or-2">5.15.2. Exercise 2: rps_winner (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-is-leap-year">5.15.3. Exercise 3: is_leap_year</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-countdown-by-two">5.15.4. Exercise 4: debug countdown_by_two</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-high-low-one-round">5.15.5. Exercise 5: high-low, one round</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">5.15.6. Exercise 6: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">5.15.7. Time check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-two-ways-to-recurse">5.16. Extra credit: two ways to recurse</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both">5.16.1. Fractal tree (extra credit – do this one OR Collatz, not both)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both">5.16.2. Collatz (extra credit – do this one OR the fractal tree, not both)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">5.16.3. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">5.17. Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -450,13 +466,11 @@
                 <article class="bd-article">
                   
   <!-- apcsp:begin type="note" chapter="05" -->
-<p><strong>TODO:</strong> <a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=_exercises05-conditionals-and-recursion.ipynb">Chapter Exercises</a></p>
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=__chap05-conditionals-and-recursion.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-6c38ac8381/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap05.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap05.html?readonly">Read Only</a> |
-<a href="https://python.porttack.com/_sources/chap05.ipynb" download="chap05.ipynb">Download</a> |
-<a class="reference external" href="https://python.porttack.com/jupyterlite-9c8a97a9cc/notebooks/index.html?path=teach05-conditionals-and-recursion.ipynb">Teach Copy (JupyterLite)</a></p>
+<a href="https://python.porttack.com/_sources/chap05.ipynb" download="chap05.ipynb">Download</a></p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="05" -->
 <p id="chap05-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
 <style>
@@ -475,7 +489,7 @@
 }
 </style>
 <div id="chap05-jupyterlite-pane">
-<iframe src="jupyterlite-9c8a97a9cc/notebooks/index.html?path=__chap05-conditionals-and-recursion.ipynb"></iframe>
+<iframe src="jupyterlite-6c38ac8381/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -513,6 +527,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a file if it isn&#39;t already here, and return its filename.&quot;&quot;&quot;</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
@@ -526,6 +541,9 @@
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/ramalho/jupyturtle/releases/download/2024-03/jupyturtle.py&#39;</span><span class="p">);</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="c1"># apcsp:begin type=&quot;note&quot; chapter=&quot;05&quot;</span>
+<span class="n">working_in_python</span><span class="o">.</span><span class="n">enable_docstring_reminders</span><span class="p">()</span>
+<span class="c1"># apcsp:end</span>
 </pre></div>
 </div>
 </div>
@@ -1267,7 +1285,9 @@ shows the state of the program when it prints the result.</p>
 <p>Read the following function and see if you can figure out what it does.
 Then run it and see if you got it right.
 Adjust the values of <code class="docutils literal notranslate"><span class="pre">length</span></code>, <code class="docutils literal notranslate"><span class="pre">angle</span></code> and <code class="docutils literal notranslate"><span class="pre">factor</span></code> and see what effect they have on the result.</p>
-<div class="cell docutils container">
+<!-- apcsp:begin type="note" chapter="05" -->
+<p><em>This one is optional – try it if you have time, but it isn’t expected.</em></p>
+<!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">jupyturtle</span><span class="w"> </span><span class="kn">import</span> <span class="n">forward</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">back</span>
 
@@ -1290,6 +1310,16 @@ Adjust the values of <code class="docutils literal notranslate"><span class="pre
 </section>
 <section id="id4">
 <h3><span class="section-number">5.14.5. </span>Exercise<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<!-- apcsp:begin type="note" chapter="05" -->
+<p>A Koch curve is a fractal made by repeating one simple substitution, over and over. Start with a single straight segment. Replace its middle third with two sides of an equilateral triangle – a small outward bump – so one segment becomes four shorter ones. Now make that same replacement on each of those four segments, and then on each segment that produces, and so on. The more times you repeat it, the more detailed and jagged the edge becomes, while keeping the same zigzag pattern at every size.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">one</span> <span class="n">segment</span><span class="p">:</span>                 <span class="n">_____________________</span>
+
+<span class="n">after</span> <span class="n">one</span> <span class="n">substitution</span><span class="p">:</span>               <span class="o">/</span>\
+                          <span class="n">___________</span> <span class="o">/</span>  \ <span class="n">___________</span>
+</pre></div>
+</div>
+<p>The recipe below is exactly that substitution, described recursively: draw a smaller Koch curve, turn, draw another, turn, and so on.</p>
+<!-- apcsp:end -->
 <p>To draw a Koch curve with length <code class="docutils literal notranslate"><span class="pre">x</span></code>, all you
 have to do is</p>
 <ol class="arabic simple">
@@ -1303,7 +1333,9 @@ have to do is</p>
 </ol>
 <p>The exception is if <code class="docutils literal notranslate"><span class="pre">x</span></code> is less than <code class="docutils literal notranslate"><span class="pre">5</span></code> – in that case, you can just draw a straight line with length <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">koch</span></code> that takes <code class="docutils literal notranslate"><span class="pre">x</span></code> as an argument and draws a Koch curve with the given length.</p>
-<p>The result should look like this:</p>
+<!-- apcsp:begin type="note" chapter="05" -->
+<p><em>This one is optional – try it if you have time, but it isn’t expected.</em></p>
+<!-- apcsp:end --><p>The result should look like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1331,12 +1363,254 @@ have to do is</p>
 A Sierpiński triangle of degree <code class="docutils literal notranslate"><span class="pre">0</span></code> is a plain equilateral triangle with the given size.
 A Sierpiński triangle of degree <code class="docutils literal notranslate"><span class="pre">n</span></code>, for <code class="docutils literal notranslate"><span class="pre">n</span></code> greater than <code class="docutils literal notranslate"><span class="pre">0</span></code>, is made of three smaller Sierpiński triangles of degree <code class="docutils literal notranslate"><span class="pre">n-1</span></code>, each with half the size, positioned at the three corners of the triangle they replace – bottom left, bottom right, and top – leaving a gap where the middle triangle would go.</p>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">draw_sierpinski</span></code> that takes two parameters, <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">degree</span></code>, and draws a Sierpiński triangle of that size and degree. Between the three smaller triangles you will need to move the turtle without drawing a line; <code class="docutils literal notranslate"><span class="pre">penup</span></code> and <code class="docutils literal notranslate"><span class="pre">pendown</span></code>, importable from <code class="docutils literal notranslate"><span class="pre">jupyturtle</span></code> the same way you imported <code class="docutils literal notranslate"><span class="pre">forward</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, and <code class="docutils literal notranslate"><span class="pre">back</span></code> earlier in this chapter, do that.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="05" -->
+<p><em>This one is optional – try it if you have time, but it isn’t expected.</em></p>
 <!-- apcsp:end --><p>Here’s what the result might look like, although the version you get might be different.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
 <span class="n">draw_sierpinski</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="05" -->
+</section>
+</section>
+<section id="extra-exercises">
+<h2><span class="section-number">5.15. </span>Extra Exercises<a class="headerlink" href="#extra-exercises" title="Link to this heading">#</a></h2>
+<p>Do either Exercise 1 or Exercise 2, not both. They’re interchangeable, so pick whichever appeals to you. Doing both is fine, but the second one earns no additional credit. Required work is five exercises (whichever of 1/2 you pick, plus Exercises 3-6), about 38 minutes total. The time check below must be filled in. The extra credit at the end (a fractal tree or the Collatz sequence) is optional and never substitutes for a required exercise.</p>
+<p>Starting this chapter, defining a function without a docstring triggers a warning below that cell – it isn’t graded and won’t block anything, but a one-line docstring like the ones from Chapter 4 satisfies it.</p>
+<p>Note: the exercises above (elapsed time since the Unix epoch, is_triangle, the stack-diagram prediction, and the three turtle-drawing exercises) are practice. They aren’t graded. This is the graded homework.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~10 min -->
+<section id="exercise-1-letter-grade-do-1-or-2">
+<h3><span class="section-number">5.15.1. </span>Exercise 1: letter_grade (do 1 or 2)<a class="headerlink" href="#exercise-1-letter-grade-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">letter_grade</span></code> that takes a numeric <code class="docutils literal notranslate"><span class="pre">score</span></code> from 0 to 100 and prints the corresponding letter grade: <code class="docutils literal notranslate"><span class="pre">90</span></code> and above is <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">80</span></code>-<code class="docutils literal notranslate"><span class="pre">89</span></code> is <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">70</span></code>-<code class="docutils literal notranslate"><span class="pre">79</span></code> is <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">60</span></code>-<code class="docutils literal notranslate"><span class="pre">69</span></code> is <code class="docutils literal notranslate"><span class="pre">D</span></code>, and below <code class="docutils literal notranslate"><span class="pre">60</span></code> is <code class="docutils literal notranslate"><span class="pre">F</span></code>. Use a chained conditional, the same construct from earlier in this chapter.</p>
+<!-- apcsp:end --><p>Test your function with the following cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">letter_grade</span><span class="p">(</span><span class="mi">89</span><span class="p">)</span>   <span class="c1"># should be B</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">letter_grade</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>   <span class="c1"># should be A</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">letter_grade</span><span class="p">(</span><span class="mi">59</span><span class="p">)</span>   <span class="c1"># should be F</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">letter_grade</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>   <span class="c1"># should be D</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~10 min -->
+</section>
+<section id="exercise-2-rps-winner-do-1-or-2">
+<h3><span class="section-number">5.15.2. </span>Exercise 2: rps_winner (do 1 or 2)<a class="headerlink" href="#exercise-2-rps-winner-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">rps_winner</span></code> that takes two strings, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, each one of <code class="docutils literal notranslate"><span class="pre">'rock'</span></code>, <code class="docutils literal notranslate"><span class="pre">'paper'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'scissors'</span></code>, and prints <code class="docutils literal notranslate"><span class="pre">'a</span> <span class="pre">wins'</span></code>, <code class="docutils literal notranslate"><span class="pre">'b</span> <span class="pre">wins'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'tie'</span></code>. Use a chained conditional with <code class="docutils literal notranslate"><span class="pre">and</span></code>/<code class="docutils literal notranslate"><span class="pre">or</span></code> to check the three matchups where <code class="docutils literal notranslate"><span class="pre">a</span></code> beats <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<!-- apcsp:end --><p>Test your function with the following cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rps_winner</span><span class="p">(</span><span class="s1">&#39;rock&#39;</span><span class="p">,</span> <span class="s1">&#39;rock&#39;</span><span class="p">)</span>        <span class="c1"># should be tie</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rps_winner</span><span class="p">(</span><span class="s1">&#39;rock&#39;</span><span class="p">,</span> <span class="s1">&#39;scissors&#39;</span><span class="p">)</span>    <span class="c1"># should be a wins</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rps_winner</span><span class="p">(</span><span class="s1">&#39;scissors&#39;</span><span class="p">,</span> <span class="s1">&#39;paper&#39;</span><span class="p">)</span>   <span class="c1"># should be a wins</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rps_winner</span><span class="p">(</span><span class="s1">&#39;rock&#39;</span><span class="p">,</span> <span class="s1">&#39;paper&#39;</span><span class="p">)</span>       <span class="c1"># should be b wins</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~10 min -->
+</section>
+<section id="exercise-3-is-leap-year">
+<h3><span class="section-number">5.15.3. </span>Exercise 3: is_leap_year<a class="headerlink" href="#exercise-3-is-leap-year" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">is_leap_year</span></code> that takes a <code class="docutils literal notranslate"><span class="pre">year</span></code> and prints <code class="docutils literal notranslate"><span class="pre">Yes</span></code> or <code class="docutils literal notranslate"><span class="pre">No</span></code>. A year is a leap year if it’s divisible by 4, except century years (divisible by 100), which are leap years only if they’re also divisible by 400. Use the modulus operator and logical operators.</p>
+<!-- apcsp:end --><p>Test your function with the following cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_leap_year</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>   <span class="c1"># should be Yes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_leap_year</span><span class="p">(</span><span class="mi">1900</span><span class="p">)</span>   <span class="c1"># should be No</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_leap_year</span><span class="p">(</span><span class="mi">2024</span><span class="p">)</span>   <span class="c1"># should be Yes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_leap_year</span><span class="p">(</span><span class="mi">2023</span><span class="p">)</span>   <span class="c1"># should be No</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~8 min -->
+</section>
+<section id="exercise-4-debug-countdown-by-two">
+<h3><span class="section-number">5.15.4. </span>Exercise 4: debug countdown_by_two<a class="headerlink" href="#exercise-4-debug-countdown-by-two" title="Link to this heading">#</a></h3>
+<p>Here’s a function that’s supposed to work like <code class="docutils literal notranslate"><span class="pre">countdown</span></code>, but counting down by twos instead of by ones.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">countdown_by_two</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Blastoff!&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">countdown_by_two</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Run it with a couple of different starting values – try <code class="docutils literal notranslate"><span class="pre">countdown_by_two(6)</span></code>, then try <code class="docutils literal notranslate"><span class="pre">countdown_by_two(5)</span></code>. One of them behaves fine. The other runs into the same kind of error this chapter covered earlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">countdown_by_two</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">xmode</span> Context
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">countdown_by_two</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the markdown cell below, explain what goes wrong with <code class="docutils literal notranslate"><span class="pre">countdown_by_two</span></code> and for which starting values of <code class="docutils literal notranslate"><span class="pre">n</span></code>. Then, in the code cell after that, write a corrected version and test it with a few different starting values, including at least one that would have broken the original.</p>
+<p><em>Type your answer here.</em></p>
+<!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~5 min -->
+</section>
+<section id="exercise-5-high-low-one-round">
+<h3><span class="section-number">5.15.5. </span>Exercise 5: high-low, one round<a class="headerlink" href="#exercise-5-high-low-one-round" title="Link to this heading">#</a></h3>
+<p>Pick a secret number and hard-code it in your solution. Prompt the player with <code class="docutils literal notranslate"><span class="pre">input()</span></code>, convert their guess with <code class="docutils literal notranslate"><span class="pre">int()</span></code>, and print <code class="docutils literal notranslate"><span class="pre">Too</span> <span class="pre">low</span></code>, <code class="docutils literal notranslate"><span class="pre">Too</span> <span class="pre">high</span></code>, or <code class="docutils literal notranslate"><span class="pre">Correct!</span></code> using a chained conditional. Just one round – no loop.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~5 min -->
+</section>
+<section id="exercise-6-reflection">
+<h3><span class="section-number">5.15.6. </span>Exercise 6: reflection<a class="headerlink" href="#exercise-6-reflection" title="Link to this heading">#</a></h3>
+<p>This chapter showed two ways to handle a problem with several possible outcomes: a chained conditional (<code class="docutils literal notranslate"><span class="pre">if</span></code>/<code class="docutils literal notranslate"><span class="pre">elif</span></code>/<code class="docutils literal notranslate"><span class="pre">elif</span></code>/…/<code class="docutils literal notranslate"><span class="pre">else</span></code>) or nested conditionals (an <code class="docutils literal notranslate"><span class="pre">if</span></code> inside another <code class="docutils literal notranslate"><span class="pre">if</span></code>’s <code class="docutils literal notranslate"><span class="pre">else</span></code>). Which did you reach for more naturally while working through this chapter’s exercises, and why?</p>
+<p>Answer in the markdown cell below, the same way you did in chap01 through chap04.</p>
+<!-- apcsp:end --><p><em>Type your answer here.</em></p>
+<!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~2 min -->
+</section>
+<section id="time-check">
+<h3><span class="section-number">5.15.7. </span>Time check<a class="headerlink" href="#time-check" title="Link to this heading">#</a></h3>
+<p>This is graded on being filled in, not on the numbers. There’s no right answer, and low numbers don’t score better. If this chapter took you three hours, I need to know that. These are estimates: nobody expects you to have timed yourself, so a rough number is exactly what’s wanted.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill this in before you submit. Rough estimates are fine, and low numbers</span>
+<span class="c1"># don&#39;t score better. Don&#39;t count time on the extra credit below.</span>
+<span class="c1"># chapter_minutes -&gt; reading the chapter and its practice exercises</span>
+<span class="c1"># extra_exercises_minutes -&gt; the six numbered exercises above</span>
+<span class="c1"># longest -&gt; which exercise took longest, e.g. 1</span>
+<span class="n">chapter_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">extra_exercises_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">longest</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">working_in_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_check</span>
+<span class="n">time_check</span><span class="p">(</span><span class="n">chapter_minutes</span><span class="p">,</span> <span class="n">extra_exercises_minutes</span><span class="p">,</span> <span class="n">longest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="05" -->
+</section>
+</section>
+<section id="extra-credit-two-ways-to-recurse">
+<h2><span class="section-number">5.16. </span>Extra credit: two ways to recurse<a class="headerlink" href="#extra-credit-two-ways-to-recurse" title="Link to this heading">#</a></h2>
+<p>Do either the fractal tree or the Collatz sequence below, not both. They’re interchangeable, so pick whichever appeals to you. Doing both is fine, but the second one earns no additional credit. Neither substitutes for a required exercise. This is worth 0.5 points.</p>
+<p>If you’d like to watch recursion draw something first, the koch/snowflake cells above (optional practice) are worth running if you haven’t already – this notebook ships with no saved output, so nothing renders until you run the cells yourself.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~15 min -->
+<section id="fractal-tree-extra-credit-do-this-one-or-collatz-not-both">
+<h3><span class="section-number">5.16.1. </span>Fractal tree (extra credit – do this one OR Collatz, not both)<a class="headerlink" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">tree</span></code> that takes <code class="docutils literal notranslate"><span class="pre">length</span></code> as a parameter and draws a fractal tree: go forward, turn left and recurse on a shorter branch, turn right twice and recurse on another shorter branch of the same length, then turn back and return to where you started – the same shape as the <code class="docutils literal notranslate"><span class="pre">draw</span></code> function earlier in this chapter, but written as its own function with a clear base case (stop recursing once the branch gets too short to matter).</p>
+<p>Once <code class="docutils literal notranslate"><span class="pre">tree</span></code> works, generalize it the way Chapter 4 generalized <code class="docutils literal notranslate"><span class="pre">circle</span></code> into <code class="docutils literal notranslate"><span class="pre">arc</span></code>: add <code class="docutils literal notranslate"><span class="pre">angle</span></code> and <code class="docutils literal notranslate"><span class="pre">factor</span></code> parameters so the branch angle and the shrink factor per level aren’t hardcoded. Pick your own values for all three and try a few combinations.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="c1"># Solution goes here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s what the result might look like, though yours will depend on the angle and shrink factor you picked.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">tree</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="05" -->
+<!-- teacher: ~10 min -->
+</section>
+<section id="collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both">
+<h3><span class="section-number">5.16.2. </span>Collatz (extra credit – do this one OR the fractal tree, not both)<a class="headerlink" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both" title="Link to this heading">#</a></h3>
+<p>The Collatz conjecture starts from any positive integer <code class="docutils literal notranslate"><span class="pre">n</span></code>. If <code class="docutils literal notranslate"><span class="pre">n</span></code> is even, the next number is <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">//</span> <span class="pre">2</span></code>. If <code class="docutils literal notranslate"><span class="pre">n</span></code> is odd, the next number is <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">+</span> <span class="pre">1</span></code>. Repeat, and every starting value anyone has ever tried eventually reaches 1 – though no one has proved that it always must.</p>
+<p>Write a recursive function called <code class="docutils literal notranslate"><span class="pre">collatz</span></code> that takes a positive integer <code class="docutils literal notranslate"><span class="pre">n</span></code>, prints it, and then calls itself with the next number in the sequence. Once <code class="docutils literal notranslate"><span class="pre">n</span></code> reaches 1, print it and stop – don’t recurse past it. Test your function with a few different starting values, including at least one that takes many steps to reach 1.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="05" -->
+</section>
+<section id="finished-copy-your-work">
+<h3><span class="section-number">5.16.3. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
+<p>This isn’t part of Exercise 6. It’s a tool. Run the cell below to copy this notebook (including anything you’ve run) so you can paste it into a document.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1355,7 +1629,7 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 </section>
 <hr class="docutils" />
 <section id="standards-alignment">
-<h2><span class="section-number">5.15. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.17. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
 <p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.5">3.5 Boolean Expressions</a> and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.6">3.6 Conditionals</a> (Big Idea 3, 30–35% of the exam). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.7">3.7 Nested Conditionals</a>, <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.2">1.2 Program Function and Purpose</a>, and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
 <strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.14">9-12.AP.14</a>
 <strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-RD-17">HS-PRO-RD-17</a>, <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-ALG-PS-02">HS-ALG-PS-02</a>. Also <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-ALG-PS-03">HS-ALG-PS-03</a>, headers only.
@@ -1453,7 +1727,23 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.14.6. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">5.15. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">5.15. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-letter-grade-do-1-or-2">5.15.1. Exercise 1: letter_grade (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-rps-winner-do-1-or-2">5.15.2. Exercise 2: rps_winner (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-is-leap-year">5.15.3. Exercise 3: is_leap_year</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-countdown-by-two">5.15.4. Exercise 4: debug countdown_by_two</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-high-low-one-round">5.15.5. Exercise 5: high-low, one round</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">5.15.6. Exercise 6: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">5.15.7. Time check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-two-ways-to-recurse">5.16. Extra credit: two ways to recurse</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both">5.16.1. Fractal tree (extra credit – do this one OR Collatz, not both)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both">5.16.2. Collatz (extra credit – do this one OR the fractal tree, not both)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">5.16.3. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">5.17. Standards alignment</a></li>
 </ul>
   </nav></div>
 
