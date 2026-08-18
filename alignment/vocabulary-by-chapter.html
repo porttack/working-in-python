@@ -1,0 +1,515 @@
+<title>Vocabulary by Chapter — Working in Python</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+:root {
+  --ink: #1c211f; --ink-soft: #4b534f; --paper: #f5f6f3; --paper-raised: #ffffff;
+  --line: #d8dcd6; --line-soft: #e6e9e4; --accent: #3e4c8c; --accent-soft: #eceef7;
+  --accent-ink: #2c3768; --strong: #3f7d5c; --strong-bg: #e6efe9; --partial: #b8863a;
+  --partial-bg: #f6ecda; --elsewhere: #64708a; --elsewhere-bg: #eaecf1;
+  --serif: "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e8e7e1; --ink-soft: #aeb4ac; --paper: #14181a; --paper-raised: #1a1f21;
+    --line: #2c3230; --line-soft: #232826; --accent: #8e9fe8; --accent-soft: #232a45;
+    --accent-ink: #b7c2f2; --strong: #6cbf94; --strong-bg: #1e2c25; --partial: #d3a159;
+    --partial-bg: #2e2517; --elsewhere: #9aa4bd; --elsewhere-bg: #232733;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e8e7e1; --ink-soft: #aeb4ac; --paper: #14181a; --paper-raised: #1a1f21;
+  --line: #2c3230; --line-soft: #232826; --accent: #8e9fe8; --accent-soft: #232a45;
+  --accent-ink: #b7c2f2; --strong: #6cbf94; --strong-bg: #1e2c25; --partial: #d3a159;
+  --partial-bg: #2e2517; --elsewhere: #9aa4bd; --elsewhere-bg: #232733;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid currentColor; opacity: 0.9; }
+a:hover { opacity: 1; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.page { max-width: 920px; margin: 0 auto; padding: 0 24px 96px; }
+
+header.masthead { padding: 40px 0 28px; border-bottom: 1px solid var(--line); }
+.eyebrow {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--ink-soft); margin: 0 0 14px;
+}
+.eyebrow a { border-bottom: 1px dotted currentColor; text-transform: none; letter-spacing: 0.02em; }
+h1 {
+  font-family: var(--serif); font-weight: 600; font-size: clamp(28px, 4.2vw, 38px);
+  line-height: 1.12; margin: 0 0 12px; text-wrap: balance; color: var(--ink);
+}
+.lede { margin: 0; max-width: 62ch; color: var(--ink-soft); font-size: 16px; }
+.lede code { font-family: var(--mono); font-size: 0.92em; background: var(--line-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+
+.stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-top: 28px;
+}
+.stat { background: var(--paper-raised); padding: 16px 18px; }
+.stat .n { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 26px; font-weight: 600; line-height: 1; }
+.stat .label { margin-top: 6px; font-size: 12.5px; color: var(--ink-soft); }
+.stat.book .n { color: var(--strong); }
+.stat.planned .n { color: var(--partial); }
+.stat.elsewhere .n { color: var(--elsewhere); }
+
+nav.jump {
+  position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); margin: 0 -24px 40px; padding: 0 24px;
+}
+.jump-inner {
+  max-width: 920px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; padding: 10px 0;
+  scrollbar-width: none;
+}
+.jump-inner::-webkit-scrollbar { display: none; }
+.jump a {
+  border-bottom: none; font-size: 13px; font-weight: 500; color: var(--ink-soft); padding: 6px 11px;
+  border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+}
+.jump a:hover { color: var(--ink); background: var(--line-soft); }
+.jump a.external { margin-left: auto; color: var(--accent-ink); }
+
+section { margin: 48px 0; }
+section > .bigidea-head h2 {
+  font-family: var(--serif); font-size: 23px; font-weight: 600; margin: 0 0 6px; color: var(--ink); scroll-margin-top: 60px;
+}
+.bigidea-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.bigidea-head .name { font-size: 13.5px; color: var(--ink-soft); }
+
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.8px; background: var(--paper-raised); }
+th, td { padding: 10px 14px; text-align: left; vertical-align: top; }
+thead th {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 1px solid var(--line); font-weight: 600; white-space: nowrap;
+}
+tbody tr + tr td { border-top: 1px solid var(--line-soft); }
+td.code { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
+
+sup.ap {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.02em;
+  color: var(--accent-ink); background: var(--accent-soft); border-radius: 3px; padding: 0 3px;
+  vertical-align: super; margin-left: 3px;
+}
+i.note { color: var(--ink-soft); font-style: italic; }
+i.note a { color: var(--ink-soft); border-bottom: 1px dotted currentColor; }
+i.note a:hover { color: var(--accent-ink); }
+
+.legend2 { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--ink-soft); margin: 14px 0 0; }
+
+.filterbar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-top: 18px; padding: 12px 16px; background: var(--paper-raised);
+  border: 1px solid var(--line); border-radius: 10px;
+}
+.filter-label { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.segmented { display: inline-flex; background: var(--line-soft); border-radius: 999px; padding: 3px; gap: 2px; }
+.seg-btn {
+  font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--ink-soft);
+  background: transparent; border: none; border-radius: 999px; padding: 7px 14px; cursor: pointer;
+}
+.seg-btn:hover { color: var(--ink); }
+.seg-btn[aria-pressed="true"] { background: var(--accent); color: var(--paper); }
+.filter-count { font-size: 12.5px; color: var(--ink-soft); font-family: var(--mono); margin-left: auto; }
+body.ap-only tr:not(.is-ap) { display: none; }
+
+footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-soft); }
+footer code { font-family: var(--mono); background: var(--line-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+
+@media print { nav.jump, .filterbar { display: none; } }
+</style>
+
+<div class="page">
+
+<header class="masthead">
+  <p class="eyebrow">
+    <span>Working in Python &middot; Book Vocabulary</span>
+    <a href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">&#8618; AP CSP Vocabulary Coverage</a>
+    <a href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">&#8618; A-Z Glossary (merged)</a>
+  </p>
+  <h1>Vocabulary by Chapter</h1>
+  <p class="lede">Every term from Downey's own chapter-ending <code>Glossary</code> sections, chapters 1&ndash;18, plus any interludes' own glossaries, in reading order. This is the book's own vocabulary, exactly as written &mdash; not a paraphrase, not a standards crosswalk.</p>
+  <div class="stats">
+    <div class="stat book">
+      <div class="n">222</div>
+      <div class="label">glossary terms, chapters 1&ndash;18 + 2 interludes</div>
+    </div>
+    <div class="stat planned">
+      <div class="n">18</div>
+      <div class="label">chapters with a Glossary section (plus 2 interludes)</div>
+    </div>
+    <div class="stat elsewhere">
+      <div class="n">59</div>
+      <div class="label">on the AP CSP exam's own vocabulary list</div>
+    </div>
+  </div>
+  <p class="legend2">
+    <span><sup class="ap">AP</sup> on the AP CSP exam's vocabulary list</span>
+    <span><i>(Also ch. N.)</i> also defined in another chapter &mdash; link jumps there</span>
+  </p>
+  <div class="filterbar">
+    <span class="filter-label">Studying for the exam?</span>
+    <div class="segmented" role="group" aria-label="Vocabulary filter">
+      <button type="button" class="seg-btn" data-filter="all" aria-pressed="true">All 222 terms</button>
+      <button type="button" class="seg-btn" data-filter="ap" aria-pressed="false">AP-tested only &middot; 59</button>
+    </div>
+    <span class="filter-count" id="filterCount"></span>
+  </div>
+</header>
+
+<nav class="jump">
+  <div class="jump-inner">
+    <a href="#ch01" data-ap-count="8">1</a><a href="#ch02" data-ap-count="7">2</a><a href="#ch03" data-ap-count="2">3</a><a href="#ch04" data-ap-count="2">4</a><a href="#ch05" data-ap-count="6">5</a><a href="#ch06" data-ap-count="2">6</a><a href="#ch06b" data-ap-count="11">6b</a><a href="#ch07" data-ap-count="1">7</a><a href="#ch07b" data-ap-count="15">7b</a><a href="#ch08" data-ap-count="1">8</a><a href="#ch09" data-ap-count="2">9</a><a href="#ch10" data-ap-count="1">10</a><a href="#ch11" data-ap-count="0">11</a><a href="#ch12" data-ap-count="1">12</a><a href="#ch13" data-ap-count="0">13</a><a href="#ch14" data-ap-count="0">14</a><a href="#ch15" data-ap-count="0">15</a><a href="#ch16" data-ap-count="0">16</a><a href="#ch17" data-ap-count="0">17</a><a href="#ch18" data-ap-count="0">18</a>
+    <a class="external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP coverage &#8599;</a>
+  </div>
+</nav>
+
+
+<section id="ch01" data-ap-count="8">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap01.html">Chapter 1</a> &mdash; Welcome</h2>
+    <span class="name" data-total="17" data-ap="8">17 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">arithmetic operator</td><td>A symbol, like <code>+</code> and <code>*</code>, that denotes an arithmetic operation like addition or multiplication.</td></tr><tr class="is-ap"><td class="code">integer<sup class="ap">AP</sup></td><td>A type that represents numbers with no fractional or decimal part.</td></tr><tr class=""><td class="code">floating-point</td><td>A type that represents integers and numbers with decimal parts.</td></tr><tr class=""><td class="code">integer division</td><td>An operator, <code>//</code>, that divides two numbers and rounds down to an integer.</td></tr><tr class="is-ap"><td class="code">expression<sup class="ap">AP</sup></td><td>A combination of variables, values, and operators.</td></tr><tr class=""><td class="code">value</td><td>An integer, floating-point number, or string — or one of other kinds of values we will see later. <i class="note">(Also <a href="#ch10">ch. 10</a>.)</i></td></tr><tr class="is-ap"><td class="code">function<sup class="ap">AP</sup></td><td>A named sequence of statements that performs some useful operation. Functions may or may not take arguments and may or may not produce a result.</td></tr><tr class=""><td class="code">function call</td><td>An expression — or part of an expression — that runs a function. It consists of the function name followed by an argument list in parentheses.</td></tr><tr class="is-ap"><td class="code">syntax error<sup class="ap">AP</sup></td><td>An error in a program that makes it impossible to parse — and therefore impossible to run.</td></tr><tr class="is-ap"><td class="code">string<sup class="ap">AP</sup></td><td>A type that represents sequences of characters.</td></tr><tr class="is-ap"><td class="code">concatenation<sup class="ap">AP</sup></td><td>Joining two strings end-to-end.</td></tr><tr class="is-ap"><td class="code">type<sup class="ap">AP</sup></td><td>A category of values. The types we have seen so far are integers (type <code>int</code>), floating-point numbers (type <code> float</code>), and strings (type <code>str</code>).</td></tr><tr class=""><td class="code">operand</td><td>One of the values on which an operator operates.</td></tr><tr class=""><td class="code">natural language</td><td>Any of the languages that people speak that evolved naturally.</td></tr><tr class=""><td class="code">formal language</td><td>Any of the languages that people have designed for specific purposes, such as representing mathematical ideas or computer programs. All programming languages are formal languages.</td></tr><tr class=""><td class="code">bug</td><td>An error in a program.</td></tr><tr class="is-ap"><td class="code">debugging<sup class="ap">AP</sup></td><td>The process of finding and correcting errors.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch02" data-ap-count="7">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap02.html">Chapter 2</a> &mdash; Variables and Statements</h2>
+    <span class="name" data-total="15" data-ap="7">15 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class="is-ap"><td class="code">variable<sup class="ap">AP</sup></td><td>A name that refers to a value.</td></tr><tr class="is-ap"><td class="code">assignment statement<sup class="ap">AP</sup></td><td>A statement that assigns a value to a variable.</td></tr><tr class=""><td class="code">state diagram</td><td>A graphical representation of a set of variables and the values they refer to.</td></tr><tr class=""><td class="code">keyword</td><td>A special word used to specify the structure of a program.</td></tr><tr class=""><td class="code">import statement</td><td>A statement that reads a module file so we can use the variables and functions it contains.</td></tr><tr class="is-ap"><td class="code">module<sup class="ap">AP</sup></td><td>A file that contains Python code, including function definitions and sometimes other statements.</td></tr><tr class=""><td class="code">dot operator</td><td>The operator, <code>.</code>, used to access a function in another module by specifying the module name followed by a dot and the function name.</td></tr><tr class=""><td class="code">evaluate</td><td>Perform the operations in an expression in order to compute a value.</td></tr><tr class=""><td class="code">statement</td><td>One or more lines of code that represent a command or action.</td></tr><tr class=""><td class="code">execute</td><td>Run a statement and do what it says.</td></tr><tr class="is-ap"><td class="code">argument<sup class="ap">AP</sup></td><td>A value provided to a function when the function is called.</td></tr><tr class="is-ap"><td class="code">comment<sup class="ap">AP</sup></td><td>Text included in a program that provides information about the program but has no effect on its execution.</td></tr><tr class="is-ap"><td class="code">runtime error<sup class="ap">AP</sup></td><td>An error that causes a program to display an error message and exit.</td></tr><tr class=""><td class="code">exception</td><td>An error that is detected while the program is running.</td></tr><tr class="is-ap"><td class="code">semantic error<sup class="ap">AP</sup></td><td>An error that causes a program to do the wrong thing, but not to display an error message. <i class="note">(Also <a href="#ch06b">ch. 6b</a>.)</i></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch03" data-ap-count="2">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap03.html">Chapter 3</a> &mdash; Functions</h2>
+    <span class="name" data-total="10" data-ap="2">10 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">function definition</td><td>A statement that creates a function.</td></tr><tr class=""><td class="code">header</td><td>The first line of a function definition.</td></tr><tr class=""><td class="code">body</td><td>The sequence of statements inside a function definition.</td></tr><tr class=""><td class="code">function object</td><td>A value created by a function definition. The name of the function is a variable that refers to a function object.</td></tr><tr class="is-ap"><td class="code">parameter<sup class="ap">AP</sup></td><td>A name used inside a function to refer to the value passed as an argument.</td></tr><tr class="is-ap"><td class="code">loop<sup class="ap">AP</sup></td><td>A statement that runs one or more statements, often repeatedly.</td></tr><tr class=""><td class="code">local variable</td><td>A variable defined inside a function, and which can only be accessed inside the function.</td></tr><tr class=""><td class="code">stack diagram</td><td>A graphical representation of a stack of functions, their variables, and the values they refer to.</td></tr><tr class=""><td class="code">frame</td><td>A box in a stack diagram that represents a function call. It contains the local variables and parameters of the function.</td></tr><tr class=""><td class="code">traceback</td><td>A list of the functions that are executing, printed when an exception occurs.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch04" data-ap-count="2">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap04.html">Chapter 4</a> &mdash; Functions and Interfaces</h2>
+    <span class="name" data-total="11" data-ap="2">11 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class="is-ap"><td class="code">interface design<sup class="ap">AP</sup></td><td>A process for designing the interface of a function, which includes the parameters it should take.</td></tr><tr class=""><td class="code">canvas</td><td>A window used to display graphical elements including lines, circles, rectangles, and other shapes.</td></tr><tr class=""><td class="code">encapsulation</td><td>The process of transforming a sequence of statements into a function definition.</td></tr><tr class=""><td class="code">generalization</td><td>The process of replacing something unnecessarily specific (like a number) with something appropriately general (like a variable or parameter).</td></tr><tr class=""><td class="code">keyword argument</td><td>An argument that includes the name of the parameter.</td></tr><tr class=""><td class="code">refactoring</td><td>The process of modifying a working program to improve function interfaces and other qualities of the code.</td></tr><tr class=""><td class="code">development plan</td><td>A process for writing programs.</td></tr><tr class="is-ap"><td class="code">docstring<sup class="ap">AP</sup></td><td>A string that appears at the top of a function definition to document the function's interface. <i class="note">(Also <a href="#ch06b">ch. 6b</a>.)</i></td></tr><tr class=""><td class="code">multiline string</td><td>A string enclosed in triple quotes that can span more than one line of a program.</td></tr><tr class=""><td class="code">precondition</td><td>A requirement that should be satisfied by the caller before a function starts.</td></tr><tr class=""><td class="code">postcondition</td><td>A requirement that should be satisfied by the function before it ends.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch05" data-ap-count="6">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap05.html">Chapter 5</a> &mdash; Conditionals and Recursion</h2>
+    <span class="name" data-total="15" data-ap="6">15 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">recursion</td><td>The process of calling the function that is currently executing.</td></tr><tr class="is-ap"><td class="code">modulus operator<sup class="ap">AP</sup></td><td>An operator, <code>%</code>, that works on integers and returns the remainder when one number is divided by another.</td></tr><tr class="is-ap"><td class="code">boolean expression<sup class="ap">AP</sup></td><td>An expression whose value is either <code>True</code> or <code>False</code>.</td></tr><tr class="is-ap"><td class="code">relational operator<sup class="ap">AP</sup></td><td>One of the operators that compares its operands: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, and <code>&lt;=</code>.</td></tr><tr class="is-ap"><td class="code">logical operator<sup class="ap">AP</sup></td><td>One of the operators that combines boolean expressions, including <code>and</code>, <code>or</code>, and <code>not</code>.</td></tr><tr class="is-ap"><td class="code">conditional statement<sup class="ap">AP</sup></td><td>A statement that controls the flow of execution depending on some condition.</td></tr><tr class=""><td class="code">condition</td><td>The boolean expression in a conditional statement that determines which branch runs.</td></tr><tr class=""><td class="code">block</td><td>One or more statements indented to indicate they are part of another statement.</td></tr><tr class=""><td class="code">branch</td><td>One of the alternative sequences of statements in a conditional statement.</td></tr><tr class=""><td class="code">chained conditional</td><td>A conditional statement with a series of alternative branches.</td></tr><tr class="is-ap"><td class="code">nested conditional<sup class="ap">AP</sup></td><td>A conditional statement that appears in one of the branches of another conditional statement.</td></tr><tr class=""><td class="code">recursive</td><td>A function that calls itself is recursive.</td></tr><tr class=""><td class="code">base case</td><td>A conditional branch in a recursive function that does not make a recursive call.</td></tr><tr class=""><td class="code">infinite recursion</td><td>A recursion that doesn't have a base case, or never reaches it. Eventually, an infinite recursion causes a runtime error.</td></tr><tr class=""><td class="code">newline</td><td>A character that creates a line break between two parts of a string.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch06" data-ap-count="2">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap06.html">Chapter 6</a> &mdash; Return Values</h2>
+    <span class="name" data-total="8" data-ap="2">8 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class="is-ap"><td class="code">return value<sup class="ap">AP</sup></td><td>The result of a function. If a function call is used as an expression, the return value is the value of the expression.</td></tr><tr class=""><td class="code">side effect</td><td>Any effect a function has other than returning a value, such as displaying output or drawing on a canvas.</td></tr><tr class=""><td class="code">pure function</td><td>A function that returns a value and has no side effects. <i class="note">(Also <a href="#ch14">ch. 14</a>.)</i></td></tr><tr class=""><td class="code">dead code</td><td>Part of a program that can never run, often because it appears after a <code>return</code> statement.</td></tr><tr class="is-ap"><td class="code">incremental development<sup class="ap">AP</sup></td><td>A program development plan intended to avoid debugging by adding and testing only a small amount of code at a time.</td></tr><tr class=""><td class="code">scaffolding</td><td>Code that is used during program development but is not part of the final version.</td></tr><tr class=""><td class="code">Turing complete</td><td>A language, or subset of a language, is Turing complete if it can perform any computation that can be described by an algorithm.</td></tr><tr class=""><td class="code">input validation</td><td>Checking the parameters of a function to make sure they have the correct types and values</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch06b" data-ap-count="11">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap06b.html">Interlude</a> &mdash; Docstrings and Doctests</h2>
+    <span class="name" data-total="18" data-ap="11">18 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class="is-ap"><td class="code">docstring<sup class="ap">AP</sup></td><td>A string at the beginning of a function that documents what the function does; unlike a comment, it is stored on the function and can be read by the program. <i>(Python's name for what the exam calls</i> program documentation.<i>)</i> <i class="note">(Also <a href="#ch04">ch. 4</a>.)</i></td></tr><tr class=""><td class="code">doctest</td><td>An example call and its expected result, written inside a docstring, that can be run automatically to check the function. <i>(Python; not exam vocabulary.)</i></td></tr><tr class="is-ap"><td class="code">testing<sup class="ap">AP</sup></td><td>Checking that a program behaves correctly by running it on chosen inputs and comparing what comes out against what should have come out.</td></tr><tr class="is-ap"><td class="code">test case<sup class="ap">AP</sup></td><td>A single input, paired with the result it should produce.</td></tr><tr class=""><td class="code">boundary case</td><td>A test case at the value where a function's behavior changes, such as zero, an empty string, or the first or last item.</td></tr><tr class=""><td class="code">edge case</td><td>A test case at an unusual or extreme input, where a function is most likely to be wrong.</td></tr><tr class=""><td class="code">expected value</td><td>What a test says the answer should be, as opposed to what the code actually produced.</td></tr><tr class=""><td class="code">pass</td><td>A test whose actual result matches its expected value. <i class="note">(Also <a href="#ch07">ch. 7</a>.)</i></td></tr><tr class=""><td class="code">fail</td><td>A test whose actual result does not match its expected value. <i class="note">(Also <a href="#ch07">ch. 7</a>.)</i></td></tr><tr class="is-ap"><td class="code">hand tracing<sup class="ap">AP</sup></td><td>Working through code on paper line by line, writing down each variable's value, in order to find an error without running the program.</td></tr><tr class="is-ap"><td class="code">semantic error<sup class="ap">AP</sup></td><td>An error that lets the program run but produces a wrong result. <i>(The exam calls this a</i> logic error.<i>)</i> <i class="note">(Also <a href="#ch02">ch. 2</a>.)</i></td></tr><tr class="is-ap"><td class="code">roundoff error<sup class="ap">AP</sup></td><td>A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. <i class="note">(Also <a href="#ch07b">ch. 7b</a>.)</i></td></tr><tr class="is-ap"><td class="code">program purpose<sup class="ap">AP</sup></td><td>The need a program serves, or the problem it solves; <i>why</i> it exists.</td></tr><tr class="is-ap"><td class="code">program function<sup class="ap">AP</sup></td><td>What a program does when it runs, described as behavior.</td></tr><tr class="is-ap"><td class="code">program input<sup class="ap">AP</sup></td><td>Data a program receives while it is running.</td></tr><tr class="is-ap"><td class="code">program output<sup class="ap">AP</sup></td><td>What a program produces: displayed text, a returned value, a file, a sound, a movement.</td></tr><tr class="is-ap"><td class="code">procedure<sup class="ap">AP</sup></td><td>The exam's word for a named, reusable block of code, whether or not it returns a value. This book says <i>function</i>. In older languages the two words were distinct: a procedure returned nothing, a function returned a value.</td></tr><tr class=""><td class="code">regression</td><td>A bug that reappears in code that used to work. Tests exist mainly to catch these. <i>(Professional vocabulary, not exam vocabulary.)</i></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch07" data-ap-count="1">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap07.html">Chapter 7</a> &mdash; Iteration and Search</h2>
+    <span class="name" data-total="11" data-ap="1">11 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">loop variable</td><td>A variable defined in the header of a <code>for</code> loop.</td></tr><tr class=""><td class="code">file object</td><td>An object that represents an open file and keeps track of which parts of the file have been read or written.</td></tr><tr class=""><td class="code">method</td><td>A function that is associated with an object and called using the dot operator. <i class="note">(Also <a href="#ch15">ch. 15</a>.)</i></td></tr><tr class=""><td class="code">update</td><td>An assignment statement that give a new value to a variable that already exists, rather than creating a new variables.</td></tr><tr class=""><td class="code">initialize</td><td>Create a new variable and give it a value.</td></tr><tr class=""><td class="code">increment</td><td>Increase the value of a variable.</td></tr><tr class=""><td class="code">decrement</td><td>Decrease the value of a variable.</td></tr><tr class=""><td class="code">counter</td><td>A variable used to count something, usually initialized to zero and then incremented.</td></tr><tr class="is-ap"><td class="code">linear search<sup class="ap">AP</sup></td><td>A computational pattern that searches through a sequence of elements and stops when it finds what it is looking for.</td></tr><tr class=""><td class="code">pass</td><td>If a test runs and the result is as expected, the test passes. <i class="note">(Also <a href="#ch06b">ch. 6b</a>.)</i></td></tr><tr class=""><td class="code">fail</td><td>If a test runs and the result is not as expected, the test fails. <i class="note">(Also <a href="#ch06b">ch. 6b</a>.)</i></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch07b" data-ap-count="15">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap07b.html">Interlude</a> &mdash; Representing Data</h2>
+    <span class="name" data-total="18" data-ap="15">18 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class="is-ap"><td class="code">bit<sup class="ap">AP</sup></td><td>A single binary digit, 0 or 1.</td></tr><tr class="is-ap"><td class="code">byte<sup class="ap">AP</sup></td><td>Eight bits. Enough to hold one of 256 values.</td></tr><tr class="is-ap"><td class="code">binary<sup class="ap">AP</sup></td><td>Base-2 representation, using only the digits 0 and 1.</td></tr><tr class="is-ap"><td class="code">decimal<sup class="ap">AP</sup></td><td>Base-10, the system you already use.</td></tr><tr class="is-ap"><td class="code">hexadecimal<sup class="ap">AP</sup></td><td>Base-16, using 0 through 9 and A through F. Four bits per digit, so one byte is exactly two hex digits.</td></tr><tr class="is-ap"><td class="code">digital data<sup class="ap">AP</sup></td><td>Values represented in discrete steps, ultimately as bits.</td></tr><tr class="is-ap"><td class="code">analog data<sup class="ap">AP</sup></td><td>Values that vary continuously and smoothly, with no steps.</td></tr><tr class="is-ap"><td class="code">sampling<sup class="ap">AP</sup></td><td>Approximating an analog signal by measuring it at regular intervals. Two independent settings: how often you measure (rate) and how precisely you record each measurement (bit depth).</td></tr><tr class="is-ap"><td class="code">ASCII<sup class="ap">AP</sup></td><td>A table assigning a number from 0 to 127 to each of a small set of characters.</td></tr><tr class="is-ap"><td class="code">Unicode<sup class="ap">AP</sup></td><td>A far larger table, covering the writing systems ASCII left out.</td></tr><tr class=""><td class="code">character encoding</td><td>The agreement about which numbers stand for which characters. Read bits with the wrong encoding and you get the right data as the wrong text.</td></tr><tr class="is-ap"><td class="code">RGB<sup class="ap">AP</sup></td><td>Color stored as three numbers, the amounts of red, green, and blue, each usually one byte.</td></tr><tr class="is-ap"><td class="code">overflow error<sup class="ap">AP</sup></td><td>An error that happens when a value is too large for the number of bits available to hold it.</td></tr><tr class="is-ap"><td class="code">roundoff error<sup class="ap">AP</sup></td><td>A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. <i>(Second reference — first defined by the interlude between chapters 6 and 7.)</i></td></tr><tr class="is-ap"><td class="code">lossless compression<sup class="ap">AP</sup></td><td>Reduces size while allowing the original to be reconstructed exactly.</td></tr><tr class="is-ap"><td class="code">lossy compression<sup class="ap">AP</sup></td><td>Reduces size further, but only an approximation of the original can be recovered.</td></tr><tr class=""><td class="code">compression ratio</td><td>Compressed size divided by original size. <i>(This book's own term; not exam vocabulary.)</i></td></tr><tr class=""><td class="code">run-length encoding</td><td>A lossless scheme that replaces runs of a repeated value with the value and a count. <i>(This book's own term; the exam names no specific algorithm.)</i></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch08" data-ap-count="1">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap08.html">Chapter 8</a> &mdash; Strings and Regular Expressions</h2>
+    <span class="name" data-total="12" data-ap="1">12 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">sequence</td><td>An ordered collection of values where each value is identified by an integer index.</td></tr><tr class=""><td class="code">character</td><td>An element of a string, including letters, numbers, and symbols.</td></tr><tr class="is-ap"><td class="code">index<sup class="ap">AP</sup></td><td>An integer value used to select an item in a sequence, such as a character in a string. In Python indices start from <code>0</code>.</td></tr><tr class=""><td class="code">slice</td><td>A part of a string specified by a range of indices.</td></tr><tr class=""><td class="code">empty string</td><td>A string that contains no characters and has length <code>0</code>.</td></tr><tr class=""><td class="code">object</td><td>Something a variable can refer to. An object has a type and a value.</td></tr><tr class=""><td class="code">immutable</td><td>If the elements of an object cannot be changed, the object is immutable.</td></tr><tr class=""><td class="code">invocation</td><td>An expression — or part of an expression — that calls a method.</td></tr><tr class=""><td class="code">regular expression</td><td>A sequence of characters that defines a search pattern.</td></tr><tr class=""><td class="code">pattern</td><td>A rule that specifies the requirements a string has to meet to constitute a match.</td></tr><tr class=""><td class="code">string substitution</td><td>Replacement of a string, or part of a string, with another string.</td></tr><tr class=""><td class="code">shell command</td><td>A statement in a shell language, which is a language used to interact with an operating system.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch09" data-ap-count="2">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap09.html">Chapter 9</a> &mdash; Lists</h2>
+    <span class="name" data-total="9" data-ap="2">9 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class="is-ap"><td class="code">list<sup class="ap">AP</sup></td><td>An object that contains a sequence of values.</td></tr><tr class="is-ap"><td class="code">element<sup class="ap">AP</sup></td><td>One of the values in a list or other sequence.</td></tr><tr class=""><td class="code">nested list</td><td>A list that is an element of another list.</td></tr><tr class=""><td class="code">delimiter</td><td>A character or string used to indicate where a string should be split.</td></tr><tr class=""><td class="code">equivalent</td><td>Having the same value.</td></tr><tr class=""><td class="code">identical</td><td>Being the same object (which implies equivalence).</td></tr><tr class=""><td class="code">reference</td><td>The association between a variable and its value.</td></tr><tr class=""><td class="code">aliased</td><td>If there is more than one variable that refers to an object, the object is aliased.</td></tr><tr class=""><td class="code">attribute</td><td>One of the named values associated with an object. <i class="note">(Also <a href="#ch14">ch. 14</a>.)</i></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch10" data-ap-count="1">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap10.html">Chapter 10</a> &mdash; Dictionaries</h2>
+    <span class="name" data-total="12" data-ap="1">12 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">dictionary</td><td>An object that contains key-value pairs, also called items.</td></tr><tr class=""><td class="code">item</td><td>In a dictionary, another name for a key-value pair.</td></tr><tr class=""><td class="code">key</td><td>An object that appears in a dictionary as the first part of a key-value pair.</td></tr><tr class=""><td class="code">value</td><td>An object that appears in a dictionary as the second part of a key-value pair. This is more specific than our previous use of the word "value". <i class="note">(Also <a href="#ch01">ch. 1</a>.)</i></td></tr><tr class=""><td class="code">mapping</td><td>A relationship in which each element of one set corresponds to an element of another set.</td></tr><tr class=""><td class="code">hash table</td><td>A collection of key-value pairs organized so that we can look up a key and find its value efficiently.</td></tr><tr class=""><td class="code">hashable</td><td>Immutable types like integers, floats and strings are hashable. Mutable types like lists and dictionaries are not.</td></tr><tr class=""><td class="code">hash function</td><td>A function that takes an object and computes an integer that is used to locate a key in a hash table. <i class="note">(Also <a href="#ch13">ch. 13</a>.)</i></td></tr><tr class=""><td class="code">accumulator</td><td>A variable used in a loop to add up or accumulate a result.</td></tr><tr class="is-ap"><td class="code">filtering<sup class="ap">AP</sup></td><td>Looping through a sequence and selecting or omitting elements.</td></tr><tr class=""><td class="code">call graph</td><td>A diagram that shows every frame created during the execution of a program, with an arrow from each caller to each callee.</td></tr><tr class=""><td class="code">memo</td><td>A computed value stored to avoid unnecessary future computation.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch11" data-ap-count="0">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap11.html">Chapter 11</a> &mdash; Tuples</h2>
+    <span class="name" data-total="6" data-ap="0">6 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">pack</td><td>Collect multiple arguments into a tuple.</td></tr><tr class=""><td class="code">unpack</td><td>Treat a tuple (or other sequence) as multiple arguments.</td></tr><tr class=""><td class="code">zip object</td><td>The result of calling the built-in function <code>zip</code>, can be used to loop through a sequence of tuples.</td></tr><tr class=""><td class="code">enumerate object</td><td>The result of calling the built-in function <code>enumerate</code>, can be used to loop through a sequence of tuples.</td></tr><tr class=""><td class="code">sort key</td><td>A value, or function that computes a value, used to sort the elements of a collection.</td></tr><tr class=""><td class="code">data structure</td><td>A collection of values, organized to perform certain operations efficiently.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch12" data-ap-count="1">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap12.html">Chapter 12</a> &mdash; Text Analysis and Generation</h2>
+    <span class="name" data-total="8" data-ap="1">8 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">default value</td><td>The value assigned to a parameter if no argument is provided.</td></tr><tr class=""><td class="code">override</td><td>To replace a default value with an argument.</td></tr><tr class=""><td class="code">deterministic</td><td>A deterministic program does the same thing each time it runs, given the same inputs.</td></tr><tr class="is-ap"><td class="code">pseudorandom<sup class="ap">AP</sup></td><td>A pseudorandom sequence of numbers appears to be random, but is generated by a deterministic program.</td></tr><tr class=""><td class="code">bigram</td><td>A sequence of two elements, often words.</td></tr><tr class=""><td class="code">trigram</td><td>A sequence of three elements.</td></tr><tr class=""><td class="code">n-gram</td><td>A sequence of an unspecified number of elements.</td></tr><tr class=""><td class="code">rubber duck debugging</td><td>A way of debugging by explaining a problem aloud to an inanimate object.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch13" data-ap-count="0">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap13.html">Chapter 13</a> &mdash; Files and Databases</h2>
+    <span class="name" data-total="16" data-ap="0">16 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">ephemeral</td><td>An ephemeral program typically runs for a short time and, when it ends, its data are lost.</td></tr><tr class=""><td class="code">persistent</td><td>A persistent program runs indefinitely and keeps at least some of its data in permanent storage.</td></tr><tr class=""><td class="code">directory</td><td>A collection of files and other directories.</td></tr><tr class=""><td class="code">current working directory</td><td>The default directory used by a program unless another directory is specified.</td></tr><tr class=""><td class="code">path</td><td>A string that specifies a sequence of directories, often leading to a file.</td></tr><tr class=""><td class="code">relative path</td><td>A path that starts from the current working directory, or some other specified directory.</td></tr><tr class=""><td class="code">absolute path</td><td>A path that does not depend on the current directory.</td></tr><tr class=""><td class="code">f-string</td><td>A string that has the letter <code>f</code> before the opening quotation mark, and contains one or more expressions in curly braces.</td></tr><tr class=""><td class="code">configuration data</td><td>Data, often stored in a file, that specifies what a program should do and how.</td></tr><tr class=""><td class="code">serialization</td><td>Converting an object to a string.</td></tr><tr class=""><td class="code">deserialization</td><td>Converting a string to an object.</td></tr><tr class=""><td class="code">database</td><td>A file whose contents are organized to perform certain operations efficiently.</td></tr><tr class=""><td class="code">key-value stores</td><td>A database whose contents are organized like a dictionary with keys that correspond to values.</td></tr><tr class=""><td class="code">binary mode</td><td>A way of opening a file so the contents are interpreted as sequence of bytes rather than a sequence of characters.</td></tr><tr class=""><td class="code">hash function</td><td>A function that takes and object and computes an integer, which is sometimes called a digest. <i class="note">(Also <a href="#ch10">ch. 10</a>.)</i></td></tr><tr class=""><td class="code">digest</td><td>The result of a hash function, especially when it is used to check whether two objects are the same.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch14" data-ap-count="0">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap14.html">Chapter 14</a> &mdash; Classes and Functions</h2>
+    <span class="name" data-total="12" data-ap="0">12 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">object-oriented programming</td><td>A style of programming that uses objects to organize code and data.</td></tr><tr class=""><td class="code">class</td><td>A programmer-defined type. A class definition creates a new class object.</td></tr><tr class=""><td class="code">class object</td><td>An object that represents a class — it is the result of a class definition.</td></tr><tr class=""><td class="code">instantiation</td><td>The process of creating an object that belongs to a class.</td></tr><tr class=""><td class="code">instance</td><td>An object that belongs to a class.</td></tr><tr class=""><td class="code">attribute</td><td>A variable associated with an object, also called an instance variable. <i class="note">(Also <a href="#ch09">ch. 9</a>.)</i></td></tr><tr class=""><td class="code">object diagram</td><td>A graphical representation of an object, its attributes, and their values.</td></tr><tr class=""><td class="code">format specifier</td><td>In an f-string, a format specifier determines how a value is converted to a string.</td></tr><tr class=""><td class="code">pure function</td><td>A function that does not modify its parameters or have any effect other than returning a value. <i class="note">(Also <a href="#ch06">ch. 6</a>.)</i></td></tr><tr class=""><td class="code">functional programming style</td><td>A way of programming that uses pure functions whenever possible.</td></tr><tr class=""><td class="code">prototype and patch</td><td>A way of developing programs by starting with a rough draft and gradually adding features and fixing bugs.</td></tr><tr class=""><td class="code">design-first development</td><td>A way of developing programs with more careful planning that prototype and patch.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch15" data-ap-count="0">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap15.html">Chapter 15</a> &mdash; Classes and Methods</h2>
+    <span class="name" data-total="8" data-ap="0">8 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">object-oriented language</td><td>A language that provides features to support object-oriented programming, notably user-defined types.</td></tr><tr class=""><td class="code">method</td><td>A function that is defined inside a class definition and is invoked on instances of that class. <i class="note">(Also <a href="#ch07">ch. 7</a>.)</i></td></tr><tr class=""><td class="code">receiver</td><td>The object a method is invoked on.</td></tr><tr class=""><td class="code">static method</td><td>A method that can be invoked without an object as receiver.</td></tr><tr class=""><td class="code">instance method</td><td>A method that must be invoked with an object as receiver.</td></tr><tr class=""><td class="code">special method</td><td>A method that changes the way operators and some functions work with an object.</td></tr><tr class=""><td class="code">operator overloading</td><td>The process of using special methods to change the way operators with with user-defined types.</td></tr><tr class=""><td class="code">invariant</td><td>A condition that should always be true during the execution of a program.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch16" data-ap-count="0">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap16.html">Chapter 16</a> &mdash; Classes and Objects</h2>
+    <span class="name" data-total="3" data-ap="0">3 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">shallow copy</td><td>A copy operation that does not copy nested objects.</td></tr><tr class=""><td class="code">deep copy</td><td>A copy operation that also copies nested objects.</td></tr><tr class=""><td class="code">polymorphism</td><td>The ability of a method or operator to work with multiple types of objects.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch17" data-ap-count="0">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap17.html">Chapter 17</a> &mdash; Inheritance</h2>
+    <span class="name" data-total="8" data-ap="0">8 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">inheritance</td><td>The ability to define a new class that is a modified version of a previously defined class.</td></tr><tr class=""><td class="code">encode</td><td>To represent one set of values using another set of values by constructing a mapping between them.</td></tr><tr class=""><td class="code">class variable</td><td>A variable defined inside a class definition, but not inside any method.</td></tr><tr class=""><td class="code">totally ordered</td><td>A set of objects is totally ordered if we can compare any two elements and the results are consistent.</td></tr><tr class=""><td class="code">delegation</td><td>When one method passes responsibility to another method to do most or all of the work.</td></tr><tr class=""><td class="code">parent class</td><td>A class that is inherited from.</td></tr><tr class=""><td class="code">child class</td><td>A class that inherits from another class.</td></tr><tr class=""><td class="code">specialization</td><td>A way of using inheritance to create a new class that is a specialized version of an existing class.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section id="ch18" data-ap-count="0">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap18.html">Chapter 18</a> &mdash; Python Extras</h2>
+    <span class="name" data-total="5" data-ap="0">5 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr class=""><td class="code">factory</td><td>A function used to create objects, often passed as a parameter to a function.</td></tr><tr class=""><td class="code">conditional expression</td><td>An expression that uses a conditional to select one of two values.</td></tr><tr class=""><td class="code">list comprehension</td><td>A concise way to loop through a sequence and create a list.</td></tr><tr class=""><td class="code">generator expression</td><td>Similar to a list comprehension except that it does not create a list.</td></tr><tr class=""><td class="code">test discovery</td><td>A process used to find and run tests.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  Full definitions and provenance in the repo-local twin of this page. Cross-links: the
+  <code>alignment/glossary-map.md</code> (concept-level crosswalk, Pass 3, repo-only),
+  the <a href="https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html">AP CSP Coverage Map</a>
+  (topic-level), and the <a href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a>.
+</footer>
+
+</div>
+
+<script>
+(function() {
+  var STORAGE_KEY = "apVocabFilterMode";
+  var AP_TOTAL = 59;
+  var ALL_TOTAL = 222;
+  var buttons = document.querySelectorAll(".seg-btn");
+  var countEl = document.getElementById("filterCount");
+
+  function applyMode(mode) {
+    document.body.classList.toggle("ap-only", mode === "ap");
+    for (var i = 0; i < buttons.length; i++) {
+      var b = buttons[i];
+      b.setAttribute("aria-pressed", b.getAttribute("data-filter") === mode ? "true" : "false");
+    }
+    var sections = document.querySelectorAll("section[data-ap-count]");
+    for (var j = 0; j < sections.length; j++) {
+      var sec = sections[j];
+      var apCount = parseInt(sec.getAttribute("data-ap-count"), 10) || 0;
+      sec.style.display = (mode === "ap" && apCount === 0) ? "none" : "";
+      var nameEl = sec.querySelector(".name");
+      if (nameEl) {
+        var total = nameEl.getAttribute("data-total");
+        var apHere = nameEl.getAttribute("data-ap");
+        nameEl.textContent = mode === "ap"
+          ? (apHere + (apHere === "1" ? " AP term" : " AP terms"))
+          : (total + (total === "1" ? " term" : " terms"));
+      }
+    }
+    var jumpLinks = document.querySelectorAll(".jump a[data-ap-count]");
+    for (var k = 0; k < jumpLinks.length; k++) {
+      var a = jumpLinks[k];
+      var apLinkCount = parseInt(a.getAttribute("data-ap-count"), 10) || 0;
+      a.style.display = (mode === "ap" && apLinkCount === 0) ? "none" : "";
+    }
+    if (countEl) {
+      countEl.textContent = mode === "ap" ? ("showing " + AP_TOTAL + " AP-tested terms") : ("showing all " + ALL_TOTAL + " terms");
+    }
+    try { localStorage.setItem(STORAGE_KEY, mode); } catch (e) {}
+  }
+
+  for (var m = 0; m < buttons.length; m++) {
+    buttons[m].addEventListener("click", function(ev) { applyMode(ev.currentTarget.getAttribute("data-filter")); });
+  }
+
+  var saved = "all";
+  try { saved = localStorage.getItem(STORAGE_KEY) || "all"; } catch (e) {}
+  applyMode(saved);
+})();
+</script>

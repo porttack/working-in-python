@@ -1,0 +1,1354 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Docstrings and Doctests &#8212; Working in Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chap06b';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/custom.js?v=f6e6cac9"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. Iteration and Search" href="chap07.html" />
+    <link rel="prev" title="6. Return Values" href="chap06.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Working in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Working in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap01.html">1. Welcome</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Variables and Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Interlude: Docstrings and Doctests</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Text Analysis and Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Files and Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Classes and Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap15.html">15. Classes and Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap16.html">16. Classes and Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="todo.html">What’s Next</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html">AP CSP Coverage Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">AP CSP Vocabulary Glossary (A-Z)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/[CONFIRM: your user]/working-in-python/tree/main" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chap06b.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Docstrings and Doctests</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-good-docstring-says">What a good docstring says</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-function-input-output">Purpose, function, input, output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-docstring-is-data-not-a-comment">The docstring is data, not a comment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-first-doctest">Your first doctest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-a-test-fails">When a test fails</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-test-cases">Choosing test cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests-as-documentation">Tests as documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-doctests-cant-check">What doctests can’t check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">Debugging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-doctest-can-and-cannot-catch">What a doctest can and cannot catch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-one-is-lying-the-code-or-the-test">Which one is lying, the code or the test?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-choose-one-do-exercise-2-or-exercise-3-not-both">Exercise 2 <em>(choose one: do Exercise 2 <strong>or</strong> Exercise 3, not both)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-choose-one-see-exercise-2">Exercise 3 <em>(choose one: see Exercise 2)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-test-that-lies-extra-credit">Write a test that lies <em>(extra credit)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">Standards alignment</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!-- apcsp:begin type="note" chapter="6b" -->
+<p><strong>Other Ways to open this interlude:</strong>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-3db08322a4/notebooks/index.html?path=Chapter06b-Docstrings-and-Doctests.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap06b.ipynb">Colab</a> |
+<a class="reference external" href="https://python.porttack.com/chap06b.html?readonly">Read Only</a> |
+<a href="https://python.porttack.com/_sources/chap06b.ipynb" download="chap06b.ipynb">Download</a></p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="6b" -->
+<p id="chap06b-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
+<style>
+#pst-secondary-sidebar { display: none !important; }
+#chap06b-jupyterlite-pane {
+  display: block;
+  height: 600px;
+  background: #fff;
+  overflow: hidden;
+}
+#chap06b-jupyterlite-pane iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+</style>
+<div id="chap06b-jupyterlite-pane">
+<iframe src="jupyterlite-3db08322a4/notebooks/index.html?path=Chapter06b-Docstrings-and-Doctests.ipynb"></iframe>
+</div>
+<script>
+(function () {
+  var note = document.getElementById("chap06b-jupyterlite-note");
+  var pane = document.getElementById("chap06b-jupyterlite-pane");
+  if (!pane) return;
+  if (new URLSearchParams(location.search).has("readonly")) {
+    pane.style.display = "none";
+    if (note) note.style.display = "none";
+    return;
+  }
+  var sidebar = document.getElementById("pst-primary-sidebar");
+  if (!sidebar) return;
+  // Only take over the viewport when running inside the Sphinx book site,
+  // where the primary sidebar this pane is docked next to actually exists.
+  // height:auto (rather than the 600px stylesheet fallback, which only
+  // exists for contexts where this script never runs, e.g. viewing the raw
+  // notebook in VS Code) lets top+bottom determine the height, so the pane
+  // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.position = "fixed";
+  pane.style.top = "0";
+  pane.style.right = "0";
+  pane.style.bottom = "0";
+  pane.style.height = "auto";
+  pane.style.zIndex = "2000";
+  function positionPane() {
+    pane.style.left = sidebar.getBoundingClientRect().right + "px";
+  }
+  new ResizeObserver(positionPane).observe(sidebar);
+  positionPane();
+})();
+</script>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a file if it isn&#39;t already here, and return its filename.&quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
+
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python.py&#39;</span><span class="p">);</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="c1"># apcsp:begin type=&quot;note&quot; chapter=&quot;6b&quot;</span>
+<span class="n">working_in_python</span><span class="o">.</span><span class="n">enable_docstring_reminders</span><span class="p">()</span>
+<span class="c1"># apcsp:end</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="docstrings-and-doctests">
+<h1>Docstrings and Doctests<a class="headerlink" href="#docstrings-and-doctests" title="Link to this heading">#</a></h1>
+<!-- apcsp:begin type="note" chapter="6b" -->
+<p>This interlude is not part of <em>Think Python</em>. It sits between Chapter 6 and Chapter 7
+because of what you just learned: functions that <strong>return values</strong>. Until now, your
+functions drew pictures or printed text, and the only way to check them was to look.
+Now they hand something back, and something that gets handed back can be checked
+automatically.</p>
+<!-- apcsp:end -->
+<p>In <a class="reference internal" href="#chap04.html"><span class="xref myst">Chapter 4</span></a> you wrote your first <strong>docstring</strong>: a short piece of text at
+the top of a function that says what the function does. A docstring is a <em>promise</em>. It
+tells whoever reads your code, including you three weeks from now, what they should
+expect if they call it.</p>
+<p>A promise that nobody checks is just a hope.</p>
+<p>In this interlude we’ll add a second layer to that docstring: a few example calls, and the
+answer each one should give. Python can read those examples and run them. If the function
+keeps its promise, nothing happens. If it doesn’t, Python tells you exactly which promise
+was broken.</p>
+<p>That second layer is called a <!--blank--><strong>doctest</strong><!--/blank-->.</p>
+<section id="what-a-good-docstring-says">
+<h2>What a good docstring says<a class="headerlink" href="#what-a-good-docstring-says" title="Link to this heading">#</a></h2>
+<p>Here is a function with no docstring at all.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">price_with_tax</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It probably works. But answer these without scrolling: is <code class="docutils literal notranslate"><span class="pre">rate</span></code> a percentage like
+<code class="docutils literal notranslate"><span class="pre">8.5</span></code>, or a decimal like <code class="docutils literal notranslate"><span class="pre">0.085</span></code>? Does the result get rounded? What happens if <code class="docutils literal notranslate"><span class="pre">price</span></code>
+is negative?</p>
+<p>You can’t answer any of those from the code alone, and neither can anyone else. A
+docstring answers them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">price_with_tax</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute a price including sales tax.</span>
+
+<span class="sd">    rate: tax rate as a decimal, so 8.5% is 0.085</span>
+
+<span class="sd">    Returns the total as a float, not rounded.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">price</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Three rules, and they’re the whole game:</p>
+<ol class="arabic simple">
+<li><p>A <strong>summary line</strong> that starts with a verb and says what the function does.</p></li>
+<li><p><strong>Document a parameter only when its name doesn’t already say it.</strong> <code class="docutils literal notranslate"><span class="pre">rate</span></code> needed
+explaining. <code class="docutils literal notranslate"><span class="pre">price</span></code> did not. A docstring that says “price: the price” wastes
+everyone’s time.</p></li>
+<li><p>Say what comes <!--blank--><strong>back</strong><!--/blank-->, if anything comes back.</p></li>
+</ol>
+<!--blank-only: This function has three lines of documentation for one line of code. Is that too much?--></section>
+<section id="purpose-function-input-output">
+<h2>Purpose, function, input, output<a class="headerlink" href="#purpose-function-input-output" title="Link to this heading">#</a></h2>
+<p>There is a four-part frame worth learning now, because you will be asked to write it out
+in April and because a good docstring already contains three of the four parts.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Part</p></th>
+<th class="head"><p>The question it answers</p></th>
+<th class="head"><p>Where it lives in the docstring</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Purpose</strong></p></td>
+<td><p><em>Why</em> would anyone want this?</p></td>
+<td><p>Nowhere. See below.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Function</strong></p></td>
+<td><p><em>What</em> does it do when it runs?</p></td>
+<td><p>The summary line</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Input</strong></p></td>
+<td><p>What data does it receive?</p></td>
+<td><p>The parameter notes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Output</strong></p></td>
+<td><p>What does it produce?</p></td>
+<td><p>The “Returns…” line</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Look back at <code class="docutils literal notranslate"><span class="pre">price_with_tax</span></code>. “Compute a price including sales tax” is the</p>
+<!--blank-->**function**<!--/blank-->. The note about `rate` describes the
+<!--blank-->**input**<!--/blank-->. The note about an unrounded float describes the
+<p>output.</p>
+<p>The part a docstring never carries is <strong>purpose</strong>. “Compute a price including sales tax”
+tells you what the code does. It does not tell you that this is for a school store
+checkout, that the volunteers kept getting the tax wrong by hand, and that the whole
+program exists so the line moves faster. That’s purpose, and it lives outside the
+function entirely.</p>
+<p>Keep the distinction. <em>Function</em> is behavior, described in the third person. <em>Purpose</em> is
+the need being served. Students routinely answer the purpose question with a feature
+list, and a feature list is neither one.</p>
+<!--blank-only: A program has a scoreboard. Is that its function, or its purpose, or neither?-->
+<blockquote>
+<div><p><strong>A word about words.</strong> This book says <em>function</em>. The AP exam says <strong>procedure</strong> for
+the same thing, and the exam’s written response asks about a “student-developed
+procedure” by name.</p>
+<p>Historically those two words meant genuinely different things. In Pascal, a <code class="docutils literal notranslate"><span class="pre">procedure</span></code>
+did some work and handed nothing back, while a <code class="docutils literal notranslate"><span class="pre">function</span></code> computed a value and returned
+it. Fortran drew the same line between a <code class="docutils literal notranslate"><span class="pre">SUBROUTINE</span></code> and a <code class="docutils literal notranslate"><span class="pre">FUNCTION</span></code>. The distinction
+was useful: the name told you whether a call was worth putting on the right-hand side of
+an assignment.</p>
+<p>Modern languages mostly abandoned it. Python has only <code class="docutils literal notranslate"><span class="pre">def</span></code>, and a function that returns
+nothing quietly returns <code class="docutils literal notranslate"><span class="pre">None</span></code>. The exam uses <em>procedure</em> for both cases, so the older
+distinction is gone from its vocabulary too.</p>
+<p>Answer to both words. But it’s worth knowing the difference existed, because you will
+meet languages that still keep it, and because “does this hand something back?” remains
+the first question worth asking about any function you’re about to call.</p>
+</div></blockquote>
+</section>
+<section id="the-docstring-is-data-not-a-comment">
+<h2>The docstring is data, not a comment<a class="headerlink" href="#the-docstring-is-data-not-a-comment" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">#</span></code> comment is invisible to the running program. A docstring isn’t. Python stores it
+on the function itself, which means the program can read its own documentation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">price_with_tax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">price_with_tax</span><span class="o">.</span><span class="vm">__doc__</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is why docstrings use triple quotes and go <em>inside</em> the function, on the first
+line. Move them anywhere else and they turn back into ordinary strings that nobody can
+find.</p>
+</section>
+<section id="your-first-doctest">
+<h2>Your first doctest<a class="headerlink" href="#your-first-doctest" title="Link to this heading">#</a></h2>
+<p>A doctest is an example call written inside the docstring, followed by the answer you
+expect. Each example starts with <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>, which is the prompt Python shows when you type
+at it directly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">double</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return twice the value of x.</span>
+
+<span class="sd">    &gt;&gt;&gt; double(5)</span>
+<span class="sd">    10</span>
+<span class="sd">    &gt;&gt;&gt; double(-3)</span>
+<span class="sd">    -6</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Read those two lines as a sentence: <em>if someone calls <code class="docutils literal notranslate"><span class="pre">double(5)</span></code>, the answer should
+be <code class="docutils literal notranslate"><span class="pre">10</span></code>.</em> That’s a claim about the function, written in a form Python can check.</p>
+<p>To check it, we need a helper. Import it from <code class="docutils literal notranslate"><span class="pre">working_in_python</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">doctest</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_docstring_examples</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_doctests</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="n">run_docstring_examples</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">double</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nothing happened. That’s the point: <strong>no news is good news.</strong> <code class="docutils literal notranslate"><span class="pre">run_doctests</span></code> only
+speaks up when something is wrong.</p>
+<!--blank-only: Why would a testing tool stay silent when everything passes?--><blockquote>
+<div><p><strong>Note for later.</strong> <code class="docutils literal notranslate"><span class="pre">run_doctests</span></code> is a convenience that exists because we’re
+working in notebooks. When you start writing <code class="docutils literal notranslate"><span class="pre">.py</span></code> files, the same tests run a
+different way. We’ll get there.</p>
+</div></blockquote>
+</section>
+<section id="when-a-test-fails">
+<h2>When a test fails<a class="headerlink" href="#when-a-test-fails" title="Link to this heading">#</a></h2>
+<p>Here’s the same function with a bug. The docstring still makes the same promise.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">double_broken</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return twice the value of x.</span>
+
+<span class="sd">    &gt;&gt;&gt; double_broken(5)</span>
+<span class="sd">    10</span>
+<span class="sd">    &gt;&gt;&gt; double_broken(-3)</span>
+<span class="sd">    -6</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">run_doctests</span><span class="p">(</span><span class="n">double_broken</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice what the failure report gives you, in order:</p>
+<ul class="simple">
+<li><p><strong>which call</strong> failed</p></li>
+<li><p><strong>Expected</strong>, what the docstring promised</p></li>
+<li><p><strong>Got</strong>, what the code actually did</p></li>
+</ul>
+<p>And notice which test caught it. <code class="docutils literal notranslate"><span class="pre">double_broken(5)</span></code> returns <code class="docutils literal notranslate"><span class="pre">7</span></code>, so that one fails too –
+but if the only test had been <code class="docutils literal notranslate"><span class="pre">double_broken(2)</span></code>, the answer would have been <code class="docutils literal notranslate"><span class="pre">4</span></code>, the test
+would have passed, and the bug would have shipped.</p>
+<p>Choosing test cases is not busywork. It’s the skill.</p>
+</section>
+<section id="choosing-test-cases">
+<h2>Choosing test cases<a class="headerlink" href="#choosing-test-cases" title="Link to this heading">#</a></h2>
+<p>Each of those <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code> lines is a <strong>test case</strong>: one input, paired with the output it should
+produce. That pairing is the whole definition, and it’s worth holding onto, because the
+exam asks about test cases in exactly those terms.</p>
+<p>A test case that always passes teaches you nothing. Aim for three kinds:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kind</p></th>
+<th class="head"><p>What it checks</p></th>
+<th class="head"><p>Example for <code class="docutils literal notranslate"><span class="pre">is_even(n)</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Typical</strong></p></td>
+<td><p>The ordinary case anyone would try</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">is_even(4)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Boundary</strong></p></td>
+<td><p>The value where behavior changes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">is_even(0)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Edge</strong></p></td>
+<td><p>The unusual input you suspect is wrong</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">is_even(-3)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Typical cases are the ones students write. <!--blank--><strong>Boundary</strong><!--/blank--> and edge
+cases are the ones they skip, and those are where the bugs live: zero, empty, one, the
+first, the last, the day the month rolls over.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">can_ride</span><span class="p">(</span><span class="n">height_inches</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether someone may ride, given height and age.</span>
+
+<span class="sd">    Riders must be at least 48 inches tall and at least 7 years old.</span>
+
+<span class="sd">    &gt;&gt;&gt; can_ride(52, 9)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; can_ride(48, 7)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; can_ride(72, 6)</span>
+<span class="sd">    False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">height_inches</span> <span class="o">&gt;=</span> <span class="mi">48</span> <span class="ow">and</span> <span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">7</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">run_doctests</span><span class="p">(</span><span class="n">can_ride</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The second test is the boundary: exactly 48 inches, exactly 7 years. If someone
+later “fixes” the code by changing <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> to <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, that test fails immediately.</p>
+<p>The third test is the interesting one. A very tall six-year-old is exactly the case where
+a careless writer would have used <code class="docutils literal notranslate"><span class="pre">or</span></code> instead of <code class="docutils literal notranslate"><span class="pre">and</span></code>. A test case can be funny and
+still be the most useful test in the file.</p>
+<!--blank-only: Which of these three tests would still pass if the `and` were changed to an `or`?--></section>
+<section id="tests-as-documentation">
+<h2>Tests as documentation<a class="headerlink" href="#tests-as-documentation" title="Link to this heading">#</a></h2>
+<p>Read these two descriptions of the same function:</p>
+<blockquote>
+<div><p>Returns the portion of the string before the first separator, or the whole string if
+the separator does not occur.</p>
+</div></blockquote>
+<p>versus</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first_field</span><span class="p">(</span><span class="s1">&#39;name,age,city&#39;</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="go">&#39;name&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_field</span><span class="p">(</span><span class="s1">&#39;solo&#39;</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="go">&#39;solo&#39;</span>
+</pre></div>
+</div>
+<p>The prose is more complete. The examples are faster. Good documentation has both, and
+the examples are the part people actually read.</p>
+</section>
+<section id="what-doctests-cant-check">
+<h2>What doctests can’t check<a class="headerlink" href="#what-doctests-cant-check" title="Link to this heading">#</a></h2>
+<p>Doctests compare what your function produces against text you wrote by hand. That works
+beautifully when the answer is predictable, and not at all when it isn’t.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">average</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the mean of two numbers.</span>
+
+<span class="sd">    &gt;&gt;&gt; average(1, 2)</span>
+<span class="sd">    1.5</span>
+<span class="sd">    &gt;&gt;&gt; average(0.1, 0.2)</span>
+<span class="sd">    0.15000000000000002</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That second expected value looks like a typo. It isn’t. It’s the actual answer, and you
+met this in Chapter 1: a computer stores a number in a fixed number of bits, and some
+decimal values don’t fit exactly, so the answer lands a hair off. That’s called</p>
+<!--blank-->**roundoff error**<!--/blank-->, and it's not a bug in your code. It's the
+<p>machine telling the truth about what it can represent.</p>
+<p>We’ll come back to <em>why</em> when we get to binary. For now the practical consequence is
+enough: doctests on floats are fragile.</p>
+<p>Three things doctests handle badly:</p>
+<ul class="simple">
+<li><p><strong>Floating-point results</strong>, for the reason above</p></li>
+<li><p><strong>Anything random</strong>, since the answer changes every run</p></li>
+<li><p><strong>Anything that depends on the current date or time</strong></p></li>
+</ul>
+<p>None of these mean “don’t test.” They mean the test has to be written differently. We’ll
+see how in a later interlude on unit testing.</p>
+</section>
+<section id="debugging">
+<h2>Debugging<a class="headerlink" href="#debugging" title="Link to this heading">#</a></h2>
+<section id="what-a-doctest-can-and-cannot-catch">
+<h3>What a doctest can and cannot catch<a class="headerlink" href="#what-a-doctest-can-and-cannot-catch" title="Link to this heading">#</a></h3>
+<p>You’ve met three kinds of error so far. They fail in three different ways, and a doctest
+is only useful against one of them.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kind</p></th>
+<th class="head"><p>What happens</p></th>
+<th class="head"><p>Can a doctest catch it?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Syntax error</strong></p></td>
+<td><p>The code breaks Python’s grammar and never runs at all</p></td>
+<td><p>No. The cell fails before any test exists</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Run-time error</strong></p></td>
+<td><p>The code runs, then blows up partway with a traceback</p></td>
+<td><p>Sort of. You get the traceback instead of a pass/fail</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Semantic error</strong></p></td>
+<td><p>The code runs happily and gives the wrong answer</p></td>
+<td><p><strong>Yes. This is the whole point</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The first two announce themselves. A <!--blank--><strong>semantic</strong><!--/blank--> error does
+not: nothing turns red, nothing complains, and the program looks like it worked. That
+silence is why they’re the hardest to find, and it’s exactly the silence a doctest breaks.</p>
+<blockquote>
+<div><p><strong>A word about words.</strong> Downey calls this a <em>semantic</em> error. The AP exam calls the same
+thing a <strong>logic error</strong>. Both mean “it ran, and it was wrong.”</p>
+</div></blockquote>
+<p>There are other kinds of error you’ll meet later, when we look at how numbers are actually
+stored: <strong>roundoff error</strong>, which you saw above, and <strong>overflow error</strong>, which happens
+when a value is too large for the bits available to hold it. Python hides overflow from
+you almost completely, so it needs its own demonstration. Both belong to a later interlude on
+binary, not to this one.</p>
+<!--blank-only: Your test passes but the program still behaves wrong. Which kind of error is that, and what does it tell you about your test cases?-->
+</section>
+<section id="which-one-is-lying-the-code-or-the-test">
+<h3>Which one is lying, the code or the test?<a class="headerlink" href="#which-one-is-lying-the-code-or-the-test" title="Link to this heading">#</a></h3>
+<p>When a doctest fails, one of two things is wrong: the <strong>code</strong>, or the <strong>test</strong>.
+Beginners assume it’s always the code. It isn’t.</p>
+<p>Before changing anything, do a <strong>hand trace</strong>: work through the call on paper, line by
+line, writing down what each variable holds as you go. No running the code, no guessing.
+The exam will ask you to do this with nothing but a pencil, so it’s worth practicing while
+you still have a machine to check yourself against.</p>
+<p>Then compare your traced answer to both the Expected and the Got.</p>
+<ul class="simple">
+<li><p>If your traced answer matches <strong>Expected</strong>, the code is wrong. Fix the function.</p></li>
+<li><p>If your traced answer matches <strong>Got</strong>, the test is wrong. Fix the docstring.</p></li>
+<li><p>If it matches <strong>neither</strong>, you don’t yet understand the problem, and changing code at
+random will not help. Go back to the description.</p></li>
+</ul>
+<p>That third case is the common one, and it’s the whole reason to trace before you type.</p>
+<!-- apcsp:begin type="glossary" chapter="6b" -->
+</section>
+</section>
+<section id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<p><strong>docstring:</strong> A string at the beginning of a function that documents what the function
+does; unlike a comment, it is stored on the function and can be read by the program.
+<em>(Python’s name for what the exam calls</em> program documentation.<em>)</em></p>
+<p><strong>doctest:</strong> An example call and its expected result, written inside a docstring, that can
+be run automatically to check the function. <em>(Python; not exam vocabulary.)</em></p>
+<p><strong>testing:</strong> Checking that a program behaves correctly by running it on chosen inputs and
+comparing what comes out against what should have come out.</p>
+<p><strong>test case:</strong> A single input, paired with the result it should produce.</p>
+<p><strong>boundary case:</strong> A test case at the value where a function’s behavior changes, such as
+zero, an empty string, or the first or last item.</p>
+<p><strong>edge case:</strong> A test case at an unusual or extreme input, where a function is most likely
+to be wrong.</p>
+<p><strong>expected value:</strong> What a test says the answer should be, as opposed to what the code
+actually produced.</p>
+<p><strong>pass:</strong> A test whose actual result matches its expected value.</p>
+<p><strong>fail:</strong> A test whose actual result does not match its expected value.</p>
+<p><strong>hand tracing:</strong> Working through code on paper line by line, writing down each variable’s
+value, in order to find an error without running the program.</p>
+<p><strong>semantic error:</strong> An error that lets the program run but produces a wrong result. <em>(The
+exam calls this a</em> logic error.<em>)</em></p>
+<p><strong>roundoff error:</strong> A loss of precision that happens because a fixed number of bits cannot
+represent some numbers exactly.</p>
+<p><strong>program purpose:</strong> The need a program serves, or the problem it solves; <em>why</em> it exists.</p>
+<p><strong>program function:</strong> What a program does when it runs, described as behavior.</p>
+<p><strong>program input:</strong> Data a program receives while it is running.</p>
+<p><strong>program output:</strong> What a program produces: displayed text, a returned value, a file, a
+sound, a movement.</p>
+<p><strong>procedure:</strong> The exam’s word for a named, reusable block of code, whether or not it
+returns a value. This book says <em>function</em>. In older languages the two words were
+distinct: a procedure returned nothing, a function returned a value.</p>
+<p><strong>regression:</strong> A bug that reappears in code that used to work. Tests exist mainly to
+catch these. <em>(Professional vocabulary, not exam vocabulary.)</em></p>
+<!-- apcsp:end --><!-- apcsp:begin type="glossary" chapter="6b" -->
+<p><strong>See also:</strong> the <a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">full vocabulary glossary</a> collects every term in this book, alphabetized, alongside the complete AP CSP exam vocabulary list.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="6b" -->
+</section>
+<section id="homework">
+<h2>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
+<p>Do these in order. Exercises 1 through 5 are required.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell tells Jupyter to provide detailed debugging information</span>
+<span class="c1"># when a runtime error occurs. Run it before working on the exercises.</span>
+
+<span class="o">%</span><span class="n">xmode</span> <span class="n">Verbose</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>Below is <code class="docutils literal notranslate"><span class="pre">is_leap_year</span></code> from Chapter 5, correct but undocumented. Add a docstring with a
+summary line and <strong>three</strong> doctests: one typical year, one boundary case, and one case
+that would catch a wrong implementation. Then run them.</p>
+<p><em>(A hint on the boundary: 2000 and 1900 are both interesting, for different reasons.)</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_leap_year</span><span class="p">(</span><span class="n">year</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">is_leap_year</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-choose-one-do-exercise-2-or-exercise-3-not-both">
+<h3>Exercise 2 <em>(choose one: do Exercise 2 <strong>or</strong> Exercise 3, not both)</em><a class="headerlink" href="#exercise-2-choose-one-do-exercise-2-or-exercise-3-not-both" title="Link to this heading">#</a></h3>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">can_ride(height_inches,</span> <span class="pre">age)</span></code> that returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if a rider is at least
+48 inches tall <strong>and</strong> at least 7 years old. Write the docstring first, including three
+doctests, then write the body. One of your three should be a boundary case.</p>
+<p>Then, in the markdown cell below, state the function’s <strong>purpose</strong> in one sentence.
+Say something the docstring does not say.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your function here</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">can_ride</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Purpose, one sentence:</em></p>
+</section>
+<section id="exercise-3-choose-one-see-exercise-2">
+<h3>Exercise 3 <em>(choose one: see Exercise 2)</em><a class="headerlink" href="#exercise-3-choose-one-see-exercise-2" title="Link to this heading">#</a></h3>
+<p>Write a function <code class="docutils literal notranslate"><span class="pre">letter_grade(score)</span></code> that returns <code class="docutils literal notranslate"><span class="pre">'A'</span></code> for 90 and above, <code class="docutils literal notranslate"><span class="pre">'B'</span></code> for 80
+to 89, <code class="docutils literal notranslate"><span class="pre">'C'</span></code> for 70 to 79, <code class="docutils literal notranslate"><span class="pre">'D'</span></code> for 60 to 69, and <code class="docutils literal notranslate"><span class="pre">'F'</span></code> below 60. Write the docstring
+first, including three doctests, then write the body. One of your three should be a
+boundary case.</p>
+<p>Then, in the markdown cell below, state the function’s <strong>purpose</strong> in one sentence.
+Say something the docstring does not say.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your function here</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">letter_grade</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Purpose, one sentence:</em></p>
+</section>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Link to this heading">#</a></h3>
+<p>The function below is broken. Its doctests are correct. Run them, read the failure report,
+and fix the <strong>function</strong> so all tests pass. Do not change the docstring.</p>
+<p>Before you fix it, hand trace <code class="docutils literal notranslate"><span class="pre">count_down_to_zero(3)</span></code> and name which kind of error this
+is: syntax, run-time, or semantic.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">count_down_to_zero</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of numbers from n down to 0.</span>
+
+<span class="sd">    &gt;&gt;&gt; count_down_to_zero(3)</span>
+<span class="sd">    [3, 2, 1, 0]</span>
+<span class="sd">    &gt;&gt;&gt; count_down_to_zero(0)</span>
+<span class="sd">    [0]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">count_down_to_zero</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Link to this heading">#</a></h3>
+<p>Here a function and its doctest disagree. <strong>Exactly one of them is wrong.</strong></p>
+<p>Run the test. Then, in the markdown cell below, say which one is wrong and how you know.
+Then fix that one, and only that one.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">middle_character</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the middle character of a word with an odd number of letters.</span>
+
+<span class="sd">    &gt;&gt;&gt; middle_character(&#39;cat&#39;)</span>
+<span class="sd">    &#39;a&#39;</span>
+<span class="sd">    &gt;&gt;&gt; middle_character(&#39;hello&#39;)</span>
+<span class="sd">    &#39;e&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">word</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">middle_character</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Type your answer here: which is wrong, the code or the test, and how do you know?</em></p>
+</section>
+<section id="exercise-6">
+<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Link to this heading">#</a></h3>
+<p>Reflection, three or four sentences.</p>
+<p>You wrote docstrings in Chapter 4 without any way to check them. Now you can check them.
+Did knowing the test would run change how you wrote the docstring? Was there a moment
+where writing the examples first made the function easier to write, or harder?</p>
+<p><em>Type your answer here.</em></p>
+</section>
+<section id="write-a-test-that-lies-extra-credit">
+<h3>Write a test that lies <em>(extra credit)</em><a class="headerlink" href="#write-a-test-that-lies-extra-credit" title="Link to this heading">#</a></h3>
+<p>Write a function that is <strong>completely correct</strong>, along with a doctest that <strong>fails
+anyway</strong>. Then explain in a sentence why it fails.</p>
+<p>There is more than one way to do this, and the chapter mentions three of them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your function here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Type your explanation here.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">working_in_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_check</span>
+
+<span class="n">chapter_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">extra_exercises_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">longest</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">time_check</span><span class="p">(</span><span class="n">chapter_minutes</span><span class="p">,</span> <span class="n">extra_exercises_minutes</span><span class="p">,</span> <span class="n">longest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="6b" -->
+</section>
+<section id="finished-copy-your-work">
+<h3>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
+<p>This isn’t part of the exercises above. It’s a tool. Run the cell below to copy this notebook (including anything you’ve run) so you can paste it into a document.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="6b" -->
+<hr class="docutils" />
+<p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
+<hr class="docutils" />
+<!-- apcsp:end -->
+<p><a class="reference external" href="https://allendowney.github.io/ThinkPython/index.html">Think Python: 3rd Edition</a></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>
+<p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+<!-- apcsp:begin type="standards" chapter="6b" -->
+</section>
+</section>
+<hr class="docutils" />
+<section id="standards-alignment">
+<h2>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.3">1.3 Program Design and Development</a>, <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a>. Big Idea 1, 10-13% of the exam
+<strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.20">9-12.AP.20</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.22">9-12.AP.22</a>
+<strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-TR-19">HS-PRO-TR-19</a>
+<strong>CA CTE (ICT):</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C4.9">C4.9</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C5.4">C5.4</a></p>
+<p>The exam asks you to choose inputs and the outputs they should produce, then use the
+results to find errors. A doctest is exactly that, written down. On the Create
+Performance Task you’ll be asked to describe two calls to a procedure you wrote, what
+each one tests, and what each returns. That is the same work you’re doing here, in the
+same order.</p>
+<p>This interlude also names the three error types the exam distinguishes (syntax, run-time,
+and semantic, which the exam calls <em>logic</em>), and introduces the purpose / function /
+input / output frame that the written-response section asks you to fill in. Overflow and
+roundoff errors are named here but explained in a later interlude on binary, where the reason
+for them actually lives.</p>
+<p><strong>Syntax note:</strong> docstrings and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code> are Python, not exam pseudocode. The exam has no
+notation for documentation or testing. What transfers is the habit, not the punctuation.</p>
+<!-- apcsp:end --></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chap06.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Return Values</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chap07.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Iteration and Search</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-good-docstring-says">What a good docstring says</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose-function-input-output">Purpose, function, input, output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-docstring-is-data-not-a-comment">The docstring is data, not a comment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-first-doctest">Your first doctest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-a-test-fails">When a test fails</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-test-cases">Choosing test cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tests-as-documentation">Tests as documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-doctests-cant-check">What doctests can’t check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">Debugging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-doctest-can-and-cannot-catch">What a doctest can and cannot catch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-one-is-lying-the-code-or-the-test">Which one is lying, the code or the test?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-choose-one-do-exercise-2-or-exercise-3-not-both">Exercise 2 <em>(choose one: do Exercise 2 <strong>or</strong> Exercise 3, not both)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-choose-one-see-exercise-2">Exercise 3 <em>(choose one: see Exercise 2)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4">Exercise 4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5">Exercise 5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6">Exercise 6</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-a-test-that-lies-extra-credit">Write a test that lies <em>(extra credit)</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">Standards alignment</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey, adapted by [CONFIRM: your name]
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: left;">
+  <p>
+    <em>Working in Python</em> is adapted from
+    <a href="https://allendowney.github.io/ThinkPython/">Think Python, Third Edition</a>,
+    copyright 2024 <a href="https://allendowney.com">Allen B. Downey</a>.
+    Changes were made; see
+    <a href="https://github.com/[CONFIRM: your user]/working-in-python/blob/main/AP_MODIFICATIONS.md">AP_MODIFICATIONS.md</a>.
+  </p>
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img alt="Creative Commons License" style="border-width:0"
+         src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+  </a>
+  <br />
+  Text licensed under a
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+  Code licensed under the <a href="https://mit-license.org/">MIT License</a>.
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

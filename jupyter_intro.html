@@ -1,0 +1,797 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Working in Python on Jupyter &#8212; Working in Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'jupyter_intro';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/custom.js?v=f6e6cac9"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Preface" href="chap00.html" />
+    <link rel="prev" title="Working in Python" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Working in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Working in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap01.html">1. Welcome</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Variables and Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Text Analysis and Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Files and Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Classes and Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap15.html">15. Classes and Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap16.html">16. Classes and Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="todo.html">What’s Next</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html">AP CSP Coverage Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">AP CSP Vocabulary Glossary (A-Z)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/[CONFIRM: your user]/working-in-python/tree/main" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/jupyter_intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Working in Python on Jupyter</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-notebook">What is a notebook?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-kinds-of-cells">Two kinds of cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quick-look-at-markdown">A quick look at Markdown</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-for-think-python">Code for <em>Think Python</em></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="working-in-python-on-jupyter">
+<h1><em>Working in Python</em> on Jupyter<a class="headerlink" href="#working-in-python-on-jupyter" title="Link to this heading">#</a></h1>
+<p>This is an introduction to Jupyter notebooks for people using <em>Working in Python</em>, a high school course adapted from the third edition of <a class="reference external" href="https://greenteapress.com/wp/think-python-3rd-edition"><em>Think Python</em></a> by Allen B. Downey.</p>
+<p>A Jupyter notebook is a document that contains text, code, and results from running the code.
+You can read a notebook like a book, but you can also run the code, modify it, and develop new programs.</p>
+<p>Jupyter notebooks run in a web browser, so you can run them without installing any new software.
+But they have to connect to a Jupyter server somewhere.</p>
+<p>On this site, that part is already taken care of: every chapter opens as a ready-to-run notebook directly in your browser, with nothing to install and no account required.</p>
+<p><a class="reference external" href="https://python.porttack.com">On the starting page for the book</a> you will find a link for each chapter. Most chapters also offer a Google Colab link as an alternative, if you’d rather work there instead.</p>
+<!-- apcsp:begin type="note" -->
+<p id="jupyter-intro-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
+<style>
+#pst-secondary-sidebar { display: none !important; }
+#jupyter-intro-jupyterlite-pane {
+  display: block;
+  height: 600px;
+  background: #fff;
+  overflow: hidden;
+}
+#jupyter-intro-jupyterlite-pane iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+</style>
+<div id="jupyter-intro-jupyterlite-pane">
+<iframe src="jupyterlite-3db08322a4/notebooks/index.html?path=_Using-Notebooks.ipynb"></iframe>
+</div>
+<script>
+(function () {
+  var note = document.getElementById("jupyter-intro-jupyterlite-note");
+  var pane = document.getElementById("jupyter-intro-jupyterlite-pane");
+  if (!pane) return;
+  if (new URLSearchParams(location.search).has("readonly")) {
+    pane.style.display = "none";
+    if (note) note.style.display = "none";
+    return;
+  }
+  var sidebar = document.getElementById("pst-primary-sidebar");
+  if (!sidebar) return;
+  // Only take over the viewport when running inside the Sphinx book site,
+  // where the primary sidebar this pane is docked next to actually exists.
+  // height:auto (rather than the 600px stylesheet fallback, which only
+  // exists for contexts where this script never runs, e.g. viewing the raw
+  // notebook in VS Code) lets top+bottom determine the height, so the pane
+  // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.position = "fixed";
+  pane.style.top = "0";
+  pane.style.right = "0";
+  pane.style.bottom = "0";
+  pane.style.height = "auto";
+  pane.style.zIndex = "2000";
+  function positionPane() {
+    pane.style.left = sidebar.getBoundingClientRect().right + "px";
+  }
+  new ResizeObserver(positionPane).observe(sidebar);
+  positionPane();
+})();
+</script>
+<!-- apcsp:end --><section id="what-is-a-notebook">
+<h2>What is a notebook?<a class="headerlink" href="#what-is-a-notebook" title="Link to this heading">#</a></h2>
+<p>A Jupyter notebook is made up of cells, where each cell contains either text or code.
+This cell contains text.</p>
+<p>The following cell contains code.</p>
+<!-- apcsp:begin type="note" -->
+<section id="two-kinds-of-cells">
+<h3>Two kinds of cells<a class="headerlink" href="#two-kinds-of-cells" title="Link to this heading">#</a></h3>
+<p>Every cell in a notebook is one of two types:</p>
+<ul class="simple">
+<li><p>A <strong>markdown cell</strong> holds formatted text — headings, paragraphs, lists, links. This cell is a markdown cell.</p></li>
+<li><p>A <strong>code cell</strong> holds Python code that Jupyter runs when you press “Run”.</p></li>
+</ul>
+<p>You can tell which kind a cell is by what happens when you run it: a markdown cell re-renders as formatted text, while a code cell executes and (usually) prints a result underneath.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello
+</pre></div>
+</div>
+</div>
+</div>
+<p>Click on the previous cell to select it.
+You should see a button on the left with a triangle inside a circle, which is the icon for “Play”.
+If you press this button, Jupyter runs the code in the cell and displays the result.</p>
+<p>When you run code in a notebook for the first time, it might take a few seconds to start.
+And if it’s a notebook you didn’t write, you might get a warning message.
+If you are running a notebook from a source you trust, which I hope includes me, you can press “Run Anyway”.</p>
+<p>Instead of clicking the “Play” button, you can also run the code in a cell by holding down <code class="docutils literal notranslate"><span class="pre">Shift</span></code> and pressing <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p>
+<p>Most Jupyter interfaces, including the one on this site, also let you add a new cell below the one you’re on — usually with a “+” button in the toolbar. Try it: select this cell, then add a new cell below it.</p>
+<!-- apcsp:begin type="note" -->
+</section>
+<section id="a-quick-look-at-markdown">
+<h3>A quick look at Markdown<a class="headerlink" href="#a-quick-look-at-markdown" title="Link to this heading">#</a></h3>
+<p>Markdown formats text using plain characters instead of buttons. Some of the most common markup:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>You type</p></th>
+<th class="head"><p>You get</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">Heading</span></code></p></td>
+<td><p>a large heading</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">Subheading</span></code></p></td>
+<td><p>a smaller heading</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">**bold**</span></code></p></td>
+<td><p><strong>bold</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*italic*</span></code></p></td>
+<td><p><em>italic</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">`code`</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">code</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[text](url)</span></code></p></td>
+<td><p>a link</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">item</span></code></p></td>
+<td><p>a bulleted list item</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Double-click any markdown cell in this notebook — including this one — to see its raw Markdown source. Press <code class="docutils literal notranslate"><span class="pre">Shift</span></code>+<code class="docutils literal notranslate"><span class="pre">Enter</span></code> to render it back to formatted text.</p>
+<!-- apcsp:end --><p>Add some text to the cell.
+You can use the buttons to format it, or you can mark up the text using <a class="reference external" href="https://www.markdownguide.org/basic-syntax/">Markdown</a>.
+When you are done, hold down <code class="docutils literal notranslate"><span class="pre">Shift</span></code> and press <code class="docutils literal notranslate"><span class="pre">Enter</span></code>, which will format the text you just typed and then move to the next cell.</p>
+<p>At any time Jupyter is in one of two modes:</p>
+<ul class="simple">
+<li><p>In <strong>command mode</strong>, you can perform operations that affect cells, like adding and removing entire cells.</p></li>
+<li><p>In <strong>edit mode</strong>, you can edit the contents of a cell.</p></li>
+</ul>
+<p>With text cells, it is obvious which mode you are in.
+In edit mode, the cell is split vertically, with the text you are editing on the left and the formatted text on the right.
+And you’ll see text editing tools across the top.
+In command mode, you see only the formatted text.</p>
+<p>With code cells, the difference is more subtle, but if there’s a cursor in the cell, you are in edit mode.</p>
+<p>To go from edit mode to command mode, press <code class="docutils literal notranslate"><span class="pre">ESC</span></code>.
+To go from command mode to edit mode, press <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p>
+<p>When you are done working on a notebook, you can close the window, but any changes you made will disappear.
+If you make any changes you want to keep, open the File menu in the upper left.
+You’ll see several ways you can save the notebook.</p>
+<ul class="simple">
+<li><p>If you have a Google account, you can save the notebook in your Drive.</p></li>
+<li><p>If you have a GitHub account, you can save it on GitHub.</p></li>
+<li><p>Or if you want to save the notebook on your computer, select “Download” and then “Download .ipynb” The suffix “.ipynb” indicates that it is a notebook file, as opposed to “.py”, which indicates a file that contains Python code only.</p></li>
+</ul>
+</section>
+</section>
+<section id="code-for-think-python">
+<h2>Code for <em>Think Python</em><a class="headerlink" href="#code-for-think-python" title="Link to this heading">#</a></h2>
+<p>At the beginning of each notebook, you’ll see a cell with code like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
+
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/porttack/working-in-python/v3/working_in_python.py&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You don’t need to know how this code works, but when you get to the end of the book, most of it will make sense.
+As you might guess, it downloads a file – specifically, it downloads <code class="docutils literal notranslate"><span class="pre">working_in_python.py</span></code>, which contains Python code provided specifically for this book.
+The last line “imports” this code, which means we can use the code in the notebook.</p>
+<p>In other chapters, you will see code that downloads <code class="docutils literal notranslate"><span class="pre">diagram.py</span></code>, which is used to generated the diagrams in the book, and <code class="docutils literal notranslate"><span class="pre">jupyturtle.py</span></code>, which is used in several chapters to create turtle graphics.</p>
+<p>In some places you will see a cell like this that begins with <code class="docutils literal notranslate"><span class="pre">%%expect</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">abs</span> <span class="mi">42</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">%%expect</span></code> is not part of Python – it is a Jupyter “magic command” that indicates that we expect the cell to product an error.
+When you see this command, it means that the error is deliberate, usually intended to warn you about a common pitfall.</p>
+<p>Or, if you are ready to get started, <a class="reference external" href="https://python.porttack.com/chap01.html">click here to read Chapter 1</a>.</p>
+<!-- apcsp:begin type="note" -->
+<p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
+<hr class="docutils" />
+<!-- apcsp:end -->
+<p><em>Think Python</em>, 3rd edition.</p>
+<p>Copyright 2023 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Working in Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chap00.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Preface</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-notebook">What is a notebook?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-kinds-of-cells">Two kinds of cells</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quick-look-at-markdown">A quick look at Markdown</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-for-think-python">Code for <em>Think Python</em></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey, adapted by [CONFIRM: your name]
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: left;">
+  <p>
+    <em>Working in Python</em> is adapted from
+    <a href="https://allendowney.github.io/ThinkPython/">Think Python, Third Edition</a>,
+    copyright 2024 <a href="https://allendowney.com">Allen B. Downey</a>.
+    Changes were made; see
+    <a href="https://github.com/[CONFIRM: your user]/working-in-python/blob/main/AP_MODIFICATIONS.md">AP_MODIFICATIONS.md</a>.
+  </p>
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img alt="Creative Commons License" style="border-width:0"
+         src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+  </a>
+  <br />
+  Text licensed under a
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+  Code licensed under the <a href="https://mit-license.org/">MIT License</a>.
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

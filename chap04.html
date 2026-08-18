@@ -1,0 +1,1465 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. Functions and Interfaces &#8212; Working in Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chap04';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/custom.js?v=f6e6cac9"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="5. Conditionals and Recursion" href="chap05.html" />
+    <link rel="prev" title="3. Functions" href="chap03.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Working in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Working in Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap01.html">1. Welcome</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Variables and Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Functions</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Functions and Interfaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Tuples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Text Analysis and Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Files and Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Classes and Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap15.html">15. Classes and Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap16.html">16. Classes and Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="todo.html">What’s Next</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html">AP CSP Coverage Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">AP CSP Vocabulary Glossary (A-Z)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/[CONFIRM: your user]/working-in-python/tree/main" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chap04.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Functions and Interfaces</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jupyturtle-module">4.1. The jupyturtle module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-a-square">4.2. Making a square</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encapsulation-and-generalization">4.3. Encapsulation and generalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximating-a-circle">4.4. Approximating a circle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refactoring">4.5. Refactoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stack-diagram">4.6. Stack diagram</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-development-plan">4.7. A development plan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docstrings">4.8. Docstrings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">4.9. Debugging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">4.10. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">4.11. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">4.11.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.11.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.11.3. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.11.4. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.11.5. Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">4.12. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-draw-your-initials-do-1-or-2">4.12.1. Exercise 1: draw your initials (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-draw-a-house-from-parts-do-1-or-2">4.12.2. Exercise 2: draw a house from parts (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-docstrings">4.12.3. Exercise 3: docstrings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-pinwheel">4.12.4. Exercise 4: pinwheel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-interface-vs-implementation">4.12.5. Exercise 5: interface vs. implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">4.12.6. Exercise 6: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">4.12.7. Time check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spiral-extra-credit">4.12.8. Spiral (extra credit)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">4.12.9. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">4.13. Standards alignment</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!-- apcsp:begin type="note" chapter="04" -->
+<p><strong>Other Ways to open this chapter:</strong>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-3db08322a4/notebooks/index.html?path=Chapter04-Functions-and-Interfaces.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap04.ipynb">Colab</a> |
+<a class="reference external" href="https://python.porttack.com/chap04.html?readonly">Read Only</a> |
+<a href="https://python.porttack.com/_sources/chap04.ipynb" download="chap04.ipynb">Download</a></p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="04" -->
+<p id="chap04-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>
+<style>
+#pst-secondary-sidebar { display: none !important; }
+#chap04-jupyterlite-pane {
+  display: block;
+  height: 600px;
+  background: #fff;
+  overflow: hidden;
+}
+#chap04-jupyterlite-pane iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+</style>
+<div id="chap04-jupyterlite-pane">
+<iframe src="jupyterlite-3db08322a4/notebooks/index.html?path=Chapter04-Functions-and-Interfaces.ipynb"></iframe>
+</div>
+<script>
+(function () {
+  var note = document.getElementById("chap04-jupyterlite-note");
+  var pane = document.getElementById("chap04-jupyterlite-pane");
+  if (!pane) return;
+  if (new URLSearchParams(location.search).has("readonly")) {
+    pane.style.display = "none";
+    if (note) note.style.display = "none";
+    return;
+  }
+  var sidebar = document.getElementById("pst-primary-sidebar");
+  if (!sidebar) return;
+  // Only take over the viewport when running inside the Sphinx book site,
+  // where the primary sidebar this pane is docked next to actually exists.
+  // height:auto (rather than the 600px stylesheet fallback, which only
+  // exists for contexts where this script never runs, e.g. viewing the raw
+  // notebook in VS Code) lets top+bottom determine the height, so the pane
+  // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.position = "fixed";
+  pane.style.top = "0";
+  pane.style.right = "0";
+  pane.style.bottom = "0";
+  pane.style.height = "auto";
+  pane.style.zIndex = "2000";
+  function positionPane() {
+    pane.style.left = sidebar.getBoundingClientRect().right + "px";
+  }
+  new ResizeObserver(positionPane).observe(sidebar);
+  positionPane();
+})();
+</script>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
+
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python.py&#39;</span><span class="p">);</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/ThinkPython/raw/v3/diagram.py&#39;</span><span class="p">);</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/ramalho/jupyturtle/releases/download/2024-03/jupyturtle.py&#39;</span><span class="p">);</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+
+<span class="n">working_in_python</span><span class="o">.</span><span class="n">check_for_update</span><span class="p">(</span>
+    <span class="s2">&quot;jupyterlite-3db08322a4&quot;</span><span class="p">,</span> <span class="s2">&quot;Chapter04-Functions-and-Interfaces.ipynb&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="functions-and-interfaces">
+<h1><span class="section-number">4. </span>Functions and Interfaces<a class="headerlink" href="#functions-and-interfaces" title="Link to this heading">#</a></h1>
+<p>This chapter introduces a module called <code class="docutils literal notranslate"><span class="pre">jupyturtle</span></code>, which lets you create simple drawings by giving instructions to an imaginary turtle.
+We will use this module to write functions that draw squares, polygons, and circles – and to demonstrate <strong>interface design</strong>, which is a way of designing functions that work together.</p>
+<section id="the-jupyturtle-module">
+<h2><span class="section-number">4.1. </span>The jupyturtle module<a class="headerlink" href="#the-jupyturtle-module" title="Link to this heading">#</a></h2>
+<p>To use the <code class="docutils literal notranslate"><span class="pre">jupyturtle</span></code> module, we can import it like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">jupyturtle</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can use the functions defined in the module, like <code class="docutils literal notranslate"><span class="pre">make_turtle</span></code> and <code class="docutils literal notranslate"><span class="pre">forward</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jupyturtle</span><span class="o">.</span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">jupyturtle</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">make_turtle</span></code> creates a <!--blank--><strong>canvas</strong><!--/blank-->, which is a space on the screen where we can draw, and a turtle, which is represented by a circular shell and a triangular head.
+The circle shows the location of the turtle and the triangle indicates the direction it is facing.</p>
+<p><code class="docutils literal notranslate"><span class="pre">forward</span></code> moves the turtle a given distance in the direction it’s facing, drawing a line segment along the way.
+The distance is in arbitrary units – the actual size depends on your computer’s screen.</p>
+<p>We will use functions defined in the <code class="docutils literal notranslate"><span class="pre">jupyturtle</span></code> module many times, so it would be nice if we did not have to write the name of the module every time.
+That’s possible if we import the module like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">jupyturtle</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_turtle</span><span class="p">,</span> <span class="n">forward</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This version of the import statement imports <code class="docutils literal notranslate"><span class="pre">make_turtle</span></code> and <code class="docutils literal notranslate"><span class="pre">forward</span></code> from the <code class="docutils literal notranslate"><span class="pre">jupyturtle</span></code> module so we can call them like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">forward</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">jupyturtle</span></code> provides two other functions we’ll use, called <code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code>.
+We’ll import them like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">jupyturtle</span><span class="w"> </span><span class="kn">import</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">left</span></code> causes the turtle to turn left. It takes one argument, which is the angle of the turn in degrees.
+For example, we can make a 90 degree left turn like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This program moves the turtle east and then north, leaving two line segments behind.
+Before you go on, see if you can modify the previous program to make a square.</p>
+</section>
+<section id="making-a-square">
+<h2><span class="section-number">4.2. </span>Making a square<a class="headerlink" href="#making-a-square" title="Link to this heading">#</a></h2>
+<p>Here’s one way to make a square.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+
+<span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because this program repeats the same pair of lines four times, we can do the same thing more concisely with a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p>
+<!--blank-only: Before running this, how many times will the loop body run?--><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="encapsulation-and-generalization">
+<h2><span class="section-number">4.3. </span>Encapsulation and generalization<a class="headerlink" href="#encapsulation-and-generalization" title="Link to this heading">#</a></h2>
+<p>Let’s take the square-drawing code from the previous section and put it in a function called <code class="docutils literal notranslate"><span class="pre">square</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">square</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can call the function like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">square</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Wrapping a piece of code up in a function is called <!--blank--><strong>encapsulation</strong><!--/blank-->.
+One of the benefits of encapsulation is that it attaches a name to the code, which serves as a kind of documentation. Another advantage is that if you re-use the code, it is more concise to call a function twice than to copy and paste the body!</p>
+<p>In the current version, the size of the square is always <code class="docutils literal notranslate"><span class="pre">50</span></code>.
+If we want to draw squares with different sizes, we can take the length of the sides as a parameter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">forward</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+        <span class="n">left</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can draw squares with different sizes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">square</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">square</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Adding a parameter to a function is called <!--blank--><strong>generalization</strong><!--/blank--> because it makes the function more general: with the previous version, the square is always the same size; with this version it can be any size.</p>
+<p>If we add another parameter, we can make it even more general.
+The following function draws regular polygons with a given number of sides.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">polygon</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="mi">360</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">forward</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+        <span class="n">left</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In a regular polygon with <code class="docutils literal notranslate"><span class="pre">n</span></code> sides, the angle between adjacent sides is <code class="docutils literal notranslate"><span class="pre">360</span> <span class="pre">/</span> <span class="pre">n</span></code> degrees.</p>
+<p>The following example draws a <code class="docutils literal notranslate"><span class="pre">7</span></code>-sided polygon with side length <code class="docutils literal notranslate"><span class="pre">30</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">polygon</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When a function has more than a few numeric arguments, it is easy to forget what they are, or what order they should be in.
+It can be a good idea to include the names of the parameters in the argument list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">polygon</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>These are sometimes called “named arguments” because they include the parameter names.
+But in Python they are more often called <strong>keyword arguments</strong> (not to be confused with Python keywords like <code class="docutils literal notranslate"><span class="pre">for</span></code> and <code class="docutils literal notranslate"><span class="pre">def</span></code>).</p>
+<p>This use of the assignment operator, <code class="docutils literal notranslate"><span class="pre">=</span></code>, is a reminder about how arguments and parameters work – when you call a function, the arguments are assigned to the parameters.</p>
+</section>
+<section id="approximating-a-circle">
+<h2><span class="section-number">4.4. </span>Approximating a circle<a class="headerlink" href="#approximating-a-circle" title="Link to this heading">#</a></h2>
+<p>Now suppose we want to draw a circle.
+We can do that, approximately, by drawing a polygon with a large number of sides, so each side is small enough that it’s hard to see.
+Here is a function that uses <code class="docutils literal notranslate"><span class="pre">polygon</span></code> to draw a <code class="docutils literal notranslate"><span class="pre">30</span></code>-sided polygon that approximates a circle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">circle</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="n">circumference</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">radius</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">circumference</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">polygon</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">circle</span></code> takes the radius of the the circle as a parameter.
+It computes <code class="docutils literal notranslate"><span class="pre">circumference</span></code>, which is the circumference of a circle with the given radius.
+<code class="docutils literal notranslate"><span class="pre">n</span></code> is the number of sides, so <code class="docutils literal notranslate"><span class="pre">circumference</span> <span class="pre">/</span> <span class="pre">n</span></code> is the length of each side.</p>
+<p>This function might take a long time to run.
+We can speed it up by calling <code class="docutils literal notranslate"><span class="pre">make_turtle</span></code> with a keyword argument called <code class="docutils literal notranslate"><span class="pre">delay</span></code> that sets the time, in seconds, the turtle waits after each step.
+The default value is <code class="docutils literal notranslate"><span class="pre">0.2</span></code> seconds – if we set it to <code class="docutils literal notranslate"><span class="pre">0.02</span></code> it runs about 10 times faster.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A limitation of this solution is that <code class="docutils literal notranslate"><span class="pre">n</span></code> is a constant, which means
+that for very big circles, the sides are too long, and for small
+circles, we waste time drawing very short sides.
+One option is to generalize the function by taking <code class="docutils literal notranslate"><span class="pre">n</span></code> as a parameter.
+But let’s keep it simple for now.</p>
+<!--blank-only: What would happen to this circle if the radius were much larger, with n still fixed at 30?--></section>
+<section id="refactoring">
+<h2><span class="section-number">4.5. </span>Refactoring<a class="headerlink" href="#refactoring" title="Link to this heading">#</a></h2>
+<p>Now let’s write a more general version of <code class="docutils literal notranslate"><span class="pre">circle</span></code>, called <code class="docutils literal notranslate"><span class="pre">arc</span></code>, that takes a second parameter, <code class="docutils literal notranslate"><span class="pre">angle</span></code>, and draws an arc of a circle that spans the given angle.
+For example, if <code class="docutils literal notranslate"><span class="pre">angle</span></code> is <code class="docutils literal notranslate"><span class="pre">360</span></code> degrees, it draws a complete circle. If <code class="docutils literal notranslate"><span class="pre">angle</span></code> is <code class="docutils literal notranslate"><span class="pre">180</span></code> degrees, it draws a half circle.</p>
+<p>To write <code class="docutils literal notranslate"><span class="pre">circle</span></code>, we were able to reuse <code class="docutils literal notranslate"><span class="pre">polygon</span></code>, because a many-sided polygon is a good approximation of a circle.
+But we can’t use <code class="docutils literal notranslate"><span class="pre">polygon</span></code> to write <code class="docutils literal notranslate"><span class="pre">arc</span></code>.</p>
+<p>Instead, we’ll create the more general version of <code class="docutils literal notranslate"><span class="pre">polygon</span></code>, called <code class="docutils literal notranslate"><span class="pre">polyline</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">polyline</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">forward</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+        <span class="n">left</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">polyline</span></code> takes as parameters the number of line segments to draw, <code class="docutils literal notranslate"><span class="pre">n</span></code>, the length of the segments, <code class="docutils literal notranslate"><span class="pre">length</span></code>, and the angle between them, <code class="docutils literal notranslate"><span class="pre">angle</span></code>.</p>
+<p>Now we can rewrite <code class="docutils literal notranslate"><span class="pre">polygon</span></code> to use <code class="docutils literal notranslate"><span class="pre">polyline</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">polygon</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+    <span class="n">angle</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">polyline</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we can use <code class="docutils literal notranslate"><span class="pre">polyline</span></code> to write <code class="docutils literal notranslate"><span class="pre">arc</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">arc</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
+    <span class="n">arc_length</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">angle</span> <span class="o">/</span> <span class="mi">360</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">arc_length</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">step_angle</span> <span class="o">=</span> <span class="n">angle</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">polyline</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">step_angle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">arc</span></code> is similar to <code class="docutils literal notranslate"><span class="pre">circle</span></code>, except that it computes <code class="docutils literal notranslate"><span class="pre">arc_length</span></code>, which is a fraction of the circumference of a circle.</p>
+<p>Finally, we can rewrite <code class="docutils literal notranslate"><span class="pre">circle</span></code> to use <code class="docutils literal notranslate"><span class="pre">arc</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">circle</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="n">arc</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span>  <span class="mi">360</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To check that these functions work as expected, we’ll use them to draw something like a snail.
+With <code class="docutils literal notranslate"><span class="pre">delay=0</span></code>, the turtle runs as fast as possible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">polygon</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">arc</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, we started with working code and reorganized it with different functions.
+Changes like this, which improve the code without changing its behavior, are called <strong>refactoring</strong>.</p>
+<p>If we had planned ahead, we might have written <code class="docutils literal notranslate"><span class="pre">polyline</span></code> first and avoided refactoring, but often you don’t know enough at the beginning of a project to design all the functions.
+Once you start coding, you understand the problem better.
+Sometimes refactoring is a sign that you have learned something.</p>
+</section>
+<section id="stack-diagram">
+<h2><span class="section-number">4.6. </span>Stack diagram<a class="headerlink" href="#stack-diagram" title="Link to this heading">#</a></h2>
+<p>When we call <code class="docutils literal notranslate"><span class="pre">circle</span></code>, it calls <code class="docutils literal notranslate"><span class="pre">arc</span></code>, which calls <code class="docutils literal notranslate"><span class="pre">polyline</span></code>.
+We can use a stack diagram to show this sequence of function calls and the parameters for each one.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_binding</span><span class="p">,</span> <span class="n">make_frame</span><span class="p">,</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">Stack</span>
+
+<span class="n">frame1</span> <span class="o">=</span> <span class="n">make_frame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="n">frame2</span> <span class="o">=</span> <span class="n">make_frame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">360</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;arc&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+
+<span class="n">frame3</span> <span class="o">=</span> <span class="n">make_frame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">3.04</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mf">5.8</span><span class="p">),</span> 
+                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;polyline&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">offsetx</span><span class="o">=-</span><span class="mf">0.27</span><span class="p">)</span>
+
+<span class="n">stack</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">([</span><span class="n">frame1</span><span class="p">,</span> <span class="n">frame2</span><span class="p">,</span> <span class="n">frame3</span><span class="p">],</span> <span class="n">dy</span><span class="o">=-</span><span class="mf">0.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">diagram</span><span class="p">,</span> <span class="n">adjust</span>
+
+<span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.58</span><span class="p">,</span> <span class="mf">1.31</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="mf">1.06</span><span class="p">]</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">diagram</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1">#adjust(x, y, bbox)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that the value of <code class="docutils literal notranslate"><span class="pre">angle</span></code> in <code class="docutils literal notranslate"><span class="pre">polyline</span></code> is different from the value of <code class="docutils literal notranslate"><span class="pre">angle</span></code> in <code class="docutils literal notranslate"><span class="pre">arc</span></code>.
+Parameters are local, which means you can use the same parameter name in different functions; it’s a different variable in each function, and it can refer to a different value.</p>
+</section>
+<section id="a-development-plan">
+<h2><span class="section-number">4.7. </span>A development plan<a class="headerlink" href="#a-development-plan" title="Link to this heading">#</a></h2>
+<p>A <!--blank--><strong>development plan</strong><!--/blank--> is a process for writing programs.
+The process we used in this chapter is “encapsulation and generalization”.
+The steps of this process are:</p>
+<ol class="arabic simple">
+<li><p>Start by writing a small program with no function definitions.</p></li>
+<li><p>Once you get the program working, identify a coherent piece of it,
+encapsulate the piece in a function and give it a name.</p></li>
+<li><p>Generalize the function by adding appropriate parameters.</p></li>
+<li><p>Repeat Steps 1 to 3 until you have a set of working functions.</p></li>
+<li><p>Look for opportunities to improve the program by refactoring. For
+example, if you have similar code in several places, consider
+factoring it into an appropriately general function.</p></li>
+</ol>
+<p>This process has some drawbacks – we will see alternatives later – but it can be useful if you don’t know ahead of time how to divide the program into functions.
+This approach lets you design as you go along.</p>
+<p>The design of a function has two parts:</p>
+<ul class="simple">
+<li><p>The <strong>interface</strong> is how the function is used, including its name, the parameters it takes and what the function is supposed to do.</p></li>
+<li><p>The <strong>implementation</strong> is how the function does what it’s supposed to do.</p></li>
+</ul>
+<p>For example, here’s the first version of <code class="docutils literal notranslate"><span class="pre">circle</span></code> we wrote, which uses <code class="docutils literal notranslate"><span class="pre">polygon</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">circle</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="n">circumference</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">radius</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">circumference</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">polygon</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And here’s the refactored version that uses <code class="docutils literal notranslate"><span class="pre">arc</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">circle</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="n">arc</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span>  <span class="mi">360</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>These two functions have the same interface – they take the same parameters and do the same thing – but they have different implementations.</p>
+</section>
+<section id="docstrings">
+<h2><span class="section-number">4.8. </span>Docstrings<a class="headerlink" href="#docstrings" title="Link to this heading">#</a></h2>
+<p>A <!--blank--><strong>docstring</strong><!--/blank--> is a string at the beginning of a function that explains the interface (“doc” is short for “documentation”).
+Here is an example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">polyline</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draws line segments with the given length and angle between them.</span>
+<span class="sd">    </span>
+<span class="sd">    n: integer number of line segments</span>
+<span class="sd">    length: length of the line segments</span>
+<span class="sd">    angle: angle between segments (in degrees)</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">forward</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+        <span class="n">left</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>By convention, docstrings are triple-quoted strings, also known as <strong>multiline strings</strong> because the triple quotes allow the string to span more than one line.</p>
+<p>A docstring should:</p>
+<ul class="simple">
+<li><p>Explain concisely what the function does, without getting into the details of how it works,</p></li>
+<li><p>Explain what effect each parameter has on the behavior of the function, and</p></li>
+<li><p>Indicate what type each parameter should be, if it is not obvious.</p></li>
+</ul>
+<p>Writing this kind of documentation is an important part of interface design.
+A well-designed interface should be simple to explain; if you have a hard time explaining one of your functions, maybe the interface could be improved.</p>
+</section>
+<section id="debugging">
+<h2><span class="section-number">4.9. </span>Debugging<a class="headerlink" href="#debugging" title="Link to this heading">#</a></h2>
+<p>An interface is like a contract between a function and a caller. The
+caller agrees to provide certain arguments and the function agrees to
+do certain work.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">polyline</span></code> requires three arguments: <code class="docutils literal notranslate"><span class="pre">n</span></code> has to be an integer; <code class="docutils literal notranslate"><span class="pre">length</span></code> should be a positive number; and <code class="docutils literal notranslate"><span class="pre">angle</span></code> has to be a number, which is understood to be in degrees.</p>
+<p>These requirements are called <strong>preconditions</strong> because they are supposed to be true before the function starts executing. Conversely, conditions at the end of the function are <strong>postconditions</strong>.</p>
+<!--blank-only: If a function's preconditions aren't met, whose bug is it -- the caller's or the function's?-->
+<p>Postconditions include the intended effect of the function (like drawing line segments) and any side effects (like moving the turtle or making other changes).</p>
+<p>Preconditions are the responsibility of the caller. If the caller violates a precondition and the function doesn’t work correctly, the bug is in the caller, not the function.</p>
+<p>If the preconditions are satisfied and the postconditions are not, the bug is in the function. If your pre- and postconditions are clear, they can help with debugging.</p>
+</section>
+<section id="glossary">
+<h2><span class="section-number">4.10. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<p><strong>interface design:</strong>
+A process for designing the interface of a function, which includes the parameters it should take.</p>
+<p><strong>canvas:</strong>
+A window used to display graphical elements including lines, circles, rectangles, and other shapes.</p>
+<p><strong>encapsulation:</strong>
+The process of transforming a sequence of statements into a function definition.</p>
+<p><strong>generalization:</strong>
+The process of replacing something unnecessarily specific (like a number) with something appropriately general (like a variable or parameter).</p>
+<p><strong>keyword argument:</strong>
+An argument that includes the name of the parameter.</p>
+<p><strong>refactoring:</strong>
+The process of modifying a working program to improve function interfaces and other qualities of the code.</p>
+<p><strong>development plan:</strong>
+A process for writing programs.</p>
+<p><strong>docstring:</strong>
+A string that appears at the top of a function definition to document the function’s interface.</p>
+<p><strong>multiline string:</strong>
+A string enclosed in triple quotes that can span more than one line of a program.</p>
+<p><strong>precondition:</strong>
+A requirement that should be satisfied by the caller before a function starts.</p>
+<p><strong>postcondition:</strong>
+A requirement that should be satisfied by the function before it ends.</p>
+<!-- apcsp:begin type="glossary" chapter="04" -->
+<p><strong>See also:</strong> the <a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">full vocabulary glossary</a> collects every term in this book, alphabetized, alongside the complete AP CSP exam vocabulary list.</p>
+<!-- apcsp:end --></section>
+<section id="exercises">
+<h2><span class="section-number">4.11. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell tells Jupyter to provide detailed debugging information</span>
+<span class="c1"># when a runtime error occurs. Run it before working on the exercises.</span>
+
+<span class="o">%</span><span class="k">xmode</span> Verbose
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the exercises below, there are a few more turtle functions you might want to use.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">penup</span></code> lifts the turtle’s imaginary pen so it doesn’t leave a trail when it moves.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pendown</span></code> puts the pen back down.</p></li>
+</ul>
+<p>The following function uses <code class="docutils literal notranslate"><span class="pre">penup</span></code> and <code class="docutils literal notranslate"><span class="pre">pendown</span></code> to move the turtle without leaving a trail.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">jupyturtle</span><span class="w"> </span><span class="kn">import</span> <span class="n">penup</span><span class="p">,</span> <span class="n">pendown</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">jump</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Move forward length units without leaving a trail.</span>
+<span class="sd">    </span>
+<span class="sd">    Postcondition: Leaves the pen down.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">penup</span><span class="p">()</span>
+    <span class="n">forward</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+    <span class="n">pendown</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="exercise">
+<h3><span class="section-number">4.11.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">rectangle</span></code> that draws a rectangle with given side lengths.
+For example, here’s a rectangle that’s <code class="docutils literal notranslate"><span class="pre">80</span></code> units wide and <code class="docutils literal notranslate"><span class="pre">40</span></code> units tall.</p>
+<p>You can use the following code to test your function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">rectangle</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3><span class="section-number">4.11.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">rhombus</span></code> that draws a rhombus with a given side length and a given interior angle. For example, here’s a rhombus with side length <code class="docutils literal notranslate"><span class="pre">50</span></code> and an interior angle of <code class="docutils literal notranslate"><span class="pre">60</span></code> degrees.</p>
+<p>You can use the following code to test your function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="n">rhombus</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3><span class="section-number">4.11.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Now write a more general function called <code class="docutils literal notranslate"><span class="pre">parallelogram</span></code> that draws a quadrilateral with parallel sides. Then rewrite <code class="docutils literal notranslate"><span class="pre">rectangle</span></code> and <code class="docutils literal notranslate"><span class="pre">rhombus</span></code> to use <code class="docutils literal notranslate"><span class="pre">parallelogram</span></code>.</p>
+<p>You can use the following code to test your functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+<span class="n">jump</span><span class="p">(</span><span class="o">-</span><span class="mi">120</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">jump</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">rhombus</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">jump</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">parallelogram</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3><span class="section-number">4.11.4. </span>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Write an appropriately general set of functions that can draw shapes like this.</p>
+<p><img alt="" src="https://github.com/AllenDowney/ThinkPython/raw/v3/jupyturtle_pie.png" /></p>
+<p>Hint: Write a function called <code class="docutils literal notranslate"><span class="pre">triangle</span></code> that draws one triangular segment, and then a function called <code class="docutils literal notranslate"><span class="pre">draw_pie</span></code> that uses <code class="docutils literal notranslate"><span class="pre">triangle</span></code>.</p>
+<!-- apcsp:begin type="note" chapter="04" -->
+<p><em>This one is optional – try it if you have time, but it isn’t expected.</em></p>
+<!-- apcsp:end --><p>You can use the following code to test your functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">turtle</span> <span class="o">=</span> <span class="n">make_turtle</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">jump</span><span class="p">(</span><span class="o">-</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">size</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">draw_pie</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+<span class="n">jump</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">size</span><span class="p">)</span>
+<span class="n">draw_pie</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+<span class="n">jump</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">size</span><span class="p">)</span>
+<span class="n">draw_pie</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3><span class="section-number">4.11.5. </span>Exercise<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Write an appropriately general set of functions that can draw flowers like this.</p>
+<p><img alt="" src="https://github.com/AllenDowney/ThinkPython/raw/v3/jupyturtle_flower.png" /></p>
+<p>Hint: Use <code class="docutils literal notranslate"><span class="pre">arc</span></code> to write a function called <code class="docutils literal notranslate"><span class="pre">petal</span></code> that draws one flower petal.</p>
+<!-- apcsp:begin type="note" chapter="04" -->
+<p><em>This one is optional – try it if you have time, but it isn’t expected.</em></p>
+<!-- apcsp:end --><p>You can use the following code to test your functions.</p>
+<p>Because the solution draws a lot of small line segments, it tends to slow down as it runs.
+To avoid that, you can add the keyword argument <code class="docutils literal notranslate"><span class="pre">auto_render=False</span></code> to avoid drawing after every step, and then call the <code class="docutils literal notranslate"><span class="pre">render</span></code> function at the end to show the result.</p>
+<p>While you are debugging, you might want to remove <code class="docutils literal notranslate"><span class="pre">auto_render=False</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">jupyturtle</span><span class="w"> </span><span class="kn">import</span> <span class="n">render</span>
+
+<span class="n">turtle</span> <span class="o">=</span> <span class="n">make_turtle</span><span class="p">(</span><span class="n">auto_render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">jump</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">flower</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+
+<span class="n">jump</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="mi">85</span>
+<span class="n">flower</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+
+<span class="n">render</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="04" -->
+</section>
+</section>
+<section id="homework">
+<h2><span class="section-number">4.12. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
+<p>Do either Exercise 1 or Exercise 2, not both. They’re interchangeable, so pick whichever appeals to you. Doing both is fine, but the second one earns no additional credit. Required work is five exercises (whichever of 1/2 you pick, plus Exercises 3-6), about 38 minutes total. The time check below must be filled in. The spiral at the end is extra credit, the only extra credit in this chapter, and it never substitutes for a required exercise.</p>
+<p>Note: the turtle-drawing exercises above (rectangle, rhombus, parallelogram, pie, flower) are practice. They aren’t graded. This is the graded homework.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="04" -->
+<section id="exercise-1-draw-your-initials-do-1-or-2">
+<h3><span class="section-number">4.12.1. </span>Exercise 1: draw your initials (do 1 or 2)<a class="headerlink" href="#exercise-1-draw-your-initials-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Using <code class="docutils literal notranslate"><span class="pre">forward</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, and <code class="docutils literal notranslate"><span class="pre">jump</span></code>, draw your first and last initials with the turtle. Build each letter as its own function. For example, if your initials are <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code>, write <code class="docutils literal notranslate"><span class="pre">draw_a()</span></code> and <code class="docutils literal notranslate"><span class="pre">draw_t()</span></code>, then a function called <code class="docutils literal notranslate"><span class="pre">draw_initials()</span></code> that calls them with a <code class="docutils literal notranslate"><span class="pre">jump</span></code> in between so they don’t run together.</p>
+<p>If one of your initials has a curve in it (like C, O, S, G, or R), you don’t need a perfect curve. Approximate it with several short straight segments that turn a little each time, the same idea the chapter used to approximate a circle with a polygon.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="c1"># Solution goes here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="04" -->
+<!-- teacher: ~13 min -->
+</section>
+<section id="exercise-2-draw-a-house-from-parts-do-1-or-2">
+<h3><span class="section-number">4.12.2. </span>Exercise 2: draw a house from parts (do 1 or 2)<a class="headerlink" href="#exercise-2-draw-a-house-from-parts-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Using <code class="docutils literal notranslate"><span class="pre">forward</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, and <code class="docutils literal notranslate"><span class="pre">jump</span></code>, write <code class="docutils literal notranslate"><span class="pre">draw_wall()</span></code>, <code class="docutils literal notranslate"><span class="pre">draw_roof()</span></code>, and <code class="docutils literal notranslate"><span class="pre">draw_door()</span></code> as three separate functions, then a function called <code class="docutils literal notranslate"><span class="pre">draw_house()</span></code> that calls all three, using <code class="docutils literal notranslate"><span class="pre">jump</span></code> to position each piece so they end up in the right places relative to each other.</p>
+<p>If you want to add a round window, you don’t need a perfect curve. Approximate it with several short straight segments, the same idea the chapter used to approximate a circle with a polygon.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="c1"># Solution goes here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="04" -->
+</section>
+<section id="exercise-3-docstrings">
+<h3><span class="section-number">4.12.3. </span>Exercise 3: docstrings<a class="headerlink" href="#exercise-3-docstrings" title="Link to this heading">#</a></h3>
+<p>Go back to the function you wrote for Exercise 1 or 2 (<code class="docutils literal notranslate"><span class="pre">draw_initials()</span></code> or <code class="docutils literal notranslate"><span class="pre">draw_house()</span></code>, whichever you chose) and add a docstring to it, following the chapter’s <code class="docutils literal notranslate"><span class="pre">polyline</span></code> example: explain in your own words what the function does.</p>
+<p>Re-run that cell so the docstring takes effect, then run <code class="docutils literal notranslate"><span class="pre">help(draw_initials)</span></code> or <code class="docutils literal notranslate"><span class="pre">help(draw_house)</span></code> (whichever applies) and confirm your docstring appears in the output.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="04" -->
+</section>
+<section id="exercise-4-pinwheel">
+<h3><span class="section-number">4.12.4. </span>Exercise 4: pinwheel<a class="headerlink" href="#exercise-4-pinwheel" title="Link to this heading">#</a></h3>
+<p>You’ll need a <code class="docutils literal notranslate"><span class="pre">square</span></code> function that takes a <code class="docutils literal notranslate"><span class="pre">size</span></code> parameter, the same one from the chapter. Define it again here, then write a function called <code class="docutils literal notranslate"><span class="pre">pinwheel</span></code> that draws several overlapping squares, each rotated a little further than the last, without lifting the pen between them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pinwheel</span><span class="p">(</span><span class="n">n_shapes</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_shapes</span><span class="p">):</span>
+        <span class="n">square</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">left</span><span class="p">(</span><span class="mi">360</span> <span class="o">/</span> <span class="n">n_shapes</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Try a few different values of <code class="docutils literal notranslate"><span class="pre">n_shapes</span></code> (6, then 12, then 36) and see what patterns emerge. Nothing here is new syntax. The surprise is how much visual complexity comes from just repeating and rotating a shape you already know how to draw.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="04" -->
+</section>
+<section id="exercise-5-interface-vs-implementation">
+<h3><span class="section-number">4.12.5. </span>Exercise 5: interface vs. implementation<a class="headerlink" href="#exercise-5-interface-vs-implementation" title="Link to this heading">#</a></h3>
+<p>The chapter shows two versions of <code class="docutils literal notranslate"><span class="pre">circle</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">circle</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="n">circumference</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">radius</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">circumference</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">polygon</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">circle</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
+    <span class="n">arc</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These have the same interface but different implementations. In your own words, what does that mean?</p>
+<p>Answer in the markdown cell below.</p>
+<!-- apcsp:end --><p><em>Type your answer here.</em></p>
+<!-- apcsp:begin type="exercise" chapter="04" -->
+</section>
+<section id="exercise-6-reflection">
+<h3><span class="section-number">4.12.6. </span>Exercise 6: reflection<a class="headerlink" href="#exercise-6-reflection" title="Link to this heading">#</a></h3>
+<p>The chapter’s development plan centers on three moves: encapsulation (wrapping code in a function), generalization (adding parameters), and refactoring (reorganizing working code without changing what it does). Which of these did you find yourself doing naturally while working through this chapter’s exercises, and which felt unfamiliar?</p>
+<p>Answer in the markdown cell below, the same way you did in chap01, chap02, and chap03.</p>
+<!-- apcsp:end --><p><em>Type your answer here.</em></p>
+<!-- apcsp:begin type="exercise" chapter="04" -->
+<!-- teacher: ~2 min -->
+</section>
+<section id="time-check">
+<h3><span class="section-number">4.12.7. </span>Time check<a class="headerlink" href="#time-check" title="Link to this heading">#</a></h3>
+<p>This is graded on being filled in, not on the numbers. There’s no right answer, and low numbers don’t score better. If this chapter took you three hours, I need to know that. These are estimates: nobody expects you to have timed yourself, so a rough number is exactly what’s wanted.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill this in before you submit. Rough estimates are fine, and low numbers</span>
+<span class="c1"># don&#39;t score better. Don&#39;t count time on the extra-credit spiral below.</span>
+<span class="c1"># chapter_minutes -&gt; reading the chapter and its practice exercises</span>
+<span class="c1"># extra_exercises_minutes -&gt; the six numbered exercises above</span>
+<span class="c1"># longest -&gt; which exercise took longest, e.g. 1</span>
+<span class="n">chapter_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">extra_exercises_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">longest</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">working_in_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_check</span>
+<span class="n">time_check</span><span class="p">(</span><span class="n">chapter_minutes</span><span class="p">,</span> <span class="n">extra_exercises_minutes</span><span class="p">,</span> <span class="n">longest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="04" -->
+<!-- teacher: ~10 min -->
+</section>
+<section id="spiral-extra-credit">
+<h3><span class="section-number">4.12.8. </span>Spiral (extra credit)<a class="headerlink" href="#spiral-extra-credit" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">spiral</span></code> that draws a spiral using <code class="docutils literal notranslate"><span class="pre">forward</span></code> and <code class="docutils literal notranslate"><span class="pre">left</span></code>, where each segment is slightly longer than the one before. The loop body is nearly identical to <code class="docutils literal notranslate"><span class="pre">polygon</span></code> from the chapter. The only difference is that the length changes each time through.</p>
+<p>Pick your own parameters (number of segments, starting length, growth per step, turn angle) and try a few combinations.</p>
+<p>This is extra credit. It does not replace any required exercise.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">()</span>
+<span class="c1"># Solution goes here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="04" -->
+</section>
+<section id="finished-copy-your-work">
+<h3><span class="section-number">4.12.9. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
+<p>This isn’t part of Exercise 6. It’s a tool. Run the cell below to copy this notebook (including anything you’ve run) so you can paste it into a document.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="04" -->
+<hr class="docutils" />
+<p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
+<hr class="docutils" />
+<!-- apcsp:end -->
+<p><a class="reference external" href="https://allendowney.github.io/ThinkPython/index.html">Think Python: 3rd Edition</a></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>
+<p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+<!-- apcsp:begin type="standards" chapter="04" -->
+</section>
+</section>
+<hr class="docutils" />
+<section id="standards-alignment">
+<h2><span class="section-number">4.13. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.13">3.13 Developing Procedures</a> (Big Idea 3, 30–35% of the exam) and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.3">1.3 Program Design and Development</a> (Big Idea 1, 10–13% — chapter 4 is this topic’s only carrier in the book). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.14">3.14 Libraries</a>, headers only.
+<strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.16">9-12.AP.16</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.17">9-12.AP.17</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.20">9-12.AP.20</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.22">9-12.AP.22</a>
+<strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-12">HS-PRO-PD-12</a>, <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-ALG-PS-02">HS-ALG-PS-02</a>. Also <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-13">HS-PRO-PD-13</a> and <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-RD-17">HS-PRO-RD-17</a>, headers only.
+<strong>CA CTE (ICT):</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C4.9">C4.9</a> (Pathway C), <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-5.9">5.9</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-5.10">5.10</a> (Anchor Standard 5, Problem Solving). Also <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C4.11">C4.11</a> and <a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html#T-C5.6">C5.6</a>, headers only.</p>
+<p>This chapter turns decomposition into a design habit: wrapping code in functions, generalizing them with parameters, and refactoring <code class="docutils literal notranslate"><span class="pre">circle</span></code> into <code class="docutils literal notranslate"><span class="pre">arc</span></code> and <code class="docutils literal notranslate"><span class="pre">polyline</span></code> once a better shape emerges. The development plan and docstrings make that design process explicit and documented — the clearest interface-versus-implementation example in the book so far, the same idea California, CSTA, and the ICT standards each name in their own words. Debugging returns as preconditions and postconditions, the same recurring thread as every other chapter.</p>
+<p><strong>Indexing:</strong> this chapter’s keyword arguments (<code class="docutils literal notranslate"><span class="pre">polygon(n=7,</span> <span class="pre">length=30)</span></code>) have no equivalent in the exam’s pseudocode, which calls every procedure positionally.</p>
+<!-- apcsp:end --></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chap03.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Functions</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chap05.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Conditionals and Recursion</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jupyturtle-module">4.1. The jupyturtle module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-a-square">4.2. Making a square</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encapsulation-and-generalization">4.3. Encapsulation and generalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximating-a-circle">4.4. Approximating a circle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refactoring">4.5. Refactoring</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stack-diagram">4.6. Stack diagram</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-development-plan">4.7. A development plan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docstrings">4.8. Docstrings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">4.9. Debugging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">4.10. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">4.11. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">4.11.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.11.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.11.3. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.11.4. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.11.5. Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">4.12. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-draw-your-initials-do-1-or-2">4.12.1. Exercise 1: draw your initials (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-draw-a-house-from-parts-do-1-or-2">4.12.2. Exercise 2: draw a house from parts (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-docstrings">4.12.3. Exercise 3: docstrings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-pinwheel">4.12.4. Exercise 4: pinwheel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-interface-vs-implementation">4.12.5. Exercise 5: interface vs. implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">4.12.6. Exercise 6: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">4.12.7. Time check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spiral-extra-credit">4.12.8. Spiral (extra credit)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">4.12.9. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">4.13. Standards alignment</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey, adapted by [CONFIRM: your name]
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="text-align: left;">
+  <p>
+    <em>Working in Python</em> is adapted from
+    <a href="https://allendowney.github.io/ThinkPython/">Think Python, Third Edition</a>,
+    copyright 2024 <a href="https://allendowney.com">Allen B. Downey</a>.
+    Changes were made; see
+    <a href="https://github.com/[CONFIRM: your user]/working-in-python/blob/main/AP_MODIFICATIONS.md">AP_MODIFICATIONS.md</a>.
+  </p>
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    <img alt="Creative Commons License" style="border-width:0"
+         src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+  </a>
+  <br />
+  Text licensed under a
+  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+    Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+  Code licensed under the <a href="https://mit-license.org/">MIT License</a>.
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

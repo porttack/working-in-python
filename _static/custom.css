@@ -1,0 +1,85 @@
+/* sphinx-book-theme (via pydata-sphinx-theme) ships <hr> at 25% opacity
+   with color:inherit, which resolves to a barely-visible light grey line.
+   Force full opacity and the theme's own body-text color variable (which
+   already flips correctly between light/dark mode) instead of fighting
+   the opacity value. Scoped to article content so sidebar/modal/other
+   theme-chrome rules, which use the same bootstrap `hr` selector for
+   different purposes, are left alone. */
+.bd-article hr {
+  opacity: 1;
+  border-top-width: 2px;
+  border-top-color: var(--pst-color-text-base);
+}
+
+/* Top navbar holds only a search button (Ctrl+K) and mobile sidebar-toggle
+   buttons; search is already duplicated in the primary sidebar itself (a
+   standard pydata-sphinx-theme feature), so nothing is lost on desktop.
+   Zeroing the header-height variable, rather than only hiding .bd-header,
+   also closes the gap it would otherwise leave above the primary sidebar
+   and secondary ("Contents") sidebar, both of which position themselves
+   relative to it. Known tradeoff: on narrow/mobile widths this also removes
+   the only visible way to open/close the primary sidebar. See AUDIT.md. */
+:root {
+  --pst-header-height: 0px !important;
+}
+.bd-header {
+  display: none !important;
+}
+
+/* The in-article header (GitHub/download/fullscreen/dark-mode buttons) has
+   its own copy of the primary-sidebar toggle, meant to matter only at narrow
+   widths where the sidebar collapses. With the top navbar gone it was left
+   showing at every width and doing nothing there, since this book's primary
+   sidebar isn't collapsible in the first place -- our own resizer (custom.js)
+   is the only sidebar control now. Hidden outright rather than fixed, since
+   there's nothing for it to toggle. See AUDIT.md. */
+.sidebar-toggle.primary-toggle {
+  display: none !important;
+}
+
+/* Draggable divider for the primary sidebar, sitewide (custom.js creates and
+   positions this element; the CSS here is static and page-independent). */
+#pst-sidebar-resizer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  z-index: 2001;
+  cursor: col-resize;
+  background: transparent;
+}
+#pst-sidebar-resizer:hover,
+#pst-sidebar-resizer.dragging {
+  background: rgba(128, 128, 128, 0.4);
+}
+
+/* The theme only hides the primary (left nav) sidebar on print by adding a
+   `.noprint` class via JavaScript on page load (sphinx-book-theme.js); its own
+   print stylesheet never targets `.bd-sidebar-primary` directly. If that JS
+   doesn't run before print -- blocked script, print-preview snapshot taken
+   before it settles -- nothing hides the sidebar and it prints. This rule is
+   a plain-CSS fallback, independent of that JS, confirmed by curling the
+   built site: the server-rendered HTML never carries `noprint` on its own. */
+@media print {
+  .bd-sidebar-primary {
+    display: none !important;
+  }
+}
+
+/* chap01-chap08 and jupyter_intro each embed a live JupyterLite pane --
+   #chapNN-jupyterlite-pane / #jupyter-intro-jupyterlite-pane, injected
+   directly in the chapter source (see tools/build_jupyterlite_content.py's
+   CELL_PATCHES for the exact markup every one of those chapters ships). Its
+   own inline <style> block sets `display: block` unconditionally, and its
+   script docks it with `position: fixed; z-index: 2000` beside the sidebar --
+   neither is scoped to screen-only, and it's not one of the theme's chrome
+   regions (.bd-sidebar-primary etc.) that sphinx-book-theme.js's noprint
+   mechanism covers. Left alone, printing one of these chapters prints a
+   full-height fixed box on top of the article text. `!important` is required
+   here since the pane's own rule has none and an id selector otherwise beats
+   this attribute selector on specificity. */
+@media print {
+  [id$="-jupyterlite-pane"] {
+    display: none !important;
+  }
+}
