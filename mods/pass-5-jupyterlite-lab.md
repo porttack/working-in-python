@@ -88,7 +88,8 @@ When Pass 4 writes a chapter's link bar and embedded pane for the first time
 - Chapter link (`?path=chapNN.ipynb`) → `CONTENT_NAMES["chapNN.ipynb"]["name"]`
 - There is no separate Exercises link/notebook anymore (superseded 2026-08-16 -- see
   `mods/pass-4-chrome.md`'s Step 1 and `AUDIT.md`). Homework lives in the chapter's own
-  `## Extra Exercises` section instead.
+  `## Homework` section instead (heading text changed from "Extra Exercises" 2026-08-17 --
+  see `AUDIT.md`).
 - "Blank"/Teach Copy link (`?path=chapNN-projector.ipynb`) →
   `CONTENT_NAMES["chapNN.ipynb"]["teach"]` — and use the label **"Teach Copy (JupyterLite)"**,
   not "Blank (JupyterLite)" (retired along with the `-projector` suffix; chapters 1–8 already

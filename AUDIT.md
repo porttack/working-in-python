@@ -6490,3 +6490,74 @@ before any of the deferred items above make sense to do. Its own five open quest
 is enough for ten sections, and whether the `7b` filename convention holds up under
 `check_sync.py`/build tooling -- now confirmed yes, since this session ran `make check`
 clean with it in place) are all still open and are Pass 2's problem, not this session's.
+
+## 2026-08-17 follow-up -- "Extra Exercises" heading renamed to "Homework", chapters 1-6
+
+User asked what it would be like to rename every `## Extra Exercises` heading to
+`## Homework`; after discussion, asked to just do it.
+
+**Why now:** the name "Extra Exercises" was chosen 2026-08-11 (see that date's entry)
+specifically to avoid implying grading happened in that section, back when the actual
+graded artifact was a separate `chapNN-exercises.ipynb` submission notebook and this
+section was only a read-only preview of its prompts. That separation is gone as of
+2026-08-16 -- the graded exercises now live directly in this section, with real solution
+cells -- so the original reason to avoid "Homework" no longer holds, and "Homework"
+describes the section more accurately than "Extra Exercises" does today. It also stops
+colliding visually with the chapter's separate "## Extra credit" heading, which sits just
+below it and also starts with "Extra."
+
+**What changed:** the heading text only, one line per chapter, in `chapters/chap01.ipynb`
+through `chap06.ipynb` (the six chapters that have this section so far). Everything else
+in the section -- intro paragraph, exercise prompts, choose-one framing, time check,
+extra-credit prompts -- is byte-for-byte unchanged. `projector/` regenerated via
+`make projector`; `jupyterlite/content/` regenerated via `build_jupyterlite_content.py`
+(gitignored build output, so its new deploy id isn't itself a tracked change). Also updated
+`mods/pass-4-chrome.md` and `mods/pass-5-jupyterlite-lab.md`, which both referenced the old
+heading text by name as the pattern chapters 9-11 should follow -- if left unupdated,
+Pass 2/4 would have re-introduced "Extra Exercises" in the next chapter.
+
+**A process note for whoever uses `NotebookEdit` on this repo's notebooks next:** editing a
+cell by re-typing text that the Read tool displayed (rather than doing a targeted string
+substitution) silently re-serializes that cell's `source` field from the file's established
+list-of-lines-with-trailing-`\n` form into one flat string, and can round-trip `\uXXXX`
+escapes into literal UTF-8 characters for the whole file it touches -- not just the edited
+cell. Both are semantically harmless (nbformat accepts either `source` shape, and UTF-8 vs
+`\u` escapes are the same characters) but they blow up the diff and break this repo's
+established `ensure_ascii=True` convention (noted explicitly in this file's 2026-08-16
+chap02-exercises entry). It happened here on first pass for chap02, chap03, chap05, and
+chap06 (each already had `\u` escapes in HEAD; chap01 and chap04 happened to have none, so
+the same tool call looked clean on those two only by accident). Caught via `git diff`
+before committing, reverted with `git checkout --`, and reapplied as a plain single-line
+text substitution instead, which left every file at a one-line diff. **Before trusting a
+notebook diff clean, actually read it** -- `make check` passing does not catch this, since
+it only validates content, not encoding-convention drift.
+
+`make check` clean (blanks up to date, sync clean, jupyterlite check clean). `CHANGELOG.md`
+has a dated entry. Not committed yet -- next step is for the user to review the diff and
+commit.
+
+**What the next session needs to know:** chapters 9-19 don't have this section yet (Pass 2
+hasn't reached them); when they get one, use "## Homework" from the start, per the updated
+Pass 4/5 docs. Nothing else about this section's content, grading weight, or structure
+changed -- this was a rename only.
+
+**Same-session addendum:** the user then pointed out `chap06b.ipynb` (the "Docstrings and
+Doctests" interlude, committed to `v3` earlier this session in `72cfff1`/`6bdefce`, with
+`chap07b` added on top in `d2285cb`) has the identical problem under a different heading.
+It has no upstream Downey content, so unlike the numbered chapters there's no separate
+ungraded practice section to distinguish from -- its one `## Exercises` section (Exercises
+1-6, time check, extra credit) has always been the graded homework itself. Renamed that
+heading to `## Homework` too, same one-line text substitution, confirmed with `git diff
+--stat` that only that line changed in both `chapters/chap06b.ipynb` and
+`projector/chap06b.ipynb`. `jupyterlite/content/` regenerated again (new deploy id, still
+gitignored). `make check` clean. `CHANGELOG.md`'s entry for this rename now covers both
+chap06b and chapters 1-6 together rather than as two separate entries, since they're the
+same fix on the same date.
+
+No other interlude or chapter was checked for this same "Exercises-that's-actually-
+Homework" pattern beyond chap06b and chap07b (the latter is outline-only, no exercises
+section exists yet to misname). If a future interlude is drafted with its own exercises
+section, check whether it inherits real upstream ungraded practice (rare, since interludes
+by definition aren't from *Think Python*) before defaulting to "## Exercises" -- it
+probably wants "## Homework" from the start, the same conclusion `mods/pass-4-chrome.md`
+and `mods/pass-5-jupyterlite-lab.md` already record for the numbered chapters.

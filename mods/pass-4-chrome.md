@@ -79,15 +79,16 @@ before starting one.
 originally described is gone repo-wide (all seven remaining instances deleted the same day
 chapter 4's own copy was; see `AUDIT.md`, 2026-08-16 entries). Do not create one for
 chapters 9-11. Instead, homework exercises live directly inside the chapter's own
-`## Extra Exercises` section (a sentinel-wrapped `type="exercise"` block), following the
-now-established pattern in `chap01.ipynb`-`chap04.ipynb`: each numbered exercise gets a
-prompt, and *only* gets its own answer cell if there's real starter code to seed (a
-turtle-setup call, deliberately buggy code to debug, given data) — a bare "write your
-solution" prompt gets no cell at all; students add their own. See chapter 4's `## Extra
-Exercises` section for the fullest current example (choose-one pair, docstrings exercise,
-time check, extra-credit spiral), and chapter 1's Exercise 4 or chapter 3's Exercise 2 for
-what a real-starter-code answer cell looks like. No `CHAPTERS`/`CONTENT_NAMES` registration
-needed for anything beyond the chapter notebook itself.
+`## Homework` section (a sentinel-wrapped `type="exercise"` block, heading text changed
+from "Extra Exercises" 2026-08-17 — see `AUDIT.md`), following the now-established pattern
+in `chap01.ipynb`-`chap04.ipynb`: each numbered exercise gets a prompt, and *only* gets its
+own answer cell if there's real starter code to seed (a turtle-setup call, deliberately
+buggy code to debug, given data) — a bare "write your solution" prompt gets no cell at all;
+students add their own. See chapter 4's `## Homework` section for the fullest current
+example (choose-one pair, docstrings exercise, time check, extra-credit spiral), and chapter
+1's Exercise 4 or chapter 3's Exercise 2 for what a real-starter-code answer cell looks
+like. No `CHAPTERS`/`CONTENT_NAMES` registration needed for anything beyond the chapter
+notebook itself.
 
 ## Step 2 — Drop the retail-links cell
 

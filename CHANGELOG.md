@@ -5,6 +5,37 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-17 — chapters 1-6 and the docstrings/doctests interlude: homework section renamed to "Homework"
+
+### Changed
+- `chapters/chap01.ipynb`-`chap06.ipynb`, `projector/chap01.ipynb`-`chap06.ipynb`: the
+  `## Extra Exercises` heading (the sentinel-wrapped `type="exercise"` section holding each
+  chapter's graded work) is now `## Homework`. Text-only change, one line per chapter;
+  everything else in that section -- intro paragraph, exercise prompts, choose-one framing,
+  time check, extra credit -- is untouched. `jupyterlite/content/` regenerated to match
+  (gitignored build output, deploy id changed accordingly).
+- `chapters/chap06b.ipynb`, `projector/chap06b.ipynb` (the "Docstrings and Doctests"
+  interlude): its `## Exercises` heading is also now `## Homework`. Unlike the numbered
+  chapters, this interlude has no upstream Downey content and therefore no separate
+  ungraded practice section -- its one and only exercises section (Exercises 1-6, time
+  check, extra credit) has always *been* the graded homework, so "Exercises" was simply the
+  wrong word for it, not a stopgap the way "Extra Exercises" was in the numbered chapters.
+  Text-only change, one line.
+- `mods/pass-4-chrome.md`, `mods/pass-5-jupyterlite-lab.md`: updated references to the
+  heading's old name so chapters 9-11 don't drift from the new convention.
+
+### Why
+"Extra Exercises" was chosen 2026-08-11 specifically to avoid implying grading happened in
+that section, back when the actual graded artifact was a separate `chapNN-exercises.ipynb`
+submission notebook (see `AUDIT.md`, 2026-08-11). That separate notebook is gone as of
+2026-08-16 -- the graded exercises now live directly in this section -- so the original
+reason to avoid "Homework" no longer applies, and "Homework" now describes the section
+more accurately. It also stops colliding visually with the chapter's separate "Extra
+credit" heading just below it. `chap06b` doesn't share that history -- it never had an
+"Extra Exercises" section -- but its own `## Exercises` heading turned out to have the
+same underlying problem (a name that undersold what the section actually is), caught by
+the user's own read of the chapter, not by the reasoning above.
+
 ## 2026-08-17 — chap07b: second interlude, wired as an outline
 
 ### Added
