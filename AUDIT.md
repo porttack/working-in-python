@@ -6561,3 +6561,105 @@ section, check whether it inherits real upstream ungraded practice (rare, since 
 by definition aren't from *Think Python*) before defaulting to "## Exercises" -- it
 probably wants "## Homework" from the start, the same conclusion `mods/pass-4-chrome.md`
 and `mods/pass-5-jupyterlite-lab.md` already record for the numbered chapters.
+
+## 2026-08-18 — AP CSP vocabulary tagging across three surfaces, on maintainer request (not a numbered pass)
+
+Not part of the five-pass sequence -- the maintainer asked directly, in conversation, for a
+printable AP vocabulary reference for the AP CSP binder, and the scope grew across the
+session into three linked pieces. Logged here anyway since it touches `alignment/` and
+`chapters/`, which future passes will run into.
+
+**1. Merged A-Z glossary (`alignment/ap-vocabulary-glossary.{md,html,pdf}` +
+`-ap-only.pdf`).** Every term from `vocabulary-by-chapter.md` merged with every term from
+`ap-vocabulary-coverage.md`, alphabetized -- 300 terms, 144 marked AP. New
+`tools/build_vocabulary_glossary.py` owns the merge decisions (`ENTRIES`, hand-curated,
+same maintenance model as `ap-vocabulary-coverage.md` itself) and regenerates all four
+files; chapter numbers are parsed live from `vocabulary-by-chapter.md`, not hardcoded.
+Screen page has an AP-superscript badge, a chapter-number link back to this book's own
+definition, and an "AP-tested only" filter toggle (persisted, drives which PDF the page
+links to).
+
+**The print story took three attempts and is worth recording so it isn't retried.** Browser
+print of the interactive HTML page's two-column layout was asked for first, and failed
+three different ways: CSS `column-count` + default `column-fill: balance` reflowed letters
+out of page order and added a spurious blank page (it balances height across the *whole
+document*, not per page); `column-fill: auto` -- the spec-correct fix for per-page filling
+-- left column 2 empty instead, because an auto-height multicol container never gets a
+"column is full" signal without a definite height, and this print engine doesn't supply
+one per page; a hand-rolled deterministic pagination (pre-split into fixed two-column
+`.pp-page` blocks at build time, sized by a character-count line estimate) came closest but
+still mis-wrapped, because the estimate doesn't match real font metrics closely enough.
+Gave up on browser print entirely and added WeasyPrint (real CSS Paged Media engine,
+`pip install weasyprint`; native libs -- Pango, Cairo, GDK-PixBuf, HarfBuzz -- were already
+on this machine via Homebrew) to generate actual PDFs. Verified page-by-page with
+`pdftotext -layout` that content flows in correct order across page boundaries. The
+takeaway for next time: don't attempt two-column print pagination via browser CSS on this
+project again -- go straight to WeasyPrint.
+
+**Also iterated on the term/definition separator** (dash, then colon, then a CSS box,
+landing on a plain `&ensp;` with no visible character) purely on the maintainer's visual
+feedback each round -- the underlying issue each time was a raised superscript badge
+sitting immediately before the separator character reading oddly. No separator character
+turned out to be the fix, matching how *Think Python*'s own upstream chapter glossaries are
+formatted (`**term:**` -- bold-to-regular contrast alone, no dash).
+
+**2. `alignment/vocabulary-by-chapter.md`/`.html` tagged too, same AP data.** New
+`tools/build_vocabulary_by_chapter.py` parses the *existing* file (term/definition text is
+never rewritten, only presentation metadata added) and adds: the same AP badge (59
+term-rows, cross-checked against `build_vocabulary_glossary.py`'s `ENTRIES` so the two
+pages can't disagree), a footnote linking to any *other* chapter where the same term is
+also defined (e.g. `attribute` ch. 9 <-> ch. 14 -- there are nine such repeated terms
+across this book), skipped where a hand-written note already covers the same ground
+(matched by checking whether the existing definition text already contains the word
+"chapter"), and the same AP-only filter toggle. No PDF and no multi-column print handling
+for this page -- the maintainer said printing isn't a priority here, unlike the merged
+glossary.
+
+**Hit a real idempotency bug** on the first version: re-running the generator against its
+own previously-generated 3-column output double-appended footnotes and mis-parsed the AP
+column, because the row parser assumed the original 2-column format unconditionally. Fixed
+by having it recognize and strip its own prior output (both the extra column and any
+trailing auto-generated footnote) before regenerating. Verified fixed by running the
+generator twice in a row and diffing -- byte-identical.
+
+**3. Every chapter's own `## Glossary` cell now links to the merged glossary
+(`chapters/chap01.ipynb`-`chap18.ipynb`, `chap06b.ipynb`, `chap07b.ipynb`, plus their
+`projector/` counterparts).** One new `type="glossary"` sentinel cell inserted immediately
+after each chapter's existing Glossary cell, never touching the existing cell -- so a
+student reading one chapter's terms can jump to "everything else." Chapter 19 ("Final
+thoughts") has no glossary and was correctly skipped by the same detection the merge tools
+use (`"## Glossary" in cell source`, not `startswith`, since the two interludes already
+wrap their whole glossary in their own pre-existing sentinel, so the heading isn't the
+first thing in the cell).
+
+**Hit the `ensure_ascii` pitfall this file already warned about** (see the "Extra
+Exercises" → "Homework" entry above, 2026-08-17) -- independently, before reading that
+entry. `json.dumps(nb, indent=1, ...)` needs `ensure_ascii` matched per file: chapters 2, 3,
+5, 6, 7, 8 round-trip byte-identical with `ensure_ascii=True`; every other target chapter
+needs `False`. No single setting is byte-identical across the whole `chapters/` directory
+-- these files were evidently last saved by different tool/Jupyter-version combinations at
+different times. The one-off script written for this insertion detects which setting
+round-trips each file unchanged before writing it, per file, rather than hardcoding either
+value. Confirmed clean via `git diff --numstat`: all 20 touched chapter files show exactly
+`6 0` (six lines added, zero removed) after the fix; before it, six files showed extra
+unrelated deletions from re-escaped `—`/`←` characters on unrelated lines.
+
+`projector/` regenerated via `make projector`. `make check` clean (blanks up to date, sync
+clean, jupyterlite check clean). `CHANGELOG.md` has two dated entries (glossary pages;
+chapter links). Committed in three pieces as the work progressed rather than one large
+commit, per the maintainer's own pacing through this session (review → commit → next
+request).
+
+**What the next session needs to know:** `tools/build_vocabulary_glossary.py`'s `ENTRIES`
+table is now the third place (after `data/ap-vocabulary-source.md` and
+`ap-vocabulary-coverage.md`) that records which terms are AP CSP vocabulary -- if a future
+chapter changes what this book teaches, or the AP coverage page's WiP columns get updated,
+check whether `ENTRIES` needs a matching edit; nothing currently keeps the three in sync
+automatically, by design (same reasoning as `ap-vocabulary-coverage.md`'s own hand-maintained
+model). Chapters 9-19 already had their own `## Glossary` cells (Pass 2 finished chapters
+1-8 as of this file's Pass 2 status row, but the glossary content itself predates that --
+Downey's upstream chapters 1-18 all ship a `## Glossary` section regardless of which pass
+has "surgeried" them), so nothing here is blocked on Pass 2 catching up. Nothing published
+to `python.porttack.com` yet -- only `jb/build.sh --local` has been run, confirmed the new
+pages and PDFs land in `_build/html/` correctly via the existing `jb/extra/alignment`
+symlink; the real `./build.sh` publish step is still the maintainer's to run.

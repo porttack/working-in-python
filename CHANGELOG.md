@@ -5,6 +5,45 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-18 — every chapter's own glossary links to the merged A-Z glossary
+
+### Added
+- `chapters/chap01.ipynb`-`chap18.ipynb`, `chap06b.ipynb`, `chap07b.ipynb` (and their
+  `projector/` counterparts): one new sentinel-wrapped cell (`type="glossary"`) right after
+  each chapter's own `## Glossary` section, pointing to
+  `alignment/ap-vocabulary-glossary.html` -- the merged, alphabetized book + AP CSP
+  vocabulary reference added 2026-08-17/18. Lets a student reading one chapter's terms see
+  how they fit against everything else. Chapter 19 ("Final thoughts") has no glossary and
+  was skipped. Insertion-only diff (verified: 6 lines added per chapter file, 0 removed);
+  the generator script auto-detected each file's own prior `json.dumps` escaping convention
+  (`ensure_ascii` True vs False, inconsistent across files from earlier sessions) so this
+  edit doesn't also re-escape unrelated characters elsewhere in the file.
+
+## 2026-08-18 — AP CSP vocabulary tagging: merged A-Z glossary + Vocabulary by Chapter
+
+### Added
+- `alignment/ap-vocabulary-glossary.md` + hosted twin `.html`: every term from
+  `vocabulary-by-chapter.md` merged with every term from `ap-vocabulary-coverage.md` (the
+  full AP CSP exam vocabulary list), alphabetized into one binder-tab reference -- 300
+  terms, 144 marked AP. Interactive: AP superscript badges, chapter-number links back to
+  where this book defines a term, and an "AP-tested only" filter toggle (persisted via
+  local storage). New `tools/build_vocabulary_glossary.py` is the permanent, regeneratable
+  source (`make glossary`).
+- `alignment/ap-vocabulary-glossary.pdf` and `-ap-only.pdf`: printable, two-column,
+  hole-punch-margin PDFs generated with WeasyPrint (a real CSS Paged Media engine) after
+  three different browser-print CSS approaches (multi-column balance, multi-column auto,
+  manual flex columns) all mis-paginated in testing -- verified page-by-page with
+  `pdftotext` that WeasyPrint's output is correctly and sequentially ordered.
+- New `tools/build_vocabulary_by_chapter.py` regenerates `vocabulary-by-chapter.md`/`.html`
+  from themselves (term/definition text parsed from the existing file and preserved
+  verbatim) adding: AP superscript badges on the 59 term-rows also on the AP CSP exam's
+  vocabulary list, a footnote linking to any other chapter where the same term is also
+  defined (e.g. `attribute` ch. 9 <-> ch. 14), and the same AP-tested-only filter toggle.
+  No PDF for this page -- print isn't a priority here, unlike the merged glossary.
+- `Makefile`: `glossary` and `vocab-by-chapter` targets. `jb/_toc.yml`: new Reference entry
+  for the merged glossary. Reciprocal cross-links added to `ap-vocabulary-coverage.html`,
+  `vocabulary-by-chapter.html`, and `glossary-map.md`.
+
 ## 2026-08-17 — chapters 1-6 and the docstrings/doctests interlude: homework section renamed to "Homework"
 
 ### Changed
