@@ -282,15 +282,15 @@ a.chip.gap { border-bottom: none; }
     <a href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">↳ AP CSP Vocabulary Coverage</a>
   </p>
   <h1>Vocabulary by Chapter</h1>
-  <p class="lede">Every term from Downey's own chapter-ending <code>Glossary</code> sections, chapters 1&ndash;18, in reading order. This is the book's own vocabulary, exactly as written &mdash; not a paraphrase, not a standards crosswalk.</p>
+  <p class="lede">Every term from Downey's own chapter-ending <code>Glossary</code> sections, chapters 1&ndash;18, plus any interludes' own glossaries, in reading order. This is the book's own vocabulary, exactly as written &mdash; not a paraphrase, not a standards crosswalk.</p>
   <div class="stats">
     <div class="stat book">
-      <div class="n">185</div>
-      <div class="label">glossary terms, chapters 1&ndash;18</div>
+      <div class="n">204</div>
+      <div class="label">glossary terms, chapters 1&ndash;18 + 1 interlude</div>
     </div>
     <div class="stat planned">
       <div class="n">18</div>
-      <div class="label">chapters with a Glossary section</div>
+      <div class="label">chapters with a Glossary section (plus 1 interlude)</div>
     </div>
     <div class="stat elsewhere">
       <div class="n">1</div>
@@ -307,6 +307,7 @@ a.chip.gap { border-bottom: none; }
     <a href="#ch04">4</a>
     <a href="#ch05">5</a>
     <a href="#ch06">6</a>
+    <a href="#ch06b">6b</a>
     <a href="#ch07">7</a>
     <a href="#ch08">8</a>
     <a href="#ch09">9</a>
@@ -479,6 +480,38 @@ a.chip.gap { border-bottom: none; }
         <tr><td class="code">scaffolding</td><td>Code that is used during program development but is not part of the final version.</td></tr>
         <tr><td class="code">Turing complete</td><td>A language, or subset of a language, is Turing complete if it can perform any computation that can be described by an algorithm.</td></tr>
         <tr><td class="code">input validation</td><td>Checking the parameters of a function to make sure they have the correct types and values</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch06b">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap06b.html">Interlude</a> &mdash; Docstrings and Doctests</h2>
+    <span class="name">18 terms</span>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">docstring</td><td>A string at the beginning of a function that documents what the function does; unlike a comment, it is stored on the function and can be read by the program. (Python's name for what the exam calls program documentation.)</td></tr>
+        <tr><td class="code">doctest</td><td>An example call and its expected result, written inside a docstring, that can be run automatically to check the function. (Python; not exam vocabulary.)</td></tr>
+        <tr><td class="code">testing</td><td>Checking that a program behaves correctly by running it on chosen inputs and comparing what comes out against what should have come out.</td></tr>
+        <tr><td class="code">test case</td><td>A single input, paired with the result it should produce.</td></tr>
+        <tr><td class="code">boundary case</td><td>A test case at the value where a function's behavior changes, such as zero, an empty string, or the first or last item.</td></tr>
+        <tr><td class="code">edge case</td><td>A test case at an unusual or extreme input, where a function is most likely to be wrong.</td></tr>
+        <tr><td class="code">expected value</td><td>What a test says the answer should be, as opposed to what the code actually produced.</td></tr>
+        <tr><td class="code">pass</td><td>A test whose actual result matches its expected value.</td></tr>
+        <tr><td class="code">fail</td><td>A test whose actual result does not match its expected value.</td></tr>
+        <tr><td class="code">hand tracing</td><td>Working through code on paper line by line, writing down each variable's value, in order to find an error without running the program.</td></tr>
+        <tr><td class="code">semantic error</td><td>An error that lets the program run but produces a wrong result. (The exam calls this a logic error.)</td></tr>
+        <tr><td class="code">roundoff error</td><td>A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly.</td></tr>
+        <tr><td class="code">program purpose</td><td>The need a program serves, or the problem it solves; why it exists.</td></tr>
+        <tr><td class="code">program function</td><td>What a program does when it runs, described as behavior.</td></tr>
+        <tr><td class="code">program input</td><td>Data a program receives while it is running.</td></tr>
+        <tr><td class="code">program output</td><td>What a program produces: displayed text, a returned value, a file, a sound, a movement.</td></tr>
+        <tr><td class="code">procedure</td><td>The exam's word for a named, reusable block of code, whether or not it returns a value. This book says function. In older languages the two words were distinct: a procedure returned nothing, a function returned a value.</td></tr>
+        <tr><td class="code">regression</td><td>A bug that reappears in code that used to work. Tests exist mainly to catch these. (Professional vocabulary, not exam vocabulary.)</td></tr>
       </tbody>
     </table>
   </div>

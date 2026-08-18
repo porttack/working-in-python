@@ -6140,3 +6140,222 @@ permission. Harmless, all outside the repo, flagged rather than silently left.
 `make check` clean. `CHANGELOG.md` has a dated entry. Not committed or pushed -- reporting the
 full diff to the user for approval, per their explicit instruction to stop only at that point.
 No chapter 6 prose, glossary, or other chapter touched in this entry.
+
+## 2026-08-17 follow-up 4 -- chap06b: first interlude, finished and wired end to end
+
+A previous session (a different Claude, not this one) had drafted `chapters/chap06b.ipynb`
+-- "Docstrings and Doctests," sitting between chapters 6 and 7 -- but it had none of the
+standard chrome, no attribution note, and (discovered here, not reported by the user) a
+real bug that would break the chapter for every student. The user asked for it to be
+finished and "wired up," and separately confirmed that more chapters like this are coming
+(unit testing, binary, "maybe more"), so this entry treats the naming/plumbing question as
+a reusable pattern, not a one-off.
+
+**Vocabulary, asked rather than decided.** The user was unsure what to call this category
+out loud ("Maybe we should call them something other than chapters even. IDK.") and
+explicitly ruled out renumbering chapters 7-19 to make room. Asked via a multiple-choice
+question; the user picked **"interlude"** over keeping "chapter" or "supplement." Applied
+throughout: the chapter's own self-references reworded from "chapter" to "interlude" (it
+already opened by saying "This chapter is not part of *Think Python*" -- ironic, now fixed),
+and `CHAPTER_MANIFEST.md` gained a new "Interludes" section documenting the category,
+its filename convention, and what wiring it touches, for the next session to read cold
+before reaching for this pattern again.
+
+**Bug found and fixed: `run_doctests` didn't exist.** The chapter's core teaching device
+imported it as `from working_in_python import run_doctests`, but grep across the whole repo
+(`git log --all -S"run_doctests" -- working_in_python.py`) confirms that function has never
+existed there. Checked chapters 7, 9, and 11, which already use the same doctest-running
+helper: each defines it locally, three lines, `from doctest import run_docstring_examples`
+plus a one-line wrapper. Every `run_doctests(...)` call in chap06b (about eight of them)
+would have raised `ImportError` on the very first one a student ran. Fixed by copying the
+existing three-line local definition, not by adding anything to `working_in_python.py`.
+
+**Chrome added, Pass 4 pattern, chapter="6b" throughout:** link bar (Step 3), embedded
+JupyterLite pane with the `?readonly` escape hatch (Step 4), "Finished? Copy your work"
+tool, and the closing attribution note. On the attribution wording specifically: asked
+whether new-content chapters should get different wording than "modified by Eric Brown"
+since this isn't adapted Think Python prose; the user's answer was no, use the identical
+note and the identical Downey copyright/MIT/CC-BY-NC-SA block every other chapter has --
+"adding a chapter is still modifying a book." Done verbatim, chapter="6b" in the sentinel.
+
+**All edits done via plain `json.load`/mutate/`json.dump` (indent=1, ensure_ascii=False,
+trailing newline appended), never `NotebookEdit`,** per the standing lesson in
+`mods/pass-4-chrome.md`. One self-inflicted bug from this, caught by a post-hoc full-file
+grep rather than assumed clean: a `chapter -> interlude` wording fix applied with a
+per-source-line `.replace()` silently no-offed on a phrase that spanned two list elements
+("chapter on\nbinary"), and a second one-line-replaced-by-a-two-line-block edit left a
+duplicated sentence behind. Both caught by re-reading the notebook after the fact and fixed
+directly; `make projector` output re-checked afterward to confirm the fix actually rendered
+correctly, not just that the source edit looked right. Lesson for next time: verify a
+multi-line find/replace against the *joined* cell text, not per source-list-line, or do the
+join/replace/re-split round-trip explicitly instead of trusting list-comprehension `.replace()`.
+
+**The numbering problem, found by testing rather than assumed safe.** `jb/_toc.yml`'s
+"Chapters" part has `numbered: True`, and Sphinx/Jupyter Book assigns sequential numbers by
+toctree position, not by filename -- confirmed with an actual local `jupyter-book build`
+(the tool is installed; builds don't execute notebooks, so this is fast) that adding
+`chap06b` as a plain sibling `- file:` entry renders chapter 7 as "8. Iteration and Search"
+and every chapter after it shifts up by one. This is exactly the outcome the user wanted to
+avoid by not renumbering files. Tried nesting `chap06b` under `chap06` via `sections:`
+instead -- fixed chapters 7-19's numbers, but `chap06b` itself rendered "6.14" (Jupyter
+Book's numbering walks every heading depth-first through a nested toctree, so it picked up
+chapter 6's own ~13 internal `##` headings first) and it rendered visually indented under
+chapter 6 in the sidebar, not as a peer between 6 and 7. The fix that actually works,
+verified end to end: split the single "Chapters" part into three consecutive parts --
+chapters 1-6 (kept `caption: Chapters`, `numbered: True`), `chap06b` alone (no `caption`,
+no `numbered`), chapters 7-19 (`numbered: True`, no `caption`). Jupyter Book bundles
+`sphinx-multitoc-numbering` specifically so numbering continues across a part split instead
+of restarting -- confirmed by the build: chapter 7 still renders "7.", chapter 19 still
+renders "19.", `chap06b` renders with no number prefix at all, and dropping `caption:` from
+the second and third parts means the sidebar shows a single unbroken "Chapters" list with no
+new divider -- confirmed by inspecting the rendered sidebar HTML, not just trusting the
+title tags. Prev/next links on the built pages flow chap06 -> chap06b -> chap07 correctly.
+This directly contradicts an existing comment in `jb/_toc.yml` claiming a part split
+restarts numbering ("chapter 12 would render as '1' in its own section") -- that claim was
+never actually tested against this jupyter-book version (1.0.4.post1) as far as I could
+find, and it's wrong for the reason above. Updated the comment in place rather than
+deleting it, explaining both what's still true (avoid *captioned* splits, they add visible
+dividers) and what changed (this specific pattern is now the documented way to add an
+interlude, and it's reusable verbatim for the next one). Left the local test build in
+`/private/tmp/.../scratchpad/jb-numbering-test/` off-repo; not cleaned up automatically
+because the shell tool's `rm -rf` was denied even for a path clearly inside the session's
+own scratchpad -- flagging rather than leaving it silently uncleaned, same as prior
+sessions' housekeeping slips above. Harmless either way; it's outside the repo.
+
+**A second build-pipeline gap, found the same way.** `jb/build.sh`'s chapter-copy step was
+`cp ../chapters/chap[0-1][0-9].ipynb .` -- a glob that matches exactly two digits after
+`chap`, which silently excludes `chap06b.ipynb` from ever reaching the built site (Sphinx
+would then fail on a `_toc.yml` entry pointing at a file that was never copied in). Widened
+to `chap[0-1][0-9]*.ipynb`; confirmed the broadened glob still matches exactly the 20
+two-digit chapter files plus `chap06b.ipynb`, nothing else, against the actual `chapters/`
+directory listing.
+
+**Wiring completed:** `tools/build_jupyterlite_content.py` (`CHAPTERS`, `CONTENT_NAMES` --
+kept the technical name `Chapter06b-...` rather than `Interlude...`, since the lab file
+browser only sorts alphabetically and "Interlude" would sort after every "Chapter" entry
+instead of between chapter 6 and 7 -- and `CELL_PATCHES`, fired-check verified
+programmatically per the existing pattern); `jb/_toc.yml` and `jb/build.sh` as above;
+`CHAPTER_MANIFEST.md`'s new Interludes section; `CLAUDE.md`'s Treatment matrix section
+(an interlude inherits tier from its neighbors, not a table lookup, since the table is
+keyed by chapter number) and Pass 2/Pass 4 status cells.
+
+**Ledger:** seven new entries, `ch06b-ex01` through `ch06b-ex06` and `ch06b-ec01`, all
+`"action": "added"`. Introduced a new `"kind": "original"` value -- the existing kinds
+(`native`, `A`, `B`) all describe a relationship to upstream Think Python content that
+doesn't exist here; flagging the new value rather than silently overloading an existing one.
+`targets_ap`/`targets_ca` left empty, matching Pass 2's stated convention that Pass 3 fills
+those in -- not done here since Pass 3's per-exercise standards targeting for this chapter
+wasn't in scope this round (the chapter-level standards block already existed, written by
+the earlier session, though its CSTA 2026 line is still a `TBD` placeholder -- flagging,
+not fixing, since picking the right CSTA code is Pass 3's job and wasn't asked for here).
+`make ledger` regenerated `CHANGELOG_DETAIL.md` (141 exercises, up from 134).
+
+`make check` clean (`build_blanks.py --check`, `check_sync.py`, and
+`build_jupyterlite_content.py --check` all pass; 14 chapters / 13 teach variants now, up
+from 13/12). `CHANGELOG.md` has a dated entry. Not committed -- `chapters/chap06b.ipynb`
+is still untracked in git; this entry and the diff are being reported to the user before
+any commit, per the standing instruction to only commit when explicitly asked.
+
+**Open for the next session that touches an interlude:** the CSTA 2026 `TBD` in chap06b's
+standards block (Pass 3's job); the unit-testing interlude the chapter's own prose now
+promises ("a later interlude on unit testing," no number committed in the text on purpose,
+since assigning it a slot is that interlude's own author's decision, not this session's);
+and the binary interlude mentioned the same way. Reuse this entry's `jb/_toc.yml` split
+pattern verbatim for both -- it's the part of this work least likely to be rediscovered by
+reasoning alone, since the existing comment in that file actively points the wrong way
+until read past its now-corrected addendum.
+
+## 2026-08-17 follow-up 5 -- chap06b nav label, decided after visually checking the built site
+
+Asked to open a local build so the user could actually see the sidebar rather than take my
+word for it (per `open` on the built `chap06.html`, same local build as follow-up 4). The
+user then asked whether the interlude should be indented and/or italicized -- tested both
+before answering rather than guessing:
+
+- **Indent, via `sections:` nesting under chap06** (with the part's `numbered:` set to `1`
+  instead of `True` so nesting doesn't drag the interlude into chapter 6's own internal
+  heading count -- the "6.14" bug from follow-up 4). Gives a real one-tab indent
+  (`toctree-l2`), confirmed. But Sphinx renders a nested toctree child as an HTML
+  `<details>` element, collapsed by default (`<details>` with no `open` attribute) on every
+  page except the interlude's own chapter and itself -- confirmed by inspecting
+  `chap10.html`'s built markup. A student browsing from chapter 10 would see a closed "▸ 6.
+  Return Values" toggle with the interlude hidden inside it, not visible in the flat list.
+- **Flat (follow-up 4's fix), with a toc-level `title:` override** reading "Interlude:
+  Docstrings and Doctests" instead of the bare chapter title. This is what shipped. Confirmed
+  the override only changes the sidebar link text -- the notebook's own H1, the `<title>`
+  tag, and the browser tab all still read the bare "Docstrings and Doctests," same
+  convention every numbered chapter already follows (no chapter number baked into the H1
+  either). Confirmed the label shows correctly and always-visible (no click needed) from an
+  unrelated page's sidebar (`chap10.html`), not just chapter 6/6b's own pages.
+
+Chose flat-with-label over indent-with-collapse: the user's own framing was "flat makes the
+most sense, but then it's harder to find" -- the label solves exactly that, without the
+collapse trade-off. Added a comment to `jb/_toc.yml` recording both options and why the
+nested one was rejected, so the next interlude doesn't have to re-run this test.
+
+No renumbering side effects reintroduced -- reran the same chap07/chap19-render-their-own-
+number and prev/next-flow checks from follow-up 4 against the final `_toc.yml`, from an
+unrelated chapter's page this time (`chap10.html`), not just chapter 6/6b's own. `make check`
+still clean. Still not committed -- the user indicated they want to commit soon; this entry
+covers everything up through the nav-label decision, so a commit made right after this
+point should capture all of it in one place.
+
+## 2026-08-17 follow-up 6 -- chap06b's vocabulary wasn't in the vocabulary docs
+
+The user asked directly: "did we add our vocabulary words to wherever we add vocabulary
+words in this project?" Answer was no -- follow-up 4's wiring pass covered chrome, ledger,
+JupyterLite, and `_toc.yml`, but missed the alignment back-matter entirely. Worth recording
+why that's a real gap and not a stretch: the precedent already exists in this repo's own
+history (`9dfbab5`, earlier the same day, added chapter 6's "side effect" term to
+`alignment/vocabulary-by-chapter.md`/`.html` in the same commit as the notebook change), and
+`ap-vocabulary-coverage.md` explicitly exists to track exactly this -- whether this book
+covers each AP CSP vocabulary term, not just whether *Think Python*'s own chapters do.
+
+**`alignment/vocabulary-by-chapter.md` / `.html`.** Added a new "Interlude -- Docstrings and
+Doctests" section between chapters 6 and 7, chap06b's 18 glossary terms verbatim, in reading
+order. Running total 186 -> 204. Found and fixed a small pre-existing inconsistency while in
+there: the `.html`'s top-of-page stat tile said "185," one behind the `.md`'s "186" -- the
+"side effect" commit updated the per-chapter table row and the `.md`'s total but not the
+`.html`'s headline number. Fixed to the correct baseline before adding chap06b's 18.
+
+**`alignment/ap-vocabulary-coverage.md`.** The substantive find. This doc's Big Idea 1
+(Creative Development) table had `Program purpose`, `Program function`, `Program input`,
+`Program output`, `Test case`, `Hand tracing`, and `Roundoff error` all marked `gap` --
+every one of them is directly, explicitly taught by chap06b (the "Purpose, function, input,
+output" section teaches the four-part frame by those exact names; "Choosing test cases"
+names test case/boundary case/edge case and requires one of each in the exercises; the
+debugging section names and requires hand tracing as the method for resolving a failing
+doctest; roundoff error gets both a definition and a live demonstration,
+`average(0.1, 0.2)`). Flipped all seven to `in book`, chapter `6b`, WiP term matching.
+**Recounted the whole table programmatically after editing, not by hand arithmetic** --
+Big Idea 1: 8/14 (in book/gap) -> 15/7; book-wide: 38/41 -> 45/34; both confirmed by a
+script that re-parses every row's WiP column and sums it, matching the numbers written into
+the prose exactly. Left `Overflow error` as `gap` on purpose: chap06b names and defines it
+in passing but explicitly defers the demonstration ("Python hides overflow from you almost
+completely, so it needs its own demonstration... Both belong to a later interlude on
+binary") -- naming isn't the same as teaching it, and that interlude doesn't exist yet.
+Added chap06b as a second reference (not a status change) on three rows already `in book`:
+`Logic error` (ch. 2's semantic error, now also named as an explicit exam-vocabulary swap in
+chap06b), `Testing` (ch. 18's test discovery, now also chap06b, arguably where testing first
+becomes a named systematic practice), `Procedure` (ch. 1's function, now also the first
+place the word "procedure" itself appears in the book's own text).
+
+**`alignment/glossary-map.md`.** Lighter touch, since this doc is curated analysis rather
+than a mechanical listing (Pass 3's own description: "concept mapping, not string
+diffing"). Added chap06b's testing vocabulary (doctest, test case, boundary/edge case,
+expected value, pass/fail, hand tracing) and `regression` to "Terms Working in Python uses
+that AP CSP doesn't need," all `keep`, and a note on the existing function/procedure row
+that chap06b is the first place "procedure" is named explicitly as vocabulary rather than
+left implicit.
+
+No `make check` target actually covers these alignment docs (confirmed by re-running it
+clean before and after -- it only checks `chapters/`, `projector/`, and the JupyterLite
+build), so this gap wouldn't have been caught mechanically; it needed the direct question.
+Worth a general lesson for the next interlude: Pass 4's chrome checklist and Pass 5's naming
+checklist don't mention `alignment/`, but Pass 3's back matter should still get touched
+whenever a chapter's own glossary changes, interlude or not -- add a line to
+`CHAPTER_MANIFEST.md`'s Interludes section pointing this out for next time, rather than
+relying on it being asked again.
+
+Not committed yet -- this entry, and everything in follow-ups 4-6, is one unit of work the
+user is about to commit in a single commit right after this.

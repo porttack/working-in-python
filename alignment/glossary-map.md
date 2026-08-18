@@ -23,7 +23,7 @@ mapped it onto the exam's own words.
 
 | Working in Python | AP CSP |
 |---|---|
-| function | procedure |
+| function (named "procedure" explicitly in the chapters 6–7 interlude) | procedure |
 | conditional | selection |
 | `%` | `MOD` |
 | `print` | `DISPLAY` |
@@ -67,11 +67,13 @@ underneath it), or they're extra content this course teaches beyond the exam's s
 | Working in Python term | Status | Why |
 |---|---|---|
 | recursion / recursive | keep | not part of the AP CSP reference sheet's required pseudocode at all (only `REPEAT n TIMES` / `REPEAT UNTIL` iteration are), but this book uses it as its primary vehicle for indefinite repetition — see the `while`-loop gap in the AP index and `standards_alignment.md`. Load-bearing for this course even though it isn't exam vocabulary. |
-| docstring | keep | Python's realization of AP's general "program documentation" concept (CRD-2.G) — the idea is tested, the term isn't. |
+| docstring | keep | Python's realization of AP's general "program documentation" concept (CRD-2.G) — the idea is tested, the term isn't. The interlude between chapters 6 and 7 states this mapping to students directly, in its own glossary. |
+| doctest, test case, boundary case, edge case, expected value, pass/fail, hand tracing | keep | Python/this-book's testing vocabulary, introduced by the interlude between chapters 6 and 7. Boundary/edge case and hand tracing realize AP's own "test case" and manual-tracing expectations (CRD-2 written-response language) without AP requiring these exact words; doctest, pass/fail, and expected value are Python/tooling-specific and not exam vocabulary at all. |
 | traceback | keep | Python's specific error-report format; realizes AP's general "run-time error" concept (CRD-2.I.3) without needing the word. |
 | encapsulation, generalization | keep | general CS vocabulary this book uses precisely; conceptually close to AP's abstraction language (AAP-1.C) without being required exam terms. |
 | development plan | keep | this book's name for AP's "development process" (CRD-2.E) — same idea, book-specific phrasing. |
 | aliasing | keep | a real correctness issue (two names for one mutable object) that isn't named or tested by AP CSP but matters for writing correct Python. |
 | f-strings, YAML, shelve | keep | Python/tooling-specific, well beyond anything DAT-2 asks for, but this is exactly the "file and CSV work" that carries DAT-2's partial coverage per the supplement plan. |
 | Markov analysis, bigram | keep | book-specific technique names from chap12; the underlying skill (processing text data for patterns) is what carries AP 2.3/2.4, not these particular vocabulary words. |
+| regression | keep | professional testing vocabulary, introduced (and explicitly flagged as not exam vocabulary) by the interlude between chapters 6 and 7. |
 | inheritance, polymorphism | defer | chapters 16–17 content. Object-oriented programming is explicitly outside the AP CSP framework (already stated in the Step 4 short-form standards-insert template for chapters 14–19). Valuable as a CS50/AP CSA on-ramp, not exam prep. |

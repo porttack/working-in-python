@@ -11,9 +11,9 @@ Do not read the other pass files; they will fill your context with work that isn
 | Pass | File | Mode | Status |
 |---|---|---|---|
 | 1. Survey and scaffold | `docs/pass-1-survey.md` (actually at `mods/pass-1-survey.md` — see `AUDIT.md` handoff) | read-only + tooling | done, see `AUDIT.md` handoff |
-| 2. Chapter surgery | `mods/pass-2-surgery.md` | destructive edits + authoring | in progress — ch. 1–8 done (the whole "chapters 3–8" batch, across three sessions); ch. 9–19 pending. All four book-wide kind-A replacement exercises are now written. Pacing question still open. See `AUDIT.md` |
+| 2. Chapter surgery | `mods/pass-2-surgery.md` | destructive edits + authoring | in progress — ch. 1–8 done (the whole "chapters 3–8" batch, across three sessions); ch. 9–19 pending. All four book-wide kind-A replacement exercises are now written. Pacing question still open. `chap06b`, the first *interlude* (original content between two numbered chapters — see `CHAPTER_MANIFEST.md`), authored outside this pass's normal order and fully wired 2026-08-17; more interludes planned (unit testing, binary). See `AUDIT.md` |
 | 3. Standards alignment | `mods/pass-3-alignment.md` | analysis + additive back matter | in progress — Steps 1–3 done (both indexes, `standards/crosswalk.json`, all three `alignment/*.md` docs); Step 4 done for chapters 1–8, all four frameworks (AP CSP, CA 9-12, CSTA 2026, CA CTE/ICT — the latter two added 2026-08-09, out of this pass's original scope). Chapters 9–19 and Step 5 not started. See `AUDIT.md` |
-| 4. Chapter chrome | `mods/pass-4-chrome.md` | destructive edits (front/back matter only — link bar, embedded pane, exercises notebook, attribution rule) | in progress — ch. 1–2 done, built up across several rounds of live testing against the deployed site; ch. 3–8 done 2026-08-09, matched the pattern exactly (ch. 8 needed a `CELL_PATCHES` merge, not a fresh key — see `AUDIT.md`); ch. 9–11 pending; ch. 12–19 out of scope (independent-study/post-exam tier gets none of this). See `AUDIT.md` |
+| 4. Chapter chrome | `mods/pass-4-chrome.md` | destructive edits (front/back matter only — link bar, embedded pane, exercises notebook, attribution rule) | in progress — ch. 1–2 done, built up across several rounds of live testing against the deployed site; ch. 3–8 done 2026-08-09, matched the pattern exactly (ch. 8 needed a `CELL_PATCHES` merge, not a fresh key — see `AUDIT.md`); ch. 9–11 pending; ch. 12–19 out of scope (independent-study/post-exam tier gets none of this). `chap06b` interlude got the same chrome treatment 2026-08-17, plus a `jb/_toc.yml`/`jb/build.sh` wrinkle unique to interludes — see `AUDIT.md` |
 | 5. JupyterLite lab & naming | `mods/pass-5-jupyterlite-lab.md` | additive tooling (`chapters/index.ipynb`, `CONTENT_NAMES`, `overrides.json`, `custom.js`) + a small piece of every future Pass 2/4 chapter | in progress — front page, naming foundation for everything currently in `CHAPTERS`, and sticky `?readonly` nav done 2026-08-09; `CONTENT_NAMES` pre-populated for ch. 9–19 ahead of Passes 2/4 reaching them, not yet wired into `CHAPTERS`. See `AUDIT.md` |
 
 Keep the Status column current. Each pass ends by appending a handoff note to `AUDIT.md`
@@ -54,6 +54,13 @@ Every chapter gets treated. Which treatment depends on how it's taught.
 
 Blanks exist to be projected and worked through live. A chapter read independently gains
 nothing from them. If a chapter later moves into live instruction, add markers then.
+
+This table is keyed by chapter number, which an *interlude* (original content inserted
+between two numbered chapters, not part of *Think Python* — see `CHAPTER_MANIFEST.md`)
+doesn't have. An interlude inherits its tier from the chapters on either side of it, not
+from a lookup in this table — `chap06b`, between two Live/1–11 chapters, is `strip`/full
+blanks/full form. Record each interlude's inherited tier in `CHAPTER_MANIFEST.md` as it's
+added.
 
 ---
 

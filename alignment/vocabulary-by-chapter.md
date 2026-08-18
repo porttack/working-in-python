@@ -1,8 +1,8 @@
 # Vocabulary by Chapter
 
-Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-18, in reading order. Chapter 19 ("Final thoughts") has no glossary. This is the book's *own* vocabulary — see [`ap-vocabulary-coverage.md`](ap-vocabulary-coverage.md) for how it lines up against AP CSP's vocabulary, and [`glossary-map.md`](glossary-map.md) for the concept-level (not word-level) crosswalk written during Pass 3.
+Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-18, plus any interludes' own glossaries, in reading order. Chapter 19 ("Final thoughts") has no glossary. This is the book's *own* vocabulary — see [`ap-vocabulary-coverage.md`](ap-vocabulary-coverage.md) for how it lines up against AP CSP's vocabulary, and [`glossary-map.md`](glossary-map.md) for the concept-level (not word-level) crosswalk written during Pass 3.
 
-**186 terms across 18 chapters.**
+**204 terms across 18 chapters plus 1 interlude.**
 
 ## Chapter 1 — Welcome
 
@@ -109,6 +109,31 @@ Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-1
 | **scaffolding** | Code that is used during program development but is not part of the final version. |
 | **Turing complete** | A language, or subset of a language, is Turing complete if it can perform any computation that can be described by an algorithm. |
 | **input validation** | Checking the parameters of a function to make sure they have the correct types and values |
+
+## Interlude — Docstrings and Doctests
+
+Between Chapter 6 and Chapter 7 — original content, not part of *Think Python*. See `CHAPTER_MANIFEST.md`'s Interludes section.
+
+| Term | Definition |
+|---|---|
+| **docstring** | A string at the beginning of a function that documents what the function does; unlike a comment, it is stored on the function and can be read by the program. *(Python's name for what the exam calls* program documentation.*)* |
+| **doctest** | An example call and its expected result, written inside a docstring, that can be run automatically to check the function. *(Python; not exam vocabulary.)* |
+| **testing** | Checking that a program behaves correctly by running it on chosen inputs and comparing what comes out against what should have come out. |
+| **test case** | A single input, paired with the result it should produce. |
+| **boundary case** | A test case at the value where a function's behavior changes, such as zero, an empty string, or the first or last item. |
+| **edge case** | A test case at an unusual or extreme input, where a function is most likely to be wrong. |
+| **expected value** | What a test says the answer should be, as opposed to what the code actually produced. |
+| **pass** | A test whose actual result matches its expected value. |
+| **fail** | A test whose actual result does not match its expected value. |
+| **hand tracing** | Working through code on paper line by line, writing down each variable's value, in order to find an error without running the program. |
+| **semantic error** | An error that lets the program run but produces a wrong result. *(The exam calls this a* logic error.*)* |
+| **roundoff error** | A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. |
+| **program purpose** | The need a program serves, or the problem it solves; *why* it exists. |
+| **program function** | What a program does when it runs, described as behavior. |
+| **program input** | Data a program receives while it is running. |
+| **program output** | What a program produces: displayed text, a returned value, a file, a sound, a movement. |
+| **procedure** | The exam's word for a named, reusable block of code, whether or not it returns a value. This book says *function*. In older languages the two words were distinct: a procedure returned nothing, a function returned a value. |
+| **regression** | A bug that reappears in code that used to work. Tests exist mainly to catch these. *(Professional vocabulary, not exam vocabulary.)* |
 
 ## Chapter 7 — Iteration and Search
 

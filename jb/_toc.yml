@@ -18,12 +18,44 @@ parts:
 #
 # It is tempting to split these into "Chapters 1-11", "After the Exam", and
 # "On Your Own" as three parts with captions, so that course scope shows up
-# in the sidebar. Do not. Jupyter Book restarts numbering at each part, so
-# chapter 12 would render as "1" in its own section. This course refers to
-# chapters by number constantly, and a sidebar that disagrees with the
-# syllabus is worse than a sidebar that says less.
+# in the sidebar. Do not: a `caption:` on every split adds a bold divider in
+# the sidebar, and this course refers to chapters by number constantly, so a
+# sidebar with visible section breaks that disagree with the syllabus is
+# worse than one that says less.
 #
 # Scope is communicated in index.md and orientation.md instead.
+#
+# EXCEPTION, added for chap06b (2026-08-17): an "interlude" -- a chapter
+# outside Think Python's own numbering, inserted between two numbered
+# chapters (see CHAPTER_MANIFEST.md and AUDIT.md; more are planned, e.g. a
+# unit-testing interlude near chapter 9 and one on binary). An interlude
+# must not consume a chapter number itself, and must not push every chapter
+# after it up by one -- confirmed by an actual local `jupyter-book build`
+# that chap07 renders "8." if chap06b is added as a plain sibling `- file:`
+# entry in this same list. The fix, also verified by a local build: split
+# this one part into three, with `caption:` on only the first so no new
+# sidebar divider appears, `numbered: True` on the chapters-only parts, and
+# omitted on the interlude's own one-item part. jupyter-book ships
+# sphinx-multitoc-numbering specifically so numbering continues across a
+# split like this instead of restarting per part -- chapter 7 still renders
+# "7.", not "1." or "8.", and next/previous links still flow
+# chap06 -> chap06b -> chap07. (The comment two paragraphs up, from before
+# this was tested, is wrong about restarting -- kept above only as the
+# reason a *captioned* split is still worth avoiding.) Repeat this split
+# pattern -- new anonymous part, no caption, `numbered:` omitted -- for
+# every future interlude; never add a second `caption:` line to this file's
+# Chapters section.
+#
+# Also considered and rejected: nesting the interlude as a `sections:` child
+# of the chapter before it, to get a one-tab sidebar indent. Tested locally:
+# it works for the indent, but Sphinx renders it as an HTML <details> that's
+# collapsed by default on every page except the interlude's own chapter and
+# itself -- a student browsing from chapter 10 would see a closed "6. Return
+# Values" toggle with the interlude hidden inside, not something meant to
+# read as next in sequence. Used a toc-level `title:` override instead (see
+# chap06b's entry below) to prefix "Interlude: " onto the sidebar label only
+# -- the notebook's own H1 and page title stay the bare chapter title,
+# unprefixed, matching every numbered chapter's own convention.
 - caption: Chapters
   numbered: True
   chapters:
@@ -33,6 +65,11 @@ parts:
     - file: chap04
     - file: chap05
     - file: chap06
+- chapters:
+    - file: chap06b
+      title: "Interlude: Docstrings and Doctests"
+- numbered: True
+  chapters:
     - file: chap07
     - file: chap08
     - file: chap09

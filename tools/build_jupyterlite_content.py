@@ -79,6 +79,10 @@ CHAPTERS = {
     "chap04.ipynb": ["working_in_python.py", "diagram.py", "jupyturtle.py"],
     "chap05.ipynb": ["working_in_python.py", "diagram.py", "jupyturtle.py"],
     "chap06.ipynb": ["working_in_python.py", "diagram.py"],
+    # Interlude between chapters 6 and 7 -- see CHAPTER_MANIFEST.md and
+    # jb/_toc.yml's 2026-08-17 comment. Only downloads working_in_python.py,
+    # no diagram.py: this chapter never draws a diagram.
+    "chap06b.ipynb": ["working_in_python.py"],
     "chap07.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
     "chap08.ipynb": ["working_in_python.py", "diagram.py", "words.txt", "pg345.txt", "pg1184.txt"],
     "chap09.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
@@ -136,6 +140,15 @@ CONTENT_NAMES = {
     "chap06.ipynb": {
         "name": "Chapter06-Return-Values.ipynb",
         "teach": "blank06-Return-Values.ipynb",
+    },
+    # Interlude, not a numbered Think Python chapter -- "Chapter06b" (not
+    # "Interlude...") is deliberate: the lab file browser only sorts
+    # alphabetically (see the module docstring above), so this has to sort
+    # next to Chapter06/Chapter07 by name, same as the filename and toc
+    # placement. The book's own prose calls it an interlude regardless.
+    "chap06b.ipynb": {
+        "name": "Chapter06b-Docstrings-and-Doctests.ipynb",
+        "teach": "blank06b-Docstrings-and-Doctests.ipynb",
     },
     "chap07.ipynb": {
         "name": "Chapter07-Iteration-and-Search.ipynb",
@@ -573,6 +586,67 @@ CELL_PATCHES = {
             '<!-- apcsp:end -->',
         ): (
             "*(You're already running this chapter live -- that's this page.)*",
+        ),
+    },
+    # chap06b's page embeds a live JupyterLite iframe of itself, same
+    # recursive-embed problem and same fix as chap01.ipynb above.
+    "chap06b.ipynb": {
+        (
+            '<!-- apcsp:begin type="note" chapter="6b" -->\n',
+            '<p id="chap06b-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>\n',
+            '\n',
+            '<style>\n',
+            '#pst-secondary-sidebar { display: none !important; }\n',
+            '#chap06b-jupyterlite-pane {\n',
+            '  display: block;\n',
+            '  height: 600px;\n',
+            '  background: #fff;\n',
+            '  overflow: hidden;\n',
+            '}\n',
+            '#chap06b-jupyterlite-pane iframe {\n',
+            '  display: block;\n',
+            '  width: 100%;\n',
+            '  height: 100%;\n',
+            '  border: 0;\n',
+            '}\n',
+            '</style>\n',
+            '<div id="chap06b-jupyterlite-pane">\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter06b-Docstrings-and-Doctests.ipynb"></iframe>\n',
+            '</div>\n',
+            '<script>\n',
+            '(function () {\n',
+            '  var note = document.getElementById("chap06b-jupyterlite-note");\n',
+            '  var pane = document.getElementById("chap06b-jupyterlite-pane");\n',
+            '  if (!pane) return;\n',
+            '  if (new URLSearchParams(location.search).has("readonly")) {\n',
+            '    pane.style.display = "none";\n',
+            '    if (note) note.style.display = "none";\n',
+            '    return;\n',
+            '  }\n',
+            '  var sidebar = document.getElementById("pst-primary-sidebar");\n',
+            '  if (!sidebar) return;\n',
+            '  // Only take over the viewport when running inside the Sphinx book site,\n',
+            '  // where the primary sidebar this pane is docked next to actually exists.\n',
+            '  // height:auto (rather than the 600px stylesheet fallback, which only\n',
+            '  // exists for contexts where this script never runs, e.g. viewing the raw\n',
+            '  // notebook in VS Code) lets top+bottom determine the height, so the pane\n',
+            '  // fills the whole right side, not a fixed 600px slice of it.\n',
+            '  pane.style.position = "fixed";\n',
+            '  pane.style.top = "0";\n',
+            '  pane.style.right = "0";\n',
+            '  pane.style.bottom = "0";\n',
+            '  pane.style.height = "auto";\n',
+            '  pane.style.zIndex = "2000";\n',
+            '  function positionPane() {\n',
+            '    pane.style.left = sidebar.getBoundingClientRect().right + "px";\n',
+            '  }\n',
+            '  new ResizeObserver(positionPane).observe(sidebar);\n',
+            '  positionPane();\n',
+            '})();\n',
+            '</script>\n',
+            '<!-- apcsp:end -->',
+        ): (
+            "*(You're already running this interlude live -- that's this page.)*",
         ),
     },
     # chap07's page embeds a live JupyterLite iframe of itself, same

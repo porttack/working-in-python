@@ -5,6 +5,70 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-17 — chap06b: first interlude, wired end to end
+
+### Added
+- `chapters/chap06b.ipynb`: new *interlude* — "Docstrings and Doctests," original content
+  between chapters 6 and 7, not part of *Think Python*. Drafted in an earlier session;
+  this entry covers finishing it: the standard chrome (link bar, embedded JupyterLite pane
+  with its `?readonly` escape hatch, "Finished? Copy your work" tool) and the closing
+  attribution note plus Downey copyright/license block, same wording every other chapter
+  uses. `CHAPTER_MANIFEST.md` gains an "Interludes" section documenting the category (more
+  planned: unit testing, binary) and recording that `chap06b` inherits Live/1–11 treatment
+  from its neighbors.
+- `data/exercise-ledger.json`: seven entries (`ch06b-ex01`–`ch06b-ex06`, `ch06b-ec01`), a
+  new `"kind": "original"` value for exercises with no upstream counterpart to diff against
+  (existing kinds are `native`/`A`/`B`, all upstream-relative).
+- `tools/build_jupyterlite_content.py`: `CHAPTERS`, `CONTENT_NAMES`, and `CELL_PATCHES`
+  entries for `chap06b.ipynb`, following the chapter-1 pattern; `CELL_PATCHES` firing
+  verified programmatically (`apply_cell_patches` round-trip).
+- `jb/_toc.yml`: `chap06b` inserted between `chap06` and `chap07`. This is not a plain
+  sibling `- file:` entry — see the comment at the "Chapters" part for why (a plain
+  insertion renumbers every following chapter) and the fix (splitting into three parts
+  with `caption:` on only the first, relying on `sphinx-multitoc-numbering` to continue
+  numbering across the split). Verified with an actual local `jupyter-book build`: chapter
+  7 still renders "7.", not "8.", and prev/next links flow chap06 -> chap06b -> chap07.
+- `jb/build.sh`: the chapter-copy glob was `chap[0-1][0-9].ipynb`, which silently excludes
+  any lettered interlude filename. Widened to `chap[0-1][0-9]*.ipynb`.
+
+### Fixed
+- `chapters/chap06b.ipynb`: the doctest-running helper was imported as
+  `from working_in_python import run_doctests`, but no such function exists in
+  `working_in_python.py` -- every other chapter defines it locally as a three-line wrapper
+  around `doctest.run_docstring_examples`. Every `run_doctests(...)` call in the chapter
+  would have raised `ImportError` on first run. Replaced with the same local definition
+  chapters 7, 9, and 11 already use.
+- `chapters/chap06b.ipynb`: reworded self-references from "chapter" to "interlude" (the
+  chapter opens by saying it isn't one), dropped a dead forward link to a not-yet-written
+  `chap09b.html`, and caught a duplicated line left by an earlier pass at that same edit.
+
+### Changed
+- `CLAUDE.md`: Treatment matrix section notes that an interlude inherits its tier from its
+  neighbors rather than being looked up by chapter number; Pass 2 and Pass 4 status cells
+  note `chap06b`'s cross-pass completion.
+- `jb/_toc.yml`: `chap06b`'s sidebar entry gets a `title:` override, "Interlude:
+  Docstrings and Doctests," so it reads as clearly different from a numbered chapter in the
+  flat nav list without needing a click to find (an indented/nested placement was tested and
+  rejected -- collapsed by default on every page except its own). The notebook's own H1 and
+  browser-tab title are unaffected, same as every numbered chapter's own bare title.
+- `alignment/vocabulary-by-chapter.md` / `.html`: new "Interlude -- Docstrings and Doctests"
+  section between chapters 6 and 7, chap06b's 18 glossary terms in reading order. Running
+  total 186 -> 204 across 18 chapters plus 1 interlude (the `.html`'s top-line stat was
+  actually still 185, one behind the `.md`, before this pass -- fixed to 186 as a baseline,
+  then to 204).
+- `alignment/ap-vocabulary-coverage.md`: chap06b directly teaches several terms this doc had
+  marked `gap` -- flipped to `in book`: program purpose/function/input/output, test case,
+  hand tracing, and roundoff error (7 terms; Big Idea 1 goes from 8/14 in-book/gap to 15/7,
+  book-wide from 38/41 to 45/34, verified by recounting the table programmatically, not by
+  hand arithmetic). Added chap06b as an additional reference on three rows already `in book`
+  (logic error, testing, procedure) without changing their status. Overflow error stays
+  `gap` on purpose -- chap06b names and defines it but explicitly defers the demonstration to
+  a not-yet-written interlude on binary.
+- `alignment/glossary-map.md`: three additions to "Terms Working in Python uses that AP CSP
+  doesn't need" for chap06b's testing vocabulary and `regression`; noted on the existing
+  function/procedure row that chap06b is the first place "procedure" itself appears as a
+  named term.
+
 ## 2026-08-17 — chapter 6: Extra Exercises section
 
 ### Added

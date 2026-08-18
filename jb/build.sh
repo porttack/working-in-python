@@ -30,7 +30,9 @@ fi
 # Clear any copies left from a previous run so a deleted chapter cannot linger.
 rm -f chap*.ipynb jupyter_intro.ipynb index.ipynb
 
-cp ../chapters/chap[0-1][0-9].ipynb .
+# The trailing * (not just chapNN.ipynb) also picks up lettered interludes
+# like chap06b.ipynb -- see jb/_toc.yml's 2026-08-17 comment on those.
+cp ../chapters/chap[0-1][0-9]*.ipynb .
 cp ../chapters/jupyter_intro.ipynb .
 cp ../chapters/index.ipynb .
 

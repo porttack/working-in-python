@@ -124,6 +124,20 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch06ex-hw04 | Debug grade_points: the function only prints, so multiplying its call by 3 raises a TypeError on None | native | added | — | None | 8 |
 | ch06ex-hw05 | Reflection: one example where a return value does something printing could not | native | added | — | None | 5 |
 
+## chap06b
+
+7 exercise(s).
+
+| ID | Anchor | Kind | Action | Replacement | Min before | Min after |
+|---|---|---|---|---|---|---|
+| ch06b-ec01 | Extra credit: write a completely correct function with a doctest that fails anyway, and explain why | original | added | — | 10 | 10 |
+| ch06b-ex01 | Add a docstring with three doctests to is_leap_year from Chapter 5 | original | added | — | 8 | 8 |
+| ch06b-ex02 | Write can_ride(height_inches, age) with a docstring and three doctests including a false-boundary test (choose one: Exercise 2 or 3) | original | added | — | 10 | 10 |
+| ch06b-ex03 | Write letter_grade(score) with a docstring and three doctests including a false-boundary test (choose one: Exercise 2 or 3) | original | added | — | 10 | 10 |
+| ch06b-ex04 | Hand-trace and fix the buggy count_down_to_zero so its existing doctests pass, without changing the docstring | original | added | — | 8 | 8 |
+| ch06b-ex05 | Determine whether the code or the doctest is wrong in middle_character, fix only the wrong one, and explain the reasoning | original | added | — | 8 | 8 |
+| ch06b-ex06 | Reflection: did knowing the doctest would run change how you wrote the docstring? | original | added | — | 5 | 5 |
+
 ## chap07
 
 10 exercise(s).
@@ -269,8 +283,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 134
+Total exercises: 141
 
-By kind: A=4, B=8, native=122
+By kind: A=4, B=8, native=122, original=7
 
-By action: added=45, edited=6, kept=72, removed=11
+By action: added=52, edited=6, kept=72, removed=11
