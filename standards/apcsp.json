@@ -200,8 +200,15 @@
    "exclusions": [
     "specific range limitations for real numbers are outside course/exam scope (EK DAT-1.B.3)"
    ],
-   "note": "Real gap: no binary/base-conversion content anywhere in the book. Previously logged as carried by CS50T Multimedia; that supplement was dropped after year one and never taught again, so the assignment was stale -- removed 2026-08-09 per teacher confirmation. The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14, 'Digital communication protocols') does teach hexadecimal as a compact byte notation for I2C device addresses, a partial, authentic touchpoint, but it doesn't walk through binary place-value or binary<->decimal conversion, so it doesn't close this gap on its own.",
-   "carriers": []
+   "note": "Carried by the interlude between chapters 7 and 8 ('Representing Data', chap07b): bits, place value, binary/decimal/hex conversion by hand and via bin()/int(s, 2)/format(). As of 2026-08-17 chap07b exists only as an outline (section headings, vocabulary, standards claims) -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; that supplement was dropped after year one and never taught again, so the assignment was stale -- removed 2026-08-09 per teacher confirmation. The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14, 'Digital communication protocols') remains a secondary, partial touchpoint (hexadecimal as byte notation) alongside chap07b's fuller treatment.",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      "7b"
+     ]
+    }
+   ]
   },
   {
    "code": "2.2",
@@ -212,8 +219,15 @@
    ],
    "paraphrase": "Compression trades off file size against fidelity; lossless keeps everything, lossy throws some of it away for a bigger size reduction.",
    "class_periods": null,
-   "note": "Real gap: not carried by this book. Previously logged as carried by CS50T Multimedia; removed 2026-08-09 per teacher confirmation that supplement hasn't been taught since year one. No replacement identified -- the Pico I2C chapter (see 2.1's note) doesn't touch compression at all.",
-   "carriers": []
+   "note": "Carried by the interlude between chapters 7 and 8 ('Representing Data', chap07b): the lossless/lossy contrast, taught as the choice the exam actually tests rather than as definitions, plus student-written run-length encoding as the lossless worked example. As of 2026-08-17 chap07b exists only as an outline -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; removed 2026-08-09 per teacher confirmation that supplement hasn't been taught since year one. The Pico I2C chapter (see 2.1's note) still doesn't touch compression at all.",
+   "carriers": [
+    {
+     "source": "working_in_python",
+     "chapters": [
+      "7b"
+     ]
+    }
+   ]
   },
   {
    "code": "2.3",

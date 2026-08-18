@@ -5,6 +5,47 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-17 — chap07b: second interlude, wired as an outline
+
+### Added
+- `chapters/chap07b.ipynb`: new *interlude* — "Representing Data," between chapters 7 and
+  8, covering AP 2.1/2.2 (Binary Numbers, Data Compression) and CA DA.8/DA.9. **Outline
+  only** — section headings, vocabulary, and standards claims, no drafted prose or
+  exercises; its own first cell says so and asks to be deleted once the chapter is real.
+  Wired into `jb/_toc.yml` (same three-way split pattern as `chap06b`) and
+  `CHAPTER_MANIFEST.md` (new row plus an Interludes-section entry recording its inherited
+  Live/1–11 tier and exactly what's deliberately deferred — chrome, JupyterLite naming,
+  the exercise ledger — until the chapter is actually drafted).
+- `alignment/vocabulary-by-chapter.md` / `.html`: new "Interlude — Representing Data"
+  section, chap07b's 18 glossary terms, running total 204 → 222 (18 chapters + 2
+  interludes).
+
+### Changed
+- `alignment/ap-vocabulary-coverage.md`: 14 rows flipped `gap` → `in book`, chapter `7b` —
+  Binary, Bit, Byte, Hexadecimal, Decimal, Analog data, Digital data, Sampling, Lossless
+  compression, Lossy compression, ASCII, Unicode, RGB, and Overflow error. Recounted
+  programmatically: 45 → 59 in book, 34 → 20 gap, out of 144 total. Pixel and Metadata left
+  `gap` on purpose (pixel isn't in chap07b's actual Glossary cell; metadata is routed to
+  *Little Brother* by chap07b's own scope notes).
+- `alignment/glossary-map.md`: added compression ratio / run-length encoding to "Terms
+  Working in Python uses that AP CSP doesn't need."
+- `standards/apcsp.json`, `standards/castandards.json`: AP 2.1/2.2 and CA DA.8/DA.9
+  carriers reassigned from `[]`/CS50T-Multimedia references to `chap07b` (recorded as the
+  string `"7b"` — the first interlude to carry an AP/CA topic directly). DA.9 kept a
+  `partial` note: chap07b covers compression but not DA.9's broader scope (storage
+  location, cost, reliability, privacy).
+- `alignment/supplement-plan.md`: removed the AP 2.1/2.2 + CA DA.8/DA.9 entry from "What
+  has no assigned carrier anywhere" — no longer a gap.
+- `alignment/standards_alignment.md`: all four views updated — new chap07b row in View 1,
+  2.1/2.2/DA.8/DA.9 flipped from `unassigned` in Views 2–3, View 4's AP gap count 2 → 0
+  and CA gap count 10 → 8.
+
+Every claim above that depends on `chap07b` is qualified "outline only, not drafted prose"
+in the file it appears in — this pass records the standards/vocabulary commitment ahead of
+the authoring, on the user's explicit choice, not a claim that the content is finished.
+See `AUDIT.md`'s 2026-08-17 handoff for the full reasoning, including what was
+deliberately left undone (chrome, JupyterLite wiring, exercise ledger) pending Pass 2.
+
 ## 2026-08-17 — chap06b: first interlude, wired end to end
 
 ### Added

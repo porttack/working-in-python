@@ -71,6 +71,16 @@ parts:
 - numbered: True
   chapters:
     - file: chap07
+# Second interlude, added 2026-08-17: chap07b ("Representing Data"), between chapters 7
+# and 8. Outline only as of this writing -- no drafted prose, no exercises -- but wired
+# into the TOC now per CHAPTER_MANIFEST.md's Interludes section so the split-part pattern
+# and nav-label convention are already in place when the chapter is actually drafted. Same
+# three-way-split mechanism as chap06b above; see that entry's comment for why.
+- chapters:
+    - file: chap07b
+      title: "Interlude: Representing Data"
+- numbered: True
+  chapters:
     - file: chap08
     - file: chap09
     - file: chap10

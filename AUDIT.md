@@ -6378,3 +6378,115 @@ Filled in via the same `json.load`/mutate/`json.dump` pattern as every other not
 this session, one line changed. `make projector && make check` clean; `git diff --stat`
 confirms a 2-line diff across `chapters/chap06b.ipynb` and `projector/chap06b.ipynb`
 (1 line each), nothing else touched.
+
+## 2026-08-17 -- chap07b, the second interlude, wired into the book as an outline
+
+The user supplied `chapters/chap07b.ipynb` -- a second interlude, between chapters 7 and
+8, titled "Representing Data," covering AP 2.1/2.2 and CA DA.8/DA.9 (binary, place value,
+hex, ASCII/Unicode, RGB, analog/digital, sampling, overflow/roundoff, lossless/lossy
+compression). Its own first cell says plainly: outline only, no drafted prose, no
+exercises, "delete this block when the chapter is real." The ask was to put it in the
+book anyway -- TOC, vocab lists updated -- doing the minimum necessary, following the
+chap06b precedent (see 2026-08-17 follow-ups 4-7 above) as the template for what "wiring
+an interlude" means.
+
+**Found first, before any edits:** `make check` was already failing --
+`chapters/chap07b.ipynb` existed but `projector/` was never regenerated against it. Ran
+`python3 tools/build_blanks.py --dst projector` to fix; the outline has no blank markers,
+so this just copies it through unchanged. Also checked `tools/check_sync.py` and
+`tools/build_jupyterlite_content.py --check` before touching anything: neither requires
+every `chapters/*.ipynb` to be registered anywhere else, so chap07b not being in
+`build_jupyterlite_content.py`'s `CHAPTERS` dict doesn't break `make check` -- confirmed by
+reading both scripts rather than assuming.
+
+**Asked the user one clarifying question before proceeding:** chap07b's own standards cell
+carries a to-do list ("Repo updates this chapter requires, do not build the notebook
+without them") that includes reassigning AP 2.1/2.2 and CA DA.8/DA.9 carriers and flipping
+~17 `ap-vocabulary-coverage.md` rows from `gap` to `in book` -- but there's no prose yet,
+just section headings, so flipping those would assert coverage that doesn't exist yet.
+Presented the choice directly rather than picking one silently. **User chose to flip to
+in-book now**, treating the outline as a firm commitment rather than waiting for drafted
+prose. Proceeded on that basis, but added an explicit "outline only, not drafted prose"
+caveat to every row/note touched, so nothing reads as more settled than it is.
+
+**Wired, bare minimum (TOC + vocab, following chap06b's pattern):**
+- `jb/_toc.yml` -- same three-way part split as chap06b, new anonymous part for chap07b
+  between chapter 7's and chapter 8's numbered parts, `title: "Interlude: Representing
+  Data"` override on the sidebar label only (the notebook's own H1, "Representing Data
+  (OUTLINE)," is untouched -- the `(OUTLINE)` stays, since the content genuinely is one,
+  and stripping the qualifier from the source notebook wasn't asked for).
+- `jb/build.sh`'s chapter-copy glob (`chap[0-1][0-9]*.ipynb`) already covers `chap07b.ipynb`
+  -- checked, not assumed; no change needed.
+- `CHAPTER_MANIFEST.md` -- new table row, and a new paragraph in the Interludes section
+  documenting chap07b's inherited tier (Live/1-11/strip, same as chap06b, inherited from
+  chapters 7 and 8 on either side) and exactly what's deliberately *not* done yet (Pass 4
+  chrome, Pass 5 JupyterLite `CHAPTERS`/`CONTENT_NAMES`/`CELL_PATCHES` wiring,
+  `data/exercise-ledger.json` -- none of these apply until real prose and exercises exist).
+- `alignment/vocabulary-by-chapter.md` and `.html` -- new "Interlude -- Representing Data"
+  section between chapters 7 and 8, chap07b's 18 glossary terms verbatim, running total
+  204 -> 222 (18 chapters + 2 interludes). Added the jump-nav link and an explicit
+  "outline only" note in the `.html` version (a `<p class="bignote">`, a class that existed
+  in the stylesheet but was never actually used until now).
+
+**Went further than bare minimum, per the user's answer to the clarifying question above:**
+- `alignment/ap-vocabulary-coverage.md` -- 14 rows flipped `gap` -> `in book`, chapter
+  `7b`: Binary, Bit, Byte, Hexadecimal, Decimal, Analog data, Digital data, Sampling,
+  Lossless compression, Lossy compression, ASCII, Unicode, RGB (Big Idea 2), and Overflow
+  error (Big Idea 1 -- this is the "later interlude on binary" that chap06b's own Roundoff
+  error note already forward-referenced). Left **Pixel** and **Metadata** as `gap`:
+  Pixel is named in chap07b's outline section list but never actually makes it into the
+  chapter's own Glossary cell (flagged in chap07b's own TODO as unresolved), and Metadata
+  is deliberately routed to *Little Brother* by chap07b's own "Deliberately not here"
+  table. Also left **compression ratio** and **run-length encoding** alone -- chap07b's own
+  glossary already marks both "Ours, not exam vocabulary," so they were never candidates.
+  Recounted the whole table programmatically, not by hand (same discipline as the chap06b
+  follow-up 6 precedent): 45 -> 59 in book, 34 -> 20 gap, verified against a script that
+  re-parses every Big Idea section's WiP column; total still sums to 144.
+- `alignment/glossary-map.md` -- added compression ratio / run-length encoding to "Terms
+  Working in Python uses that AP CSP doesn't need," `keep`, same treatment as chap06b's
+  `regression` row.
+- `standards/apcsp.json` -- 2.1 and 2.2 carriers moved from `[]` to
+  `[{"source": "working_in_python", "chapters": ["7b"]}]`, notes rewritten to point at
+  chap07b instead of the removed CS50T assignment. Chapter is recorded as the *string*
+  `"7b"`, not an int -- every other carrier's `chapters` list is plain ints, and there's no
+  established convention for a lettered interlude here (this is the first one to carry an
+  AP/CA topic directly; chap06b never did). Documented the string-vs-int choice in
+  `CHAPTER_MANIFEST.md` so the next interlude doesn't have to re-decide it.
+- `standards/castandards.json` -- same for DA.8 and DA.9, except DA.9's note keeps an
+  explicit "partial" flag: its own pre-existing text already said its scope is broader than
+  compression alone (storage location, cost, reliability, privacy), and chap07b's outline
+  doesn't reach that breadth. Carrier is assigned, but the note doesn't overclaim.
+- `alignment/supplement-plan.md` -- removed the AP 2.1/2.2 + CA DA.8/DA.9 bullet from "What
+  has no assigned carrier anywhere" entirely (this doc tracks external supplements and true
+  gaps; a book-carried topic doesn't belong here at all, so deletion is correct, not a
+  demotion to some other section).
+- `alignment/standards_alignment.md` -- all four views touched: View 1 gets a new chap07b
+  row between chapters 7 and 8, flagged outline-only in the row text itself, plus a new
+  note explaining the flag and separately flagging (not fixing) that chap06b was never
+  added to this view at all when it was written -- a pre-existing gap in the chap06b
+  wiring, left alone since chap06b doesn't carry an AP/CA topic of its own. Views 2 and 3
+  flip 2.1/2.2/DA.8/DA.9 from `unassigned` to `working_in_python`/`7b`, DA.9 marked
+  `partial`. View 4's "Unassigned in the AP framework" section drops from 2 topics to 0 and
+  its heading/prose rewritten to record the resolution and the outline-only caveat, rather
+  than just deleting it silently; the CA framework's unassigned count drops from 10 to 8.
+
+**Deliberately not touched:** `data/exercise-ledger.json` (no exercises exist in an
+outline), Pass 4 chrome (link bar, embedded JupyterLite pane, exercises notebook,
+attribution rule), Pass 5's `build_jupyterlite_content.py` `CHAPTERS`/`CONTENT_NAMES`/
+`CELL_PATCHES` entries (the JupyterLite `--check` only iterates registered `CHAPTERS`
+keys, confirmed by reading `check()` in `tools/build_jupyterlite_content.py`, so leaving
+chap07b out doesn't break anything), CSTA 2026 and CA CTE/ICT alignment for chap07b (both
+still `TBD` in the notebook's own standards cell -- left as-is, no CSTA/ICT lookup done
+this session), and chap06b's own pre-existing gaps in `apcsp.json`/`standards_alignment.md`
+(flagged in `CHAPTER_MANIFEST.md`, not retroactively fixed -- out of scope for this ask).
+
+`make projector && make check` clean. `CLAUDE.md`'s Pass 2/3/4/5 status rows updated to
+mention chap07b's existence and outline-only status. `CHANGELOG.md` has a dated entry.
+Not committed yet -- next step is for the user to review the diff and commit.
+
+**What the next session needs to know:** chap07b needs real authoring (Pass 2 proper)
+before any of the deferred items above make sense to do. Its own five open questions
+(overflow demo mechanism, exercise format, sound-vs-image for sampling, whether one week
+is enough for ten sections, and whether the `7b` filename convention holds up under
+`check_sync.py`/build tooling -- now confirmed yes, since this session ran `make check`
+clean with it in place) are all still open and are Pass 2's problem, not this session's.

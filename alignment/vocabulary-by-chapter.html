@@ -285,12 +285,12 @@ a.chip.gap { border-bottom: none; }
   <p class="lede">Every term from Downey's own chapter-ending <code>Glossary</code> sections, chapters 1&ndash;18, plus any interludes' own glossaries, in reading order. This is the book's own vocabulary, exactly as written &mdash; not a paraphrase, not a standards crosswalk.</p>
   <div class="stats">
     <div class="stat book">
-      <div class="n">204</div>
-      <div class="label">glossary terms, chapters 1&ndash;18 + 1 interlude</div>
+      <div class="n">222</div>
+      <div class="label">glossary terms, chapters 1&ndash;18 + 2 interludes</div>
     </div>
     <div class="stat planned">
       <div class="n">18</div>
-      <div class="label">chapters with a Glossary section (plus 1 interlude)</div>
+      <div class="label">chapters with a Glossary section (plus 2 interludes)</div>
     </div>
     <div class="stat elsewhere">
       <div class="n">1</div>
@@ -309,6 +309,7 @@ a.chip.gap { border-bottom: none; }
     <a href="#ch06">6</a>
     <a href="#ch06b">6b</a>
     <a href="#ch07">7</a>
+    <a href="#ch07b">7b</a>
     <a href="#ch08">8</a>
     <a href="#ch09">9</a>
     <a href="#ch10">10</a>
@@ -537,6 +538,39 @@ a.chip.gap { border-bottom: none; }
         <tr><td class="code">linear search</td><td>A computational pattern that searches through a sequence of elements and stops when it finds what it is looking for.</td></tr>
         <tr><td class="code">pass</td><td>If a test runs and the result is as expected, the test passes.</td></tr>
         <tr><td class="code">fail</td><td>If a test runs and the result is not as expected, the test fails.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="ch07b">
+  <div class="bigidea-head">
+    <h2><a href="https://python.porttack.com/chap07b.html">Interlude</a> &mdash; Representing Data</h2>
+    <span class="name">18 terms</span>
+  </div>
+  <p class="bignote">Outline only as of 2026-08-17 &mdash; no drafted prose yet; terms below are this chapter's planned glossary. See <code>CHAPTER_MANIFEST.md</code>.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:220px">Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr><td class="code">bit</td><td>A single binary digit, 0 or 1.</td></tr>
+        <tr><td class="code">byte</td><td>Eight bits. Enough to hold one of 256 values.</td></tr>
+        <tr><td class="code">binary</td><td>Base-2 representation, using only the digits 0 and 1.</td></tr>
+        <tr><td class="code">decimal</td><td>Base-10, the system you already use.</td></tr>
+        <tr><td class="code">hexadecimal</td><td>Base-16, using 0 through 9 and A through F. Four bits per digit, so one byte is exactly two hex digits.</td></tr>
+        <tr><td class="code">digital data</td><td>Values represented in discrete steps, ultimately as bits.</td></tr>
+        <tr><td class="code">analog data</td><td>Values that vary continuously and smoothly, with no steps.</td></tr>
+        <tr><td class="code">sampling</td><td>Approximating an analog signal by measuring it at regular intervals. Two independent settings: how often you measure (rate) and how precisely you record each measurement (bit depth).</td></tr>
+        <tr><td class="code">ASCII</td><td>A table assigning a number from 0 to 127 to each of a small set of characters.</td></tr>
+        <tr><td class="code">Unicode</td><td>A far larger table, covering the writing systems ASCII left out.</td></tr>
+        <tr><td class="code">character encoding</td><td>The agreement about which numbers stand for which characters. Read bits with the wrong encoding and you get the right data as the wrong text.</td></tr>
+        <tr><td class="code">RGB</td><td>Color stored as three numbers, the amounts of red, green, and blue, each usually one byte.</td></tr>
+        <tr><td class="code">overflow error</td><td>An error that happens when a value is too large for the number of bits available to hold it.</td></tr>
+        <tr><td class="code">roundoff error</td><td>A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. (Second reference &mdash; first defined by the interlude between chapters 6 and 7.)</td></tr>
+        <tr><td class="code">lossless compression</td><td>Reduces size while allowing the original to be reconstructed exactly.</td></tr>
+        <tr><td class="code">lossy compression</td><td>Reduces size further, but only an approximation of the original can be recovered.</td></tr>
+        <tr><td class="code">compression ratio</td><td>Compressed size divided by original size. (This book's own term; not exam vocabulary.)</td></tr>
+        <tr><td class="code">run-length encoding</td><td>A lossless scheme that replaces runs of a repeated value with the value and a count. (This book's own term; the exam names no specific algorithm.)</td></tr>
       </tbody>
     </table>
   </div>

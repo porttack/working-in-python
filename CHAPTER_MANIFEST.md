@@ -24,6 +24,7 @@ taken directly from that matrix.
 | `chap06.md` / `.ipynb` | 6 | Return Values | Live, 1–11 | strip |
 | `chap06b.md` / `.ipynb` | interlude, between 6 and 7 | Docstrings and Doctests | Live, 1–11 (inherited from its neighbors — see below) | strip |
 | `chap07.md` / `.ipynb` | 7 | Iteration and Search | Live, 1–11 | strip |
+| `chap07b.md` / `.ipynb` | interlude, between 7 and 8 | Representing Data | Live, 1–11 (inherited from its neighbors — see below) | strip |
 | `chap08.md` / `.ipynb` | 8 | Strings and Regular Expressions | Live, 1–11 | strip |
 | `chap09.md` / `.ipynb` | 9 | Lists | Live, 1–11 | decide |
 | `chap10.md` / `.ipynb` | 10 | Dictionaries | Live, 1–11 | decide |
@@ -58,6 +59,23 @@ doctests, right after functions start returning values). More are planned: at le
 on unit testing (anticipated near chapter 9) and one on binary. The book's own prose calls
 these "interludes," never "chapters," to keep them visually and conceptually distinct from
 Downey's numbered sequence.
+
+**`chap07b`**, added 2026-08-17, is the second — between chapters 7 and 8, "Representing
+Data," and it fills the "one on binary" slot named above (it covers AP 2.1/2.2 and CA
+DA.8/DA.9: bits, place value, binary/decimal/hex conversion, ASCII/Unicode, RGB, analog
+vs. digital, sampling, overflow/roundoff, and lossless/lossy compression). **As of this
+writing it exists only as an outline** — section headings, vocabulary, standards claims,
+and open authoring questions, but no drafted prose and no exercises (`chapters/chap07b.ipynb`
+says so explicitly in its own first cell). It has been wired into `jb/_toc.yml` (same
+three-way split as chap06b) and into the vocabulary and standards back matter — see
+`AUDIT.md`'s 2026-08-17 handoff — on the reasoning that a placeholder in the TOC is more
+useful than an invisible one once the standards claims are being made for real. **Not yet
+done, deliberately, pending actual authoring:** Pass 4 chrome (link bar, embedded
+JupyterLite pane, exercises notebook, attribution rule — see `mods/pass-4-chrome.md`),
+Pass 5 JupyterLite wiring (`tools/build_jupyterlite_content.py`'s `CHAPTERS`/
+`CONTENT_NAMES`/`CELL_PATCHES`, though `jb/build.sh`'s glob already covers it), and
+`data/exercise-ledger.json` (no exercises exist yet to log). Do this work in the same pass
+that writes the chapter's actual prose, not before.
 
 Renumbering chapters 7–19 to make room was considered and rejected — it would break every
 already-deployed `chapNN.html` link and contradict `CLAUDE.md`'s "small, legible diffs
@@ -97,6 +115,21 @@ flips existing `gap` rows to `in book`. Recount that doc's totals programmatical
 editing, not by hand. `alignment/glossary-map.md` is curated analysis, not a mechanical
 listing — update it only where the interlude adds a genuinely new concept-level mapping, not
 term-for-term. See AUDIT.md, 2026-08-17 follow-up 6, for the chap06b example end to end.
+
+**Also touches `standards/apcsp.json` and `standards/castandards.json` directly, when the
+interlude is the first carrier for a topic that was previously `unassigned`/`carriers: []`
+— easy to miss a second time, since chap06b's own wiring never did this (its testing
+vocabulary landed in `ap-vocabulary-coverage.md` but chap06b was never added to any
+topic's `carriers` list in `apcsp.json`/`castandards.json`, nor to `standards_alignment.md`'s
+View 1 chapter table — a real gap, left alone rather than fixed retroactively, since fixing
+it wasn't asked for and touching chap06b's standards claims is a separate decision). chap07b
+did get this treatment, since it's the first carrier for AP 2.1/2.2 and CA DA.8/DA.9: see
+`AUDIT.md`'s 2026-08-17 handoff for the full list of files touched (`apcsp.json`,
+`castandards.json`, `alignment/supplement-plan.md`, `alignment/standards_alignment.md`).
+Note the `carriers` schema's `"chapters"` field is a JSON list of ints everywhere else in
+both files (e.g. `[1, 5]`) — there's no established convention for a lettered interlude, so
+chap07b's entries use the string `"7b"` in that list instead. If a later interlude needs
+this too, keep using the string form for consistency rather than inventing a new shape.
 
 ## Naming collision to flag, not fix
 

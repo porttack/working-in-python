@@ -2,7 +2,7 @@
 
 Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-18, plus any interludes' own glossaries, in reading order. Chapter 19 ("Final thoughts") has no glossary. This is the book's *own* vocabulary — see [`ap-vocabulary-coverage.md`](ap-vocabulary-coverage.md) for how it lines up against AP CSP's vocabulary, and [`glossary-map.md`](glossary-map.md) for the concept-level (not word-level) crosswalk written during Pass 3.
 
-**204 terms across 18 chapters plus 1 interlude.**
+**222 terms across 18 chapters plus 2 interludes.**
 
 ## Chapter 1 — Welcome
 
@@ -150,6 +150,33 @@ Between Chapter 6 and Chapter 7 — original content, not part of *Think Python*
 | **linear search** | A computational pattern that searches through a sequence of elements and stops when it finds what it is looking for. |
 | **pass** | If a test runs and the result is as expected, the test passes. |
 | **fail** | If a test runs and the result is not as expected, the test fails. |
+
+## Interlude — Representing Data
+
+Between Chapter 7 and Chapter 8 — original content, not part of *Think Python*. **Outline
+only as of 2026-08-17** — no drafted prose yet; terms below are this chapter's planned
+glossary. See `CHAPTER_MANIFEST.md`'s Interludes section.
+
+| Term | Definition |
+|---|---|
+| **bit** | A single binary digit, 0 or 1. |
+| **byte** | Eight bits. Enough to hold one of 256 values. |
+| **binary** | Base-2 representation, using only the digits 0 and 1. |
+| **decimal** | Base-10, the system you already use. |
+| **hexadecimal** | Base-16, using 0 through 9 and A through F. Four bits per digit, so one byte is exactly two hex digits. |
+| **digital data** | Values represented in discrete steps, ultimately as bits. |
+| **analog data** | Values that vary continuously and smoothly, with no steps. |
+| **sampling** | Approximating an analog signal by measuring it at regular intervals. Two independent settings: how often you measure (rate) and how precisely you record each measurement (bit depth). |
+| **ASCII** | A table assigning a number from 0 to 127 to each of a small set of characters. |
+| **Unicode** | A far larger table, covering the writing systems ASCII left out. |
+| **character encoding** | The agreement about which numbers stand for which characters. Read bits with the wrong encoding and you get the right data as the wrong text. |
+| **RGB** | Color stored as three numbers, the amounts of red, green, and blue, each usually one byte. |
+| **overflow error** | An error that happens when a value is too large for the number of bits available to hold it. |
+| **roundoff error** | A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. *(Second reference — first defined by the interlude between chapters 6 and 7.)* |
+| **lossless compression** | Reduces size while allowing the original to be reconstructed exactly. |
+| **lossy compression** | Reduces size further, but only an approximation of the original can be recovered. |
+| **compression ratio** | Compressed size divided by original size. *(This book's own term; not exam vocabulary.)* |
+| **run-length encoding** | A lossless scheme that replaces runs of a repeated value with the value and a count. *(This book's own term; the exam names no specific algorithm.)* |
 
 ## Chapter 8 — Strings and Regular Expressions
 
