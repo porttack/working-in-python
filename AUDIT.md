@@ -6359,3 +6359,22 @@ relying on it being asked again.
 
 Not committed yet -- this entry, and everything in follow-ups 4-6, is one unit of work the
 user is about to commit in a single commit right after this.
+
+## 2026-08-17 follow-up 7 -- chap06b's CSTA 2026 TBD resolved
+
+The user asked why that line was still `TBD` after the last commit. Checked rather than
+guessed: the earlier session that drafted chap06b never cross-referenced
+`standards/csta2026.json` for it, and separately that file's own `meta.alignment_note` says
+no chapter-alignment pass has been run against CSTA 2026 at all (every standard's `carrier`
+still `unassigned`), so there was no existing lookup to lean on either. Searched the 46
+indexed HS-level standards for testing/debugging matches by paraphrase text: **HS-PRO-TR-19**
+(Programming / Testing & Refining -- checking a program against its own original plan) is a
+close match to chap06b's own framing (a docstring is a promise, a doctest checks it).
+HS-PRO-RD-17 (Reading & Documenting / tracing code) was a weaker secondary candidate, but
+chapter 6 already cites it for its own hand-tracing content, so reusing it here would have
+been redundant rather than additive -- left out.
+
+Filled in via the same `json.load`/mutate/`json.dump` pattern as every other notebook edit
+this session, one line changed. `make projector && make check` clean; `git diff --stat`
+confirms a 2-line diff across `chapters/chap06b.ipynb` and `projector/chap06b.ipynb`
+(1 line each), nothing else touched.
