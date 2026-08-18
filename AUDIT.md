@@ -5977,3 +5977,166 @@ from `CHANGELOG.md`'s entry only in spirit (leave the historical entry as-is, ch
 append-only), and note the removal in a new dated `AUDIT.md` entry. Whoever removes it should
 first grep recent JupyterLite usage/support questions for any sign the shim is still catching
 real traffic before deleting it.
+
+## 2026-08-17 follow-up 2 -- chapter 6 prose pass: side effect vocabulary, docstring reminder disabled
+
+**Part A, done.** Added a **side effect** glossary entry to `chapters/chap06.ipynb`,
+immediately before **pure function** since pure function is defined in terms of it. Reworded
+pure function's glossary definition from "does not display anything or have any other
+effect, other than returning a return value" to "returns a value and has no side effects" --
+the old wording, read literally with "side effect" now a defined term, would have implied a
+return value is itself a kind of side effect (it isn't; side effect is defined as *any effect
+other than* returning a value), so the cleaner phrasing avoids that circularity. Same
+correction applied to the prose sentence that introduces the term (the first bolded use of
+pure function, right after `repeat_string`): "because it returns a value and has no side
+effects," both terms blanked. This is the only place "side effect" appears bolded in the
+chapter. Chapter 6 goes from 5 to 6 prose blanks and from 7 to 8 glossary terms. Confirmed
+with the user before applying -- the plan doc for this pass had flagged both the blank-count
+change and the glossary/prose wording as open questions rather than assuming either.
+`alignment/vocabulary-by-chapter.html` and `.md` updated to match (new row, reworded pure
+function row, `.md`'s running total 185 -> 186 terms). No other alignment doc references
+either term (checked `ap-vocabulary-coverage.md` and `glossary-map.md`).
+
+**Part B, descoped by the user mid-task.** The original plan was tiered docstrings on all 19
+undocumented-function occurrences in chapter 6's body prose (the inventory from the
+2026-08-17 entry above). User decided against it: "we are just going to disable the
+docstring warning in chapter 6" -- specifically **full disable**, not the previously-scoped
+"silence until Exercises" toggle (`start_exercises()`), when offered the choice. Implemented
+by deleting the sentinel-wrapped `working_in_python.enable_docstring_reminders()` line (and
+its `apcsp:begin`/`apcsp:end` comments) from chapter 6's setup cell -- three lines gone, `import
+working_in_python` kept (still needed for the "Copy Notebook" button HTML it displays on
+import). This was our own APCSP addition being removed, not upstream Downey content, so
+removing it clean is fine under the sentinel rules.
+
+**A process note on tooling, for whoever edits notebooks by hand next.** The first attempt
+at all three edits used the `NotebookEdit` tool and produced a much larger diff than
+intended: touching three cells caused the *whole file* to re-serialize, changing `\uXXXX`
+unicode escapes to literal UTF-8 characters in cells never touched (the JupyterLite pane
+note, the attribution/standards footer), collapsing every edited cell's `source` from a
+list-of-lines to a single string, and dropping the file's trailing newline. All violate "no
+reflowing/restyling" even though the *content* changes were correct. Reverted and redid the
+same three edits by loading the notebook with `json.load`, confirming a bare `json.dump(nb,
+indent=1, ensure_ascii=True)` round-trip is byte-identical to the file on disk (it is, verified
+before editing anything), mutating only the three cells' `source` lists in place, and dumping
+with the same `indent=1, ensure_ascii=True` plus a trailing newline. Diff came out to exactly
+the three intended hunks. Worth remembering for chapters 7-19: `NotebookEdit` is fine for
+single-cell, no-context-sensitive edits, but for anything where the surrounding file's byte
+format matters (this project's whole "small legible diffs" rule), verify the round-trip
+first or edit the JSON directly.
+
+**Verification, real IPython shell rather than a real browser** (same constraint as the
+2026-08-17 `download()` docstring entry above -- this session can't drive an actual browser).
+Extracted all 54 code cells before `## Exercises` from the edited `chapters/chap06.ipynb` and
+ran them in order through a live `IPython.core.interactiveshell.InteractiveShell`, using
+`IPython.utils.capture.capture_output` (not bare stdout redirection -- the reminder's warning
+is a `display(HTML(...))` rich output, which bare `redirect_stdout` cannot see; it only shows
+up as the object's repr, `<IPython.core.display.HTML object>`, in captured stdout text. Caught
+this the hard way: a first pass with `redirect_stdout` reported zero warnings in *both* the
+edited chapter and a same-cells control with the reminder deliberately left enabled, which
+should have been a giveaway that the check wasn't measuring anything). With
+`capture_output().outputs[i].data['text/html']` inspected instead: the edited chapter's 54
+cells ran with zero errors and zero docstring warnings. A control pass -- identical 54 cells,
+`enable_docstring_reminders()` called first -- fired exactly 19 warnings, matching the
+2026-08-17 inventory's per-function breakdown cell-for-cell (`circle_area`, `repeat`,
+`repeat_string`, `absolute_value`/`_wrong`/`_extra_return`, `distance` x5, `is_divisible` x2,
+`factorial` x5, `fibonacci`), confirming the harness genuinely detects the warning rather than
+silently passing. Also confirmed via `make jupyterlite && make jupyterlite-serve` (served on
+port 8177, not the project's usual 8123 -- something else already had 8123 bound from an
+earlier session, left it alone rather than killing an unknown process) that the built
+`jupyterlite/content/Chapter06-Return-Values.ipynb` contains "side effect" (3 occurrences:
+glossary term, glossary definition of pure function referencing it, prose) and zero
+occurrences of `enable_docstring_reminders`.
+
+**Housekeeping slip, same pattern as the 2026-08-17 `download()` entry.** Test artifacts
+(`/tmp/chap06_code_cells.pkl`, a scratch working directory under
+`/private/tmp/.../scratchpad/ch06_verify` with copies of `working_in_python.py`/`diagram.py`)
+and the port-8177 `http.server` were left running/present after a cleanup command was denied
+permission. Harmless -- none of it is inside the repo -- but flagged rather than silently
+left, same as last time.
+
+`make check` clean. `chapters/chap06.ipynb` / `projector/chap06.ipynb` diffs are exactly the
+three cells described above, confirmed with `git diff` before and after `make projector`.
+`CHANGELOG.md` has a dated entry. Not committed or pushed -- reporting the full diff to the
+user for approval first, per their explicit instruction for this task.
+
+**Still open for chapter 6:** the pacing question from `mods/pass-2-surgery.md`'s status line
+is unrelated to this entry and remains open. No exercises were touched in this pass, so no
+`data/exercise-ledger.json` entry -- confirmed correct per the task's own instruction rather
+than assumed.
+
+## 2026-08-17 follow-up 3 -- chapter 6 Extra Exercises section, mirroring chap05
+
+Added the "Extra Exercises" section to `chapters/chap06.ipynb`, the task deferred out of the
+prose pass above. Read chap05's own Extra Exercises section cell-by-cell first (48 cells,
+`ch05-extra-exercises-intro` through `ch05-copy-button`) and mirrored its structure exactly:
+sentinel comments (`type="exercise" chapter="06"`), heading levels, `<!-- teacher: ~N min -->`
+comments, and voice. 48 new cells inserted between the chapter's existing last exercise (the
+`gcd` test cells) and the attribution/standards footer, in the trailing empty code cell that
+was already sitting there (`8bec38b3`) -- same position chap05's own empty cell (`9d6969d4`)
+occupied before its Extra Exercises were added, which is a good sign this is where Downey's
+own template expected a chapter's homework section to go.
+
+**Content, in order:** intro (four required exercises, whichever of 1/2 plus 3-5, ~31
+minutes; states the docstring requirement as a plain policy line, not a claim about an
+automatic warning -- correct, since this chapter's `enable_docstring_reminders()` call was
+removed entirely in the prose pass above); Exercise 1 `is_right_triangle(a, b, c)`
+(Pythagorean check, order-independent) and Exercise 2 `can_ride(height_inches, age)`
+(`or`/`and` combination) as a choose-one pair, structurally identical (heading, solution,
+test-note, four test cells each) so neither reads as more "real" -- one test cell per
+function wraps the call in an `if` statement instead of a bare expression, matching this
+chapter's own `is_divisible` demonstration, per direct instruction; Exercise 3 `sum_to(n)`
+(recursive, base case `sum_to(0) = 0`); Exercise 4, a debugging exercise on this chapter's
+own central theme -- `grade_points` prints instead of returning, so `grade_points('A') * 3`
+raises `TypeError` on `None`, even though `grade_points('A')` alone looks like it worked (it
+printed `4.0` first); Exercise 5, reflection, voice matched to chap04 Exercise 6 and chap05
+Exercise 6 ("the same way you did in chap01 through chap05"); a time check (chap05's cell
+copied verbatim, wording adjusted only for "five" vs. "six" exercises); extra credit
+(`to_binary`, recursive binary representation, and `collatz_steps`, recursive step count to
+1) -- unlike chap05's choose-one extra credit, these are independently completable, 0.25
+points each toward 0.5 total, gated on the required exercises being done; and the existing
+"Finished? Copy your work" cell, copied verbatim except "Exercise 6" -> "Exercise 5".
+
+**A repeat of the NotebookEdit lesson from the prose-pass entry above, applied proactively
+this time.** Given what happened last time three cell edits went through `NotebookEdit` and
+silently reformatted the whole file, this 48-cell *insertion* was built and applied entirely
+through direct `json.load`/`json.dump` manipulation from the start -- verified the round-trip
+(`json.dumps(nb, indent=1, ensure_ascii=True) + '\n'`) was byte-identical to the file on disk
+before inserting anything, built each new cell as a plain dict (markdown cells: `cell_type`,
+`id`, `metadata: {}`, `source`; code cells: same plus `execution_count: null`, `outputs: []`),
+spliced the list in at the right index, and dumped with the same settings. `git diff` confirms
+the only changes are the 48 new cells; nothing about the surrounding 161 cells (unicode
+escaping, source-as-list-of-lines, trailing newline) moved.
+
+**Verification, same real-IPython-shell substitute as above (still no browser in this
+session).** Extracted every code cell's source from the edited notebook, substituted a
+reference implementation for each `"# Solution goes here"` placeholder cell -- both the five
+new ones (`is_right_triangle`, `can_ride`, `sum_to`, the fixed `grade_points`, `to_binary`,
+`collatz_steps`) and the five pre-existing chapter exercises (`hypot`, `is_between`,
+`ackermann`, `is_power`, `gcd`), so a genuine top-to-bottom run wouldn't die partway through
+on an unfilled placeholder before reaching the new section -- and ran all 111 non-empty code
+cells in order through a live `InteractiveShell`, using `capture_output` (not bare stdout
+redirection, per the lesson from the prose-pass verification above) to check for docstring
+warnings. Result: zero errors, zero docstring warnings, and every one of the 17 new test-call
+cells produced exactly its stated expected value, including the `if`-statement demonstrations
+(`'right triangle'` / `'can ride'` printed) and the debug exercise (buggy version prints
+`4.0` then raises `TypeError`, `gpa` never gets assigned; fixed version returns `4.0`, giving
+`gpa = 12.0`). Also confirmed via `make jupyterlite` that the built
+`jupyterlite/content/Chapter06-Return-Values.ipynb` contains all six new function names and
+still ships with 20 `# Solution goes here` placeholders (student-facing, unfilled) -- served
+locally on port 8177 again (8123 still held by whatever had it before) and reachable at
+`/lab/index.html`.
+
+**Ledger:** appended `ch06ex-hw01` through `ch06ex-hw05`, `ch06-timecheck`, `ch06-to-binary`,
+`ch06-collatz-steps` -- eight entries, `data/exercise-ledger.json`'s diff is purely additive
+(confirmed by `git diff` showing only `+` lines), no existing entry touched. `hw01`/`hw02`'s
+notes each state the interchangeable-for-grading/identical-tagging requirement explicitly, per
+direct instruction. `make ledger` regenerated `CHANGELOG_DETAIL.md` (134 exercises total, up
+from 126).
+
+**Housekeeping slip, third time.** Same pattern as the two entries above -- a cleanup command
+for this session's scratch verification directory and the port-8177 server was denied
+permission. Harmless, all outside the repo, flagged rather than silently left.
+
+`make check` clean. `CHANGELOG.md` has a dated entry. Not committed or pushed -- reporting the
+full diff to the user for approval, per their explicit instruction to stop only at that point.
+No chapter 6 prose, glossary, or other chapter touched in this entry.

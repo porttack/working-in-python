@@ -5,6 +5,45 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-17 — chapter 6: Extra Exercises section
+
+### Added
+- `chapters/chap06.ipynb` / `projector/chap06.ipynb`: new "Extra Exercises" section,
+  mirroring chap05's structure exactly. Required work is a choose-one pair (Exercise 1
+  `is_right_triangle`, Exercise 2 `can_ride` -- structurally identical cells, identical
+  standards tagging, neither reads as the "real" option), plus Exercise 3 (`sum_to`,
+  recursive), Exercise 4 (a debugging exercise on the None trap -- a function that prints
+  instead of returning, so multiplying its call by a number raises a `TypeError`), and
+  Exercise 5 (reflection). About 31 minutes total. A time check follows, then optional
+  extra credit (`to_binary` and `collatz_steps`, 0.25 points each, either or both, gated on
+  the required work being complete), then the existing "Finished? Copy your work" tool.
+  No prose, glossary, or other chapter changed.
+- `data/exercise-ledger.json`: eight new entries, `ch06ex-hw01` through `ch06ex-hw05`,
+  `ch06-timecheck`, `ch06-to-binary`, `ch06-collatz-steps`. No existing entries touched.
+  `CHANGELOG_DETAIL.md` regenerated (`make ledger`).
+
+## 2026-08-17 — chapter 6: side effect glossary term; docstring reminder disabled
+
+### Added
+- `chapters/chap06.ipynb` / `projector/chap06.ipynb`: new glossary entry for **side effect**,
+  placed immediately before **pure function** since pure function is defined in terms of it.
+  Reworded pure function's glossary definition and its first prose mention (now blanked) to
+  use the new term instead of the old "does not display anything or have any other effect"
+  wording. Chapter 6 goes from 7 to 8 glossary terms and from 5 to 6 prose blanks.
+- `alignment/vocabulary-by-chapter.html` and `.md`: chapter 6 gains the **side effect** row
+  in reading order; **pure function**'s definition reworded to match. Running total in the
+  `.md` updated from 185 to 186 terms across the book.
+
+### Changed
+- `chapters/chap06.ipynb` / `projector/chap06.ipynb`: removed the
+  `enable_docstring_reminders()` call from the setup cell. Chapter 6's own body defines and
+  redefines `distance`, `factorial`, `is_divisible`, and several deliberately-broken
+  `absolute_value` variants as its core teaching examples (Incremental Development, Recursion
+  with return values) -- 19 undocumented-function warnings before a student ever reaches the
+  exercises, none of them useful. Docstrings aren't taught until Chapter 4 and aren't the
+  point of Chapter 6's examples, so the reminder is silent for this chapter rather than
+  reworked to fire only past the Exercises boundary.
+
 ## 2026-08-17 — remove leftover test string from chap04
 
 ### Fixed

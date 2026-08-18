@@ -2,7 +2,7 @@
 
 Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-18, in reading order. Chapter 19 ("Final thoughts") has no glossary. This is the book's *own* vocabulary — see [`ap-vocabulary-coverage.md`](ap-vocabulary-coverage.md) for how it lines up against AP CSP's vocabulary, and [`glossary-map.md`](glossary-map.md) for the concept-level (not word-level) crosswalk written during Pass 3.
 
-**185 terms across 18 chapters.**
+**186 terms across 18 chapters.**
 
 ## Chapter 1 — Welcome
 
@@ -102,7 +102,8 @@ Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-1
 | Term | Definition |
 |---|---|
 | **return value** | The result of a function. If a function call is used as an expression, the return value is the value of the expression. |
-| **pure function** | A function that does not display anything or have any other effect, other than returning a return value. |
+| **side effect** | Any effect a function has other than returning a value, such as displaying output or drawing on a canvas. |
+| **pure function** | A function that returns a value and has no side effects. |
 | **dead code** | Part of a program that can never run, often because it appears after a `return` statement. |
 | **incremental development** | A program development plan intended to avoid debugging by adding and testing only a small amount of code at a time. |
 | **scaffolding** | Code that is used during program development but is not part of the final version. |

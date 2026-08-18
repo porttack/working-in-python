@@ -105,16 +105,24 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap06
 
-6 exercise(s).
+14 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
+| ch06-collatz-steps | collatz_steps (extra credit): recursive function returning the step count to reach 1 | native | added | — | None | 8 |
 | ch06-ex01 | Use incremental development to write a function called hypot | native | kept | — | 25 | 25 |
 | ch06-ex02 | Write a boolean function called is_between | native | kept | — | 10 | 10 |
 | ch06-ex03 | Write a recursive function implementing the Ackermann function | native | kept | — | 25 | 25 |
 | ch06-ex04 | Write a function called is_power that checks whether a is a power of b | native | kept | — | 20 | 20 |
 | ch06-ex05 | Write a function called gcd using Euclid's algorithm | native | kept | — | 25 | 25 |
+| ch06-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
+| ch06-to-binary | to_binary (extra credit): recursive function returning a number's binary representation as a string | native | added | — | None | 10 |
 | ch06-va01 | Ask a virtual assistant: spot bugs in absolute_value_wrong/absolute_value_extra_return/is_divisible, then ask for a distance function | B | removed | — | 0 | 0 |
+| ch06ex-hw01 | is_right_triangle(a, b, c): boolean function checking the Pythagorean theorem for any ordering of the three sides | native | added | — | None | 8 |
+| ch06ex-hw02 | can_ride(height_inches, age): boolean function combining an or and an and for a theme-park height/age rule | native | added | — | None | 8 |
+| ch06ex-hw03 | sum_to(n): recursive sum of the integers from 1 to n, base case sum_to(0) = 0 | native | added | — | None | 10 |
+| ch06ex-hw04 | Debug grade_points: the function only prints, so multiplying its call by 3 raises a TypeError on None | native | added | — | None | 8 |
+| ch06ex-hw05 | Reflection: one example where a return value does something printing could not | native | added | — | None | 5 |
 
 ## chap07
 
@@ -261,8 +269,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 126
+Total exercises: 134
 
-By kind: A=4, B=8, native=114
+By kind: A=4, B=8, native=122
 
-By action: added=37, edited=6, kept=72, removed=11
+By action: added=45, edited=6, kept=72, removed=11
