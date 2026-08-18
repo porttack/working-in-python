@@ -107,6 +107,8 @@ parts:
       title: Vocabulary by Chapter
     - url: https://python.porttack.com/alignment/ap-vocabulary-coverage.html
       title: AP CSP Vocabulary Coverage
+    - url: https://python.porttack.com/alignment/ap-vocabulary-glossary.html
+      title: AP CSP Vocabulary Glossary (A-Z)
     - url: https://python.porttack.com/alignment/ca-cs-standards-reference.html
       title: CA CS Standards Reference
     - url: https://python.porttack.com/alignment/csta2026-standards-reference.html

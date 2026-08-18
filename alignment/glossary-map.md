@@ -15,6 +15,12 @@ to transfer; that one just says whether the word appears. Hosted twins:
 and
 [`ap-vocabulary-coverage.html`](https://python.porttack.com/alignment/ap-vocabulary-coverage.html).
 
+**A third artifact, added 2026-08-17 on maintainer request:** [`ap-vocabulary-glossary.md`](ap-vocabulary-glossary.md)
+merges the two into one alphabetized A-Z reference — student-facing, for the AP CSP binder's
+glossary tab, not a teacher-planning document like this page or the coverage page. AP-listed
+terms are marked; book terms link back to the chapter(s) that define them. Hosted twin:
+[`ap-vocabulary-glossary.html`](https://python.porttack.com/alignment/ap-vocabulary-glossary.html).
+
 ## The table that actually costs students points
 
 Same term, different name. These are the substitutions most likely to cost a point on an
