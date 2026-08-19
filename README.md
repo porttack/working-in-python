@@ -4,6 +4,11 @@
 
 Published at [python.porttack.com](https://python.porttack.com).
 
+**Preview of the `v3` branch before it's published:** [raw.githack.com/.../v3-preview](https://raw.githack.com/porttack/working-in-python/v3-preview/index.html).
+This is a static snapshot rebuilt by hand from the latest `v3` commit, not an automatic deploy, so it can lag behind. The
+JupyterLite/Colab-fallback links on chapter pages don't work here (that bundle isn't included in the preview push) --
+everything else should.
+
 Jupyter notebooks and other material for the 3rd edition of *Think Python: How to Think Like a Computer Scientist*
 
 by Allen B. Downey
