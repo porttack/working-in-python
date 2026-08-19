@@ -806,17 +806,17 @@ sup.ap {{
 sup.ch {{ font-family: Helvetica, Arial, sans-serif; font-size: 7pt; color: #333; vertical-align: super; margin-left: 2px; }}
 sup.ch a {{ color: #333; text-decoration: underline; }}
 i.note {{ color: #333; font-style: italic; }}
-.footnote {{ font-family: Helvetica, Arial, sans-serif; font-size: 7.5pt; color: #333; margin-top: 10px; border-top: 0.75pt solid #000; padding-top: 5px; }}
+.attribution {{ font-family: Helvetica, Arial, sans-serif; font-size: 7.5pt; color: #333; margin: 0 0 10px; border-bottom: 0.75pt solid #000; padding-bottom: 6px; }}
 </style></head>
 <body>
 <h1>AP CSP Vocabulary Glossary</h1>
 <div class="meta">Working in Python &middot; alphabetical &middot; {len(item_list)} terms &middot; {subtitle}</div>
 <div class="legend">Terms marked <sup class="ap">AP</sup> appear on the College Board AP CSP exam's own vocabulary list. A superscript chapter number links to where this book defines the term.</div>
+<div class="attribution">
+Vocabulary drawn from <i>Working in Python</i>, a fork of Allen Downey's <i>Think Python</i>, 3rd edition (CC BY-NC-SA 4.0), and this course's own AP CSP vocabulary reference. AP CSP definitions here are written in this course's own words, not copied from the College Board's Course and Exam Description.
+</div>
 <div class="cols">
 {''.join(body_parts)}
-</div>
-<div class="footnote">
-Vocabulary drawn from <i>Working in Python</i>, a fork of Allen Downey's <i>Think Python</i>, 3rd edition (CC BY-NC-SA 4.0), and this course's own AP CSP vocabulary reference. AP CSP definitions here are written in this course's own words, not copied from the College Board's Course and Exam Description.
 </div>
 </body></html>
 """
