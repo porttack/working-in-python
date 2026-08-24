@@ -389,21 +389,21 @@
     "est_minutes_before": 20,
     "est_minutes_after": 0,
     "self_verifying": false,
-    "note": "Entire task was prompt-a-VA-and-debug-the-result; no independent native task existed. Pass 2: replaced one-for-one with ch05-ex07, a self-contained recursive-triangle spec keeping the same function name, parameters, and solution/demo cells."
+    "note": "Entire task was prompt-a-VA-and-debug-the-result; no independent native task existed. Pass 2: replaced one-for-one with ch05-ex07, a self-contained recursive-triangle spec keeping the same function name, parameters, and solution/demo cells. 2026-08-24: ch05-ex07 was itself removed (see that entry) -- this slot now has no native replacement. Flagged in AUDIT.md and in CLAUDE.md's Pass 2 status row."
   },
   {
     "chapter": "chap05",
     "id": "ch05-ex07",
     "anchor": "Write draw_sierpinski(size, degree): a recursive Sierpinski triangle, no VA involved",
     "kind": "native",
-    "action": "added",
+    "action": "removed",
     "replacement_id": "ch05-ex06",
     "targets_ap": [],
     "targets_ca": [],
-    "est_minutes_before": null,
-    "est_minutes_after": 20,
+    "est_minutes_before": 20,
+    "est_minutes_after": 0,
     "self_verifying": false,
-    "note": "Replacement for the removed kind-A exercise. Gives the recursive definition of a Sierpinski triangle (base case + three half-size corner triangles) and points at penup/pendown for repositioning, without dictating exact turtle commands. The recursive algorithm was verified independently -- simulated headlessly against jupyturtle and checked to reproduce the exact standard Sierpinski-gasket edge set at depths 0-4 -- before being reduced to the geometric description given to students; a naive forward/back-only version (the common textbook snippet) was tested first and found to visibly drift off-target at depth >= 2, which is why the exercise points at penup/pendown instead. Same function name/parameters and the same demo/solution cells as the original, so the diff is limited to the prompt text. 2026-08-16: marked optional, same reasoning and same new note cell as ch05-ex04."
+    "note": "Replacement for the removed kind-A exercise ch05-ex06. Gives the recursive definition of a Sierpinski triangle (base case + three half-size corner triangles) and points at penup/pendown for repositioning, without dictating exact turtle commands. The recursive algorithm was verified independently -- simulated headlessly against jupyturtle and checked to reproduce the exact standard Sierpinski-gasket edge set at depths 0-4 -- before being reduced to the geometric description given to students; a naive forward/back-only version (the common textbook snippet) was tested first and found to visibly drift off-target at depth >= 2, which is why the exercise pointed at penup/pendown instead. Same function name/parameters and the same demo/solution cells as the original, so the diff was limited to the prompt text. 2026-08-16: marked optional, same reasoning and same new note cell as ch05-ex04. 2026-08-24: removed entirely by teacher decision -- the turtle has to be walked back to its exact starting position and heading between each of the three recursive sub-triangles (jupyturtle here exposes no absolute goto, only forward/back/left/right/penup/pendown), and the teacher judged that state-restoration bookkeeping too easy to get subtly wrong for an ungraded optional exercise with no in-class reference solution prepared. This was pass-2's kind-A replacement for ch05-ex06; that slot now has no native replacement. Cells 4c964239, ch05-optional-sierpinski, 68439acf, 6a95097a, 43470b3d, and 9d6969d4 deleted outright, no replacement content added."
   },
   {
     "chapter": "chap05",

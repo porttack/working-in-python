@@ -5,6 +5,33 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-24 — chap05: dropped the Sierpinski exercise, added a for-loop/recursion aside
+
+### Added
+- `chapters/chap05.ipynb`: a new sentinel-wrapped (`type="note"`) "Aside: Compare a `for`
+  loop with recursion" section right after the chapter's `print_n_times` example -- two
+  short `meow()` implementations (for-loop vs. recursive) plus pythontutor.com visualizer
+  links for each. Original content, not adapted from upstream.
+
+### Removed
+- `chapters/chap05.ipynb`'s Sierpinski triangle exercise (`ch05-ex07`, pass-2's kind-A
+  replacement for the removed `ch05-ex06`), deleted outright with no replacement. The
+  turtle has to be walked back to its exact start position and heading between each of the
+  three recursive sub-triangles -- `jupyturtle` here has no absolute `goto`, only
+  forward/back/left/right/penup/pendown -- and that bookkeeping was judged too easy to get
+  subtly wrong for ungraded optional practice with no prepared reference solution. See
+  `data/exercise-ledger.json` (`ch05-ex06`, `ch05-ex07`) and `CLAUDE.md`'s Pass 2 status
+  row, both updated to note only three of the four book-wide kind-A replacements now stand.
+
+### Fixed
+- `chapters/chap05.ipynb`'s new "Aside" section (added uncommitted, before this entry) was
+  missing its `apcsp:begin`/`apcsp:end` sentinel wrapper, and two upstream Glossary
+  definitions (`conditional statement`, `block`) had a sentence each appended directly into
+  Downey's original text with no sentinel. The Aside is now wrapped; the glossary
+  additions were left as reviewed but are flagged here since they still edit upstream prose
+  in place rather than appending inside a sentinel -- worth a follow-up if this becomes a
+  recurring pattern.
+
 ## 2026-08-18 — every chapter's own glossary links to the merged A-Z glossary
 
 ### Added

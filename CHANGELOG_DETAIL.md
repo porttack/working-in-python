@@ -92,7 +92,7 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch05-ex04 | Read a jupyturtle function, predict what it draws, then adjust its arguments | native | edited | — | 15 | 15 |
 | ch05-ex05 | Write a function called koch that draws a Koch curve | native | edited | — | 25 | 25 |
 | ch05-ex06 | Ask a virtual assistant for a program that draws a Sierpinski triangle, then debug it | A | removed | — | 20 | 0 |
-| ch05-ex07 | Write draw_sierpinski(size, degree): a recursive Sierpinski triangle, no VA involved | native | added | ch05-ex06 | None | 20 |
+| ch05-ex07 | Write draw_sierpinski(size, degree): a recursive Sierpinski triangle, no VA involved | native | removed | ch05-ex06 | 20 | 0 |
 | ch05-rps | rps_winner(a, b): chained conditional with and/or for rock-paper-scissors | native | added | — | None | 10 |
 | ch05-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
 | ch05-tree | Fractal tree (extra credit): write tree(length), then generalize with angle and factor parameters | native | added | — | None | 15 |
@@ -287,4 +287,4 @@ Total exercises: 141
 
 By kind: A=4, B=8, native=122, original=7
 
-By action: added=52, edited=6, kept=72, removed=11
+By action: added=51, edited=6, kept=72, removed=12

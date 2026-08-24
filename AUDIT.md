@@ -6663,3 +6663,63 @@ has "surgeried" them), so nothing here is blocked on Pass 2 catching up. Nothing
 to `python.porttack.com` yet -- only `jb/build.sh --local` has been run, confirmed the new
 pages and PDFs land in `_build/html/` correctly via the existing `jb/extra/alignment`
 symlink; the real `./build.sh` publish step is still the maintainer's to run.
+
+## 2026-08-24 — chap05: Sierpinski exercise dropped, for-loop/recursion aside added
+
+The maintainer had already made two uncommitted edits to `chap05.ipynb` in Jupyter before
+this session started: a new "Interlude: Compare a `for` loop with recursion" section (two
+`meow()` cells -- for-loop vs. recursive -- plus pythontutor.com visualizer links) inserted
+after the `print_n_times` example, and a sentence each added directly into the upstream
+Glossary's `conditional statement` and `block` definitions. Neither was wrapped in an
+`apcsp:begin`/`apcsp:end` sentinel. Reviewed on request; the sentinel gap on the new section
+was fixed (see below). The two glossary sentences were left as-is -- reviewed and flagged,
+not fixed, since fixing them wasn't asked for and they're low-risk (a sentence appended to
+an existing definition, not a structural change); worth a follow-up if this becomes a
+pattern instead of a one-off.
+
+**Renamed "Interlude" to "Aside"** in that new section's heading, and wrapped it in
+`<!-- apcsp:begin type="note" chapter="05" -->` / `<!-- apcsp:end -->` (begin in the heading
+cell, end in the closing pythontutor-links cell, spanning the two code cells in between --
+same multi-cell sentinel convention `chap06b.ipynb`'s Homework section already uses).
+"Interlude" was avoided because this repo reserves that word for a specific structural unit
+-- a whole separate chapter file between two numbered chapters, tracked in
+`CHAPTER_MANIFEST.md` (`chap06b`, `chap07b`) -- and this is an in-chapter aside, not one of
+those.
+
+**Removed the Sierpinski triangle exercise (`ch05-ex07`) outright, no replacement.** The
+maintainer: "I couldn't get the koch curve either without AI... I'm worried the fractal
+extra credit is too difficult... or kids will ask for help and I'll be stuck." `ch05-ex07`
+asks students to write `draw_sierpinski(size, degree)` with `jupyturtle`, which exposes no
+absolute `goto` -- only `forward`/`back`/`left`/`right`/`penup`/`pendown` -- so the turtle
+must be walked back to its exact starting position and heading between each of the three
+recursive sub-triangles by mirroring every `forward` with a `back` and every turn with the
+opposite turn. That bookkeeping, not the recursion itself, is where a plausible-looking
+attempt actually goes wrong (a gappy or misaligned triangle), and the maintainer judged it
+too easy to get subtly wrong for an ungraded optional exercise with no reference solution
+worked out ahead of time. Deleted cells `4c964239` (exercise prompt), `ch05-optional-sierpinski`
+(the "this one is optional" note), `68439acf` (solution stub), `6a95097a` (result-preview
+text), `43470b3d` (demo call), and `9d6969d4` (trailing blank scratch cell) -- the chapter
+now goes directly from the Koch snowflake loop into the "## Homework" section.
+
+This exercise was pass-2's kind-A replacement for `ch05-ex06` (the removed
+ask-a-virtual-assistant-for-Sierpinski exercise) -- one of the four book-wide kind-A
+replacements CLAUDE.md's Pass 2 status row previously said were "now written." That row is
+corrected to say three of four stand, and the ch05 slot has no native replacement. Both
+`data/exercise-ledger.json` entries (`ch05-ex06`, `ch05-ex07`) updated in place with dated
+notes rather than left silent, per this repo's ledger rule. **The Koch curve exercise
+(`ch05-ex05`) was not touched** -- the maintainer only asked to delete "this extra credit
+option" (Sierpinski, the one just under review), though they separately mentioned also
+struggling with Koch unassisted. Koch is already marked optional/ungraded like Sierpinski
+was, so if Koch turns out to have the same live-help risk, that's a separate decision for
+the maintainer to make explicitly -- flagging here rather than assuming.
+
+`make projector` and `make ledger` both re-run clean; `check_sync.py` reports 24/24 files
+clean (sentinel counts balance). `CHANGELOG.md` has a dated entry. Committed and pushed to
+`origin/v3` directly (the maintainer's live-course branch) at the maintainer's explicit
+request, given the urgency of getting this in front of students.
+
+**What the next session needs to know:** if the maintainer later wants a Sierpinski-style
+fractal-recursion exercise back in chapter 5, the ledger note on `ch05-ex07` has the
+verified recursive algorithm and the specific pitfall (naive forward/back drifts off-target
+at degree >= 2) already worked out -- don't restart that research from scratch. The two
+unwrapped glossary-definition edits mentioned above are still there, unresolved.
