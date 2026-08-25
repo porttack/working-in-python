@@ -5,6 +5,24 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-24 — chap05: dropped the fractal tree extra credit, Collatz stands alone
+
+### Removed
+- `chapters/chap05.ipynb`'s "Fractal tree" extra-credit exercise (`ch05-tree`), deleted
+  outright with no replacement -- same difficulty concern that took out the Sierpinski
+  exercise the day before: another turtle-recursion task with no reference solution ready
+  for live help. Cells `ch05-tree-heading`, `ch05-tree-solution`, `ch05-tree-demo-note`,
+  and `ch05-tree-demo` removed.
+
+### Changed
+- `chapters/chap05.ipynb`'s extra-credit section is now Collatz alone, not a choose-one
+  pair: `## Extra credit: two ways to recurse` became `## Extra credit: recurse on the
+  Collatz sequence`, the intro cell no longer offers a choice, and the Collatz heading
+  dropped its "do this one OR the fractal tree" clause. The earlier "## Homework" intro
+  cell's mention of the extra credit updated to match. The Collatz task itself is
+  unchanged. `data/exercise-ledger.json` updated (`ch05-tree` removed, `ch05-collatz`'s
+  note points at the change).
+
 ## 2026-08-24 — chap05 glossary wording propagated to the two vocabulary mirrors
 
 ### Changed

@@ -95,7 +95,7 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch05-ex07 | Write draw_sierpinski(size, degree): a recursive Sierpinski triangle, no VA involved | native | removed | ch05-ex06 | 20 | 0 |
 | ch05-rps | rps_winner(a, b): chained conditional with and/or for rock-paper-scissors | native | added | — | None | 10 |
 | ch05-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
-| ch05-tree | Fractal tree (extra credit): write tree(length), then generalize with angle and factor parameters | native | added | — | None | 15 |
+| ch05-tree | Fractal tree (extra credit): write tree(length), then generalize with angle and factor parameters | native | removed | — | 15 | 0 |
 | ch05-va01 | Ask a virtual assistant: modulus/xor, chained-vs-nested conditionals, countdown_by_two debugging | B | removed | — | 0 | 0 |
 | ch05ex-hw01 | letter_grade(score): chained conditional mapping a 0-100 score to a letter grade | native | added | — | None | 10 |
 | ch05ex-hw03 | is_leap_year(year): modulus plus logical operators for the century-year exception | native | added | — | None | 10 |
@@ -287,4 +287,4 @@ Total exercises: 141
 
 By kind: A=4, B=8, native=122, original=7
 
-By action: added=51, edited=6, kept=72, removed=12
+By action: added=50, edited=6, kept=72, removed=13

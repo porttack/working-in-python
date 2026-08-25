@@ -6723,3 +6723,64 @@ fractal-recursion exercise back in chapter 5, the ledger note on `ch05-ex07` has
 verified recursive algorithm and the specific pitfall (naive forward/back drifts off-target
 at degree >= 2) already worked out -- don't restart that research from scratch. The two
 unwrapped glossary-definition edits mentioned above are still there, unresolved.
+
+## 2026-08-24 follow-up — vocab propagated, first gh-pages publish of v3, fractal tree also cut
+
+**Propagated the chap05 glossary edit.** The maintainer's `conditional statement`/`block`
+wording change (added sentences, see above) doesn't live only in `chap05.ipynb` -- it's
+also hand-duplicated in `alignment/vocabulary-by-chapter.md` (feeds its own `.html` twin)
+and in `tools/build_vocabulary_glossary.py`'s `ENTRIES` table (feeds
+`ap-vocabulary-glossary.md`/`.html`/`.pdf`). Neither is generated from the chapter files, so
+neither picks up a chapter edit automatically -- confirmed by reading both scripts'
+docstrings, which say so explicitly. Checked first whether either term is *redefined*
+(not just mentioned) anywhere else -- chap06/chap18 only use "conditional statement" in
+prose, and nothing else defines "block" -- so these two mirrors were the only propagation
+targets. Updated both, in each file's own convention (`vocabulary-by-chapter.md` keeps
+markdown backticks/italics; `ENTRIES` is plain prose since `def_html()` just
+`html.escape()`s it, no markdown rendering).
+
+**PDFs regenerated -- turned out weasyprint wasn't actually missing, just not on the bare
+system Python.** This project has its own `.venv` (`ghp-import`, `jupyter-book`,
+`jupyterlite-core`, `jupyterlite-pyodide-kernel`, `nbstripout`, `weasyprint` all present) --
+that's clearly the intended environment for anything publishing-related, matching
+`PUBLISHING.md`'s one-time `pip install` list. Used it from here on for glossary
+regeneration and the site build. Worth remembering next session so nobody re-diagnoses this
+as a missing dependency again.
+
+**First real publish of `v3` to `gh-pages` this session.** Confirmed via `git ls-remote` and
+`git log gh-pages -1` (last publish 2026-08-17) that this was a routine republish, not the
+site's first-ever deploy -- `README.md`'s "Preview of the v3 branch before it's published"
+language pointed at a `v3-preview` static snapshot and could easily be misread as "nothing
+is live yet," but the `gh-pages` branch already carries this content from Aug 17. Ran
+`./build.sh --local` first and grepped the local `_build/html/` output (chap05.html has the
+Aside, no Sierpinski; both vocab pages show the new wording) before running the real
+`./build.sh`, which force-pushed `gh-pages` (`4daa11d..55995b4`). Verified the actual pushed
+branch content directly via `git show origin/gh-pages:...` (bypasses caching) rather than
+trusting `curl` against the live domain -- good thing, because `python.porttack.com` was
+still serving stale `chap05.html` and 404s on the fresh PDF for several minutes after the
+push, purely GitHub's Fastly edge cache (`cache-control: max-age=600`, confirmed via
+response headers, not a bad deploy). Did not sit and re-poll the live URL to confirm cache
+expiry -- the git-level check was sufficient evidence the publish itself was correct.
+
+**Cut the fractal tree extra credit too, right after publishing.** The maintainer's
+original worry back at the top of this session ("the fractal extra credit is too
+difficult... kids will ask for help and I'll be stuck") turned out to be about the actual
+`## Extra credit: two ways to recurse` section (fractal tree / Collatz choose-one pair,
+`ch05-tree` / `ch05-collatz`), not the Sierpinski exercise this session removed first --
+flagged as a real possibility in the previous entry ("flagging here rather than assuming")
+and it turned out to matter. The maintainer caught the mismatch afterward ("I thought we
+were going to remove the fractal tree... & just leave collatz") rather than it being caught
+here. Lesson for next time: when a request like "delete this extra credit option" follows a
+review that only covered one of several candidate exercises, the antecedent of "this" is
+genuinely ambiguous between "the thing I just reviewed" and "the thing the maintainer
+originally asked about" -- worth confirming explicitly rather than picking the one just
+discussed. Removed `ch05-tree` outright (cells `ch05-tree-heading`, `ch05-tree-solution`,
+`ch05-tree-demo-note`, `ch05-tree-demo`), reworded the extra-credit intro and the Collatz
+heading to drop the choose-one framing (Collatz is now the chapter's only extra credit, same
+task, same 0.5 points), and updated the "## Homework" intro's one-line mention of it.
+`data/exercise-ledger.json` updated for both `ch05-tree` (removed) and `ch05-collatz` (note
+points at the change). Sierpinski (`ch05-ex07`) stays removed -- nothing here suggested the
+maintainer wants it back, only that the fractal-tree removal was the thing actually being
+asked for originally. `make check` clean; committed and republished immediately after (see
+whether a further note below records the outcome, or check `git log`/`gh-pages` directly if
+not -- this was written before that republish ran).

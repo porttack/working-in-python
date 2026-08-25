@@ -508,14 +508,14 @@
     "id": "ch05-tree",
     "anchor": "Fractal tree (extra credit): write tree(length), then generalize with angle and factor parameters",
     "kind": "native",
-    "action": "added",
+    "action": "removed",
     "replacement_id": null,
     "targets_ap": [],
     "targets_ca": [],
-    "est_minutes_before": null,
-    "est_minutes_after": 15,
+    "est_minutes_before": 15,
+    "est_minutes_after": 0,
     "self_verifying": false,
-    "note": "New extra-credit section at the end of chap05.ipynb's exercises, added 2026-08-16. Unnumbered, worth 0.5 points, a choose-one pair with ch05-collatz -- a student does either, not both, and doing both earns no extra credit -- and never a substitute for a required exercise. Builds directly on the `draw` function students saw earlier in the chapter (ch05-ex04): asks for the same branching shape as its own named, generalized function, with `angle` and `factor` promoted from hardcoded constants to parameters, echoing chapter 4's own `circle`-to-`arc` generalization. 2026-08-16, same day: revised the intro cell's wording after ch05-ex04/ex05/ex07 (draw/koch/Sierpinski) were marked optional -- it no longer claims students have 'already completed' the koch/snowflake cells, since that's no longer guaranteed; it now just invites them to run those cells first if they haven't."
+    "note": "New extra-credit section at the end of chap05.ipynb's exercises, added 2026-08-16. Unnumbered, worth 0.5 points, a choose-one pair with ch05-collatz -- a student does either, not both, and doing both earns no extra credit -- and never a substitute for a required exercise. Builds directly on the `draw` function students saw earlier in the chapter (ch05-ex04): asks for the same branching shape as its own named, generalized function, with `angle` and `factor` promoted from hardcoded constants to parameters, echoing chapter 4's own `circle`-to-`arc` generalization. 2026-08-16, same day: revised the intro cell's wording after ch05-ex04/ex05/ex07 (draw/koch/Sierpinski) were marked optional -- it no longer claims students have 'already completed' the koch/snowflake cells, since that's no longer guaranteed; it now just invites them to run those cells first if they haven't. 2026-08-24: removed by teacher decision, same difficulty concern that took out ch05-ex07 (Sierpinski) -- another turtle-recursion exercise with no reference solution the teacher was confident walking a stuck student through live. Collatz (ch05-collatz) remains as the chapter's sole extra credit, no longer part of a choose-one pair; its own note and the surrounding intro cells were updated to match. Cells ch05-tree-heading, ch05-tree-solution, ch05-tree-demo-note, and ch05-tree-demo deleted outright."
   },
   {
     "chapter": "chap05",
@@ -529,7 +529,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 10,
     "self_verifying": false,
-    "note": "New extra-credit section at the end of chap05.ipynb's exercises, added 2026-08-16, immediately after ch05-tree. Unnumbered, worth 0.5 points, the other half of the choose-one pair with ch05-tree, and never a substitute for a required exercise. No demo cell -- unlike the fractal tree, the output is text (the sequence itself), so showing it would give away the answer."
+    "note": "New extra-credit section at the end of chap05.ipynb's exercises, added 2026-08-16, immediately after ch05-tree. Unnumbered, worth 0.5 points, the other half of the choose-one pair with ch05-tree, and never a substitute for a required exercise. No demo cell -- unlike the fractal tree, the output is text (the sequence itself), so showing it would give away the answer. 2026-08-24: ch05-tree was removed (see that entry); this is now the chapter's only extra credit, not a choose-one pair. Heading dropped the 'do this one OR the fractal tree' clause and the '## Extra credit: two ways to recurse' section title became '## Extra credit: recurse on the Collatz sequence'; the task itself is unchanged."
   },
   {
     "chapter": "chap05",
