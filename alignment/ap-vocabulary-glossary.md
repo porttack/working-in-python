@@ -44,7 +44,7 @@ Where this book uses a different word than the exam for the same idea (e.g. this
 | **binary mode** |  | 13 | A way of opening a file so the contents are interpreted as a sequence of bytes rather than a sequence of characters. |
 | **binary search** | AP | — | Repeatedly halving a sorted list to locate a value. |
 | **bit** | AP | 07b | A single binary digit, 0 or 1. |
-| **block** |  | 05 | One or more statements indented to indicate they are part of another statement. |
+| **block** |  | 05 | One or more statements indented to indicate they are part of another statement. Statements in a block are frequently said to have the same scope. |
 | **body** |  | 03 | The sequence of statements inside a function definition. |
 | **boolean expression** | AP | 05 | An expression whose value is either True or False. |
 | **boundary case** |  | 06b | A test case at the value where a function's behavior changes, such as zero, an empty string, or the first or last item. |
@@ -80,7 +80,7 @@ Where this book uses a different word than the exam for the same idea (e.g. this
 | **concatenation** | AP | 01 | Joining two strings end-to-end. |
 | **condition** |  | 05 | The boolean expression in a conditional statement that determines which branch runs. |
 | **conditional expression** |  | 18 | An expression that uses a conditional to select one of two values. |
-| **conditional statement** | AP | 05 | A statement that controls the flow of execution depending on some condition. *(AP calls this selection.)* |
+| **conditional statement** | AP | 05 | A statement that controls the flow of execution depending on some condition. Informally, this is usually an if statement, which might include an elif and an else. *(AP calls this selection.)* |
 | **configuration data** |  | 13 | Data, often stored in a file, that specifies what a program should do and how. |
 | **constant** | AP | — | A named value that does not change during execution. |
 | **cookies** | AP | — | Small data files stored by a site to track a user's state or behavior. |

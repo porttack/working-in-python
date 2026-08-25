@@ -5,6 +5,20 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-24 — chap05 glossary wording propagated to the two vocabulary mirrors
+
+### Changed
+- `alignment/vocabulary-by-chapter.md`/`.html` and `tools/build_vocabulary_glossary.py`'s
+  `ENTRIES` table (feeding `alignment/ap-vocabulary-glossary.md`/`.html`/`.pdf`): the
+  **conditional statement** and **block** definitions updated to match the maintainer's
+  edit to `chapters/chap05.ipynb`'s own Glossary cell (an added clarifying sentence on
+  each). `ENTRIES`'s copy is written in that file's own plain-prose convention (no
+  backticks/italics, since it's HTML-escaped verbatim rather than markdown-rendered);
+  `vocabulary-by-chapter.md` keeps the book's own markdown formatting. Both are
+  hand-maintained mirrors of each chapter's Glossary text, not generated from the chapter
+  files, so this kind of edit doesn't propagate on its own. `.pdf` variants regenerated
+  too, via the project's `.venv` (weasyprint lives there, not on the bare system Python).
+
 ## 2026-08-24 — chap05: dropped the Sierpinski exercise, added a for-loop/recursion aside
 
 ### Added

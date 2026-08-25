@@ -90,9 +90,9 @@ Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-1
 | **boolean expression** | AP | An expression whose value is either `True` or `False`. |
 | **relational operator** | AP | One of the operators that compares its operands: `==`, `!=`, `>`, `<`, `>=`, and `<=`. |
 | **logical operator** | AP | One of the operators that combines boolean expressions, including `and`, `or`, and `not`. |
-| **conditional statement** | AP | A statement that controls the flow of execution depending on some condition. |
+| **conditional statement** | AP | A statement that controls the flow of execution depending on some condition. Informally, this is usually an `if`-statement (that might contain an elif and else). |
 | **condition** |  | The boolean expression in a conditional statement that determines which branch runs. |
-| **block** |  | One or more statements indented to indicate they are part of another statement. |
+| **block** |  | One or more statements indented to indicate they are part of another statement. Statements in a block are frequently said to have the same *scope*. |
 | **branch** |  | One of the alternative sequences of statements in a conditional statement. |
 | **chained conditional** |  | A conditional statement with a series of alternative branches. |
 | **nested conditional** | AP | A conditional statement that appears in one of the branches of another conditional statement. |
