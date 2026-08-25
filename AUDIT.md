@@ -6781,6 +6781,9 @@ task, same 0.5 points), and updated the "## Homework" intro's one-line mention o
 `data/exercise-ledger.json` updated for both `ch05-tree` (removed) and `ch05-collatz` (note
 points at the change). Sierpinski (`ch05-ex07`) stays removed -- nothing here suggested the
 maintainer wants it back, only that the fractal-tree removal was the thing actually being
-asked for originally. `make check` clean; committed and republished immediately after (see
-whether a further note below records the outcome, or check `git log`/`gh-pages` directly if
-not -- this was written before that republish ran).
+asked for originally. `make check` clean; committed, pushed to `origin/v3`
+(`898163a..8f02919`), rebuilt (`--local` first, grepped the output for the fractal tree's
+absence and Collatz's reworded heading), then republished (`gh-pages` `55995b4..25a8286`).
+Verified the actual pushed branch content again via `git show origin/gh-pages:...` rather
+than trusting the live domain immediately -- same reasoning as the publish above, and the
+edge cache was still catching up at verification time either way.
