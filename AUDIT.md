@@ -6875,3 +6875,75 @@ notebook that has anything relying on exact cell-source matching elsewhere (`CEL
 is the only current example, but the pattern could recur), verify the result by reading the
 raw JSON `source` field's type, not just its rendered text -- rendered text will look
 identical either way. `make check` does not catch this on its own.
+
+## 2026-08-24 follow-up — disabled live JupyterLite for chapters 6, 6b, 7, 8
+
+Maintainer's framing: "reduce risk" -- after today's chapter 5 IndexedDB staleness bug (see
+entries above), turn off the same live-editable JupyterLite surface for the other chapters
+that carry it, with an easy path to turn each back on individually once confident. Explicit
+scope: `python.porttack.com` only for now, not `learn.porttack.com`.
+
+**Scoped first, rather than assuming "6 and onward" meant every remaining chapter.**
+Grepped every `chapters/chapNN.ipynb` for the `[JupyterLite]` bar link and the
+self-embedding pane. Only chapters 1-8 (and interlude `6b`) have either -- chapters 9-19
+never got this feature built (matches Pass 4's chrome-work status: "ch. 9-11 pending").
+So "6 and onward" resolves to exactly four files: `chap06`, `chap06b`, `chap07`, `chap08`.
+Chapter 5 excluded deliberately -- it already got today's more thorough fix (a filename
+rename), and the maintainer's ask was about the *other* chapters.
+
+**Design for the "config, one chapter at a time" ask.** Each affected chapter already had
+its own hand-authored, per-chapter self-embed script (same structure copy-pasted across
+chapters 1-8, substituting the chapter number) -- there's no shared JS asset or Python-side
+template driving these at Sphinx-build time, so a single cross-file config would have meant
+inventing new infrastructure (a shared script tag on every affected page) for a
+four-chapter, likely-temporary need. Went with the smaller change that still gives a real
+per-chapter toggle: each pane's existing IIFE gained one line, `var LIVE = false;`, folded
+into the existing `?readonly` check (`if (!LIVE || ... has("readonly"))`). Turning a chapter
+back on is a one-line, one-file edit -- `false` to `true` -- easy to grep for
+(`grep -rn "var LIVE = " chapters/`) and easy to review in a diff. The `[JupyterLite]` bar
+link itself was just deleted rather than JS-gated: it's plain markdown text with a literal
+`| ` separator typed after it in the source, so hiding the link via JS would leave a
+dangling pipe with nothing before it -- simpler and more robust to remove the line outright
+and restore it later from another chapter's still-live bar (chapters 1-4) as a template.
+
+**Hit the exact `NotebookEdit` single-string bug from the entry above, immediately, on the
+first attempt.** Used `NotebookEdit` for all 8 cells (4 bar + 4 pane) the same way as
+before; verifying the built jupyterlite output afterward showed cells with `source` as one
+string, not a list of lines -- the CELL_PATCHES exact-match issue would have recurred here
+too, since these chapters' patches use the identical mechanism as chapter 5's. Caught it
+*before* running `git diff` or publishing this time, from the earlier lesson, rather than
+after. Rather than patch each single-string cell after the fact again, rewrote the fix as a
+proper up-front script: construct each new cell's text as a real Python string, split it
+with `str.splitlines(keepends=True)` before ever writing JSON, so the single-string form
+never gets created in the first place. Also generalized the "which `ensure_ascii`/`indent`
+combination minimizes the diff against `git show HEAD:<path>`" search from a one-off
+manual comparison (done for chapter 5 and, briefly, incorrectly for these four -- see next
+paragraph) into a small loop that tries both `ensure_ascii` values and both `indent`
+values per file and keeps whichever produces the fewest changed lines against HEAD.
+
+**Caught my own mistake mid-task, before committing.** First pass at the fix used a single
+hardcoded `ensure_ascii=False` across all four files, by analogy with chapter 5 -- wrong.
+Checked afterward: `chap06`, `chap07`, and `chap08` all use escaped `—`-style unicode
+(confirmed by grepping the raw file, not trusting the Read tool's rendered view, which
+always shows literal characters regardless of how the file stores them), while `chap06b`
+(the interlude, authored in a separate session) already uses literal unicode. The
+hardcoded `False` had silently re-escaped every unrelated unicode character in three of
+the four files' *entire remaining content* -- attribution lines, standards blocks, glossary
+text -- none of which was supposed to change. Reverted all four files (`git checkout --`)
+before anything was committed and redid the fix with the per-file auto-detection above,
+which correctly picked `ensure_ascii=True` for `chap06`/`chap07`/`chap08` and `False` for
+`chap06b`. Verified via `git diff --stat`: all four now show exactly 8 insertions / 2
+deletions, matching the two intended cell edits and nothing else.
+
+**Verified:** `make check` clean (blanks, sync, jupyterlite `--check`). Rebuilt jupyterlite
+content and confirmed the four affected chapters' shipped notebooks have `var LIVE = false`
+correctly present. Did not yet rebuild/republish the Sphinx site or bump the `learn`
+submodule -- that's the next step, scoped to `python.porttack.com` only per the maintainer's
+explicit instruction this round.
+
+**What the next session needs to know:** to re-enable a chapter, flip that chapter's
+`var LIVE = false;` to `true` in its pane cell and restore its `[JupyterLite]` bar link
+(copy the line from a still-live chapter's bar, e.g. chapter 4, and swap in the right
+chapter number/filename) -- there is no other place that needs updating. Chapters 9+ need
+no such flag; they never had a live pane to begin with, so "turn on chapter 9" would mean
+building the feature fresh, not flipping a switch.

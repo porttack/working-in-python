@@ -5,7 +5,21 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 2026-08-24 — chap05: renamed to force a fresh JupyterLite cache for everyone
+## 2026-08-24 — chapters 6, 6b, 7, 8: live JupyterLite pane/link disabled
+
+### Changed
+- Risk reduction after chapter 5's IndexedDB staleness bug: `chapters/chap06.ipynb`,
+  `chap06b.ipynb`, `chap07.ipynb`, and `chap08.ipynb` (the only chapters besides 1-5 that
+  ship a self-embedded live JupyterLite pane -- chapters 9+ never had this feature built)
+  no longer offer a live-editable JupyterLite copy by default. The `[JupyterLite](...)`
+  bullet is removed from each chapter's "Other Ways to open this chapter" bar (Colab,
+  Read Only, and Download remain); the self-embedded pane's script gained a `var LIVE =
+  false;` guard that keeps the pane hidden regardless of the `?readonly` query param.
+  Per-chapter, one-line config: flip `LIVE` to `true` in a chapter's own pane script to
+  turn its live JupyterLite view back on once that chapter's content has settled.
+  Chapter 5 itself is untouched here -- it already got the more thorough fix (a filename
+  rename) earlier today. Deployed to `python.porttack.com` only for now, not yet to the
+  `learn.porttack.com` mirror.
 
 ### Changed
 - JupyterLite's shipped chapter 5 notebook renamed
