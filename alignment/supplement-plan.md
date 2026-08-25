@@ -42,16 +42,6 @@ not a new decision, just verified against the indexes):
 These don't have a home in this book, Little Brother, the November block, or lab
 practice. Listed here so they don't quietly stay uncovered:
 
-- **AP 2.1 (Binary Numbers) and 2.2 (Data Compression); CA DA.8 and DA.9** — opened
-  2026-08-09. Previously assigned to a supplement called CS50T Multimedia; removed per
-  teacher confirmation that it hasn't actually been taught since year one, so the
-  assignment was stale rather than real coverage. The Pico/MicroPython unit's I2C chapter
-  (source/rpi-pico-2e ch.14, "Digital communication protocols") teaches hexadecimal as
-  compact byte notation for I2C device addresses — a partial, authentic touchpoint for 2.1
-  and DA.8 — but doesn't cover binary place-value/conversion explicitly, and doesn't touch
-  data compression at all, so 2.2/DA.9 remain fully open regardless. No replacement
-  identified for either pair yet; see `apcsp-python-scope-sequence.md` in the `learn` repo's
-  `_program-notes/` for the live discussion.
 - **AP CRD-2.H / CA AP.19** — crediting or licensing code taken from another source.
   Notable because chap04 and chap08 *use* borrowed libraries without ever discussing this.
 - **CA AP.15** — event-driven/GUI programming. No event loop anywhere in the book.

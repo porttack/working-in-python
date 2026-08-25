@@ -69,7 +69,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. Iteration and Search" href="chap07.html" />
+    <link rel="next" title="Docstrings and Doctests" href="chap06b.html" />
     <link rel="prev" title="5. Conditionals and Recursion" href="chap05.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -233,7 +233,17 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Return Values</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -254,6 +264,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">AP CSP Vocabulary Glossary (A-Z)</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
@@ -436,7 +447,22 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.12.5. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">6.13. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">6.13. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-is-right-triangle-do-1-or-2">6.13.1. Exercise 1: is_right_triangle (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-can-ride-do-1-or-2">6.13.2. Exercise 2: can_ride (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-sum-to">6.13.3. Exercise 3: sum_to</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-grade-points">6.13.4. Exercise 4: debug grade_points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">6.13.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">6.13.6. Time check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-to-binary-and-collatz-steps">6.14. Extra credit: to_binary and collatz_steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-binary-extra-credit">6.14.1. to_binary (extra credit)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-steps-extra-credit">6.14.2. collatz_steps (extra credit)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">6.14.3. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">6.15. Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -450,7 +476,7 @@
                   
   <!-- apcsp:begin type="note" chapter="06" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-000a33b7ee/notebooks/index.html?path=Chapter06-Return-Values.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-58994cc0ff/notebooks/index.html?path=Chapter06-Return-Values.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap06.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap06.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap06.ipynb" download="chap06.ipynb">Download</a></p>
@@ -472,7 +498,7 @@
 }
 </style>
 <div id="chap06-jupyterlite-pane">
-<iframe src="jupyterlite-000a33b7ee/notebooks/index.html?path=Chapter06-Return-Values.ipynb"></iframe>
+<iframe src="jupyterlite-58994cc0ff/notebooks/index.html?path=Chapter06-Return-Values.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -523,9 +549,6 @@
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/ThinkPython/raw/v3/diagram.py&#39;</span><span class="p">);</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
-<span class="c1"># apcsp:begin type=&quot;note&quot; chapter=&quot;06&quot;</span>
-<span class="n">working_in_python</span><span class="o">.</span><span class="n">enable_docstring_reminders</span><span class="p">()</span>
-<span class="c1"># apcsp:end</span>
 </pre></div>
 </div>
 </div>
@@ -703,7 +726,7 @@ When the function runs, it doesn’t display anything.</p>
 </div>
 </div>
 </div>
-<p>A function like this is called a <!--blank--><strong>pure function</strong><!--/blank--> because it doesn’t display anything or have any other effect – other than returning a value.</p>
+<p>A function like this is called a <!--blank--><strong>pure function</strong><!--/blank--> because it returns a value and has no <!--blank--><strong>side effects</strong><!--/blank-->.</p>
 </section>
 <section id="return-values-and-conditionals">
 <h2><span class="section-number">6.3. </span>Return values and conditionals<a class="headerlink" href="#return-values-and-conditionals" title="Link to this heading">#</a></h2>
@@ -1249,8 +1272,10 @@ It takes some time to develop effective scaffolding, but a little bit of scaffol
 <h2><span class="section-number">6.11. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <p><strong>return value:</strong>
 The result of a function. If a function call is used as an expression, the return value is the value of the expression.</p>
+<p><strong>side effect:</strong>
+Any effect a function has other than returning a value, such as displaying output or drawing on a canvas.</p>
 <p><strong>pure function:</strong>
-A function that does not display anything or have any other effect, other than returning a return value.</p>
+A function that returns a value and has no side effects.</p>
 <p><strong>dead code:</strong>
 Part of a program that can never run, often because it appears after a <code class="docutils literal notranslate"><span class="pre">return</span></code> statement.</p>
 <p><strong>incremental development:</strong>
@@ -1261,7 +1286,9 @@ Code that is used during program development but is not part of the final versio
 A language, or subset of a language, is Turing complete if it can perform any computation that can be described by an algorithm.</p>
 <p><strong>input validation:</strong>
 Checking the parameters of a function to make sure they have the correct types and values</p>
-</section>
+<!-- apcsp:begin type="glossary" chapter="06" -->
+<p><strong>See also:</strong> the <a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">full vocabulary glossary</a> collects every term in this book, alphabetized, alongside the complete AP CSP exam vocabulary list.</p>
+<!-- apcsp:end --></section>
 <section id="exercises">
 <h2><span class="section-number">6.12. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -1420,6 +1447,253 @@ returns their greatest common divisor.</p>
 </div>
 </div>
 </div>
+<!-- apcsp:begin type="exercise" chapter="06" -->
+</section>
+</section>
+<section id="homework">
+<h2><span class="section-number">6.13. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
+<p>Required work is four exercises: whichever of Exercise 1 or Exercise 2, plus Exercises 3-5, about 31 minutes total. Doing both 1 and 2 is fine, but the second one earns no additional credit. The time check below must be filled in. The extra credit at the end (<code class="docutils literal notranslate"><span class="pre">to_binary</span></code> and <code class="docutils literal notranslate"><span class="pre">collatz_steps</span></code>) is the only extra credit in this chapter. It’s optional and never substitutes for a required exercise.</p>
+<p>Every function you write in this section needs a docstring, the same as chapter 4 on.</p>
+<p>Note: the exercises above (<code class="docutils literal notranslate"><span class="pre">hypot</span></code>, <code class="docutils literal notranslate"><span class="pre">is_between</span></code>, the Ackermann function, <code class="docutils literal notranslate"><span class="pre">is_power</span></code>, and <code class="docutils literal notranslate"><span class="pre">gcd</span></code>) are practice. They aren’t graded. This is the graded homework.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="06" -->
+<!-- teacher: ~8 min -->
+<section id="exercise-1-is-right-triangle-do-1-or-2">
+<h3><span class="section-number">6.13.1. </span>Exercise 1: is_right_triangle (do 1 or 2)<a class="headerlink" href="#exercise-1-is-right-triangle-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">is_right_triangle</span></code> that takes three side lengths, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code>, and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if they form a right triangle (the Pythagorean theorem holds for some pairing of the three sides as the two legs and the hypotenuse) and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise. Don’t assume the sides are given in any particular order.</p>
+<!-- apcsp:end --><p>Test your function with the following cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">is_right_triangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;right triangle&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_right_triangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>   <span class="c1"># should be True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_right_triangle</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>   <span class="c1"># should be False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_right_triangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>   <span class="c1"># should be True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="06" -->
+<!-- teacher: ~8 min -->
+</section>
+<section id="exercise-2-can-ride-do-1-or-2">
+<h3><span class="section-number">6.13.2. </span>Exercise 2: can_ride (do 1 or 2)<a class="headerlink" href="#exercise-2-can-ride-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">can_ride</span></code> that takes <code class="docutils literal notranslate"><span class="pre">height_inches</span></code> and <code class="docutils literal notranslate"><span class="pre">age</span></code> and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the person may ride: at least 48 inches tall, or at least 42 inches tall and at least 8 years old. Otherwise it returns <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<!-- apcsp:end --><p>Test your function with the following cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">can_ride</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;can ride&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">can_ride</span><span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>   <span class="c1"># should be False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">can_ride</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>   <span class="c1"># should be False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">can_ride</span><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>   <span class="c1"># should be False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="06" -->
+<!-- teacher: ~10 min -->
+</section>
+<section id="exercise-3-sum-to">
+<h3><span class="section-number">6.13.3. </span>Exercise 3: sum_to<a class="headerlink" href="#exercise-3-sum-to" title="Link to this heading">#</a></h3>
+<p>Write a recursive function called <code class="docutils literal notranslate"><span class="pre">sum_to</span></code> that takes a positive integer <code class="docutils literal notranslate"><span class="pre">n</span></code> and returns the sum of the integers from 1 to <code class="docutils literal notranslate"><span class="pre">n</span></code>. As a base case, <code class="docutils literal notranslate"><span class="pre">sum_to(0)</span></code> should return <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<!-- apcsp:end --><p>Test your function with the following cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_to</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>    <span class="c1"># should be 0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_to</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># should be 1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_to</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>    <span class="c1"># should be 15</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_to</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>   <span class="c1"># should be 55</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="06" -->
+<!-- teacher: ~8 min -->
+</section>
+<section id="exercise-4-debug-grade-points">
+<h3><span class="section-number">6.13.4. </span>Exercise 4: debug grade_points<a class="headerlink" href="#exercise-4-debug-grade-points" title="Link to this heading">#</a></h3>
+<p>Here’s a function that’s supposed to convert a letter grade into grade points.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">grade_points</span><span class="p">(</span><span class="n">letter</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">letter</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Predict what <code class="docutils literal notranslate"><span class="pre">gpa</span></code> will be before you run the cell below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">xmode</span> Context
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpa</span> <span class="o">=</span> <span class="n">grade_points</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the markdown cell below, explain what goes wrong and why. Then, in the code cell after that, write a corrected version of <code class="docutils literal notranslate"><span class="pre">grade_points</span></code> and test it with <code class="docutils literal notranslate"><span class="pre">'A'</span></code>, <code class="docutils literal notranslate"><span class="pre">'B'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'C'</span></code>.</p>
+<p><em>Type your answer here.</em></p>
+<!-- apcsp:begin type="exercise" chapter="06" -->
+<!-- teacher: ~5 min -->
+</section>
+<section id="exercise-5-reflection">
+<h3><span class="section-number">6.13.5. </span>Exercise 5: reflection<a class="headerlink" href="#exercise-5-reflection" title="Link to this heading">#</a></h3>
+<p>This chapter’s functions return values instead of printing them. Give one example from your own code (from this chapter or an earlier one) where returning a value would let you do something that printing would not.</p>
+<p>Answer in the markdown cell below, the same way you did in chap01 through chap05.</p>
+<!-- apcsp:end --><p><em>Type your answer here.</em></p>
+<!-- apcsp:begin type="exercise" chapter="06" -->
+<!-- teacher: ~2 min -->
+</section>
+<section id="time-check">
+<h3><span class="section-number">6.13.6. </span>Time check<a class="headerlink" href="#time-check" title="Link to this heading">#</a></h3>
+<p>This is graded on being filled in, not on the numbers. There’s no right answer, and low numbers don’t score better. If this chapter took you three hours, I need to know that. These are estimates: nobody expects you to have timed yourself, so a rough number is exactly what’s wanted.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill this in before you submit. Rough estimates are fine, and low numbers</span>
+<span class="c1"># don&#39;t score better. Don&#39;t count time on the extra credit below.</span>
+<span class="c1"># chapter_minutes -&gt; reading the chapter and its practice exercises</span>
+<span class="c1"># extra_exercises_minutes -&gt; the five numbered exercises above</span>
+<span class="c1"># longest -&gt; which exercise took longest, e.g. 1</span>
+<span class="n">chapter_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">extra_exercises_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">longest</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">working_in_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_check</span>
+<span class="n">time_check</span><span class="p">(</span><span class="n">chapter_minutes</span><span class="p">,</span> <span class="n">extra_exercises_minutes</span><span class="p">,</span> <span class="n">longest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="06" -->
+</section>
+</section>
+<section id="extra-credit-to-binary-and-collatz-steps">
+<h2><span class="section-number">6.14. </span>Extra credit: to_binary and collatz_steps<a class="headerlink" href="#extra-credit-to-binary-and-collatz-steps" title="Link to this heading">#</a></h2>
+<p>Both of these are worth 0.25 points each, for 0.5 points total. Do one or both. Either is open to you once you’ve finished the five required exercises above; neither substitutes for any of them.</p>
+<!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="06" -->
+<!-- teacher: ~10 min -->
+<section id="to-binary-extra-credit">
+<h3><span class="section-number">6.14.1. </span>to_binary (extra credit)<a class="headerlink" href="#to-binary-extra-credit" title="Link to this heading">#</a></h3>
+<p>Write a recursive function called <code class="docutils literal notranslate"><span class="pre">to_binary</span></code> that takes a non-negative integer <code class="docutils literal notranslate"><span class="pre">n</span></code> and returns its binary representation as a string of ones and zeros. This is how a number actually lives in memory, one bit at a time.</p>
+<!-- apcsp:end --><p>Test your function with the following cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_binary</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>    <span class="c1"># should be &#39;0&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_binary</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># should be &#39;1&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_binary</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>   <span class="c1"># should be &#39;1010&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="exercise" chapter="06" -->
+<!-- teacher: ~8 min -->
+</section>
+<section id="collatz-steps-extra-credit">
+<h3><span class="section-number">6.14.2. </span>collatz_steps (extra credit)<a class="headerlink" href="#collatz-steps-extra-credit" title="Link to this heading">#</a></h3>
+<p>Write a recursive function called <code class="docutils literal notranslate"><span class="pre">collatz_steps</span></code> that takes a positive integer <code class="docutils literal notranslate"><span class="pre">n</span></code> and returns the number of steps it takes to reach <code class="docutils literal notranslate"><span class="pre">1</span></code> under the Collatz process: if <code class="docutils literal notranslate"><span class="pre">n</span></code> is even, the next number is <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">//</span> <span class="pre">2</span></code>; if <code class="docutils literal notranslate"><span class="pre">n</span></code> is odd, the next number is <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">+</span> <span class="pre">1</span></code>. <code class="docutils literal notranslate"><span class="pre">collatz_steps(1)</span></code> should return <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<!-- apcsp:end --><p>Test your function with the following cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">collatz_steps</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># should be 0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">collatz_steps</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>   <span class="c1"># should be 8</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="06" -->
+</section>
+<section id="finished-copy-your-work">
+<h3><span class="section-number">6.14.3. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
+<p>This isn’t part of Exercise 5. It’s a tool. Run the cell below to copy this notebook (including anything you’ve run) so you can paste it into a document.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <!-- apcsp:begin type="note" chapter="06" -->
 <hr class="docutils" />
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
@@ -1434,7 +1708,7 @@ returns their greatest common divisor.</p>
 </section>
 <hr class="docutils" />
 <section id="standards-alignment">
-<h2><span class="section-number">6.13. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.15. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
 <p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.9">3.9 Developing Algorithms</a> and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.12">3.12 Calling Procedures</a> (Big Idea 3, 30–35% of the exam). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
 <strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.14">9-12.AP.14</a>
 <strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-RD-17">HS-PRO-RD-17</a>, headers only — no CSTA HS standard names recursion or abstraction directly.
@@ -1483,11 +1757,11 @@ returns their greatest common divisor.</p>
       </div>
     </a>
     <a class="right-next"
-       href="chap07.html"
+       href="chap06b.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Iteration and Search</p>
+        <p class="prev-next-title">Docstrings and Doctests</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1528,7 +1802,22 @@ returns their greatest common divisor.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.12.5. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">6.13. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">6.13. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-is-right-triangle-do-1-or-2">6.13.1. Exercise 1: is_right_triangle (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-can-ride-do-1-or-2">6.13.2. Exercise 2: can_ride (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-sum-to">6.13.3. Exercise 3: sum_to</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-grade-points">6.13.4. Exercise 4: debug grade_points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">6.13.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">6.13.6. Time check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-to-binary-and-collatz-steps">6.14. Extra credit: to_binary and collatz_steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-binary-extra-credit">6.14.1. to_binary (extra credit)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-steps-extra-credit">6.14.2. collatz_steps (extra credit)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">6.14.3. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">6.15. Standards alignment</a></li>
 </ul>
   </nav></div>
 

@@ -231,7 +231,17 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -252,6 +262,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">AP CSP Vocabulary Glossary (A-Z)</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
@@ -432,7 +443,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.11.4. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">3.12. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">3.12. Homework</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-scope-check">3.12.1. Exercise 1: scope check</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-read-the-traceback">3.12.2. Exercise 2: read the traceback</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functions-calling-functions">3.12.3. Exercise 3: functions calling functions</a></li>
@@ -455,7 +466,7 @@
                   
   <!-- apcsp:begin type="note" chapter="03" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-000a33b7ee/notebooks/index.html?path=Chapter03-Functions.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-58994cc0ff/notebooks/index.html?path=Chapter03-Functions.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap03.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap03.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap03.ipynb" download="chap03.ipynb">Download</a></p>
@@ -477,7 +488,7 @@
 }
 </style>
 <div id="chap03-jupyterlite-pane">
-<iframe src="jupyterlite-000a33b7ee/notebooks/index.html?path=Chapter03-Functions.ipynb"></iframe>
+<iframe src="jupyterlite-58994cc0ff/notebooks/index.html?path=Chapter03-Functions.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -937,7 +948,9 @@ A box in a stack diagram that represents a function call.
 It contains the local variables and parameters of the function.</p>
 <p><strong>traceback:</strong>
 A list of the functions that are executing, printed when an exception occurs.</p>
-</section>
+<!-- apcsp:begin type="glossary" chapter="03" -->
+<p><strong>See also:</strong> the <a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">full vocabulary glossary</a> collects every term in this book, alphabetized, alongside the complete AP CSP exam vocabulary list.</p>
+<!-- apcsp:end --></section>
 <section id="exercises">
 <h2><span class="section-number">3.11. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -1021,8 +1034,8 @@ You don’t have to completely understand this example—we’ll learn more abou
 <!-- apcsp:begin type="exercise" chapter="03" -->
 </section>
 </section>
-<section id="extra-exercises">
-<h2><span class="section-number">3.12. </span>Extra Exercises<a class="headerlink" href="#extra-exercises" title="Link to this heading">#</a></h2>
+<section id="homework">
+<h2><span class="section-number">3.12. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
 <p>These five exercises are your homework for this chapter, about 33 minutes total.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
 <section id="exercise-1-scope-check">
@@ -1192,7 +1205,7 @@ You don’t have to completely understand this example—we’ll learn more abou
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.11.4. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">3.12. Extra Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">3.12. Homework</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-scope-check">3.12.1. Exercise 1: scope check</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-read-the-traceback">3.12.2. Exercise 2: read the traceback</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functions-calling-functions">3.12.3. Exercise 3: functions calling functions</a></li>

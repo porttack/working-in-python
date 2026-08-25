@@ -2,7 +2,7 @@
 
 **Source of truth:** [`data/ap-vocabulary-source.md`](../data/ap-vocabulary-source.md), a teacher-curated instructional-priority list for this specific course (5th period, 2026–27) — not a generic AP CSP glossary. It carries its own Tier/HF/KA/WR columns; this page adds the one thing that source doesn't have: how each term maps onto *Working in Python*'s own chapters.
 
-**144 terms. 66 Concept (need instruction time), 46 Label (name something already taught), 32 Fact (lookupable, no warm-up slot needed).** Of those, 38 are taught in this book directly or under a documented synonym, 11 have an established home elsewhere in the course, 54 are *Little Brother*'s territory, and 41 have no carrier yet.
+**144 terms. 66 Concept (need instruction time), 46 Label (name something already taught), 32 Fact (lookupable, no warm-up slot needed).** Of those, 59 are taught in this book directly or under a documented synonym, 11 have an established home elsewhere in the course, 54 are *Little Brother*'s territory, and 20 have no carrier yet. (Updated 2026-08-17: the interlude between chapters 6 and 7 moved 7 terms from gap to in book — program purpose/function/input/output, test case, hand tracing, and roundoff error. Later the same day, the interlude between chapters 7 and 8, "Representing Data," moved 14 more — binary, bit, byte, hexadecimal, decimal, analog data, digital data, sampling, lossless compression, lossy compression, ASCII, Unicode, RGB, and overflow error — recounted programmatically, not by hand. That chapter is an outline only as of this update, not drafted prose; see `CHAPTER_MANIFEST.md`.)
 
 ## Column key
 
@@ -18,16 +18,16 @@
 
 ## Big Idea 1 — Creative Development (CRD)
 
-25 terms — 8 in book, 3 planned, 0 Little Brother, 14 gap.
+25 terms — 16 in book, 3 planned, 0 Little Brother, 6 gap.
 
 | Term | Tier | HF | KA | WR | WiP | WiP term | Ch. | Definition | Note |
 |---|---|---|---|---|---|---|---|---|---|
 | **Algorithm** | C | ★ |  | ✎ | gap | — | — | A finite sequence of steps that solves a problem or completes a task. Can be written in English, pseudocode, or code. | Students conflate this with “program.” An algorithm is the plan; a program is one implementation of it. *(WiP: Used constantly in the book's own prose but never itself a glossary headword.)* |
 | **Program** | L |  |  | ✎ | gap | — | — | A collection of statements that performs a task when run. | *(WiP: Same as Algorithm: everywhere, never its own headword.)* |
-| **Program purpose** | C |  |  | ✎ | gap | — | — | What problem the program solves or what need it serves — the *why*. | Not on any published list. It is the literal opening of WR1 and students answer it vaguely. Teach purpose/function/input/output as one four-part frame, not four terms. |
-| **Program function** | C |  |  | ✎ | gap | — | — | What the program does when it runs — the *what*, described behaviorally. | Students describe features instead of behavior. “It has a scoreboard” is not a function statement. |
-| **Program input** | C |  |  | ✎ | gap | — | — | Data the program receives while running: user action, file, sensor, network, another program. | Must be *at runtime*. Hard-coded values are not input. |
-| **Program output** | C |  |  | ✎ | gap | — | — | What the program produces: display, sound, file, movement, data sent elsewhere. |  |
+| **Program purpose** | C |  |  | ✎ | in book | program purpose | 6b | What problem the program solves or what need it serves — the *why*. | Not on any published list. It is the literal opening of WR1 and students answer it vaguely. Teach purpose/function/input/output as one four-part frame, not four terms. *(WiP: the interlude between chapters 6 and 7 teaches exactly this four-part frame, by name.)* |
+| **Program function** | C |  |  | ✎ | in book | program function | 6b | What the program does when it runs — the *what*, described behaviorally. | Students describe features instead of behavior. “It has a scoreboard” is not a function statement. *(WiP: same interlude, same four-part frame.)* |
+| **Program input** | C |  |  | ✎ | in book | program input | 6b | Data the program receives while running: user action, file, sensor, network, another program. | Must be *at runtime*. Hard-coded values are not input. *(WiP: same interlude, same four-part frame.)* |
+| **Program output** | C |  |  | ✎ | in book | program output | 6b | What the program produces: display, sound, file, movement, data sent elsewhere. | *(WiP: same interlude, same four-part frame.)* |
 | **Code segment** | L |  |  | ✎ | gap | — | — | A portion of a program, one or more lines, treated as a unit. | WR2 asks about a “code segment” by name. Students need to know they are being asked to point at specific lines. |
 | **Computing innovation** | C |  |  | ✎ | planned | — | — | A product, service, or concept that includes a program as an integral part of its function. May be physical, software, or conceptual. | The “includes a program” clause is load-bearing. A bridge is not a computing innovation; a bridge with a load-monitoring system is. *(WiP: Create Performance Task.)* |
 | **Collaboration** | L |  |  |  | planned | — | — | Working with others to develop a computing innovation; benefits from varied perspectives and skills. | *(WiP: Lab pair work + Create PT.)* |
@@ -36,13 +36,13 @@
 | **Comments** | L |  |  | ✎ | in book | comment | 2 | Documentation written inside the code for human readers; ignored at execution. | Comments are graded in this course, so the term is already lived. |
 | **Debugging** | C |  |  |  | in book | debugging | 1 | The process of finding and fixing errors in a program. | Missing from all three published lists despite being the daily activity. Name it so students can talk about it. |
 | **Syntax error** | C | ★ | ✓ |  | in book | syntax error | 1 | A violation of the language's grammar rules; the program typically will not run at all. | Teach as a three-way contrast with logic and run-time, not separately. |
-| **Logic error** | C | ★ | ✓ |  | in book | semantic error | 2 | The program runs but produces the wrong result. | Hardest of the three to detect, because nothing complains. *(WiP: Same idea, different name.)* |
+| **Logic error** | C | ★ | ✓ |  | in book | semantic error | 2, 6b | The program runs but produces the wrong result. | Hardest of the three to detect, because nothing complains. *(WiP: Same idea, different name; the interlude between chapters 6 and 7 makes the name swap explicit — "the exam calls this a logic error.")* |
 | **Run-time error** | C |  | ✓ |  | in book | runtime error | 2 | An error that appears only during execution, such as dividing by zero. | Python raises these as tracebacks; connect the term to what they already see on screen. |
-| **Overflow error** | C | ★ | ✓ |  | gap | — | — | The value is outside the range representable in the available bits. | Python's ints are arbitrary precision, so students never see this natively. Needs a deliberate demo. *(WiP: Structurally can't arise in the language the book teaches.)* |
-| **Roundoff error** | C |  | ✓ |  | gap | — | — | Loss of precision because a fixed number of bits cannot represent a real number exactly. | `0.1 + 0.2` in the console does this work for you. |
-| **Testing** | L |  |  |  | in book | test discovery | 18 | Verifying a program behaves correctly by running it with defined inputs. | *(WiP: Also ch. 7's pass/fail vocabulary.)* |
-| **Test case** | C |  |  | ✎ | gap | — | — | A specific input paired with its expected output. Good sets include typical, boundary, and edge values. | Maps directly onto the doctest format and Bootstrap's design recipe (contract → examples → definition). Boundary and edge are the part students omit. *(WiP: The practice exists in exercises; the term is never named.)* |
-| **Hand tracing** | C |  |  |  | gap | — | — | Manually stepping through code, tracking variable values, to locate an error. | Python Tutor is the visualization; hand tracing is the paper version, and the exam only has paper. |
+| **Overflow error** | C | ★ | ✓ |  | in book | overflow error | 7b | The value is outside the range representable in the available bits. | Python's ints are arbitrary precision, so students never see this natively. Needs a deliberate demo. *(WiP: The interlude between chapters 6 and 7 names and defines the term in passing but explicitly defers the demonstration to "a later interlude on binary" — that's this one, the interlude between chapters 7 and 8. As of 2026-08-17 chap07b is an outline only; its own open-questions list hasn't yet settled on the demo (fixed-width masking, a hand-rolled adder, or the Pico), so the deliberate demo this term needs still doesn't exist in drafted form.)* |
+| **Roundoff error** | C |  | ✓ |  | in book | roundoff error | 6b | Loss of precision because a fixed number of bits cannot represent a real number exactly. | `0.1 + 0.2` in the console does this work for you. *(WiP: the interlude between chapters 6 and 7 names, defines, and demonstrates this directly — `average(0.1, 0.2)` — though it defers *why* to a later interlude on binary.)* |
+| **Testing** | L |  |  |  | in book | test discovery | 18, 6b | Verifying a program behaves correctly by running it with defined inputs. | *(WiP: Also ch. 7's pass/fail vocabulary, and the interlude between chapters 6 and 7, which is where "testing" itself first becomes a named, systematic practice via doctests.)* |
+| **Test case** | C |  |  | ✎ | in book | test case | 6b | A specific input paired with its expected output. Good sets include typical, boundary, and edge values. | Maps directly onto the doctest format and Bootstrap's design recipe (contract → examples → definition). Boundary and edge are the part students omit. *(WiP: the interlude between chapters 6 and 7 names all three — test case, boundary case, edge case — and requires one of each in its own exercises.)* |
+| **Hand tracing** | C |  |  |  | in book | hand tracing | 6b | Manually stepping through code, tracking variable values, to locate an error. | Python Tutor is the visualization; hand tracing is the paper version, and the exam only has paper. *(WiP: the interlude between chapters 6 and 7 names it and requires it as the method for deciding whether a failing doctest means the code or the test is wrong.)* |
 | **Iterative development** | C |  |  | ✎ | gap | — | — | Repeated cycles of build, feedback, and revision; earlier phases get revisited. | Teach with incremental as a pair — students merge them into “we kept working on it.” *(WiP: Distinct from Incremental, which the book does name.)* |
 | **Incremental development** | C |  |  | ✎ | in book | incremental development | 6 | Breaking a problem into pieces and confirming each works before integrating. |  |
 | **Event** | L |  |  |  | gap | — | — | An action supplied to a program as input: key press, click, sensor reading. | *(WiP: Already a known, real gap.)* |
@@ -50,32 +50,32 @@
 
 ## Big Idea 2 — Data (DAT)
 
-22 terms — 2 in book, 0 planned, 0 Little Brother, 20 gap.
+22 terms — 15 in book, 0 planned, 0 Little Brother, 7 gap.
 
 | Term | Tier | HF | KA | WR | WiP | WiP term | Ch. | Definition | Note |
 |---|---|---|---|---|---|---|---|---|---|
-| **Binary** | L | ★ |  |  | gap | — | — | Base-2 representation using only 0 and 1. | *(WiP: Partial touchpoint in the Pico/MicroPython I2C unit; not this book.)* |
-| **Bit** | F |  | ✓ |  | gap | — | — | A single binary digit. | *(WiP: Partial touchpoint in the Pico/MicroPython I2C unit (byte/hex notation).)* |
-| **Byte** | F |  | ✓ |  | gap | — | — | Eight bits. | *(WiP: Partial touchpoint in the Pico/MicroPython I2C unit (byte/hex notation).)* |
-| **Hexadecimal** | F |  |  |  | gap | — | — | Base-16, using 0–9 and A–F; four bits per digit. | Keep for the color-code and CRC32 work, not for the exam. *(WiP: Partial touchpoint in the Pico/MicroPython I2C unit (byte/hex notation).)* |
-| **Decimal** | F |  |  |  | gap | — | — | Base-10. | Cut candidate. Earns a glossary row only for symmetry with binary and hex. |
+| **Binary** | L | ★ |  |  | in book | binary | 7b | Base-2 representation using only 0 and 1. | *(WiP: the interlude between chapters 7 and 8 ("Representing Data") teaches this directly, including hand and `bin()`/`int(s, 2)` conversion. As of 2026-08-17 that chapter is an outline only, not drafted prose — see CHAPTER_MANIFEST.md. Pico/MicroPython I2C unit remains a secondary, partial touchpoint.)* |
+| **Bit** | F |  | ✓ |  | in book | bit | 7b | A single binary digit. | *(WiP: same interlude — see Binary's note.)* |
+| **Byte** | F |  | ✓ |  | in book | byte | 7b | Eight bits. | *(WiP: same interlude — see Binary's note.)* |
+| **Hexadecimal** | F |  |  |  | in book | hexadecimal | 7b | Base-16, using 0–9 and A–F; four bits per digit. | Keep for the color-code and CRC32 work, not for the exam. *(WiP: same interlude — see Binary's note.)* |
+| **Decimal** | F |  |  |  | in book | decimal | 7b | Base-10. | Cut candidate. Earns a glossary row only for symmetry with binary and hex. *(WiP: same interlude — see Binary's note.)* |
 | **Abstraction** | C | ★ |  | ✎ | in book | encapsulation / generalization | 4, 9, 10, 11 | Reducing complexity by exposing essential features and hiding implementation detail. | The single most important word in the course and the one students define circularly. Every other abstraction term below is a special case of this one. |
-| **Analog data** | C |  | ✓ |  | gap | — | — | Values that vary continuously and smoothly. | Teach as a contrast pair with digital; separately they are near-empty. |
-| **Digital data** | C |  |  |  | gap | — | — | Values represented in discrete steps, ultimately as bits. |  |
-| **Sampling** | C |  |  |  | gap | — | — | Approximating an analog signal by measuring it at regular intervals. | Rate and bit depth are the two knobs. Students think only about rate. |
-| **Lossless compression** | C | ★ | ✓ |  | gap | — | — | Reduces size while allowing exact reconstruction of the original. | Contrast pair with lossy. The exam tests the *choice between them*, not the definitions. |
-| **Lossy compression** | C | ★ | ✓ |  | gap | — | — | Reduces size further, but only an approximation can be recovered. |  |
-| **Metadata** | C | ★ | ✓ |  | gap | — | — | Data describing other data: creation date, size, author, location, format. | Photo EXIF is the demo that lands. Connects directly to the *Little Brother* and PII threads. *(WiP: Already flagged as uncarried under AP topic 2.3.)* |
+| **Analog data** | C |  | ✓ |  | in book | analog data | 7b | Values that vary continuously and smoothly. | Teach as a contrast pair with digital; separately they are near-empty. *(WiP: same interlude — see Binary's note.)* |
+| **Digital data** | C |  |  |  | in book | digital data | 7b | Values represented in discrete steps, ultimately as bits. | *(WiP: same interlude — see Binary's note.)* |
+| **Sampling** | C |  |  |  | in book | sampling | 7b | Approximating an analog signal by measuring it at regular intervals. | Rate and bit depth are the two knobs. Students think only about rate. *(WiP: same interlude — see Binary's note.)* |
+| **Lossless compression** | C | ★ | ✓ |  | in book | lossless compression | 7b | Reduces size while allowing exact reconstruction of the original. | Contrast pair with lossy. The exam tests the *choice between them*, not the definitions. *(WiP: same interlude, via student-written run-length encoding — see Binary's note.)* |
+| **Lossy compression** | C | ★ | ✓ |  | in book | lossy compression | 7b | Reduces size further, but only an approximation can be recovered. | *(WiP: same interlude — see Binary's note.)* |
+| **Metadata** | C | ★ | ✓ |  | gap | — | — | Data describing other data: creation date, size, author, location, format. | Photo EXIF is the demo that lands. Connects directly to the *Little Brother* and PII threads. *(WiP: Already flagged as uncarried under AP topic 2.3. Deliberately kept out of the interlude between chapters 7 and 8 — its own scope notes route metadata/EXIF to Little Brother instead, to avoid splitting the surveillance thread.)* |
 | **Data** | F |  |  |  | gap | — | — | Values that can be stored and processed by a program. | Cut candidate — near-free definition. |
 | **Information** | C |  |  | ✎ | gap | — | — | Meaning, patterns, or insight extracted from data. | Taught only as the contrast with data. That contrast is genuinely tested. |
 | **Data set** | F |  |  |  | gap | — | — | A collection of related data organized for analysis. |  |
 | **Correlation** | C |  |  | ✎ | gap | — | — | An association between two variables where changes in one accompany changes in the other. | The whole lesson is “correlation is not causation,” and it is worth the full period. |
 | **Data cleaning** | C |  |  | ✎ | gap | — | — | Making data uniform and consistent without changing its meaning. | Students think this means deleting rows they dislike. It does not. |
 | **Data filtering** | L |  |  |  | in book | filtering | 10 | Selecting a subset of data by defined criteria. |  |
-| **ASCII** | F |  |  |  | gap | — | — | A 7-bit character encoding covering 128 characters. |  |
-| **Unicode** | F |  |  |  | gap | — | — | A character encoding standard covering the world's writing systems; extends ASCII. |  |
-| **RGB** | F |  |  |  | gap | — | — | Color represented as red, green, and blue channels, typically 0–255 each. |  |
-| **Pixel** | F |  |  |  | gap | — | — | The smallest addressable color element of a display or image. |  |
+| **ASCII** | F |  |  |  | in book | ASCII | 7b | A 7-bit character encoding covering 128 characters. | *(WiP: same interlude, alongside Unicode and character encoding as a contrast set — see Binary's note.)* |
+| **Unicode** | F |  |  |  | in book | Unicode | 7b | A character encoding standard covering the world's writing systems; extends ASCII. | *(WiP: same interlude — see Binary's note.)* |
+| **RGB** | F |  |  |  | in book | RGB | 7b | Color represented as red, green, and blue channels, typically 0–255 each. | *(WiP: same interlude — see Binary's note.)* |
+| **Pixel** | F |  |  |  | gap | — | — | The smallest addressable color element of a display or image. | *(WiP: the interlude between chapters 7 and 8 names "pixel" in its own outline's section list but doesn't carry it through to that chapter's actual Glossary cell — its own TODO flags this as unresolved. Left `gap` until the chapter's glossary settles the question.)* |
 
 ## Big Idea 3 — Algorithms and Programming (AAP)
 
@@ -106,7 +106,7 @@
 | **Logical operators** | L |  |  |  | in book | logical operator | 5 | AND, OR, NOT. | The truth-table drill is worth one warm-up cycle, especially NOT applied to a compound. |
 | **MOD** | C |  |  |  | in book | modulus operator | 5 | The remainder after integer division. | Kept despite looking like notation — the concept is tested. Even/odd and cycling are the two uses. Negative operands behave unintuitively; worth a distractor. *(WiP: `%` here; `MOD` on the exam reference sheet.)* |
 | **Infinite loop** | L |  |  |  | gap | — | — | A loop whose ending condition never becomes true. | *(WiP: “Infinite recursion” (ch. 5) is the book's only named version of this idea.)* |
-| **Procedure** | C | ★ | ✓ | ✎ | in book | function | 1 | A named, reusable block of code that performs a task and can be called repeatedly. | AP says procedure; Python says function; the ROV course says method. Say all three out loud once, early. |
+| **Procedure** | C | ★ | ✓ | ✎ | in book | function | 1, 6b | A named, reusable block of code that performs a task and can be called repeatedly. | AP says procedure; Python says function; the ROV course says method. Say all three out loud once, early. *(WiP: the interlude between chapters 6 and 7 is the first place the word "procedure" itself appears as a named vocabulary term, explicitly mapped to "function.")* |
 | **Parameter** | C |  |  | ✎ | in book | parameter | 3 | A named variable in a procedure's definition that receives an input value. | Contrast pair with argument. Bootstrap's design recipe maps this cleanly: parameter = domain, return value = range. |
 | **Argument** | C |  |  | ✎ | in book | argument | 2 | The actual value supplied for a parameter at the call site. | Students use the two words interchangeably all year unless corrected in week one. |
 | **RETURN statement** | L |  |  | ✎ | in book | return value | 6 | Exits a procedure immediately and hands a value back to the caller. | The classic misconception is that `return` prints. |

@@ -231,7 +231,17 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -252,6 +262,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">AP CSP Vocabulary Glossary (A-Z)</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
@@ -423,37 +434,37 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chained-conditionals">5.6. Chained conditionals</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nested-conditionals">5.7. Nested Conditionals</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursion">5.8. Recursion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stack-diagrams-for-recursive-functions">5.9. Stack diagrams for recursive functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infinite-recursion">5.10. Infinite recursion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keyboard-input">5.11. Keyboard input</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">5.12. Debugging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.13. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.14. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.14.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.14.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.14.3. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.14.4. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.14.5. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.14.6. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aside-compare-a-for-loop-with-recursion">5.9. Aside: Compare a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with recursion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stack-diagrams-for-recursive-functions">5.10. Stack diagrams for recursive functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infinite-recursion">5.11. Infinite recursion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keyboard-input">5.12. Keyboard input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">5.13. Debugging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.14. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.15. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.15.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.15.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.15.3. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.15.4. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.15.5. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">5.15. Extra Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-letter-grade-do-1-or-2">5.15.1. Exercise 1: letter_grade (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-rps-winner-do-1-or-2">5.15.2. Exercise 2: rps_winner (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-is-leap-year">5.15.3. Exercise 3: is_leap_year</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-countdown-by-two">5.15.4. Exercise 4: debug countdown_by_two</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-high-low-one-round">5.15.5. Exercise 5: high-low, one round</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">5.15.6. Exercise 6: reflection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">5.15.7. Time check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">5.16. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-letter-grade-do-1-or-2">5.16.1. Exercise 1: letter_grade (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-rps-winner-do-1-or-2">5.16.2. Exercise 2: rps_winner (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-is-leap-year">5.16.3. Exercise 3: is_leap_year</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-countdown-by-two">5.16.4. Exercise 4: debug countdown_by_two</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-high-low-one-round">5.16.5. Exercise 5: high-low, one round</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">5.16.6. Exercise 6: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">5.16.7. Time check</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-two-ways-to-recurse">5.16. Extra credit: two ways to recurse</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both">5.16.1. Fractal tree (extra credit – do this one OR Collatz, not both)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both">5.16.2. Collatz (extra credit – do this one OR the fractal tree, not both)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">5.16.3. Finished? Copy your work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-two-ways-to-recurse">5.17. Extra credit: two ways to recurse</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both">5.17.1. Fractal tree (extra credit – do this one OR Collatz, not both)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both">5.17.2. Collatz (extra credit – do this one OR the fractal tree, not both)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">5.17.3. Finished? Copy your work</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">5.17. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">5.18. Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -467,7 +478,7 @@
                   
   <!-- apcsp:begin type="note" chapter="05" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-000a33b7ee/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-58994cc0ff/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap05.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap05.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap05.ipynb" download="chap05.ipynb">Download</a></p>
@@ -489,7 +500,7 @@
 }
 </style>
 <div id="chap05-jupyterlite-pane">
-<iframe src="jupyterlite-000a33b7ee/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion.ipynb"></iframe>
+<iframe src="jupyterlite-58994cc0ff/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -959,9 +970,44 @@ As another example, we can write a function that prints a string <code class="do
 <p>For simple examples like this, it is probably easier to use a <code class="docutils literal notranslate"><span class="pre">for</span></code>
 loop. But we will see examples later that are hard to write with a <code class="docutils literal notranslate"><span class="pre">for</span></code>
 loop and easy to write with recursion, so it is good to start early.</p>
+<!-- apcsp:begin type="note" chapter="05" -->
 </section>
+<section id="aside-compare-a-for-loop-with-recursion">
+<h2><span class="section-number">5.9. </span>Aside: Compare a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with recursion<a class="headerlink" href="#aside-compare-a-for-loop-with-recursion" title="Link to this heading">#</a></h2>
+<p>Consider these two code segments that do the same thing:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (1) meow() with a for loop</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">meow</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;meow&quot;</span><span class="p">)</span>
+
+<span class="n">meow</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># (2) meow() with recursion</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">meow</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;meow&quot;</span><span class="p">)</span>
+    <span class="n">meow</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">meow</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Try running these using <a class="reference external" href="http://pythontutor.com">pythontutor.com</a>:</p>
+<ul class="simple">
+<li><p>Visualize the <a class="reference external" href="https://pythontutor.com/visualize.html#code=%23%20%281%29%20meow%28%29%20with%20a%20for%20loop%0Adef%20meow%28n%29%3A%0A%20%20%20%20for%20i%20in%20range%28n%29%3A%0A%20%20%20%20%20%20%20%20print%28%22meow%22%29%0A%0Ameow%283%29&amp;amp;mode=edit&amp;amp;origin=opt-frontend.js&amp;amp;py=3">for-loop version</a></p></li>
+<li><p>Visualize the <a class="reference external" href="https://pythontutor.com/visualize.html#code=def%20print_n_times%28string,%20n%29%3A%0A%20%20%20%20if%20n%20%3E%200%3A%0A%20%20%20%20%20%20%20%20print%28string%29%0A%20%20%20%20%20%20%20%20print_n_times%28string,%20n-1%29%0A%0Aprint_n_times%28%22meow%22,%203%29%0A&amp;amp;mode=edit&amp;amp;origin=opt-frontend.js&amp;amp;py=3">recursion version</a></p></li>
+</ul>
+<!-- apcsp:end --></section>
 <section id="stack-diagrams-for-recursive-functions">
-<h2><span class="section-number">5.9. </span>Stack diagrams for recursive functions<a class="headerlink" href="#stack-diagrams-for-recursive-functions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.10. </span>Stack diagrams for recursive functions<a class="headerlink" href="#stack-diagrams-for-recursive-functions" title="Link to this heading">#</a></h2>
 <p>Here’s a stack diagram that shows the frames created when we called <code class="docutils literal notranslate"><span class="pre">countdown</span></code> with <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">3</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1017,7 +1063,7 @@ It does not make a recursive call, so there are no more frames.</p>
 </div>
 </section>
 <section id="infinite-recursion">
-<h2><span class="section-number">5.10. </span>Infinite recursion<a class="headerlink" href="#infinite-recursion" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.11. </span>Infinite recursion<a class="headerlink" href="#infinite-recursion" title="Link to this heading">#</a></h2>
 <p>If a recursion never reaches a base case, it goes on making recursive
 calls forever, and the program never terminates. This is known as</p>
 <!--blank-->**infinite recursion**<!--/blank-->, and it is generally not a good idea.
@@ -1051,7 +1097,7 @@ If a program exceeds the limit, it causes a runtime error.</p>
 <p>If you encounter an infinite recursion by accident, review your function to confirm that there is a base case that does not make a recursive call. And if there is a base case, check whether you are guaranteed to reach it.</p>
 </section>
 <section id="keyboard-input">
-<h2><span class="section-number">5.11. </span>Keyboard input<a class="headerlink" href="#keyboard-input" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.12. </span>Keyboard input<a class="headerlink" href="#keyboard-input" title="Link to this heading">#</a></h2>
 <p>The programs we have written so far accept no input from the user. They
 just do the same thing every time.</p>
 <p>Python provides a built-in function called <code class="docutils literal notranslate"><span class="pre">input</span></code> that stops the
@@ -1104,7 +1150,7 @@ telling the user what to type. <code class="docutils literal notranslate"><span 
 <p>We will see how to handle this kind of error later.</p>
 </section>
 <section id="debugging">
-<h2><span class="section-number">5.12. </span>Debugging<a class="headerlink" href="#debugging" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.13. </span>Debugging<a class="headerlink" href="#debugging" title="Link to this heading">#</a></h2>
 <p>When a syntax or runtime error occurs, the error message contains a lot
 of information, but it can be overwhelming. The most useful parts are
 usually:</p>
@@ -1152,7 +1198,7 @@ When we call <code class="docutils literal notranslate"><span class="pre">math.l
 <p>In general, you should take the time to read error messages carefully, but don’t assume that everything they say is correct.</p>
 </section>
 <section id="glossary">
-<h2><span class="section-number">5.13. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.14. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <p><strong>recursion:</strong>
 The process of calling the function that is currently executing.</p>
 <p><strong>modulus operator:</strong>
@@ -1164,11 +1210,11 @@ One of the operators that compares its operands: <code class="docutils literal n
 <p><strong>logical operator:</strong>
 One of the operators that combines boolean expressions, including <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, and <code class="docutils literal notranslate"><span class="pre">not</span></code>.</p>
 <p><strong>conditional statement:</strong>
-A statement that controls the flow of execution depending on some condition.</p>
+A statement that controls the flow of execution depending on some condition. Informally, this is usually an <code class="docutils literal notranslate"><span class="pre">if</span></code>-statement (that might contain an elif and else).</p>
 <p><strong>condition:</strong>
 The boolean expression in a conditional statement that determines which branch runs.</p>
 <p><strong>block:</strong>
-One or more statements indented to indicate they are part of another statement.</p>
+One or more statements indented to indicate they are part of another statement. Statements in a block are frequently said to have the same <em>scope</em>.</p>
 <p><strong>branch:</strong>
 One of the alternative sequences of statements in a conditional statement.</p>
 <p><strong>chained conditional:</strong>
@@ -1184,9 +1230,11 @@ A recursion that doesn’t have a base case, or never reaches it.
 Eventually, an infinite recursion causes a runtime error.</p>
 <p><strong>newline:</strong>
 A character that creates a line break between two parts of a string.</p>
-</section>
+<!-- apcsp:begin type="glossary" chapter="05" -->
+<p><strong>See also:</strong> the <a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">full vocabulary glossary</a> collects every term in this book, alphabetized, alongside the complete AP CSP exam vocabulary list.</p>
+<!-- apcsp:end --></section>
 <section id="exercises">
-<h2><span class="section-number">5.14. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.15. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell tells Jupyter to provide detailed debugging information</span>
@@ -1198,7 +1246,7 @@ A character that creates a line break between two parts of a string.</p>
 </div>
 </div>
 <section id="exercise">
-<h3><span class="section-number">5.14.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.15.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">time</span></code> module provides a function, also called <code class="docutils literal notranslate"><span class="pre">time</span></code>, that returns
 returns the number of seconds since the “Unix epoch”, which is January 1, 1970, 00:00:00 UTC (Coordinated Universal Time).</p>
 <div class="cell docutils container">
@@ -1215,7 +1263,7 @@ returns the number of seconds since the “Unix epoch”, which is January 1, 19
 <p>You can read more about the <code class="docutils literal notranslate"><span class="pre">time</span></code> module at <a class="reference external" href="https://docs.python.org/3/library/time.html">https://docs.python.org/3/library/time.html</a>.</p>
 </section>
 <section id="id1">
-<h3><span class="section-number">5.14.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.15.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>If you are given three sticks, you may or may not be able to arrange
 them in a triangle. For example, if one of the sticks is 12 inches long
 and the other two are one inch long, you will not be able to get the
@@ -1262,7 +1310,7 @@ lengths. Hint: Use a chained conditional.</p>
 </div>
 </section>
 <section id="id2">
-<h3><span class="section-number">5.14.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.15.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>What is the output of the following program? Draw a stack diagram that
 shows the state of the program when it prints the result.</p>
 <div class="cell docutils container">
@@ -1280,7 +1328,7 @@ shows the state of the program when it prints the result.</p>
 </div>
 </section>
 <section id="id3">
-<h3><span class="section-number">5.14.4. </span>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.15.4. </span>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>The following exercises use the <code class="docutils literal notranslate"><span class="pre">jupyturtle</span></code> module, described in Chapter 4.</p>
 <p>Read the following function and see if you can figure out what it does.
 Then run it and see if you got it right.
@@ -1309,7 +1357,7 @@ Adjust the values of <code class="docutils literal notranslate"><span class="pre
 </div>
 </section>
 <section id="id4">
-<h3><span class="section-number">5.14.5. </span>Exercise<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.15.5. </span>Exercise<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <!-- apcsp:begin type="note" chapter="05" -->
 <p>A Koch curve is a fractal made by repeating one simple substitution, over and over. Start with a single straight segment. Replace its middle third with two sides of an equilateral triangle – a small outward bump – so one segment becomes four shorter ones. Now make that same replacement on each of those four segments, and then on each segment that produces, and so on. The more times you repeat it, the more detailed and jagged the edge becomes, while keeping the same zigzag pattern at every size.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">one</span> <span class="n">segment</span><span class="p">:</span>                 <span class="n">_____________________</span>
@@ -1355,38 +1403,18 @@ have to do is</p>
 </div>
 </div>
 </div>
-</section>
-<section id="id5">
-<h3><span class="section-number">5.14.6. </span>Exercise<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<!-- apcsp:begin type="exercise" chapter="05" -->
-<p>A Sierpiński triangle is a fractal made of nested triangles.
-A Sierpiński triangle of degree <code class="docutils literal notranslate"><span class="pre">0</span></code> is a plain equilateral triangle with the given size.
-A Sierpiński triangle of degree <code class="docutils literal notranslate"><span class="pre">n</span></code>, for <code class="docutils literal notranslate"><span class="pre">n</span></code> greater than <code class="docutils literal notranslate"><span class="pre">0</span></code>, is made of three smaller Sierpiński triangles of degree <code class="docutils literal notranslate"><span class="pre">n-1</span></code>, each with half the size, positioned at the three corners of the triangle they replace – bottom left, bottom right, and top – leaving a gap where the middle triangle would go.</p>
-<p>Write a function called <code class="docutils literal notranslate"><span class="pre">draw_sierpinski</span></code> that takes two parameters, <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">degree</span></code>, and draws a Sierpiński triangle of that size and degree. Between the three smaller triangles you will need to move the turtle without drawing a line; <code class="docutils literal notranslate"><span class="pre">penup</span></code> and <code class="docutils literal notranslate"><span class="pre">pendown</span></code>, importable from <code class="docutils literal notranslate"><span class="pre">jupyturtle</span></code> the same way you imported <code class="docutils literal notranslate"><span class="pre">forward</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, and <code class="docutils literal notranslate"><span class="pre">back</span></code> earlier in this chapter, do that.</p>
-<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="05" -->
-<p><em>This one is optional – try it if you have time, but it isn’t expected.</em></p>
-<!-- apcsp:end --><p>Here’s what the result might look like, although the version you get might be different.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_turtle</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-
-<span class="n">draw_sierpinski</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
 <!-- apcsp:begin type="exercise" chapter="05" -->
 </section>
 </section>
-<section id="extra-exercises">
-<h2><span class="section-number">5.15. </span>Extra Exercises<a class="headerlink" href="#extra-exercises" title="Link to this heading">#</a></h2>
+<section id="homework">
+<h2><span class="section-number">5.16. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
 <p>Do either Exercise 1 or Exercise 2, not both. They’re interchangeable, so pick whichever appeals to you. Doing both is fine, but the second one earns no additional credit. Required work is five exercises (whichever of 1/2 you pick, plus Exercises 3-6), about 38 minutes total. The time check below must be filled in. The extra credit at the end (a fractal tree or the Collatz sequence) is optional and never substitutes for a required exercise.</p>
 <p>Starting this chapter, defining a function without a docstring triggers a warning below that cell – it isn’t graded and won’t block anything, but a one-line docstring like the ones from Chapter 4 satisfies it.</p>
 <p>Note: the exercises above (elapsed time since the Unix epoch, is_triangle, the stack-diagram prediction, and the three turtle-drawing exercises) are practice. They aren’t graded. This is the graded homework.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="05" -->
 <!-- teacher: ~10 min -->
 <section id="exercise-1-letter-grade-do-1-or-2">
-<h3><span class="section-number">5.15.1. </span>Exercise 1: letter_grade (do 1 or 2)<a class="headerlink" href="#exercise-1-letter-grade-do-1-or-2" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.16.1. </span>Exercise 1: letter_grade (do 1 or 2)<a class="headerlink" href="#exercise-1-letter-grade-do-1-or-2" title="Link to this heading">#</a></h3>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">letter_grade</span></code> that takes a numeric <code class="docutils literal notranslate"><span class="pre">score</span></code> from 0 to 100 and prints the corresponding letter grade: <code class="docutils literal notranslate"><span class="pre">90</span></code> and above is <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">80</span></code>-<code class="docutils literal notranslate"><span class="pre">89</span></code> is <code class="docutils literal notranslate"><span class="pre">B</span></code>, <code class="docutils literal notranslate"><span class="pre">70</span></code>-<code class="docutils literal notranslate"><span class="pre">79</span></code> is <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">60</span></code>-<code class="docutils literal notranslate"><span class="pre">69</span></code> is <code class="docutils literal notranslate"><span class="pre">D</span></code>, and below <code class="docutils literal notranslate"><span class="pre">60</span></code> is <code class="docutils literal notranslate"><span class="pre">F</span></code>. Use a chained conditional, the same construct from earlier in this chapter.</p>
 <!-- apcsp:end --><p>Test your function with the following cases.</p>
 <div class="cell docutils container">
@@ -1421,7 +1449,7 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 <!-- teacher: ~10 min -->
 </section>
 <section id="exercise-2-rps-winner-do-1-or-2">
-<h3><span class="section-number">5.15.2. </span>Exercise 2: rps_winner (do 1 or 2)<a class="headerlink" href="#exercise-2-rps-winner-do-1-or-2" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.16.2. </span>Exercise 2: rps_winner (do 1 or 2)<a class="headerlink" href="#exercise-2-rps-winner-do-1-or-2" title="Link to this heading">#</a></h3>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">rps_winner</span></code> that takes two strings, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, each one of <code class="docutils literal notranslate"><span class="pre">'rock'</span></code>, <code class="docutils literal notranslate"><span class="pre">'paper'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'scissors'</span></code>, and prints <code class="docutils literal notranslate"><span class="pre">'a</span> <span class="pre">wins'</span></code>, <code class="docutils literal notranslate"><span class="pre">'b</span> <span class="pre">wins'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'tie'</span></code>. Use a chained conditional with <code class="docutils literal notranslate"><span class="pre">and</span></code>/<code class="docutils literal notranslate"><span class="pre">or</span></code> to check the three matchups where <code class="docutils literal notranslate"><span class="pre">a</span></code> beats <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
 <!-- apcsp:end --><p>Test your function with the following cases.</p>
 <div class="cell docutils container">
@@ -1456,7 +1484,7 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 <!-- teacher: ~10 min -->
 </section>
 <section id="exercise-3-is-leap-year">
-<h3><span class="section-number">5.15.3. </span>Exercise 3: is_leap_year<a class="headerlink" href="#exercise-3-is-leap-year" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.16.3. </span>Exercise 3: is_leap_year<a class="headerlink" href="#exercise-3-is-leap-year" title="Link to this heading">#</a></h3>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">is_leap_year</span></code> that takes a <code class="docutils literal notranslate"><span class="pre">year</span></code> and prints <code class="docutils literal notranslate"><span class="pre">Yes</span></code> or <code class="docutils literal notranslate"><span class="pre">No</span></code>. A year is a leap year if it’s divisible by 4, except century years (divisible by 100), which are leap years only if they’re also divisible by 400. Use the modulus operator and logical operators.</p>
 <!-- apcsp:end --><p>Test your function with the following cases.</p>
 <div class="cell docutils container">
@@ -1491,7 +1519,7 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 <!-- teacher: ~8 min -->
 </section>
 <section id="exercise-4-debug-countdown-by-two">
-<h3><span class="section-number">5.15.4. </span>Exercise 4: debug countdown_by_two<a class="headerlink" href="#exercise-4-debug-countdown-by-two" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.16.4. </span>Exercise 4: debug countdown_by_two<a class="headerlink" href="#exercise-4-debug-countdown-by-two" title="Link to this heading">#</a></h3>
 <p>Here’s a function that’s supposed to work like <code class="docutils literal notranslate"><span class="pre">countdown</span></code>, but counting down by twos instead of by ones.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1533,13 +1561,13 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 <!-- teacher: ~5 min -->
 </section>
 <section id="exercise-5-high-low-one-round">
-<h3><span class="section-number">5.15.5. </span>Exercise 5: high-low, one round<a class="headerlink" href="#exercise-5-high-low-one-round" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.16.5. </span>Exercise 5: high-low, one round<a class="headerlink" href="#exercise-5-high-low-one-round" title="Link to this heading">#</a></h3>
 <p>Pick a secret number and hard-code it in your solution. Prompt the player with <code class="docutils literal notranslate"><span class="pre">input()</span></code>, convert their guess with <code class="docutils literal notranslate"><span class="pre">int()</span></code>, and print <code class="docutils literal notranslate"><span class="pre">Too</span> <span class="pre">low</span></code>, <code class="docutils literal notranslate"><span class="pre">Too</span> <span class="pre">high</span></code>, or <code class="docutils literal notranslate"><span class="pre">Correct!</span></code> using a chained conditional. Just one round – no loop.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="05" -->
 <!-- teacher: ~5 min -->
 </section>
 <section id="exercise-6-reflection">
-<h3><span class="section-number">5.15.6. </span>Exercise 6: reflection<a class="headerlink" href="#exercise-6-reflection" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.16.6. </span>Exercise 6: reflection<a class="headerlink" href="#exercise-6-reflection" title="Link to this heading">#</a></h3>
 <p>This chapter showed two ways to handle a problem with several possible outcomes: a chained conditional (<code class="docutils literal notranslate"><span class="pre">if</span></code>/<code class="docutils literal notranslate"><span class="pre">elif</span></code>/<code class="docutils literal notranslate"><span class="pre">elif</span></code>/…/<code class="docutils literal notranslate"><span class="pre">else</span></code>) or nested conditionals (an <code class="docutils literal notranslate"><span class="pre">if</span></code> inside another <code class="docutils literal notranslate"><span class="pre">if</span></code>’s <code class="docutils literal notranslate"><span class="pre">else</span></code>). Which did you reach for more naturally while working through this chapter’s exercises, and why?</p>
 <p>Answer in the markdown cell below, the same way you did in chap01 through chap04.</p>
 <!-- apcsp:end --><p><em>Type your answer here.</em></p>
@@ -1547,7 +1575,7 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 <!-- teacher: ~2 min -->
 </section>
 <section id="time-check">
-<h3><span class="section-number">5.15.7. </span>Time check<a class="headerlink" href="#time-check" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.16.7. </span>Time check<a class="headerlink" href="#time-check" title="Link to this heading">#</a></h3>
 <p>This is graded on being filled in, not on the numbers. There’s no right answer, and low numbers don’t score better. If this chapter took you three hours, I need to know that. These are estimates: nobody expects you to have timed yourself, so a rough number is exactly what’s wanted.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1570,13 +1598,13 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 </section>
 </section>
 <section id="extra-credit-two-ways-to-recurse">
-<h2><span class="section-number">5.16. </span>Extra credit: two ways to recurse<a class="headerlink" href="#extra-credit-two-ways-to-recurse" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.17. </span>Extra credit: two ways to recurse<a class="headerlink" href="#extra-credit-two-ways-to-recurse" title="Link to this heading">#</a></h2>
 <p>Do either the fractal tree or the Collatz sequence below, not both. They’re interchangeable, so pick whichever appeals to you. Doing both is fine, but the second one earns no additional credit. Neither substitutes for a required exercise. This is worth 0.5 points.</p>
 <p>If you’d like to watch recursion draw something first, the koch/snowflake cells above (optional practice) are worth running if you haven’t already – this notebook ships with no saved output, so nothing renders until you run the cells yourself.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="05" -->
 <!-- teacher: ~15 min -->
 <section id="fractal-tree-extra-credit-do-this-one-or-collatz-not-both">
-<h3><span class="section-number">5.16.1. </span>Fractal tree (extra credit – do this one OR Collatz, not both)<a class="headerlink" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.17.1. </span>Fractal tree (extra credit – do this one OR Collatz, not both)<a class="headerlink" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both" title="Link to this heading">#</a></h3>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">tree</span></code> that takes <code class="docutils literal notranslate"><span class="pre">length</span></code> as a parameter and draws a fractal tree: go forward, turn left and recurse on a shorter branch, turn right twice and recurse on another shorter branch of the same length, then turn back and return to where you started – the same shape as the <code class="docutils literal notranslate"><span class="pre">draw</span></code> function earlier in this chapter, but written as its own function with a clear base case (stop recursing once the branch gets too short to matter).</p>
 <p>Once <code class="docutils literal notranslate"><span class="pre">tree</span></code> works, generalize it the way Chapter 4 generalized <code class="docutils literal notranslate"><span class="pre">circle</span></code> into <code class="docutils literal notranslate"><span class="pre">arc</span></code>: add <code class="docutils literal notranslate"><span class="pre">angle</span></code> and <code class="docutils literal notranslate"><span class="pre">factor</span></code> parameters so the branch angle and the shrink factor per level aren’t hardcoded. Pick your own values for all three and try a few combinations.</p>
 <!-- apcsp:end --><div class="cell docutils container">
@@ -1600,13 +1628,13 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 <!-- teacher: ~10 min -->
 </section>
 <section id="collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both">
-<h3><span class="section-number">5.16.2. </span>Collatz (extra credit – do this one OR the fractal tree, not both)<a class="headerlink" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.17.2. </span>Collatz (extra credit – do this one OR the fractal tree, not both)<a class="headerlink" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both" title="Link to this heading">#</a></h3>
 <p>The Collatz conjecture starts from any positive integer <code class="docutils literal notranslate"><span class="pre">n</span></code>. If <code class="docutils literal notranslate"><span class="pre">n</span></code> is even, the next number is <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">//</span> <span class="pre">2</span></code>. If <code class="docutils literal notranslate"><span class="pre">n</span></code> is odd, the next number is <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">+</span> <span class="pre">1</span></code>. Repeat, and every starting value anyone has ever tried eventually reaches 1 – though no one has proved that it always must.</p>
 <p>Write a recursive function called <code class="docutils literal notranslate"><span class="pre">collatz</span></code> that takes a positive integer <code class="docutils literal notranslate"><span class="pre">n</span></code>, prints it, and then calls itself with the next number in the sequence. Once <code class="docutils literal notranslate"><span class="pre">n</span></code> reaches 1, print it and stop – don’t recurse past it. Test your function with a few different starting values, including at least one that takes many steps to reach 1.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="05" -->
 </section>
 <section id="finished-copy-your-work">
-<h3><span class="section-number">5.16.3. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.17.3. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
 <p>This isn’t part of Exercise 6. It’s a tool. Run the cell below to copy this notebook (including anything you’ve run) so you can paste it into a document.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1629,7 +1657,7 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 </section>
 <hr class="docutils" />
 <section id="standards-alignment">
-<h2><span class="section-number">5.17. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.18. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
 <p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.5">3.5 Boolean Expressions</a> and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.6">3.6 Conditionals</a> (Big Idea 3, 30–35% of the exam). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.7">3.7 Nested Conditionals</a>, <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.2">1.2 Program Function and Purpose</a>, and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
 <strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.14">9-12.AP.14</a>
 <strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-RD-17">HS-PRO-RD-17</a>, <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-ALG-PS-02">HS-ALG-PS-02</a>. Also <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-ALG-PS-03">HS-ALG-PS-03</a>, headers only.
@@ -1713,37 +1741,37 @@ A Sierpiński triangle of degree <code class="docutils literal notranslate"><spa
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chained-conditionals">5.6. Chained conditionals</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nested-conditionals">5.7. Nested Conditionals</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursion">5.8. Recursion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stack-diagrams-for-recursive-functions">5.9. Stack diagrams for recursive functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infinite-recursion">5.10. Infinite recursion</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keyboard-input">5.11. Keyboard input</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">5.12. Debugging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.13. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.14. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.14.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.14.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.14.3. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.14.4. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.14.5. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.14.6. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aside-compare-a-for-loop-with-recursion">5.9. Aside: Compare a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop with recursion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stack-diagrams-for-recursive-functions">5.10. Stack diagrams for recursive functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infinite-recursion">5.11. Infinite recursion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keyboard-input">5.12. Keyboard input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">5.13. Debugging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.14. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.15. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.15.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.15.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.15.3. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.15.4. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.15.5. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-exercises">5.15. Extra Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-letter-grade-do-1-or-2">5.15.1. Exercise 1: letter_grade (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-rps-winner-do-1-or-2">5.15.2. Exercise 2: rps_winner (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-is-leap-year">5.15.3. Exercise 3: is_leap_year</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-countdown-by-two">5.15.4. Exercise 4: debug countdown_by_two</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-high-low-one-round">5.15.5. Exercise 5: high-low, one round</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">5.15.6. Exercise 6: reflection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">5.15.7. Time check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">5.16. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-letter-grade-do-1-or-2">5.16.1. Exercise 1: letter_grade (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-rps-winner-do-1-or-2">5.16.2. Exercise 2: rps_winner (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-is-leap-year">5.16.3. Exercise 3: is_leap_year</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-countdown-by-two">5.16.4. Exercise 4: debug countdown_by_two</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-high-low-one-round">5.16.5. Exercise 5: high-low, one round</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">5.16.6. Exercise 6: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">5.16.7. Time check</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-two-ways-to-recurse">5.16. Extra credit: two ways to recurse</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both">5.16.1. Fractal tree (extra credit – do this one OR Collatz, not both)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both">5.16.2. Collatz (extra credit – do this one OR the fractal tree, not both)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">5.16.3. Finished? Copy your work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-two-ways-to-recurse">5.17. Extra credit: two ways to recurse</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fractal-tree-extra-credit-do-this-one-or-collatz-not-both">5.17.1. Fractal tree (extra credit – do this one OR Collatz, not both)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-extra-credit-do-this-one-or-the-fractal-tree-not-both">5.17.2. Collatz (extra credit – do this one OR the fractal tree, not both)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">5.17.3. Finished? Copy your work</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">5.17. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">5.18. Standards alignment</a></li>
 </ul>
   </nav></div>
 

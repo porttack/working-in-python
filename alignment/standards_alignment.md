@@ -26,6 +26,7 @@ or CA content under either standard as currently written. `jupyter_intro` and `c
 | 5. Conditionals and Recursion | 1.2 (partial, keyboard input), 1.4, 3.5 Boolean Expressions, 3.6 Conditionals, 3.7 Nested Conditionals | AP.14 |
 | 6. Return Values | 1.4, 3.9 Developing Algorithms (incremental development), 3.12 Calling Procedures | AP.14 |
 | 7. Iteration and Search | 1.4, 3.8 Iteration (partial), 3.9 Developing Algorithms (linear search) | AP.12, AP.20 |
+| 7b. Representing Data (interlude) — **outline only, 2026-08-17** | 2.1 Binary Numbers, 2.2 Data Compression | DA.8, DA.9 (partial — see View 2/3 notes) |
 | 8. Strings and Regular Expressions | 1.4, 3.4 Strings, 3.14 Libraries (`re`) | AP.17 |
 | 9. Lists | 1.4, 3.2 Data Abstraction, 3.10 Lists | AP.12 (partial, sort), AP.13 |
 | 10. Dictionaries | 1.4, 3.2 Data Abstraction | — |
@@ -37,6 +38,15 @@ or CA content under either standard as currently written. `jupyter_intro` and `c
 Notes:
 - **1.4 (Identifying and Correcting Errors)** appears in every row 1–13 because every
   chapter carries a "Debugging" section — see the AP index for this finding.
+- **7b (the interlude between chapters 7 and 8) is an outline, not a drafted chapter, as of
+  2026-08-17** — section headings, vocabulary, and standards claims exist; prose and
+  exercises don't yet. Its row is included here (and in Views 2–3 below) because the
+  standards claims are being recorded now, ahead of the authoring — see
+  `CHAPTER_MANIFEST.md`'s Interludes section and `AUDIT.md`'s 2026-08-17 handoff. `chap06b`,
+  the first interlude (between chapters 6 and 7), is fully drafted but was never added to
+  this view when it was written — a pre-existing gap, flagged in `CHAPTER_MANIFEST.md`
+  rather than fixed here, since chap06b doesn't carry any AP/CA topic of its own (its
+  contribution is vocabulary, tracked in `ap-vocabulary-coverage.md` instead).
 - **Chapters 14–19 carrying nothing is expected, not a gap.** Object-oriented programming
   is outside the AP CSP framework entirely, and no CA 9–12 core standard requires it
   specifically (see "Scope question" below) — every CA standard this book satisfies is
@@ -56,8 +66,8 @@ pass.
 | 1.2 | Program Function and Purpose | working_in_python | 1, 5 | partial — no event-driven programming |
 | 1.3 | Program Design and Development | working_in_python | 4 | CRD-2.H (crediting others' code) uncarried |
 | 1.4 | Identifying and Correcting Errors | working_in_python | 1–13 | every chapter's Debugging section |
-| 2.1 | Binary Numbers | unassigned | — | real gap — CS50T Multimedia dropped 2026-08-09, not taught since year one; Pico I2C chapter is a partial, non-closing touchpoint (hex/byte notation) |
-| 2.2 | Data Compression | unassigned | — | real gap — CS50T Multimedia dropped 2026-08-09, same reason; no replacement identified |
+| 2.1 | Binary Numbers | working_in_python | 7b | carried by the interlude between chapters 7 and 8 ("Representing Data"); **outline only as of 2026-08-17, not drafted prose** — see CHAPTER_MANIFEST.md. Pico I2C chapter remains a secondary, partial touchpoint |
+| 2.2 | Data Compression | working_in_python | 7b | same interlude, via the lossless/lossy choice and student-written run-length encoding; **outline only as of 2026-08-17** |
 | 2.3 | Extracting Information from Data | working_in_python | 12, 13 | |
 | 2.4 | Using Programs with Data | working_in_python | 12, 13 | |
 | 3.1 | Variables and Assignments | working_in_python | 2 | |
@@ -96,8 +106,8 @@ From `standards/castandards.json`.
 | 9-12.NI.5 | Networks & the Internet | little_brother | — | |
 | 9-12.NI.6 | Networks & the Internet | little_brother | — | |
 | 9-12.NI.7 | Networks & the Internet | little_brother | — | |
-| 9-12.DA.8 | Data & Analysis | unassigned | — | real gap — CS50T Multimedia dropped 2026-08-09, not taught since year one; Pico I2C chapter is a partial, non-closing touchpoint |
-| 9-12.DA.9 | Data & Analysis | unassigned | — | real gap — CS50T Multimedia dropped 2026-08-09, same reason; scope is broader than compression alone anyway |
+| 9-12.DA.8 | Data & Analysis | working_in_python | 7b | same carrier as AP 2.1; **outline only as of 2026-08-17** |
+| 9-12.DA.9 | Data & Analysis | working_in_python | 7b | **partial** — chap07b covers the compression dimension (same as AP 2.2) but not DA.9's broader scope (storage location, cost, reliability, privacy); **outline only as of 2026-08-17** |
 | 9-12.DA.10 | Data & Analysis | unassigned | — | data visualization — no plotting/charting anywhere in the book |
 | 9-12.DA.11 | Data & Analysis | unassigned | — | validating a model against real data |
 | 9-12.AP.12 | Algorithms & Programming | working_in_python | 7, 9 | |
@@ -117,19 +127,16 @@ From `standards/castandards.json`.
 
 ## View 4 — Gaps
 
-### Unassigned in the AP framework (2 topics, newly opened 2026-08-09)
-- **2.1 Binary Numbers, 2.2 Data Compression** — both were carried by CS50T Multimedia as
-  of this pass's original writing. Removed per teacher confirmation that CS50T hasn't
-  actually been taught since year one, so the assignment was stale, not real coverage.
-  The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14) teaches hexadecimal
-  as compact byte notation for device addresses — a partial, authentic touchpoint for 2.1
-  — but doesn't walk through binary place-value or binary<->decimal conversion, and
-  doesn't touch compression at all, so neither topic is closed. No replacement identified
-  for either as of this note.
+### Unassigned in the AP framework (0 topics — resolved 2026-08-17)
+2.1 Binary Numbers and 2.2 Data Compression were open here as of 2026-08-09 (both had
+been carried by a stale CS50T Multimedia assignment, removed per teacher confirmation it
+hadn't actually been taught since year one). Both are now carried by the interlude between
+chapters 7 and 8 ("Representing Data", chap07b) — see View 2. **chap07b is an outline
+only as of this update, not drafted prose**, so this resolution records a standards claim
+made ahead of the authoring, not a finished, verified carrier. Revisit if the chapter's
+actual content, once drafted, doesn't end up matching the outline's scope.
 
-### Unassigned in the CA framework (10 standards, no carrier yet)
-- **9-12.DA.8, 9-12.DA.9** — same removal as AP 2.1/2.2 above (both were routed to the same
-  stale CS50T Multimedia assignment); see that note for the Pico partial-touchpoint detail.
+### Unassigned in the CA framework (8 standards, no carrier yet)
 - **9-12.CS.1, 9-12.CS.2** — hardware/computing-systems abstraction. Neither this book nor
   Little Brother covers computer hardware internals. No plausible carrier identified.
 - **9-12.CS.3** — troubleshooting. Deliberately kept separate from AP CRD-1.4 (see the
