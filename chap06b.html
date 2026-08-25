@@ -465,7 +465,6 @@
                   
   <!-- apcsp:begin type="note" chapter="6b" -->
 <p><strong>Other Ways to open this interlude:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-3bb6fb6b82/notebooks/index.html?path=Chapter06b-Docstrings-and-Doctests.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap06b.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap06b.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap06b.ipynb" download="chap06b.ipynb">Download</a></p>
@@ -487,14 +486,21 @@
 }
 </style>
 <div id="chap06b-jupyterlite-pane">
-<iframe src="jupyterlite-3bb6fb6b82/notebooks/index.html?path=Chapter06b-Docstrings-and-Doctests.ipynb"></iframe>
+<iframe src="jupyterlite-2d0eeff4c9/notebooks/index.html?path=Chapter06b-Docstrings-and-Doctests.ipynb"></iframe>
 </div>
 <script>
 (function () {
+  // Risk-reduction toggle, added 2026-08-24: keep this chapter's live
+  // JupyterLite pane off by default after chapter 5's IndexedDB staleness
+  // bug (JupyterLite persists notebook content in the browser keyed by
+  // filename, not URL, so a content edit can be invisible to a returning
+  // browser -- see that repo's AUDIT.md). Flip to true to re-enable this
+  // one chapter once it's ready.
+  var LIVE = false;
   var note = document.getElementById("chap06b-jupyterlite-note");
   var pane = document.getElementById("chap06b-jupyterlite-pane");
   if (!pane) return;
-  if (new URLSearchParams(location.search).has("readonly")) {
+  if (!LIVE || new URLSearchParams(location.search).has("readonly")) {
     pane.style.display = "none";
     if (note) note.style.display = "none";
     return;
