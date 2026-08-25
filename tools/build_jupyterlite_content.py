@@ -192,18 +192,17 @@ CONTENT_NAMES = {
 # until Monday, under the new name from the start. Remove these entries after a
 # few days, once no student could plausibly still need the old path.
 #
-# chap05's alias, added 2026-08-24, is a different situation: the rename itself
-# is the fix for a content-staleness bug (a browser that already opened the OLD
-# name keeps showing IndexedDB-cached content forever, no matter how the server
-# rebuilds -- see AUDIT.md), not a filename cleanup. The alias here only helps
-# anyone following an old bookmark/link who has NOT already cached the stale
-# content -- it does nothing for a browser that already has, since local
-# storage always wins over whatever the server ships at that path. Remove once
-# nobody could plausibly still be using the old link.
+# chap05 briefly got one too, 2026-08-24, alongside that day's rename (a fix
+# for a content-staleness bug, not a filename cleanup -- see AUDIT.md). Removed
+# the same day: shipping both names put two "Chapter05" entries side by side in
+# the Lab file browser, confusing for every visitor, not just ones with an old
+# bookmark -- confirmed even in a fresh incognito tab, where no stale content
+# was ever at risk. An alias only helps someone who both has an old link AND
+# hasn't already cached stale content under it; the visible duplication it
+# causes for everyone else outweighs that narrow case here.
 ALIASES = {
     "chap02.ipynb": ["__chap02-variables-and-statements.ipynb"],
     "chap03.ipynb": ["__chap03-functions.ipynb"],
-    "chap05.ipynb": ["Chapter05-Conditionals-and-Recursion.ipynb"],
 }
 # Whether to actually ship teach/blank copies into jupyterlite/content/ at
 # all, 2026-08-16. Deliberately False for now -- what to call this file

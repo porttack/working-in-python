@@ -6947,3 +6947,30 @@ explicit instruction this round.
 chapter number/filename) -- there is no other place that needs updating. Chapters 9+ need
 no such flag; they never had a live pane to begin with, so "turn on chapter 9" would mean
 building the feature fresh, not flipping a switch.
+
+## 2026-08-24 follow-up — chap05's alias removed: it shipped two chapter 5s
+
+Maintainer reported two "chapter 5" entries in the JupyterLite Lab file browser, even in a
+fresh incognito tab. That last detail mattered: it ruled out the IndexedDB staleness bug
+this whole thread of work has been about (incognito has no prior browser storage to be
+stale), and pointed straight at the `ALIASES["chap05.ipynb"]` entry added earlier today
+alongside the rename -- it deliberately ships the *same* content under both
+`Chapter05-Conditionals-and-Recursion-v2.ipynb` (canonical) and
+`Chapter05-Conditionals-and-Recursion.ipynb` (the old, pre-rename name), so of course a
+fresh file browser shows both. Confirmed via `grep`: nothing else in `chapters/`, `tools/`,
+or `jb/` referenced the bare old filename, so removing the alias was safe.
+
+Removed the `ALIASES` entry and its rationale comment (which is now itself the record of
+why it existed and why it was reverted -- didn't delete the reasoning, just marked it
+past-tense). This is the tradeoff the alias mechanism always had, spelled out explicitly
+this time rather than left implicit: it only helps a visitor who has an old bookmark *and*
+hasn't already cached stale content under it -- a narrow, unverifiable case -- at the cost
+of visible duplication for every other visitor, verified. For chapter 5 specifically, given
+no evidence anyone has an old bookmark to begin with (course pacing hasn't reached this
+chapter), the alias was pure cost with no confirmed benefit. Chapters 2 and 3 keep their own
+aliases untouched -- different mechanism entirely (serving the *same current* content under
+an old name for in-progress student work, not covering a rename-driven cache-bust), not
+implicated by this bug, not this maintainer's concern this round.
+
+Regenerated `jupyterlite/content/`, confirmed only one `Chapter05*.ipynb` ships now.
+`make check` clean.

@@ -5,6 +5,15 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-24 — removed chap05's JupyterLite alias: it shipped two chapter 5s
+
+### Fixed
+- `tools/build_jupyterlite_content.py`'s `ALIASES` entry for `chap05.ipynb` (added earlier
+  today alongside its rename fix) shipped the chapter under both its old and new names, so
+  the JupyterLite Lab file browser showed two "Chapter05" entries -- confirmed confusing
+  even in a fresh incognito tab, where no stale-cache risk existed for either copy. Removed
+  the alias; only the canonical `Chapter05-Conditionals-and-Recursion-v2.ipynb` ships now.
+
 ## 2026-08-24 — chapters 6, 6b, 7, 8: live JupyterLite pane/link disabled
 
 ### Changed
