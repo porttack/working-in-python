@@ -5,6 +5,38 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-24 — chap05: renamed to force a fresh JupyterLite cache for everyone
+
+### Changed
+- JupyterLite's shipped chapter 5 notebook renamed
+  `Chapter05-Conditionals-and-Recursion.ipynb` -> `...-v2.ipynb`
+  (`tools/build_jupyterlite_content.py`'s `CONTENT_NAMES`), because JupyterLite persists
+  notebook content in the browser's IndexedDB keyed by filename, not by URL -- today's
+  content edits to chapter 5 were invisible to any browser that had already opened it,
+  no matter how many times the site rebuilt. A new filename forces every browser to treat
+  it as unseen and load fresh. `chapters/chap05.ipynb`'s own self-embedded live-JupyterLite
+  link (used on the chapter's web page) updated to match. `ALIASES` gained an entry serving
+  the current content under the old name too, for anyone with an old bookmark/link who
+  hasn't already cached stale content under it (this does not help anyone who has).
+
+### Fixed
+- Seven `chapters/chap05.ipynb` cells edited earlier today ended up with their `source`
+  field written as one long string instead of the list-of-lines format the rest of the
+  file uses. Both are valid notebook JSON and render identically, but
+  `tools/build_jupyterlite_content.py`'s `CELL_PATCHES` does an exact list match to find
+  and neutralize chapter 5's self-embedding iframe cell (otherwise a student running the
+  notebook inside JupyterLite would see it try to embed another live copy of itself) --
+  the single-string form doesn't match, so the patch was silently not applying. Caught
+  while verifying the rename actually took effect in the built output, not before.
+  Reformatted all seven cells back to the list form; `git diff` confirms only those seven
+  cells changed.
+
+### Verified
+- Deleting a stale notebook from inside the JupyterLite Lab's own file browser and
+  reopening it does force a fresh pull from the server -- confirmed live. Not previously
+  known for certain; recorded here since it's a real, working fallback for anyone (student
+  or teacher) who hits this again before a rename ships.
+
 ## 2026-08-24 — chap05: dropped the fractal tree extra credit, Collatz stands alone
 
 ### Removed

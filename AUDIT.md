@@ -6787,3 +6787,91 @@ absence and Collatz's reworded heading), then republished (`gh-pages` `55995b4..
 Verified the actual pushed branch content again via `git show origin/gh-pages:...` rather
 than trusting the live domain immediately -- same reasoning as the publish above, and the
 edge cache was still catching up at verification time either way.
+
+## 2026-08-24 follow-up — chap05 JupyterLite staleness: diagnosed, renamed, and a real bug
+## caught in the process
+
+**Maintainer reported the JupyterLite Lab (and the embedded pane on `chap05.html`) showing
+a 7-day-old copy of chapter 5** -- pre-dating even the "Extra Exercises" -> "Homework"
+rename from 2026-08-17. This matched a previously-documented root cause (see this file's
+2026-08-15/16-ish `check_for_update()`/IndexedDB entries above): JupyterLite persists
+notebook content in the browser's IndexedDB keyed by filename, not URL, so a browser that
+already opened a given chapter never re-fetches it, no matter how many times the site
+rebuilds. Confirmed via incognito window (showed correct content) that this was
+client-side, not a bad deploy.
+
+**The maintainer asked about the `check_for_update()` alert first.** Checked: it was only
+ever wired into `chap04.ipynb`, never chapter 5 or any other chapter -- that's the whole
+reason nothing fired. Also surfaced its known limitation, already on record above: the
+detector code has to be running inside the notebook a browser already has cached to do
+anything, so it can only ever catch *future* edits, never retroactively fix an
+already-stale copy, and even for chapter 4 nobody had confirmed the Reload button actually
+works.
+
+**Maintainer asked what deleting the file from inside the Lab's file browser would do --
+good instinct, better than my first answer.** Proposed testing it live rather than
+guessing. Maintainer confirmed: delete-and-reopen in the Lab does force a fresh pull from
+the server. This resolves a question this project's own notes had flagged as unverified for
+a while (see the `check_for_update()` entry above: "whether the Reload button... or whether
+a manual file-browser delete-and-reopen is needed instead"). Worth remembering as a real,
+working fallback -- tell a student "delete it and reopen" rather than only "clear your
+browser storage" or "use incognito," both heavier asks.
+
+**Maintainer also raised a real risk before agreeing to the rename:** a student who already
+has chapter 5 cached under the old name would, post-rename, see *both* the stale old file
+and the fresh new one in their file browser, and could pick wrong. Talked through why this
+is bounded rather than dismissing it: every normal path into chapter 5 (the chapter page's
+embedded pane, the "Lab" link in context) deep-links to the exact current filename, so a
+student following the ordinary route never sees the old file at all -- the confusion only
+happens if someone browses the raw file list unprompted. Maintainer confirmed some students
+have used Lab view before (real fact, not assumed) but didn't know if any specifically
+opened chapter 5; combined with the course calendar (chapter 5 isn't reached for another
+couple of weeks from today), the actual exposed population is small. Maintainer accepted the
+rename anyway and plans to explain the delete-and-reopen fallback to students directly
+tomorrow -- explicitly said "we shall have to revisit this issue in the future," i.e. this
+is accepted as a stopgap, not a final answer; the `check_for_update()` rollout question
+(chapter 5 only? all 8 self-embedding chapters?) is still open and deliberately deferred.
+
+**Executed the rename**, following the exact chapter-4 precedent already in this file:
+`Chapter05-Conditionals-and-Recursion.ipynb` -> `...-v2.ipynb` in `CONTENT_NAMES`, the
+matching update to `chapters/chap05.ipynb`'s own self-embedded iframe link (the chapter page
+embeds a live copy of itself; that link is hardcoded in the source notebook, not templated),
+and an `ALIASES` entry serving the current content under the old name too -- documented
+inline that the alias helps someone with an old bookmark who hasn't cached stale content
+yet, and does nothing for someone who has, since local storage always wins over whatever the
+server ships at a given path.
+
+**Caught a real bug verifying the rename actually worked, not by inspection first.** Grepped
+the freshly built jupyterlite output for the "you're already running this chapter live"
+replacement text `CELL_PATCHES` is supposed to substitute for chapter 5's self-embedding
+iframe cell (the mechanism that stops a student running the notebook inside JupyterLite from
+seeing it try to embed another live copy of itself, recursively) -- it wasn't there; the
+live iframe was still present, unpatched. Root cause: seven `chap05.ipynb` cells edited
+earlier today (the Aside rename, the Collatz-only extra-credit rewording, and the two
+JupyterLite-link cells just touched for this rename) had their `source` field written as one
+long string instead of the list-of-lines format every other cell in the file uses. Confirmed
+this was `NotebookEdit`'s `replace` mode specifically -- every cell touched with it this
+session had the single-string form; cells edited by other means didn't. Both forms are valid
+notebook JSON and render identically in any normal viewer, which is exactly why this was
+invisible in every visual/text check done earlier today -- but `CELL_PATCHES` does an exact
+list match, so the single-string form silently failed to match and the patch never applied.
+This is precisely the failure mode this file's 2026-08-08 entry already named and warned
+has no automated guard ("a stale key doesn't error, it just quietly stops applying").
+**Consider adding a real check for this to `tools/`** -- something that confirms every
+`CELL_PATCHES` key still matches an actual cell source, list-form and all, rather than
+relying on someone noticing a missing string in built output by hand, again.
+
+Fixed by reading each affected cell's joined text and re-splitting it with Python's
+`str.splitlines(keepends=True)`, then rewriting the file with `json.dump(..., indent=1,
+ensure_ascii=False)` -- tried indent 1 vs 2 and both `ensure_ascii` settings against a
+throwaway copy first and diffed each against the working file to find the combination that
+touched only the seven intended cells; `indent=2` reformatted the entire file, `indent=1`
+with `ensure_ascii=False` changed only what was intended. Re-verified after the fix: no cell
+left in single-string form, `check_sync` clean, and the rebuilt jupyterlite output has the
+patch correctly applied on both the new canonical filename and the alias.
+
+**What the next session needs to know:** if you use `NotebookEdit`'s `replace` mode on a
+notebook that has anything relying on exact cell-source matching elsewhere (`CELL_PATCHES`
+is the only current example, but the pattern could recur), verify the result by reading the
+raw JSON `source` field's type, not just its rendered text -- rendered text will look
+identical either way. `make check` does not catch this on its own.
