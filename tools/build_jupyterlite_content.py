@@ -134,8 +134,8 @@ CONTENT_NAMES = {
         "teach": "blank04-Functions-and-Interfaces.ipynb",
     },
     "chap05.ipynb": {
-        "name": "Chapter05-Conditionals-and-Recursion-v2.ipynb",
-        "teach": "blank05-Conditionals-and-Recursion-v2.ipynb",
+        "name": "Chapter05-Conditionals-and-Recursion-v3.ipynb",
+        "teach": "blank05-Conditionals-and-Recursion-v3.ipynb",
     },
     "chap06.ipynb": {
         "name": "Chapter06-Return-Values.ipynb",
@@ -498,7 +498,7 @@ CELL_PATCHES = {
             '}\n',
             '</style>\n',
             '<div id="chap05-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion-v2.ipynb"></iframe>\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter05-Conditionals-and-Recursion-v3.ipynb"></iframe>\n',
             '</div>\n',
             '<script>\n',
             '(function () {\n',

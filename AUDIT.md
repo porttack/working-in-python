@@ -7045,3 +7045,57 @@ body examples exactly as documented in that entry's inventory table. Worth revis
 together with the `chap07b` interlude (also outline-only, not yet authored) once Pass 2
 reaches that far -- not before, per this pass's own chapter-order discipline.
 
+## 2026-08-26 follow-up — chap05 JupyterLite copy renamed -v2 -> -v3
+
+Maintainer asked, after the docstring-reminder fix above, whether chapter 5's JupyterLite
+copy needed another rename to force a fresh pull -- same question the 2026-08-24 IndexedDB
+staleness entry answered for a different bug. Laid out the two independent caching layers
+before recommending: the outer `jupyterlite-<hash>/` deploy path is already automatic
+(`compute_deploy_id()` hashes shipped content, so any rebuild lands at a URL nobody's
+fetched), but JupyterLite's own IndexedDB is keyed by filename inside that deploy, not by
+URL -- a browser that already opened `Chapter05-Conditionals-and-Recursion-v2.ipynb` in the
+Lab keeps its own cached copy regardless of deploy path, exactly why the `v2` rename existed
+in the first place. Recommended skipping another rename this time (course calendar put
+chapter 5 roughly two weeks out from 2026-08-24, so almost no student should have opened it
+in the Lab yet; today's change is cosmetic, not a content-correctness bug like the one that
+justified `v2`; and renaming again risks the same duplicate-file-browser-entry/broken-
+bookmark tradeoff that got `ALIASES["chap05.ipynb"]` removed two days ago). Maintainer chose
+to rename anyway.
+
+**Executed, following the exact `v2` precedent.** Three places kept in sync, matching the
+2026-08-24 entry's own warning that a stale `CELL_PATCHES` key silently stops applying
+rather than erroring:
+- `tools/build_jupyterlite_content.py`'s `CONTENT_NAMES["chap05.ipynb"]` (`name` and
+  `teach`, both `-v2` -> `-v3`).
+- `tools/build_jupyterlite_content.py`'s `CELL_PATCHES["chap05.ipynb"]` key -- the exact-
+  match tuple standing in for chapter 5's self-embedded pane cell, which recursively embeds
+  a live copy of itself and gets patched to a static note when running inside JupyterLite.
+  The iframe `src` inside that key had to change to `-v3` in lockstep with the notebook
+  cell it matches, or the patch would stop applying with no error (the exact failure mode
+  the 2026-08-24 entry already caught once).
+- `chapters/chap05.ipynb` itself: two hardcoded occurrences of the `-v2` filename (the
+  "Other Ways to open this chapter" link bar, and the self-embedded pane's iframe `src`),
+  edited via `json.load`/mutate/`json.dump` (`indent=1, ensure_ascii=False`, confirmed
+  round-trip-safe the same way as the docstring-reminder edit above), not `NotebookEdit`.
+
+No `ALIASES` entry added -- the maintainer didn't ask for one, and the 2026-08-24 entry
+already worked through why it's not worth it here (visible duplicate-listing cost for every
+visitor, against a narrow old-bookmark benefit). The historical `ALIASES` comment block
+mentioning chap05's `v2`-era alias is left as-is, past-tense and still accurate.
+
+**Verified against the real build, not by inspection.** Ran `tools/build_jupyterlite_content.py`
+for real (not `--check`): wrote `Chapter05-Conditionals-and-Recursion-v3.ipynb` into
+`jupyterlite/content/` (gitignored, confirmed via `git check-ignore`), computed a new deploy
+id (`jupyterlite-9423b8be3a`, was `jupyterlite-aead7eb900`) automatically from the content
+change -- confirming the outer hash layer is doing its job independent of the filename
+rename. Grepped the built file: the recursive-embed patch applied correctly (`iframe` absent,
+replaced by "You're already running this chapter live" per `CELL_PATCHES`), and
+`enable_docstring_reminders` is absent, consistent with the fix above actually reaching the
+JupyterLite copy. `python3 tools/build_blanks.py --dst projector` re-run first (the rename
+touched `chapters/chap05.ipynb` again after the earlier edit in this same session), then
+`make check` clean.
+
+`git status`: `chapters/chap05.ipynb`, `projector/chap05.ipynb`,
+`tools/build_jupyterlite_content.py`, plus `AUDIT.md`/`CHANGELOG.md` for both this entry
+and the docstring-reminder one above. Not committed or deployed -- same as the rest of this
+session's changes, reporting the diff for approval first.

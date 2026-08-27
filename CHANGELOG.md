@@ -5,6 +5,18 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-26 follow-up — chap05's JupyterLite copy renamed to -v3
+
+### Changed
+- Chapter 5's JupyterLite filename renamed `Chapter05-Conditionals-and-Recursion-v2.ipynb`
+  -> `...-v3.ipynb` (`tools/build_jupyterlite_content.py`'s `CONTENT_NAMES` and
+  `CELL_PATCHES`, and the two hardcoded references in `chapters/chap05.ipynb`'s own
+  link bar and self-embedded pane), same mechanism as the 2026-08-24 `v2` rename: forces
+  every browser to re-fetch fresh content regardless of what it already has cached in
+  JupyterLite's filename-keyed IndexedDB storage. No `ALIASES` entry added this time,
+  per the 2026-08-24 decision that the duplicate-listing cost outweighs the narrow
+  old-bookmark benefit.
+
 ## 2026-08-26 — docstring reminder: chapter 5 disabled, styling fixed everywhere
 
 ### Fixed
