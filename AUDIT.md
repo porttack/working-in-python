@@ -7099,3 +7099,70 @@ touched `chapters/chap05.ipynb` again after the earlier edit in this same sessio
 `tools/build_jupyterlite_content.py`, plus `AUDIT.md`/`CHANGELOG.md` for both this entry
 and the docstring-reminder one above. Not committed or deployed -- same as the rest of this
 session's changes, reporting the diff for approval first.
+
+## 2026-08-27 — chapters 6 and 6b reopened; a real CELL_PATCHES staleness bug caught along the way
+
+Maintainer asked to "open up chapter 6 and 6b so that nav does not render the read-only
+anymore" -- the 2026-08-24 `LIVE = false` risk-reduction toggle (added after chapter 5's
+IndexedDB staleness bug) had been forcing both chapters' embedded JupyterLite pane hidden
+in every context regardless of the `?readonly` query param, which is what made them read
+as permanently "read-only" no matter how a student arrived. Scoped to chapters 6 and 6b
+only, per the request -- chapters 7 and 8 (which got the identical `LIVE = false` treatment
+the same day) are untouched, still off.
+
+**Reverted both chapters to the pre-2026-08-24 form**, matching chapter 1's pattern (which
+never had the toggle): removed the `LIVE` variable and its six-line risk-reduction comment
+from each chapter's pane `<script>`, restoring the plain `if (new URLSearchParams(...).has
+("readonly"))` gate. Also restored the `[JupyterLite](...)` bullet to each chapter's "Other
+Ways to open this chapter/interlude" bar, which had been removed in the same 2026-08-24
+change alongside the toggle.
+
+**Caught a real, previously undetected bug while doing this, not by inspection first.**
+`tools/build_jupyterlite_content.py`'s `CELL_PATCHES` entries for `chap06.ipynb` and
+`chap06b.ipynb` exist to neutralize each chapter's self-embedding pane cell when the
+chapter is opened *inside* JupyterLite itself (otherwise it would recursively try to embed
+another live copy of itself -- same mechanism as chapter 1, chapter 5, etc.). Comparing the
+CELL_PATCHES key against the actual current cell source in `chapters/chap06.ipynb` showed
+they didn't match: the key had never been updated when the 2026-08-24 `LIVE` toggle was
+added, so `apply_cell_patches`'s exact-tuple lookup has been silently missing every build
+since -- the same "stale key doesn't error, it just quietly stops applying" failure mode
+this file's 2026-08-08 and 2026-08-24 entries already named. Verified directly: grepped the
+already-deployed `jupyterlite/content/Chapter06-Return-Values.ipynb` and
+`Chapter06b-Docstrings-and-Doctests.ipynb` (built and published just yesterday) and both
+still shipped the raw, unpatched `<iframe>`. This had been harmless purely by coincidence
+-- `LIVE = false` hid the pane in every context, JupyterLite included, so the recursion
+never actually triggered -- but reverting `LIVE` without fixing this would have shipped a
+real recursive-iframe bug live for the first student to open either chapter inside the Lab.
+
+Fixed as part of the same edit, not separately: rather than hand-editing the pane script to
+some new form and then updating `CELL_PATCHES` to match, set each chapter's pane cell
+`source` to *exactly* the list already sitting in `CELL_PATCHES[notebook]`'s key (read
+programmatically via `importlib`, not retyped) -- guarantees an exact match by
+construction, and happens to be identical to the un-toggled reversion the maintainer asked
+for anyway, so one change fixes both.
+
+**Process note, same class of mistake this file has warned about before.** First pass at
+this edit used `json.dump(..., ensure_ascii=False)` for both files, by analogy with
+`chapters/chap05.ipynb` from the last two entries. Wrong for `chap06.ipynb` specifically --
+diffing the result showed every em dash in the file's *untouched* prose (attribution block,
+standards-alignment section, all outside the two edited cells) flipping from escaped
+`—` to literal UTF-8, because that file's on-disk encoding is `ensure_ascii=True`, not
+`False`. `chap06b.ipynb` really is `ensure_ascii=False`, so the two chapters in this single
+task needed opposite settings. Caught before committing: `git diff` showed the stray
+churn, reverted (`git checkout --`) and redid the edit after explicitly testing both
+`ensure_ascii` values against each file's on-disk bytes first, the same round-trip check
+this file has recommended since the 2026-08-17 chapter-6 entry -- confirms this has to be
+checked per file, every time, not assumed from a neighboring chapter's last-known setting.
+
+**Verified against the real build.** `python3 tools/build_blanks.py --dst projector` re-run,
+`make check` clean. Rebuilt `jupyterlite/content/` for real (not `--check`): new deploy id
+(`jupyterlite-64367ae4fe`, was `jupyterlite-9423b8be3a` from the chap05 rename yesterday),
+and both `Chapter06-Return-Values.ipynb` and `Chapter06b-Docstrings-and-Doctests.ipynb` now
+contain the patched static note with zero `<iframe src=` occurrences -- confirmed the
+CELL_PATCHES fix actually took, not just that the key text matches.
+
+`git status`: `chapters/chap06.ipynb`, `chapters/chap06b.ipynb`, `projector/chap06.ipynb`,
+`projector/chap06b.ipynb`. `tools/build_jupyterlite_content.py` itself is untouched --
+the fix lived entirely in making the notebooks match its existing (correct, if stale) key.
+`CHANGELOG.md` has a dated entry. Not committed, built, or published yet -- same
+confirm-before-deploy pattern as 2026-08-26, asking before running `jb/build.sh` again.

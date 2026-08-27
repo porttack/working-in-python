@@ -5,6 +5,29 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-27 — chapters 6 and 6b: live JupyterLite pane/link re-enabled
+
+### Changed
+- `chapters/chap06.ipynb` and `chapters/chap06b.ipynb` reverted to the pre-2026-08-24 form:
+  the `LIVE` toggle and its risk-reduction comment are gone, restoring the plain
+  `?readonly`-only gate every other live-embedding chapter uses. The `[JupyterLite](...)`
+  bullet is back in both chapters' "Other Ways to open this chapter/interlude" bar.
+  Chapters 7 and 8 are untouched -- still `LIVE = false`.
+
+### Fixed
+- `tools/build_jupyterlite_content.py`'s `CELL_PATCHES` entries for `chap06.ipynb` and
+  `chap06b.ipynb` (meant to neutralize each chapter's self-embedding iframe when the
+  chapter is opened *inside* JupyterLite itself, so it doesn't recursively embed another
+  live copy of itself) had silently stopped matching since the 2026-08-24 `LIVE` toggle was
+  added -- the patch key was never updated to include the toggle's extra lines, so the
+  lookup missed every time with no error. Confirmed live: both chapters' already-deployed
+  JupyterLite copies still shipped the raw, unpatched `<iframe>`. Harmless only by
+  coincidence (`LIVE = false` hid the pane in every context regardless, masking the
+  recursion), and about to become a real bug the moment `LIVE` was reverted. Fixed by
+  reverting both chapters' pane cells to exactly match chapter 1's un-toggled pattern,
+  which is also what the stale `CELL_PATCHES` keys already expected -- one change fixes
+  both the reopen and the patch sync.
+
 ## 2026-08-26 follow-up — chap05's JupyterLite copy renamed to -v3
 
 ### Changed
