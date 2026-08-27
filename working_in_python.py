@@ -290,8 +290,8 @@ def enable_docstring_reminders():
             from IPython.display import HTML, display
 
             display(HTML(
-                '<div style="color:#a94442; background:#f2dede; '
-                'border:1px solid #ebccd1; padding:6px 10px; '
+                '<div style="color:#8a6d3b; background:#fcf8e3; '
+                'border:1px solid #faebcc; padding:6px 10px; '
                 'border-radius:4px; font-size:13px; margin-top:4px;">'
                 f"⚠️ Missing docstring: {names}. Every function "
                 "needs one (see Chapter 4)."

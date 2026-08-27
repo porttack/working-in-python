@@ -6974,3 +6974,74 @@ implicated by this bug, not this maintainer's concern this round.
 
 Regenerated `jupyterlite/content/`, confirmed only one `Chapter05*.ipynb` ships now.
 `make check` clean.
+
+## 2026-08-26 — docstring reminder bug: wrong color, chapter 5 stale scope decision
+
+User flagged, while reading `chapters/chap05.ipynb`, that every function in the chapter
+triggers "Missing docstring: `print_n_times`" in red, and asked why the reminder was even
+active this early -- expecting nothing until `chap06b` or chapter 7.
+
+**Color, confirmed as a plain oversight, fixed.** `enable_docstring_reminders()` in
+`working_in_python.py` rendered its banner in Bootstrap's "danger" palette
+(`#a94442`/`#f2dede`). Grepped `AUDIT.md` for any prior discussion of the color choice --
+none exists; it was never a considered decision, just the original styling for a mechanism
+that's explicitly non-blocking. Changed to Bootstrap's "warning" yellow
+(`#8a6d3b`/`#fcf8e3`/`#faebcc` border). Affects every chapter that calls the function
+(5-18) uniformly, since it's the shared root file, not a per-chapter copy.
+
+**Scope, a real stale decision, not a bug in the code.** The 2026-08-17 entry ("download()
+docstrings...noise inventory and a decision, chapter 5") explicitly decided to leave
+chapter 5's reminder on: three occurrences (`countdown`, `print_n_times`, `recurse`, all
+Downey's own undocumented body examples, not student work) judged low enough to tolerate,
+with `countdown`/`print_n_times` doubling as a soft nudge toward the `ch05ex-hw04`
+debugging exercise. That decision was made *earlier the same day* than two things that
+changed the picture: chapter 6's reminder was fully disabled a few entries later
+(follow-up 2, same root cause -- Downey's body examples across the whole book aren't
+docstring'd, since that's not what those examples are teaching) and `chap06b` -- the
+interlude that actually teaches docstrings and doctests as a discipline -- was drafted and
+wired end-to-end later that same day (follow-up 4). The chapter-5 decision was never
+revisited against either development. Raised with the user rather than assumed (three
+options: disable ch5 to match ch6/wait for chap06b; keep ch5 enabled but repoint the
+message at chap06b instead of "see Chapter 4"; leave as-is). User chose: **disable in
+chapter 5, matching chapter 6, reminder starts firing at `chap06b`.**
+
+**Implemented and verified against the real mechanism**, same standard as the 2026-08-17
+entry's own verification (this session can't drive a browser either). Two hunks in
+`chapters/chap05.ipynb`: removed the sentinel-wrapped `working_in_python.
+enable_docstring_reminders()` call from the setup cell (three lines, `import
+working_in_python` kept, same shape as chapter 6's edit), and removed the "Homework"
+section's sentence telling students about the warning ("Starting this chapter, defining a
+function without a docstring triggers a warning...") -- left in place it would describe a
+feature that no longer fires in this chapter. Edited via `json.load`/mutate/`json.dump`
+directly, not `NotebookEdit`, per the standing lesson from the chapter-6 edit (confirmed
+`indent=1, ensure_ascii=False` round-trips this file byte-identical before touching
+anything). `git diff` shows exactly the two intended hunks, nothing else moved.
+
+Verified with a live `IPython.core.interactiveshell.InteractiveShell` (this repo's `.venv`,
+`IPython.utils.capture.capture_output` to see the `display(HTML(...))` output, not bare
+stdout redirection) against all 97 code cells before `## Exercises`. Control run (pre-edit
+notebook + pre-edit `working_in_python.py`): 5 warnings, in the old red styling --
+`countdown`, `print_n_times`, both `meow` variants in the for-loop-vs-recursion aside, and
+`recurse` (five, not the three the 2026-08-17 inventory counted -- that count appears to
+have excluded the `meow` aside, unclear why, not investigated further since it doesn't
+change the outcome here). Edited notebook + edited `working_in_python.py`: 0 warnings
+across the same 97 cells. Separately confirmed the still-enabled path still fires and now
+renders in yellow, isolated from the chapter-5 change, using a standalone cell with an
+undocumented function.
+
+`make check` clean (`python3 tools/build_blanks.py --dst projector` run first to
+regenerate `projector/chap05.ipynb`, since the check target only checks staleness). `git
+status` shows exactly three files touched: `chapters/chap05.ipynb`,
+`projector/chap05.ipynb`, `working_in_python.py`. `CHANGELOG.md` has a dated entry. Not
+committed -- reporting the diff to the user first.
+
+**Still open, not raised this round because it's out of scope for this fix:** the
+2026-08-17 entry's scoping investigation for chapters 6-18's broader docstring-reminder
+noise (123 occurrences across the rest of the book, three options sketched -- dedupe,
+sentinel-gating, an `start_exercises()` toggle -- none built) is unaffected by today's
+change and remains exactly as open as it was. Chapter 6 is already handled (fully
+disabled, 2026-08-17 follow-up 2); chapters 7-18 still fire on Downey's own undocumented
+body examples exactly as documented in that entry's inventory table. Worth revisiting
+together with the `chap07b` interlude (also outline-only, not yet authored) once Pass 2
+reaches that far -- not before, per this pass's own chapter-order discipline.
+

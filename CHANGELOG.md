@@ -5,6 +5,27 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-08-26 — docstring reminder: chapter 5 disabled, styling fixed everywhere
+
+### Fixed
+- `working_in_python.py`'s `enable_docstring_reminders()` banner used Bootstrap's "danger"
+  red (`#a94442`/`#f2dede`) for a non-blocking reminder; no prior decision called for red
+  specifically, it was just the original styling. Switched to Bootstrap's "warning" yellow
+  (`#8a6d3b`/`#fcf8e3`), matching what a non-blocking nudge should look like. Affects every
+  chapter that calls it (5-18).
+
+### Changed
+- `chapters/chap05.ipynb` no longer calls `enable_docstring_reminders()`. The 2026-08-17
+  decision to leave chapter 5's reminder on (three low-frequency occurrences: `countdown`,
+  `print_n_times`, `recurse`, all Downey's own undocumented body examples) predates
+  `chap06b`, the interlude that actually teaches docstrings and doctests as a discipline,
+  and predates chapter 6 getting the same reminder fully disabled for the identical false-
+  positive reason (body examples aren't docstring'd, that's not what they're teaching).
+  Chapter 5 now matches chapter 6's precedent: silent until `chap06b`. The "Homework"
+  section's sentence telling students about the warning ("Starting this chapter,
+  defining a function without a docstring triggers a warning...") is removed along with it,
+  since it would otherwise describe a feature that no longer fires in this chapter.
+
 ## 2026-08-24 — removed chap05's JupyterLite alias: it shipped two chapter 5s
 
 ### Fixed
