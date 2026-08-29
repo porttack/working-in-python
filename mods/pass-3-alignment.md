@@ -2,6 +2,18 @@
 
 ## Amendments
 
+- **The catalog and the reverse map split into two repos (2026-08-28).** Everything below
+  describing `carrier` / `tp_chapters` fields on catalog entries documents a schema that no
+  longer exists. `standards/*.json` here is now a synced, read-only copy of the catalog
+  canonical in the `learn` repo (see `standards/README.md`); it carries no `carrier` or
+  `tp_chapters` field at all. This book's own coverage lives in
+  `standards/carriers/working-in-python.json`, keyed by framework and code, e.g.
+  `"apcsp": {"3.10": {"locators": [9]}}` (`locators` replaces `tp_chapters`; a chapter number
+  is one kind of locator, not the only kind, since a `learn` unit plan or a `porttack.com`
+  post can be a locator too). If a framework is revised and Steps 1-2 below run again, extract
+  into that same catalog-only shape and record any new-topic coverage as a carriers-file edit
+  in `learn`, not as a field on the topic itself.
+
 - **`chapters/` is `.ipynb` only.** The `.md` exports were deleted. Standards inserts go
   into notebook JSON. After every chapter, `make check` must pass; it asserts each notebook
   parses as JSON and that cell counts match `upstream/v3`. Those two assertions are how a

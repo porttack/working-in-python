@@ -3,8 +3,7 @@
   "source": "CSTA K-12 Computer Science Standards, 2026 revision",
   "extracted": "2026-08-08",
   "level_covered": "High School",
-  "shape_note": "Extraction covers only the 46 core 'High School' level standards across 5 concepts (Algorithms & Design, Programming, Data & Analysis, Systems & Security, Computing & Society). The CSTA 2026 revision also defines two elective specialization tiers, 'Specialty I' (73 standards) and 'Specialty II' (62 standards), covering Data Science, Cybersecurity, Artificial Intelligence, Game Development, Software Development, Physical Computing, and X+CS -- a different, elective standard set, not indexed here, mirroring how castandards.json excludes the CA framework's '9-12 Specialty' set.",
-  "alignment_note": "Unlike apcsp.json and castandards.json, no chapter-alignment pass has been run against this framework yet -- every standard below carries carrier: unassigned and tp_chapters: [] as a placeholder, not a finding. Treat that alignment work as a separate, not-yet-scoped pass."
+  "shape_note": "Extraction covers only the 46 core 'High School' level standards across 5 concepts (Algorithms & Design, Programming, Data & Analysis, Systems & Security, Computing & Society). The CSTA 2026 revision also defines two elective specialization tiers, 'Specialty I' (73 standards) and 'Specialty II' (62 standards), covering Data Science, Cybersecurity, Artificial Intelligence, Game Development, Software Development, Physical Computing, and X+CS -- a different, elective standard set, not indexed here, mirroring how castandards.json excludes the CA framework's '9-12 Specialty' set."
  },
  "standards": [
   {
@@ -20,8 +19,7 @@
    "dispositions": [
     "Critical Thinking",
     "Resourcefulness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-PS-02",
@@ -36,19 +34,7 @@
    "dispositions": [
     "Critical Thinking",
     "Creativity"
-   ],
-   "carriers": [
-    {
-     "source": "working_in_python",
-     "chapters": [
-      3,
-      4,
-      5,
-      7
-     ]
-    }
-   ],
-   "note": "chap03 wraps repeated print statements in repeat/print_verse and introduces the for loop, matching this standard's function-plus-loop-instead-of-restated-logic framing. chap04's Refactoring section is the chapter's own named term for exactly this. chap05's logical-operators-instead-of-nested-conditionals rewrite is the conditional half of the same idea. chap07's has_e progression (inline loop → function → boolean return) is another instance, headers only. Optimizing for efficiency, the standard's other half, isn't addressed anywhere."
+   ]
   },
   {
    "code": "HS-ALG-PS-03",
@@ -62,8 +48,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-PS-04",
@@ -77,8 +62,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-PS-05",
@@ -93,8 +77,7 @@
    "dispositions": [
     "Critical Thinking",
     "Sense of Belonging"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-ML-06",
@@ -109,8 +92,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-ML-07",
@@ -125,8 +107,7 @@
    "dispositions": [
     "Reflectiveness",
     "Critical Thinking"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-ML-08",
@@ -141,8 +122,7 @@
    "dispositions": [
     "Creativity",
     "Critical Thinking"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-IM-09",
@@ -157,8 +137,7 @@
    "dispositions": [
     "Resourcefulness",
     "Critical Thinking"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-IM-10",
@@ -173,8 +152,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-ALG-IM-11",
@@ -189,8 +167,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-PRO-PD-12",
@@ -205,18 +182,7 @@
    "dispositions": [
     "Critical Thinking",
     "Creativity"
-   ],
-   "carriers": [
-    {
-     "source": "working_in_python",
-     "chapters": [
-      3,
-      4,
-      7
-     ]
-    }
-   ],
-   "note": "chap03's function definitions -- especially building print_verse out of first_two_lines/last_three_lines/repeat -- directly match splitting a program into reusable, readable pieces. chap04's encapsulation/generalization/refactoring sequence (square → polygon → polyline, then circle → arc → polyline) is a stronger instance of the same standard. chap07's uses_none = not uses_any(...) and the exercises deriving uses_all from uses_only/uses_any (instead of a new loop) extend it again."
+   ]
   },
   {
    "code": "HS-PRO-PD-13",
@@ -231,19 +197,7 @@
    "dispositions": [
     "Resourcefulness",
     "Persistence"
-   ],
-   "carriers": [
-    {
-     "source": "working_in_python",
-     "chapters": [
-      2,
-      4,
-      7,
-      8
-     ]
-    }
-   ],
-   "note": "chap02's `import math` and its use of math.pi/math.sqrt/math.pow is this book's first real use of an existing library. chap04 (jupyturtle), chap07 (`from doctest import run_docstring_examples`), and chap08 (`re`) are secondary instances of the same pattern -- genuine but not new information each time, so headers only. The rest of this standard -- API docs, IDE features -- isn't addressed anywhere."
+   ]
   },
   {
    "code": "HS-PRO-PD-14",
@@ -258,8 +212,7 @@
    "dispositions": [
     "Reflectiveness",
     "Sense of Belonging"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-PRO-PD-15",
@@ -274,8 +227,7 @@
    "dispositions": [
     "Sense of Belonging",
     "Persistence"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-PRO-VD-16",
@@ -290,8 +242,7 @@
    "dispositions": [
     "Critical Thinking",
     "Persistence"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-PRO-RD-17",
@@ -306,20 +257,7 @@
    "dispositions": [
     "Critical Thinking",
     "Persistence"
-   ],
-   "carriers": [
-    {
-     "source": "working_in_python",
-     "chapters": [
-      3,
-      5,
-      6,
-      7,
-      8
-     ]
-    }
-   ],
-   "note": "chap03's stack diagrams and tracebacks explain what a function's parameters and loop are doing, but conditionals (the standard's third element) don't appear until chapter 5 -- partial there. chap05's countdown stack trace and chap07's predict-the-output prompts (total, count, which doctest fails) complete the triad: a variable holding state, a loop or conditional, and how they cooperate. chap06's factorial trace and chap08's file-reading loop (a state variable, a loop repeating on a condition, a conditional branching on it) are further worked instances of the same standard."
+   ]
   },
   {
    "code": "HS-PRO-RD-18",
@@ -334,8 +272,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-PRO-TR-19",
@@ -350,8 +287,7 @@
    "dispositions": [
     "Reflectiveness",
     "Critical Thinking"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-PRO-TR-20",
@@ -366,8 +302,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-DAT-DC-21",
@@ -382,8 +317,7 @@
    "dispositions": [
     "Critical Thinking",
     "Persistence"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-DAT-DC-22",
@@ -398,8 +332,7 @@
    "dispositions": [
     "Critical Thinking",
     "Persistence"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-DAT-DC-23",
@@ -414,16 +347,7 @@
    "dispositions": [
     "Persistence",
     "Critical Thinking"
-   ],
-   "carriers": [
-    {
-     "source": "working_in_python",
-     "chapters": [
-      8
-     ]
-    }
-   ],
-   "note": "chap08's is_special_line (stripping Gutenberg header/footer cruft) and re.sub-based British-to-American spelling normalization are direct instances of cleaning up messy text data with a pattern-matching tool -- close to a literal match for this standard's own scope note."
+   ]
   },
   {
    "code": "HS-DAT-DC-24",
@@ -438,8 +362,7 @@
    "dispositions": [
     "Critical Thinking",
     "Persistence"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-DAT-DI-25",
@@ -454,8 +377,7 @@
    "dispositions": [
     "Critical Thinking",
     "Resourcefulness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-DAT-DI-26",
@@ -469,8 +391,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-DAT-IM-27",
@@ -485,8 +406,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-DAT-IM-28",
@@ -501,8 +421,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-HW-29",
@@ -516,8 +435,7 @@
    ],
    "dispositions": [
     "Critical Thinking"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-HW-30",
@@ -532,8 +450,7 @@
    "dispositions": [
     "Critical Thinking",
     "Resourcefulness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-SE-31",
@@ -548,8 +465,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-SE-32",
@@ -564,8 +480,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-SE-33",
@@ -580,8 +495,7 @@
    "dispositions": [
     "Critical Thinking",
     "Resourcefulness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-NT-34",
@@ -596,8 +510,7 @@
    "dispositions": [
     "Creativity",
     "Critical Thinking"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-NT-35",
@@ -611,8 +524,7 @@
    "dispositions": [
     "Critical Thinking",
     "Resourcefulness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-IM-36",
@@ -627,8 +539,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SYS-IM-37",
@@ -643,8 +554,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-HI-38",
@@ -659,8 +569,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-HI-39",
@@ -675,8 +584,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-ET-40",
@@ -691,8 +599,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-ET-41",
@@ -707,8 +614,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-ET-42",
@@ -723,8 +629,7 @@
    "dispositions": [
     "Creativity",
     "Critical Thinking"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-HU-43",
@@ -739,8 +644,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-HU-44",
@@ -755,8 +659,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-CE-45",
@@ -771,8 +674,7 @@
    "dispositions": [
     "Critical Thinking",
     "Reflectiveness"
-   ],
-   "carriers": []
+   ]
   },
   {
    "code": "HS-SOC-CE-46",
@@ -787,8 +689,7 @@
    "dispositions": [
     "Reflectiveness",
     "Sense of Belonging"
-   ],
-   "carriers": []
+   ]
   }
  ]
 }

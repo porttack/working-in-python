@@ -102,13 +102,20 @@ chapters/                    forked upstream. the source of truth.
 projector/                   GENERATED. committed. never hand-edited.
 sessions/                    gitignored. dated copies for live annotation.
 standards/
+  SYNCED, read-only copy of the learn repo's catalog + generator. Do not hand-edit
+  the JSON files or build_alignment.py; see standards/README.md.
   apcsp.json                 from the 2023 CED
   castandards.json           from csstandards.pdf
+  csta2026.json              CSTA 2026 revision
+  ca-ict-anchor.json         CA CTE ICT sector, anchor + Pathway C
   crosswalk.json             AP topic <-> CA standard
+  carriers/working-in-python.json   this book's own coverage only (locators, not carrier/tp_chapters)
 alignment/
-  standards_alignment.md     GENERATED. four views: chapter, AP, CA, gaps.
-  glossary-map.md            GENERATED
-  supplement-plan.md         GENERATED. what is taught outside this book.
+  *-standards-reference.html GENERATED (book-scoped) by tools/build_alignment.py
+  standards_alignment.md     GENERATED (book-scoped): coverage summary + by-source + gaps
+  glossary-map.md            hand-curated, not generated (vocabulary system, separate from standards)
+  (supplement-plan.md removed 2026-08-28 -- it described non-book carriers; the
+  cross-source version lives at learn.porttack.com/standards/alignment/)
 appendix/
   pseudocode-crosswalk.md
   cs50p-map.md

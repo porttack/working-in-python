@@ -109,11 +109,14 @@ def apcsp_valid_codes(data):
     # Placeholder shape (pre-Pass-3-Step-1) is `{}` -- no "topics" key, empty set.
     # Real shape: topic-level codes ("3.10") plus each topic's nested LO codes
     # ("AAP-2.N"), since a chapter insert or exercise note might cite either.
+    # Since the 2026-08-28 catalog/carriers split, `los` holds harvested
+    # {code, text, eks[]} objects, not bare code strings -- pull the code out.
     codes = set()
     for topic in data.get("topics", []):
         if "code" in topic:
             codes.add(topic["code"])
-        codes.update(topic.get("los", []))
+        for lo in topic.get("los", []):
+            codes.add(lo["code"] if isinstance(lo, dict) else lo)
     return codes
 
 
