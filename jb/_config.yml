@@ -28,8 +28,15 @@ html:
   # CC BY-NC-SA requires attribution, a statement that changes were made, and
   # that the derivative carry the same license. This footer does all three on
   # every page of the book, which is the cheapest possible way to satisfy it.
+  # The learn.porttack.com line was added here rather than as a navbar link
+  # because the top navbar is hidden sitewide (see custom.css and AUDIT.md) --
+  # this footer is the one spot already guaranteed visible on every page.
   extra_footer: |
     <div style="text-align: left;">
+      <p>
+        <em>Working in Python</em> is part of
+        <a href="https://learn.porttack.com/">learn.porttack.com</a>.
+      </p>
       <p>
         <em>Working in Python</em> is adapted from
         <a href="https://allendowney.github.io/ThinkPython/">Think Python, Third Edition</a>,
