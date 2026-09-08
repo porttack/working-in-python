@@ -5,6 +5,27 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-08 — chapters 7 and 8: JupyterLite copy renamed, again, to force a fresh cache
+
+### Fixed
+- Maintainer reported chapter 8 still showed no Homework section on the live site despite
+  the server-side content being correct (confirmed directly: both the deployed JupyterLite
+  file and the `?readonly` static page already had it). Root cause: re-enabling the live
+  pane the same day (see below) exposed the same IndexedDB-staleness bug chapter 5 has hit
+  twice before -- JupyterLite persists notebook content in the browser keyed by filename,
+  not URL, so any browser that had ever opened chapter 7 or 8's JupyterLite copy before
+  today (they were both live before the 2026-08-24 `LIVE = false` toggle existed) kept
+  showing that old, pre-Homework content indefinitely, no matter how many times the site
+  rebuilt.
+- Renamed both chapters' shipped JupyterLite copies (`Chapter07-Iteration-and-Search.ipynb`
+  -> `-v2.ipynb`, `Chapter08-Strings-and-Regex.ipynb` -> `-v2.ipynb`), the same fix chapter
+  5 has already used twice (`-v2` then `-v3`) for the same reason -- a rename forces every
+  browser to fetch fresh, since there's no old IndexedDB entry under the new name to
+  collide with. Updated `tools/build_jupyterlite_content.py`'s `CONTENT_NAMES` and
+  `CELL_PATCHES` entries and both chapters' own self-embedded link-bar/pane references to
+  match. No alias added for the old name, per the standing 2026-08-24 call that the
+  duplicate-listing cost isn't worth it.
+
 ## 2026-09-08 — chapters 7 and 8: live JupyterLite pane/link re-enabled
 
 ### Fixed

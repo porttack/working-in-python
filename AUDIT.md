@@ -7479,3 +7479,136 @@ Step 4, not started for those chapters yet per `CLAUDE.md`), should never get a 
 toggle in the first place if the underlying IndexedDB staleness concern can be addressed
 some other way -- it's now been added and then had to be found-and-reverted twice (5&6,
 then 7&8), each time nearly shipping a silently-unpatched recursive iframe alongside it.
+
+## 2026-09-08 follow-up — built and published: v3 pushed, gh-pages force-pushed
+
+Maintainer asked to build and publish. Covers all three commits from today and yesterday
+(`7560f1f` ch08 homework, `ff7d760` ch07 homework + Problem rename, `26830c0` live-pane
+fix) -- none of it had been pushed or published before this.
+
+**Sequence:** `git push origin v3` first (`cb8cce0..26830c0`, plain fast-forward, nothing
+force). Then discovered `jb/build.sh`'s tools (`jb`, `ghp-import`, `jupyter lite`,
+`jupyterlite-pyodide-kernel`) aren't on the system Python's PATH at all -- they live in this
+repo's own `.venv`, which the build script assumes is already activated and doesn't source
+itself. Activated it (`source .venv/bin/activate`) before every build command. Worth adding
+to `HOW_TO_EDIT.md` or a comment in `build.sh` if this trips up a future session too.
+
+**`./build.sh --local` first**, full log captured rather than trusting a truncated tail.
+Build succeeded, 31 Sphinx warnings -- checked every one against which chapter it named and
+confirmed all 31 predate this session's changes (broken `myst` cross-references in chapters
+6, 10, 13, 14, 16, 18, 19, none of which this session touched, plus two pre-existing lexer
+warnings in chapters 1/2). The one chapter-7 warning (`section_docstring` not found, at the
+chapter's own native "Doctest" section, cell 84) is upstream body content this session never
+edited -- confirmed by location (line ~850004, nowhere near the Homework section appended at
+the file's end). No new warnings introduced by chapters 7/8's Homework sections or the
+live-pane fix.
+
+**Published for real:** `./build.sh` (no `--local`) force-pushed `gh-pages`
+(`6515f20..cf84a1d`), deploy id `jupyterlite-67ec805ef4`.
+
+**Verification hit a false alarm worth recording so the next session doesn't repeat the
+scare.** Immediately after publishing, plain `curl` fetches of `chap07.html`/`chap08.html`
+showed *no* trace of "Homework", "Problem 1", or any new function name -- looked like the
+publish had silently failed to include the new content, even though the JupyterLite deploy
+hash and the absence of `var LIVE` (both confirming *some* of today's build had landed) were
+already showing correctly on the same pages. Diagnosis: GitHub Pages' CDN (Fastly) caches
+per-edge-node with `Cache-Control: max-age=600` (documented in `PUBLISHING.md`'s own
+caching-hazards section, which explains exactly why the JupyterLite path is content-hashed
+but doesn't mention that ordinary chapter pages have no such protection) -- different edge
+PoPs serve stale copies independently until each individually revalidates, so two curl
+requests to the same URL seconds apart can legitimately disagree (also saw this on
+`jupyterlite-67ec805ef4/notebooks/index.html`: 404 once, 200 moments later). Resolved by
+re-fetching with a cache-busting query string (`?cb=<timestamp>`), which forces a MISS at
+whichever edge answers and pulls fresh content from origin -- confirmed "Homework",
+"Problem 1" through "Problem 5" (Sphinx-numbered as "7.10.1."/"8.13.1." etc.), the removed
+`var LIVE`, and the correct JupyterLite hash all present in both chapters this way. Not a
+real problem, just a five-minute propagation window; worth remembering before trusting a
+curl check run in the seconds right after a publish.
+
+**Not independently verified:** the build script's own checklist items 2, 4, and 5 (Colab
+badge actually opening, the JupyterLite notebook view actually running a kernel, the lab
+view's file browser rendering) all need a real browser with JS/WASM, which this session
+doesn't have. Item 3 (an internal cross-reference resolving, chapter 10 specifically) is
+already known-broken per the Sphinx warnings above and predates this session -- flagged,
+not fixed, out of scope for what was asked.
+
+`git status` clean after publishing -- `jupyterlite/content` and `jupyterlite/_output` are
+gitignored, so the real (non-`--check`) builds run for verification during this session and
+the prior one left no untracked changes to review.
+
+## 2026-09-08 follow-up — the IndexedDB bug bit chapter 8 within minutes of publishing, fixed with a rename
+
+Maintainer reported, right after the above publish, that chapter 8 on the live site showed
+no Homework section. Checked server-side first rather than assuming: both the deployed
+JupyterLite file (`jupyterlite-67ec805ef4/files/Chapter08-Strings-and-Regex.ipynb`) and the
+`chap08.html?readonly` static page already had "## Homework" and "Problem 1" correctly, cache
+-busted to rule out the CDN staleness from two entries ago. Confirmed with the maintainer:
+`?readonly` showed the Homework section fine; the plain URL (embedded pane, no `?readonly`)
+did not. That isolates it to the pane, not the deploy.
+
+**This is the exact IndexedDB-staleness bug chapter 5 has already hit twice** (see this
+file's 2026-08-24 and 2026-08-26 entries) -- JupyterLite persists notebook content in the
+browser's IndexedDB keyed by filename, not URL, so a browser that ever opened a chapter's
+JupyterLite copy keeps serving that cached copy forever regardless of new deploys, unless
+the *filename itself* changes. Chapters 7 and 8 were both live (pane enabled, self-embedding
+under their original, never-renamed filenames) before the 2026-08-24 `LIVE = false` toggle
+existed, so any browser -- the maintainer's own, in all likelihood, from earlier testing --
+that opened either chapter's JupyterLite copy at any point before today has it cached under
+`Chapter07-Iteration-and-Search.ipynb` / `Chapter08-Strings-and-Regex.ipynb`, names that
+never changed across the `LIVE=false` period, this morning's Homework-section content
+addition, or this afternoon's toggle removal. Re-enabling the pane without renaming was
+exactly the gap.
+
+**Should have been caught proactively, not reactively.** The two-entries-ago handoff (this
+same session) explicitly read and cited chapter 5's IndexedDB history while fixing the
+`LIVE` toggle and the stale `CELL_PATCHES` key -- the precedent was right there, already
+open in context, and the connection (content changed + pane re-enabled + filename unchanged
+= guaranteed staleness for any browser with prior exposure) wasn't drawn until the
+maintainer hit it live. Noting this plainly rather than glossing over it: this should have
+been checked before publishing, not after. Maintainer's own words: "I thought we had fixed
+this issue. This is really frustrating" -- fair, since the fix from 2026-08-24 (the `LIVE`
+toggle) was itself only ever a workaround that suppressed the symptom, not a fix for the
+underlying IndexedDB mechanism, and reverting a workaround without checking whether the
+condition it was suppressing still applies is exactly how a suppressed bug comes back.
+
+**Fixed the same way as chapter 5, twice already:** renamed both chapters' shipped
+JupyterLite copies to force a fresh IndexedDB entry for every browser --
+`Chapter07-Iteration-and-Search.ipynb` -> `-v2.ipynb`, `Chapter08-Strings-and-Regex.ipynb`
+-> `-v2.ipynb` (first rename for each, so `-v2`, matching chapter 5's own first rename
+before it needed a second). Updated in lockstep, following `d317dbc`'s exact diff shape as
+a template: `tools/build_jupyterlite_content.py`'s `CONTENT_NAMES` (`name` and `teach` keys
+-- `teach` renamed too even though `SHIP_TEACH_COPIES = False` currently means it's inert,
+for consistency with the dict shape) and the `CELL_PATCHES` pane-cell key's iframe `src`
+line; both chapters' own link-bar `[JupyterLite]` bullet and pane `<iframe src=` in
+`chapters/chap07.ipynb`/`chap08.ipynb` (2 cells each, exactly matching which cells changed
+in the chapter 5 precedent). No `ALIASES` entry added for the old name, per the standing
+2026-08-24 decision that the duplicate-listing cost outweighs the narrow benefit.
+
+**Verified before publishing this time, not after:** re-read `CELL_PATCHES[nb_name]`'s pane
+key programmatically post-rename and confirmed `current == pane_key` still holds for both
+chapters (the rename touches the same line the recursive-iframe patch keys on, so this was
+exactly the kind of edit that could silently reintroduce the stale-key bug a second time in
+one day). Ran a real (non-`--check`) `tools/build_jupyterlite_content.py` build: new deploy
+id `jupyterlite-1c4bc7016f`, confirmed `Chapter07-Iteration-and-Search-v2.ipynb` and
+`Chapter08-Strings-and-Regex-v2.ipynb` exist with the old unsuffixed names gone entirely,
+zero unpatched `<iframe src=` in either, and "Homework" present in both.
+
+**What still can't be verified from here:** whether the rename actually clears the
+maintainer's own browser's stale view. That's inherent to the mechanism (a filename change
+can't be confirmed working except by loading the new URL in the affected browser and seeing
+fresh content) -- ask the maintainer to reload chapter 8's page (plain URL, no `?readonly`)
+after this is published, and treat that as the real acceptance test, not any check runnable
+from here.
+
+**Open, worth deciding rather than repeating a third time:** every chapter 1-8 whose content
+changes *after* it has ever been served live needs this same rename-or-stay-stale choice
+made explicitly -- not just chapter 5, now not just once for chapters 7/8 either. Two
+options worth raising with the maintainer directly rather than deciding alone: (a) write it
+into `CLAUDE.md`'s Pass 2/4 checklist as a standing step ("did this chapter's live pane ever
+serve different content than what's shipping now? If yes and unsure, rename"), or (b) treat
+`LIVE = false` as the actually-safer default for any chapter mid-edit, and only flip it back
+on as the very last step right before a publish that includes no other content change to
+that chapter in the same cycle -- which would have avoided today's incident by construction,
+at the cost of the read-only-by-default problem the maintainer explicitly asked to fix two
+entries ago. These two goals were in tension today and the tension wasn't surfaced before
+acting.
