@@ -140,10 +140,11 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap07
 
-10 exercise(s).
+17 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
+| ch07-common-vowel | Extra credit: find the most common vowel in words.txt using five counters and one loop | native | added | — | None | 8 |
 | ch07-ex01 | Write a function called uses_none | native | kept | — | 15 | 15 |
 | ch07-ex02 | Write a function called uses_only | native | kept | — | 15 | 15 |
 | ch07-ex03 | Write a function called uses_all | native | kept | — | 15 | 15 |
@@ -153,7 +154,13 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch07-ex06r | Write uses_all by calling uses_only with its arguments swapped | native | added | ch07-ex06 | 5 | 5 |
 | ch07-ex07 | Ask a virtual assistant to write uses_all in terms of uses_any, then verify the result | A | removed | — | 10 | 10 |
 | ch07-ex07r | Write uses_all by calling uses_any in a loop over the required letters | native | added | ch07-ex07 | 10 | 10 |
+| ch07-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
 | ch07-va01 | Ask a virtual assistant what's wrong with uses_any_incorrect | B | removed | — | 0 | 0 |
+| ch07ex-hw01 | count_vowels(word): loop-and-counter practice, choose-one pair with count_letter (ch07ex-hw02) | native | added | — | None | 8 |
+| ch07ex-hw02 | count_letter(word, letter): loop-and-counter practice, choose-one pair with count_vowels (ch07ex-hw01) | native | added | — | None | 8 |
+| ch07ex-hw03 | has_vowel(word), applied to words.txt to count words with no vowel at all | native | added | — | None | 10 |
+| ch07ex-hw04 | Debug count_e: doctests are correct, the counter uses = instead of += and only ever holds 0 or 1 | native | added | — | None | 8 |
+| ch07ex-hw05 | Reflection: a task needing a loop-and-counter where the in operator alone wouldn't work | native | added | — | None | 5 |
 
 ## chap08
 
@@ -290,8 +297,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 148
+Total exercises: 155
 
-By kind: A=4, B=8, native=129, original=7
+By kind: A=4, B=8, native=136, original=7
 
-By action: added=57, edited=6, kept=72, removed=13
+By action: added=64, edited=6, kept=72, removed=13

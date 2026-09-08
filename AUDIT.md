@@ -7286,3 +7286,133 @@ than usual; still confirming rather than assuming urgency overrides the pattern.
 - The `targets_ap`/`targets_ca` gap across every chapter's Homework-section ledger entries
   (not just chapter 8's new ones) is still open; Pass 3 Step 5 may be the right place to
   close it, or it may need its own pass.
+
+## 2026-09-08 — chapter 7's first Homework section, closing the gap the previous session flagged
+
+Same job as 2026-09-07's chapter 8 entry, one day later, closing the "chapter 7 has no
+Homework section, one chapter behind chapter 8" item that session's handoff raised.
+Maintainer asked for it directly this time, plus confirmed the doctest-by-default policy
+should apply here too.
+
+**Content**, same shape as chapter 8's Homework section, adapted to chapter 7's own
+vocabulary:
+
+- Problem 1/2, choose-one: `count_vowels` and `count_letter` -- both loop-and-counter
+  exercises using `in`, deliberately **not** using indexing or slicing, because chapter 8
+  (where indexing and slicing are taught) comes after this one. This is a real constraint,
+  not a style choice: an earlier draft considered a palindrome-checking exercise
+  (`word == word[::-1]` or index-pair comparison) for Problem 3 and dropped it for exactly
+  this reason before it was written into the notebook.
+- Problem 3: a doctested `has_vowel(word)` helper, independent of the choose-one pair (a
+  student who picked Problem 2 wouldn't have `count_vowels` defined), applied in a loop
+  over `words.txt` (downloaded in the chapter body, not the ungraded practice exercises, so
+  guaranteed to exist) to count words with no vowel at all.
+- Problem 4: `count_e`, a doctest-correct/body-buggy debug exercise, same shape as
+  ch08ex-hw04 (`last_three`) and ch06b-ex04 (`count_down_to_zero`) -- the bug is
+  `count = 1` instead of `count += 1`, chosen specifically because this chapter's own
+  "Updating variables" section is the one place in the book that names the
+  assignment-vs-increment distinction explicitly.
+- Problem 5: free-response reflection on when a loop-and-counter is needed over a bare
+  `in` check, pointing at the chapter's own `has_e` progression (the counter version, then
+  the simpler `in`-based rewrite) as the thing being reflected on.
+- Time check, copied structurally from ch06/ch08-timecheck.
+- Extra credit: find the most common vowel in `words.txt` using five counters and one loop,
+  deliberately independent of every function defined above or in the chapter -- just the
+  `has_e`-style total-and-counter idiom, repeated five times. The answer ('e', appearing in
+  76,162 of 113,783 words) is a direct callback to the chapter's own opening paragraph about
+  why writing *Gadsby* without the letter "e" was hard.
+
+**Doctest policy, continued rather than re-decided.** This was chapter 8's call the day
+before (`run_doctests` already native, taught in this chapter's own body at cells 84-94, so
+by the time a student reaches Homework they've seen it directly, not just via the interlude).
+Chapter 7 makes the case even more directly: it's the chapter that introduces `run_doctests`
+in the first place, and its own native Exercises already use the given-docstring/
+blank-body/`run_doctests` shape for every one of `uses_none`, `uses_only`, `uses_all`, and
+the Spelling Bee functions. Applying the same shape to the new Homework section isn't a
+new choice here, it's the path of least resistance. Still not written into `CLAUDE.md` or
+`mods/pass-4-chrome.md` as a formal rule -- same open item as yesterday, now with two
+chapters' worth of precedent behind it.
+
+**Same reclassification as every prior Homework-section chapter.** The intro cell states
+that the native `## Exercises` above (`uses_none`, `uses_only`, `uses_all`, Spelling Bee) are
+now practice, not graded -- matching chap04/06/08's wording exactly, adapted to this
+chapter's exercise names. Worth flagging explicitly here: those native exercises are where
+this chapter's two standing kind-A replacements live (`ch07-ex06r`, `ch07-ex07r`, from Pass
+2 -- see the ledger and `mods/pass-2-surgery.md`'s "four total, across the whole book"
+count). Reclassifying them as ungraded practice doesn't touch their content or their ledger
+entries, only how they're described to students; not a Pass 2 action and nothing in Pass 2's
+kind-A/B/C accounting changes.
+
+**Every doctest and file-count number verified by actual execution before being written,**
+same discipline as yesterday. `words.txt` was downloaded from the same URL the chapter's own
+`download()` cell uses, and both new numbers -- 107 no-vowel words out of 113,783, and 'e'
+as the most common vowel (76,162 words) -- were computed directly against that file, not
+estimated. The buggy `count_e` was run to confirm it actually returns 1 instead of 2 for
+`'Elephant'` and passes correctly once fixed.
+
+**Structure, same as chapter 8's.** One `type="exercise"` sentinel wrapping the whole
+Homework section (intro through the extra-credit answer cell), `<!-- apcsp:end -->` as its
+own dedicated cell, then a `type="note"`-wrapped "Finished? Copy your work" +
+`show_copy_notebook_button()` cell before the attribution note -- chapter 7 was missing that
+button too, added for the same consistency reason as chapter 8's.
+
+**Ledger.** Seven new entries: `ch07ex-hw01` through `ch07ex-hw05`, `ch07-timecheck`,
+`ch07-common-vowel`. All `kind: "native"`, `action: "added"`, `targets_ap`/`targets_ca` left
+empty -- same pre-existing, book-wide gap noted in yesterday's handoff, not closed here
+either.
+
+**Verified.** `make check` clean. `make ledger` regenerated `CHANGELOG_DETAIL.md` cleanly
+(155 exercises total, up from 148). `git diff --stat -- chapters/ projector/` shows only
+`chapters/chap07.ipynb` and `projector/chap07.ipynb`, both purely additive (303 insertions
+each, 0 deletions). All new doctests, the no-vowel count, and the vowel-frequency count were
+executed standalone against the real `words.txt`, not inside the actual notebook via a
+kernel -- same caveat as yesterday, the notebook itself was not run end-to-end in Jupyter
+before this handoff.
+
+`git status`: `chapters/chap07.ipynb`, `projector/chap07.ipynb`, `data/exercise-ledger.json`,
+`CHANGELOG_DETAIL.md`, `CHANGELOG.md`, `CLAUDE.md`, `AUDIT.md`. Chapter 8's own review (by
+the maintainer, in parallel with this session) is a separate, not-yet-merged track -- check
+for their edits to `chapters/chap08.ipynb` before committing this chapter's work, in case
+both land in the same session.
+
+**"Exercise" renamed to "Problem" in chapters 7 and 8's Homework sections, same day,
+after the maintainer raised it.** Rationale given: "Exercise N" meant two different things
+depending on which section it appeared in (unnumbered = the native, ungraded practice
+section; numbered = graded Homework), and that distinction relied on a subtle cue --
+presence of a number -- rather than a different word. Recommended doing it book-wide in one
+pass, since leaving some chapters saying "Problem" and others "Exercise" for the same kind
+of graded content is its own inconsistency; **maintainer chose the narrower scope
+instead: chapters 7 and 8 only**, both not yet fully committed/published at the time of the
+ask. Chapters 1, 2, 4, 5, 6, and 6b keep "Exercise 1" etc. in their own Homework
+sections -- deliberately, not an oversight, and not something a future pass should "fix"
+without checking here first. `mods/pass-4-chrome.md`'s Step 1 description and any future
+Homework-section chapter (9-11) should pick one of the two conventions explicitly rather
+than defaulting to whichever this handoff happened to use most recently.
+
+Mechanically: renamed the `### Exercise N` headings and every prose cross-reference in both
+chapters' Homework sections (the intro's "whichever of Exercise 1 or Exercise 2", the time
+check's "the five numbered exercises above" and "which exercise took longest", the extra
+credit's "five required exercises above", and the "Finished?" note's "not part of the
+exercises above") to "Problem"/"problems" -- nothing else. The native `## Exercises` section
+in both chapters, and every reference to it (the Homework intro's "the exercises above
+(...) are practice"), was left alone on purpose: that section is still genuinely called
+Exercises. Chapter 8's Homework section had already been committed the day before
+(`7560f1f`) with the old wording, so this is an amendment to that commit's content, not a
+fresh addition -- confirmed with `git diff --stat` that the chapter 8 diff this time is
+small (~20 lines, wording only) rather than the full section reappearing. Ledger notes for
+the ten affected entries (`ch07ex-hw01`-`05`, `ch08ex-hw01`-`05`) were updated the same way,
+since they described the cell text by quoting "Exercise N" directly.
+
+**Open for the next session:**
+- Chapters 9-11's Homework sections are still unwritten (unchanged from yesterday). Whoever
+  writes them should use "Problem N", matching chapters 7-8, unless the book-wide rename
+  below happens first.
+- Chapters 1, 2, 4, 5, 6, and 6b still say "Exercise 1" etc. in their Homework sections --
+  a deliberate, known inconsistency (see above), not yet scheduled. Worth its own pass if
+  the maintainer wants full-book consistency later; touches already-published content and
+  needs a rebuild+republish same as any other change to those chapters.
+- The `targets_ap`/`targets_ca` gap now spans three chapters' worth of Homework-section
+  entries (6, 7, 8) plus 6b, still open.
+- The doctest-by-default policy has two chapters of precedent now and no written-down rule.
+  Worth deciding whether that goes in `CLAUDE.md` before a third chapter makes it moot by
+  simply being consistent with the two before it.

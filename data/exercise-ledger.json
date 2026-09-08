@@ -868,6 +868,104 @@
     "note": "Bare suggested-prompt section under Exercises (heading + two illustrative code cells + closing prompt). Removed whole, no replacement (pass-2 Step 1, kind B). Not priced in the pass-1 effort table, so removal does not change the chapter estimate."
   },
   {
+    "chapter": "chap07",
+    "id": "ch07ex-hw01",
+    "anchor": "count_vowels(word): loop-and-counter practice, choose-one pair with count_letter (ch07ex-hw02)",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 8,
+    "self_verifying": true,
+    "note": "New Problem 1 in chap07.ipynb's new 'Homework' section, added 2026-09-08 -- chapter 7 had no Homework section before this (see AUDIT.md; chapter 8 got its first one the prior day). Half of a choose-one pair with Problem 2 (count_letter, ch07ex-hw02): a student does either, not both. Docstring and doctests given complete; only the body is blanked, matching the shape chapter 8's Homework section established (a departure from this chapter's own native Exercises, which give two doctests and ask students to add a third). Uses only loop + counter + `in`, nothing from chapter 8 (no indexing or slicing -- not yet taught when this chapter is assigned). Doctests verified by direct execution before being written into the docstring."
+  },
+  {
+    "chapter": "chap07",
+    "id": "ch07ex-hw02",
+    "anchor": "count_letter(word, letter): loop-and-counter practice, choose-one pair with count_vowels (ch07ex-hw01)",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 8,
+    "self_verifying": true,
+    "note": "New Problem 2 in chap07.ipynb's new 'Homework' section, added 2026-09-08. Half of the ch07ex-hw01 choose-one pair; same loop-and-counter shape, generalized to take the target letter as a parameter instead of hard-coding a vowel set. Doctests verified by direct execution before being written into the docstring."
+  },
+  {
+    "chapter": "chap07",
+    "id": "ch07ex-hw03",
+    "anchor": "has_vowel(word), applied to words.txt to count words with no vowel at all",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 10,
+    "self_verifying": true,
+    "note": "New Problem 3 in chap07.ipynb's new 'Homework' section, added 2026-09-08. Deliberately independent of the ch07ex-hw01/02 choose-one pair (doesn't reuse either), since a student who picked Problem 2 wouldn't have count_vowels defined. Two parts under one exercise: a doctested has_vowel(word) helper (body blanked, doctests given, same shape as ch07ex-hw01/02), then a plain loop over words.txt (downloaded in the chapter body itself, not the ungraded practice exercises, so guaranteed to exist) with no starter code, matching the chapter's own has_e/total-and-count idiom. Expected total (107 of 113,783 words) verified by downloading the actual words.txt used by the chapter (same URL the chapter's own download() cell uses) and running the loop directly. See AUDIT.md."
+  },
+  {
+    "chapter": "chap07",
+    "id": "ch07ex-hw04",
+    "anchor": "Debug count_e: doctests are correct, the counter uses = instead of += and only ever holds 0 or 1",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 8,
+    "self_verifying": true,
+    "note": "New Problem 4 in chap07.ipynb's new 'Homework' section, added 2026-09-08. Same shape as ch08ex-hw04 (last_three) and ch06b-ex04 (count_down_to_zero): docstring and doctests are correct, function body is wrong, fix the body and leave the docstring alone. Bug is `count = 1` instead of `count += 1` inside the loop, chosen to tie directly to this chapter's own 'Updating variables' section (the count-vs-increment distinction it teaches explicitly). Verified both the buggy and corrected versions by direct execution before writing the docstring -- buggy count_e('Elephant') returns 1, not the expected 2."
+  },
+  {
+    "chapter": "chap07",
+    "id": "ch07ex-hw05",
+    "anchor": "Reflection: a task needing a loop-and-counter where the in operator alone wouldn't work",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 5,
+    "self_verifying": false,
+    "note": "New Problem 5 in chap07.ipynb's new 'Homework' section, added 2026-09-08. Free-response reflection, no code. Points at the chapter's own has_e progression (loop-and-counter version, then the simpler `in`-based version) as the thing being reflected on."
+  },
+  {
+    "chapter": "chap07",
+    "id": "ch07-timecheck",
+    "anchor": "Time check: report time spent using the existing time_check() helper",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 2,
+    "self_verifying": true,
+    "note": "New unnumbered section in chap07.ipynb, added 2026-09-08, between Exercise 5 (reflection) and the extra credit. Same cell structure as ch06-timecheck/ch08-timecheck (same variable names, same time_check() call), wording adjusted for chapter 7's five required exercises."
+  },
+  {
+    "chapter": "chap07",
+    "id": "ch07-common-vowel",
+    "anchor": "Extra credit: find the most common vowel in words.txt using five counters and one loop",
+    "kind": "native",
+    "action": "added",
+    "replacement_id": null,
+    "targets_ap": [],
+    "targets_ca": [],
+    "est_minutes_before": null,
+    "est_minutes_after": 8,
+    "self_verifying": true,
+    "note": "New extra-credit section at the end of chap07.ipynb's Homework section, added 2026-09-08. Unnumbered, worth 0.5 points, gated on the five required exercises above being complete; never a substitute for any of them. Deliberately needs none of the chapter's or this section's functions -- just the has_e-style total-and-counter loop repeated five times, one counter per vowel. Verified against the real words.txt: 'e' appears in 76,162 of 113,783 words, more than any other vowel -- directly answering the chapter's own opening question about why 'e' makes Gadsby's letter-avoidance stunt so hard."
+  },
+  {
     "chapter": "chap08",
     "id": "ch08-ex01",
     "anchor": "Write a function that mimics the shell command 'head'",
@@ -949,7 +1047,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New Exercise 1 in chap08.ipynb's new 'Homework' section, added 2026-09-07 (chapter had no Homework section before this -- see AUDIT.md). Half of a choose-one pair with Exercise 2 (middle, ch08ex-hw02): a student does either, not both, and doing both earns no extra credit. Docstring and doctests are given complete; only the body is blanked, so run_doctests grades it directly -- a deliberate departure from chap06b's 'invent your own three doctests' shape, chosen because the assignment goes out the next day and a fixed spec is faster to do correctly. Practices indexing (fruit[0], fruit[-1]) specifically, not slicing. Doctests verified by direct execution before being written into the docstring."
+    "note": "New Problem 1 in chap08.ipynb's new 'Homework' section, added 2026-09-07 (chapter had no Homework section before this -- see AUDIT.md). Half of a choose-one pair with Problem 2 (middle, ch08ex-hw02): a student does either, not both, and doing both earns no extra credit. Docstring and doctests are given complete; only the body is blanked, so run_doctests grades it directly -- a deliberate departure from chap06b's 'invent your own three doctests' shape, chosen because the assignment goes out the next day and a fixed spec is faster to do correctly. Practices indexing (fruit[0], fruit[-1]) specifically, not slicing. Doctests verified by direct execution before being written into the docstring."
   },
   {
     "chapter": "chap08",
@@ -963,7 +1061,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New Exercise 2 in chap08.ipynb's new 'Homework' section, added 2026-09-07. Half of the ch08ex-hw01 choose-one pair. Practices slicing (word[1:-1]) specifically, not indexing -- the two exercises split the chapter's two opening sections between them so neither choice skips content the other covers. Includes a two-character-string boundary case ('hi' -> ''). Doctests verified by direct execution before being written into the docstring."
+    "note": "New Problem 2 in chap08.ipynb's new 'Homework' section, added 2026-09-07. Half of the ch08ex-hw01 choose-one pair. Practices slicing (word[1:-1]) specifically, not indexing -- the two exercises split the chapter's two opening sections between them so neither choice skips content the other covers. Includes a two-character-string boundary case ('hi' -> ''). Doctests verified by direct execution before being written into the docstring."
   },
   {
     "chapter": "chap08",
@@ -977,7 +1075,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 10,
     "self_verifying": true,
-    "note": "New Exercise 3 in chap08.ipynb's new 'Homework' section, added 2026-09-07. Reworks the chapter's own Jonathan-counting example (which the chapter states gives 199 lines, 200 occurrences) for a different character, Lucy, deliberately not Mina/Murray (the chapter's own regex example) or Dracula (the chapter's own re.search example). Two parts under one exercise: a doctested count_occurrences(text, word) helper (body blanked, doctests given, same shape as ch08ex-hw01/02), then a plain loop over the already-existing pg345_cleaned.txt (created earlier in the chapter body, not the ungraded practice exercises, so guaranteed to exist regardless of whether a student did the optional Count of Monte Cristo exercise) with no starter code, matching the chapter's own idiom for the Jonathan count. Expected total (298) verified by actually downloading pg345.txt from Project Gutenberg and running the chapter's own is_special_line cleaning step against it -- confirmed the same edition Downey used first, by reproducing his stated 199/200 Jonathan numbers exactly, before trusting the Lucy count. See AUDIT.md."
+    "note": "New Problem 3 in chap08.ipynb's new 'Homework' section, added 2026-09-07. Reworks the chapter's own Jonathan-counting example (which the chapter states gives 199 lines, 200 occurrences) for a different character, Lucy, deliberately not Mina/Murray (the chapter's own regex example) or Dracula (the chapter's own re.search example). Two parts under one exercise: a doctested count_occurrences(text, word) helper (body blanked, doctests given, same shape as ch08ex-hw01/02), then a plain loop over the already-existing pg345_cleaned.txt (created earlier in the chapter body, not the ungraded practice exercises, so guaranteed to exist regardless of whether a student did the optional Count of Monte Cristo exercise) with no starter code, matching the chapter's own idiom for the Jonathan count. Expected total (298) verified by actually downloading pg345.txt from Project Gutenberg and running the chapter's own is_special_line cleaning step against it -- confirmed the same edition Downey used first, by reproducing his stated 199/200 Jonathan numbers exactly, before trusting the Lucy count. See AUDIT.md."
   },
   {
     "chapter": "chap08",
@@ -991,7 +1089,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New Exercise 4 in chap08.ipynb's new 'Homework' section, added 2026-09-07. Same shape as ch06b-ex04 (count_down_to_zero): docstring and doctests are correct, function body is wrong, fix the body and leave the docstring alone. Bug is word[-3:-1] (returns two characters, not three) instead of word[-3:]. Verified both the buggy and corrected versions by direct execution before writing the docstring."
+    "note": "New Problem 4 in chap08.ipynb's new 'Homework' section, added 2026-09-07. Same shape as ch06b-ex04 (count_down_to_zero): docstring and doctests are correct, function body is wrong, fix the body and leave the docstring alone. Bug is word[-3:-1] (returns two characters, not three) instead of word[-3:]. Verified both the buggy and corrected versions by direct execution before writing the docstring."
   },
   {
     "chapter": "chap08",
@@ -1005,7 +1103,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New Exercise 5 in chap08.ipynb's new 'Homework' section, added 2026-09-07. Free-response reflection, no code. Explicitly excludes the chapter's own Mina|Murray example so the answer can't just be copied back."
+    "note": "New Problem 5 in chap08.ipynb's new 'Homework' section, added 2026-09-07. Free-response reflection, no code. Explicitly excludes the chapter's own Mina|Murray example so the answer can't just be copied back."
   },
   {
     "chapter": "chap08",

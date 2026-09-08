@@ -5,6 +5,33 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-08 — chapter 7 gets its first Homework section; "Exercise" renamed to "Problem" in chapters 7 and 8
+
+### Added
+- `chapters/chap07.ipynb`: a `## Homework` section (this chapter never had one before --
+  see `AUDIT.md`), same shape as chapter 8's, added the previous day: five required
+  problems (a choose-one loop-and-counter pair, a doctested `has_vowel` helper applied to
+  `words.txt`, a debug problem, and a reflection), a time check, and one 0.5-point extra
+  credit. All original content, not adapted from upstream. Stays within chapter 7's own
+  vocabulary (loops, counters, the `in` operator) -- no indexing or slicing, since chapter 8
+  hasn't been taught yet when this chapter is assigned.
+- All five required problems plus the extra credit are graded with `run_doctests` or a
+  direct count against a verified expected total, continuing the doctest-by-default policy
+  chapter 8 started the day before.
+- `data/exercise-ledger.json`: seven new entries (`ch07ex-hw01` through `ch07ex-hw05`,
+  `ch07-timecheck`, `ch07-common-vowel`), `kind: "native"`, `action: "added"`.
+
+### Changed
+- `chapters/chap08.ipynb`'s Homework section (added the previous day): "Exercise 1"
+  through "Exercise 5" renamed to "Problem 1" through "Problem 5", plus the matching prose
+  references ("five required exercises" -> "five required problems", and similar). Chapter
+  7's new Homework section uses "Problem" from the start. The chapter's own native
+  `## Exercises` section (practice, ungraded) keeps its existing name in both chapters --
+  only the graded Homework numbering changes, so the two words now map onto graded vs.
+  practice unambiguously. Scoped to chapters 7 and 8 only, by explicit choice -- chapters 1,
+  2, 4, 5, 6, and 6b still say "Exercise 1" etc. in their own (already-published) Homework
+  sections. See `AUDIT.md` for the scoping discussion.
+
 ## 2026-09-07 — chapter 8 gets its first Homework section
 
 ### Added
