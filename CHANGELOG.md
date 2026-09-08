@@ -5,6 +5,29 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-08 — chapters 7 and 8: live JupyterLite pane/link re-enabled
+
+### Fixed
+- `chapters/chap07.ipynb` and `chapters/chap08.ipynb` reverted to the pre-2026-08-24 form,
+  same as chapters 6 and 6b got on 2026-08-27: the `LIVE` toggle and its risk-reduction
+  comment are gone from each chapter's pane `<script>`, restoring the plain
+  `?readonly`-only gate every other live-embedding chapter uses. The `[JupyterLite](...)`
+  bullet is back in both chapters' "Other Ways to open this chapter" bar. Both chapters had
+  been forced to always hide their embedded pane regardless of `?readonly` since the
+  2026-08-24 toggle -- assigning either chapter meant students never saw the live pane the
+  way chapters 1-6 show it.
+- Both chapters' pane cells were set to exactly match the (already correct, pre-toggle)
+  key already sitting in `tools/build_jupyterlite_content.py`'s `CELL_PATCHES`, rather than
+  hand-editing the script and hoping it matched -- the same stale-key bug caught in chapters
+  6/6b on 2026-08-27 (`CELL_PATCHES`'s exact-tuple lookup silently stops applying if the
+  notebook's cell text drifts from the key, with no error) was present here too, just as
+  harmless for the same reason: `LIVE = false` hid the pane in every context, so the
+  never-patched recursive iframe never actually triggered. Verified against a real
+  (non-`--check`) `tools/build_jupyterlite_content.py` build: both chapters' built copies
+  show zero `<iframe src=` occurrences and the patched static note in its place; chapter
+  8's pre-existing `!head`/`!tail` shell-magic patches, which share the same dict entry,
+  were confirmed unaffected.
+
 ## 2026-09-08 — chapter 7 gets its first Homework section; "Exercise" renamed to "Problem" in chapters 7 and 8
 
 ### Added

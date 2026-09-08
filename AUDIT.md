@@ -7416,3 +7416,66 @@ since they described the cell text by quoting "Exercise N" directly.
 - The doctest-by-default policy has two chapters of precedent now and no written-down rule.
   Worth deciding whether that goes in `CLAUDE.md` before a third chapter makes it moot by
   simply being consistent with the two before it.
+
+## 2026-09-08 follow-up — chapters 7 and 8 reopened: live JupyterLite pane re-enabled
+
+Maintainer noticed both chapters "default to read-only" on the site and asked for it to
+stop. Root cause: the 2026-08-24 `LIVE = false` risk-reduction toggle (added after chapter
+5's IndexedDB staleness bug, same day chapters 6 and 6b got it too) was still forcing both
+chapters' embedded JupyterLite pane hidden in every context regardless of the `?readonly`
+query param -- exactly the same symptom the 2026-08-27 chapter 6/6b entry above describes
+and fixes, just never extended to 7 and 8 at the time ("chapters 7 and 8 ... are untouched,
+still off"). This session closes that gap the same way.
+
+**Reverted both chapters to the pre-2026-08-24 form,** matching chapter 1's pattern and the
+already-fixed chapter 6/6b pattern: removed the `LIVE` variable and its six-line
+risk-reduction comment from each chapter's pane `<script>`, restoring the plain
+`if (new URLSearchParams(...).has("readonly"))` gate. Also restored the
+`[JupyterLite](...)` bullet to each chapter's "Other Ways to open this chapter" bar, which
+had been dropped in the same 2026-08-24 change alongside the toggle (confirmed missing by
+diffing against chapter 1's bar before restoring it, rather than assuming).
+
+**Checked for the stale-`CELL_PATCHES`-key bug before assuming it wasn't there, per the
+2026-08-27 entry's own warning that this failure mode doesn't error, it just silently stops
+applying.** It was there: `tools/build_jupyterlite_content.py`'s `CELL_PATCHES` entries for
+both `chap07.ipynb` and `chap08.ipynb` already held the correct, un-toggled 53-line pane-cell
+key (never updated to match the `LIVE` addition, same as chapter 6/6b's had been), so the
+recursive-embed patch has not actually been applying to either chapter's JupyterLite copy
+since 2026-08-24. Harmless for the same reason as before -- `LIVE = false` hid the pane in
+every context including inside JupyterLite itself, so the recursion this patch exists to
+prevent never had a chance to trigger -- but it would have shipped live, unpatched, the
+moment `LIVE` was reverted without also fixing this.
+
+**Fixed the same way as 2026-08-27, not by hand-editing the script and hoping it matched:**
+read `CELL_PATCHES[notebook]`'s pane-cell key programmatically (via `importlib`, loading
+`tools/build_jupyterlite_content.py` as a module) and set each chapter's actual pane-cell
+`source` to exactly that key's line tuple. Verified `current == pane_key` for both chapters
+before writing anything back, so the byte-exact match is guaranteed by construction rather
+than by eyeballing a diff. Confirmed chapter 8's pre-existing `!head`/`!tail` shell-magic
+`CELL_PATCHES` entries, which live in the same merged top-level dict key, were untouched by
+this.
+
+**Verified against a real build, not just `--check`,** same discipline as 2026-08-27:
+ran `python3 tools/build_jupyterlite_content.py` for real (new deploy id
+`jupyterlite-67ec805ef4`) and grepped the actual output --
+`jupyterlite/content/Chapter07-Iteration-and-Search.ipynb` and
+`Chapter08-Strings-and-Regex.ipynb` both show zero `<iframe src=` occurrences and exactly
+one occurrence of the patched static note each, and chapter 8's shell-magic patches
+(`!head`/`!tail`) still applied correctly alongside. `jupyterlite/content/` is gitignored,
+so this real build is local verification only, not something that needed committing.
+
+**Verified.** `make check` clean (`build_blanks --check`, `check_sync`,
+`build_jupyterlite_content --check`) both before and after the real-build verification
+step. `git diff --stat -- chapters/ projector/` shows only `chapters/chap07.ipynb`,
+`chapters/chap08.ipynb`, and their projector copies, each a small (~10-line) removal/edit,
+not a wholesale rewrite.
+
+`git status`: `chapters/chap07.ipynb`, `chapters/chap08.ipynb`, `projector/chap07.ipynb`,
+`projector/chap08.ipynb`, plus this entry and the matching `CHANGELOG.md` entry. Not
+committed yet.
+
+**Open:** chapters 9-11, whenever they get their own live JupyterLite pane wired up (Pass 4
+Step 4, not started for those chapters yet per `CLAUDE.md`), should never get a `LIVE`-style
+toggle in the first place if the underlying IndexedDB staleness concern can be addressed
+some other way -- it's now been added and then had to be found-and-reverted twice (5&6,
+then 7&8), each time nearly shipping a silently-unpatched recursive iframe alongside it.
