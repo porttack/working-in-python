@@ -444,7 +444,20 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.9.7. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">7.10. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">7.10. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-count-vowels-do-1-or-2">7.10.1. Problem 1: count_vowels (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-count-letter-do-1-or-2">7.10.2. Problem 2: count_letter (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-words-with-no-vowels-at-all">7.10.3. Problem 3: words with no vowels at all</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-debug-count-e">7.10.4. Problem 4: debug count_e</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">7.10.5. Problem 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">7.10.6. Time check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-the-most-common-vowel">7.11. Extra credit: the most common vowel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">7.11.1. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">7.12. Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -458,6 +471,7 @@
                   
   <!-- apcsp:begin type="note" chapter="07" -->
 <p><strong>Other Ways to open this chapter:</strong>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-67ec805ef4/notebooks/index.html?path=Chapter07-Iteration-and-Search.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap07.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap07.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap07.ipynb" download="chap07.ipynb">Download</a></p>
@@ -479,21 +493,14 @@
 }
 </style>
 <div id="chap07-jupyterlite-pane">
-<iframe src="jupyterlite-64367ae4fe/notebooks/index.html?path=Chapter07-Iteration-and-Search.ipynb"></iframe>
+<iframe src="jupyterlite-67ec805ef4/notebooks/index.html?path=Chapter07-Iteration-and-Search.ipynb"></iframe>
 </div>
 <script>
 (function () {
-  // Risk-reduction toggle, added 2026-08-24: keep this chapter's live
-  // JupyterLite pane off by default after chapter 5's IndexedDB staleness
-  // bug (JupyterLite persists notebook content in the browser keyed by
-  // filename, not URL, so a content edit can be invisible to a returning
-  // browser -- see that repo's AUDIT.md). Flip to true to re-enable this
-  // one chapter once it's ready.
-  var LIVE = false;
   var note = document.getElementById("chap07-jupyterlite-note");
   var pane = document.getElementById("chap07-jupyterlite-pane");
   if (!pane) return;
-  if (!LIVE || new URLSearchParams(location.search).has("readonly")) {
+  if (new URLSearchParams(location.search).has("readonly")) {
     pane.style.display = "none";
     if (note) note.style.display = "none";
     return;
@@ -1338,6 +1345,166 @@ If you have a working version of <code class="docutils literal notranslate"><spa
 </div>
 </div>
 </div>
+<!-- apcsp:begin type="exercise" chapter="07" -->
+</section>
+</section>
+<section id="homework">
+<h2><span class="section-number">7.10. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
+<p>Required work is five problems: whichever of Problem 1 or Problem 2, plus Problems 3-5, about 31 minutes total. Doing both 1 and 2 is fine, but the second one earns no additional credit. The time check below must be filled in. The extra credit at the end is optional and never substitutes for a required problem.</p>
+<p>Every function you write in this section needs a docstring, the same as chapter 4 on. Use <code class="docutils literal notranslate"><span class="pre">run_doctests</span></code> (defined above) to check your work before you submit.</p>
+<p>Note: the exercises above (<code class="docutils literal notranslate"><span class="pre">uses_none</span></code>, <code class="docutils literal notranslate"><span class="pre">uses_only</span></code>, <code class="docutils literal notranslate"><span class="pre">uses_all</span></code>, and the Spelling Bee functions) are practice. They aren’t graded. This is the graded homework.</p>
+<section id="problem-1-count-vowels-do-1-or-2">
+<h3><span class="section-number">7.10.1. </span>Problem 1: count_vowels (do 1 or 2)<a class="headerlink" href="#problem-1-count-vowels-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">count_vowels</span></code> that takes a string and returns the number of vowels (<code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">e</span></code>, <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">o</span></code>, <code class="docutils literal notranslate"><span class="pre">u</span></code>) it contains, not counting case. Use a loop and a counter, the same way the chapter counted words containing <code class="docutils literal notranslate"><span class="pre">'e'</span></code>. The docstring and its doctests are already written below; write only the body, then run the cell to check your work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">count_vowels</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the number of vowels in word, not counting case.</span>
+
+<span class="sd">    &gt;&gt;&gt; count_vowels(&#39;banana&#39;)</span>
+<span class="sd">    3</span>
+<span class="sd">    &gt;&gt;&gt; count_vowels(&#39;rhythm&#39;)</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; count_vowels(&#39;Aeiou&#39;)</span>
+<span class="sd">    5</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Solution goes here</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">count_vowels</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-2-count-letter-do-1-or-2">
+<h3><span class="section-number">7.10.2. </span>Problem 2: count_letter (do 1 or 2)<a class="headerlink" href="#problem-2-count-letter-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">count_letter</span></code> that takes a word and a single letter and returns the number of times that letter appears in the word, not counting case. Use a loop and a counter. The docstring and its doctests are already written below; write only the body, then run the cell to check your work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">count_letter</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">letter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the number of times letter appears in word, not counting case.</span>
+
+<span class="sd">    &gt;&gt;&gt; count_letter(&#39;banana&#39;, &#39;a&#39;)</span>
+<span class="sd">    3</span>
+<span class="sd">    &gt;&gt;&gt; count_letter(&#39;banana&#39;, &#39;z&#39;)</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; count_letter(&#39;Mississippi&#39;, &#39;s&#39;)</span>
+<span class="sd">    4</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Solution goes here</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">count_letter</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-3-words-with-no-vowels-at-all">
+<h3><span class="section-number">7.10.3. </span>Problem 3: words with no vowels at all<a class="headerlink" href="#problem-3-words-with-no-vowels-at-all" title="Link to this heading">#</a></h3>
+<p>First, write a function called <code class="docutils literal notranslate"><span class="pre">has_vowel</span></code> that takes a word and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if it contains at least one vowel, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise. The docstring and its doctests are already written below; write only the body.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">has_vowel</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True if word contains at least one vowel, False otherwise.</span>
+
+<span class="sd">    &gt;&gt;&gt; has_vowel(&#39;banana&#39;)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; has_vowel(&#39;rhythm&#39;)</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; has_vowel(&#39;sky&#39;)</span>
+<span class="sd">    False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Solution goes here</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">has_vowel</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now use <code class="docutils literal notranslate"><span class="pre">has_vowel</span></code> in a loop over <code class="docutils literal notranslate"><span class="pre">words.txt</span></code>, the same way the chapter looped over the word list to count words containing <code class="docutils literal notranslate"><span class="pre">'e'</span></code>, to find out how many words in the list contain no vowel at all.</p>
+<p>If your loop is right, the total is 107, out of 113,783 words in the list.</p>
+</section>
+<section id="problem-4-debug-count-e">
+<h3><span class="section-number">7.10.4. </span>Problem 4: debug count_e<a class="headerlink" href="#problem-4-debug-count-e" title="Link to this heading">#</a></h3>
+<p>The function below is broken. Its doctests are correct. Run them, read the failure report, and fix the <strong>function</strong> so all tests pass. Do not change the docstring.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">count_e</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the number of times &#39;e&#39; or &#39;E&#39; appears in word.</span>
+
+<span class="sd">    &gt;&gt;&gt; count_e(&#39;Gadsby&#39;)</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; count_e(&#39;Elephant&#39;)</span>
+<span class="sd">    2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">letter</span> <span class="o">==</span> <span class="s1">&#39;e&#39;</span> <span class="ow">or</span> <span class="n">letter</span> <span class="o">==</span> <span class="s1">&#39;E&#39;</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">count</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">count_e</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-5-reflection">
+<h3><span class="section-number">7.10.5. </span>Problem 5: reflection<a class="headerlink" href="#problem-5-reflection" title="Link to this heading">#</a></h3>
+<p>This chapter showed two ways to check the same kind of condition: a loop with a counter (like the code that counted how many words contain <code class="docutils literal notranslate"><span class="pre">'e'</span></code>), and the <code class="docutils literal notranslate"><span class="pre">in</span></code> operator used directly (like the final version of <code class="docutils literal notranslate"><span class="pre">has_e</span></code>). Give one example of a task where you’d need the loop-and-counter version, because the <code class="docutils literal notranslate"><span class="pre">in</span></code> operator alone couldn’t do it.</p>
+<p>Answer in the markdown cell below.</p>
+<p><em>Type your answer here.</em></p>
+</section>
+<section id="time-check">
+<h3><span class="section-number">7.10.6. </span>Time check<a class="headerlink" href="#time-check" title="Link to this heading">#</a></h3>
+<p>This is graded on being filled in, not on the numbers. There’s no right answer, and low numbers don’t score better. If this chapter took you three hours, I need to know that. These are estimates: nobody expects you to have timed yourself, so a rough number is exactly what’s wanted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill this in before you submit. Rough estimates are fine, and low numbers</span>
+<span class="c1"># don&#39;t score better. Don&#39;t count time on the extra credit below.</span>
+<span class="c1"># chapter_minutes -&gt; reading the chapter and its practice exercises</span>
+<span class="c1"># extra_exercises_minutes -&gt; the five numbered problems above</span>
+<span class="c1"># longest -&gt; which problem took longest, e.g. 1</span>
+<span class="n">chapter_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">extra_exercises_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">longest</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">working_in_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_check</span>
+<span class="n">time_check</span><span class="p">(</span><span class="n">chapter_minutes</span><span class="p">,</span> <span class="n">extra_exercises_minutes</span><span class="p">,</span> <span class="n">longest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="extra-credit-the-most-common-vowel">
+<h2><span class="section-number">7.11. </span>Extra credit: the most common vowel<a class="headerlink" href="#extra-credit-the-most-common-vowel" title="Link to this heading">#</a></h2>
+<p>Worth 0.5 points. Open to you once you’ve finished the five required problems above; never a substitute for any of them.</p>
+<p>You don’t need any of the functions above for this one. Using five counters, one for each vowel, and a single loop over <code class="docutils literal notranslate"><span class="pre">words.txt</span></code>, find out which vowel appears in the most words – the same way the chapter counted words containing <code class="docutils literal notranslate"><span class="pre">'e'</span></code>, just five times over instead of once.</p>
+<p>Answer in the markdown cell below: which vowel wins, and why does that answer connect back to the very first paragraph of this chapter?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Type your answer here.</em></p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="07" -->
+<section id="finished-copy-your-work">
+<h3><span class="section-number">7.11.1. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
+<p>This isn’t part of the problems above. It’s a tool. Run the cell below to copy this notebook (including anything you’ve run) so you can paste it into a document.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <!-- apcsp:begin type="note" chapter="07" -->
 <hr class="docutils" />
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
@@ -1352,7 +1519,7 @@ If you have a working version of <code class="docutils literal notranslate"><spa
 </section>
 <hr class="docutils" />
 <section id="standards-alignment">
-<h2><span class="section-number">7.10. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">7.12. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
 <p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.8">3.8 Iteration</a> (the <code class="docutils literal notranslate"><span class="pre">for</span></code>-loop / definite-iteration half only) and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.9">3.9 Developing Algorithms</a> (Big Idea 3, 30–35% of the exam). Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
 <strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.12">9-12.AP.12</a>, <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.20">9-12.AP.20</a>
 <strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-12">HS-PRO-PD-12</a>, <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-RD-17">HS-PRO-RD-17</a>. Also <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-ALG-PS-02">HS-ALG-PS-02</a> and <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-13">HS-PRO-PD-13</a>, headers only.
@@ -1446,7 +1613,20 @@ If you have a working version of <code class="docutils literal notranslate"><spa
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.9.7. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">7.10. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">7.10. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-count-vowels-do-1-or-2">7.10.1. Problem 1: count_vowels (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-count-letter-do-1-or-2">7.10.2. Problem 2: count_letter (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-words-with-no-vowels-at-all">7.10.3. Problem 3: words with no vowels at all</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-debug-count-e">7.10.4. Problem 4: debug count_e</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">7.10.5. Problem 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">7.10.6. Time check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-the-most-common-vowel">7.11. Extra credit: the most common vowel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">7.11.1. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">7.12. Standards alignment</a></li>
 </ul>
   </nav></div>
 
@@ -1486,6 +1666,10 @@ By Allen B. Downey, adapted by [CONFIRM: your name]
     
 <div class="extra_footer">
   <div style="text-align: left;">
+  <p>
+    <em>Working in Python</em> is part of
+    <a href="https://learn.porttack.com/">learn.porttack.com</a>.
+  </p>
   <p>
     <em>Working in Python</em> is adapted from
     <a href="https://allendowney.github.io/ThinkPython/">Think Python, Third Edition</a>,

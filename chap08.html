@@ -444,7 +444,20 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.12.4. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">8.13. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">8.13. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-first-and-last-do-1-or-2">8.13.1. Problem 1: first_and_last (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-middle-do-1-or-2">8.13.2. Problem 2: middle (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-count-a-different-character">8.13.3. Problem 3: count a different character</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-debug-last-three">8.13.4. Problem 4: debug last_three</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">8.13.5. Problem 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">8.13.6. Time check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-gray-or-grey">8.14. Extra credit: gray or grey?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">8.14.1. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">8.15. Standards alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -458,6 +471,7 @@
                   
   <!-- apcsp:begin type="note" chapter="08" -->
 <p><strong>Other Ways to open this chapter:</strong>
+<a class="reference external" href="https://python.porttack.com/jupyterlite-67ec805ef4/notebooks/index.html?path=Chapter08-Strings-and-Regex.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap08.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap08.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap08.ipynb" download="chap08.ipynb">Download</a></p>
@@ -479,21 +493,14 @@
 }
 </style>
 <div id="chap08-jupyterlite-pane">
-<iframe src="jupyterlite-64367ae4fe/notebooks/index.html?path=Chapter08-Strings-and-Regex.ipynb"></iframe>
+<iframe src="jupyterlite-67ec805ef4/notebooks/index.html?path=Chapter08-Strings-and-Regex.ipynb"></iframe>
 </div>
 <script>
 (function () {
-  // Risk-reduction toggle, added 2026-08-24: keep this chapter's live
-  // JupyterLite pane off by default after chapter 5's IndexedDB staleness
-  // bug (JupyterLite persists notebook content in the browser keyed by
-  // filename, not URL, so a content edit can be invisible to a returning
-  // browser -- see that repo's AUDIT.md). Flip to true to re-enable this
-  // one chapter once it's ready.
-  var LIVE = false;
   var note = document.getElementById("chap08-jupyterlite-note");
   var pane = document.getElementById("chap08-jupyterlite-pane");
   if (!pane) return;
-  if (!LIVE || new URLSearchParams(location.search).has("readonly")) {
+  if (new URLSearchParams(location.search).has("readonly")) {
     pane.style.display = "none";
     if (note) note.style.display = "none";
     return;
@@ -1475,6 +1482,161 @@ As an additional challenge, make sure that it doesn’t match any other words, l
 </div>
 </div>
 <p>By this count, these words appear on <code class="docutils literal notranslate"><span class="pre">223</span></code> lines of the book, so Mr. Eco might have a point.</p>
+<!-- apcsp:begin type="exercise" chapter="08" -->
+</section>
+</section>
+<section id="homework">
+<h2><span class="section-number">8.13. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
+<p>Required work is five problems: whichever of Problem 1 or Problem 2, plus Problems 3-5, about 31 minutes total. Doing both 1 and 2 is fine, but the second one earns no additional credit. The time check below must be filled in. The extra credit at the end is optional and never substitutes for a required problem.</p>
+<p>Every function you write in this section needs a docstring, the same as chapter 4 on. Use <code class="docutils literal notranslate"><span class="pre">run_doctests</span></code> (defined above, in the practice exercises) to check your work before you submit.</p>
+<p>Note: the exercises above (<code class="docutils literal notranslate"><span class="pre">head</span></code>, Wordle, and <em>The Count of Monte Cristo</em>) are practice. They aren’t graded. This is the graded homework.</p>
+<section id="problem-1-first-and-last-do-1-or-2">
+<h3><span class="section-number">8.13.1. </span>Problem 1: first_and_last (do 1 or 2)<a class="headerlink" href="#problem-1-first-and-last-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">first_and_last</span></code> that takes a string and returns its first and last characters, concatenated into a two-character string. Use indexing, not slicing – this is the section of the chapter it practices. The docstring and its doctests are already written below; write only the body, then run the cell to check your work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">first_and_last</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the first and last characters of word, concatenated.</span>
+
+<span class="sd">    &gt;&gt;&gt; first_and_last(&#39;banana&#39;)</span>
+<span class="sd">    &#39;ba&#39;</span>
+<span class="sd">    &gt;&gt;&gt; first_and_last(&#39;kiwi&#39;)</span>
+<span class="sd">    &#39;ki&#39;</span>
+<span class="sd">    &gt;&gt;&gt; first_and_last(&#39;a&#39;)</span>
+<span class="sd">    &#39;aa&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Solution goes here</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">first_and_last</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-2-middle-do-1-or-2">
+<h3><span class="section-number">8.13.2. </span>Problem 2: middle (do 1 or 2)<a class="headerlink" href="#problem-2-middle-do-1-or-2" title="Link to this heading">#</a></h3>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">middle</span></code> that takes a string and returns everything except its first and last characters, using a slice. The docstring and its doctests are already written below; write only the body, then run the cell to check your work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">middle</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return word with its first and last characters removed.</span>
+
+<span class="sd">    &gt;&gt;&gt; middle(&#39;banana&#39;)</span>
+<span class="sd">    &#39;anan&#39;</span>
+<span class="sd">    &gt;&gt;&gt; middle(&#39;kiwi&#39;)</span>
+<span class="sd">    &#39;iw&#39;</span>
+<span class="sd">    &gt;&gt;&gt; middle(&#39;hi&#39;)</span>
+<span class="sd">    &#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Solution goes here</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-3-count-a-different-character">
+<h3><span class="section-number">8.13.3. </span>Problem 3: count a different character<a class="headerlink" href="#problem-3-count-a-different-character" title="Link to this heading">#</a></h3>
+<p>The chapter counted how many times <code class="docutils literal notranslate"><span class="pre">'Jonathan'</span></code> appears in <code class="docutils literal notranslate"><span class="pre">pg345_cleaned.txt</span></code> (199 lines, 200 occurrences). Do the same for a different character: Lucy.</p>
+<p>First, write a function called <code class="docutils literal notranslate"><span class="pre">count_occurrences</span></code> that takes a string <code class="docutils literal notranslate"><span class="pre">text</span></code> and a string <code class="docutils literal notranslate"><span class="pre">word</span></code> and returns the number of times <code class="docutils literal notranslate"><span class="pre">word</span></code> appears in <code class="docutils literal notranslate"><span class="pre">text</span></code>. The docstring and its doctests are already written below; write only the body.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">count_occurrences</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the number of times word appears in text.</span>
+
+<span class="sd">    &gt;&gt;&gt; count_occurrences(&#39;the cat sat on the mat&#39;, &#39;the&#39;)</span>
+<span class="sd">    2</span>
+<span class="sd">    &gt;&gt;&gt; count_occurrences(&#39;banana&#39;, &#39;ana&#39;)</span>
+<span class="sd">    1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Solution goes here</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">count_occurrences</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now use it in a loop over <code class="docutils literal notranslate"><span class="pre">pg345_cleaned.txt</span></code>, the same way the chapter did for <code class="docutils literal notranslate"><span class="pre">'Jonathan'</span></code>, to find the total number of times <code class="docutils literal notranslate"><span class="pre">'Lucy'</span></code> appears in the book.</p>
+<p>If your loop is right, the total is 298.</p>
+</section>
+<section id="problem-4-debug-last-three">
+<h3><span class="section-number">8.13.4. </span>Problem 4: debug last_three<a class="headerlink" href="#problem-4-debug-last-three" title="Link to this heading">#</a></h3>
+<p>The function below is broken. Its doctests are correct. Run them, read the failure report, and fix the <strong>function</strong> so all tests pass. Do not change the docstring.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">last_three</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the last three characters of word.</span>
+
+<span class="sd">    &gt;&gt;&gt; last_three(&#39;banana&#39;)</span>
+<span class="sd">    &#39;ana&#39;</span>
+<span class="sd">    &gt;&gt;&gt; last_three(&#39;kiwi&#39;)</span>
+<span class="sd">    &#39;iwi&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">word</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="n">run_doctests</span><span class="p">(</span><span class="n">last_three</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-5-reflection">
+<h3><span class="section-number">8.13.5. </span>Problem 5: reflection<a class="headerlink" href="#problem-5-reflection" title="Link to this heading">#</a></h3>
+<p>This chapter used three different tools to find text: the <code class="docutils literal notranslate"><span class="pre">in</span></code> operator, the <code class="docutils literal notranslate"><span class="pre">count</span></code> method, and <code class="docutils literal notranslate"><span class="pre">re.search</span></code>. Give one example of a search where a regular expression pattern could do something the <code class="docutils literal notranslate"><span class="pre">in</span></code> operator could not. (The chapter’s own example, matching either <code class="docutils literal notranslate"><span class="pre">'Mina'</span></code> or <code class="docutils literal notranslate"><span class="pre">'Murray'</span></code>, doesn’t count – use a different one.)</p>
+<p>Answer in the markdown cell below.</p>
+<p><em>Type your answer here.</em></p>
+</section>
+<section id="time-check">
+<h3><span class="section-number">8.13.6. </span>Time check<a class="headerlink" href="#time-check" title="Link to this heading">#</a></h3>
+<p>This is graded on being filled in, not on the numbers. There’s no right answer, and low numbers don’t score better. If this chapter took you three hours, I need to know that. These are estimates: nobody expects you to have timed yourself, so a rough number is exactly what’s wanted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill this in before you submit. Rough estimates are fine, and low numbers</span>
+<span class="c1"># don&#39;t score better. Don&#39;t count time on the extra credit below.</span>
+<span class="c1"># chapter_minutes -&gt; reading the chapter and its practice exercises</span>
+<span class="c1"># extra_exercises_minutes -&gt; the five numbered problems above</span>
+<span class="c1"># longest -&gt; which problem took longest, e.g. 1</span>
+<span class="n">chapter_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">extra_exercises_minutes</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">longest</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">working_in_python</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_check</span>
+<span class="n">time_check</span><span class="p">(</span><span class="n">chapter_minutes</span><span class="p">,</span> <span class="n">extra_exercises_minutes</span><span class="p">,</span> <span class="n">longest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="extra-credit-gray-or-grey">
+<h2><span class="section-number">8.14. </span>Extra credit: gray or grey?<a class="headerlink" href="#extra-credit-gray-or-grey" title="Link to this heading">#</a></h2>
+<p>Worth 0.5 points. Open to you once you’ve finished the five required problems above; never a substitute for any of them.</p>
+<p>The chapter checked whether Stoker used the British spelling of “centre” and “colour” and found that he did, both times. Using the <code class="docutils literal notranslate"><span class="pre">count_matches</span></code> function already defined above, and a single pattern with <code class="docutils literal notranslate"><span class="pre">|</span></code> alternation (the same trick the chapter used for <code class="docutils literal notranslate"><span class="pre">'Mina|Murray'</span></code>), find out how many lines contain either “gray” or “grey”. Then check each spelling separately, to see whether he really does use one and not the other, or mixes the two.</p>
+<p>Answer in the markdown cell below: which spelling did you find, and how many lines was it on?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your code here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Type your answer here.</em></p>
+<!-- apcsp:end --><!-- apcsp:begin type="note" chapter="08" -->
+<section id="finished-copy-your-work">
+<h3><span class="section-number">8.14.1. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
+<p>This isn’t part of the problems above. It’s a tool. Run the cell below to copy this notebook (including anything you’ve run) so you can paste it into a document.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <!-- apcsp:begin type="note" chapter="08" -->
 <hr class="docutils" />
 <p><strong>Working in Python</strong> — modified by Eric Brown for a high school Computer Science Principles class. Source and modifications: <a class="reference external" href="https://github.com/porttack/working-in-python">github.com/porttack/working-in-python</a></p>
@@ -1489,7 +1651,7 @@ As an additional challenge, make sure that it doesn’t match any other words, l
 </section>
 <hr class="docutils" />
 <section id="standards-alignment">
-<h2><span class="section-number">8.13. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.15. </span>Standards alignment<a class="headerlink" href="#standards-alignment" title="Link to this heading">#</a></h2>
 <p><strong>AP CSP:</strong> <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.4">3.4 Strings</a> and <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-3.14">3.14 Libraries</a> (Big Idea 3, 30–35% of the exam) — both carry real weight here, not just a mention. Also <a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html#T-1.4">1.4 Identifying and Correcting Errors</a> (Big Idea 1, 10–13%), headers only.
 <strong>California 9-12:</strong> <a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html#S-9-12.AP.17">9-12.AP.17</a>
 <strong>CSTA 2026:</strong> <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-DAT-DC-23">HS-DAT-DC-23</a> and <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-RD-17">HS-PRO-RD-17</a>. Also <a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html#T-HS-PRO-PD-13">HS-PRO-PD-13</a>, headers only.
@@ -1583,7 +1745,20 @@ As an additional challenge, make sure that it doesn’t match any other words, l
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.12.4. Exercise</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">8.13. Standards alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">8.13. Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-first-and-last-do-1-or-2">8.13.1. Problem 1: first_and_last (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-middle-do-1-or-2">8.13.2. Problem 2: middle (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-count-a-different-character">8.13.3. Problem 3: count a different character</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-debug-last-three">8.13.4. Problem 4: debug last_three</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">8.13.5. Problem 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">8.13.6. Time check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-gray-or-grey">8.14. Extra credit: gray or grey?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">8.14.1. Finished? Copy your work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">8.15. Standards alignment</a></li>
 </ul>
   </nav></div>
 
@@ -1623,6 +1798,10 @@ By Allen B. Downey, adapted by [CONFIRM: your name]
     
 <div class="extra_footer">
   <div style="text-align: left;">
+  <p>
+    <em>Working in Python</em> is part of
+    <a href="https://learn.porttack.com/">learn.porttack.com</a>.
+  </p>
   <p>
     <em>Working in Python</em> is adapted from
     <a href="https://allendowney.github.io/ThinkPython/">Think Python, Third Edition</a>,
