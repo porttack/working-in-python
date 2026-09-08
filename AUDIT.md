@@ -7166,3 +7166,123 @@ CELL_PATCHES fix actually took, not just that the key text matches.
 the fix lived entirely in making the notebooks match its existing (correct, if stale) key.
 `CHANGELOG.md` has a dated entry. Not committed, built, or published yet -- same
 confirm-before-deploy pattern as 2026-08-26, asking before running `jb/build.sh` again.
+
+## 2026-09-07 — chapter 8's first Homework section, authored for next-day assignment
+
+Not a Pass 2/3/4/5 session in the formal sense -- this is Pass 4 Step 1's content-authoring
+job (`mods/pass-4-chrome.md`'s "Superseded, 2026-08-16" note: Homework exercises live
+directly inside the chapter's own `## Homework` section), just done out of the pass's normal
+chapter order because the maintainer wanted to assign chapter 8 the next class day and
+judged it more urgent than finishing `chap07b`. Confirmed first: chapter 7 *also* has no
+`## Homework` section yet (only its native, ungraded `## Exercises`) -- the "chapters 3-8
+done 2026-08-09" status line in `mods/pass-4-chrome.md` refers to the link-bar/pane/
+attribution chrome steps (2-6), not Step 1's content authoring, which chap04 (2026-08-16),
+chap05 (2026-08-16), chap06 (2026-08-17), and chap06b (2026-08-17) had each picked up
+separately since. Chapter 7's gap is untouched by this session -- flagged here, not fixed,
+since only chapter 8 was asked for.
+
+**Content.** Five required exercises plus a time check plus one 0.5-point extra credit,
+matching chap06's shape (the "fullest current example" pointer in `mods/pass-4-chrome.md`
+is now slightly out of date -- chap06 is still the best *numbered-chapter* example, but
+chap06b is the better model for doctest-graded exercises specifically):
+
+- Exercise 1/2, choose-one: `first_and_last` (indexing) and `middle` (slicing) -- split
+  the chapter's own two opening sections between them so neither choice skips content the
+  other covers.
+- Exercise 3: a doctested `count_occurrences(text, word)` helper, then applied in a plain
+  loop over `pg345_cleaned.txt` (created in the chapter body itself, not the ungraded
+  practice exercises, so guaranteed to exist) to count mentions of Lucy -- the chapter's own
+  worked example counts Jonathan (199 lines, 200 occurrences); this reworks the same idiom
+  for a different character rather than reusing Jonathan, Mina/Murray (the chapter's regex
+  example), or Dracula (the chapter's re.search example).
+- Exercise 4: `last_three`, a doctest-correct/body-buggy debug exercise, same shape as
+  ch06b-ex04 (`count_down_to_zero`) -- `word[-3:-1]` returns two characters instead of
+  three; fix the body, not the docstring.
+- Exercise 5: free-response reflection on `in` vs. `re.search`, explicitly excluding the
+  chapter's own Mina|Murray example so the answer can't just be copied back.
+- Time check, copied structurally from ch06-timecheck.
+- Extra credit: reuses the chapter's own already-defined `count_matches` (no new function
+  needed) with a `'gray|grey'`-alternation pattern, echoing the chapter's centre/colour
+  spelling check with a different word pair.
+
+**Doctest policy decision, asked about explicitly.** Maintainer asked whether Homework
+exercises should "turn on tests" (doctests) starting chapter 8. Answer recorded here:
+**yes, and it's a natural line to draw, not an arbitrary one** -- `run_doctests` (a thin
+wrapper around `doctest.run_docstring_examples`) is upstream Downey content, reintroduced in
+chapter 7's own body and already reused natively in chapter 8's own (ungraded) Exercises
+section (both predate this session). By the time a student reaches chapter 8's Homework,
+they've seen the mechanism twice already, natively, so requiring it in graded Homework from
+here on isn't introducing anything new -- earlier chapters' Homework sections (4, 5, 6) that
+still use printed `# should be True`-style comments predate doctest being taught at all, so
+they're not "behind," they simply came before the tool existed in this book's own sequence.
+Four of the five required exercises plus the extra credit use `run_doctests` or a doctested
+helper; only Exercise 5 (reflection) and the time check don't, because neither has a
+checkable code output. Recorded as the new default in `CHANGELOG.md`; not written into
+`CLAUDE.md` or `mods/pass-4-chrome.md` as a formal rule -- flagging that as an open question
+below, since it's the kind of book-wide policy call that file exists to hold, and it wasn't
+asked for explicitly.
+
+**Every doctest and file-count number in this section was verified by actual execution
+before being written, not estimated.** `pg345.txt` was downloaded fresh from Project
+Gutenberg and run through the chapter's own `is_special_line` cleaning step; the result
+reproduced Downey's own stated Jonathan numbers exactly (199 lines, 200 occurrences),
+confirming the same edition before trusting the new Lucy count (298) and the gray/grey
+extra-credit answer (0 lines with "gray", 22 with "grey") derived from it the same way. The
+buggy `last_three` was run to confirm it actually fails the way the exercise claims, and the
+corrected version was run to confirm it passes.
+
+**Structure choice, and why it differs from both existing precedents.** chap06's Homework
+section sentinel-wraps only the markdown heading/prompt cells, leaving solution and test
+cells bare between them; chap06b wraps the entire section (intro through last extra-credit
+cell) in one `type="exercise"` sentinel pair. Followed chap06b's shape here -- one sentinel
+pair around the whole section, `<!-- apcsp:end -->` as its own dedicated cell right before
+the "Finished? Copy your work" note -- since `CLAUDE.md`'s non-negotiable #2 says *every*
+addition goes inside a sentinel block, and chap06's partial wrapping reads as the looser of
+the two existing patterns rather than a second sanctioned convention. Also added the
+"Finished? Copy your work" note + `show_copy_notebook_button()` cell that chap08 was
+likewise missing (present in chapters 1-6/6b, absent here) -- for consistency with every
+other chapter that now has a Homework section, not separately requested, but a one-line,
+zero-risk addition in the same place every other chapter already puts it.
+
+**Ledger.** Seven new entries in `data/exercise-ledger.json`: `ch08ex-hw01` through
+`ch08ex-hw05`, `ch08-timecheck`, `ch08-gray-grey`. All `kind: "native"` (matching chap04-06's
+convention for Homework-section content, as distinct from chap06b's `kind: "original"`,
+reserved for interludes that aren't tied to a numbered upstream chapter) and
+`action: "added"`. `targets_ap`/`targets_ca` left empty on all seven, same as every other
+chapter's Homework-section entries currently sitting in the ledger -- Pass 3's chapter 1-8
+Step 4 work predates the Homework-section pattern for every chapter except chap06b, so this
+is a pre-existing, book-wide gap, not something new to this session. Flagged below, not
+closed.
+
+**Pre-existing state noticed, not touched.** Per the 2026-08-27 entry above, chap08's
+embedded live JupyterLite pane is still `LIVE = false` (forced off regardless of the
+`?readonly` param), same as chapter 7, since the 2026-08-24 risk-reduction toggle. This
+doesn't block the Homework section itself (Colab, download, and the standalone JupyterLite
+link all still work), but a student clicking into the chapter on the live site won't see the
+embedded pane the way chapters 1-6 show it. Not reopened here -- out of scope for what was
+asked, and the maintainer would need to weigh in on chapter 8 specifically the same way they
+did for 6/6b on 2026-08-27.
+
+**Verified.** `make check` clean (`build_blanks --check`, `check_sync`, `build_jupyterlite_content --check`).
+`make ledger` regenerated `CHANGELOG_DETAIL.md` cleanly. `git diff --stat -- chapters/
+projector/` shows only `chapters/chap08.ipynb` and `projector/chap08.ipynb`, both purely
+additive (299 insertions each, 0 deletions). All new doctests and the file-based exercise
+were executed standalone (not inside the actual notebook via a kernel) to confirm behavior;
+the notebook itself was not executed end-to-end in Jupyter before this handoff.
+
+`git status`: `chapters/chap08.ipynb`, `projector/chap08.ipynb`, `data/exercise-ledger.json`,
+`CHANGELOG_DETAIL.md`, `CHANGELOG.md`, `AUDIT.md`. Not committed, built, or published --
+same confirm-before-deploy pattern as every prior session, asking before running
+`jb/build.sh`. Given the next-day assignment, the maintainer may want this one live sooner
+than usual; still confirming rather than assuming urgency overrides the pattern.
+
+**Open for the next session, or for the maintainer directly:**
+- Should the doctest-from-chapter-8-on policy above be written into `CLAUDE.md` or
+  `mods/pass-4-chrome.md` as a standing rule, so it doesn't rely on this handoff being read?
+- Chapter 7 has no Homework section at all. Not urgent by the maintainer's own framing
+  ("Interlude 8" was called less important than chapter 8, and chapter 7 wasn't mentioned),
+  but it's the same gap this session just closed for chapter 8, one chapter earlier.
+- Chapters 9-11's Homework sections are still unwritten (Pass 4 order of work, step 3).
+- The `targets_ap`/`targets_ca` gap across every chapter's Homework-section ledger entries
+  (not just chapter 8's new ones) is still open; Pass 3 Step 5 may be the right place to
+  close it, or it may need its own pass.

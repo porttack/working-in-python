@@ -5,6 +5,22 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-07 — chapter 8 gets its first Homework section
+
+### Added
+- `chapters/chap08.ipynb`: a `## Homework` section (this chapter never had one before --
+  see `AUDIT.md`), following the pattern established in chapters 1-6/6b: five required
+  exercises (a choose-one indexing/slicing pair, a doctested helper function applied to
+  `pg345_cleaned.txt`, a debug exercise, and a reflection), a time check, and one 0.5-point
+  extra credit. All original content, not adapted from upstream.
+- Four of the five required exercises, plus the extra credit, are graded with
+  `run_doctests` (already native to this chapter and taught starting chapter 7) rather than
+  the printed `# should be X` comments earlier Homework sections used -- the first chapter
+  to standardize on doctests for its own Homework section. See `AUDIT.md` for the reasoning;
+  chapters 9+ should follow the same convention going forward.
+- `data/exercise-ledger.json`: seven new entries (`ch08ex-hw01` through `ch08ex-hw05`,
+  `ch08-timecheck`, `ch08-gray-grey`), `kind: "native"`, `action: "added"`.
+
 ## 2026-08-27 — chapters 6 and 6b: live JupyterLite pane/link re-enabled
 
 ### Changed

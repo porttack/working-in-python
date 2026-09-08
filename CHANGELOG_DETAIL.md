@@ -157,7 +157,7 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap08
 
-5 exercise(s).
+12 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -165,7 +165,14 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch08-ex02 | Determine how many words remain after a round of Wordle feedback | native | kept | — | 30 | 30 |
 | ch08-ex03 | Continue the Wordle exercise with additional feedback | native | kept | — | 5 | 5 |
 | ch08-ex04 | Analyze word frequency in the text of *The Count of Monte Cristo* | native | edited | — | 30 | 30 |
+| ch08-gray-grey | Extra credit: use count_matches with |-alternation to check gray vs. grey in pg345_cleaned.txt | native | added | — | None | 8 |
+| ch08-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
 | ch08-va01 | Ask a virtual assistant: regex special characters, sample patterns, raw strings | B | removed | — | 0 | 0 |
+| ch08ex-hw01 | first_and_last(word): indexing practice, choose-one pair with middle (ch08ex-hw02) | native | added | — | None | 8 |
+| ch08ex-hw02 | middle(word): slicing practice, choose-one pair with first_and_last (ch08ex-hw01) | native | added | — | None | 8 |
+| ch08ex-hw03 | count_occurrences(text, word), applied to pg345_cleaned.txt to count mentions of Lucy | native | added | — | None | 10 |
+| ch08ex-hw04 | Debug last_three: doctests are correct, the slice in the function body is off by one | native | added | — | None | 8 |
+| ch08ex-hw05 | Reflection: a search where re.search could do something the in operator could not | native | added | — | None | 5 |
 
 ## chap09
 
@@ -283,8 +290,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 141
+Total exercises: 148
 
-By kind: A=4, B=8, native=122, original=7
+By kind: A=4, B=8, native=129, original=7
 
-By action: added=50, edited=6, kept=72, removed=13
+By action: added=57, edited=6, kept=72, removed=13
