@@ -5,6 +5,19 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-09 (6) — chapters 9-13: Standards Alignment sections added (Pass 3 Step 4)
+
+### Added
+- A "Standards alignment" block in each of chapters 9-13, same place and format as
+  chapters 1-8's existing ones: AP CSP, California 9-12, CSTA 2026, and CA CTE (ICT) codes,
+  linked to this repo's local reference pages, plus a short prose paragraph connecting the
+  chapter's Python to how the exam frames the same idea. Chapter 10's block is worth
+  calling out: its `too_slow`/`much_faster` list-vs-dictionary speed comparison is cited by
+  three different frameworks for three different reasons (efficiency, structure choice,
+  optimization) -- the richest single piece of standards evidence anywhere in chapters
+  9-13. Chapters 11-13 each explicitly name at least one framework with no code specific to
+  that chapter, rather than silently omitting the line. See `AUDIT.md`.
+
 ## 2026-09-09 (5) — chapters 9-13 CSTA 2026/CA CTE-ICT alignment research; standards resync
 
 ### Added

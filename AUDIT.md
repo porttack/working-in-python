@@ -8086,3 +8086,62 @@ check` passes.
 **Not done:** the per-chapter blocks themselves -- this handoff only covers the research
 and the sync/regen plumbing that has to happen before those can be written accurately. That
 work is next.
+
+## 2026-09-09 follow-up (5) — Pass 3 Step 4, the actual per-chapter blocks, chapters 9-13
+
+With the CSTA/ICT research done and synced (previous handoff), wrote the actual
+`type="standards"` sentinel block into each of chapters 9-13, following `mods/pass-3-
+alignment.md`'s Step 4 template exactly and chapter 8's real, already-published block as
+the concrete pattern (full-form template's illustrative example doesn't exactly match
+chapter 8's current actual style -- e.g. chapter 8 drops "codes from either the Anchor
+Standards or Pathway C" boilerplate and just cites codes directly -- matched the real
+chapter, not the doc, same reasoning `pass-4-chrome.md` already gives for its own
+illustrative-vs-actual gap).
+
+**Placement:** appended to the very end of the notebook's last cell (the attribution/
+license note), after the Creative Commons line, exactly where chapter 8 has it -- not a
+new cell. Pulled every code/locator/note touching each chapter directly from the freshly
+synced `standards/carriers/working-in-python.json` (a script query, not from memory or the
+earlier research notes) so the prose matches the actual data file, not my recollection of
+writing it an hour earlier.
+
+**Per chapter, briefly:**
+
+- **chap09:** 3.10 Lists (own topic) + 3.2 Data Abstraction (shared 10-11) + 1.4 (headers).
+  CA 9-12.AP.13 (direct) + 9-12.AP.12/9-12S.AP.12 (shared ch07). CSTA HS-ALG-PS-01 +
+  HS-PRO-VD-16. ICT C4.7.
+- **chap10:** 3.17 Algorithmic Efficiency (own topic, the new entry) + 3.2 (shared) + 1.4.
+  CA 9-12S.AP.14 (partial, noted why) + 9-12S.AP.15 (fibonacci_memo call graph, shared
+  ch05-06). CSTA HS-ALG-PS-03 (own) + HS-ALG-PS-01/HS-PRO-VD-16 (shared). ICT C5.3 (own) +
+  C4.7 (shared). Flagged explicitly in the prose that three frameworks cite the identical
+  six lines of code (`too_slow`/`much_faster`) for three different reasons -- this is this
+  session's single richest piece of chapter-level evidence, worth being transparent about
+  rather than padding three separate-sounding justifications.
+- **chap11:** 3.2 (shared, no dedicated AP topic for tuples specifically -- said so
+  outright rather than implying one exists) + 1.4. CSTA HS-ALG-PS-01/HS-PRO-VD-16 (shared).
+  ICT C4.7 (shared). No CA 9-12 code touches this chapter at all -- said so explicitly
+  ("Not carried") rather than silently dropping the California line, matching this
+  project's stated preference for naming a gap over hiding it.
+- **chap12:** 3.15 Random Values (own topic) + 2.3/2.4 (shared ch13) + 1.4. CSTA
+  HS-ALG-PS-04 (own, the deterministic/pseudorandom match) + S2-DSC-AM-07 (Specialty,
+  word-frequency counting). No CA 9-12 or ICT code at all for this chapter -- said so.
+- **chap13:** 2.4 Using Programs with Data (own topic) + 2.3 (shared ch12) + 1.4. ICT C4.7
+  (own share, the "databases" half of that standard). No CA 9-12 or CSTA code -- said so.
+
+Every block under 200 words (108-155), matching Step 4's own limit; verified word counts
+programmatically while writing, not by eye. Verified every cited anchor
+(`apcsp-standards-reference.html#T-3.17`, `#T-HS-ALG-PS-01`, etc.) actually exists in the
+regenerated local HTML before use, the same check done before committing the carrier data
+itself.
+
+**Verification:** `python3 tools/build_blanks.py --dst projector` (real build) plus
+`make check`, both clean. Read back one full rendered cell (`chap10`) to confirm the
+attribution note and the new standards block sit correctly in the same cell, sentinel
+boundaries intact, nothing swallowed or duplicated.
+
+**Not done:** chapters 14-19 remain untouched (out of scope per the treatment matrix,
+independent of this pass), and Step 5 (`appendix/pseudocode-crosswalk.md`) hasn't been
+started for any chapter. `targets_ap`/`targets_ca` backfill in `data/exercise-ledger.json`
+(Step 4's own instruction) didn't apply here -- chapters 9-13 have no Pass 2 "added"
+replacement exercises to backfill (unlike chapters 7 and 17), confirmed by checking the
+ledger before skipping this step rather than assuming.
