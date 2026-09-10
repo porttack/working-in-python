@@ -5,7 +5,23 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 2026-09-09 (6) — chapters 9-13: Standards Alignment sections added (Pass 3 Step 4)
+## 2026-09-09 (7) — chapters 9-13: Homework sections added (Pass 4 Step 1)
+
+### Added
+- A graded `## Homework` section in each of chapters 9-13, matching chapters 7/8's
+  established pattern: five numbered Problems (a choose-one pair, an apply-to-real-data
+  problem, a debug problem, a reflection), a time check, and 0.5-point extra credit, plus
+  the "Finished? Copy your work" utility section every other completed chapter already has.
+  Every problem is grounded in that specific chapter's own material -- chapter 9's debug
+  problem reproduces its own `list.remove()`-returns-`None` gotcha, chapter 10's reproduces
+  its own missing-dictionary-guard gotcha, chapter 12's reproduces its own sliding-window
+  bigram bug, and chapter 13's reflection is about its own shelve-persistence gotcha.
+  Chapter 12 gained its first `run_doctests` helper (its practice exercises never used
+  doctest before). Every quoted number (word counts, letter frequencies, longest words, a
+  bigram frequency, a file size) was verified by actually running the relevant code against
+  the chapter's own vendored data, not estimated -- and every new function, correct and
+  buggy alike, was verified by actually executing its doctests. 35 new
+  `data/exercise-ledger.json` entries. See `AUDIT.md`.
 
 ### Added
 - A "Standards alignment" block in each of chapters 9-13, same place and format as

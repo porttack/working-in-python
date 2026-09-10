@@ -8145,3 +8145,114 @@ started for any chapter. `targets_ap`/`targets_ca` backfill in `data/exercise-le
 (Step 4's own instruction) didn't apply here -- chapters 9-13 have no Pass 2 "added"
 replacement exercises to backfill (unlike chapters 7 and 17), confirmed by checking the
 ledger before skipping this step rather than assuming.
+
+## 2026-09-09 follow-up (6) — Homework sections, chapters 9-13 (Pass 4 Step 1)
+
+Maintainer asked to add homework to chapters 9-13. Followed chapters 7/8's established
+pattern exactly (the most recently authored, most refined instance -- chapter 8 was first,
+chapter 7 the day after, so chapter 7 was treated as the more current reference where the
+two differ at all, though they turned out identical): five numbered Problems (a choose-one
+pair for 1-2, an apply-to-real-data Problem 3, a debug Problem 4, a reflection Problem 5),
+a Time check, and an 0.5-point Extra credit, the whole thing wrapped in one
+`type="exercise"` sentinel spanning many cells, appended to the very end of the notebook's
+last (attribution) cell -- same placement as the Standards Alignment block added earlier
+today, both appended to the same cell in sequence. A `### Finished? Copy your work` section
+(its own `type="note"` sentinel, calling `working_in_python.show_copy_notebook_button()`)
+followed, matching every other completed chapter -- confirmed chapters 9-13 didn't have
+this yet either before adding it.
+
+**Every problem is genuinely grounded in that specific chapter's own material**, not a
+generic template with names swapped:
+
+- **chap09 (Lists):** `first_last`/`without_first_last` (indexing vs. slicing, choose-one),
+  `long_words` applied to `word_list`, a debug problem reproducing the chapter's own
+  `lst = lst.remove(item)` gotcha from its Debugging section, a reflection on the same bug,
+  extra credit finding the most common word length.
+- **chap10 (Dictionaries):** `count_vowels_dict`/`count_consonants_dict` (choose-one),
+  `starts_with_counts` applied to `word_list`, a debug problem reproducing the chapter's
+  own missing-`if-not-in`-guard gotcha, a reflection on when a list still beats a
+  dictionary, extra credit finding the most common *ending* letter (deliberately
+  connecting back to Problem 3's starting-letter finding).
+- **chap11 (Tuples):** `pack_stats`/`unpack_and_add` (packing vs. unpacking, choose-one),
+  `count_double_letters` using `zip(word, word[1:])` applied to `word_list`, a debug
+  problem (`reverse_pair` returning the wrong element twice), a reflection on tuples vs.
+  lists, extra credit finding the longest word(s) with `sorted(key=len)`.
+- **chap12 (Text Analysis and Generation):** `average_word_length`/`longest_word` over a
+  word counter (choose-one), applied to `word_counter` (already computed in-chapter for
+  *Dr. Jekyll and Mr. Hyde*), a debug problem reproducing the chapter's own sliding-window
+  bigram pattern with the window-never-shrinks bug (missing `window.pop(0)`), a reflection
+  on `random.choice` vs. `random.choices`, extra credit finding the most common bigram.
+  This chapter had **no `run_doctests` helper at all** before this -- its practice
+  exercises never used doctest -- so the standard three-line definition
+  (`from doctest import run_docstring_examples` / `def run_doctests(func): ...`) was added
+  as the Homework section's own first cell, confirmed by grepping the whole chapter for
+  "doctest" before assuming it existed.
+- **chap13 (Files and Databases):** `word_count_in_file`/`line_count_in_file` (choose-one),
+  a script-style Problem 3 writing an f-string-formatted line and reading it back (using
+  the already-vendored `photos/notes.txt`, 8 words, 1 line, unzipped earlier in the
+  chapter), a debug problem (`strip_extension` using naive `.split('.')` instead of
+  `os.path.splitext`, which only fails on a multi-dot filename), a reflection on the
+  chapter's own shelve gotcha (`db[key].append(word)` not persisting), extra credit finding
+  the largest photo with `os.path.getsize`.
+
+**Every quoted number was computed, not estimated.** Set up a scratch environment with the
+three vendored data files (`words.txt`, `pg43.txt`, `photos.zip`, unzipped) and actually ran
+the relevant logic before writing a single "if your loop is right, the answer is..." line --
+same standard chapter 7's "107 words, out of 113,783" was already held to. Concretely: 7170
+words have >=12 letters; 's' is both the most common starting letter (12,583 words) and
+ending letter (40,920 words, plausibly explained by English plural -s); 25,087 words have a
+double letter; three 21-letter words tie for longest (`counterdemonstrations`,
+`hyperaggressivenesses`, `microminiaturizations`); running this chapter's own
+`clean_file`/`split_line`/`clean_word` pipeline against `pg43.txt` gives an average word
+length of about 4.19 and a longest word of `'pocket-handkerchief'` (hyphen intact, since
+`clean_word` only strips punctuation from the ends); the most common bigram in the cleaned
+text is `('of', 'the')`, 178 times; the largest vendored photo is `jan-2023/photo2.jpg` at
+15,077 bytes.
+
+**Every function and its doctests were verified by actually running them**, both the
+correct version (confirms the doctest is achievable and worded right) and, for every debug
+problem, the buggy version (confirms it's genuinely broken, not accidentally correct). Two
+real mistakes caught this way, not by inspection:
+
+1. `count_double_letters('mississippi')` -- guessed 2 while drafting, actual count-by-hand
+   (and by running it) is 3 (the double s, double s, and double p). Fixed the doctest, not
+   the function -- the function was right, my guess wasn't.
+2. `process_word_window`'s doctest originally had it `return bigram_counter` and called it
+   in a `for` loop inside the doctest -- which, in a real interactive session, prints that
+   return value on every iteration (an expression statement inside a compound statement
+   still auto-displays in the doctest-simulated REPL), producing four extra unexpected
+   lines of output that failed the test. Fixed by dropping the return entirely, matching
+   the chapter's own `process_word_bigram`, which never returns anything either -- the
+   book's own style turned out to be the correct fix, not a workaround.
+
+**A third, more structural bug, caught the same way:** the first draft of chapter 13's
+Problems 1-2 used `f.write('one two three\\nfour five')` inside a doctest, which fails with
+"inconsistent leading whitespace" -- because the *docstring itself* (a normal, non-raw
+triple-quoted string) converts that `\\n` into a real newline before doctest ever parses the
+example, splitting what looks like one source line into two. Fixed by avoiding the escape
+entirely rather than working around it: Problem 1's file content dropped the internal
+newline (word count doesn't care), and Problem 2 (which genuinely needs multiple lines)
+uses `print(..., file=f)` three times instead of one `write()` call with embedded `\\n`s.
+Recorded this as a note on both ledger entries, since it's a trap that will recur for any
+future doctest that needs to write multi-line file content.
+
+**Ledger:** 35 new entries (7 per chapter x 5 chapters), same shape as ch07/ch08's own
+homework entries -- `est_minutes_after` per problem, `self_verifying: true` for every
+doctested problem, `false` for the three reflections and chap13's script-style Problem 3.
+200 entries total, up from 165. `make ledger` regenerated cleanly.
+
+**Verification:** built and ran a standalone extraction of each chapter's new code cells
+(with `run_doctests`/`time_check` stubbed appropriately) against a filled-in correct
+solution for every problem, confirming zero doctest failures across all 5 chapters (46
+individual doctest examples, later reduced to match the final content after the two bug
+fixes above) -- not just "the code looks right," an actual run. `python3
+tools/build_blanks.py --dst projector` (real build) and `make check` both pass. `git diff
+--stat` on each touched chapter shows only additions (each chapter's homework content is
+new material, no existing cells touched), ranging 246-281 lines per chapter.
+
+**Not done:** Homework sections for chapters 14-19 remain out of scope (independent-study
+tier, matching the treatment matrix). The `photos/` directory itself was never committed to
+this repo (only `photos.zip` is vendored, unzipped on demand by the chapter's own cell) --
+chapter 13's Problem 3 and extra credit both depend on that unzip step having already run
+earlier in the same notebook session, which it does in the chapter's normal reading order,
+same as the existing practice exercises that already reference `photos/notes.txt`.

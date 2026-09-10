@@ -183,32 +183,46 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap09
 
-5 exercise(s).
+12 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
+| ch09-common-length | Extra credit: find the most common word length in words.txt using a dict and one loop | native | added | — | None | 8 |
 | ch09-ex01 | Write a function that checks whether two words are anagrams | native | kept | — | 15 | 15 |
 | ch09-ex02 | Explore the built-in reversed() function and its behavior | native | kept | — | 20 | 20 |
 | ch09-ex03 | Write a function called reverse_sentence | native | kept | — | 15 | 15 |
 | ch09-ex04 | Write a function called total_length that sums word lengths in a list | native | kept | — | 10 | 10 |
+| ch09-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
 | ch09-va01 | Ask a virtual assistant: a ChatGPT anecdote about made-up etymology, plus role-prompting for stuck exercises | B | removed | — | 0 | 0 |
+| ch09ex-hw01 | first_last(lst): indexing practice, choose-one pair with without_first_last (ch09ex-hw02) | native | added | — | None | 6 |
+| ch09ex-hw02 | without_first_last(lst): slicing practice, choose-one pair with first_last (ch09ex-hw01) | native | added | — | None | 6 |
+| ch09ex-hw03 | long_words(word_list, n): build a list with append in a loop, applied to words.txt | native | added | — | None | 8 |
+| ch09ex-hw04 | Debug remove_all: doctests are correct, the body reassigns lst = lst.remove(item), which is None | native | added | — | None | 8 |
+| ch09ex-hw05 | Reflection: why lst = lst.remove(item) breaks the loop, and why dropping the reassignment fixes it | native | added | — | None | 5 |
 
 ## chap10
 
-6 exercise(s).
+13 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
+| ch10-common-end-letter | Extra credit: find the most common ending letter in words.txt, same pattern as Problem 3 | native | added | — | None | 8 |
 | ch10-ex01 | Use dict.get() to simplify a counting pattern | native | kept | — | 15 | 15 |
 | ch10-ex02 | Write a function called has_duplicates to find the longest word with no repeated letters | native | kept | — | 20 | 20 |
 | ch10-ex03 | Write a function called find_repeats using a counter dictionary | native | kept | — | 20 | 20 |
 | ch10-ex04 | Write a function called add_counters that merges two counter dictionaries | native | edited | — | 15 | 15 |
 | ch10-ex05 | Determine whether a word is 'interlocking' (splits into two words by alternating letters) | native | kept | — | 30 | 30 |
+| ch10-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
 | ch10-va01 | Ask a virtual assistant: why dictionary keys must be hashable, and building a set from a list | B | removed | — | 0 | 0 |
+| ch10ex-hw01 | count_vowels_dict(word): dict-counting practice, choose-one pair with count_consonants_dict (ch10ex-hw02) | native | added | — | None | 6 |
+| ch10ex-hw02 | count_consonants_dict(word): dict-counting practice, choose-one pair with count_vowels_dict (ch10ex-hw01) | native | added | — | None | 6 |
+| ch10ex-hw03 | starts_with_counts(word_list): build a dict of starting-letter counts, applied to words.txt | native | added | — | None | 8 |
+| ch10ex-hw04 | Debug count_letters: doctests are correct, the body is missing the 'if letter not in counter' guard | native | added | — | None | 8 |
+| ch10ex-hw05 | Reflection: a task where a list is still the better choice even though dictionaries can be faster | native | added | — | None | 5 |
 
 ## chap11
 
-8 exercise(s).
+15 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -219,28 +233,49 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch11-ex05 | Write a function called word_distance using zip | native | kept | — | 15 | 15 |
 | ch11-ex06 | Write a program that finds all 'metathesis pairs' in the word list | native | kept | — | 30 | 30 |
 | ch11-ex07 | Bonus exercise (not in the printed book), more difficult than the others in the chapter | native | edited | — | 40 | 40 |
+| ch11-longest-words | Extra credit: find the longest word(s) in words.txt using sorted with key=len | native | added | — | None | 8 |
+| ch11-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
 | ch11-va01 | Ask a virtual assistant: general encouragement to use a VA for this chapter's harder exercises | B | removed | — | 0 | 0 |
+| ch11ex-hw01 | pack_stats(*args): argument-packing practice, choose-one pair with unpack_and_add (ch11ex-hw02) | native | added | — | None | 6 |
+| ch11ex-hw02 | unpack_and_add(pair): tuple-unpacking practice, choose-one pair with pack_stats (ch11ex-hw01) | native | added | — | None | 6 |
+| ch11ex-hw03 | count_double_letters(word): zip(word, word[1:]) practice, applied to words.txt | native | added | — | None | 8 |
+| ch11ex-hw04 | Debug reverse_pair: doctests are correct, the body returns (first, first) instead of (second, first) | native | added | — | None | 8 |
+| ch11ex-hw05 | Reflection: when a tuple is the better choice over a list, and why immutability helps there | native | added | — | None | 5 |
 
 ## chap12
 
-3 exercise(s).
+10 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
+| ch12-common-bigram | Extra credit: find the single most common bigram in the book using bigram_counter and print_most_common | native | added | — | None | 8 |
 | ch12-ex01 | Write a function that counts trigram frequencies | native | kept | — | 20 | 20 |
 | ch12-ex02 | Write a function called add_trigram for Markov chain analysis | native | kept | — | 25 | 25 |
 | ch12-ex03 | Write a loop that generates random text from a bigram successor map | native | kept | — | 25 | 25 |
+| ch12-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
+| ch12ex-hw01 | average_word_length(word_counter): frequency-weighted average, choose-one pair with longest_word (ch12ex-hw02) | native | added | — | None | 6 |
+| ch12ex-hw02 | longest_word(word_counter): best-so-far loop over dict keys, choose-one pair with average_word_length (ch12ex-hw01) | native | added | — | None | 6 |
+| ch12ex-hw03 | Applying Problem 1 or 2 to word_counter, already computed for Dr. Jekyll and Mr. Hyde | native | added | — | None | 8 |
+| ch12ex-hw04 | Debug process_word_window: doctest is correct, the body is missing window.pop(0) | native | added | — | None | 8 |
+| ch12ex-hw05 | Reflection: random.choice vs. random.choices with weights, and when the weighted version matters | native | added | — | None | 5 |
 
 ## chap13
 
-4 exercise(s).
+11 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
 | ch13-ex01 | Write a function called replace_all that performs find-and-replace across two files | native | kept | — | 15 | 15 |
 | ch13-ex02 | Write a function called add_word that stores anagrams in a shelve database | native | kept | — | 20 | 20 |
 | ch13-ex03 | Write a program that finds duplicate files in a directory of photos | native | edited | — | 40 | 40 |
+| ch13-largest-photo | Extra credit: find the largest photo in photos/ using os.path.getsize | native | added | — | None | 8 |
+| ch13-timecheck | Time check: report time spent using the existing time_check() helper | native | added | — | None | 2 |
 | ch13-va01 | Ask a virtual assistant: ten suggested questions about files, paths, and hashing | B | removed | — | 0 | 0 |
+| ch13ex-hw01 | word_count_in_file(filename): file-reading practice, choose-one pair with line_count_in_file (ch13ex-hw02) | native | added | — | None | 6 |
+| ch13ex-hw02 | line_count_in_file(filename): file-reading practice, choose-one pair with word_count_in_file (ch13ex-hw01) | native | added | — | None | 6 |
+| ch13ex-hw03 | Using an f-string to write a word count to word_counts.txt, then reading it back to confirm | native | added | — | None | 6 |
+| ch13ex-hw04 | Debug strip_extension: doctests are correct, the body uses path.split('.')[0] instead of os.path.splitext | native | added | — | None | 8 |
+| ch13ex-hw05 | Reflection: why db[key].append(word) doesn't update a shelf, and what to do instead | native | added | — | None | 5 |
 
 ## chap14
 
@@ -307,8 +342,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## Totals
 
-Total exercises: 165
+Total exercises: 200
 
-By kind: A=4, B=17, native=137, original=7
+By kind: A=4, B=17, native=172, original=7
 
-By action: added=65, edited=10, kept=67, removed=23
+By action: added=100, edited=10, kept=67, removed=23
