@@ -7835,3 +7835,93 @@ proceed "in steps," and this is one step, not the whole of what's left for 9–1
 **Open for next session:** standards alignment (Pass 3 Step 4) and chrome (Pass 4, ch.
 9–11) for these five chapters are the natural next steps, in that order, before any of
 14–17 -- see the scope-uncertainty memory above for why 14–17 stay lower priority.
+
+## 2026-09-09 follow-up (2) — Pass 4 chrome, chapters 9–13, scope extended to include 12–13
+
+Asked what to do next; recommended chrome for chapters 9–11 (mechanical, template-driven,
+unlike the research-heavy standards-alignment gap discovered above). Maintainer asked for
+chrome on chapters 9–13 instead, extending past `mods/pass-4-chrome.md`'s stated 1–11 scope.
+Flagged this explicitly before proceeding -- chrome's chapter-tier boundary is independent
+of the VA/blank-marker/standards tiers changed earlier in the day, and 12–13 were excluded
+on purpose (taught post-exam in May, a context the live-pane infrastructure was never built
+assuming). Maintainer confirmed: extend to 9–13 deliberately. Updated `mods/pass-4-chrome.md`
+("In scope for chapters 1–13... extended from 1–11, 2026-09-09, maintainer decision") and
+`CLAUDE.md`'s Pass 4/Pass 5 status rows to match. This is a real, confirmed policy change,
+not an inference -- record it the same way the VA-removal decision was recorded.
+
+**What changed, chapter by chapter (chap09–chap13):**
+
+- Followed `mods/pass-4-chrome.md`'s Steps 2–4/6 exactly, using chapter 1's/chapter 8's
+  current actual cells as the template rather than the doc's own illustrative example --
+  confirmed both already match (JupyterLite | Colab | Read Only | Download; no Exercises,
+  Codespace, or Teach Copy links, matching the doc's own caveat that the illustrative list
+  in Step 3 may be stale relative to the real pattern).
+- Step 2: dropped the retail-links (Bookshop/Amazon) cell from all five, confirmed by
+  content match (`'Bookshop.org' in cell 0`) before deleting, not just position.
+- Step 3 + 4: inserted the link bar and embedded-pane cells as the new first two cells,
+  generated programmatically from chapter 1's cells (chapter number and the
+  `CONTENT_NAMES`-derived `?path=` filename substituted, everything else copied verbatim) --
+  confirmed byte-for-byte against chapter 8's cells (chapter-number-normalized) rather than
+  eyeballing the substitution.
+- Step 6: all five chapters' attribution notes were missing the leading `---` (added in
+  chapter 1 by `f5aa6c0`, apparently before 9–13 were drafted) -- fixed by inserting `---\n\n`
+  before the `**Working in Python**` line in each.
+- Step 5, the `CELL_PATCHES` self-embed fix: added a fresh top-level `"chapNN.ipynb"` key
+  for each of the five (none had one before, since none had chrome before). Generated the
+  tuple key programmatically from each chapter's actual pane-cell `source` list (never
+  hand-typed) to guarantee an exact match, then verified with the `apply_cell_patches`
+  snippet from the pass file for all five, and again against the real (non-`--check`) build
+  output in `jupyterlite/content/` -- every one resolves to
+  `"*(You're already running this chapter live -- that's this page.)*"`.
+
+**Two chapters needed `CHAPTERS` registration for the first time, in
+`tools/build_jupyterlite_content.py` (previously absent, not previously wrong):**
+
+- **chap12** downloads `pg43.txt` (Dr. Jekyll and Mr. Hyde) directly from Project Gutenberg
+  via `download()`. Every other such dependency in this book is pre-vendored at the repo
+  root so the offline JupyterLite copy doesn't need real network access -- `pg43.txt` was
+  not yet, so fetched it fresh from
+  `https://www.gutenberg.org/cache/epub/43/pg43.txt` (public domain, 1886) and committed it
+  at the repo root, matching how `pg345.txt` (Dracula) and `pg1184.txt` (Monte Cristo)
+  already were. Also needs `words.txt` (spell-check section), already vendored.
+- **chap13** downloads `photos.zip`, already vendored at the repo root, so no fetch needed.
+
+**chap13 needed three more `CELL_PATCHES` entries, beyond the standard self-embed one --
+found by actually running `make check` after registering it in `CHAPTERS` for the first
+time, not by reading the notebook for `!` lines by eye:**
+
+1. `!pip install pyyaml` (inside a `try: import yaml / except ImportError:` guard) --
+   Pyodide has no shell for `!pip install` to run in. Patched to
+   `import micropip; await micropip.install('pyyaml')`, which is real, working Pyodide API
+   (top-level `await` is valid in a Jupyter cell). Whether Pyodide's bundled yaml package
+   makes this branch moot in practice wasn't tested -- the guard is harmless either way,
+   since the `try` succeeds first if `yaml` is already importable.
+2. `!unzip -o photos.zip` -- no shell, so no `unzip`. Patched to
+   `zipfile.ZipFile('photos.zip').extractall()` (Python stdlib, `-o`'s overwrite behavior is
+   `extractall()`'s default).
+3. `!rm -f photo_info/captions.bak` (a shelve-file backup cleanup) -- patched to a guarded
+   `os.path.exists(...)` + `os.remove(...)`, matching the semantics of `-f` (don't error if
+   the file isn't there).
+
+All three confirmed firing against both `apply_cell_patches()` directly and the real built
+`jupyterlite/content/Chapter13-Files-and-Databases.ipynb`.
+
+**Verification, per Step 7:** `make projector && make check` passes (projector rebuild was
+needed first -- chrome cells changed `chapters/`, so the blank-marker copies were stale
+against them, same non-issue as every previous chapter-editing round this session). Ran a
+real (non-`--check`) build (`python3 tools/build_jupyterlite_content.py`, no arguments) and
+confirmed the placeholder text lands in the actual output for all five chapters, and that
+chap13's three extra patches land there too -- not just that `apply_cell_patches()` returns
+the right thing in isolation. `git diff --stat` on each touched chapter is ~77 lines, in
+line with two new cells plus the attribution fix; `tools/build_jupyterlite_content.py`
+grew by 337 lines, all additions (new dict entries), nothing existing reformatted. No
+headless browser was available to load `?readonly` and confirm the pane actually
+disappears in a live page -- same limitation noted for chapters 1-8's original chrome pass,
+not new here.
+
+**Not done:** actually loading the built site in a browser (no headless browser tooling in
+this environment, as before). Homework-section authoring for chapters 9–13 (a Pass 4 Step 1
+sub-track, tracked separately from chrome) is still untouched. Standards alignment (Pass 3
+Step 4) for chapters 9–13 remains the flagged-but-not-started item from the previous
+handoff -- still needs the CSTA 2026/CA CTE-ICT coverage research before it can be done
+properly, and chrome for 12–13 doesn't change that.

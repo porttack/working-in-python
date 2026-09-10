@@ -5,6 +5,25 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-09 (3) — chapters 9–13: chrome added (Pass 4), chrome scope extended to 12–13
+
+### Changed
+- Chrome (link bar, embedded live JupyterLite pane) is now in scope for chapters 1–13, not
+  just 1–11 -- a deliberate maintainer decision, not inferred from the earlier VA/blank-
+  marker scope change. `mods/pass-4-chrome.md` and `CLAUDE.md`'s status table updated.
+
+### Added
+- Chapters 9–13 each got the standard chrome treatment: the retail-links cell dropped, a
+  link bar and embedded pane inserted as the new first two cells, and a missing leading
+  `---` added to the attribution note (all five lacked it). Each needed the usual
+  self-embedding-iframe `CELL_PATCHES` fix; chapter 13 needed three more, for previously
+  unhandled `!`-shell-magic lines that only surfaced once it was added to `CHAPTERS` for the
+  first time (`pip install pyyaml`, `unzip photos.zip`, and a stray `.bak`-file cleanup) --
+  each rewritten as a Pyodide-safe equivalent, same approach as chapter 8's `!head`/`!tail`
+  fix. Chapters 12 and 13 also got their first `CHAPTERS` entries; chapter 12's needed
+  `pg43.txt` (Dr. Jekyll and Mr. Hyde) freshly vendored at the repo root from Project
+  Gutenberg, matching how `pg345.txt`/`pg1184.txt` already were. See `AUDIT.md`.
+
 ## 2026-09-09 (2) — chapters 9–13: blank markers added (Pass 2 Step 4)
 
 ### Added

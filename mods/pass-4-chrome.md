@@ -12,11 +12,13 @@ job. Never the standards-alignment block at the bottom; that is Pass 3's job.
 it can run before, after, or interleaved with Pass 2/3 work on the same chapter without
 conflict, since it never touches the cells they touch.
 
-**Only in scope for a chapter that is Live/`strip` (chapters 1–11 per the treatment matrix in
-`CLAUDE.md`) and already listed in `CHAPTERS` in `tools/build_jupyterlite_content.py`.**
-Chapters 12–19 are `keep`/independent study or post-exam and get none of this — no link bar,
-no embedded pane, no exercises notebook. Confirm the chapter's row in `CHAPTER_MANIFEST.md`
-before starting one.
+**In scope for chapters 1–13** (extended from 1–11, 2026-09-09, maintainer decision — see
+`AUDIT.md`'s handoff that day) **and already listed in `CHAPTERS` in
+`tools/build_jupyterlite_content.py`.** Chapters 14–19 are independent study and get none of
+this — no link bar, no embedded pane, no exercises notebook. Confirm the chapter's row in
+`CHAPTER_MANIFEST.md` before starting one. Note that this no longer lines up with the VA/
+blank-marker/standards tiers in `CLAUDE.md`'s treatment matrix (1–11 Live, 12–13 May
+post-exam) — chrome now covers both of those tiers, deliberately, not just the first.
 
 ---
 
@@ -64,12 +66,21 @@ before starting one.
    into rather than added as a second top-level key. See `AUDIT.md`'s "chapter 3 gets the
    chapter-1/2 chrome treatment", "chapters 4-6 get the same chrome treatment", and
    "chapters 7-8 get the same chrome treatment; chap08's CELL_PATCHES merge" handoffs.
-3. **Chapters 9–11** — not started. Apply the pattern from chapters 1–8 exactly, one chapter
-   (or a small batch) at a time, with `make check` passing before moving to the next. Check
-   each for a pre-existing `CELL_PATCHES` entry before writing a fresh top-level key, the
-   way chapter 8 required.
-4. **Chapters 12–19** — out of scope entirely. Confirm this hasn't drifted (a chapter moving
-   tiers in `CHAPTER_MANIFEST.md` would change it) before skipping them.
+3. **Chapters 9–13** — done 2026-09-09, all five in one batch (scope extended to include
+   12–13 that same day — see above). Matched the chapters 1–8 pattern exactly: retail-links
+   cell dropped, link bar and pane inserted as the new first two cells, attribution note's
+   leading `---` added where missing (9–13 all lacked it). Two chapters needed additional
+   `CELL_PATCHES` work beyond the standard self-embed fix: chap13 has three more unhandled
+   `!` lines (`!pip install pyyaml`, `!unzip -o photos.zip`, `!rm -f ...captions.bak`), each
+   patched to a Pyodide-safe equivalent (`micropip.install`, `zipfile.ZipFile(...).extractall()`,
+   guarded `os.remove`) the same way chapter 8's `!head`/`!tail` were. chap12 and chap13 also
+   needed fresh `CHAPTERS` entries (they weren't registered at all before this) — chap12 pulls
+   `pg43.txt` (Dr. Jekyll and Mr. Hyde) directly from Project Gutenberg via `download()`, now
+   vendored at the repo root the same way `pg345.txt`/`pg1184.txt` already were; chap13 needed
+   `photos.zip`, which was already vendored. See `AUDIT.md`.
+4. **Chapters 14–19** — out of scope entirely. Confirm this hasn't drifted (a chapter moving
+   tiers in `CHAPTER_MANIFEST.md`, or a further chrome-scope decision, would change it) before
+   skipping them.
 
 ---
 
