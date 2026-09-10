@@ -5,6 +5,17 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-09 (2) — chapters 9–13: blank markers added (Pass 2 Step 4)
+
+### Added
+- Prose blanks (6 per chapter, on glossary terms and the operative verbs of definitions)
+  and spoken-prompt markers (3 per chapter, `<!--blank-only:-->`) for chapters 9–11 and
+  12–13, matching the density already established in chapters 1–8. No code blanks needed
+  in any of the five -- upstream's own output-stripped `blank/` copies already cover that.
+  Chapters 14–19 are untouched and stay that way regardless of how much of that range ends
+  up assigned, since blank markers exist for live/projected teaching, not for assignment.
+  See `AUDIT.md` for the per-chapter placement and reasoning.
+
 ## 2026-09-09 — VA removal policy set to `strip` book-wide; chapters 9–19 stripped
 
 ### Changed

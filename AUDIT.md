@@ -7748,3 +7748,90 @@ chapter, expect its blank-marker pass to take longer. `chap12`'s unusual heading
 (see above) is worth a glance when that chapter gets its real Pass 2 pass, in case the same
 misplaced-heading pattern recurs elsewhere in the chapter and wasn't caught by this
 VA-focused read.
+
+## 2026-09-09 follow-up — Pass 2 Step 4 (blank markers), chapters 9–13
+
+Maintainer said they'll likely assign chapters up to somewhere between 13 and 17, floor 13,
+ceiling 17, genuinely undecided ("we'll see") -- saved as a project memory (see the auto
+memory system, `project_chapter14_17_uncertain_scope`) since it isn't derivable from the
+repo. Asked to do as much real work as possible now, in stages.
+
+**This does not change the blank-marker scope.** `CLAUDE.md`'s treatment matrix ties blank
+markers to whether a chapter is taught *live/projected*, not whether it's assigned --
+chapters 14–19 stay at `none` regardless of whether 14–17 end up assigned as reading,
+because the tier assumes no live component either way. So blank markers proceed for
+chapters 9–13 only (matching `pass-2-surgery.md`'s own Step 4 scope, "Chapters 1–13 only"),
+not 14–17. If any of 14–17 later get taught with a live/projected component, that's a
+tier change to revisit explicitly, not something to infer from an assignment decision.
+
+Did Pass 2 Step 4 for chapters 9, 10, 11, 12, 13 -- the five chapters newly in scope after
+last session's VA-removal work, following the density already established in chapters
+1–8/6b: 6 prose blanks and 3 `<!--blank-only:-->` prompts per chapter (chapters 1-8 used
+5-6/3; chap06b, a new interlude, used 7/5 -- picked 6/3 as the steady-state default since
+these aren't interludes). Zero code blanks in any of the five, matching every chapter
+before them -- upstream's own `blank/` code-stripped copies continue to make that marker
+type unnecessary here.
+
+Placement, chapter by chapter:
+
+- **chap09 (Lists):** blanked `elements`, `delimiter`, `equivalent`, `reference`,
+  `aliased`, `attribute` -- skipped `nested` and `identical` to stay at 6 despite eight
+  candidate terms, favoring the aliasing cluster
+  (the chapter's real conceptual payload: objects vs. values) over the more mechanical
+  list vocabulary. Prompts: predict the result of `numbers[1] = 17` (mutability), predict
+  `t.pop(1)`'s return value and effect, predict whether two `'banana'` strings are the
+  same object.
+- **chap10 (Dictionaries):** blanked `dictionary`, `mapping`, `hash table`, `hashable`,
+  `accumulator`, `memo`. Prompts: predict the `TypeError` from using a list as a dict key,
+  predict `counter['a']` after `+= 1`, predict whether `much_faster` will actually be
+  faster than `too_slow` (and by how much) before the reveal.
+- **chap11 (Tuples), the heaviest chapter per `pass-2-surgery.md`:** blanked `packs`,
+  `unpack`, `zip object`, `enumerate object`, `sort key`, `data structures`. Prompts:
+  predict the error from `divmod(t)` with a tuple instead of two arguments (co-located
+  with the `unpack` blank in the same cell -- confirmed this pattern already exists in
+  chap03, so not a new convention), predict how many games team 1 won from the raw score
+  lists before the loop counts them, predict `(0, 1, 2000000) < (0, 3, 4)` (tuple
+  comparison stops at the first differing element -- a genuine intuition trap). No extra
+  time needed despite the "expect this to take longer" warning; the chapter's terms and
+  worked examples mapped onto the pattern cleanly.
+- **chap12 (Text Analysis and Generation):** blanked `default value`, `overrides`,
+  `deterministic`, `pseudorandom` (two terms from one cell, separated by a blank line --
+  same allowed pattern as chap09's reference/aliased pair), `bigrams`. One blank
+  (`rubber duck debugging`) spans a line-wrap inside the source list's bullet-point
+  markdown -- confirmed `build_blanks.py`'s `BLANK_RE` is `re.DOTALL` and operates on the
+  joined cell text, so a marker split across two list entries resolves correctly; verified
+  by inspecting the rendered `projector/chap12.ipynb` output directly rather than trusting
+  the regex read. Prompts: predict what happens defining a function with a required
+  parameter after an optional one (right before the `%%expect SyntaxError` cell), predict
+  `successor_map['half']` after an `.append()`, predict what kind of words will turn up in
+  the book-vs-wordlist `diff` (spell-check section) -- more open/discussion-shaped than the
+  others since this chapter has fewer single-line "run and see" moments.
+- **chap13 (Files and Databases):** blanked `ephemeral` and `persistent` (again two terms,
+  one cell, blank-line-separated paragraphs), `absolute path` (skipped `path` and
+  `relative path` in the same cell to stay at 6), `f-string`, `configuration data`, `hash
+  function`. Prompts: predict whether `db[key].append(word)` actually updates the shelf
+  (it doesn't -- this is the chapter's central gotcha about shelf objects not detecting
+  in-place mutation, the best predict-then-reveal moment in the chapter), predict whether
+  two photo files contain the same bytes, predict whether a YAML round-trip through
+  `safe_load` returns the *same* dictionary object or an equivalent-but-different one (a
+  deliberate callback to chapter 9's identical-vs-equivalent distinction).
+
+All five verified with `python3 tools/build_blanks.py --dst projector` (real build, not
+just `--check`) and a direct read of the rendered `projector/` cells for the two
+higher-risk edits (chap12's line-wrapped span, confirmed above). `make check` passes after
+every chapter. Two script bugs during authoring, both caught before any file was written
+(the scripts load-mutate-write in one atomic step, so a failed `assert` mid-script left the
+`.ipynb` on disk untouched -- confirmed with `git diff --stat` each time before re-running):
+a wrong list index for chap11's `data structures` blank, and a wrong list index for
+chap13's photo-comparison prompt placement.
+
+**Not done, deliberately, and why:** Pass 3 Step 4 (standards alignment) and Pass 4
+(chrome -- link bar/pane for 9–11 only, per its own stated scope; 12–13 don't get chrome
+regardless) are untouched for all five chapters. Homework-section authoring (Pass 4's own
+Step 1 sub-progress) is also untouched. This session was scoped to blank markers only,
+picked as the next well-defined, self-contained unit of work; the maintainer asked to
+proceed "in steps," and this is one step, not the whole of what's left for 9–13.
+
+**Open for next session:** standards alignment (Pass 3 Step 4) and chrome (Pass 4, ch.
+9–11) for these five chapters are the natural next steps, in that order, before any of
+14–17 -- see the scope-uncertainty memory above for why 14–17 stay lower priority.
