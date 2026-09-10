@@ -258,14 +258,14 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="todo.html">What’s Next</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html">AP CSP Coverage Map</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://learn.porttack.com/standards/?report=WIP">AP CSP Coverage Map</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://learn.porttack.com/standards/apcsp-standards-reference.html">AP CSP Standards Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/vocabulary-by-chapter.html">Vocabulary by Chapter</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-coverage.html">AP CSP Vocabulary Coverage</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ap-vocabulary-glossary.html">AP CSP Vocabulary Glossary (A-Z)</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://learn.porttack.com/standards/ca-cs-standards-reference.html">CA CS Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://learn.porttack.com/standards/csta2026-standards-reference.html">CSTA 2026 Standards Reference</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://learn.porttack.com/standards/ca-ict-anchor-standards-reference.html">CA ICT &amp; Anchor Standards Reference</a></li>
 </ul>
 
     </div>
@@ -436,8 +436,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">15.8. Debugging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">15.9. Glossary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">15.10. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ask-a-virtual-assistant">15.10.1. Ask a virtual assistant</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">15.10.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">15.10.1. Exercise</a></li>
 </ul>
 </li>
 </ul>
@@ -961,18 +960,6 @@ A condition that should always be true during the execution of a program.</p>
 </div>
 </div>
 </div>
-<section id="ask-a-virtual-assistant">
-<h3><span class="section-number">15.10.1. </span>Ask a virtual assistant<a class="headerlink" href="#ask-a-virtual-assistant" title="Link to this heading">#</a></h3>
-<p>For more information about static methods, ask a virtual assistant:</p>
-<ul class="simple">
-<li><p>“What’s the difference between an instance method and a static method?”</p></li>
-<li><p>“Why are static methods called static?”</p></li>
-</ul>
-<p>If you ask a virtual assistant to generate a static method, the result will probably begin with <code class="docutils literal notranslate"><span class="pre">&#64;staticmethod</span></code>, which is a “decorator” that indicates that it is a static method.
-Decorators are not covered in this book, but if you are curious, you can ask a VA for more information.</p>
-<p>In this chapter we rewrote several functions as methods.
-Virtual assistants are generally good at this kind of code transformation.
-As an example, paste the following function into a VA and ask it, “Rewrite this function as a method of the <code class="docutils literal notranslate"><span class="pre">Time</span></code> class.”</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">subtract_time</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
@@ -981,9 +968,8 @@ As an example, paste the following function into a VA and ask it, “Rewrite thi
 </div>
 </div>
 </div>
-</section>
 <section id="exercise">
-<h3><span class="section-number">15.10.2. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">15.10.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>In the previous chapter, a series of exercises asked you to write a <code class="docutils literal notranslate"><span class="pre">Date</span></code> class and several functions that work with <code class="docutils literal notranslate"><span class="pre">Date</span></code> objects.
 Now let’s practice rewriting those functions as methods.</p>
 <ol class="arabic simple">
@@ -1112,8 +1098,7 @@ Now let’s practice rewriting those functions as methods.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging">15.8. Debugging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">15.9. Glossary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">15.10. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ask-a-virtual-assistant">15.10.1. Ask a virtual assistant</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">15.10.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">15.10.1. Exercise</a></li>
 </ul>
 </li>
 </ul>

@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
 <title>CA ICT &amp; Anchor Standards Reference</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -55,6 +59,7 @@ section.big-idea { margin-top: 3rem; padding-top: 1rem; border-top: 3px solid va
 section.big-idea > h2 { font-size: 1.5rem; }
 .carrier-line { color: var(--muted); font-size: .85rem; margin: .2rem 0 1rem; }
 .subconcept-heading { font-size: 1rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 2rem 0 .5rem; }
+.tier-heading { font-size: .82rem; font-weight: 600; color: var(--accent); margin: 1rem 0 .4rem 1rem; }
 .topic {
   background: var(--topic-bg); border: 1px solid var(--border); border-radius: 10px;
   padding: 1rem 1.25rem; margin: 1.25rem 0;
@@ -71,13 +76,51 @@ ul.ek-list li {
   background: var(--ek-bg); border: 1px solid var(--border); border-radius: 6px;
   padding: .35rem .6rem; margin: .3rem 0 .3rem 1.1rem; font-size: .92rem;
 }
+.item-meta { font-size: .8rem; color: var(--muted); margin: .2rem 0 .2rem 1.1rem; }
+.item-note { font-size: .82rem; color: var(--muted); border-left: 3px solid var(--border); padding-left: .6rem; margin: .3rem 0 .5rem 1.1rem; }
 .practice-table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; }
 .practice-table th, .practice-table td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--border); }
 .practice-table th { color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
 .hidden { display: none !important; }
 footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; border-top: 1px solid var(--border); padding-top: 1rem; }
 :target { scroll-margin-top: 1rem; outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+
+.site-menu { position: absolute; top: 0.5em; right: 0.7em; z-index: 20; }
+.site-menu .site-menu-trigger { position: absolute; opacity: 0; pointer-events: none; }
+.site-menu .site-menu-icon {
+  position: relative; z-index: 2; display: block; font-size: 1.3em; line-height: 1;
+  padding: .2em .4em; border-radius: 4px; color: var(--fg); cursor: pointer; user-select: none;
+}
+.site-menu .site-menu-icon:hover { background: var(--code-bg); }
+.site-menu .site-menu-backdrop {
+  display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; cursor: default;
+}
+.site-menu .site-menu-trigger:checked ~ .site-menu-backdrop { display: block; }
+.site-menu .site-menu-panel {
+  display: none; position: absolute; top: 100%; right: 0; margin-top: .3em; min-width: 8em; z-index: 2;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.site-menu .site-menu-panel a {
+  display: block; padding: .5em 1em; color: var(--fg); text-decoration: none; white-space: nowrap;
+}
+.site-menu .site-menu-panel a:hover { background: var(--code-bg); }
+.site-menu .site-menu-trigger:checked ~ .site-menu-panel { display: block; }
+.site-menu .site-menu-trigger:focus ~ .site-menu-icon { outline: 2px solid var(--accent); }
 </style>
+</head>
+<body>
+<div class="site-menu">
+<input type="checkbox" id="site-menu-trigger" class="site-menu-trigger">
+<label for="site-menu-trigger" class="site-menu-icon" aria-label="Menu">&#9776;</label>
+<label for="site-menu-trigger" class="site-menu-backdrop" aria-hidden="true"></label>
+<nav class="site-menu-panel">
+<a href="/">Home (learn.porttack.com)</a>
+<a href="/pico/">MicroPython on Pi Pico</a>
+<a href="/electronics101/">Electronics 101</a>
+<a href="/working-in-python/">Working in Python</a>
+<a href="/standards/">Standards</a>
+</nav>
+</div>
 <div class="layout">
 <nav class="toc" aria-label="Table of contents">
 <h2><a href="#anchors">Anchor Standards</a></h2><ul>
@@ -432,8 +475,8 @@ paraphrases, not the CDE's text; only codes are reproduced as-is. <strong>Scope.
 <div class="item-note">Chapter 1 introduces syntax errors (missing parentheses, illegal quote marks); Chapter 2's Debugging section explicitly names 'syntax error' as one of three error kinds. Both are about a language's own syntax rules, matching this standard directly.</div>
 </li>
 <li id="T-C4.7"><a class="anchor-link" href="#T-C4.7">#</a><span class="code-badge">C4.7</span> Data structures, arrays, objects, files, and databases are all ways of organizing a program's data.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></div>
-<div class="item-note">Chapter 8's Writing files section (open, read mode vs 'w' mode, close) is a direct match for this standard's 'files' item.</div>
+<div class="item-meta">Covered in <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a>, <a href="https://python.porttack.com/chap09.html?readonly">Chapter 9 (Lists)</a>, <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a>, <a href="https://python.porttack.com/chap11.html?readonly">Chapter 11 (Tuples)</a>, <a href="https://python.porttack.com/chap13.html?readonly">Chapter 13 (Files and Databases)</a></div>
+<div class="item-note">Chapter 8's Writing files section (open, read mode vs 'w' mode, close) is a direct match for this standard's 'files' item. Chapters 9 (lists), 10 (dictionaries), 11 (tuples), and 13 (files and shelve-based key-value storage) extend it to the 'data structures' and 'databases' items -- in sequence, this book's treatment of every structure this standard names except objects.</div>
 </li>
 <li id="T-C4.8"><a class="anchor-link" href="#T-C4.8">#</a><span class="code-badge">C4.8</span> Object-oriented programming brings its own vocabulary: objects, properties, methods, inheritance.
 </li>
@@ -460,6 +503,8 @@ paraphrases, not the CDE's text; only codes are reproduced as-is. <strong>Scope.
 <li id="T-C5.2"><a class="anchor-link" href="#T-C5.2">#</a><span class="code-badge">C5.2</span> A program sometimes has to change because its own specification changed, or because the technology around it moved on.
 </li>
 <li id="T-C5.3"><a class="anchor-link" href="#T-C5.3">#</a><span class="code-badge">C5.3</span> Code can be optimized deliberately for better performance.
+<div class="item-meta">Covered in <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a></div>
+<div class="item-note">Same evidence as this file's new apcsp 3.17 and csta2026 HS-ALG-PS-03 entries: Chapter 10's too_slow rewritten as much_faster is a deliberate, measured performance optimization, not an incidental speedup.</div>
 </li>
 <li id="T-C5.4"><a class="anchor-link" href="#T-C5.4">#</a><span class="code-badge">C5.4</span> Testing is a distinct step applied to both software and the broader project.
 <div class="item-meta">Covered in <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></div>
@@ -600,3 +645,5 @@ paraphrases, not the CDE's text; only codes are reproduced as-is. <strong>Scope.
   });
 })();
 </script>
+</body>
+</html>

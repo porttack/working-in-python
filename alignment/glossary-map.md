@@ -54,7 +54,7 @@ With a proposed carrier for each — most are the already-established supplement
 |---|---|---|
 | computing innovation | the CED's umbrella term for any program, physical device, or nonphysical concept built with computing | supplement (introduced through the Create Performance Task) |
 | computational artifact | the CED/CA's shared term for the thing a student builds and submits | supplement (Create Performance Task) |
-| event / event-driven | a program structured around responding to user or system triggers rather than running top-to-bottom | unassigned — real gap, see `alignment/standards_alignment.md` |
+| event / event-driven | a program structured around responding to user or system triggers rather than running top-to-bottom | unassigned — real gap, see `alignment/standards-alignment.md` |
 | heuristic | an approach that produces a good-enough, not-guaranteed-optimal solution | supplement (November algorithms block) |
 | decidable / undecidable problem | a problem for which no algorithm can always produce a correct yes/no answer | supplement (November algorithms block) |
 | bit / byte, lossy / lossless compression | binary representation and data-compression vocabulary | unassigned — real gap as of 2026-08-09; CS50T Multimedia dropped, not taught since year one. Pico/MicroPython I2C chapter has a partial touchpoint for byte/hex notation, none for compression. |
@@ -72,7 +72,7 @@ underneath it), or they're extra content this course teaches beyond the exam's s
 
 | Working in Python term | Status | Why |
 |---|---|---|
-| recursion / recursive | keep | not part of the AP CSP reference sheet's required pseudocode at all (only `REPEAT n TIMES` / `REPEAT UNTIL` iteration are), but this book uses it as its primary vehicle for indefinite repetition — see the `while`-loop gap in the AP index and `standards_alignment.md`. Load-bearing for this course even though it isn't exam vocabulary. |
+| recursion / recursive | keep | not part of the AP CSP reference sheet's required pseudocode at all (only `REPEAT n TIMES` / `REPEAT UNTIL` iteration are), but this book uses it as its primary vehicle for indefinite repetition — see the `while`-loop gap in the AP index and `standards-alignment.md`. Load-bearing for this course even though it isn't exam vocabulary. |
 | docstring | keep | Python's realization of AP's general "program documentation" concept (CRD-2.G) — the idea is tested, the term isn't. The interlude between chapters 6 and 7 states this mapping to students directly, in its own glossary. |
 | doctest, test case, boundary case, edge case, expected value, pass/fail, hand tracing | keep | Python/this-book's testing vocabulary, introduced by the interlude between chapters 6 and 7. Boundary/edge case and hand tracing realize AP's own "test case" and manual-tracing expectations (CRD-2 written-response language) without AP requiring these exact words; doctest, pass/fail, and expected value are Python/tooling-specific and not exam vocabulary at all. |
 | traceback | keep | Python's specific error-report format; realizes AP's general "run-time error" concept (CRD-2.I.3) without needing the word. |
