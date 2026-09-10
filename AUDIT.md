@@ -8325,3 +8325,57 @@ button now actually does.
 
 `make check` passes. `git diff --stat` on every touched chapter is exactly 2 lines (one
 changed line), confirming the fix above actually worked and nothing else moved.
+
+## 2026-09-09 follow-up (8) — pushed v3, built, and published: today's work is live
+
+Maintainer asked to build, push, and publish today's work (VA removal, blank markers,
+chrome, standards sync + alignment, homework, and the copy-button fix -- eight commits,
+`001bdf2` through `a229059`). Confirmed this meant: push the `v3` branch to `origin`
+(sharing the source commits), then run `jb/build.sh` for real (not `--local`), which builds
+the Jupyter Book site and JupyterLite bundle and force-pushes the result to `gh-pages` --
+the actual live-site publish, a different, more consequential action than any git commit
+this session had done so far.
+
+**`pip show` vs. direct `import` disagreed** on whether `jupyter-book` etc. were installed
+-- turned out `pip` on `PATH` resolves to a Python 3.11 install while the bare `python3` on
+`PATH` is 3.14, and this repo has its own `.venv` (Python 3.11, all of `jupyter-book`,
+`ghp-import`, `jupyterlite-core`, `jupyterlite-pyodide-kernel`, `jupyter-server` already
+installed) that hadn't been in use for anything else this session, since nothing else
+needed it. Used `PATH="$PWD/../.venv/bin:$PATH" ./build.sh` rather than a bare `./build.sh`
+so the script's own internal `python`/`jb`/`ghp-import`/`jupyter-lite` calls resolve inside
+that venv, not the system Python.
+
+**Order of operations, each verified before the next:**
+
+1. `git push origin v3` -- plain fast-forward, 8 commits, no force needed.
+2. `jb/build.sh --local` first -- `build.sh`'s own comment says the real publish "should be
+   run by a human who has just looked at the local output," and this session has no
+   browser to look with, so a local-only dry run was the substitute check: confirmed a
+   clean `jb build .` (no Sphinx errors) and a clean JupyterLite build (all 16 notebooks,
+   including chapters 9-13's new content and their vendored deps `pg43.txt`/`photos.zip`,
+   copied in). Grepped the actual generated `jb/_build/html/chap09.html` and `chap13.html`
+   for "Other Ways to open this chapter," "Homework," and "Standards alignment" before
+   trusting the local build -- all present -- rather than assuming a clean `jb build`
+   exit code meant the content was actually right.
+3. `jb/build.sh` for real -- published. `ghp-import` force-pushed `gh-pages`
+   (`c73ee3d..6130365`), deploy id `jupyterlite-0c459d6a9a`.
+
+**Verified against the live site, not just the local build**, using `curl` (no browser
+available, so this is a content/status-code check, not a rendered/visual one) -- all six
+checks `build.sh` itself prints as the post-publish checklist, plus the specific new content
+from today: homepage loads with CSS (10 stylesheet links), chapters 9 and 13 both show the
+new chrome/Homework/Standards-alignment content, the Reference nav's standards links
+resolve to `learn.porttack.com` as intended, `current/notebooks` redirects and resolves,
+and the JupyterLite deploy path (`notebooks` and `lab` views) both return 200.
+
+**One real timing gotcha, handled rather than misdiagnosed:** the first `curl` check, run
+immediately after the publish printed "Published," found no chrome/Homework content on the
+live `chap09.html` at all -- GitHub Pages hadn't finished redeploying yet. Rather than
+assume the publish had failed or retry in a blind sleep loop, ran a bounded background
+`until curl ...; do sleep 5; done` check (per this environment's own guidance against
+leading long sleeps) and got notified once the new content was actually being served,
+roughly a minute later.
+
+`git status` clean after publishing -- `jupyterlite/content`, `jupyterlite/_output`,
+`jb/_build`, and `jb/chap*.ipynb` (the build's working copies) are all gitignored, so the
+real (non-`--local`) build run for verification left nothing uncommitted to review.

@@ -5,6 +5,14 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-09 (9) — published: today's work is live
+
+Pushed `v3` to `origin` and ran a real (non-`--local`) `jb/build.sh` publish. Chapters 9-13
+now show their new chrome, Homework, and Standards Alignment content live at
+python.porttack.com; the site's Reference nav points its standards-catalog links at
+learn.porttack.com. Verified against the live site (not just the local build) after GitHub
+Pages finished redeploying. See `AUDIT.md`.
+
 ## 2026-09-09 (8) — "Copy your work" button now copies just the Homework section
 
 ### Changed
