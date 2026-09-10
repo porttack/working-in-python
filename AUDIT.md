@@ -8256,3 +8256,72 @@ this repo (only `photos.zip` is vendored, unzipped on demand by the chapter's ow
 chapter 13's Problem 3 and extra credit both depend on that unzip step having already run
 earlier in the same notebook session, which it does in the chapter's normal reading order,
 same as the existing practice exercises that already reference `photos/notes.txt`.
+
+## 2026-09-09 follow-up (7) — copy-notebook button scoped to just the Homework section
+
+Maintainer asked whether the "Finished? Copy your work" button (`show_copy_notebook_button`
+in `working_in_python.py`, used at the end of every chapter with a Homework section --
+1-13) could copy only the Homework section instead of the whole notebook. Investigated the
+actual implementation before answering rather than guessing at feasibility: it's a plain JS
+`onclick` handler that does `range.selectNodeContents(nb)` against `.jp-Notebook`'s whole
+DOM, then `execCommand('copy')`. The button already sits immediately after the Homework
+content (right before this same note), so its own position was already a usable end
+boundary -- the only missing piece was a start boundary.
+
+Asked the maintainer how the start boundary should be found (search rendered heading text
+vs. add an explicit marker id to every chapter). Maintainer preferred searching heading
+text, but raised a real concern: `mods/pass-4-chrome.md`'s own history notes the heading
+was renamed from "Extra Exercises" to "Homework" 2026-08-17, so were they sure every
+current chapter says "Homework"? Checked directly rather than assuming: grepped all 14
+chapters that have this section (1-13, all of them) for the literal heading text --
+confirmed all 14 say `## Homework`, zero say `## Extra Exercises` today. Recommended
+matching both anyway, as cheap defensive insurance (near-zero cost, protects against any
+future or cached page that still has the old heading) rather than only the one currently
+in use everywhere.
+
+**Change, in `working_in_python.py`:** the onclick handler now searches `.jp-Cell` elements
+for one containing an `<h2>` whose text is exactly `"Homework"` or `"Extra Exercises"`, uses
+that as the start of the copy range and the button's own cell (`this.closest('.jp-Cell')`)
+as the end, and falls back to the old whole-notebook behavior if no such heading is found
+(so a chapter that ever uses a different heading, or a future call site outside a Homework
+section entirely, still works rather than silently copying nothing). Renamed the button
+from "Copy Notebook" to "Copy Homework" and updated its helper text and docstring to match
+the new, narrower scope, since every current call site is homework-adjacent.
+
+**Verification:** no headless browser is available in this environment (same limitation
+noted for the chrome work earlier this session and for the original chrome pass in
+2026-08), so the actual DOM range/copy behavior couldn't be exercised end-to-end in a real
+browser. Did what the project's own precedent for this exact class of problem calls for
+instead (see the `?readonly` pane script's own verification note): extracted the pure
+boundary-finding logic (given a list of cells, find the one with a matching `<h2>`) into a
+standalone Node script with stubbed cell objects, and confirmed it correctly finds a
+"Homework" heading, finds an "Extra Exercises" heading, ignores non-h2 mentions of either
+word, and returns no match when neither heading is present -- the part of the logic that's
+actually novel here and worth distrusting, as opposed to `querySelector`/`closest`/`Range`
+themselves, which are standard DOM APIs already used elsewhere in this same function.
+
+**A real repo-hygiene mistake caught before committing, not after:** the chapters in this
+book were saved with inconsistent JSON serialization settings over time -- some with
+`ensure_ascii=True` (escaped `\uXXXX` for em dashes, arrows, etc.), some with
+`ensure_ascii=False` (literal UTF-8 characters) -- confirmed file by file via the same
+round-trip check (`json.dumps(nb, indent=1, ensure_ascii=<setting>)` reproducing the
+original byte-for-byte) used throughout this whole session. First pass at updating the
+"Finished? Copy your work" note's wording across all 14 chapters used `ensure_ascii=False`
+uniformly, which happened to match chapters 01, 04, 05, and 06b's own convention but not
+02, 03, 06, 07, or 08's -- for those five, it silently re-encoded every non-ASCII character
+in the entire file (dozens of em dashes and arrows across Standards Alignment blocks,
+chrome cells, etc.), inflating what should have been a one-line diff into a 8-12 line one
+touching content nowhere near the actual change. Caught by reading `git diff --stat` before
+committing and noticing the line counts didn't match the size of the intended edit -- exactly
+the check this session used consistently for the notebook edits earlier today, just
+skipped for this particular script. Fixed by reverting the five affected files with `git
+checkout` and redoing the same substring replacement with each file's own correct
+`ensure_ascii` setting, verified again by `git diff --stat` showing a clean 2-line
+(1-changed-line) diff for all 14 chapters.
+
+**Also updated:** the "Finished? Copy your work" note text itself, in all 14 chapters, from
+"copy this notebook" to "copy your Homework section," so the instruction matches what the
+button now actually does.
+
+`make check` passes. `git diff --stat` on every touched chapter is exactly 2 lines (one
+changed line), confirming the fix above actually worked and nothing else moved.

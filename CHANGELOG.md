@@ -5,6 +5,16 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-09 (8) — "Copy your work" button now copies just the Homework section
+
+### Changed
+- `show_copy_notebook_button()` (`working_in_python.py`), used at the end of every chapter
+  with a Homework section (1-13), now copies only that section -- from the "Homework" (or
+  "Extra Exercises") heading down to the button itself -- instead of the whole notebook.
+  Falls back to the old whole-notebook behavior if it can't find that heading. Renamed
+  "Copy Notebook" to "Copy Homework" and updated the button's helper text and every
+  chapter's "Finished? Copy your work" note to match. See `AUDIT.md`.
+
 ## 2026-09-09 (7) — chapters 9-13: Homework sections added (Pass 4 Step 1)
 
 ### Added

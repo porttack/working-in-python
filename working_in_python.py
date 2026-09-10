@@ -200,7 +200,14 @@ try:
     from IPython.display import HTML, display
 
     def show_copy_notebook_button():
-        """Display a button that copies the whole notebook for pasting elsewhere."""
+        """Display a button that copies the Homework section for pasting elsewhere.
+
+        Scoped to the cells from the "Homework" (or the older "Extra Exercises")
+        heading down to this button's own cell -- not the whole notebook. Falls
+        back to copying the whole notebook if that heading can't be found, so a
+        chapter that ever uses a different heading, or calls this from somewhere
+        else entirely, still gets a working button rather than a silent no-op.
+        """
         display(HTML("""
 <div style="position: sticky; top: 0; z-index: 10;
             background: var(--jp-layout-color0, white);
@@ -209,6 +216,16 @@ try:
     onclick="
       var nb = document.querySelector('.jp-Notebook');
       if (!nb) { alert('Could not find the notebook.'); return; }
+      var cells = nb.querySelectorAll('.jp-Cell');
+      var endCell = this.closest('.jp-Cell');
+      var startCell = null;
+      for (var i = 0; i < cells.length; i++) {
+        var h2 = cells[i].querySelector('h2');
+        if (h2 && (h2.textContent === 'Homework' || h2.textContent === 'Extra Exercises')) {
+          startCell = cells[i];
+          break;
+        }
+      }
       var prompts = nb.querySelectorAll('.jp-InputPrompt, .jp-OutputPrompt');
       prompts.forEach(function (p) {
         p.style.userSelect = 'text';
@@ -227,7 +244,12 @@ try:
       var sel = window.getSelection();
       sel.removeAllRanges();
       var range = document.createRange();
-      range.selectNodeContents(nb);
+      if (startCell && endCell) {
+        range.setStartBefore(startCell);
+        range.setEndBefore(endCell);
+      } else {
+        range.selectNodeContents(nb);
+      }
       sel.addRange(range);
       document.execCommand('copy');
       sel.removeAllRanges();
@@ -248,10 +270,10 @@ try:
     "
     style="padding:8px 16px; background:#2196F3; color:white; border:none;
            border-radius:4px; font-size:14px; cursor:pointer;"
-  >Copy Notebook</button>
+  >Copy Homework</button>
   <span style="font-size:12px; color:#666;">
-    Paste into a document. Long notebook? Scroll all the way through it
-    once first so every cell has loaded.
+    Copies just the Homework section. Paste into a document. Long section?
+    Scroll all the way through it once first so every cell has loaded.
   </span>
 </div>
 """))
