@@ -5,6 +5,19 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-09 (4) — site nav: standards-reference entries point to learn.porttack.com
+
+### Changed
+- `jb/_toc.yml`'s "Reference" sidebar section: the four static standards-catalog reference
+  pages (AP CSP, CA CS, CSTA 2026, CA CTE/ICT) now link to `learn.porttack.com/standards/`
+  instead of this repo's own generated copies, since `learn` is the canonical, live source
+  those pages are built from either way. "AP CSP Coverage Map" now links to
+  `learn.porttack.com/standards/?report=WIP`, a live per-source coverage report, replacing
+  the static (and easily stale) local page. Vocabulary nav entries are untouched -- a
+  separate system. This repo still generates `alignment/*.html` locally; per-chapter
+  "Standards alignment" blocks (chapters 1-8, and future 9-13) still link to those local
+  anchors, unaffected by this change. See `AUDIT.md`.
+
 ## 2026-09-09 (3) — chapters 9–13: chrome added (Pass 4), chrome scope extended to 12–13
 
 ### Changed

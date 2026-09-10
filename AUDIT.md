@@ -7925,3 +7925,80 @@ sub-track, tracked separately from chrome) is still untouched. Standards alignme
 Step 4) for chapters 9–13 remains the flagged-but-not-started item from the previous
 handoff -- still needs the CSTA 2026/CA CTE-ICT coverage research before it can be done
 properly, and chrome for 12–13 doesn't change that.
+
+## 2026-09-09 follow-up (3) — where the standards-alignment ecosystem actually lives now
+
+Maintainer explained the standards-tracking architecture has moved since this repo's own
+docs were last written to assume it: standards work now happens in a separate `learn`
+repo (siblings on disk, `../learn`, deployed at learn.porttack.com), which mounts this repo
+as a submodule and tracks alignment for *every* content source the maintainer teaches from,
+not just this book. Investigated both `../learn` and `../porttack.com` directly (read-only)
+rather than taking the description on faith, since a wrong mental model here would corrupt
+every downstream edit:
+
+- `working_in_python` is already a registered source in `../learn/standards/data/manifest.json`
+  (slug `working_in_python`, abbrev `WIP`), alongside `little_brother`, several CMU/CS50/CodeHS
+  sources, etc.
+- `../learn/_standards/carriers/working-in-python.json` (the canonical carrier file -- this
+  repo's own `standards/carriers/working-in-python.json` is a synced, read-only mirror, per
+  `standards/README.md`, already reflecting exactly this architecture as of the 2026-08-28
+  sync) has *more* chapter 9-13 coverage than what's synced here: a 2026-08-31 pass added
+  CSTA 2026 Specialty and CA 9-12 Specialty entries reaching chapters 9-13, three days after
+  this repo's last sync. Confirmed by diffing the two files directly. CSTA 2026 core and CA
+  CTE/ICT still show zero coverage touching 9-13 even after that update, though -- the
+  research gap flagged in the previous handoff is real, just smaller than first estimated.
+- `../learn/standards/index.html` + `assets/js/standards-coverage.js` is a live, JSON-driven
+  dashboard: any registered source gets a `?report=<slug-or-abbrev>` page (e.g.
+  `?report=WIP`) generated entirely from its carrier file plus the shared catalog, no
+  per-source code needed. Confirmed this is what a `porttack.com` blog post
+  (`2026-08-31-teaching-binary-with-coins.md`) links to as "This lesson's full standards
+  report." **Important limitation surfaced to the maintainer before deciding anything:**
+  `?report=` is whole-source, not filterable by chapter/locator -- fine for a single-lesson
+  blog post (the whole source *is* one lesson there), but for a 13-chapter book it can only
+  ever show "everything this book covers," never "what chapter 9 covers." That's real
+  information the maintainer needed before choosing how to use it, not a detail to bury.
+
+**Decisions the maintainer made, in order:**
+
+1. Keep the per-chapter "Standards alignment" prose blocks (the existing `mods/pass-3-
+   alignment.md` Step 4 approach) rather than dropping them for a single whole-book report
+   link -- the per-chapter granularity is worth keeping given the report can't provide it.
+2. Confirmed the source-of-truth chain (canonical: `../learn/_standards/` -> synced mirror:
+   this repo's `standards/` -> generated: this repo's `alignment/*.html` -> hand-authored:
+   each chapter's own sentinel block) before doing anything, rather than assuming.
+3. **The site's own "Reference" nav section (`jb/_toc.yml`) no longer needs this repo's own
+   generated standards-reference/coverage-map pages listed as independent, top-level
+   sidebar entries** -- those should point at `learn.porttack.com` instead, since that's now
+   the canonical, live, cross-referenced version and there's no reason to keep a second
+   discoverable copy front-and-center. This is scoped narrowly to the *nav*, not to the
+   per-chapter blocks or to whether this repo keeps generating those pages at all --
+   explicitly confirmed the two are separable before touching anything, since the
+   per-chapter blocks' own links still resolve to this repo's local `alignment/*.html`
+   anchors and nothing about that changed.
+
+**What was actually changed:** `jb/_toc.yml`'s "Reference" caption, five of its eight
+entries (the standards-catalog ones; the three vocabulary entries and `todo` are a separate,
+unrelated system -- untouched). "AP CSP Standards Reference," "CA CS Standards Reference,"
+"CSTA 2026 Standards Reference," and "CA ICT & Anchor Standards Reference" now point at
+`learn.porttack.com/standards/<same-filename>` instead of this repo's own
+`python.porttack.com/alignment/<same-filename>` -- verified these are byte-identical in
+anchor scheme (`#T-<code>`/`#S-<code>`) since both are built by the same generator
+(`build_alignment.py`) from the same underlying data, so nothing that links to a specific
+code anchor on the *old* target would have broken meaning on the new one, had anything
+linked there (nothing does -- these were nav-only entries). "AP CSP Coverage Map" now points
+at `https://learn.porttack.com/standards/?report=WIP` instead of this repo's own
+`alignment/ap-practices-bigideas-coverage.html`, since that static page and the dynamic
+report are the same kind of artifact (this book's own whole-book coverage), and the dynamic
+one is live and cross-referenced where the static one goes stale between syncs. Verified all
+five new URLs return HTTP 200 against the real deployed `learn.porttack.com` before
+committing to them, not just checked they looked plausible.
+
+**Not changed, deliberately:** `alignment/*.html` generation in this repo (still needed --
+chapters 1-8's existing per-chapter blocks and future 9-13 ones still link to these local
+anchors), `mods/pass-3-alignment.md`'s Step 4 template (still authors per-chapter blocks
+linking locally), `standards/README.md`'s sync/regenerate instructions (still accurate for
+their actual remaining purpose). No files in `../learn` were touched -- that stays a
+separate repo with its own commit history; the CSTA-2026-core/CA-ICT research gap for
+chapters 9-13 identified in the previous handoff is still open, and doing that research
+means editing `../learn/_standards/carriers/working-in-python.json` there, then syncing
+back, not editing anything in this repo directly.

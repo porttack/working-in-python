@@ -96,12 +96,25 @@ parts:
 
 # Meta pages: not reading material, but useful to have visible in the
 # sidebar on every page rather than buried in "Also here" links on index.md.
+#
+# Standards-catalog and whole-book-coverage entries point at learn.porttack.com
+# now, not this repo's own generated copies -- 2026-09-09, maintainer decision.
+# learn/_standards/ is the canonical catalog (this repo's standards/ is a
+# synced, read-only mirror; see standards/README.md) and learn's own
+# /standards/ page renders a live, always-current per-source coverage report
+# (?report=WIP) that supersedes the old static "AP CSP Coverage Map." The
+# per-chapter "Standards alignment" sentinel blocks inside chapters 1-8 (and
+# future 9-13) still link to this repo's own local alignment/*-standards-
+# reference.html anchors -- unaffected by this nav change, since those pages
+# are still generated for that purpose, just no longer given their own
+# top-level nav entry. Vocabulary entries (a separate, hand-curated system --
+# see CLAUDE.md) are unaffected and still point locally.
 - caption: Reference
   chapters:
     - file: todo
-    - url: https://python.porttack.com/alignment/ap-practices-bigideas-coverage.html
+    - url: https://learn.porttack.com/standards/?report=WIP
       title: AP CSP Coverage Map
-    - url: https://python.porttack.com/alignment/apcsp-standards-reference.html
+    - url: https://learn.porttack.com/standards/apcsp-standards-reference.html
       title: AP CSP Standards Reference
     - url: https://python.porttack.com/alignment/vocabulary-by-chapter.html
       title: Vocabulary by Chapter
@@ -109,9 +122,9 @@ parts:
       title: AP CSP Vocabulary Coverage
     - url: https://python.porttack.com/alignment/ap-vocabulary-glossary.html
       title: AP CSP Vocabulary Glossary (A-Z)
-    - url: https://python.porttack.com/alignment/ca-cs-standards-reference.html
+    - url: https://learn.porttack.com/standards/ca-cs-standards-reference.html
       title: CA CS Standards Reference
-    - url: https://python.porttack.com/alignment/csta2026-standards-reference.html
+    - url: https://learn.porttack.com/standards/csta2026-standards-reference.html
       title: CSTA 2026 Standards Reference
-    - url: https://python.porttack.com/alignment/ca-ict-anchor-standards-reference.html
+    - url: https://learn.porttack.com/standards/ca-ict-anchor-standards-reference.html
       title: CA ICT & Anchor Standards Reference
