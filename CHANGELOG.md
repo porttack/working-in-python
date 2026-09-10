@@ -5,7 +5,30 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 2026-09-08 — chapters 7 and 8: JupyterLite copy renamed, again, to force a fresh cache
+## 2026-09-09 — VA removal policy set to `strip` book-wide; chapters 9–19 stripped
+
+### Changed
+- Decided VA removal is `strip` for every tier, not just chapters 1–11. The previous split
+  (open "teacher decision" for 12–13, `keep` for 14–19) assumed older/independent-study
+  students would use a virtual assistant well; too early in the year to make that a narrower
+  call, so the matrix in `CLAUDE.md` now reads `strip` across the board. See `AUDIT.md`.
+- Resolved chapters 9–11's open `decide` and reversed 12–19's `keep` in
+  `CHAPTER_MANIFEST.md` to match.
+
+### Removed
+- Stripped every "Ask a virtual assistant" section and inline VA aside from chapters 9–19
+  (kind B and C, per the Pass 1 classification): whole sections in chapters 9, 10, 11, 13,
+  14, 15, 16, 17, 18; inline asides repaired in place in chapters 10, 11, 12, 13, 16, 17,
+  18; one paragraph removed from chapter 19's closing thoughts. No VA mentions remain in
+  chapters 9–19.
+
+### Added
+- `ch17-ex07r`, replacing the book's last remaining kind-A VA exercise (`ch17-ex07`, the
+  Kangaroo mutable-default-argument bug, whose deliverable was pasting the class into a VA
+  and reporting what it said). The replacement asks students to diagnose the bug themselves
+  and fix it. This is the fourth and final kind-A replacement for the whole book -- three
+  others already stood, and see `data/exercise-ledger.json` for the one kind-A slot
+  (ch05-ex06) that was deliberately left without a replacement.
 
 ### Fixed
 - Maintainer reported chapter 8 still showed no Homework section on the live site despite

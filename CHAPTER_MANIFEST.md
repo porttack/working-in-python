@@ -8,10 +8,13 @@ through `chap19`, numbered, so **file number == chapter number for chap01–chap
 `jupyter_intro` is not listed in `jb/_toc.yml` at all — it's supplementary material read
 before Chapter 1, not a numbered chapter.
 
-VA decision follows the default proposed in `mods/pass-1-survey.md` Step 1 (chapters 1–8
-`strip`, 9–11 `decide`, 12–13 `decide` leaning `keep`, 14–19 `keep`), which is finer-grained
-than the treatment matrix in `CLAUDE.md` for chapters 1–11. Treatment tier is otherwise
-taken directly from that matrix.
+VA decision originally followed the default proposed in `mods/pass-1-survey.md` Step 1
+(chapters 1–8 `strip`, 9–11 `decide`, 12–13 `decide` leaning `keep`, 14–19 `keep`), finer-
+grained than the treatment matrix in `CLAUDE.md` for chapters 1–11. That default was
+superseded 2026-09-09: `CLAUDE.md`'s treatment matrix now sets VA removal to `strip` for
+every tier, and every chapter's VA decision below reflects it — chapters 9–11's `decide`
+was resolved, and 12–19's `keep` was reversed. Treatment tier is otherwise taken directly
+from that matrix.
 
 | File | Chapter # | Title | Treatment | VA decision |
 |---|---|---|---|---|
@@ -26,17 +29,17 @@ taken directly from that matrix.
 | `chap07.md` / `.ipynb` | 7 | Iteration and Search | Live, 1–11 | strip |
 | `chap07b.md` / `.ipynb` | interlude, between 7 and 8 | Representing Data | Live, 1–11 (inherited from its neighbors — see below) | strip |
 | `chap08.md` / `.ipynb` | 8 | Strings and Regular Expressions | Live, 1–11 | strip |
-| `chap09.md` / `.ipynb` | 9 | Lists | Live, 1–11 | decide |
-| `chap10.md` / `.ipynb` | 10 | Dictionaries | Live, 1–11 | decide |
-| `chap11.md` / `.ipynb` | 11 | Tuples | Live, 1–11 | decide |
-| `chap12.md` / `.ipynb` | 12 | Text Analysis and Generation | May, post-exam, 12–13 | decide, leaning keep |
-| `chap13.md` / `.ipynb` | 13 | Files and Databases | May, post-exam, 12–13 | decide, leaning keep |
-| `chap14.md` / `.ipynb` | 14 | Classes and Functions | Independent study, 14–19 | keep |
-| `chap15.md` / `.ipynb` | 15 | Classes and Methods | Independent study, 14–19 | keep |
-| `chap16.md` / `.ipynb` | 16 | Classes and Objects | Independent study, 14–19 | keep |
-| `chap17.md` / `.ipynb` | 17 | Inheritance | Independent study, 14–19 | keep |
-| `chap18.md` / `.ipynb` | 18 | Python Extras | Independent study, 14–19 | keep |
-| `chap19.md` / `.ipynb` | 19 | Final thoughts | Independent study, 14–19 | keep |
+| `chap09.md` / `.ipynb` | 9 | Lists | Live, 1–11 | strip (done 2026-09-09) |
+| `chap10.md` / `.ipynb` | 10 | Dictionaries | Live, 1–11 | strip (done 2026-09-09) |
+| `chap11.md` / `.ipynb` | 11 | Tuples | Live, 1–11 | strip (done 2026-09-09) |
+| `chap12.md` / `.ipynb` | 12 | Text Analysis and Generation | May, post-exam, 12–13 | strip (done 2026-09-09) |
+| `chap13.md` / `.ipynb` | 13 | Files and Databases | May, post-exam, 12–13 | strip (done 2026-09-09) |
+| `chap14.md` / `.ipynb` | 14 | Classes and Functions | Independent study, 14–19 | strip (done 2026-09-09) |
+| `chap15.md` / `.ipynb` | 15 | Classes and Methods | Independent study, 14–19 | strip (done 2026-09-09) |
+| `chap16.md` / `.ipynb` | 16 | Classes and Objects | Independent study, 14–19 | strip (done 2026-09-09) |
+| `chap17.md` / `.ipynb` | 17 | Inheritance | Independent study, 14–19 | strip (done 2026-09-09) |
+| `chap18.md` / `.ipynb` | 18 | Python Extras | Independent study, 14–19 | strip (done 2026-09-09) |
+| `chap19.md` / `.ipynb` | 19 | Final thoughts | Independent study, 14–19 | strip (done 2026-09-09) |
 | `jupyter_intro.md` / `.ipynb` | not numbered | *Think Python* on Jupyter | supplementary, read before Ch. 1; absent from `jb/_toc.yml` | n/a |
 
 ## Non-chapter files, confirmed

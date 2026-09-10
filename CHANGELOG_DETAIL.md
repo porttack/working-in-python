@@ -183,7 +183,7 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap09
 
-4 exercise(s).
+5 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -191,22 +191,24 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch09-ex02 | Explore the built-in reversed() function and its behavior | native | kept | — | 20 | 20 |
 | ch09-ex03 | Write a function called reverse_sentence | native | kept | — | 15 | 15 |
 | ch09-ex04 | Write a function called total_length that sums word lengths in a list | native | kept | — | 10 | 10 |
+| ch09-va01 | Ask a virtual assistant: a ChatGPT anecdote about made-up etymology, plus role-prompting for stuck exercises | B | removed | — | 0 | 0 |
 
 ## chap10
 
-5 exercise(s).
+6 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
 | ch10-ex01 | Use dict.get() to simplify a counting pattern | native | kept | — | 15 | 15 |
 | ch10-ex02 | Write a function called has_duplicates to find the longest word with no repeated letters | native | kept | — | 20 | 20 |
 | ch10-ex03 | Write a function called find_repeats using a counter dictionary | native | kept | — | 20 | 20 |
-| ch10-ex04 | Write a function called add_counters that merges two counter dictionaries | native | kept | — | 15 | 15 |
+| ch10-ex04 | Write a function called add_counters that merges two counter dictionaries | native | edited | — | 15 | 15 |
 | ch10-ex05 | Determine whether a word is 'interlocking' (splits into two words by alternating letters) | native | kept | — | 30 | 30 |
+| ch10-va01 | Ask a virtual assistant: why dictionary keys must be hashable, and building a set from a list | B | removed | — | 0 | 0 |
 
 ## chap11
 
-7 exercise(s).
+8 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -216,7 +218,8 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch11-ex04 | Extend the anagram checker to find sets of words that are mutual anagrams | native | kept | — | 30 | 30 |
 | ch11-ex05 | Write a function called word_distance using zip | native | kept | — | 15 | 15 |
 | ch11-ex06 | Write a program that finds all 'metathesis pairs' in the word list | native | kept | — | 30 | 30 |
-| ch11-ex07 | Bonus exercise (not in the printed book), more difficult than the others in the chapter | native | kept | — | 40 | 40 |
+| ch11-ex07 | Bonus exercise (not in the printed book), more difficult than the others in the chapter | native | edited | — | 40 | 40 |
+| ch11-va01 | Ask a virtual assistant: general encouragement to use a VA for this chapter's harder exercises | B | removed | — | 0 | 0 |
 
 ## chap12
 
@@ -230,35 +233,38 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 
 ## chap13
 
-3 exercise(s).
+4 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
 | ch13-ex01 | Write a function called replace_all that performs find-and-replace across two files | native | kept | — | 15 | 15 |
 | ch13-ex02 | Write a function called add_word that stores anagrams in a shelve database | native | kept | — | 20 | 20 |
-| ch13-ex03 | Write a program that finds duplicate files in a directory of photos | native | kept | — | 40 | 40 |
+| ch13-ex03 | Write a program that finds duplicate files in a directory of photos | native | edited | — | 40 | 40 |
+| ch13-va01 | Ask a virtual assistant: ten suggested questions about files, paths, and hashing | B | removed | — | 0 | 0 |
 
 ## chap14
 
-3 exercise(s).
+4 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
 | ch14-ex01 | Write a function called subtract_time | native | kept | — | 15 | 15 |
 | ch14-ex02 | Write a function called is_after that compares two Time objects | native | kept | — | 10 | 10 |
 | ch14-ex03 | Write functions to create and manipulate a Date class (multi-part) | native | kept | — | 35 | 35 |
+| ch14-va01 | Ask a virtual assistant: class/type/object/attribute vocabulary, and a caveat about idiomatic __init__ code | B | removed | — | 0 | 0 |
 
 ## chap15
 
-1 exercise(s).
+2 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
 | ch15-ex01 | Rewrite the Date class functions from the previous chapter as methods (multi-part) | native | kept | — | 30 | 30 |
+| ch15-va01 | Ask a virtual assistant: static methods, and rewriting a function as a method | B | removed | — | 0 | 0 |
 
 ## chap16
 
-5 exercise(s).
+6 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -267,24 +273,27 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch16-ex03 | Write a Rectangle method called midpoint | native | kept | — | 15 | 15 |
 | ch16-ex04 | Write a Rectangle method called make_cross | native | kept | — | 20 | 20 |
 | ch16-ex05 | Write a Circle class with __init__, __str__, and a draw method | native | kept | — | 25 | 25 |
+| ch16-va01 | Ask a virtual assistant: general encouragement to use a VA for the Point/Line/Rectangle exercises | B | removed | — | 0 | 0 |
 
 ## chap17
 
-7 exercise(s).
+9 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
 | ch17-ex01 | Define a Trick class that inherits from Deck to represent a round of bridge | native | kept | — | 25 | 25 |
-| ch17-ex02 | Read the PokerHand class and its helper methods (setup for the exercises that follow) | native | kept | — | 20 | 20 |
+| ch17-ex02 | Read the PokerHand class and its helper methods (setup for the exercises that follow) | native | edited | — | 20 | 20 |
 | ch17-ex03 | Write a method called has_straight | native | kept | — | 25 | 25 |
 | ch17-ex04 | Write a method called has_straightflush | native | kept | — | 25 | 25 |
 | ch17-ex05 | Write a method called has_pair | native | kept | — | 20 | 20 |
 | ch17-ex06 | Write a method called has_fullhouse | native | kept | — | 20 | 20 |
-| ch17-ex07 | Diagnose the mutable-default-argument bug in the Kangaroo class, then confirm with a virtual assistant | A | kept | — | 15 | 15 |
+| ch17-ex07 | Diagnose the mutable-default-argument bug in the Kangaroo class, then confirm with a virtual assistant | A | removed | — | 15 | 15 |
+| ch17-ex07r | Diagnose and fix the mutable-default-argument bug in the Kangaroo class | native | added | ch17-ex07 | 15 | 15 |
+| ch17-va01 | Ask a Virtual Assistant: OOP pros/cons discussion questions, plus general encouragement for the exercises | B | removed | — | 0 | 0 |
 
 ## chap18
 
-6 exercise(s).
+7 exercise(s).
 
 | ID | Anchor | Kind | Action | Replacement | Min before | Min after |
 |---|---|---|---|---|---|---|
@@ -294,11 +303,12 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch18-ex04 | Rewrite the Fibonacci function using nested conditional expressions | native | kept | — | 15 | 15 |
 | ch18-ex05 | Rewrite the binomial coefficient function using nested conditional expressions | native | kept | — | 15 | 15 |
 | ch18-ex06 | Rewrite the Deck __str__ method using a list comprehension | native | kept | — | 15 | 15 |
+| ch18-va01 | Ask a virtual assistant: set/Counter/comprehension/unittest questions | B | removed | — | 0 | 0 |
 
 ## Totals
 
-Total exercises: 155
+Total exercises: 165
 
-By kind: A=4, B=8, native=136, original=7
+By kind: A=4, B=17, native=137, original=7
 
-By action: added=64, edited=6, kept=72, removed=13
+By action: added=65, edited=10, kept=67, removed=23

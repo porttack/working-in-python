@@ -7612,3 +7612,139 @@ that chapter in the same cycle -- which would have avoided today's incident by c
 at the cost of the read-only-by-default problem the maintainer explicitly asked to fix two
 entries ago. These two goals were in tension today and the tension wasn't surfaced before
 acting.
+
+## 2026-09-09 — VA removal decided book-wide; chapters 9–19 stripped as one cross-chapter batch
+
+Maintainer asked whether chapters 9 and beyond had had any real work done. Checked directly
+rather than trusting the status table's word for it: `CHAPTER_MANIFEST.md` showed 9–19 as
+`decide`/`decide leaning keep`/`keep` on VA, and a sentinel/blank-marker scan of the actual
+notebooks confirmed it -- chapters 9–19 carry only the same three boilerplate sentinels
+every chapter got early on (glossary link, docstring-reminder note, attribution note), zero
+blank markers (chapter 1 has 8, for comparison), and the exercise ledger's entries for
+9–18 are all Pass 1's original `kind`/`kept` survey rows, never touched by Pass 2. So: real,
+confirmed, and consistent with what `CLAUDE.md` already said -- nothing had silently
+regressed, it just genuinely hadn't started.
+
+Maintainer then decided the open VA question for chapters 12–19: strip it everywhere, not
+just 1–11. Reasoning volunteered directly -- the assumption behind `keep`/"teacher decision"
+was that older, more independent students (post-exam 12–13, independent-study 14–19) could
+be trusted to use a VA well, and the maintainer judged that assumption doesn't hold; the
+temptation to lean on a VA instead of doing the work isn't something students grow out of.
+Also too early in the school year (first student day was one month ago) to make a narrower,
+per-chapter call, so the simple uniform answer -- strip everywhere -- was preferred over
+revisiting it later. This is a maintainer policy decision, not something raised per
+`CLAUDE.md`'s "Raise rather than decide" list; recorded here for the next reader. Updated
+`CLAUDE.md`'s treatment matrix (VA removal column, all three rows now `strip`) and
+`CHAPTER_MANIFEST.md`'s per-chapter VA decision column and intro note to match.
+
+Maintainer then asked to strip chapters 9–19 immediately, as one batch, rather than leaving
+it for each chapter's normal Pass 2 turn. Did **only** Pass 2 Step 1 (VA removal) and Step 2
+(the one resulting kind-A replacement) for these eleven chapters -- not Step 4 (blank
+markers) or Step 5 (per-chapter checkout/chrome), which stay open, chapter by chapter, for
+whenever Pass 2/4 formally reaches 9–19. This is a deliberate scope split from Pass 2's
+normal per-chapter order of work; flagging it so nobody assumes "VA is gone" means "Pass 2
+is done" for these chapters.
+
+### What Pass 1 already established, reused here
+
+Read `mods/pass-1-survey.md`'s and this file's own earlier classification (the "Ask a
+virtual assistant — classification, all chapters" section, "Only 4 exercises are genuinely
+VA-driven" in `pass-2-surgery.md`) rather than re-deriving it. Confirmed by direct read of
+every VA mention in chapters 9–19 (dumped each with a cell of surrounding context) that the
+classification held: one `### Ask a virtual assistant` subsection per chapter under
+Exercises (kind B, chapters 9, 10, 11, 13, 14, 15, 16, 17, 18 -- 12 is a structural outlier,
+see below; 19 has no Exercises section at all, matching Pass 1's note), a handful of inline
+kind-C asides, and exactly one kind-A exercise in this range: `ch17-ex07`, the Kangaroo
+mutable-default-argument bug, whose deliverable was pasting the class into a VA and
+reporting what it said back. That's the fourth and last kind-A exercise book-wide (the other
+three: ch05-ex06, ch07-ex06, ch07-ex07, all already resolved in the ch. 1-8 pass) -- so this
+session closes out that count at four-for-four, three-for-four with a replacement standing
+(ch05-ex06's replacement was written and then deliberately removed 2026-08-24; see that
+entry above).
+
+### Step 1 — VA removal, chapters 9–19
+
+Whole kind-B sections removed, matching the ch1-8 precedent exactly (delete the cell, no
+repair needed, ledger entry `chXX-va01`, kind B, `action: "removed"`): chap09 (ChatGPT
+anecdote + role-prompting), chap10, chap11, chap13, chap14, chap15, chap16, chap17
+("Ask a Virtual Assistant", capitalized differently from every other chapter -- upstream
+inconsistency, left alone since it's being deleted anyway), chap18.
+
+**chap12 is a structural outlier, not a clean kind-B cell.** Its `### Ask a virtual
+assistant` heading sits directly over a paragraph that is actually ordinary chapter content
+(explaining the if/else pattern in `add_bigram`, which is real code used later in the
+chapter), followed by the `add_bigram` code cell itself, then a further paragraph mixing a
+genuine mention of `setdefault` with VA-specific suggestions. Treated this as two kind-C
+repairs rather than a whole-cell kind-B removal: dropped just the heading line (the
+paragraph under it needed no heading to read fine on its own), and in the second cell kept
+the bare fact "`setdefault` exists and does this more concisely" while cutting both the "ask
+a VA how it works" clause and an entire following paragraph about VA/LLM-vs-Markov-chain
+comparison (wholly VA-dependent, no salvageable content). Neither of these is an "exercise"
+in the ledger's sense, so per the ch1-8 precedent (zero kind-C entries exist in the ledger;
+kind-C repairs inside an existing ledgered exercise flip that exercise's `action` to
+`edited`, and kind-C repairs in general narrative get no ledger entry at all, just this
+note), chap12's two repairs are recorded here only, not in the ledger.
+
+**Other narrative (non-exercise) kind-C repairs, ledger-silent by the same rule:** chap16
+cell (avoiding-mutation paragraph -- cut the "ask a VA how to make an object immutable"
+clause, kept the surrounding point about performance not mattering in practice); chap18,
+two cells (cut "-- if you are curious, you can ask a virtual assistant to explain how it
+works" from the `unittest.main` explanation, and cut a whole trailing sentence pointing at
+VA prompts for more `unittest` info); chap19 (cut an entire paragraph from the closing
+"Final thoughts" recommending VA/Copilot use -- chapter 19 has no Exercises section at all,
+so this was never going to be kind B; the paragraph before and after it connect cleanly
+without it, no repair needed).
+
+**Kind-C repairs inside an existing ledgered exercise, `action` flipped to `edited`:**
+`ch10-ex04` (add_counters -- cut "consider asking a virtual assistant for different
+solutions", kept "there are many ways to solve this problem"), `ch11-ex07` (the bonus
+Car-Talk-puzzler exercise -- cut the VA clause, kept "come back to it after you've read a
+few more chapters"), `ch13-ex03` (photo-duplicate-finder -- cut "-- or ask a virtual
+assistant to write this function for you" from a numbered hint), `ch17-ex02` (the
+`PokerHand` helper-method walkthrough -- cut a full closing paragraph of VA prompting
+strategy, kept the two method descriptions and the reassurance that every exercise is
+doable with material already covered).
+
+### Step 2 — the one replacement exercise
+
+`ch17-ex07` -> `ch17-ex07r`. Original deliverable: ask a VA "What's wrong with the following
+program?", paste in `Kangaroo`, report back. No code solution cell existed for it. Replaced
+with a direct task built on the same setup (unchanged): explain in a comment why `kanga` and
+`roo` end up sharing one pouch list, then write a corrected `Kangaroo` and confirm with new
+instances that their pouches are independent. Filled the previously-empty solution cell with
+`# Solution goes here`, matching the rest of the book's placeholder convention. No sentinel
+wrapper added -- following the ch07-ex06r/ch07-ex07r precedent exactly (a same-slot
+substitution of an upstream exercise isn't a `CLAUDE.md`-rule-2 "addition," so it isn't
+sentinel-wrapped; tracked via the ledger and this note instead). `est_minutes` held at 15,
+matching the original. `self_verifying: true` -- the fix is checkable by inspection (the two
+`Kangaroo` instances no longer share a list object).
+
+### Ledger and checks
+
+9 new `chXX-va01` kind-B entries (chap09, 10, 11, 13, 14, 15, 16, 17, 18), 4 existing native
+exercises flipped to `action: "edited"` (`ch10-ex04`, `ch11-ex07`, `ch13-ex03`, `ch17-ex02`),
+`ch17-ex07` flipped to `action: "removed"`, `ch17-ex07r` added as its replacement. 165
+entries total, up from 155. `make ledger` regenerated `CHANGELOG_DETAIL.md` cleanly.
+`make projector && make check` both pass (`projector/` was stale for all eleven touched
+chapters until rebuilt -- expected, not a problem, since it regenerates from `chapters/`).
+
+Verified no `virtual assistant` string (case-insensitive) remains anywhere in chapters
+9–19. Verified via round-trip (`json.dumps(nb, indent=1, ensure_ascii=False)` reproduces
+each untouched file byte-for-byte) that every edit is a targeted cell-level change, not a
+reformat -- `git diff` on each of the eleven files shows only the removed/edited cells.
+
+**Not done, and not claimed:** these eleven chapters still carry upstream's original code
+outputs and execution counts (confirmed: chapter 9 alone has 86 code cells with outputs, and
+this predates today's session -- checked `git show HEAD:chapters/chap09.ipynb` before
+touching anything). That's `nbstripout` hygiene, owned by whichever pass reaches these
+chapters for real chrome/checkout (Pass 4 territory per `CLAUDE.md`'s global "Done, every
+pass" list), not something introduced or fixed here. Blank markers (Step 4) are similarly
+untouched for 9–13, and chapters 9–19 have had no Pass 4 chrome, no Pass 5 wiring, and no
+Pass 3 Step 4 standards-alignment work either -- this session touched only VA content.
+
+**Open for whoever runs Pass 2/4 on 9–19 next:** the pacing question flagged in the Pass 2
+status row is still open. Chapter 11 is flagged in `pass-2-surgery.md` as the heaviest
+chapter, expect its blank-marker pass to take longer. `chap12`'s unusual heading placement
+(see above) is worth a glance when that chapter gets its real Pass 2 pass, in case the same
+misplaced-heading pattern recurs elsewhere in the chapter and wasn't caught by this
+VA-focused read.
