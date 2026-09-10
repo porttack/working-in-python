@@ -3,8 +3,8 @@
 Reorganizes `standards/apcsp.json` around the exam's own structure — the 6 Computational
 Thinking Practices, then the 5 Big Ideas and every topic (sub-item) inside each — so
 coverage can be read top-down the way the CED is organized, rather than by chapter. AP CSP
-only; for California/CSTA/ICT coverage see `alignment/standards_alignment.md`. Chapters
-14–19 carry no AP CSP content (confirmed in `standards_alignment.md` View 1) and are
+only; for California/CSTA/ICT coverage see `alignment/standards-alignment.md`. Chapters
+14–19 carry no AP CSP content (confirmed in `standards-alignment.md` View 1) and are
 omitted from the tables below.
 
 Chapter links point at the source notebooks in `chapters/`. Topic codes link to this
@@ -117,7 +117,7 @@ watching.
 ### Coding-related gaps (worth tracking)
 
 1. **No `while` loop anywhere in the book (3.8 / AAP-2.K).** The single most consequential
-   finding in this whole index — also flagged in `standards_alignment.md`. Indefinite
+   finding in this whole index — also flagged in `standards-alignment.md`. Indefinite
    iteration is taught only through recursion (chap05, chap06). Conceptually related, but
    it isn't the same pseudocode construct the exam tests, and it can't produce the
    `REPEAT UNTIL`-specific edge cases (infinite loop from a condition that never flips;
@@ -150,5 +150,5 @@ watching.
 ---
 
 *Sourced from `standards/apcsp.json` (2026-07-30 extraction) and cross-checked against
-`alignment/standards_alignment.md` View 2. Regenerate by hand if either changes — no build
+`alignment/standards-alignment.md` View 2. Regenerate by hand if either changes — no build
 script for this file yet, same as the other `alignment/*.md` docs.*

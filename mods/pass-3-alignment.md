@@ -62,7 +62,7 @@
   **Status as of 2026-08-09: alignment done for chapters 1-8.** Chapters 1-3 done in the
   session that added these frameworks; chapters 4-8 done in a follow-up the same day. Still
   not a full Step 1-3 pass for either framework — no `crosswalk.json` entries exist yet
-  between CSTA/ICT and AP/CA, and `standards_alignment.md`'s four views haven't been
+  between CSTA/ICT and AP/CA, and `standards-alignment.md`'s four views haven't been
   extended to cover them. Chapters 9-19 need the same treatment: read the chapter, check it
   against `csta2026.json`'s 46 standards and `ca-ict-anchor.json`'s 170 items, and be as
   willing to find nothing as something — CSTA's HS-band standards in particular assume
@@ -163,7 +163,7 @@ genuinely diverge.
 
 Then generate:
 
-**`alignment/standards_alignment.md`** — four views:
+**`alignment/standards-alignment.md`** — four views:
 1. by chapter: what each chapter covers in both frameworks
 2. by AP topic: coverage, carrier, chapters
 3. by CA standard: coverage, carrier, chapters

@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
 <title>AP CSP Standards Reference</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -55,6 +59,7 @@ section.big-idea { margin-top: 3rem; padding-top: 1rem; border-top: 3px solid va
 section.big-idea > h2 { font-size: 1.5rem; }
 .carrier-line { color: var(--muted); font-size: .85rem; margin: .2rem 0 1rem; }
 .subconcept-heading { font-size: 1rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 2rem 0 .5rem; }
+.tier-heading { font-size: .82rem; font-weight: 600; color: var(--accent); margin: 1rem 0 .4rem 1rem; }
 .topic {
   background: var(--topic-bg); border: 1px solid var(--border); border-radius: 10px;
   padding: 1rem 1.25rem; margin: 1.25rem 0;
@@ -71,13 +76,51 @@ ul.ek-list li {
   background: var(--ek-bg); border: 1px solid var(--border); border-radius: 6px;
   padding: .35rem .6rem; margin: .3rem 0 .3rem 1.1rem; font-size: .92rem;
 }
+.item-meta { font-size: .8rem; color: var(--muted); margin: .2rem 0 .2rem 1.1rem; }
+.item-note { font-size: .82rem; color: var(--muted); border-left: 3px solid var(--border); padding-left: .6rem; margin: .3rem 0 .5rem 1.1rem; }
 .practice-table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; }
 .practice-table th, .practice-table td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--border); }
 .practice-table th { color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
 .hidden { display: none !important; }
 footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; border-top: 1px solid var(--border); padding-top: 1rem; }
 :target { scroll-margin-top: 1rem; outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+
+.site-menu { position: absolute; top: 0.5em; right: 0.7em; z-index: 20; }
+.site-menu .site-menu-trigger { position: absolute; opacity: 0; pointer-events: none; }
+.site-menu .site-menu-icon {
+  position: relative; z-index: 2; display: block; font-size: 1.3em; line-height: 1;
+  padding: .2em .4em; border-radius: 4px; color: var(--fg); cursor: pointer; user-select: none;
+}
+.site-menu .site-menu-icon:hover { background: var(--code-bg); }
+.site-menu .site-menu-backdrop {
+  display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; cursor: default;
+}
+.site-menu .site-menu-trigger:checked ~ .site-menu-backdrop { display: block; }
+.site-menu .site-menu-panel {
+  display: none; position: absolute; top: 100%; right: 0; margin-top: .3em; min-width: 8em; z-index: 2;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.site-menu .site-menu-panel a {
+  display: block; padding: .5em 1em; color: var(--fg); text-decoration: none; white-space: nowrap;
+}
+.site-menu .site-menu-panel a:hover { background: var(--code-bg); }
+.site-menu .site-menu-trigger:checked ~ .site-menu-panel { display: block; }
+.site-menu .site-menu-trigger:focus ~ .site-menu-icon { outline: 2px solid var(--accent); }
 </style>
+</head>
+<body>
+<div class="site-menu">
+<input type="checkbox" id="site-menu-trigger" class="site-menu-trigger">
+<label for="site-menu-trigger" class="site-menu-icon" aria-label="Menu">&#9776;</label>
+<label for="site-menu-trigger" class="site-menu-backdrop" aria-hidden="true"></label>
+<nav class="site-menu-panel">
+<a href="/">Home (learn.porttack.com)</a>
+<a href="/pico/">MicroPython on Pi Pico</a>
+<a href="/electronics101/">Electronics 101</a>
+<a href="/working-in-python/">Working in Python</a>
+<a href="/standards/">Standards</a>
+</nav>
+</div>
 <div class="layout">
 <nav class="toc" aria-label="Table of contents">
 <h2>Practices</h2>
@@ -696,6 +739,8 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 <div class="topic" id="T-3.17">
 <h3><a class="anchor-link" href="#T-3.17">#</a><span class="code-badge">3.17</span> Algorithmic Efficiency</h3>
 <p class="paraphrase">Algorithms that solve the same problem are not equally fast, and how an algorithm's running time grows with input size is what separates a practical solution from an impractical one.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a></p>
+<p class="note">Chapter 10's too_slow/much_faster comparison is a direct instance of AAP-4.A.5's informal efficiency-by-counting: the chapter reasons that checking every word against every other word is roughly 'the number of words squared -- roughly -- which is almost 13 billion' comparisons, then measures the dictionary-based version at '10,000 times faster.' Two algorithms solving the identical problem (finding reversed-word pairs), correctness held equal, efficiency the only variable -- AAP-4.A.6's own framing. No complexity-class vocabulary (constant/linear/quadratic) appears, which is fine: this topic's own exclusions rule out formal Big-O analysis, and AAP-4.A.5 explicitly names counting statement executions as a legitimate informal alternative.</p>
 <p class="note">Out of scope: formal/mathematical (Big-O) analysis of algorithms is outside course/exam scope (EK AAP-4.A.3)</p>
 <p class="note">Out of scope: specific heuristic solutions are outside course/exam scope (EK AAP-4.A.9)</p>
 <div class="lo" id="AAP-4.A">
@@ -979,3 +1024,5 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
   });
 })();
 </script>
+</body>
+</html>

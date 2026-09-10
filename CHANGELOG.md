@@ -5,6 +5,21 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-09 (5) — chapters 9-13 CSTA 2026/CA CTE-ICT alignment research; standards resync
+
+### Added
+- Six new standards-coverage entries for chapters 9-13 (apcsp 3.17, csta2026 HS-ALG-PS-01/
+  HS-ALG-PS-03/HS-ALG-PS-04/HS-PRO-VD-16, ca-ict-anchor C4.7 extended, C5.3), closing the
+  CSTA-2026-core and CA-CTE/ICT research gap flagged earlier today. Authored in `../learn`
+  (the canonical repo for this data), synced back here. See `AUDIT.md`.
+
+### Changed
+- Synced this repo's `standards/` mirror and regenerated `alignment/*.html` from the
+  updated `../learn` catalog (also picked up an unrelated CSTA 2026 Specialty expansion and
+  a new CSTA-2017 catalog/crosswalk already sitting in `../learn` since 2026-08-29/31).
+  `build_alignment.py`'s output renamed `standards_alignment.md` -> `standards-alignment.md`;
+  updated every live reference to the old name.
+
 ## 2026-09-09 (4) — site nav: standards-reference entries point to learn.porttack.com
 
 ### Changed

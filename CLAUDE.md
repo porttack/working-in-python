@@ -120,7 +120,7 @@ standards/
   carriers/working-in-python.json   this book's own coverage only (locators, not carrier/tp_chapters)
 alignment/
   *-standards-reference.html GENERATED (book-scoped) by tools/build_alignment.py
-  standards_alignment.md     GENERATED (book-scoped): coverage summary + by-source + gaps
+  standards-alignment.md     GENERATED (book-scoped): coverage summary + by-source + gaps
   glossary-map.md            hand-curated, not generated (vocabulary system, separate from standards)
   (supplement-plan.md removed 2026-08-28 -- it described non-book carriers; the
   cross-source version lives at learn.porttack.com/standards/alignment/)

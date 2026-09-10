@@ -123,12 +123,12 @@ term-for-term. See AUDIT.md, 2026-08-17 follow-up 6, for the chap06b example end
 interlude is the first carrier for a topic that was previously `unassigned`/`carriers: []`
 — easy to miss a second time, since chap06b's own wiring never did this (its testing
 vocabulary landed in `ap-vocabulary-coverage.md` but chap06b was never added to any
-topic's `carriers` list in `apcsp.json`/`castandards.json`, nor to `standards_alignment.md`'s
+topic's `carriers` list in `apcsp.json`/`castandards.json`, nor to `standards-alignment.md`'s
 View 1 chapter table — a real gap, left alone rather than fixed retroactively, since fixing
 it wasn't asked for and touching chap06b's standards claims is a separate decision). chap07b
 did get this treatment, since it's the first carrier for AP 2.1/2.2 and CA DA.8/DA.9: see
 `AUDIT.md`'s 2026-08-17 handoff for the full list of files touched (`apcsp.json`,
-`castandards.json`, `alignment/supplement-plan.md`, `alignment/standards_alignment.md`).
+`castandards.json`, `alignment/supplement-plan.md`, `alignment/standards-alignment.md`).
 Note the `carriers` schema's `"chapters"` field is a JSON list of ints everywhere else in
 both files (e.g. `[1, 5]`) — there's no established convention for a lettered interlude, so
 chap07b's entries use the string `"7b"` in that list instead. If a later interlude needs

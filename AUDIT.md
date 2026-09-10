@@ -8002,3 +8002,87 @@ separate repo with its own commit history; the CSTA-2026-core/CA-ICT research ga
 chapters 9-13 identified in the previous handoff is still open, and doing that research
 means editing `../learn/_standards/carriers/working-in-python.json` there, then syncing
 back, not editing anything in this repo directly.
+
+## 2026-09-09 follow-up (4) — CSTA/ICT research gap closed in `../learn`, synced back
+
+Maintainer confirmed explicitly: standards research work belongs in `../learn`, this repo
+only references/syncs it. Given the green light, did the CSTA-2026-core and CA-CTE/ICT
+research for chapters 9-13 that the previous two handoffs flagged as the real remaining
+gap, working directly in `../learn` (a sibling repo on disk, not this one).
+
+**Method:** read `../learn/_standards/csta2026.json`'s 46 HS-core standards and
+`ca-ict-anchor.json`'s anchor-standard-5 and Pathway-C (C4/C5/C8) items in full, checked
+each candidate against chapters 9-13's actual content (already thoroughly read this session
+for the VA-removal, blank-marker, and chrome work), and only added an entry where the match
+was concrete and specific -- not an exhaustive sweep of either catalog. Six new entries:
+
+- **apcsp 3.17 (Algorithmic Efficiency)**, chap10: `too_slow`/`much_faster` is a textbook
+  instance of AAP-4.A.5's *informal* efficiency-by-counting (the chapter itself reasons
+  "the number of words squared -- roughly -- which is almost 13 billion" comparisons, then
+  measures the dictionary version at "10,000 times faster") -- read the topic's own
+  exclusions first to confirm formal Big-O isn't required, so an informal count is a real,
+  not partial, match.
+- **csta2026 HS-ALG-PS-01**, chap09-11: choosing a built-in structure (list/dict/tuple) to
+  go with an algorithm, this standard's own framing.
+- **csta2026 HS-ALG-PS-03**, chap10: same `too_slow`/`much_faster` evidence, this standard's
+  angle being the comparison itself (speed *and* readability), not just efficiency.
+- **csta2026 HS-ALG-PS-04**, chap12: `deterministic`/`pseudorandom` are named glossary terms
+  in this exact chapter, an unusually direct match rather than an inferred one.
+- **csta2026 HS-PRO-VD-16**, chap09-11: choosing a structure to hold data -- distinct from
+  HS-ALG-PS-01's "go with an algorithm" framing even though the evidence overlaps.
+- **ca-ict-anchor C4.7**, extended from `[8]` to `[8, 9, 10, 11, 13]`: chap08 already carried
+  this for files; chapters 9-11 (lists, dicts, tuples) and 13 (files/shelve) are the
+  standard's other named structures (arrays/data structures, databases).
+- **ca-ict-anchor C5.3**, chap10: same `too_slow`/`much_faster` evidence a third time,
+  C5.3's own angle being deliberate performance optimization specifically.
+
+**One real mistake, caught before it mattered:** my first pass wrote `C4.7` as a fresh
+top-level assignment instead of extending the existing `[8]` entry, which would have
+silently deleted chapter 8's own coverage. Caught by re-reading the diff before committing
+(the removed `8` locator and its note were plainly visible), not by any automated check --
+there isn't one for this file. Fixed by re-reading the original entry and merging both
+findings into one note. Also verified none of the other five new codes collided with an
+existing key, by diffing each against `git show HEAD` for that exact key -- confirms this
+wasn't a one-off lucky catch, the check was systematic after the first miss.
+
+**Also fixed:** `S1-SWD-TR-06`'s note, which described chapters 9-13's "Ask a virtual
+assistant" sections as still present -- stale as of this session's own VA-removal work.
+Updated the note to say the content is gone and the verdict (not a real match, even when it
+existed) is unchanged.
+
+Committed in `../learn` (`60300e7`) — a real commit in that repo, its own history, not
+staged for the maintainer to review first, matching how this session has been committing
+directly in this repo throughout. `../learn/tools/sync-standards.sh ../working-in-python
+working_in_python` pulled the update back here, which also picked up unrelated upstream
+changes already sitting in `../learn`'s canonical catalog since the last 2026-08-28 sync:
+a large `csta2026.json` expansion (135 new High School Specialty standards, added
+2026-08-29, already reflected in the earlier 2026-08-31 Specialty carrier pass but never
+synced into this repo until now), `castandards.json` growth, a new `csta2017.json` +
+`crosswalk-castandards-csta2017.json` pair (a CSTA-2017-vs-CA crosswalk this repo doesn't
+directly use, but the sync script copies every catalog file unconditionally), and a
+substantially rewritten `tools/build_alignment.py` (273 lines changed -- handles the new
+catalogs and grade-band/specialty distinctions). Treated all of this as a normal one-way
+sync, not something to review line-by-line -- that trust boundary is the whole point of
+"canonical there, mirror here."
+
+**Regenerated this repo's `alignment/*.html`** via the documented command in
+`standards/README.md`. Discovered along the way: the newer `build_alignment.py` renames its
+coverage-summary output from `standards_alignment.md` to `standards-alignment.md` (hyphen,
+not underscore) and now also emits `csta2017-standards-reference.html`. Deleted the
+now-stale `standards_alignment.md` (confirmed the new hyphenated file supersedes it, not
+just adds to it -- diffed the two, only the coverage numbers differ, reflecting the newly
+synced data) and fixed every *live* (non-changelog) reference to the old filename:
+`CLAUDE.md`'s Layout section, `mods/pass-3-alignment.md` (two mentions),
+`alignment/glossary-map.md`, `alignment/ap-practices-bigideas-coverage.md`. Deliberately
+left `CHANGELOG.md` and `AUDIT.md`'s own historical mentions of the old filename alone --
+those are dated records of what was true when they were written, not live cross-references,
+and this project's own convention treats `CHANGELOG.md` as append-only.
+
+Verified anchors for all six new codes exist in the regenerated HTML (`grep -o
+'id="T-3\.17"'` etc., all four target files) before relying on them for the next step (the
+actual per-chapter Standards Alignment blocks, chapters 9-13, still to be written). `make
+check` passes.
+
+**Not done:** the per-chapter blocks themselves -- this handoff only covers the research
+and the sync/regen plumbing that has to happen before those can be written accurately. That
+work is next.
