@@ -345,6 +345,112 @@ def time_check(chapter=0, exercises=0, longest=""):
         print(f"Longest: {longest}")
 
 
+def write_homework_files(notebook_filename):
+    """Write <name>-homework.ipynb and <name>-homework.md from this notebook's Homework section.
+
+    Reads notebook_filename from disk (so the notebook must be saved first) and slices out
+    the cells from the "## Homework" (or older "## Extra Exercises") heading up to, but not
+    including, the "Finished? Copy your work" cell -- the same range the "Copy Homework"
+    button copies, so a student's added answer cells are included no matter how many there
+    are. The .ipynb is that same slice of cells written out as a standalone notebook. The
+    .md is a plain-text rendering meant for someone reading over the work, not a full
+    nbconvert-style export: each code cell shows its execution count and source, then any
+    text output (stream/print output and the "text/plain" repr of a returned value) --
+    image outputs are skipped on purpose, there's nothing to grade in a picture of a plot.
+    """
+    import os
+
+    if not os.path.exists(notebook_filename):
+        print(f"Could not find {notebook_filename} in the current directory ({os.getcwd()}).")
+        print("Make sure the notebook has been saved, and that this cell is running from "
+              "the same folder the notebook itself is in.")
+        return
+
+    with open(notebook_filename) as f:
+        notebook = json.load(f)
+
+    cells = notebook["cells"]
+
+    sentinel_line = re.compile(r"^\s*<!--\s*apcsp:(begin|end).*?-->\s*$")
+
+    def cell_text(cell, strip_sentinels=False):
+        text = "".join(cell.get("source", []))
+        if not strip_sentinels:
+            return text
+        lines = [line for line in text.split("\n") if not sentinel_line.match(line)]
+        return "\n".join(lines).strip("\n")
+
+    def is_heading(cell, headings):
+        if cell.get("cell_type") != "markdown":
+            return False
+        text = cell_text(cell)
+        return any(f"## {heading}" in text for heading in headings)
+
+    start = None
+    for i, cell in enumerate(cells):
+        if is_heading(cell, ("Homework", "Extra Exercises")):
+            start = i
+            break
+
+    if start is None:
+        print("Could not find a '## Homework' (or '## Extra Exercises') heading in "
+              f"{notebook_filename}.")
+        return
+
+    end = len(cells)
+    for i in range(start + 1, len(cells)):
+        if "Finished? Copy your work" in cell_text(cells[i]):
+            end = i
+            break
+
+    homework_cells = cells[start:end]
+
+    base = os.path.splitext(notebook_filename)[0]
+    ipynb_path = f"{base}-homework.ipynb"
+    md_path = f"{base}-homework.md"
+
+    homework_notebook = {
+        "cells": homework_cells,
+        "metadata": notebook.get("metadata", {}),
+        "nbformat": notebook.get("nbformat", 4),
+        "nbformat_minor": notebook.get("nbformat_minor", 5),
+    }
+    with open(ipynb_path, "w") as f:
+        json.dump(homework_notebook, f, indent=1)
+        f.write("\n")
+
+    lines = []
+    for cell in homework_cells:
+        if cell["cell_type"] == "markdown":
+            lines.append(cell_text(cell, strip_sentinels=True))
+            lines.append("")
+            continue
+        source = cell_text(cell)
+
+        count = cell.get("execution_count")
+        lines.append(f"**In [{count if count is not None else ' '}]:**")
+        lines.append("```python")
+        lines.append(source)
+        lines.append("```")
+        for output in cell.get("outputs", []):
+            output_type = output.get("output_type")
+            text = None
+            if output_type == "stream":
+                text = "".join(output.get("text", []))
+            elif output_type in ("execute_result", "display_data"):
+                text = "".join(output.get("data", {}).get("text/plain", []))
+            elif output_type == "error":
+                text = f"{output.get('ename', '')}: {output.get('evalue', '')}"
+            if text:
+                lines.append(f"```\n{text.rstrip(chr(10))}\n```")
+        lines.append("")
+
+    with open(md_path, "w") as f:
+        f.write("\n".join(lines))
+
+    print(f"Wrote {ipynb_path} and {md_path}.")
+
+
 def check_for_update(version, filename):
     """Show a banner if a newer build of this notebook has been published.
 
