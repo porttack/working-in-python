@@ -20,13 +20,30 @@
 #
 # Nothing here ever publishes -- that's jb/build.sh with no flag, a separate,
 # deliberate step. Stop any mode with Ctrl-C.
+#
+# Examples:
+#   Just edited chap09.ipynb, want to see it rendered:
+#     ./preview.sh
+#     # open http://localhost:8000/chap09.html -- re-renders on every save
+#
+#   Page looks stale / a change isn't showing up:
+#     ./preview.sh --clean
+#
+#   About to run deploy.sh --publish, want to sanity-check the *whole* build
+#   (including JupyterLite) first, the way it'll actually get published:
+#     ./preview.sh --full
+#
+#   Only touched something inside JupyterLite itself (tools/build_jupyterlite_
+#   content.py, CELL_PATCHES, a vendored data file) and don't need the rest of
+#   the site rebuilt to check it:
+#     ./preview.sh --lite
 
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 usage() {
-  sed -n '2,21p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
+  sed -n '2,/^[^#]/p' "${BASH_SOURCE[0]}" | sed '$d' | sed 's/^#$//; s/^# //'
 }
 
 case "${1:-}" in

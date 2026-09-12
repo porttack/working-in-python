@@ -32,6 +32,22 @@
 #
 # jb/build.sh itself refuses to run at all if ../chapters/ has uncommitted
 # changes, so use --commit (or commit yourself) before --local/--publish.
+#
+# Examples:
+#   Committed and pushed your edits yourself already, ready to check the
+#   full build before it goes live:
+#     ./deploy.sh --local
+#     open jb/_build/html/index.html
+#
+#   That local build looked right -- publish it for real:
+#     ./deploy.sh --publish
+#
+#   Haven't committed yet, want the old one-shot habit (commit, push,
+#   build, publish, all in one line):
+#     ./deploy.sh --commit "chap09: fix typo in Homework 3" --push --publish
+#
+#   Already committed, just want to push to origin without building anything:
+#     ./deploy.sh --push
 
 set -euo pipefail
 

@@ -152,7 +152,20 @@ def check_one(path, apcsp_codes, castandards_codes, problems, notes):
 
 def main():
     parser = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "Examples:\n"
+            "  Just finished editing chap09, before committing:\n"
+            "    ./check.sh chap09\n"
+            "\n"
+            "  About to make a big commit touching several chapters:\n"
+            "    ./check.sh\n"
+            "\n"
+            "  Ran a notebook interactively while testing a change and aren't sure\n"
+            "  whether outputs/execution_counts got saved along with it:\n"
+            "    ./check.sh chap09    # flags it under \"new/changed outputs\" if so\n"
+        ),
     )
     parser.add_argument(
         "target", nargs="?", default=None,
