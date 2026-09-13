@@ -26,38 +26,6 @@ parts:
 # worse than one that says less.
 #
 # Scope is communicated in index.md and orientation.md instead.
-#
-# EXCEPTION, added for chap06b (2026-08-17): an "interlude" -- a chapter
-# outside Think Python's own numbering, inserted between two numbered
-# chapters (see CHAPTER_MANIFEST.md and AUDIT.md; more are planned, e.g. a
-# unit-testing interlude near chapter 9 and one on binary). An interlude
-# must not consume a chapter number itself, and must not push every chapter
-# after it up by one -- confirmed by an actual local `jupyter-book build`
-# that chap07 renders "8." if chap06b is added as a plain sibling `- file:`
-# entry in this same list. The fix, also verified by a local build: split
-# this one part into three, with `caption:` on only the first so no new
-# sidebar divider appears, `numbered: True` on the chapters-only parts, and
-# omitted on the interlude's own one-item part. jupyter-book ships
-# sphinx-multitoc-numbering specifically so numbering continues across a
-# split like this instead of restarting per part -- chapter 7 still renders
-# "7.", not "1." or "8.", and next/previous links still flow
-# chap06 -> chap06b -> chap07. (The comment two paragraphs up, from before
-# this was tested, is wrong about restarting -- kept above only as the
-# reason a *captioned* split is still worth avoiding.) Repeat this split
-# pattern -- new anonymous part, no caption, `numbered:` omitted -- for
-# every future interlude; never add a second `caption:` line to this file's
-# Chapters section.
-#
-# Also considered and rejected: nesting the interlude as a `sections:` child
-# of the chapter before it, to get a one-tab sidebar indent. Tested locally:
-# it works for the indent, but Sphinx renders it as an HTML <details> that's
-# collapsed by default on every page except the interlude's own chapter and
-# itself -- a student browsing from chapter 10 would see a closed "6. Return
-# Values" toggle with the interlude hidden inside, not something meant to
-# read as next in sequence. Used a toc-level `title:` override instead (see
-# chap06b's entry below) to prefix "Interlude: " onto the sidebar label only
-# -- the notebook's own H1 and page title stay the bare chapter title,
-# unprefixed, matching every numbered chapter's own convention.
 - caption: Chapters
   numbered: True
   chapters:
@@ -67,22 +35,7 @@ parts:
     - file: chap04
     - file: chap05
     - file: chap06
-- chapters:
-    - file: chap06b
-      title: "Interlude: Docstrings and Doctests"
-- numbered: True
-  chapters:
     - file: chap07
-# Second interlude, added 2026-08-17: chap07b ("Representing Data"), between chapters 7
-# and 8. Outline only as of this writing -- no drafted prose, no exercises -- but wired
-# into the TOC now per CHAPTER_MANIFEST.md's Interludes section so the split-part pattern
-# and nav-label convention are already in place when the chapter is actually drafted. Same
-# three-way-split mechanism as chap06b above; see that entry's comment for why.
-- chapters:
-    - file: chap07b
-      title: "Interlude: Representing Data"
-- numbered: True
-  chapters:
     - file: chap08
     - file: chap09
     - file: chap10
@@ -95,6 +48,27 @@ parts:
     - file: chap17
     - file: chap18
     - file: chap19
+
+# "Interludes": original content, not part of Think Python's own numbering
+# (see CHAPTER_MANIFEST.md and AUDIT.md). Both used to sit inline, each
+# between two numbered chapters, which required splitting the Chapters part
+# above into five pieces so an interlude's own one-item part could go
+# unnumbered without pushing every later chapter's number up (confirmed by
+# an actual local `jupyter-book build` -- chap07 rendered "8." otherwise).
+# Repositioned 2026-09-13 to after chapter 19 instead: the maintainer's
+# original inline scope and sequence "did not work out as well as hoped."
+# That collapses the five-way split back to the two parts below -- no
+# `numbered:` on this one, so sphinx-multitoc-numbering leaves it out of the
+# chapter count, matching the same "new anonymous part, no caption, no
+# numbered:" pattern the old inline split used. Repeat this pattern -- an
+# item in the chapters list below, `title:` overridden to prefix
+# "Interlude: " onto the sidebar label only -- for any future interlude;
+# never add a second `caption:` line to this file's Chapters part above.
+- chapters:
+    - file: interlude-a
+      title: "Interlude A: Docstrings and Doctests"
+    - file: interlude-b
+      title: "Interlude B: Representing Data"
 
 # Meta pages: not reading material, but useful to have visible in the
 # sidebar on every page rather than buried in "Also here" links on index.md.

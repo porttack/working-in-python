@@ -28,11 +28,10 @@ if ! git diff --quiet -- ../chapters/; then
 fi
 
 # Clear any copies left from a previous run so a deleted chapter cannot linger.
-rm -f chap*.ipynb jupyter_intro.ipynb index.ipynb
+rm -f chap*.ipynb interlude-*.ipynb jupyter_intro.ipynb index.ipynb
 
-# The trailing * (not just chapNN.ipynb) also picks up lettered interludes
-# like chap06b.ipynb -- see jb/_toc.yml's 2026-08-17 comment on those.
-cp ../chapters/chap[0-1][0-9]*.ipynb .
+cp ../chapters/chap[0-1][0-9].ipynb .
+cp ../chapters/interlude-*.ipynb .
 cp ../chapters/jupyter_intro.ipynb .
 cp ../chapters/index.ipynb .
 
@@ -64,11 +63,11 @@ cp ../setup.sh ../fetch.py _wip_zip_stage/wip/
 (cd _wip_zip_stage && zip -rq ../wip-tools.zip wip)
 
 cp ../chapters/*.ipynb _wip_zip_stage/wip/
-# chap07b is outline only -- no drafted prose, no exercises yet (see its own
-# first cell and CHAPTER_MANIFEST.md). Fine as a placeholder in the site's own
-# TOC (a deliberate, separate call already made there), but not something to
-# hand a student as working material. Revisit once it's actually authored.
-rm -f _wip_zip_stage/wip/chap07b.ipynb
+# interlude-b is outline only -- no drafted prose, no exercises yet (see its
+# own first cell and CHAPTER_MANIFEST.md). Fine as a placeholder in the site's
+# own TOC (a deliberate, separate call already made there), but not something
+# to hand a student as working material. Revisit once it's actually authored.
+rm -f _wip_zip_stage/wip/interlude-b.ipynb
 (cd _wip_zip_stage && zip -rq ../wip.zip wip)
 rm -rf _wip_zip_stage
 
@@ -175,6 +174,6 @@ echo "  4. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/notebooks/index.
 echo "  5. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/lab/index.html shows the grouped file browser"
 echo "  6. https://python.porttack.com/current/notebooks/index.html?path=__chap01-welcome.ipynb redirects and runs"
 echo "  7. https://python.porttack.com/wip.zip downloads and unzips to a wip/ folder"
-echo "     with setup.sh, fetch.py, and every real chapter, chap07b excluded"
+echo "     with setup.sh, fetch.py, and every real chapter, interlude-b excluded"
 echo "  8. https://python.porttack.com/wip-tools.zip downloads and unzips to a wip/"
 echo "     folder with just setup.sh and fetch.py, no chapters"

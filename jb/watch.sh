@@ -11,10 +11,15 @@
 # then rebuilds and refreshes the browser. Stop with Ctrl-C.
 #
 # Two things must be excluded from the watch, or every build retriggers the
-# next one forever: the chap*.ipynb copies this script writes into jb/ (the
-# same source directory sphinx-autobuild watches by default -- prep_notebooks.py
-# rewrites them on every build), and _build/, the output directory, which
-# lives inside that same watched source directory.
+# next one forever: the chap*.ipynb/interlude-*.ipynb copies this script
+# writes into jb/ (the same source directory sphinx-autobuild watches by
+# default -- prep_notebooks.py rewrites them on every build), and _build/,
+# the output directory, which lives inside that same watched source
+# directory. (2026-09-13: fixed a pre-existing gap where the chapter-copy
+# glob had no trailing `*`, so a chapNN-named interlude like the old
+# chap06b.ipynb was silently never copied or previewed here -- moot now that
+# interludes are copied by their own explicit glob above, but the same
+# missing-`*` mistake is worth not repeating for any future lettered name.)
 #
 # Sphinx normally only re-renders pages whose source changed since the last
 # build. That incremental cache is usually what you want, but pass --clean
@@ -37,8 +42,9 @@ if [[ "${1:-}" == "--clean" ]]; then
   rm -rf _build
 fi
 
-rm -f chap*.ipynb jupyter_intro.ipynb index.ipynb
+rm -f chap*.ipynb interlude-*.ipynb jupyter_intro.ipynb index.ipynb
 cp ../chapters/chap[0-1][0-9].ipynb .
+cp ../chapters/interlude-*.ipynb .
 cp ../chapters/jupyter_intro.ipynb .
 cp ../chapters/index.ipynb .
 
@@ -83,8 +89,9 @@ OSA
 exec sphinx-autobuild . _build/html \
   --watch ../chapters \
   --re-ignore '.*/jb/chap[0-9]+\.ipynb$' \
+  --re-ignore '.*/jb/interlude-[a-z]+\.ipynb$' \
   --re-ignore '.*/jb/jupyter_intro\.ipynb$' \
   --re-ignore '.*/jb/index\.ipynb$' \
   --re-ignore '.*/jb/_build/.*' \
-  --pre-build "bash -c 'rm -f chap*.ipynb jupyter_intro.ipynb index.ipynb && cp ../chapters/chap[0-1][0-9].ipynb . && cp ../chapters/jupyter_intro.ipynb . && cp ../chapters/index.ipynb . && python prep_notebooks.py'" \
+  --pre-build "bash -c 'rm -f chap*.ipynb interlude-*.ipynb jupyter_intro.ipynb index.ipynb && cp ../chapters/chap[0-1][0-9].ipynb . && cp ../chapters/interlude-*.ipynb . && cp ../chapters/jupyter_intro.ipynb . && cp ../chapters/index.ipynb . && python prep_notebooks.py'" \
   --open-browser
