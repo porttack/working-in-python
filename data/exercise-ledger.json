@@ -630,8 +630,8 @@
     "note": "Bare suggested-prompt section under Exercises (heading + three illustrative code cells + closing prompt paragraph). Removed whole, no replacement (pass-2 Step 1, kind B). Not priced in the pass-1 effort table, so removal does not change the chapter estimate."
   },
   {
-    "chapter": "chap06b",
-    "id": "ch06b-ex01",
+    "chapter": "interlude-a",
+    "id": "int-a-ex01",
     "anchor": "Add a docstring with three doctests to is_leap_year from Chapter 5",
     "kind": "original",
     "action": "added",
@@ -641,11 +641,11 @@
     "est_minutes_before": 8,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b, Docstrings and Doctests); not adapted from upstream Think Python. See CHAPTER_MANIFEST.md's Interludes section and AUDIT.md. 2026-09-13: heading renamed from 'Exercise 1' to 'Problem 1' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
+    "note": "New interlude exercise (chap06b, Docstrings and Doctests); not adapted from upstream Think Python. See CHAPTER_MANIFEST.md's Interludes section and AUDIT.md. 2026-09-13: heading renamed from 'Exercise 1' to 'Problem 1' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged. 2026-09-13: chapter renamed from chap06b to interlude-a (id from ch06b-ex01 to int-a-ex01) as part of moving both interludes out of the live numbered sequence to after chapter 19 -- see CHAPTER_MANIFEST.md and AUDIT.md. Task and cells unchanged."
   },
   {
-    "chapter": "chap06b",
-    "id": "ch06b-ex02",
+    "chapter": "interlude-a",
+    "id": "int-a-ex02",
     "anchor": "Write can_ride(height_inches, age) with a docstring and three doctests including a false-boundary test (choose one: Exercise 2 or 3)",
     "kind": "original",
     "action": "added",
@@ -655,11 +655,11 @@
     "est_minutes_before": 10,
     "est_minutes_after": 10,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 2' to 'Problem 2' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 2' to 'Problem 2' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged. 2026-09-13: chapter renamed from chap06b to interlude-a (id from ch06b-ex02 to int-a-ex02) as part of moving both interludes out of the live numbered sequence to after chapter 19 -- see CHAPTER_MANIFEST.md and AUDIT.md. Task and cells unchanged."
   },
   {
-    "chapter": "chap06b",
-    "id": "ch06b-ex03",
+    "chapter": "interlude-a",
+    "id": "int-a-ex03",
     "anchor": "Write letter_grade(score) with a docstring and three doctests including a false-boundary test (choose one: Exercise 2 or 3)",
     "kind": "original",
     "action": "added",
@@ -669,11 +669,11 @@
     "est_minutes_before": 10,
     "est_minutes_after": 10,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 3' to 'Problem 3' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 3' to 'Problem 3' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged. 2026-09-13: chapter renamed from chap06b to interlude-a (id from ch06b-ex03 to int-a-ex03) as part of moving both interludes out of the live numbered sequence to after chapter 19 -- see CHAPTER_MANIFEST.md and AUDIT.md. Task and cells unchanged."
   },
   {
-    "chapter": "chap06b",
-    "id": "ch06b-ex04",
+    "chapter": "interlude-a",
+    "id": "int-a-ex04",
     "anchor": "Hand-trace and fix the buggy count_down_to_zero so its existing doctests pass, without changing the docstring",
     "kind": "original",
     "action": "added",
@@ -683,11 +683,11 @@
     "est_minutes_before": 8,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 4' to 'Problem 4' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 4' to 'Problem 4' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged. 2026-09-13: chapter renamed from chap06b to interlude-a (id from ch06b-ex04 to int-a-ex04) as part of moving both interludes out of the live numbered sequence to after chapter 19 -- see CHAPTER_MANIFEST.md and AUDIT.md. Task and cells unchanged."
   },
   {
-    "chapter": "chap06b",
-    "id": "ch06b-ex05",
+    "chapter": "interlude-a",
+    "id": "int-a-ex05",
     "anchor": "Determine whether the code or the doctest is wrong in middle_character, fix only the wrong one, and explain the reasoning",
     "kind": "original",
     "action": "added",
@@ -697,11 +697,11 @@
     "est_minutes_before": 8,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 5' to 'Problem 5' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 5' to 'Problem 5' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged. 2026-09-13: chapter renamed from chap06b to interlude-a (id from ch06b-ex05 to int-a-ex05) as part of moving both interludes out of the live numbered sequence to after chapter 19 -- see CHAPTER_MANIFEST.md and AUDIT.md. Task and cells unchanged."
   },
   {
-    "chapter": "chap06b",
-    "id": "ch06b-ex06",
+    "chapter": "interlude-a",
+    "id": "int-a-ex06",
     "anchor": "Reflection: did knowing the doctest would run change how you wrote the docstring?",
     "kind": "original",
     "action": "added",
@@ -711,11 +711,11 @@
     "est_minutes_before": 5,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 6' to 'Problem 6' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 6' to 'Problem 6' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged. 2026-09-13: chapter renamed from chap06b to interlude-a (id from ch06b-ex06 to int-a-ex06) as part of moving both interludes out of the live numbered sequence to after chapter 19 -- see CHAPTER_MANIFEST.md and AUDIT.md. Task and cells unchanged."
   },
   {
-    "chapter": "chap06b",
-    "id": "ch06b-ec01",
+    "chapter": "interlude-a",
+    "id": "int-a-ec01",
     "anchor": "Extra credit: write a completely correct function with a doctest that fails anyway, and explain why",
     "kind": "original",
     "action": "added",
@@ -725,7 +725,7 @@
     "est_minutes_before": 10,
     "est_minutes_after": 10,
     "self_verifying": false,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: chapter renamed from chap06b to interlude-a (id from ch06b-ec01 to int-a-ec01) as part of moving both interludes out of the live numbered sequence to after chapter 19 -- see CHAPTER_MANIFEST.md and AUDIT.md. Task and cells unchanged."
   },
   {
     "chapter": "chap07",
