@@ -358,27 +358,26 @@ def esc(s):
 
 
 def parse_chapter_map():
-    """Term (lowercase) -> list of chapter labels ("01".."19", "06b", "07b"),
-    parsed live from vocabulary-by-chapter.md's own `## Chapter N` / `##
-    Interlude` headers, so a new chapter's terms get correct links here
-    automatically without editing this file."""
+    """Term (lowercase) -> list of chapter labels ("01".."19", "interlude-a",
+    "interlude-b"), parsed live from vocabulary-by-chapter.md's own `## Chapter
+    N` / `## Interlude X` headers, so a new chapter's terms get correct links
+    here automatically without editing this file.
+
+    An interlude's letter comes from its own heading, not from counting how
+    many interlude headings have been seen so far -- counting broke the
+    moment the two interludes were reordered (2026-09-13, moved to the end of
+    the book), silently mislabeling whichever interlude appeared first."""
     chapter_map = {}
     current = None
-    interlude_count = 0
     with open(VOCAB_BY_CHAPTER) as f:
         for line in f:
             m_ch = re.match(r"^## Chapter (\d+)", line)
-            m_int = re.match(r"^## Interlude", line)
+            m_int = re.match(r"^## Interlude ([A-Za-z])", line)
             if m_ch:
                 current = m_ch.group(1).zfill(2)
                 continue
             if m_int:
-                interlude_count += 1
-                # Only two interludes exist today (between ch. 6/7 and 7/8).
-                # A third would need a rule here; the surrounding chapter
-                # numbers in vocabulary-by-chapter.md's own section text are
-                # the tell if this ever needs to grow past two.
-                current = "06b" if interlude_count == 1 else "07b"
+                current = "interlude-" + m_int.group(1).lower()
                 continue
             m_term = re.match(r"\|\s*\*\*(.+?)\*\*\s*\|", line)
             if m_term and current:
@@ -406,7 +405,16 @@ def build_full_list():
 
 
 def chapter_url(ch):
+    if ch.startswith("interlude-"):
+        return f"{SITE}/{ch}.html"
     return f"{SITE}/chap{ch}.html"
+
+
+def chapter_badge(ch):
+    """"09" -> "9"; "interlude-a" -> "A" -- the short label shown in a superscript."""
+    if ch.startswith("interlude-"):
+        return ch.split("-", 1)[1].upper()
+    return ch.lstrip("0") or ch
 
 
 def term_html(e, linked=True):
@@ -416,9 +424,9 @@ def term_html(e, linked=True):
         sup += '<sup class="ap">AP</sup>'
     if e["chapters"]:
         if linked:
-            links = ",".join(f'<a href="{chapter_url(c)}">{c.lstrip("0") or c}</a>' for c in e["chapters"])
+            links = ",".join(f'<a href="{chapter_url(c)}">{chapter_badge(c)}</a>' for c in e["chapters"])
         else:
-            links = ",".join(c.lstrip("0") or c for c in e["chapters"])
+            links = ",".join(chapter_badge(c) for c in e["chapters"])
         sup += f'<sup class="ch">{links}</sup>'
     return f"<b>{t}</b>{sup}"
 
@@ -479,7 +487,7 @@ def write_markdown(full):
         lines.append("|---|---|---|---|")
         for e in groups[letter]:
             ap_mark = "AP" if e["ap"] else ""
-            ch_mark = ", ".join(e["chapters"]) if e["chapters"] else "—"
+            ch_mark = ", ".join(chapter_badge(c) for c in e["chapters"]) if e["chapters"] else "—"
             d = e["def"]
             if e["note"]:
                 d += f" *({e['note']}.)*"

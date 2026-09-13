@@ -10,10 +10,10 @@ files with:
   vocabulary list (from build_vocabulary_glossary.py's ENTRIES table -- the
   same table used for ap-vocabulary-glossary.{md,html}, so the two pages can't
   disagree about which terms are AP-tested)
-- a footnote linking to any OTHER chapter where the same term is also defined
-  (e.g. "attribute" in ch. 9 gets a note pointing to ch. 14, and vice versa),
-  skipped where the existing hand-written note already covers the same ground
-  (anything already mentioning "chapter")
+- a footnote linking to any OTHER chapter or interlude where the same term is
+  also defined (e.g. "attribute" in ch. 9 gets a note pointing to ch. 14, and
+  vice versa), skipped where the existing hand-written note already covers
+  the same ground (anything already mentioning "chapter" or "interlude")
 - the same "AP-tested only" filter toggle as ap-vocabulary-glossary.html
 
 No PDF and no print-specific column layout for this page -- unlike the merged
@@ -47,18 +47,24 @@ def esc(s):
 
 def parse_existing():
     """Returns (preamble_lines, sections). Each section is a dict:
-    {kind: "chapter"|"interlude", number: "1".."18" or None, anchor: "ch01".."ch18b",
+    {kind: "chapter"|"interlude", number: "1".."18" or None, anchor: "ch01".."ch18",
+     label: "01".."18" or "interlude-a"/"interlude-b",
      title: subtitle after the em dash, intro_lines: [str, ...], terms: [(term, definition), ...]}
     """
     text = MD_PATH.read_text()
     lines = text.split("\n")
 
-    heading_re = re.compile(r"^## (Chapter (\d+)|Interlude) — (.+)$")
+    # An interlude's letter comes from its own heading ("## Interlude A — ..."), not
+    # from counting how many interlude headings have been seen so far -- counting
+    # broke the moment the two interludes were reordered (2026-09-13, moved from
+    # between chapters 6/7 and 7/8 to the end of the book), silently mislabeling
+    # whichever interlude the parser happened to see first. See CHAPTER_MANIFEST.md.
+    heading_re = re.compile(r"^## Chapter (\d+) — (.+)$|^## Interlude ([A-Za-z]) — (.+)$")
     # Matches both the original 2-column table ("| **term** | definition |")
     # and this script's own 3-column output ("| **term** | AP | definition |"),
     # so re-running against previously-generated output is safe.
     row_re = re.compile(r"^\| \*\*(.+?)\*\* \| (?:(?:AP)? \| )?(.+) \|$")
-    auto_note_re = re.compile(r"\s*\*\(Also ch\. [^)]*\)\*\s*$")
+    auto_note_re = re.compile(r"\s*\*\(Also [^)]*\)\*\s*$")
 
     # Strip any banner comment lines this script itself added on a prior run.
     while lines and lines[0].startswith("<!--"):
@@ -73,22 +79,22 @@ def parse_existing():
         i += 1
 
     sections = []
-    interlude_count = 0
     while i < len(lines):
         m = heading_re.match(lines[i])
         if not m:
             i += 1
             continue
-        kind = "chapter" if m.group(2) else "interlude"
-        number = m.group(2)
-        title = m.group(3)
+        kind = "chapter" if m.group(1) else "interlude"
         if kind == "chapter":
+            number = m.group(1)
+            title = m.group(2)
             anchor = "ch" + number.zfill(2)
             label = number.zfill(2)
         else:
-            interlude_count += 1
-            label = "06b" if interlude_count == 1 else "07b"
-            anchor = "ch" + label
+            number = None
+            title = m.group(4)
+            label = "interlude-" + m.group(3).lower()
+            anchor = label
         i += 1
         intro_lines = []
         while i < len(lines) and not lines[i].startswith("| Term"):
@@ -124,10 +130,17 @@ def other_chapters(term, current_label, chapters_by_term):
     return [c for c in chapters_by_term.get(term.lower(), []) if c != current_label]
 
 
+def label_display(label):
+    """"09" -> "ch. 9"; "interlude-a" -> "Interlude A"."""
+    if label.startswith("interlude-"):
+        return "Interlude " + label.split("-", 1)[1].upper()
+    return f"ch. {label.lstrip('0') or label}"
+
+
 def chapter_note_text(others):
     if not others:
         return None
-    labels = [f"ch. {c.lstrip('0') or c}" for c in others]
+    labels = [label_display(c) for c in others]
     if len(labels) == 1:
         return f"Also {labels[0]}."
     return f"Also {', '.join(labels[:-1])} and {labels[-1]}."
@@ -137,7 +150,7 @@ def write_markdown(preamble, sections, ap_by_term, chapters_by_term):
     out = [BANNER_MD.rstrip("\n"), ""]
     out.extend(preamble)
     for sec in sections:
-        heading = f"Chapter {sec['number']}" if sec["kind"] == "chapter" else "Interlude"
+        heading = f"Chapter {sec['number']}" if sec["kind"] == "chapter" else label_display(sec["label"])
         out.append(f"## {heading} — {sec['title']}")
         out.append("")
         out.extend(sec["intro_lines"])
@@ -150,7 +163,7 @@ def write_markdown(preamble, sections, ap_by_term, chapters_by_term):
             others = other_chapters(term, sec["label"], chapters_by_term)
             note = chapter_note_text(others)
             d = definition
-            if note and "chapter" not in definition.lower():
+            if note and "chapter" not in definition.lower() and "interlude" not in definition.lower():
                 d += f" *({note})*"
             out.append(f"| **{term}** | {ap_mark} | {d} |")
         out.append("")
@@ -178,11 +191,18 @@ def build_html(preamble, sections, ap_by_term, chapters_by_term):
     section_html = []
     for sec in sections:
         chapter_ap_count = sum(1 for term, _d in sec["terms"] if ap_by_term.get(term.lower(), False))
-        nav_links.append(
-            f'<a href="#{sec["anchor"]}" data-ap-count="{chapter_ap_count}">{sec["label"].lstrip("0") or sec["label"]}</a>'
+        nav_text = (
+            sec["label"].lstrip("0") or sec["label"] if sec["kind"] == "chapter"
+            else sec["label"].split("-", 1)[1].upper()
         )
-        heading_link_text = f"Chapter {sec['number']}" if sec["kind"] == "chapter" else "Interlude"
-        chap_url = f"{SITE}/chap{sec['label']}.html"
+        nav_links.append(
+            f'<a href="#{sec["anchor"]}" data-ap-count="{chapter_ap_count}">{nav_text}</a>'
+        )
+        heading_link_text = f"Chapter {sec['number']}" if sec["kind"] == "chapter" else label_display(sec["label"])
+        chap_url = (
+            f"{SITE}/chap{sec['label']}.html" if sec["kind"] == "chapter"
+            else f"{SITE}/{sec['label']}.html"
+        )
         rows = []
         for term, definition in sec["terms"]:
             ap = ap_by_term.get(term.lower(), False)
@@ -190,12 +210,14 @@ def build_html(preamble, sections, ap_by_term, chapters_by_term):
             note = chapter_note_text(others)
             sup = '<sup class="ap">AP</sup>' if ap else ""
             def_html = md_inline_to_html(definition)
-            if note and "chapter" not in definition.lower():
+            if note and "chapter" not in definition.lower() and "interlude" not in definition.lower():
+                def _anchor_for(label):
+                    return label if label.startswith("interlude-") else "ch" + label
                 if len(others) == 1:
-                    link = f'<a href="#ch{others[0]}">ch. {others[0].lstrip("0") or others[0]}</a>'
+                    link = f'<a href="#{_anchor_for(others[0])}">{label_display(others[0])}</a>'
                     note_html = f"Also {link}."
                 else:
-                    links = [f'<a href="#ch{c}">ch. {c.lstrip("0") or c}</a>' for c in others]
+                    links = [f'<a href="#{_anchor_for(c)}">{label_display(c)}</a>' for c in others]
                     note_html = f"Also {', '.join(links[:-1])} and {links[-1]}."
                 def_html += f' <i class="note">({note_html})</i>'
             rows.append(

@@ -3,7 +3,24 @@
   "title": "Working in Python (a jupyter notebook)",
   "base_url": "https://python.porttack.com",
   "locator_kind": "chapter",
-  "locator_url_template": "{base_url}/chap{locator}.html",
+  "locator_url_template": "{base_url}/{locator}.html",
+  "locator_slugs": {
+   "1": "chap01",
+   "2": "chap02",
+   "3": "chap03",
+   "4": "chap04",
+   "5": "chap05",
+   "6": "chap06",
+   "6b": "interlude-a",
+   "7": "chap07",
+   "7b": "interlude-b",
+   "8": "chap08",
+   "9": "chap09",
+   "10": "chap10",
+   "11": "chap11",
+   "12": "chap12",
+   "13": "chap13"
+  },
   "readonly_suffix": true,
   "source": "working_in_python",
   "locator_titles": {
@@ -80,13 +97,13 @@
     "locators": [
      "7b"
     ],
-    "note": "Carried by the interlude between chapters 7 and 8 ('Representing Data', chap07b): bits, place value, binary/decimal/hex conversion by hand and via bin()/int(s, 2)/format(). As of 2026-08-17 chap07b exists only as an outline (section headings, vocabulary, standards claims) -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; that supplement was dropped after year one and never taught again, so the assignment was stale -- removed 2026-08-09 per teacher confirmation. The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14, 'Digital communication protocols') remains a secondary, partial touchpoint (hexadecimal as byte notation) alongside chap07b's fuller treatment."
+    "note": "Carried by Interlude B ('Representing Data'), positioned after chapter 19: bits, place value, binary/decimal/hex conversion by hand and via bin()/int(s, 2)/format(). As of 2026-08-17 chap07b exists only as an outline (section headings, vocabulary, standards claims) -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; that supplement was dropped after year one and never taught again, so the assignment was stale -- removed 2026-08-09 per teacher confirmation. The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14, 'Digital communication protocols') remains a secondary, partial touchpoint (hexadecimal as byte notation) alongside chap07b's fuller treatment."
    },
    "2.2": {
     "locators": [
      "7b"
     ],
-    "note": "Carried by the interlude between chapters 7 and 8 ('Representing Data', chap07b): the lossless/lossy contrast, taught as the choice the exam actually tests rather than as definitions, plus student-written run-length encoding as the lossless worked example. As of 2026-08-17 chap07b exists only as an outline -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; removed 2026-08-09 per teacher confirmation that supplement hasn't been taught since year one. The Pico I2C chapter (see 2.1's note) still doesn't touch compression at all."
+    "note": "Carried by Interlude B ('Representing Data'), positioned after chapter 19: the lossless/lossy contrast, taught as the choice the exam actually tests rather than as definitions, plus student-written run-length encoding as the lossless worked example. As of 2026-08-17 chap07b exists only as an outline -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; removed 2026-08-09 per teacher confirmation that supplement hasn't been taught since year one. The Pico I2C chapter (see 2.1's note) still doesn't touch compression at all."
    },
    "2.3": {
     "locators": [
@@ -213,13 +230,13 @@
     "locators": [
      "7b"
     ],
-    "note": "Same underlying content as AP 2.1/DAT-1.A (data represented using bits), carried by the interlude between chapters 7 and 8 ('Representing Data', chap07b) -- see apcsp.json's 2.1 note for the full carrier detail, including that chap07b is an outline only as of 2026-08-17, not drafted prose. Previously logged as carried by CS50T Multimedia, same as that AP topic; removed 2026-08-09 -- teacher confirms that supplement hasn't been taught since year one. Pico I2C unit remains a secondary, partial touchpoint."
+    "note": "Same underlying content as AP 2.1/DAT-1.A (data represented using bits), carried by Interlude B ('Representing Data'), positioned after chapter 19 -- see apcsp.json's 2.1 note for the full carrier detail, including that chap07b is an outline only as of 2026-08-17, not drafted prose. Previously logged as carried by CS50T Multimedia, same as that AP topic; removed 2026-08-09 -- teacher confirms that supplement hasn't been taught since year one. Pico I2C unit remains a secondary, partial touchpoint."
    },
    "9-12.DA.9": {
     "locators": [
      "7b"
     ],
-    "note": "Partially carried: the CED's own worked example for this standard is file-size-vs-quality tradeoffs across image formats -- the same territory as AP 2.2/DAT-1.D (data compression), which the interlude between chapters 7 and 8 ('Representing Data', chap07b) now covers. But DA.9's scope is broader than 2.2 alone (storage location, cost, reliability, privacy, integrity), and chap07b's outline doesn't reach those dimensions -- see apcsp.json's 2.2 note. As of 2026-08-17 chap07b is an outline only, not drafted prose. Previously logged as carried by CS50T Multimedia; removed 2026-08-09, same reason as DA.8."
+    "note": "Partially carried: the CED's own worked example for this standard is file-size-vs-quality tradeoffs across image formats -- the same territory as AP 2.2/DAT-1.D (data compression), which Interlude B ('Representing Data'), positioned after chapter 19 now covers. But DA.9's scope is broader than 2.2 alone (storage location, cost, reliability, privacy, integrity), and chap07b's outline doesn't reach those dimensions -- see apcsp.json's 2.2 note. As of 2026-08-17 chap07b is an outline only, not drafted prose. Previously logged as carried by CS50T Multimedia; removed 2026-08-09, same reason as DA.8."
    },
    "9-12.DA.10": {
     "locators": [],

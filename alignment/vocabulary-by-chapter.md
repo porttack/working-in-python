@@ -48,7 +48,7 @@ Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-1
 | **comment** | AP | Text included in a program that provides information about the program but has no effect on its execution. |
 | **runtime error** | AP | An error that causes a program to display an error message and exit. |
 | **exception** |  | An error that is detected while the program is running. |
-| **semantic error** | AP | An error that causes a program to do the wrong thing, but not to display an error message. *(Also ch. 6b.)* |
+| **semantic error** | AP | An error that causes a program to do the wrong thing, but not to display an error message. *(Also Interlude A.)* |
 
 ## Chapter 3 — Functions
 
@@ -76,7 +76,7 @@ Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-1
 | **keyword argument** |  | An argument that includes the name of the parameter. |
 | **refactoring** |  | The process of modifying a working program to improve function interfaces and other qualities of the code. |
 | **development plan** |  | A process for writing programs. |
-| **docstring** | AP | A string that appears at the top of a function definition to document the function's interface. *(Also ch. 6b.)* |
+| **docstring** | AP | A string that appears at the top of a function definition to document the function's interface. *(Also Interlude A.)* |
 | **multiline string** |  | A string enclosed in triple quotes that can span more than one line of a program. |
 | **precondition** |  | A requirement that should be satisfied by the caller before a function starts. |
 | **postcondition** |  | A requirement that should be satisfied by the function before it ends. |
@@ -114,31 +114,6 @@ Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-1
 | **Turing complete** |  | A language, or subset of a language, is Turing complete if it can perform any computation that can be described by an algorithm. |
 | **input validation** |  | Checking the parameters of a function to make sure they have the correct types and values |
 
-## Interlude — Docstrings and Doctests
-
-Between Chapter 6 and Chapter 7 — original content, not part of *Think Python*. See `CHAPTER_MANIFEST.md`'s Interludes section.
-
-| Term | AP | Definition |
-|---|---|---|
-| **docstring** | AP | A string at the beginning of a function that documents what the function does; unlike a comment, it is stored on the function and can be read by the program. *(Python's name for what the exam calls* program documentation.*)* *(Also ch. 4.)* |
-| **doctest** |  | An example call and its expected result, written inside a docstring, that can be run automatically to check the function. *(Python; not exam vocabulary.)* |
-| **testing** | AP | Checking that a program behaves correctly by running it on chosen inputs and comparing what comes out against what should have come out. |
-| **test case** | AP | A single input, paired with the result it should produce. |
-| **boundary case** |  | A test case at the value where a function's behavior changes, such as zero, an empty string, or the first or last item. |
-| **edge case** |  | A test case at an unusual or extreme input, where a function is most likely to be wrong. |
-| **expected value** |  | What a test says the answer should be, as opposed to what the code actually produced. |
-| **pass** |  | A test whose actual result matches its expected value. *(Also ch. 7.)* |
-| **fail** |  | A test whose actual result does not match its expected value. *(Also ch. 7.)* |
-| **hand tracing** | AP | Working through code on paper line by line, writing down each variable's value, in order to find an error without running the program. |
-| **semantic error** | AP | An error that lets the program run but produces a wrong result. *(The exam calls this a* logic error.*)* *(Also ch. 2.)* |
-| **roundoff error** | AP | A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. *(Also ch. 7b.)* |
-| **program purpose** | AP | The need a program serves, or the problem it solves; *why* it exists. |
-| **program function** | AP | What a program does when it runs, described as behavior. |
-| **program input** | AP | Data a program receives while it is running. |
-| **program output** | AP | What a program produces: displayed text, a returned value, a file, a sound, a movement. |
-| **procedure** | AP | The exam's word for a named, reusable block of code, whether or not it returns a value. This book says *function*. In older languages the two words were distinct: a procedure returned nothing, a function returned a value. |
-| **regression** |  | A bug that reappears in code that used to work. Tests exist mainly to catch these. *(Professional vocabulary, not exam vocabulary.)* |
-
 ## Chapter 7 — Iteration and Search
 
 | Term | AP | Definition |
@@ -152,35 +127,8 @@ Between Chapter 6 and Chapter 7 — original content, not part of *Think Python*
 | **decrement** |  | Decrease the value of a variable. |
 | **counter** |  | A variable used to count something, usually initialized to zero and then incremented. |
 | **linear search** | AP | A computational pattern that searches through a sequence of elements and stops when it finds what it is looking for. |
-| **pass** |  | If a test runs and the result is as expected, the test passes. *(Also ch. 6b.)* |
-| **fail** |  | If a test runs and the result is not as expected, the test fails. *(Also ch. 6b.)* |
-
-## Interlude — Representing Data
-
-Between Chapter 7 and Chapter 8 — original content, not part of *Think Python*. **Outline
-only as of 2026-08-17** — no drafted prose yet; terms below are this chapter's planned
-glossary. See `CHAPTER_MANIFEST.md`'s Interludes section.
-
-| Term | AP | Definition |
-|---|---|---|
-| **bit** | AP | A single binary digit, 0 or 1. |
-| **byte** | AP | Eight bits. Enough to hold one of 256 values. |
-| **binary** | AP | Base-2 representation, using only the digits 0 and 1. |
-| **decimal** | AP | Base-10, the system you already use. |
-| **hexadecimal** | AP | Base-16, using 0 through 9 and A through F. Four bits per digit, so one byte is exactly two hex digits. |
-| **digital data** | AP | Values represented in discrete steps, ultimately as bits. |
-| **analog data** | AP | Values that vary continuously and smoothly, with no steps. |
-| **sampling** | AP | Approximating an analog signal by measuring it at regular intervals. Two independent settings: how often you measure (rate) and how precisely you record each measurement (bit depth). |
-| **ASCII** | AP | A table assigning a number from 0 to 127 to each of a small set of characters. |
-| **Unicode** | AP | A far larger table, covering the writing systems ASCII left out. |
-| **character encoding** |  | The agreement about which numbers stand for which characters. Read bits with the wrong encoding and you get the right data as the wrong text. |
-| **RGB** | AP | Color stored as three numbers, the amounts of red, green, and blue, each usually one byte. |
-| **overflow error** | AP | An error that happens when a value is too large for the number of bits available to hold it. |
-| **roundoff error** | AP | A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. *(Second reference — first defined by the interlude between chapters 6 and 7.)* |
-| **lossless compression** | AP | Reduces size while allowing the original to be reconstructed exactly. |
-| **lossy compression** | AP | Reduces size further, but only an approximation of the original can be recovered. |
-| **compression ratio** |  | Compressed size divided by original size. *(This book's own term; not exam vocabulary.)* |
-| **run-length encoding** |  | A lossless scheme that replaces runs of a repeated value with the value and a count. *(This book's own term; the exam names no specific algorithm.)* |
+| **pass** |  | If a test runs and the result is as expected, the test passes. *(Also Interlude A.)* |
+| **fail** |  | If a test runs and the result is not as expected, the test fails. *(Also Interlude A.)* |
 
 ## Chapter 8 — Strings and Regular Expressions
 
@@ -335,3 +283,53 @@ glossary. See `CHAPTER_MANIFEST.md`'s Interludes section.
 | **list comprehension** |  | A concise way to loop through a sequence and create a list. |
 | **generator expression** |  | Similar to a list comprehension except that it does not create a list. |
 | **test discovery** |  | A process used to find and run tests. |
+
+## Interlude A — Docstrings and Doctests
+
+Supplementary material, not part of the live numbered sequence -- see `CHAPTER_MANIFEST.md`'s Interludes section. Builds on Chapter 6's return values; read any time after that chapter.
+
+| Term | AP | Definition |
+|---|---|---|
+| **docstring** | AP | A string at the beginning of a function that documents what the function does; unlike a comment, it is stored on the function and can be read by the program. *(Python's name for what the exam calls* program documentation.*)* *(Also ch. 4.)* |
+| **doctest** |  | An example call and its expected result, written inside a docstring, that can be run automatically to check the function. *(Python; not exam vocabulary.)* |
+| **testing** | AP | Checking that a program behaves correctly by running it on chosen inputs and comparing what comes out against what should have come out. |
+| **test case** | AP | A single input, paired with the result it should produce. |
+| **boundary case** |  | A test case at the value where a function's behavior changes, such as zero, an empty string, or the first or last item. |
+| **edge case** |  | A test case at an unusual or extreme input, where a function is most likely to be wrong. |
+| **expected value** |  | What a test says the answer should be, as opposed to what the code actually produced. |
+| **pass** |  | A test whose actual result matches its expected value. *(Also ch. 7.)* |
+| **fail** |  | A test whose actual result does not match its expected value. *(Also ch. 7.)* |
+| **hand tracing** | AP | Working through code on paper line by line, writing down each variable's value, in order to find an error without running the program. |
+| **semantic error** | AP | An error that lets the program run but produces a wrong result. *(The exam calls this a* logic error.*)* *(Also ch. 2.)* |
+| **roundoff error** | AP | A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. *(Also Interlude B.)* |
+| **program purpose** | AP | The need a program serves, or the problem it solves; *why* it exists. |
+| **program function** | AP | What a program does when it runs, described as behavior. |
+| **program input** | AP | Data a program receives while it is running. |
+| **program output** | AP | What a program produces: displayed text, a returned value, a file, a sound, a movement. |
+| **procedure** | AP | The exam's word for a named, reusable block of code, whether or not it returns a value. This book says *function*. In older languages the two words were distinct: a procedure returned nothing, a function returned a value. |
+| **regression** |  | A bug that reappears in code that used to work. Tests exist mainly to catch these. *(Professional vocabulary, not exam vocabulary.)* |
+
+## Interlude B — Representing Data
+
+Supplementary material, not part of the live numbered sequence -- see `CHAPTER_MANIFEST.md`'s Interludes section. **Outline only as of 2026-08-17** -- no drafted prose yet; terms below are this chapter's planned glossary.
+
+| Term | AP | Definition |
+|---|---|---|
+| **bit** | AP | A single binary digit, 0 or 1. |
+| **byte** | AP | Eight bits. Enough to hold one of 256 values. |
+| **binary** | AP | Base-2 representation, using only the digits 0 and 1. |
+| **decimal** | AP | Base-10, the system you already use. |
+| **hexadecimal** | AP | Base-16, using 0 through 9 and A through F. Four bits per digit, so one byte is exactly two hex digits. |
+| **digital data** | AP | Values represented in discrete steps, ultimately as bits. |
+| **analog data** | AP | Values that vary continuously and smoothly, with no steps. |
+| **sampling** | AP | Approximating an analog signal by measuring it at regular intervals. Two independent settings: how often you measure (rate) and how precisely you record each measurement (bit depth). |
+| **ASCII** | AP | A table assigning a number from 0 to 127 to each of a small set of characters. |
+| **Unicode** | AP | A far larger table, covering the writing systems ASCII left out. |
+| **character encoding** |  | The agreement about which numbers stand for which characters. Read bits with the wrong encoding and you get the right data as the wrong text. |
+| **RGB** | AP | Color stored as three numbers, the amounts of red, green, and blue, each usually one byte. |
+| **overflow error** | AP | An error that happens when a value is too large for the number of bits available to hold it. |
+| **roundoff error** | AP | A loss of precision that happens because a fixed number of bits cannot represent some numbers exactly. *(Second reference — first defined by Interlude A.)* |
+| **lossless compression** | AP | Reduces size while allowing the original to be reconstructed exactly. |
+| **lossy compression** | AP | Reduces size further, but only an approximation of the original can be recovered. |
+| **compression ratio** |  | Compressed size divided by original size. *(This book's own term; not exam vocabulary.)* |
+| **run-length encoding** |  | A lossless scheme that replaces runs of a repeated value with the value and a count. *(This book's own term; the exam names no specific algorithm.)* |
