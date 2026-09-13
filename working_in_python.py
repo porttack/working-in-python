@@ -215,7 +215,13 @@ try:
   <button
     onclick="
       var nb = document.querySelector('.jp-Notebook');
-      if (!nb) { alert('Could not find the notebook.'); return; }
+      if (!nb) {
+        alert('This button only works inside JupyterLite. If you are running this ' +
+          'notebook somewhere else (VS Code, a Codespace, Colab), look for a ' +
+          '\'Save your homework for submission\' cell instead -- not every chapter ' +
+          'has one yet, so ask your teacher if you do not see it.');
+        return;
+      }
       var cells = nb.querySelectorAll('.jp-Cell');
       var endCell = this.closest('.jp-Cell');
       var startCell = null;
@@ -274,6 +280,53 @@ try:
   <span style="font-size:12px; color:#666;">
     Copies just the Homework section. Paste into a document. Long section?
     Scroll all the way through it once first so every cell has loaded.
+  </span>
+</div>
+"""))
+
+    def show_copy_homework_button(notebook_filename):
+        """Display a button that copies this notebook's Homework section to the clipboard.
+
+        Unlike show_copy_notebook_button() (which only works inside JupyterLite, by
+        scraping the rendered page's own DOM), this reads notebook_filename from disk --
+        same as write_homework_files() -- and embeds the resulting text directly into this
+        cell's own output, so the button never needs to reach outside its own cell. That
+        should make it work in VS Code/Codespaces too, where each cell's output is
+        sandboxed and can't see the rest of the notebook -- but that's untested from here.
+        """
+        import html
+
+        homework_cells, _ = _homework_cells(notebook_filename)
+        if homework_cells is None:
+            return
+
+        text = "\n".join(_homework_markdown_lines(homework_cells))
+        js_text = html.escape(json.dumps(text))
+
+        display(HTML(f"""
+<div style="position: sticky; top: 0; z-index: 10;
+            background: var(--jp-layout-color0, white);
+            padding: 6px 0; display: flex; align-items: center; gap: 8px;">
+  <button
+    onclick="
+      var ta = document.createElement('textarea');
+      ta.value = {js_text};
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      var b = this;
+      var original = b.textContent;
+      b.textContent = 'Copied! Now paste (Ctrl+V) into a document.';
+      setTimeout(function () {{ b.textContent = original; }}, 2000);
+    "
+    style="padding:8px 16px; background:#2196F3; color:white; border:none;
+           border-radius:4px; font-size:14px; cursor:pointer;"
+  >Copy Homework</button>
+  <span style="font-size:12px; color:#666;">
+    Copies the Homework section as text (code and any output, no images).
   </span>
 </div>
 """))
@@ -345,45 +398,45 @@ def time_check(chapter=0, exercises=0, longest=""):
         print(f"Longest: {longest}")
 
 
-def write_homework_files(notebook_filename):
-    """Write <name>-homework.ipynb and <name>-homework.md from this notebook's Homework section.
+_HOMEWORK_SENTINEL_LINE = re.compile(r"^\s*<!--\s*apcsp:(begin|end).*?-->\s*$")
 
-    Reads notebook_filename from disk (so the notebook must be saved first) and slices out
-    the cells from the "## Homework" (or older "## Extra Exercises") heading up to, but not
-    including, the "Finished? Copy your work" cell -- the same range the "Copy Homework"
-    button copies, so a student's added answer cells are included no matter how many there
-    are. The .ipynb is that same slice of cells written out as a standalone notebook. The
-    .md is a plain-text rendering meant for someone reading over the work, not a full
-    nbconvert-style export: each code cell shows its execution count and source, then any
-    text output (stream/print output and the "text/plain" repr of a returned value) --
-    image outputs are skipped on purpose, there's nothing to grade in a picture of a plot.
+
+def _homework_cell_text(cell, strip_sentinels=False):
+    text = "".join(cell.get("source", []))
+    if not strip_sentinels:
+        return text
+    lines = [line for line in text.split("\n") if not _HOMEWORK_SENTINEL_LINE.match(line)]
+    return "\n".join(lines).strip("\n")
+
+
+def _homework_cells(notebook_filename):
+    """Read notebook_filename and return (homework_cells, notebook), or (None, None).
+
+    homework_cells is the slice from the "## Homework" (or older "## Extra Exercises")
+    heading up to, but not including, the "Finished? Copy your work" cell -- so a
+    student's added answer cells are included no matter how many there are. Prints a
+    helpful message and returns (None, None) if the file or the heading can't be found.
+    Every returned cell is guaranteed to have an "id" (nbformat 4.5+ requires one; any
+    cell missing it gets a short random one backfilled).
     """
     import os
+    import uuid
 
     if not os.path.exists(notebook_filename):
         print(f"Could not find {notebook_filename} in the current directory ({os.getcwd()}).")
         print("Make sure the notebook has been saved, and that this cell is running from "
               "the same folder the notebook itself is in.")
-        return
+        return None, None
 
     with open(notebook_filename) as f:
         notebook = json.load(f)
 
     cells = notebook["cells"]
 
-    sentinel_line = re.compile(r"^\s*<!--\s*apcsp:(begin|end).*?-->\s*$")
-
-    def cell_text(cell, strip_sentinels=False):
-        text = "".join(cell.get("source", []))
-        if not strip_sentinels:
-            return text
-        lines = [line for line in text.split("\n") if not sentinel_line.match(line)]
-        return "\n".join(lines).strip("\n")
-
     def is_heading(cell, headings):
         if cell.get("cell_type") != "markdown":
             return False
-        text = cell_text(cell)
+        text = _homework_cell_text(cell)
         return any(f"## {heading}" in text for heading in headings)
 
     start = None
@@ -395,45 +448,34 @@ def write_homework_files(notebook_filename):
     if start is None:
         print("Could not find a '## Homework' (or '## Extra Exercises') heading in "
               f"{notebook_filename}.")
-        return
+        return None, None
 
     end = len(cells)
     for i in range(start + 1, len(cells)):
-        if "Finished? Copy your work" in cell_text(cells[i]):
+        if "Finished? Copy your work" in _homework_cell_text(cells[i]):
             end = i
             break
 
     homework_cells = cells[start:end]
-
-    import uuid
     for cell in homework_cells:
         if not cell.get("id"):
             cell["id"] = uuid.uuid4().hex[:8]
 
-    homework_dir = "homework"
-    os.makedirs(homework_dir, exist_ok=True)
+    return homework_cells, notebook
 
-    base = os.path.splitext(notebook_filename)[0]
-    ipynb_path = os.path.join(homework_dir, f"{base}-homework.ipynb")
-    md_path = os.path.join(homework_dir, f"{base}-homework.md")
 
-    homework_notebook = {
-        "cells": homework_cells,
-        "metadata": notebook.get("metadata", {}),
-        "nbformat": notebook.get("nbformat", 4),
-        "nbformat_minor": notebook.get("nbformat_minor", 5),
-    }
-    with open(ipynb_path, "w") as f:
-        json.dump(homework_notebook, f, indent=1)
-        f.write("\n")
-
+def _homework_markdown_lines(homework_cells):
+    """Render homework_cells as plain-text lines: markdown verbatim (sentinels stripped),
+    code cells as their execution count, source, and any text output. Image outputs are
+    skipped on purpose -- there's nothing to grade in a picture of a plot.
+    """
     lines = []
     for cell in homework_cells:
         if cell["cell_type"] == "markdown":
-            lines.append(cell_text(cell, strip_sentinels=True))
+            lines.append(_homework_cell_text(cell, strip_sentinels=True))
             lines.append("")
             continue
-        source = cell_text(cell)
+        source = _homework_cell_text(cell)
 
         count = cell.get("execution_count")
         lines.append(f"**In [{count if count is not None else ' '}]:**")
@@ -452,9 +494,43 @@ def write_homework_files(notebook_filename):
             if text:
                 lines.append(f"```\n{text.rstrip(chr(10))}\n```")
         lines.append("")
+    return lines
+
+
+def write_homework_files(notebook_filename):
+    """Write homework/<name>-homework.ipynb and .md from this notebook's Homework section.
+
+    Reads notebook_filename from disk (so the notebook must be saved first). The .ipynb is
+    the Homework-section cells written out as a standalone notebook. The .md is a plain-text
+    rendering meant for someone reading over the work, not a full nbconvert-style export.
+    Creates a homework/ subfolder if it doesn't already exist, so submit50 can be pointed at
+    a fixed subpath regardless of where it's invoked from.
+    """
+    import os
+
+    homework_cells, notebook = _homework_cells(notebook_filename)
+    if homework_cells is None:
+        return
+
+    homework_dir = "homework"
+    os.makedirs(homework_dir, exist_ok=True)
+
+    base = os.path.splitext(notebook_filename)[0]
+    ipynb_path = os.path.join(homework_dir, f"{base}-homework.ipynb")
+    md_path = os.path.join(homework_dir, f"{base}-homework.md")
+
+    homework_notebook = {
+        "cells": homework_cells,
+        "metadata": notebook.get("metadata", {}),
+        "nbformat": notebook.get("nbformat", 4),
+        "nbformat_minor": notebook.get("nbformat_minor", 5),
+    }
+    with open(ipynb_path, "w") as f:
+        json.dump(homework_notebook, f, indent=1)
+        f.write("\n")
 
     with open(md_path, "w") as f:
-        f.write("\n".join(lines))
+        f.write("\n".join(_homework_markdown_lines(homework_cells)))
 
     print(f"Wrote {ipynb_path} and {md_path}.")
 
