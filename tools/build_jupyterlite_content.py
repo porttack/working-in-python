@@ -190,27 +190,17 @@ CONTENT_NAMES = {
     "chap18.ipynb": {"name": "Chapter18-Python-Extras.ipynb"},
     "chap19.ipynb": {"name": "Chapter19-Final-Thoughts.ipynb"},
 }
-# Temporary aliases, 2026-08-16 naming cleanup: chapters 2 and 3 may already have
-# students' in-progress work cached in their browser's IndexedDB under the OLD
-# served name (JupyterLite's own storage is keyed by path -- see AUDIT.md).
-# Serving the identical content under both the new canonical name and these old
-# names keeps that cached work reachable, since the old path still resolves to a
-# real, current file. Chapter 4 doesn't need one -- it's not live for students
-# until Monday, under the new name from the start. Remove these entries after a
-# few days, once no student could plausibly still need the old path.
-#
-# chap05 briefly got one too, 2026-08-24, alongside that day's rename (a fix
-# for a content-staleness bug, not a filename cleanup -- see AUDIT.md). Removed
-# the same day: shipping both names put two "Chapter05" entries side by side in
-# the Lab file browser, confusing for every visitor, not just ones with an old
-# bookmark -- confirmed even in a fresh incognito tab, where no stale content
-# was ever at risk. An alias only helps someone who both has an old link AND
-# hasn't already cached stale content under it; the visible duplication it
-# causes for everyone else outweighs that narrow case here.
-ALIASES = {
-    "chap02.ipynb": ["__chap02-variables-and-statements.ipynb"],
-    "chap03.ipynb": ["__chap03-functions.ipynb"],
-}
+# Temporary aliases for a chapter that just got renamed while already live, so a
+# student with in-progress work cached under the OLD served name (JupyterLite's
+# own storage is keyed by path -- see AUDIT.md) can still reach it. Add an entry
+# only alongside an actual rename of an already-live chapter; remove it again a
+# few days later, once no student could plausibly still need the old path -- see
+# AUDIT.md (2026-08-16) for chapters 2/3's now-removed aliases (retired here,
+# 2026-09-13, a month on), and (2026-08-24) for chapter 5's same-day add-then-
+# revert: no student had visited under the old name yet, so there was nothing to
+# preserve, and shipping both names just duplicated the entry in the Lab file
+# browser for everyone else.
+ALIASES = {}
 # Whether to actually ship teach/blank copies into jupyterlite/content/ at
 # all, 2026-08-16. Deliberately False for now -- what to call this file
 # (teach/blank/teacher/etc.) and how to make it sort correctly in the lab
