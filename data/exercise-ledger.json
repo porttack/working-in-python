@@ -417,7 +417,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 10,
     "self_verifying": false,
-    "note": "New Exercise 1 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Half of a choose-one pair with Exercise 2 (rps_winner, ch05-rps) -- a student does either, not both, and doing both earns no extra credit -- so the two carry identical (empty) standards tagging and structurally identical cells (prompt, solution, 'test your function' note, four boundary test-call cells) so neither reads as the more 'real' option. Test cases sit on the grade-boundary values (89/90, 59/60) rather than mid-range ones, so a chained conditional with an off-by-one in its comparisons fails visibly. No loop, no `in` operator, no return value -- chapter 5 hasn't taught the first two, and this chapter's recursion only prints, per direct instruction."
+    "note": "New Exercise 1 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Half of a choose-one pair with Exercise 2 (rps_winner, ch05-rps) -- a student does either, not both, and doing both earns no extra credit -- so the two carry identical (empty) standards tagging and structurally identical cells (prompt, solution, 'test your function' note, four boundary test-call cells) so neither reads as the more 'real' option. Test cases sit on the grade-boundary values (89/90, 59/60) rather than mid-range ones, so a chained conditional with an off-by-one in its comparisons fails visibly. No loop, no `in` operator, no return value -- chapter 5 hasn't taught the first two, and this chapter's recursion only prints, per direct instruction. 2026-09-13: heading renamed from 'Exercise 1' to 'Problem 1' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap05",
@@ -445,7 +445,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 10,
     "self_verifying": false,
-    "note": "New Exercise 3 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Required, not choose-one. Test cases (2000 Yes, 1900 No, 2024 Yes, 2023 No) specifically exercise the century-year exception -- 1900 is divisible by 4 but not by 400, the case a naive 'divisible by 4' check gets wrong -- so a student who skips the exception fails a visible test rather than passing by luck."
+    "note": "New Exercise 3 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Required, not choose-one. Test cases (2000 Yes, 1900 No, 2024 Yes, 2023 No) specifically exercise the century-year exception -- 1900 is divisible by 4 but not by 400, the case a naive 'divisible by 4' check gets wrong -- so a student who skips the exception fails a visible test rather than passing by luck. 2026-09-13: heading renamed from 'Exercise 3' to 'Problem 3' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap05",
@@ -459,7 +459,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New Exercise 4 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16, closing the open classification question ch05-va01 raised about this same function (see that entry). The buggy `countdown_by_two` was recovered verbatim from git history (commit e46eaa2, the pre-Pass-2 chap05.ipynb) rather than reconstructed -- same function body, same bug. Reframed as a plain debugging exercise with no virtual-assistant framing: students run it with an even and an odd starting value (6 works, 5 doesn't -- its `n == 0` base case is never hit once `n` goes odd, so it recurses past zero into negative numbers until Python's own recursion-depth limit raises RecursionError, the same failure mode the chapter's own `recurse()` example already covers), explain what's wrong and for which inputs in a markdown answer cell, then write and test a corrected version in a code answer cell. The crash demo reuses the chapter's own `%xmode Context` / `%%expect RecursionError` convention (already used for `recurse()` and elsewhere in the chapter) rather than introducing a new way to show an expected error. self_verifying: true because the assertion under test (does the corrected function actually terminate for both even and odd inputs) is directly checkable by running it, the same way `is_triangle`'s test cases are."
+    "note": "New Exercise 4 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16, closing the open classification question ch05-va01 raised about this same function (see that entry). The buggy `countdown_by_two` was recovered verbatim from git history (commit e46eaa2, the pre-Pass-2 chap05.ipynb) rather than reconstructed -- same function body, same bug. Reframed as a plain debugging exercise with no virtual-assistant framing: students run it with an even and an odd starting value (6 works, 5 doesn't -- its `n == 0` base case is never hit once `n` goes odd, so it recurses past zero into negative numbers until Python's own recursion-depth limit raises RecursionError, the same failure mode the chapter's own `recurse()` example already covers), explain what's wrong and for which inputs in a markdown answer cell, then write and test a corrected version in a code answer cell. The crash demo reuses the chapter's own `%xmode Context` / `%%expect RecursionError` convention (already used for `recurse()` and elsewhere in the chapter) rather than introducing a new way to show an expected error. self_verifying: true because the assertion under test (does the corrected function actually terminate for both even and odd inputs) is directly checkable by running it, the same way `is_triangle`'s test cases are. 2026-09-13: heading renamed from 'Exercise 4' to 'Problem 4' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap05",
@@ -473,7 +473,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New Exercise 5 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Deliberately one round only, no loop -- looping isn't taught until chapter 7, and repeating rounds until a correct guess is exactly the kind of construct this chapter can't yet express. Builds directly on this chapter's own `input()`/`int()` material earlier in the chapter."
+    "note": "New Exercise 5 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16. Deliberately one round only, no loop -- looping isn't taught until chapter 7, and repeating rounds until a correct guess is exactly the kind of construct this chapter can't yet express. Builds directly on this chapter's own `input()`/`int()` material earlier in the chapter. 2026-09-13: heading renamed from 'Exercise 5' to 'Problem 5' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap05",
@@ -487,7 +487,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New Exercise 6 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16, reusing the markdown-answer mechanic established in chapter 1 and matched to chap04 Exercise 6's voice. Free-response; not tied to any AP/CA standard."
+    "note": "New Exercise 6 in chap05.ipynb's new 'Extra Exercises' section, added 2026-08-16, reusing the markdown-answer mechanic established in chapter 1 and matched to chap04 Exercise 6's voice. Free-response; not tied to any AP/CA standard. 2026-09-13: heading renamed from 'Exercise 6' to 'Problem 6' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap05",
@@ -641,7 +641,7 @@
     "est_minutes_before": 8,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b, Docstrings and Doctests); not adapted from upstream Think Python. See CHAPTER_MANIFEST.md's Interludes section and AUDIT.md."
+    "note": "New interlude exercise (chap06b, Docstrings and Doctests); not adapted from upstream Think Python. See CHAPTER_MANIFEST.md's Interludes section and AUDIT.md. 2026-09-13: heading renamed from 'Exercise 1' to 'Problem 1' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06b",
@@ -655,7 +655,7 @@
     "est_minutes_before": 10,
     "est_minutes_after": 10,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 2' to 'Problem 2' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06b",
@@ -669,7 +669,7 @@
     "est_minutes_before": 10,
     "est_minutes_after": 10,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 3' to 'Problem 3' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06b",
@@ -683,7 +683,7 @@
     "est_minutes_before": 8,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 4' to 'Problem 4' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06b",
@@ -697,7 +697,7 @@
     "est_minutes_before": 8,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 5' to 'Problem 5' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06b",
@@ -711,7 +711,7 @@
     "est_minutes_before": 5,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python."
+    "note": "New interlude exercise (chap06b); not adapted from upstream Think Python. 2026-09-13: heading renamed from 'Exercise 6' to 'Problem 6' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06b",
@@ -2069,7 +2069,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New Exercise 1 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17. Half of a choose-one pair with Exercise 2 (can_ride, ch06ex-hw02) -- a student does either, not both, and doing both earns no extra credit -- so the two are interchangeable for grading and carry identical (empty) standards tagging, with structurally identical cells (prompt, solution, 'test your function' note, four test-call cells) so neither reads as the more 'real' option. One of the four test cells calls the function inside an `if` statement rather than as a bare expression, matching this chapter's own `is_divisible` demonstration. Test cases cover in-order and out-of-order 3-4-5 triangles, a non-right triangle, and a degenerate zero-length-side case that still satisfies the equation. No loop, no string operations, no lists or tuples -- pure arithmetic and boolean logic, matching this chapter's scope."
+    "note": "New Exercise 1 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17. Half of a choose-one pair with Exercise 2 (can_ride, ch06ex-hw02) -- a student does either, not both, and doing both earns no extra credit -- so the two are interchangeable for grading and carry identical (empty) standards tagging, with structurally identical cells (prompt, solution, 'test your function' note, four test-call cells) so neither reads as the more 'real' option. One of the four test cells calls the function inside an `if` statement rather than as a bare expression, matching this chapter's own `is_divisible` demonstration. Test cases cover in-order and out-of-order 3-4-5 triangles, a non-right triangle, and a degenerate zero-length-side case that still satisfies the equation. No loop, no string operations, no lists or tuples -- pure arithmetic and boolean logic, matching this chapter's scope. 2026-09-13: heading renamed from 'Exercise 1' to 'Problem 1' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06",
@@ -2083,7 +2083,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New Exercise 2 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17, the other half of the choose-one pair with Exercise 1 (is_right_triangle, ch06ex-hw01) -- see that entry for the interchangeable-for-grading/identical-tagging requirement. Test cases cover comfortably tall (qualifies alone), tall enough but too young, old enough but not tall enough, and neither -- exercising both the `or` and the `and` in the rule independently. Same if-statement demonstration requirement as ch06ex-hw01."
+    "note": "New Exercise 2 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17, the other half of the choose-one pair with Exercise 1 (is_right_triangle, ch06ex-hw01) -- see that entry for the interchangeable-for-grading/identical-tagging requirement. Test cases cover comfortably tall (qualifies alone), tall enough but too young, old enough but not tall enough, and neither -- exercising both the `or` and the `and` in the rule independently. Same if-statement demonstration requirement as ch06ex-hw01. 2026-09-13: heading renamed from 'Exercise 2' to 'Problem 2' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06",
@@ -2097,7 +2097,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 10,
     "self_verifying": true,
-    "note": "New Exercise 3 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17. Required, not choose-one. First recursive-with-return-value exercise students write themselves in this chapter, following directly from `factorial`'s incremental development earlier. Test cases include the base case (sum_to(0)) explicitly, plus small and larger values."
+    "note": "New Exercise 3 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17. Required, not choose-one. First recursive-with-return-value exercise students write themselves in this chapter, following directly from `factorial`'s incremental development earlier. Test cases include the base case (sum_to(0)) explicitly, plus small and larger values. 2026-09-13: heading renamed from 'Exercise 3' to 'Problem 3' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06",
@@ -2111,7 +2111,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": true,
-    "note": "New Exercise 4 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17. The bug is this chapter's own central distinction, return values versus print statements: `grade_points` prints its result instead of returning it, so `grade_points('A') * 3` multiplies `None` by `3` and raises a TypeError, even though `grade_points('A')` alone looks like it worked (it printed `4.0`). Students predict, run, explain the error in a markdown answer cell, then fix the function (replacing `print` with `return`) in a code answer cell -- same two-answer-cell pattern as chap05's countdown_by_two exercise (ch05ex-hw04). Reuses this chapter's `%xmode Context` / `%%expect TypeError` convention, matching how chap05 stages its own expected-error demo. Verified in a live IPython shell: the buggy version prints `4.0` then raises TypeError on the multiplication (gpa never gets assigned), and the fixed version returns 4.0, giving gpa = 12.0."
+    "note": "New Exercise 4 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17. The bug is this chapter's own central distinction, return values versus print statements: `grade_points` prints its result instead of returning it, so `grade_points('A') * 3` multiplies `None` by `3` and raises a TypeError, even though `grade_points('A')` alone looks like it worked (it printed `4.0`). Students predict, run, explain the error in a markdown answer cell, then fix the function (replacing `print` with `return`) in a code answer cell -- same two-answer-cell pattern as chap05's countdown_by_two exercise (ch05ex-hw04). Reuses this chapter's `%xmode Context` / `%%expect TypeError` convention, matching how chap05 stages its own expected-error demo. Verified in a live IPython shell: the buggy version prints `4.0` then raises TypeError on the multiplication (gpa never gets assigned), and the fixed version returns 4.0, giving gpa = 12.0. 2026-09-13: heading renamed from 'Exercise 4' to 'Problem 4' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06",
@@ -2125,7 +2125,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New Exercise 5 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17, reusing the markdown-answer mechanic established in chapter 1 and matched to chap04 Exercise 6 and chap05 Exercise 6's voice. Free-response; not tied to any AP/CA standard."
+    "note": "New Exercise 5 in chap06.ipynb's new 'Extra Exercises' section, added 2026-08-17, reusing the markdown-answer mechanic established in chapter 1 and matched to chap04 Exercise 6 and chap05 Exercise 6's voice. Free-response; not tied to any AP/CA standard. 2026-09-13: heading renamed from 'Exercise 5' to 'Problem 5' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap06",
