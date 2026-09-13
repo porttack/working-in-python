@@ -488,8 +488,9 @@ def _resolve_notebook_path(hint):
     it to something like "ChapterNN-Some-Title.ipynb" (see tools/build_jupyterlite_
     content.py's CONTENT_NAMES). Rather than hardcode one name, try the hint literally
     first, then fall back to the chapter number embedded in it and look for any local
-    .ipynb file whose name contains "chapNN" or "ChapterNN". Returns the resolved path,
-    or None if it's missing or ambiguous (caller is responsible for messaging).
+    .ipynb file matching [Cc]hap.*NN.*ipynb. If more than one matches, prefer whichever
+    was modified most recently -- more likely to be the one actually in use than a
+    forgotten older copy. Returns the resolved path, or None if nothing matches.
     """
     import glob
     import os
@@ -504,12 +505,14 @@ def _resolve_notebook_path(hint):
 
     candidates = [
         f for f in glob.glob("*.ipynb")
-        if re.search(rf"(?:chap|Chapter){number}\b", f, re.IGNORECASE)
+        if re.search(rf"[Cc]hap.*{number}.*ipynb", f)
         and "-homework" not in f
     ]
+    if not candidates:
+        return None
     if len(candidates) == 1:
         return candidates[0]
-    return None
+    return max(candidates, key=os.path.getmtime)
 
 
 def _homework_cells(notebook_filename):
