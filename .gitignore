@@ -45,6 +45,7 @@ jb/index.ipynb
 jb/_build/
 jb/conf.py
 jb/wip.zip
+jb/wip-tools.zip
 
 # Local virtualenv for jupyter-book/ghp-import (pinned <2, see PUBLISHING.md)
 .venv/
