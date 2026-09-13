@@ -1789,7 +1789,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 6,
     "self_verifying": false,
-    "note": "New homework exercise in the teacher-authored exercises notebook (chap01-exercises.ipynb), not part of Downey's book and not a VA replacement. Prompt text (no solution cell) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap01.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly."
+    "note": "New homework exercise in the teacher-authored exercises notebook (chap01-exercises.ipynb), not part of Downey's book and not a VA replacement. Prompt text (no solution cell) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap01.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly. 2026-09-13: heading renamed from 'Exercise 1' to 'Problem 1' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap01",
@@ -1803,7 +1803,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "New homework exercise in chap01-exercises.ipynb. Deliberately avoids % since it isn't covered until chapter 5. Prompt text (no solution cell) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap01.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly."
+    "note": "New homework exercise in chap01-exercises.ipynb. Deliberately avoids % since it isn't covered until chapter 5. Prompt text (no solution cell) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap01.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly. 2026-09-13: heading renamed from 'Exercise 2' to 'Problem 2' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap01",
@@ -1817,7 +1817,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": false,
-    "note": "New homework exercise in chap01-exercises.ipynb. Open-ended/creative: no single correct output. Prompt text (no solution cell) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap01.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly."
+    "note": "New homework exercise in chap01-exercises.ipynb. Open-ended/creative: no single correct output. Prompt text (no solution cell) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap01.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly. 2026-09-13: heading renamed from 'Exercise 3' to 'Problem 3' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap01",
@@ -1831,7 +1831,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 6,
     "self_verifying": false,
-    "note": "New homework exercise in chap01-exercises.ipynb, reusing the fix-a-broken-cell mechanic demoed live in chap01.ipynb's ch01-ex05. Uses 'Score: ' + 95, distinct from the demo's 'Total: ' + 10. Prompt text (no solution cell) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's starter code (the deliberately buggy cell) was migrated into chap01.ipynb's own 'Extra Exercises' section, right after its prompt -- the only kind of exercise from this file that needed an actual cell, since everything else here was a bare placeholder students can now just add their own cell for."
+    "note": "New homework exercise in chap01-exercises.ipynb, reusing the fix-a-broken-cell mechanic demoed live in chap01.ipynb's ch01-ex05. Uses 'Score: ' + 95, distinct from the demo's 'Total: ' + 10. Prompt text (no solution cell) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's starter code (the deliberately buggy cell) was migrated into chap01.ipynb's own 'Extra Exercises' section, right after its prompt -- the only kind of exercise from this file that needed an actual cell, since everything else here was a bare placeholder students can now just add their own cell for. 2026-09-13: heading renamed from 'Exercise 4' to 'Problem 4' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap01",
@@ -1845,7 +1845,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 4,
     "self_verifying": false,
-    "note": "New homework exercise in chap01-exercises.ipynb, reusing the markdown-answer mechanic demoed live in chap01.ipynb's ch01-ex06. Free-response; not tied to any AP/CA standard. Prompt text (minus the 'answer in the markdown cell below' instruction, which doesn't apply outside the submittable notebook) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap01.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly."
+    "note": "New homework exercise in chap01-exercises.ipynb, reusing the markdown-answer mechanic demoed live in chap01.ipynb's ch01-ex06. Free-response; not tied to any AP/CA standard. Prompt text (minus the 'answer in the markdown cell below' instruction, which doesn't apply outside the submittable notebook) also previewed in chap01.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap01-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap01.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly. 2026-09-13: heading renamed from 'Exercise 5' to 'Problem 5' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap02",
@@ -1929,7 +1929,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 7,
     "self_verifying": false,
-    "note": "New homework exercise in chap03-exercises.ipynb. Probes local scope/NameError, which none of the chapter's own 4 native exercises exercise directly. Prompt text (no solution cell) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap03.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly."
+    "note": "New homework exercise in chap03-exercises.ipynb. Probes local scope/NameError, which none of the chapter's own 4 native exercises exercise directly. Prompt text (no solution cell) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap03.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly. 2026-09-13: heading renamed from 'Exercise 1' to 'Problem 1' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap03",
@@ -1943,7 +1943,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 6,
     "self_verifying": false,
-    "note": "New homework exercise in chap03-exercises.ipynb, reuses the fix-a-broken-cell mechanic established in chapter 1. Fresh three-function call chain (announce/daily_update/morning_routine), distinct from the chapter's own cat_twice/print_twice traceback example. Prompt text and buggy code (no solution cell) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's starter code (the deliberately buggy cell) was migrated into chap03.ipynb's own 'Extra Exercises' section, right after its prompt -- the only kind of exercise from this file that needed an actual cell, since everything else here was a bare placeholder students can now just add their own cell for."
+    "note": "New homework exercise in chap03-exercises.ipynb, reuses the fix-a-broken-cell mechanic established in chapter 1. Fresh three-function call chain (announce/daily_update/morning_routine), distinct from the chapter's own cat_twice/print_twice traceback example. Prompt text and buggy code (no solution cell) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's starter code (the deliberately buggy cell) was migrated into chap03.ipynb's own 'Extra Exercises' section, right after its prompt -- the only kind of exercise from this file that needed an actual cell, since everything else here was a bare placeholder students can now just add their own cell for. 2026-09-13: heading renamed from 'Exercise 2' to 'Problem 2' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap03",
@@ -1957,7 +1957,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": false,
-    "note": "New homework exercise in chap03-exercises.ipynb. Originally drafted using string .upper(), a method not yet taught (first string methods appear well after chapter 3) -- caught during authoring and rewritten to use plain concatenation from chapter 1 instead. Prompt text (no solution cell) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap03.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly."
+    "note": "New homework exercise in chap03-exercises.ipynb. Originally drafted using string .upper(), a method not yet taught (first string methods appear well after chapter 3) -- caught during authoring and rewritten to use plain concatenation from chapter 1 instead. Prompt text (no solution cell) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap03.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly. 2026-09-13: heading renamed from 'Exercise 3' to 'Problem 3' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap03",
@@ -1971,7 +1971,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 8,
     "self_verifying": false,
-    "note": "New homework exercise in chap03-exercises.ipynb, the requested light chapter 1/2 review folded into new content rather than a standalone drill. Deliberately print-based, no return statement -- chapter 3 never introduces return (that's chapter 4). Prompt text (no solution cell) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap03.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly."
+    "note": "New homework exercise in chap03-exercises.ipynb, the requested light chapter 1/2 review folded into new content rather than a standalone drill. Deliberately print-based, no return statement -- chapter 3 never introduces return (that's chapter 4). Prompt text (no solution cell) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap03.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly. 2026-09-13: heading renamed from 'Exercise 4' to 'Problem 4' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap03",
@@ -1985,7 +1985,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 4,
     "self_verifying": false,
-    "note": "New homework exercise in chap03-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard. Prompt text (minus the 'answer in the markdown cell below' instruction, which doesn't apply outside the submittable notebook) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap03.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly."
+    "note": "New homework exercise in chap03-exercises.ipynb, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard. Prompt text (minus the 'answer in the markdown cell below' instruction, which doesn't apply outside the submittable notebook) also previewed in chap03.ipynb's new 'Extra Exercises' section, 2026-08-11. 2026-08-16: chap03-exercises.ipynb deleted (repo-wide -exercises.ipynb cleanup, see AUDIT.md). This exercise's solution cell was a bare '# Solution goes here' placeholder with no starter code, so nothing needed to move -- chap03.ipynb's own prompt is now the only copy, and a student adds their own cell for it directly. 2026-09-13: heading renamed from 'Exercise 5' to 'Problem 5' -- terminology alignment with chapters 7-13's Homework convention, at the maintainer's direction. Task and cells unchanged."
   },
   {
     "chapter": "chap04",
@@ -1999,7 +1999,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 13,
     "self_verifying": false,
-    "note": "Homework exercise (Exercise 1: draw your initials) in chap04.ipynb's 'Extra Exercises' section. Uses forward/left/right/jump only; curved letters are approximated with short turning segments, echoing the chapter's own circle-as-polygon idea. Half of a choose-one pair with the house exercise (ch04-house) -- a student does either Exercise 1 (this one) or Exercise 2 (house), not both; the two are interchangeable for grading and carry identical standards tagging, so a student's score never depends on which one they picked. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb, where this was previously the actual graded artifact and chap04.ipynb carried only a preview of the prompt; now the solution cell lives directly in chap04.ipynb and there is no separate exercises file."
+    "note": "Homework exercise (Exercise 1: draw your initials) in chap04.ipynb's 'Extra Exercises' section. Uses forward/left/right/jump only; curved letters are approximated with short turning segments, echoing the chapter's own circle-as-polygon idea. Half of a choose-one pair with the house exercise (ch04-house) -- a student does either Exercise 1 (this one) or Exercise 2 (house), not both; the two are interchangeable for grading and carry identical standards tagging, so a student's score never depends on which one they picked. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb, where this was previously the actual graded artifact and chap04.ipynb carried only a preview of the prompt; now the solution cell lives directly in chap04.ipynb and there is no separate exercises file. 2026-09-13: chapter's Homework headings renamed from 'Exercise N' to 'Problem N' -- terminology alignment with chapters 7-13's convention, at the maintainer's direction. (Not tagging a specific number here since this ledger id's creation-order numbering no longer matches the chapter's current heading order.) Task and cells unchanged."
   },
   {
     "chapter": "chap04",
@@ -2013,7 +2013,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 10,
     "self_verifying": false,
-    "note": "Homework exercise (Exercise 4: pinwheel) in chap04.ipynb's 'Extra Exercises' section. Replaces an earlier draft of this exercise (a growing square spiral) after the user preferred the pinwheel's visual payoff. Its own solution cell redefines `square()` since nothing earlier in the Extra Exercises section shares state with it. The pinwheel function students write here is reused by the docstrings exercise (ch04ex-hw05, Exercise 3), which now precedes it in reading order after 2026-08-16's renumbering (see below) -- students write pinwheel after docstrings but before pinwheel's own number is reached; the docstrings prompt itself was rewritten to no longer depend on pinwheel, precisely to avoid requiring pinwheel out of order. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb; solution cell now lives directly in chap04.ipynb."
+    "note": "Homework exercise (Exercise 4: pinwheel) in chap04.ipynb's 'Extra Exercises' section. Replaces an earlier draft of this exercise (a growing square spiral) after the user preferred the pinwheel's visual payoff. Its own solution cell redefines `square()` since nothing earlier in the Extra Exercises section shares state with it. The pinwheel function students write here is reused by the docstrings exercise (ch04ex-hw05, Exercise 3), which now precedes it in reading order after 2026-08-16's renumbering (see below) -- students write pinwheel after docstrings but before pinwheel's own number is reached; the docstrings prompt itself was rewritten to no longer depend on pinwheel, precisely to avoid requiring pinwheel out of order. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb; solution cell now lives directly in chap04.ipynb. 2026-09-13: chapter's Homework headings renamed from 'Exercise N' to 'Problem N' -- terminology alignment with chapters 7-13's convention, at the maintainer's direction. (Not tagging a specific number here since this ledger id's creation-order numbering no longer matches the chapter's current heading order.) Task and cells unchanged."
   },
   {
     "chapter": "chap04",
@@ -2027,7 +2027,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "Homework exercise (Exercise 5: interface vs. implementation) in chap04.ipynb's 'Extra Exercises' section, reuses the markdown-answer mechanic established in chapter 1. Pure code-reading, no writing -- deliberate given how much writing the rest of the chapter demands. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb; markdown answer cell now lives directly in chap04.ipynb, and the prompt's closing pointer ('Answer in the markdown cell below.') was restored to match."
+    "note": "Homework exercise (Exercise 5: interface vs. implementation) in chap04.ipynb's 'Extra Exercises' section, reuses the markdown-answer mechanic established in chapter 1. Pure code-reading, no writing -- deliberate given how much writing the rest of the chapter demands. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb; markdown answer cell now lives directly in chap04.ipynb, and the prompt's closing pointer ('Answer in the markdown cell below.') was restored to match. 2026-09-13: chapter's Homework headings renamed from 'Exercise N' to 'Problem N' -- terminology alignment with chapters 7-13's convention, at the maintainer's direction. (Not tagging a specific number here since this ledger id's creation-order numbering no longer matches the chapter's current heading order.) Task and cells unchanged."
   },
   {
     "chapter": "chap04",
@@ -2041,7 +2041,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": false,
-    "note": "Homework exercise (Exercise 6: reflection) in chap04.ipynb's 'Extra Exercises' section, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb; markdown answer cell now lives directly in chap04.ipynb, and the prompt's closing pointer was restored to match."
+    "note": "Homework exercise (Exercise 6: reflection) in chap04.ipynb's 'Extra Exercises' section, reuses the markdown-answer mechanic established in chapter 1. Free-response; not tied to any AP/CA standard. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb; markdown answer cell now lives directly in chap04.ipynb, and the prompt's closing pointer was restored to match. 2026-09-13: chapter's Homework headings renamed from 'Exercise N' to 'Problem N' -- terminology alignment with chapters 7-13's convention, at the maintainer's direction. (Not tagging a specific number here since this ledger id's creation-order numbering no longer matches the chapter's current heading order.) Task and cells unchanged."
   },
   {
     "chapter": "chap04",
@@ -2055,7 +2055,7 @@
     "est_minutes_before": null,
     "est_minutes_after": 5,
     "self_verifying": true,
-    "note": "Homework exercise (Exercise 3: docstrings) in chap04.ipynb's 'Extra Exercises' section, added by explicit user request: docstrings matter and students should be checked on writing one and confirming it with help(), not just reading the chapter's Docstrings section. References whichever function the student wrote for the Exercise 1/2 choose-one pair (draw_initials or draw_house), not pinwheel, so it doesn't depend on an exercise assigned later in reading order. self_verifying: true because help()'s output directly shows whether the docstring exists and renders as intended. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb, where this exercise still referenced pinwheel (a stale copy that was never updated when chap04.ipynb's preview was rewritten); that stale version is now gone along with the whole file, closing the preview/answer-file desync this ledger previously flagged."
+    "note": "Homework exercise (Exercise 3: docstrings) in chap04.ipynb's 'Extra Exercises' section, added by explicit user request: docstrings matter and students should be checked on writing one and confirming it with help(), not just reading the chapter's Docstrings section. References whichever function the student wrote for the Exercise 1/2 choose-one pair (draw_initials or draw_house), not pinwheel, so it doesn't depend on an exercise assigned later in reading order. self_verifying: true because help()'s output directly shows whether the docstring exists and renders as intended. 2026-08-16: migrated out of the now-deleted chap04-exercises.ipynb, where this exercise still referenced pinwheel (a stale copy that was never updated when chap04.ipynb's preview was rewritten); that stale version is now gone along with the whole file, closing the preview/answer-file desync this ledger previously flagged. 2026-09-13: chapter's Homework headings renamed from 'Exercise N' to 'Problem N' -- terminology alignment with chapters 7-13's convention, at the maintainer's direction. (Not tagging a specific number here since this ledger id's creation-order numbering no longer matches the chapter's current heading order.) Task and cells unchanged."
   },
   {
     "chapter": "chap06",
