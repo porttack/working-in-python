@@ -323,6 +323,10 @@ try:
         js_html_attr = html.escape(json.dumps(html_fragment))
 
         display(HTML(f"""
+<p style="font-weight:bold;">
+  Made a change since the last time you ran this cell? Run it again before you click
+  Copy -- it only copies the notebook as it was the moment this cell last ran, not live.
+</p>
 <div style="position: sticky; top: 0; z-index: 10;
             background: var(--jp-layout-color0, white);
             padding: 6px 0; display: flex; align-items: center; gap: 8px;">
@@ -722,6 +726,8 @@ def write_homework_files(notebook_filename):
         f.write("\n".join(_homework_markdown_lines(homework_cells)))
 
     print(f"Wrote {ipynb_path} and {md_path}.")
+    print("Made a change since the last time you ran this cell? Run it again -- these "
+          "files only reflect the notebook as it was just now, not live.")
 
 
 def check_for_update(version, filename):
