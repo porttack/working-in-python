@@ -8379,3 +8379,261 @@ roughly a minute later.
 `git status` clean after publishing -- `jupyterlite/content`, `jupyterlite/_output`,
 `jb/_build`, and `jb/chap*.ipynb` (the build's working copies) are all gitignored, so the
 real (non-`--local`) build run for verification left nothing uncommitted to review.
+
+## 2026-09-12 — JupyterLite embed pane no longer a blank white box outside the book site
+
+Prompted by the maintainer actually downloading `chap02.ipynb` and running it in cs50.dev
+(a hosted VS Code/Codespaces environment, tried as a possible alternative to JupyterLite
+since students find JupyterLite's own UX annoying): the embed-pane cell (the one that
+already carries "*Ignore this cell -- used when running JupyterLite.*", added 2026-08-09)
+rendered as a big empty white rectangle instead of just being easy to ignore.
+
+**Root cause.** That cell's `<iframe>` points at `JUPYTERLITE_DEPLOY_PATH/...`, a
+placeholder string substituted for a real URL only when `jb/build.sh` builds the Sphinx
+site. Read straight from GitHub -- Colab, a raw download, a Codespace, cs50.dev -- that
+substitution never happens, so the iframe has no real `src`. The div's own CSS gave it a
+fixed `height: 600px; background: #fff` regardless, so instead of a small ignorable note it
+was a large blank box. The pane's `<script>` (added 2026-08-17, same day as the pane itself)
+was already designed to tell live-book-site from everywhere else by checking for the
+Sphinx theme's primary sidebar -- but it only used that check to *hide* the pane (readonly
+mode) or *position* it (live site); there was no branch making it invisible by default
+everywhere else, and in most non-JB renderers (VS Code's, cs50.dev's, and Colab's markdown
+sandboxes all appear to strip inline `<script>` from rendered output) the script never runs
+at all, so nothing was ever going to hide it dynamically.
+
+**Fix: flip the default instead of adding a special case.** `#chapNN-jupyterlite-pane`'s
+CSS default changed from `display: block` to `display: none`; the script's live-site branch
+(sidebar found, not readonly) now sets `pane.style.display = "block"` itself before
+positioning. Net effect: the live book site is pixel-identical to before (script still
+runs, still finds the sidebar, still shows and positions the pane); every other context —
+whether the script runs and finds no sidebar, or never runs at all — now shows nothing
+instead of a blank 600px box. The "Ignore this cell" text is harmless and left in place,
+now genuinely describing an empty cell rather than a big white one.
+
+**Applied everywhere this cell exists: chapters 1-13 and `jupyter_intro`** (15 files, all
+copies of the same 2026-08-17 pattern, byte-for-byte apart from the id prefix) — same
+two-line change in each: the CSS `display` line, and one inserted line in the script.
+`tools/build_jupyterlite_content.py`'s matching `CELL_PATCHES` entries (also 15, one per
+chapter) updated in lockstep, since those match the *old* cell content byte-for-byte to
+swap in the JupyterLite-hosted "you're already running this live" replacement -- verified
+programmatically (`apply_cell_patches()` called against each chapter's current cells) that
+every one still fires after the edit, not just eyeballed. `make projector` and `make check`
+both clean; `git status` shows only the 15 `chapters/*.ipynb`, their 15 generated
+`projector/` mirrors, and `tools/build_jupyterlite_content.py`.
+
+**Not independently verified in an actual cs50.dev session** -- no browser or live
+Codespace available in this session; the fix is reasoned from how the cell is built and
+from the two failure modes described above (unsubstituted iframe `src`, and markdown
+renderers that don't execute inline `<script>`), not observed directly in cs50.dev's actual
+renderer. Worth a quick look next time the maintainer is in a Codespace, though nothing
+about the CSS-default-off approach depends on cs50.dev specifically -- it degrades to
+"do nothing" in any renderer that doesn't run the script.
+
+**The other half of this conversation -- Codespaces/cs50.dev as a first-class option --
+was discussed but deliberately not built this round.** The repo already has two tested
+devcontainer configs (`.devcontainer/devcontainer.json`, plain VS Code;
+`.devcontainer/jupyter/devcontainer.json`, auto-launched Jupyter Lab web view) and a full
+history of a Codespaces link that was added to chap01/chap02, then dropped 2026-08-09 "per
+direct request" with no reason logged. Recommended reviving it as a *single* link (not the
+two-link `devcontainer_path` version) specifically to sidestep an unresolved risk logged
+2026-08-06: nobody ever verified whether clicking a notebook-view link and then a VS-Code
+link for the same repo resumes one Codespace or silently creates a second one against the
+student's quota. Maintainer leans toward doing this ("kids should have student accounts and
+should be fine running a 2nd codespace") but it hasn't been asked for as a concrete edit
+yet -- raised here so the next session doesn't have to reconstruct this history from
+scratch. If/when it's requested: revive a single Codespace link (probably the `jupyter/`
+devcontainer variant, closer to the Colab/cs50.dev UX students already know) in the link bar
+of whichever chapters get it, `?quickstart=1` included, and note that opening the actual
+Codespace this way is what avoids the VS Code kernel-picker prompt the maintainer hit when
+instead downloading the raw `.ipynb` and dragging it into an unrelated cs50.dev session --
+our devcontainer's `python.defaultInterpreterPath`/preinstalled `ipykernel` only apply when
+the Codespace is actually built from *our* devcontainer, not when a bare notebook file is
+opened inside a different one.
+
+## 2026-09-12 follow-up -- prototype: a "Save your homework for submission" cell (chapter 2 only)
+
+Grew out of the same cs50.dev experiment above: once a student can run a chapter in a real
+Codespace/venv, the maintainer wants a way to pull just their Homework work back out for
+`submit50` to pick up, without hand-copying. Scoped to chapter 2 only, on request ("I just
+want to experiment... to see if we can get it to work for me") -- not yet rolled out to the
+other ten chapters with a Homework section.
+
+**What was built.** `working_in_python.write_homework_files(notebook_filename)`
+(`working_in_python.py`): reads the named `.ipynb` from disk, finds the cell whose markdown
+heading is `## Homework` (or the older `## Extra Exercises`) and slices every cell from
+there up to (not including) the "Finished? Copy your work" cell -- the same range the
+existing `show_copy_notebook_button()` copies via the DOM, just done in Python against the
+notebook's actual JSON instead of the rendered page, so it works in a real kernel (Colab,
+Codespace, local) rather than only inside JupyterLite. Writes two files into the current
+directory: `<name>-homework.ipynb` (that same cell slice, as a standalone valid notebook)
+and `<name>-homework.md` (a plain-text rendering: markdown cells verbatim with the
+`apcsp:begin`/`apcsp:end` sentinel comment lines stripped out since they're pure repo
+bookkeeping a reader doesn't need to see; code cells as `**In [n]:**` + a fenced source
+block + any text output). Per explicit request, no `nbconvert` dependency and no image
+output -- only `text/plain` is extracted from `execute_result`/`display_data` outputs, so a
+matplotlib figure is silently skipped rather than embedded. Two new cells added to
+`chapters/chap02.ipynb` only, right after the existing "Finished? Copy your work"/copy-button
+pair and before the attribution/standards footer: a `type="note"` heading cell explaining
+the tool, and a code cell calling `working_in_python.write_homework_files("chap02.ipynb")`
+-- the filename is a literal, not auto-detected, since VS Code's Jupyter extension doesn't
+reliably expose "what file is this kernel running" the way a classic Jupyter server does;
+`"chap02.ipynb"` matches the exact filename the `curl -o chap02.ipynb ...` step in the
+maintainer's own cs50.dev instructions already produces.
+
+**Verified mechanically, not live.** No real kernel available in this session, so this was
+tested by round-tripping the actual on-disk `chap02.ipynb` through the function directly
+(not via a running notebook): once against the chapter as authored (all-markdown Homework
+section, no student answers yet -- confirmed the six Homework cells come out with sentinels
+stripped and nothing else leaking in), and once against a copy with a synthetic student
+answer cell spliced in (execution_count, a stream/print output, and an `execute_result`
+value) to confirm the `**In [3]:**` label, fenced source, and both output kinds render
+correctly and the trailing-newline formatting is clean. Both the generated `.ipynb`
+(valid JSON, correct cell count) and `.md` were inspected by hand. `make check` clean;
+`git status` shows only `chapters/chap02.ipynb`, its `projector/` mirror, and
+`working_in_python.py` touched -- no other chapter's Homework-writer cell exists yet.
+
+**Deliberately not done, per the maintainer's own framing of this as an experiment:**
+- No `submit50` wiring. The maintainer's understanding is that a submit50 slug resolves to
+  a GitHub repo/branch/file spec that has to be created first, which is a separate, later
+  task -- this session only produces the two files a submission step would pick up.
+- Not added to any other chapter yet (1, 4, 5, 6, 6b, 7, 8, 9-13 all have their own Homework
+  section and would want the identical two cells, chapter number swapped, once this is
+  confirmed to actually work end to end for the maintainer).
+- Not run against a real executed notebook with real student work, real matplotlib output,
+  or a real VS Code/cs50.dev kernel -- everything above is inferred from the notebook JSON
+  structure, not observed live.
+
+## 2026-09-13 — repositioned both interludes: chap06b/chap07b → interlude-a/interlude-b, moved after chapter 19
+
+The maintainer's original plan for both interludes was to teach them inline, between two
+numbered chapters, inheriting VA/blanks/standards treatment from their neighbors. That
+"did not work out as well as hoped" (maintainer's words) -- separating them from the live
+numbered sequence entirely made more sense. Two `AskUserQuestion` rounds confirmed the
+larger, more thorough option for both axes: a full move in both the JupyterLite Lab file
+browser and the actual reading sequence (`jb/_toc.yml`), and a real source-file rename
+(`chap06b.ipynb` → `interlude-a.ipynb`, `chap07b.ipynb` → `interlude-b.ipynb`), not just a
+display-name change. Two Explore agents first mapped the blast radius (~20 files
+referencing the old names, several not documented in `CHAPTER_MANIFEST.md`) and confirmed,
+by reading JupyterLab's actual shipped sort comparator, that `Interlude-A-...`/
+`Interlude-B-...` sort after `Chapter19-...` in the Lab file browser with no special prefix
+needed (case-insensitive `localeCompare`, "C" before "I" regardless of case). A full plan
+was written and approved before any edits; landed as six focused commits, `make check`
+clean after each, following the plan almost exactly except where mechanical testing turned
+up real problems the plan hadn't anticipated (both described below).
+
+**Phase 1 — rename + content.** `git mv` for both `chapters/*.ipynb` and (the one gap the
+plan itself caught, `projector/chap07b.ipynb` never having been renamed alongside
+`chap06b.ipynb`'s projector copy) both `projector/*.ipynb`. Inside `interlude-a.ipynb`:
+every `chap06b`-referencing string (sentinel `chapter="6b"` → `"A"`, iframe pane ids,
+filename references, the JupyterLite shipped-name reference, two internal cell-metadata ids
+the bulk replace missed) updated, plus the load-bearing "sits between Chapter 6 and Chapter
+7" placement paragraph rewritten to describe its new supplementary status. `interlude-b.ipynb`
+(still outline-only, never authored) got the same sentinel/id treatment plus its own
+"Placement: after Chapter 7, before Chapter 8" line and "docstrings and doctests (6b)"
+cross-reference rewritten, its "forward reference from 6b" mention fixed, and its own
+"open question" about the `7b` naming convention marked resolved. `make projector`
+regenerated both projector copies cleanly against the updated sources. `data/exercise-ledger.json`'s
+7 `chap06b` entries renamed to `interlude-a`/`int-a-*` with dated addenda (history kept,
+not overwritten).
+
+**Phase 2 — `jb/_toc.yml`, `jb/build.sh`, `jb/watch.sh`.** The old 5-way chapter-part split
+(needed only to keep an interlude unnumbered between two chapter parts) collapsed to one
+numbered `Chapters` part (1–19) plus a single trailing unnumbered part holding both
+interludes. `jb/build.sh`'s chapter-copy glob no longer needs the interlude-aware trailing
+`*` it used to (interludes aren't `chapNN`-shaped at all anymore); added an explicit
+`interlude-*.ipynb` copy step instead, and updated the `wip.zip` exclusion from
+`chap07b.ipynb` to `interlude-b.ipynb`. Also fixed a **pre-existing, unrelated bug** in
+`jb/watch.sh` found while touching this: its own chapter-copy glob was missing the trailing
+`*` `jb/build.sh` already had, so it silently never copied or live-previewed a lettered
+interlude at all -- moot now that interludes have their own explicit glob, but worth not
+repeating. Verified with a real local `jb build.sh --local` (not just `make check`) after
+Phase 3 made the JupyterLite side buildable again -- confirms no YAML/TOC error and correct
+chapter numbering.
+
+**Phase 3 — `tools/build_jupyterlite_content.py`.** `CHAPTERS`/`CONTENT_NAMES`/
+`CELL_PATCHES` entries renamed and moved to the end of each dict. Shipped name became
+`Interlude-A-Docstrings-and-Doctests.ipynb` -- the real local build confirmed it does sort
+right after `Chapter13-...` (the last chapter currently wired into `CHAPTERS`), matching
+the sort-comparator research from planning. A temporary `ALIASES` entry keeps the old
+`Chapter06b-...` name reachable too, since chap06b was already live and a student may have
+in-progress JupyterLite state cached under it; remove around 2026-10. `interlude-b` gets no
+entries yet (never wired before this move either, since it's still outline-only). Also
+fixed a `.gitignore` gap found during the local build: it excluded `jb/chap*.ipynb`'s
+build-working-copies but not the new `jb/interlude-*.ipynb` ones.
+
+**Phase 4 — `working_in_python_v2.py` and `fetch.py`.** `_resolve_notebook_path()`'s
+fallback only knew how to recognize a `chapNN`-shaped hint; added a parallel branch for
+`interlude-a`/`interlude-b`, anchored (`interlude-{letter}[-.]`) so `interlude-a` can't
+accidentally match `interlude-b`'s shipped name (which also contains the letter "a"
+elsewhere in its own title). Verified against six cases (exact match, JupyterLite-renamed
+copy, both interludes present at once, the old alias name present alongside, a plain
+numbered chapter as a regression check, a nonexistent interlude). `fetch.py`'s
+`normalize()` previously only understood `NN` plus an optional letter suffix (the old
+`chap06b`/`chap07b` shape) -- rewritten to handle a plain chapter number OR a bare/
+`interlude-`-prefixed letter separately, since there's no longer a numbered chapter to
+attach a letter to. Verified `normalize()` across a dozen inputs and the full CLI (fresh
+fetch, decline/accept overwrite, force, invalid input) with `urlretrieve` mocked out.
+`jb/codespace.md`'s mention of `fetch.py` updated to show the new interlude shorthand.
+
+**Phase 5 — standards/alignment back matter. This is where the plan's own assumptions
+turned out wrong twice, caught only by actually running the generators, not by reading
+their code:**
+
+1. The plan said renaming the coverage locators `"6b"`/`"7b"` to `"A"`/`"B"` in
+   `standards/carriers/working-in-python.json` would be enough. Actually running
+   `build_alignment.py` first showed why not: `_locator_url()` bakes a literal `chap`
+   prefix into every URL this source generates (`locator_url_template:
+   "{base_url}/chap{locator}.html"`), so *either* renaming the locator *or* leaving it
+   alone would have produced a link to a page that no longer exists (`chapA.html`, or the
+   now-stale `chap06b.html`) -- the interlude's real URL is `interlude-a.html`, which
+   doesn't fit that pattern at all. Fixed by generalizing the template to
+   `"{base_url}/{locator}.html"` and adding an explicit `locator_slugs` map for every
+   existing locator (all 13 numbered chapters plus both interludes) -- verified by running
+   the generator and grepping its output for both the corrected interlude URLs and the
+   unchanged numbered-chapter ones, not just reasoning about the code. Left the coverage
+   locator values themselves as `"6b"`/`"7b"` (didn't rename them): `interlude_letters`
+   does double duty in `build_alignment.py` -- it also drives `humanize_chapter_refs()`'s
+   regex-based rendering of literal `"chap07b"` mentions inside hand-written note prose
+   into "Interlude B" -- and that regex only ever extracts keys in the old `NNx` shape, so
+   renaming would have needed two different key spaces satisfied at once for no
+   correctness benefit.
+2. `tools/build_vocabulary_by_chapter.py` and `build_vocabulary_glossary.py` both derived
+   which interlude was which by *counting* `## Interlude` headings in document order --
+   exactly the fragile hardcoding the plan flagged, and it would have silently swapped the
+   two interludes' labels the instant they were reordered in `vocabulary-by-chapter.md`
+   (which the move requires). Both scripts now parse the letter directly out of each
+   heading (`## Interlude A — ...`), matching how `## Chapter N — ...` already parses; also
+   fixes each script's own independent copy of the identical `chap{label}.html`
+   URL-hardcoding bug. `vocabulary-by-chapter.md`'s two `## Interlude` sections moved to
+   the end of the file (matching the new reading order) with their intro prose and one
+   hand-written cross-reference note rewritten to stop saying "between chapters 6 and 7."
+   Verified idempotent (running either script twice back to back produces no further
+   diff) and spot-checked the built HTML for correct hrefs and badge text.
+3. `alignment/ap-vocabulary-coverage.md` and `glossary-map.md` (both hand-maintained, not
+   generated -- the plan had assumed the former was build-script output) had their own
+   `6b`/`7b` locator cells and "the interlude between chapters N and M" prose fixed by
+   direct edit instead.
+
+All dependent `alignment/*.html`/`.md`/`.pdf` pages regenerated via
+`tools/build_alignment.py`, `build_vocabulary_by_chapter.py`, and `build_vocabulary_glossary.py`
+-- none hand-edited.
+
+**Phase 6 — docs.** `CHAPTER_MANIFEST.md`'s Interludes section rewritten to describe the
+new position and mechanics (fixed its stale "three-way split" description -- it's five
+today, going to one after this change -- and its incorrect claim that `chap06b.md`/
+`chap07b.md` files exist; only `.ipynb` ever did). `CLAUDE.md`'s one prose reference in the
+treatment-matrix section updated to match. This entry.
+
+**Left open, not decided:** whether a relocated interlude should also be demoted to the
+Independent-study tier (no blanks, short-form standards) now that it's no longer inline
+between two Live chapters -- both interludes still carry `strip` VA (universal regardless
+of tier, unaffected) and their original inline-era blank markers/full-form standards block,
+completely untouched by this move. Judgment call, flagged in the plan itself, not resolved
+here. See `CHAPTER_MANIFEST.md`'s Interludes section and `CLAUDE.md`'s treatment-matrix
+note, both updated to point at this as an open question rather than silently picking an
+answer.
+
+**Not verified live:** an actual JupyterLite Lab session's file browser (only the built
+`jupyterlite/content/` directory listing and the documented sort-comparator research were
+checked, not a running browser), and a real GitHub Pages deploy (only `jb build.sh --local`
+was run, never a real publish).

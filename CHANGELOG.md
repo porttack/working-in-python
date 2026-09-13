@@ -5,6 +5,62 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-13 — repositioned both interludes to after chapter 19, renamed chap06b/chap07b to interlude-a/interlude-b
+
+### Changed
+- Both interludes ("Docstrings and Doctests" and "Representing Data") moved from their
+  original inline slots (between chapters 6/7 and 7/8) to after chapter 19, in both the
+  reading sequence (`jb/_toc.yml`) and the JupyterLite Lab file browser -- the maintainer's
+  original inline scope and sequence "did not work out as well as hoped." Renamed as a real
+  file rename, not just a display change: `chapters/chap06b.ipynb` → `interlude-a.ipynb`,
+  `chapters/chap07b.ipynb` → `interlude-b.ipynb` (and their `projector/` copies). Every
+  reference across the repo updated to match -- `jb/_toc.yml`/`build.sh`/`watch.sh`,
+  `tools/build_jupyterlite_content.py`'s `CHAPTERS`/`CONTENT_NAMES`/`CELL_PATCHES`/
+  `ALIASES`, `working_in_python_v2.py`'s notebook resolver, `fetch.py`, `data/exercise-ledger.json`,
+  `standards/carriers/working-in-python.json`, and the vocabulary/alignment back matter.
+  A temporary alias keeps chap06b's old JupyterLite-served name reachable for students with
+  in-progress cached work; remove around 2026-10. See `AUDIT.md`'s 2026-09-13 handoff for
+  the full account, including two real bugs the move would otherwise have shipped silently
+  (a hardcoded URL-prefix assumption in the standards-alignment generator, and a
+  document-position-counting bug in the vocabulary-by-chapter generator that would have
+  swapped the two interludes' labels).
+
+### Fixed
+- `jb/watch.sh`'s chapter-copy glob was missing a trailing wildcard `jb/build.sh` already
+  had, so it silently never copied or live-previewed a lettered interlude at all. Found
+  while updating both scripts for the rename above; fixed in the same change.
+
+## 2026-09-12 (2) — prototype: a "Save your homework for submission" cell (chapter 2 only)
+
+### Added
+- `working_in_python.write_homework_files(notebook_filename)`: slices a notebook's Homework
+  section (same range `show_copy_notebook_button()` already copies, from the "Homework"
+  heading up to the "Finished? Copy your work" cell) straight out of the `.ipynb` JSON, and
+  writes it out as `<name>-homework.ipynb` and a plain-text `<name>-homework.md` (execution
+  counts, source, and text output included; images deliberately skipped). Works in any real
+  kernel -- Colab, Codespace, local -- not just JupyterLite, since it reads the file instead
+  of scraping the rendered page.
+- `chapters/chap02.ipynb`: a new "Save your homework for submission" note + button cell,
+  right after the existing "Finished? Copy your work" section, calling
+  `write_homework_files("chap02.ipynb")`. Pilot: chapter 2 only, prompted by the maintainer
+  experimenting with a `submit50` workflow; not yet added to the other ten chapters that
+  have a Homework section. See `AUDIT.md`.
+
+## 2026-09-12 — JupyterLite embed pane: hide by default instead of a broken 600px white box
+
+### Fixed
+- The "Ignore this cell" JupyterLite embed-pane cell (present in chapters 1-13 and
+  `jupyter_intro`) rendered as an empty, fixed-height white box wherever the page's
+  `JUPYTERLITE_DEPLOY_PATH` iframe placeholder is never substituted -- Colab, a raw
+  download, a Codespace, or cs50.dev -- since that substitution only happens at Jupyter
+  Book build time. The div's CSS now defaults to `display: none`; the pane's own script
+  (which only runs on the live book site, where it detects the primary sidebar) now
+  explicitly sets `display: block` before positioning itself. Everywhere else -- including
+  contexts where the `<script>` tag itself never executes, like most notebook viewers'
+  sandboxed markdown renderers -- the pane simply stays hidden instead of showing a blank
+  box. `tools/build_jupyterlite_content.py`'s 15 matching `CELL_PATCHES` keys updated in
+  lockstep and reverified to still fire. See `AUDIT.md`.
+
 ## 2026-09-09 (9) — published: today's work is live
 
 Pushed `v3` to `origin` and ran a real (non-`--local`) `jb/build.sh` publish. Chapters 9-13

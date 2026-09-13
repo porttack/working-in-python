@@ -63,12 +63,14 @@ instead of doing the work is not something students grow out of — and it was t
 in the year to make a narrower call, so the simple, uniform answer is to strip it
 everywhere. See `AUDIT.md`'s 2026-09-09 handoff for what this changed in chapters 9–19.
 
-This table is keyed by chapter number, which an *interlude* (original content inserted
-between two numbered chapters, not part of *Think Python* — see `CHAPTER_MANIFEST.md`)
-doesn't have. An interlude inherits its tier from the chapters on either side of it, not
-from a lookup in this table — `chap06b`, between two Live/1–11 chapters, is `strip`/full
-blanks/full form. Record each interlude's inherited tier in `CHAPTER_MANIFEST.md` as it's
-added.
+This table is keyed by chapter number, which an *interlude* (original content, not part of
+*Think Python* — see `CHAPTER_MANIFEST.md`) doesn't have. Both current interludes
+(`interlude-a`, `interlude-b`) originally sat inline between two numbered chapters and
+inherited their tier from those neighbors; both were repositioned 2026-09-13 to after
+chapter 19, and whether that move should also demote their tier (no blanks, short-form
+standards, matching 14–19) is an open question, not yet decided — see `CHAPTER_MANIFEST.md`'s
+Interludes section and `AUDIT.md`'s 2026-09-13 handoff. Record each interlude's resolved
+tier in `CHAPTER_MANIFEST.md` as it's settled.
 
 ---
 
