@@ -299,11 +299,22 @@ try:
         """
         import html
 
-        homework_cells, _ = _homework_cells(notebook_filename)
-        if homework_cells is None:
-            return
+        # Only needed for the non-JupyterLite fallback (the JupyterLite path below
+        # never touches disk, so it works even when this fails) -- swallow
+        # _homework_cells()'s own printed message here rather than showing a
+        # premature "could not find" error that may not even apply once the button
+        # actually gets clicked.
+        with contextlib.redirect_stdout(io.StringIO()):
+            homework_cells, _ = _homework_cells(notebook_filename)
 
-        html_fragment = _homework_html(homework_cells)
+        if homework_cells is not None:
+            html_fragment = _homework_html(homework_cells)
+        else:
+            html_fragment = (
+                f"Could not read {notebook_filename} from disk to prepare a fallback "
+                "copy. If you are not seeing this inside JupyterLite, make sure the "
+                "notebook has been saved under that exact name and run this cell again."
+            )
         # An HTML attribute (onclick="...") gets entity-decoded by the browser before the
         # JS engine sees it, so embedding a JS string there needs html.escape() on top of
         # the JSON encoding -- see the 2026-09-12 bug where reusing a <script>-body
