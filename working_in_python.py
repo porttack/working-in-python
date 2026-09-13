@@ -463,6 +463,38 @@ def _homework_cell_text(cell, strip_sentinels=False):
     return "\n".join(lines).strip("\n")
 
 
+def _resolve_notebook_path(hint):
+    """Find the actual notebook file for a chapter, given a hint like "chap02.ipynb".
+
+    The same chapter notebook ships under different filenames in different places: a
+    plain download or Colab keeps "chapNN.ipynb", but JupyterLite's own deploy renames
+    it to something like "ChapterNN-Some-Title.ipynb" (see tools/build_jupyterlite_
+    content.py's CONTENT_NAMES). Rather than hardcode one name, try the hint literally
+    first, then fall back to the chapter number embedded in it and look for any local
+    .ipynb file whose name contains "chapNN" or "ChapterNN". Returns the resolved path,
+    or None if it's missing or ambiguous (caller is responsible for messaging).
+    """
+    import glob
+    import os
+
+    if os.path.exists(hint):
+        return hint
+
+    match = re.search(r"(\d{2})", hint)
+    if not match:
+        return None
+    number = match.group(1)
+
+    candidates = [
+        f for f in glob.glob("*.ipynb")
+        if re.search(rf"(?:chap|Chapter){number}\b", f, re.IGNORECASE)
+        and "-homework" not in f
+    ]
+    if len(candidates) == 1:
+        return candidates[0]
+    return None
+
+
 def _homework_cells(notebook_filename):
     """Read notebook_filename and return (homework_cells, notebook), or (None, None).
 
@@ -476,11 +508,13 @@ def _homework_cells(notebook_filename):
     import os
     import uuid
 
-    if not os.path.exists(notebook_filename):
+    resolved = _resolve_notebook_path(notebook_filename)
+    if resolved is None:
         print(f"Could not find {notebook_filename} in the current directory ({os.getcwd()}).")
         print("Make sure the notebook has been saved, and that this cell is running from "
               "the same folder the notebook itself is in.")
         return None, None
+    notebook_filename = resolved
 
     with open(notebook_filename) as f:
         notebook = json.load(f)
