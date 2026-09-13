@@ -295,13 +295,22 @@ try:
         sandboxed and can't see the rest of the notebook -- but that's untested from here.
         """
         import html
+        import uuid
 
         homework_cells, _ = _homework_cells(notebook_filename)
         if homework_cells is None:
             return
 
         text = "\n".join(_homework_markdown_lines(homework_cells))
-        js_text = html.escape(json.dumps(text))
+        # Two different encodings for the same text: an HTML attribute (onclick="...")
+        # gets entity-decoded by the browser before the JS engine sees it, so it needs
+        # html.escape() on top of the JSON string. A <script> body is a "raw text"
+        # element -- entities are never decoded there -- so it needs the plain JSON
+        # string instead, just with any literal "</script" broken up so it can't
+        # prematurely close the tag.
+        js_text_attr = html.escape(json.dumps(text))
+        js_text_script = json.dumps(text).replace("</script", "<\\/script")
+        status_id = "copy-homework-status-" + uuid.uuid4().hex[:8]
 
         display(HTML(f"""
 <div style="position: sticky; top: 0; z-index: 10;
@@ -310,7 +319,7 @@ try:
   <button
     onclick="
       var ta = document.createElement('textarea');
-      ta.value = {js_text};
+      ta.value = {js_text_attr};
       ta.style.position = 'fixed';
       ta.style.left = '-9999px';
       document.body.appendChild(ta);
@@ -325,10 +334,33 @@ try:
     style="padding:8px 16px; background:#2196F3; color:white; border:none;
            border-radius:4px; font-size:14px; cursor:pointer;"
   >Copy Homework</button>
-  <span style="font-size:12px; color:#666;">
+  <span id="{status_id}" style="font-size:12px; color:#666;">
     Copies the Homework section as text (code and any output, no images).
   </span>
 </div>
+<script>
+// Best-effort: try copying without a click. Browsers generally require a real
+// user gesture for clipboard access, so this is very likely to be silently
+// blocked -- if it is, or if this script never runs at all, the button above
+// still works exactly as before. This only ever upgrades the message, never
+// replaces the button.
+(function () {{
+  var status = document.getElementById('{status_id}');
+  var ta = document.createElement('textarea');
+  ta.value = {js_text_script};
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  var ok = false;
+  try {{ ok = document.execCommand('copy'); }} catch (e) {{ ok = false; }}
+  document.body.removeChild(ta);
+  if (ok && status) {{
+    status.textContent = 'Already copied to your clipboard -- paste with Ctrl+V. ' +
+      '(Click the button above if you need to copy again after making changes.)';
+  }}
+}})();
+</script>
 """))
 
     show_copy_notebook_button()
