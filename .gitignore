@@ -40,6 +40,7 @@ chapters/*.md
 
 # Jupyter Book build artifacts
 jb/chap*.ipynb
+jb/interlude-*.ipynb
 jb/jupyter_intro.ipynb
 jb/index.ipynb
 jb/_build/

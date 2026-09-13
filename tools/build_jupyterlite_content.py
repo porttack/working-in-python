@@ -79,10 +79,6 @@ CHAPTERS = {
     "chap04.ipynb": ["working_in_python_v2.py", "diagram.py", "jupyturtle.py"],
     "chap05.ipynb": ["working_in_python_v2.py", "diagram.py", "jupyturtle.py"],
     "chap06.ipynb": ["working_in_python_v2.py", "diagram.py"],
-    # Interlude between chapters 6 and 7 -- see CHAPTER_MANIFEST.md and
-    # jb/_toc.yml's 2026-08-17 comment. Only downloads working_in_python_v2.py,
-    # no diagram.py: this chapter never draws a diagram.
-    "chap06b.ipynb": ["working_in_python_v2.py"],
     "chap07.ipynb": ["working_in_python_v2.py", "diagram.py", "words.txt"],
     "chap08.ipynb": ["working_in_python_v2.py", "diagram.py", "words.txt", "pg345.txt", "pg1184.txt"],
     "chap09.ipynb": ["working_in_python_v2.py", "diagram.py", "words.txt"],
@@ -95,6 +91,14 @@ CHAPTERS = {
     # chap13 downloads photos.zip (the images used for the file/database
     # examples) the same way.
     "chap13.ipynb": ["working_in_python_v2.py", "diagram.py", "photos.zip", "words.txt"],
+    # Interlude, not a numbered Think Python chapter -- positioned after
+    # chapter 19 in both jb/_toc.yml and this lab's file browser (moved there
+    # 2026-09-13; see CHAPTER_MANIFEST.md and AUDIT.md). Only downloads
+    # working_in_python_v2.py, no diagram.py: this chapter never draws a
+    # diagram. interlude-b (outline only, never authored) has no entry here
+    # yet, same as chapters 14-19 have none -- added once it's actually
+    # drafted.
+    "interlude-a.ipynb": ["working_in_python_v2.py"],
 }
 # Student-legible names for what CHAPTERS ships into the flat JupyterLite lab
 # file browser, keyed by the same CHAPTERS notebook name -- chapters/*.ipynb
@@ -148,15 +152,6 @@ CONTENT_NAMES = {
         "name": "Chapter06-Return-Values.ipynb",
         "teach": "blank06-Return-Values.ipynb",
     },
-    # Interlude, not a numbered Think Python chapter -- "Chapter06b" (not
-    # "Interlude...") is deliberate: the lab file browser only sorts
-    # alphabetically (see the module docstring above), so this has to sort
-    # next to Chapter06/Chapter07 by name, same as the filename and toc
-    # placement. The book's own prose calls it an interlude regardless.
-    "chap06b.ipynb": {
-        "name": "Chapter06b-Docstrings-and-Doctests.ipynb",
-        "teach": "blank06b-Docstrings-and-Doctests.ipynb",
-    },
     "chap07.ipynb": {
         "name": "Chapter07-Iteration-and-Search-v2.ipynb",
         "teach": "blank07-Iteration-and-Search-v2.ipynb",
@@ -189,6 +184,18 @@ CONTENT_NAMES = {
     "chap17.ipynb": {"name": "Chapter17-Inheritance.ipynb"},
     "chap18.ipynb": {"name": "Chapter18-Python-Extras.ipynb"},
     "chap19.ipynb": {"name": "Chapter19-Final-Thoughts.ipynb"},
+    # Interlude, not a numbered Think Python chapter -- moved here 2026-09-13
+    # from an inline slot between Chapter06/Chapter07 (see CHAPTER_MANIFEST.md
+    # and AUDIT.md). "Interlude-A" (not "Chapter...") is safe now: the lab
+    # file browser sorts alphabetically and case-insensitively (see the module
+    # docstring above), and "I" sorts after "C", so this still lands right
+    # after Chapter19 -- verified against JupyterLab's actual sort comparator,
+    # not assumed. interlude-b (outline only, never authored) has no entry
+    # here yet, same as chapters 14-19 have none.
+    "interlude-a.ipynb": {
+        "name": "Interlude-A-Docstrings-and-Doctests.ipynb",
+        "teach": "blankA-Docstrings-and-Doctests.ipynb",
+    },
 }
 # Temporary aliases for a chapter that just got renamed while already live, so a
 # student with in-progress work cached under the OLD served name (JupyterLite's
@@ -200,7 +207,15 @@ CONTENT_NAMES = {
 # revert: no student had visited under the old name yet, so there was nothing to
 # preserve, and shipping both names just duplicated the entry in the Lab file
 # browser for everyone else.
-ALIASES = {}
+ALIASES = {
+    # chap06b was live under its old served name (Chapter06b-Docstrings-and-
+    # Doctests.ipynb) before this 2026-09-13 rename/reposition to
+    # interlude-a.ipynb -- see CHAPTER_MANIFEST.md and AUDIT.md. chap07b
+    # (now interlude-b.ipynb) never had a CONTENT_NAMES entry at all, so it
+    # was never served under any name and needs no alias. Remove this entry
+    # around 2026-10, once no student could plausibly still need the old path.
+    "interlude-a.ipynb": ["Chapter06b-Docstrings-and-Doctests.ipynb"],
+}
 # Whether to actually ship teach/blank copies into jupyterlite/content/ at
 # all, 2026-08-16. Deliberately False for now -- what to call this file
 # (teach/blank/teacher/etc.) and how to make it sort correctly in the lab
@@ -598,68 +613,6 @@ CELL_PATCHES = {
             '<!-- apcsp:end -->',
         ): (
             "*(You're already running this chapter live -- that's this page.)*",
-        ),
-    },
-    # chap06b's page embeds a live JupyterLite iframe of itself, same
-    # recursive-embed problem and same fix as chap01.ipynb above.
-    "chap06b.ipynb": {
-        (
-            '<!-- apcsp:begin type="note" chapter="6b" -->\n',
-            '<p id="chap06b-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>\n',
-            '\n',
-            '<style>\n',
-            '#pst-secondary-sidebar { display: none !important; }\n',
-            '#chap06b-jupyterlite-pane {\n',
-            '  display: none;\n',
-            '  height: 600px;\n',
-            '  background: #fff;\n',
-            '  overflow: hidden;\n',
-            '}\n',
-            '#chap06b-jupyterlite-pane iframe {\n',
-            '  display: block;\n',
-            '  width: 100%;\n',
-            '  height: 100%;\n',
-            '  border: 0;\n',
-            '}\n',
-            '</style>\n',
-            '<div id="chap06b-jupyterlite-pane">\n',
-            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Chapter06b-Docstrings-and-Doctests.ipynb"></iframe>\n',
-            '</div>\n',
-            '<script>\n',
-            '(function () {\n',
-            '  var note = document.getElementById("chap06b-jupyterlite-note");\n',
-            '  var pane = document.getElementById("chap06b-jupyterlite-pane");\n',
-            '  if (!pane) return;\n',
-            '  if (new URLSearchParams(location.search).has("readonly")) {\n',
-            '    pane.style.display = "none";\n',
-            '    if (note) note.style.display = "none";\n',
-            '    return;\n',
-            '  }\n',
-            '  var sidebar = document.getElementById("pst-primary-sidebar");\n',
-            '  if (!sidebar) return;\n',
-            '  // Only take over the viewport when running inside the Sphinx book site,\n',
-            '  // where the primary sidebar this pane is docked next to actually exists.\n',
-            '  // height:auto (rather than the 600px stylesheet fallback, which only\n',
-            '  // exists for contexts where this script never runs, e.g. viewing the raw\n',
-            '  // notebook in VS Code) lets top+bottom determine the height, so the pane\n',
-            '  // fills the whole right side, not a fixed 600px slice of it.\n',
-            '  pane.style.display = "block";\n',
-            '  pane.style.position = "fixed";\n',
-            '  pane.style.top = "0";\n',
-            '  pane.style.right = "0";\n',
-            '  pane.style.bottom = "0";\n',
-            '  pane.style.height = "auto";\n',
-            '  pane.style.zIndex = "2000";\n',
-            '  function positionPane() {\n',
-            '    pane.style.left = sidebar.getBoundingClientRect().right + "px";\n',
-            '  }\n',
-            '  new ResizeObserver(positionPane).observe(sidebar);\n',
-            '  positionPane();\n',
-            '})();\n',
-            '</script>\n',
-            '<!-- apcsp:end -->',
-        ): (
-            "*(You're already running this interlude live -- that's this page.)*",
         ),
     },
     # chap07's page embeds a live JupyterLite iframe of itself, same
@@ -1201,6 +1154,71 @@ CELL_PATCHES = {
             "import os\n",
             "if os.path.exists('photo_info/captions.bak'):\n",
             "    os.remove('photo_info/captions.bak')",
+        ),
+    },
+    # interlude-a's page embeds a live JupyterLite iframe of itself, same
+    # recursive-embed problem and same fix as chap01.ipynb above. Renamed
+    # 2026-09-13 from chap06b.ipynb (ids, chapter sentinel, and the ?path=
+    # target all updated to match) as part of moving both interludes out of
+    # the live numbered sequence to after chapter 19.
+    "interlude-a.ipynb": {
+        (
+            '<!-- apcsp:begin type="note" chapter="A" -->\n',
+            '<p id="interlude-a-jupyterlite-note"><em>Ignore this cell — used when running JupyterLite.</em></p>\n',
+            '\n',
+            '<style>\n',
+            '#pst-secondary-sidebar { display: none !important; }\n',
+            '#interlude-a-jupyterlite-pane {\n',
+            '  display: none;\n',
+            '  height: 600px;\n',
+            '  background: #fff;\n',
+            '  overflow: hidden;\n',
+            '}\n',
+            '#interlude-a-jupyterlite-pane iframe {\n',
+            '  display: block;\n',
+            '  width: 100%;\n',
+            '  height: 100%;\n',
+            '  border: 0;\n',
+            '}\n',
+            '</style>\n',
+            '<div id="interlude-a-jupyterlite-pane">\n',
+            f'<iframe src="{DEPLOY_PATH_PLACEHOLDER}/notebooks/index.html?path=Interlude-A-Docstrings-and-Doctests.ipynb"></iframe>\n',
+            '</div>\n',
+            '<script>\n',
+            '(function () {\n',
+            '  var note = document.getElementById("interlude-a-jupyterlite-note");\n',
+            '  var pane = document.getElementById("interlude-a-jupyterlite-pane");\n',
+            '  if (!pane) return;\n',
+            '  if (new URLSearchParams(location.search).has("readonly")) {\n',
+            '    pane.style.display = "none";\n',
+            '    if (note) note.style.display = "none";\n',
+            '    return;\n',
+            '  }\n',
+            '  var sidebar = document.getElementById("pst-primary-sidebar");\n',
+            '  if (!sidebar) return;\n',
+            '  // Only take over the viewport when running inside the Sphinx book site,\n',
+            '  // where the primary sidebar this pane is docked next to actually exists.\n',
+            '  // height:auto (rather than the 600px stylesheet fallback, which only\n',
+            '  // exists for contexts where this script never runs, e.g. viewing the raw\n',
+            '  // notebook in VS Code) lets top+bottom determine the height, so the pane\n',
+            '  // fills the whole right side, not a fixed 600px slice of it.\n',
+            '  pane.style.display = "block";\n',
+            '  pane.style.position = "fixed";\n',
+            '  pane.style.top = "0";\n',
+            '  pane.style.right = "0";\n',
+            '  pane.style.bottom = "0";\n',
+            '  pane.style.height = "auto";\n',
+            '  pane.style.zIndex = "2000";\n',
+            '  function positionPane() {\n',
+            '    pane.style.left = sidebar.getBoundingClientRect().right + "px";\n',
+            '  }\n',
+            '  new ResizeObserver(positionPane).observe(sidebar);\n',
+            '  positionPane();\n',
+            '})();\n',
+            '</script>\n',
+            '<!-- apcsp:end -->',
+        ): (
+            "*(You're already running this interlude live -- that's this page.)*",
         ),
     },
 }
