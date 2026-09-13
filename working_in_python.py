@@ -188,10 +188,10 @@ except (ImportError, NameError):
 # the way through it once first so every cell has been mounted, then click
 # the button.
 #
-# A function, not a bare display() call, so a second copy can be dropped at
-# the end of a notebook (e.g. chap0N-exercises.ipynb, right after the last
-# exercise, which is where it's actually needed) with one line, in addition
-# to the one that shows automatically on import.
+# A function, not a bare display() call, so it can be dropped wherever it's
+# actually needed (each chapter's own "Finished? Copy your work" cell calls
+# it explicitly) rather than firing automatically on every import -- it used
+# to do both, showing a redundant second copy at the top of the notebook.
 #
 # Only meaningful inside JupyterLite -- no-op on Colab or a local install,
 # where IPython's rich display isn't hooked up the same way.
@@ -386,7 +386,6 @@ try:
 </div>
 """))
 
-    show_copy_notebook_button()
 except ImportError:
     pass
 
