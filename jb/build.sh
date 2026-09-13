@@ -36,6 +36,28 @@ cp ../chapters/chap[0-1][0-9]*.ipynb .
 cp ../chapters/jupyter_intro.ipynb .
 cp ../chapters/index.ipynb .
 
+# Bundle every real chapter notebook plus setup.sh into a single wip.zip,
+# nested under a top-level wip/ so a student who unzips it lands directly in
+# a ready-to-go working folder -- setup.sh's own "am I already inside wip/"
+# check means running it from there just works, no nested wip/wip/. Built
+# straight from ../chapters/*.ipynb (the same source Colab/download links
+# use), not the copies above: those get mutated in place by prep_notebooks.py
+# below for the Sphinx build, which strips %%expect magic a real notebook run
+# needs and injects MyST cross-reference labels no one running the notebook
+# themselves needs either. Solutions are already blanked in ../chapters/
+# itself (see the file header above), so nothing here needs to touch that.
+rm -rf _wip_zip_stage wip.zip
+mkdir -p _wip_zip_stage/wip
+cp ../chapters/*.ipynb _wip_zip_stage/wip/
+# chap07b is outline only -- no drafted prose, no exercises yet (see its own
+# first cell and CHAPTER_MANIFEST.md). Fine as a placeholder in the site's own
+# TOC (a deliberate, separate call already made there), but not something to
+# hand a student as working material. Revisit once it's actually authored.
+rm -f _wip_zip_stage/wip/chap07b.ipynb
+cp ../setup.sh _wip_zip_stage/wip/
+(cd _wip_zip_stage && zip -rq ../wip.zip wip)
+rm -rf _wip_zip_stage
+
 # chap01.ipynb and jupyter_intro.ipynb each embed a live JupyterLite iframe of
 # themselves, and index.ipynb links to the JupyterLite lab view; all three
 # carry a placeholder (JUPYTERLITE_DEPLOY_PATH) instead of a
@@ -83,6 +105,12 @@ jb build .
 # Without this, a stale one could ride along into the next ghp-import publish.
 rm -rf _build/html/jupyterlite _build/html/jupyterlite-*
 cp -r ../jupyterlite/_output "_build/html/${JUPYTERLITE_DEPLOY_ID}"
+
+# Publish wip.zip (built above) at the site root, so it's always the current
+# one -- unlike the JupyterLite deploy, this isn't content-hashed: a bulk
+# all-chapters download is meant to be re-fetched deliberately when someone
+# wants the latest, not cached defensively the way a live-embedded page is.
+cp wip.zip _build/html/
 
 # Stable aliases so a link pasted once into Schoology survives every future
 # rebuild: current/{notebooks,lab}/index.html just redirect to this run's
@@ -132,3 +160,5 @@ echo "  3. an internal cross-reference resolves (chap10 -> earlier section)"
 echo "  4. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/notebooks/index.html?path=__chap01-welcome.ipynb runs"
 echo "  5. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/lab/index.html shows the grouped file browser"
 echo "  6. https://python.porttack.com/current/notebooks/index.html?path=__chap01-welcome.ipynb redirects and runs"
+echo "  7. https://python.porttack.com/wip.zip downloads and unzips to a wip/ folder"
+echo "     with setup.sh and every real chapter, chap07b excluded"
