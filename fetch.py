@@ -20,13 +20,17 @@ BASE_URL = "https://raw.githubusercontent.com/porttack/working-in-python/v3/chap
 
 
 def normalize(chapter):
-    """Turn "3" or "6b" into "chap03.ipynb" / "chap06b.ipynb", or None if
-    chapter isn't shaped like a chapter number."""
-    match = re.fullmatch(r"(\d{1,2})([a-zA-Z]?)", chapter)
-    if not match:
-        return None
-    number, letter = match.groups()
-    return f"chap{int(number):02d}{letter}.ipynb"
+    """Turn "3" into "chap03.ipynb", "a" or "interlude-a" into "interlude-a.ipynb",
+    or None if chapter isn't shaped like either."""
+    match = re.fullmatch(r"(\d{1,2})", chapter)
+    if match:
+        return f"chap{int(match.group(1)):02d}.ipynb"
+
+    match = re.fullmatch(r"(?:interlude-)?([a-zA-Z])", chapter)
+    if match:
+        return f"interlude-{match.group(1).lower()}.ipynb"
+
+    return None
 
 
 def main():
@@ -34,7 +38,7 @@ def main():
         description="Fetch a single chapter notebook fresh from GitHub.",
         epilog="Behaves like cp/mv when the target already exists: asks first, unless -f.",
     )
-    parser.add_argument("chapter", help="a chapter number (3) or interlude (6b)")
+    parser.add_argument("chapter", help="a chapter number (3) or interlude letter (a)")
     parser.add_argument(
         "-f", "--force", action="store_true",
         help="overwrite an existing file without asking",
@@ -43,8 +47,8 @@ def main():
 
     filename = normalize(args.chapter)
     if filename is None:
-        print(f"Not a chapter number: {args.chapter} (try something like 3 or 6b)",
-              file=sys.stderr)
+        print(f"Not a chapter number or interlude letter: {args.chapter} "
+              "(try something like 3 or a)", file=sys.stderr)
         return 1
 
     if exists(filename) and not args.force:

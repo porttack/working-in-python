@@ -50,8 +50,9 @@ curl -L -o chapNN.ipynb https://raw.githubusercontent.com/porttack/working-in-py
 ```
 
 (`python3 wip/fetch.py chapter-number` is also there if you'd rather not retype the URL --
-run `fetch.py --help` to see it. It asks before overwriting a chapter you already have,
-same as `cp` or `mv` would.)
+run `fetch.py --help` to see it. The two interludes (extra material, not part of the main
+numbered sequence) fetch the same way with a letter instead of a number, e.g. `fetch.py a`.
+It asks before overwriting a chapter you already have, same as `cp` or `mv` would.)
 
 Open the notebook, select **wip/.venv** as the kernel the first time, do the homework,
 then use whichever of "Finished? Copy your work" or "OR save your homework for

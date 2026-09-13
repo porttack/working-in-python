@@ -481,16 +481,19 @@ def _homework_cell_text(cell, strip_sentinels=False):
 
 
 def _resolve_notebook_path(hint):
-    """Find the actual notebook file for a chapter, given a hint like "chap02.ipynb".
+    """Find the actual notebook file for a chapter, given a hint like "chap02.ipynb"
+    or "interlude-a.ipynb".
 
-    The same chapter notebook ships under different filenames in different places: a
-    plain download or Colab keeps "chapNN.ipynb", but JupyterLite's own deploy renames
-    it to something like "ChapterNN-Some-Title.ipynb" (see tools/build_jupyterlite_
-    content.py's CONTENT_NAMES). Rather than hardcode one name, try the hint literally
-    first, then fall back to the chapter number embedded in it and look for any local
-    .ipynb file matching [Cc]hap.*NN.*ipynb. If more than one matches, prefer whichever
-    was modified most recently -- more likely to be the one actually in use than a
-    forgotten older copy. Returns the resolved path, or None if nothing matches.
+    The same notebook ships under different filenames in different places: a plain
+    download or Colab keeps "chapNN.ipynb" / "interlude-X.ipynb", but JupyterLite's own
+    deploy renames it to something like "ChapterNN-Some-Title.ipynb" or
+    "Interlude-X-Some-Title.ipynb" (see tools/build_jupyterlite_content.py's
+    CONTENT_NAMES). Rather than hardcode one name, try the hint literally first, then
+    fall back to whatever identifies the chapter -- a two-digit number for a numbered
+    chapter, or a letter for an interlude -- and look for any local .ipynb file whose
+    name plausibly matches. If more than one matches, prefer whichever was modified
+    most recently -- more likely to be the one actually in use than a forgotten older
+    copy. Returns the resolved path, or None if nothing matches.
     """
     import glob
     import os
@@ -498,16 +501,29 @@ def _resolve_notebook_path(hint):
     if os.path.exists(hint):
         return hint
 
-    match = re.search(r"(\d{2})", hint)
-    if not match:
-        return None
-    number = match.group(1)
-
-    candidates = [
-        f for f in glob.glob("*.ipynb")
-        if re.search(rf"[Cc]hap.*{number}.*ipynb", f)
-        and "-homework" not in f
-    ]
+    interlude_match = re.search(r"interlude-([a-zA-Z])", hint, re.IGNORECASE)
+    if interlude_match:
+        letter = interlude_match.group(1)
+        # A bare `.*{letter}.*` would also match the OTHER interlude's shipped
+        # name (e.g. "Representing" and "Data" both contain an "a"), so the
+        # letter must be its own hyphen- or dot-delimited segment right after
+        # "interlude": "interlude-a.ipynb" and "Interlude-A-....ipynb" both
+        # match; "Interlude-B-Representing-Data.ipynb" does not.
+        candidates = [
+            f for f in glob.glob("*.ipynb")
+            if re.search(rf"interlude-{letter}[-.]", f, re.IGNORECASE)
+            and "-homework" not in f
+        ]
+    else:
+        number_match = re.search(r"(\d{2})", hint)
+        if not number_match:
+            return None
+        number = number_match.group(1)
+        candidates = [
+            f for f in glob.glob("*.ipynb")
+            if re.search(rf"[Cc]hap.*{number}.*ipynb", f)
+            and "-homework" not in f
+        ]
     if not candidates:
         return None
     if len(candidates) == 1:
