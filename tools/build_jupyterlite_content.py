@@ -72,29 +72,29 @@ DEPLOY_PATH_PLACEHOLDER = "JUPYTERLITE_DEPLOY_PATH"
 SIBLING_LINK_RE = re.compile(r"\(https://\S*?/notebooks/index\.html\?path=([^)\s\"]+)\)")
 CHAPTERS = {
     "index.ipynb": [],
-    "jupyter_intro.ipynb": ["working_in_python.py"],
-    "chap01.ipynb": ["working_in_python.py"],
-    "chap02.ipynb": ["working_in_python.py", "diagram.py"],
-    "chap03.ipynb": ["working_in_python.py", "diagram.py"],
-    "chap04.ipynb": ["working_in_python.py", "diagram.py", "jupyturtle.py"],
-    "chap05.ipynb": ["working_in_python.py", "diagram.py", "jupyturtle.py"],
-    "chap06.ipynb": ["working_in_python.py", "diagram.py"],
+    "jupyter_intro.ipynb": ["working_in_python_v2.py"],
+    "chap01.ipynb": ["working_in_python_v2.py"],
+    "chap02.ipynb": ["working_in_python_v2.py", "diagram.py"],
+    "chap03.ipynb": ["working_in_python_v2.py", "diagram.py"],
+    "chap04.ipynb": ["working_in_python_v2.py", "diagram.py", "jupyturtle.py"],
+    "chap05.ipynb": ["working_in_python_v2.py", "diagram.py", "jupyturtle.py"],
+    "chap06.ipynb": ["working_in_python_v2.py", "diagram.py"],
     # Interlude between chapters 6 and 7 -- see CHAPTER_MANIFEST.md and
-    # jb/_toc.yml's 2026-08-17 comment. Only downloads working_in_python.py,
+    # jb/_toc.yml's 2026-08-17 comment. Only downloads working_in_python_v2.py,
     # no diagram.py: this chapter never draws a diagram.
-    "chap06b.ipynb": ["working_in_python.py"],
-    "chap07.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
-    "chap08.ipynb": ["working_in_python.py", "diagram.py", "words.txt", "pg345.txt", "pg1184.txt"],
-    "chap09.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
-    "chap10.ipynb": ["working_in_python.py", "diagram.py", "words.txt"],
-    "chap11.ipynb": ["working_in_python.py", "diagram.py", "structshape.py", "words.txt", "pg345.txt"],
+    "chap06b.ipynb": ["working_in_python_v2.py"],
+    "chap07.ipynb": ["working_in_python_v2.py", "diagram.py", "words.txt"],
+    "chap08.ipynb": ["working_in_python_v2.py", "diagram.py", "words.txt", "pg345.txt", "pg1184.txt"],
+    "chap09.ipynb": ["working_in_python_v2.py", "diagram.py", "words.txt"],
+    "chap10.ipynb": ["working_in_python_v2.py", "diagram.py", "words.txt"],
+    "chap11.ipynb": ["working_in_python_v2.py", "diagram.py", "structshape.py", "words.txt", "pg345.txt"],
     # chap12 downloads the book it analyzes (pg43.txt, Dr. Jekyll and Mr. Hyde)
     # directly from Project Gutenberg via download(), same mechanism as every
     # other vendored dependency here -- so it needs pre-bundling the same way.
-    "chap12.ipynb": ["working_in_python.py", "diagram.py", "pg43.txt", "words.txt"],
+    "chap12.ipynb": ["working_in_python_v2.py", "diagram.py", "pg43.txt", "words.txt"],
     # chap13 downloads photos.zip (the images used for the file/database
     # examples) the same way.
-    "chap13.ipynb": ["working_in_python.py", "diagram.py", "photos.zip", "words.txt"],
+    "chap13.ipynb": ["working_in_python_v2.py", "diagram.py", "photos.zip", "words.txt"],
 }
 # Student-legible names for what CHAPTERS ships into the flat JupyterLite lab
 # file browser, keyed by the same CHAPTERS notebook name -- chapters/*.ipynb

@@ -48,6 +48,23 @@ consciously reverses the "left untouched" policy above for this one file, in ord
 future edits to the support module actually reach students. Downey's original file is
 still MIT-licensed and still credited — see `ATTRIBUTION.md`.
 
+**Exception: `working_in_python.py` → `working_in_python_v2.py` (2026-09-13).** Every
+chapter's setup cell only downloads this module `if not exists(filename)` -- deliberately,
+so a chapter doesn't re-fetch it over the network on every run once a student already has
+a copy (see `AUDIT.md`). That's exactly what made the file itself unsafe to keep editing
+in place: a student who had already cached an older copy (from an earlier chapter's
+homework, say) would keep it forever, and a newer chapter calling a function the cached
+copy doesn't have yet would fail with an `AttributeError`, not a helpful message. Renamed
+so the filename itself changes whenever the module gains something a chapter now depends
+on, forcing exactly the students who need a fresh copy to get one, without asking every
+student to always re-download on every run. Repointed across the same touch points as the
+2026-08-11 rename (all notebooks that use it, `tools/build_jupyterlite_content.py`'s
+companion-file lists, `jupyter_intro.ipynb`'s one sentence naming the file) via `import
+working_in_python_v2 as working_in_python`, so no call site anywhere had to change, only
+each chapter's own setup cell. Expect a `_v3`, `_v4`, etc. the next time this module gains
+something a chapter depends on and an already-in-progress student's cached copy needs to
+be forced stale.
+
 ## Virtual-assistant material
 
 <!-- What was stripped, kept, or replaced, chapter by chapter, and why. Pass 2. -->
