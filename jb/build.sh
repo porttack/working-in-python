@@ -89,6 +89,17 @@ export JUPYTERLITE_DEPLOY_ID=$(cd .. && python3 tools/build_jupyterlite_content.
 # with silently broken links.
 python prep_notebooks.py
 
+# Sphinx's incremental build only adds/updates pages for sources it currently
+# sees -- it never prunes the HTML for a source that was renamed or removed,
+# the same class of staleness this script already sweeps for the JupyterLite
+# subdirectory below. Caught 2026-09-13: after the chap06b/chap07b ->
+# interlude-a/interlude-b rename, _build/html/chap06b.html and chap07b.html
+# both survived several successive local builds untouched, and since
+# publishing force-pushes _build/html wholesale (ghp-import, below), an
+# unwiped _build/ would ship that dead page to the live site right alongside
+# the real one, forever, since nothing ever regenerates or removes it again.
+rm -rf _build
+
 jb build .
 
 # JupyterLite (chap01-11, Colab-outage fallback): built separately from

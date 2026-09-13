@@ -8637,3 +8637,30 @@ answer.
 `jupyterlite/content/` directory listing and the documented sort-comparator research were
 checked, not a running browser), and a real GitHub Pages deploy (only `jb build.sh --local`
 was run, never a real publish).
+
+## 2026-09-13 follow-up — jb/build.sh: wipe `_build/` before every build, don't rely on Sphinx's incremental cache
+
+Found while verifying the interlude move above with a real `jb build.sh --local`: Sphinx's
+own incremental build only adds or updates HTML for sources it currently sees, and never
+prunes the page for a source that was renamed or removed. After the chap06b/chap07b →
+interlude-a/interlude-b rename, `_build/html/chap06b.html` and `chap07b.html` both survived
+several successive local builds completely untouched (confirmed by their file mtimes,
+hours stale relative to the rest of the same build) sitting right alongside the real
+`interlude-a.html`/`interlude-b.html`. Unlinked from the nav, but still fetchable, and never
+going to be regenerated or removed again by anything in this script. This is the exact same
+class of bug `jb/build.sh` already sweeps for once, explicitly, for the JupyterLite
+subdirectory (`rm -rf _build/html/jupyterlite...`) -- it just never had a reason to apply
+the same treatment to the regular Sphinx-built chapter pages before now, since nothing had
+ever renamed one.
+
+**Why this matters beyond a locally-annoying stale file:** publishing runs `ghp-import -f
+_build/html`, a force-push of whatever's sitting in `_build/html` at that moment. An unwiped
+`_build/` would ship the dead page to the live site right alongside the real one, and it
+would stay there indefinitely -- nothing would ever notice, remove, or update it again.
+
+**Fix:** `rm -rf _build` added right before `jb build .` in `jb/build.sh`, trading a few
+seconds of rebuild-from-scratch time (this script is the publish path, not the fast
+iterative one -- that's `watch.sh`, unaffected) for the guarantee that a renamed or deleted
+chapter can never leave a stale page behind. Verified directly: re-ran `jb build.sh --local`
+after the fix and confirmed `chap06b.html`/`chap07b.html` no longer appear in `_build/html/`
+at all.
