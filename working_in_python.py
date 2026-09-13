@@ -227,7 +227,8 @@ try:
       var startCell = null;
       for (var i = 0; i < cells.length; i++) {
         var h2 = cells[i].querySelector('h2');
-        if (h2 && (h2.textContent === 'Homework' || h2.textContent === 'Extra Exercises')) {
+        var h2Text = h2 ? h2.textContent.trim() : '';
+        if (h2Text.indexOf('Homework') === 0 || h2Text.indexOf('Extra Exercises') === 0) {
           startCell = cells[i];
           break;
         }
@@ -335,7 +336,8 @@ try:
         var startCell = null, endCell = null;
         for (var i = 0; i < cells.length; i++) {{
           var h2 = cells[i].querySelector('h2');
-          if (!startCell && h2 && (h2.textContent === 'Homework' || h2.textContent === 'Extra Exercises')) {{
+          var h2Text = h2 ? h2.textContent.trim() : '';
+          if (!startCell && (h2Text.indexOf('Homework') === 0 || h2Text.indexOf('Extra Exercises') === 0)) {{
             startCell = cells[i];
           }}
           if (startCell && cells[i].textContent.indexOf('Finished? Copy your work') !== -1) {{
