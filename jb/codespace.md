@@ -49,8 +49,8 @@ environment.
 curl -L -o chapNN.ipynb https://raw.githubusercontent.com/porttack/working-in-python/v3/chapters/chapNN.ipynb
 ```
 
-(`wip/fetch.sh chapter-number` is also there if you'd rather not retype the URL --
-run `fetch.sh --help` to see it. It asks before overwriting a chapter you already have,
+(`python3 wip/fetch.py chapter-number` is also there if you'd rather not retype the URL --
+run `fetch.py --help` to see it. It asks before overwriting a chapter you already have,
 same as `cp` or `mv` would.)
 
 Open the notebook, select **wip/.venv** as the kernel the first time, do the homework,
@@ -67,5 +67,5 @@ Two zip files are published, and both unzip straight into a ready-to-go `wip/` f
 
 The all-at-once zip is a snapshot, not a live copy. If a chapter gets fixed after you
 download it, your copy doesn't update on its own -- if you're not sure yours is current,
-re-fetch that one chapter (`fetch.sh chapter-number`, or plain `curl`) rather than
-re-downloading the whole zip.
+re-fetch that one chapter (`python3 fetch.py chapter-number`, or plain `curl`) rather
+than re-downloading the whole zip.

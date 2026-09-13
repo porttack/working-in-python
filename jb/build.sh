@@ -41,10 +41,14 @@ cp ../chapters/index.ipynb .
 # already inside wip/" check means running either script from there just
 # works, no nested wip/wip/.
 #
-# wip-tools.zip: just setup.sh and fetch.sh, no chapters -- a starter kit for
+# wip-tools.zip: just setup.sh and fetch.py, no chapters -- a starter kit for
 # whoever's building their own working folder chapter by chapter (the taught,
 # weekly way; see the "Using a Codespace" page) rather than grabbing
-# everything at once.
+# everything at once. setup.sh stays a shell script (it's really just OS/
+# filesystem operations -- create a venv, invoke its pip), but fetch is
+# fetch.py, not a shell script: downloading a URL and writing a file is squarely
+# Python's job, and it reuses urlretrieve(), the exact function every
+# chapter's own bootstrap download() cell already uses.
 #
 # wip.zip: the same two scripts plus every real chapter notebook, for a bulk
 # all-at-once download. Built straight from ../chapters/*.ipynb (the same
@@ -56,7 +60,7 @@ cp ../chapters/index.ipynb .
 # nothing here needs to touch that.
 rm -rf _wip_zip_stage wip-tools.zip wip.zip
 mkdir -p _wip_zip_stage/wip
-cp ../setup.sh ../fetch.sh _wip_zip_stage/wip/
+cp ../setup.sh ../fetch.py _wip_zip_stage/wip/
 (cd _wip_zip_stage && zip -rq ../wip-tools.zip wip)
 
 cp ../chapters/*.ipynb _wip_zip_stage/wip/
@@ -171,6 +175,6 @@ echo "  4. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/notebooks/index.
 echo "  5. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/lab/index.html shows the grouped file browser"
 echo "  6. https://python.porttack.com/current/notebooks/index.html?path=__chap01-welcome.ipynb redirects and runs"
 echo "  7. https://python.porttack.com/wip.zip downloads and unzips to a wip/ folder"
-echo "     with setup.sh, fetch.sh, and every real chapter, chap07b excluded"
+echo "     with setup.sh, fetch.py, and every real chapter, chap07b excluded"
 echo "  8. https://python.porttack.com/wip-tools.zip downloads and unzips to a wip/"
-echo "     folder with just setup.sh and fetch.sh, no chapters"
+echo "     folder with just setup.sh and fetch.py, no chapters"
