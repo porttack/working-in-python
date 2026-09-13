@@ -287,30 +287,28 @@ try:
     def show_copy_homework_button(notebook_filename):
         """Display a button that copies this notebook's Homework section to the clipboard.
 
-        Unlike show_copy_notebook_button() (which only works inside JupyterLite, by
-        scraping the rendered page's own DOM), this reads notebook_filename from disk --
-        same as write_homework_files() -- and embeds the resulting text directly into this
-        cell's own output, so the button never needs to reach outside its own cell. That
-        should make it work in VS Code/Codespaces too, where each cell's output is
-        sandboxed and can't see the rest of the notebook -- but that's untested from here.
+        Detects its environment at click time and copies the best available way:
+        inside JupyterLite, it scrapes the rendered page's own DOM (same trick
+        show_copy_notebook_button() uses, so it's always fresh, no re-running needed);
+        everywhere else (VS Code, a Codespace), it falls back to notebook_filename read
+        from disk -- same source as write_homework_files() -- since there's no shared
+        notebook DOM to scrape there. Either way, what lands on the clipboard is rich
+        text (real headings/bold/code, not literal markdown syntax) so it pastes into a
+        word processor already formatted, plus a plain-text fallback for anywhere that
+        doesn't want rich text.
         """
         import html
-        import uuid
 
         homework_cells, _ = _homework_cells(notebook_filename)
         if homework_cells is None:
             return
 
-        text = "\n".join(_homework_markdown_lines(homework_cells))
-        # Two different encodings for the same text: an HTML attribute (onclick="...")
-        # gets entity-decoded by the browser before the JS engine sees it, so it needs
-        # html.escape() on top of the JSON string. A <script> body is a "raw text"
-        # element -- entities are never decoded there -- so it needs the plain JSON
-        # string instead, just with any literal "</script" broken up so it can't
-        # prematurely close the tag.
-        js_text_attr = html.escape(json.dumps(text))
-        js_text_script = json.dumps(text).replace("</script", "<\\/script")
-        status_id = "copy-homework-status-" + uuid.uuid4().hex[:8]
+        html_fragment = _homework_html(homework_cells)
+        # An HTML attribute (onclick="...") gets entity-decoded by the browser before the
+        # JS engine sees it, so embedding a JS string there needs html.escape() on top of
+        # the JSON encoding -- see the 2026-09-12 bug where reusing a <script>-body
+        # encoding (no html.escape) inside an attribute corrupted embedded quotes/&.
+        js_html_attr = html.escape(json.dumps(html_fragment))
 
         display(HTML(f"""
 <div style="position: sticky; top: 0; z-index: 10;
@@ -318,14 +316,62 @@ try:
             padding: 6px 0; display: flex; align-items: center; gap: 8px;">
   <button
     onclick="
-      var ta = document.createElement('textarea');
-      ta.value = {js_text_attr};
-      ta.style.position = 'fixed';
-      ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
+      var nb = document.querySelector('.jp-Notebook');
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      if (nb) {{
+        var cells = nb.querySelectorAll('.jp-Cell');
+        var startCell = null, endCell = null;
+        for (var i = 0; i < cells.length; i++) {{
+          var h2 = cells[i].querySelector('h2');
+          if (!startCell && h2 && (h2.textContent === 'Homework' || h2.textContent === 'Extra Exercises')) {{
+            startCell = cells[i];
+          }}
+          if (startCell && cells[i].textContent.indexOf('Finished? Copy your work') !== -1) {{
+            endCell = cells[i];
+            break;
+          }}
+        }}
+        var prompts = nb.querySelectorAll('.jp-InputPrompt, .jp-OutputPrompt');
+        prompts.forEach(function (p) {{ p.style.userSelect = 'text'; p.style.webkitUserSelect = 'text'; }});
+        var codeLines = nb.querySelectorAll('.cm-line');
+        var insertedBreaks = [];
+        codeLines.forEach(function (l) {{
+          l.style.margin = '0';
+          l.style.lineHeight = 'normal';
+          l.style.display = 'inline';
+          var br = document.createElement('br');
+          l.insertAdjacentElement('afterend', br);
+          insertedBreaks.push(br);
+        }});
+        var range = document.createRange();
+        if (startCell && endCell) {{
+          range.setStartBefore(startCell);
+          range.setEndBefore(endCell);
+        }} else {{
+          range.selectNodeContents(nb);
+        }}
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        prompts.forEach(function (p) {{ p.style.userSelect = ''; p.style.webkitUserSelect = ''; }});
+        insertedBreaks.forEach(function (br) {{ br.remove(); }});
+        codeLines.forEach(function (l) {{ l.style.margin = ''; l.style.lineHeight = ''; l.style.display = ''; }});
+      }} else {{
+        var container = document.createElement('div');
+        container.setAttribute('contenteditable', 'true');
+        container.style.position = 'fixed';
+        container.style.left = '-9999px';
+        container.style.top = '0';
+        container.innerHTML = {js_html_attr};
+        document.body.appendChild(container);
+        var range2 = document.createRange();
+        range2.selectNodeContents(container);
+        sel.addRange(range2);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        document.body.removeChild(container);
+      }}
       var b = this;
       var original = b.textContent;
       b.textContent = 'Copied! Now paste (Ctrl+V) into a document.';
@@ -334,33 +380,10 @@ try:
     style="padding:8px 16px; background:#2196F3; color:white; border:none;
            border-radius:4px; font-size:14px; cursor:pointer;"
   >Copy Homework</button>
-  <span id="{status_id}" style="font-size:12px; color:#666;">
-    Copies the Homework section as text (code and any output, no images).
+  <span style="font-size:12px; color:#666;">
+    Copies the Homework section as rich text (code and any output, no images).
   </span>
 </div>
-<script>
-// Best-effort: try copying without a click. Browsers generally require a real
-// user gesture for clipboard access, so this is very likely to be silently
-// blocked -- if it is, or if this script never runs at all, the button above
-// still works exactly as before. This only ever upgrades the message, never
-// replaces the button.
-(function () {{
-  var status = document.getElementById('{status_id}');
-  var ta = document.createElement('textarea');
-  ta.value = {js_text_script};
-  ta.style.position = 'fixed';
-  ta.style.left = '-9999px';
-  document.body.appendChild(ta);
-  ta.select();
-  var ok = false;
-  try {{ ok = document.execCommand('copy'); }} catch (e) {{ ok = false; }}
-  document.body.removeChild(ta);
-  if (ok && status) {{
-    status.textContent = 'Already copied to your clipboard -- paste with Ctrl+V. ' +
-      '(Click the button above if you need to copy again after making changes.)';
-  }}
-}})();
-</script>
 """))
 
     show_copy_notebook_button()
@@ -496,10 +519,25 @@ def _homework_cells(notebook_filename):
     return homework_cells, notebook
 
 
+def _output_text(output):
+    """Return the text/plain-equivalent content of a single cell output, or None.
+
+    Only ever looks at text -- image outputs (e.g. a matplotlib figure) are skipped
+    on purpose, there's nothing to grade in a picture of a plot.
+    """
+    output_type = output.get("output_type")
+    if output_type == "stream":
+        return "".join(output.get("text", []))
+    if output_type in ("execute_result", "display_data"):
+        return "".join(output.get("data", {}).get("text/plain", []))
+    if output_type == "error":
+        return f"{output.get('ename', '')}: {output.get('evalue', '')}"
+    return None
+
+
 def _homework_markdown_lines(homework_cells):
     """Render homework_cells as plain-text lines: markdown verbatim (sentinels stripped),
-    code cells as their execution count, source, and any text output. Image outputs are
-    skipped on purpose -- there's nothing to grade in a picture of a plot.
+    code cells as their execution count, source, and any text output.
     """
     lines = []
     for cell in homework_cells:
@@ -515,18 +553,91 @@ def _homework_markdown_lines(homework_cells):
         lines.append(source)
         lines.append("```")
         for output in cell.get("outputs", []):
-            output_type = output.get("output_type")
-            text = None
-            if output_type == "stream":
-                text = "".join(output.get("text", []))
-            elif output_type in ("execute_result", "display_data"):
-                text = "".join(output.get("data", {}).get("text/plain", []))
-            elif output_type == "error":
-                text = f"{output.get('ename', '')}: {output.get('evalue', '')}"
+            text = _output_text(output)
             if text:
                 lines.append(f"```\n{text.rstrip(chr(10))}\n```")
         lines.append("")
     return lines
+
+
+def _homework_html(homework_cells):
+    """Render homework_cells as a small HTML fragment: real headings/bold/code instead
+    of literal markdown syntax, meant to be selected and copied as rich text so it pastes
+    into a word processor already formatted, rather than as raw markdown.
+
+    Not a full markdown parser -- just the handful of constructs this book's own Homework
+    prose actually uses (##/### headings, **bold**, `inline code`, ```-fenced code blocks,
+    and plain paragraphs, with consecutive non-blank lines joined into one paragraph).
+    """
+    import html as html_lib
+
+    def inline(text):
+        escaped = html_lib.escape(text)
+        escaped = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", escaped)
+        escaped = re.sub(r"\*([^*]+?)\*", r"<em>\1</em>", escaped)
+        escaped = re.sub(r"`([^`]+?)`", r"<code>\1</code>", escaped)
+        return escaped
+
+    def markdown_to_html(text):
+        parts = []
+        paragraph_lines = []
+        in_code = False
+        code_lines = []
+
+        def flush_paragraph():
+            if paragraph_lines:
+                parts.append(f"<p>{inline(' '.join(paragraph_lines))}</p>")
+                paragraph_lines.clear()
+
+        for line in text.split("\n"):
+            stripped = line.strip()
+            if stripped.startswith("```"):
+                flush_paragraph()
+                if in_code:
+                    parts.append(
+                        "<pre><code>" + html_lib.escape("\n".join(code_lines)) + "</code></pre>"
+                    )
+                    code_lines = []
+                in_code = not in_code
+                continue
+            if in_code:
+                code_lines.append(line)
+                continue
+            if stripped == "":
+                flush_paragraph()
+            elif stripped.startswith("### "):
+                flush_paragraph()
+                parts.append(f"<h3>{inline(stripped[4:])}</h3>")
+            elif stripped.startswith("## "):
+                flush_paragraph()
+                parts.append(f"<h2>{inline(stripped[3:])}</h2>")
+            else:
+                paragraph_lines.append(stripped)
+        flush_paragraph()
+        if in_code and code_lines:
+            parts.append("<pre><code>" + html_lib.escape("\n".join(code_lines)) + "</code></pre>")
+        return "\n".join(parts)
+
+    html_parts = []
+    for cell in homework_cells:
+        if cell["cell_type"] == "markdown":
+            text = _homework_cell_text(cell, strip_sentinels=True)
+            html_parts.append(markdown_to_html(text))
+            continue
+
+        source = _homework_cell_text(cell)
+        count = cell.get("execution_count")
+        label = f"In [{count if count is not None else ' '}]:"
+        html_parts.append(f"<p><strong>{html_lib.escape(label)}</strong></p>")
+        html_parts.append("<pre><code>" + html_lib.escape(source) + "</code></pre>")
+        for output in cell.get("outputs", []):
+            text = _output_text(output)
+            if text:
+                html_parts.append(
+                    "<pre><code>" + html_lib.escape(text.rstrip("\n")) + "</code></pre>"
+                )
+
+    return "\n".join(html_parts)
 
 
 def write_homework_files(notebook_filename):
