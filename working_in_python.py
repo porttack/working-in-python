@@ -405,9 +405,17 @@ def write_homework_files(notebook_filename):
 
     homework_cells = cells[start:end]
 
+    import uuid
+    for cell in homework_cells:
+        if not cell.get("id"):
+            cell["id"] = uuid.uuid4().hex[:8]
+
+    homework_dir = "homework"
+    os.makedirs(homework_dir, exist_ok=True)
+
     base = os.path.splitext(notebook_filename)[0]
-    ipynb_path = f"{base}-homework.ipynb"
-    md_path = f"{base}-homework.md"
+    ipynb_path = os.path.join(homework_dir, f"{base}-homework.ipynb")
+    md_path = os.path.join(homework_dir, f"{base}-homework.md")
 
     homework_notebook = {
         "cells": homework_cells,
