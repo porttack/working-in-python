@@ -8719,3 +8719,25 @@ exactly.
 
 Also removed, same session: the `interlude-a` JupyterLite alias added in this move's own
 Phase 3, reverted the same day -- see the entry directly above this one.
+
+## 2026-09-13 follow-up — Codespace page: bundled commands, plain wget, literal pip install; dropped watch.sh's Safari auto-open
+
+More direct maintainer feedback on the just-rewritten "Using an Existing Codespace" page
+and `preview.sh`/`watch.sh`:
+
+- `jb/watch.sh`'s automatic second Safari window (pinned to an iPhone-width viewport, added
+  to check a chapter's embedded JupyterLite pane at phone width) removed entirely, at
+  explicit request -- the `osascript`/`PHONE_PATH` block and its header comment are gone.
+  `sphinx-autobuild`'s own `--open-browser` (the main-window auto-open) is untouched.
+- Several of the page's single-command steps combined into fewer, multi-line blocks (e.g.
+  download+unzip+cd as one block, venv-create+activate as one block) instead of one
+  command per numbered step.
+- Step 5's `wget -O chapNN.ipynb <url>` simplified to plain `wget <url>` -- the URL's own
+  basename already is `chapNN.ipynb`, so `-O` was redundant complexity.
+- Step 4 reverted from `pip install -r requirements.txt` back to the literal
+  `pip install ipykernel matplotlib pyyaml notebook` -- explicit request: typing the actual
+  package names teaches more than a flag pointing at a file. `requirements.txt` itself
+  stays (still used by `setup.sh` under the hood and shipped in both zips) and is mentioned
+  as what the `bash setup.sh` shortcut uses instead, for whoever picks that path. Noted for
+  later, not now: an interlude or chapter expansion on `pip`/packages itself would be the
+  place to teach `-r requirements.txt` properly.

@@ -12,58 +12,42 @@ environment inside it.
    [https://cs50.dev](https://cs50.dev) -- don't create or switch to a different folder,
    just use the one it opens you into.
 
-2. Download the tools:
+2. Download the tools, unzip them, and move into the new folder:
 
    ```bash
    wget https://python.porttack.com/wip-tools.zip
-   ```
-
-3. Unzip it:
-
-   ```bash
    unzip wip-tools.zip
-   ```
-
-4. Move into the new folder:
-
-   ```bash
    cd wip
    ```
 
-5. Create a virtual environment -- your own private copy of Python for this class, kept
-   separate from anything else in the Codespace:
+3. Create a virtual environment -- your own private copy of Python for this class, kept
+   separate from anything else in the Codespace -- and activate it:
 
    ```bash
    python3 -m venv .venv
-   ```
-
-6. Activate it:
-
-   ```bash
    source .venv/bin/activate
    ```
 
-7. Install the packages the chapters need. `requirements.txt` (just unzipped alongside this)
-   pins the exact versions this course is tested against:
+4. Install the packages the chapters need:
 
    ```bash
-   pip install -r requirements.txt
+   pip install ipykernel matplotlib pyyaml notebook
    ```
 
 **Each week, from inside `wip/`** (activate the environment again first if you closed the
 terminal: `source .venv/bin/activate`):
 
-8. Download the chapter you're working on (swap in the actual chapter number):
+5. Download the chapter you're working on (swap in the actual chapter number):
 
    ```bash
-   wget -O chapNN.ipynb https://raw.githubusercontent.com/porttack/working-in-python/v3/chapters/chapNN.ipynb
+   wget https://raw.githubusercontent.com/porttack/working-in-python/v3/chapters/chapNN.ipynb
    ```
 
    (`python3 fetch.py chapter-number` also works, if you'd rather not retype the URL --
    run `fetch.py --help` to see it. It asks before overwriting a chapter you already have,
    same as `cp` or `mv` would.)
 
-9. Open it:
+6. Open it:
 
    ```bash
    code chapNN.ipynb
@@ -80,8 +64,10 @@ for submission" fits how you're turning it in.
 Two zip files are published, and both unzip straight into a ready-to-go `wip/` folder:
 
 - [`wip-tools.zip`](wip-tools.zip) -- just `setup.sh`, `fetch.py`, and `requirements.txt`,
-  no chapters. Unzip it, then follow steps 5-7 above (or run `bash setup.sh`, which sets up
-  the same environment for you), and fetch chapters one at a time as you go.
+  no chapters. Unzip it, then follow steps 3-4 above (or run `bash setup.sh`, which sets up
+  the same environment for you -- it installs from `requirements.txt`, pinned exact
+  versions, rather than typing package names by hand), and fetch chapters one at a time as
+  you go.
 - [`wip.zip`](wip.zip) -- the same files, plus every chapter that's ready right now.
 
 The all-at-once zip is a snapshot, not a live copy. If a chapter gets fixed after you
