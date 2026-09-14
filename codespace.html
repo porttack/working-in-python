@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -465,27 +465,28 @@ separate from anything else in the Codespace – and activate it:</p>
 </div>
 </li>
 </ol>
-<p><strong>Each week, from inside <code class="docutils literal notranslate"><span class="pre">wip/</span></code></strong> (activate the environment again first if you closed the
-terminal: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.venv/bin/activate</span></code>):</p>
+<p><strong>For each chapter, from inside <code class="docutils literal notranslate"><span class="pre">wip/</span></code>:</strong></p>
 <ol class="arabic" start="5">
-<li><p>Download the chapter you’re working on (swap in the actual chapter number):</p>
+<li><p>Download the chapter (swap in the actual chapter number):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://raw.githubusercontent.com/porttack/working-in-python/v3/chapters/chapNN.ipynb
 </pre></div>
 </div>
-<p>(<code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">fetch.py</span> <span class="pre">chapter-number</span></code> also works, if you’d rather not retype the URL –
-run <code class="docutils literal notranslate"><span class="pre">fetch.py</span> <span class="pre">--help</span></code> to see it. It asks before overwriting a chapter you already have,
-same as <code class="docutils literal notranslate"><span class="pre">cp</span></code> or <code class="docutils literal notranslate"><span class="pre">mv</span></code> would.)</p>
+<p>(<code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">fetch.py</span> <span class="pre">chapter-number</span></code> also works, if you’d rather not retype the URL.)</p>
 </li>
-<li><p>Open it:</p>
+<li><p>Open the chapter as a Jupyter notebook:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>code<span class="w"> </span>chapNN.ipynb
 </pre></div>
 </div>
-<p>The first time, VS Code offers to install the Python and Jupyter extensions – click
-<strong>Install</strong>. Then select <strong>wip/.venv</strong> as the kernel.</p>
+<p>The first time you run a cell, VS Code asks you to select a kernel:</p>
+<ul class="simple">
+<li><p>Choose <strong>Install/Enable suggested extensions</strong> (installs the Python and Jupyter
+extensions), then run the cell again.</p></li>
+<li><p>This time, choose <strong>Python Environments…</strong>, then pick <strong>.venv</strong>, marked
+<strong>Recommended</strong>.</p></li>
+</ul>
 </li>
 </ol>
-<p>Do the homework, then use whichever of “Finished? Copy your work” or “OR save your homework
-for submission” fits how you’re turning it in.</p>
+<p>Do the homework, then use “Finished? Copy your work” to turn it in.</p>
 <section id="want-every-chapter-at-once-instead">
 <h2>Want every chapter at once instead?<a class="headerlink" href="#want-every-chapter-at-once-instead" title="Link to this heading">#</a></h2>
 <p>Two zip files are published, and both unzip straight into a ready-to-go <code class="docutils literal notranslate"><span class="pre">wip/</span></code> folder:</p>
