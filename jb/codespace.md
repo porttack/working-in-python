@@ -34,30 +34,30 @@ environment inside it.
    pip install ipykernel matplotlib pyyaml notebook
    ```
 
-**Each week, from inside `wip/`** (activate the environment again first if you closed the
-terminal: `source .venv/bin/activate`):
+**For each chapter, from inside `wip/`:**
 
-5. Download the chapter you're working on (swap in the actual chapter number):
+5. Download the chapter (swap in the actual chapter number):
 
    ```bash
    wget https://raw.githubusercontent.com/porttack/working-in-python/v3/chapters/chapNN.ipynb
    ```
 
-   (`python3 fetch.py chapter-number` also works, if you'd rather not retype the URL --
-   run `fetch.py --help` to see it. It asks before overwriting a chapter you already have,
-   same as `cp` or `mv` would.)
+   (`python3 fetch.py chapter-number` also works, if you'd rather not retype the URL.)
 
-6. Open it:
+6. Open the chapter as a Jupyter notebook:
 
    ```bash
    code chapNN.ipynb
    ```
 
-   The first time, VS Code offers to install the Python and Jupyter extensions -- click
-   **Install**. Then select **wip/.venv** as the kernel.
+   The first time you run a cell, VS Code asks you to select a kernel:
 
-Do the homework, then use whichever of "Finished? Copy your work" or "OR save your homework
-for submission" fits how you're turning it in.
+   - Choose **Install/Enable suggested extensions** (installs the Python and Jupyter
+     extensions), then run the cell again.
+   - This time, choose **Python Environments...**, then pick **.venv**, marked
+     **Recommended**.
+
+Do the homework, then use "Finished? Copy your work" to turn it in.
 
 ### Want every chapter at once instead?
 

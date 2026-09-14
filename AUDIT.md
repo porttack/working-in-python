@@ -8756,3 +8756,26 @@ reproducible on demand, not tied to any content change -- a real, known-shape ra
 Sphinx/jupyter-book's parallel search-index dump that only a fully clean `_build/` seems to
 expose. `jb build .` now retries once automatically before giving up for real, since every
 observed failure resolved on an immediate identical retry.
+
+## 2026-09-13 follow-up — Codespace page corrected against a real Codespace test
+
+Maintainer ran the actual page end-to-end on a clean Codespace and reported four
+corrections, all from direct observation rather than guesswork:
+
+- The "Each week" framing was wrong -- the maintainer assigns multiple chapters per week,
+  so the per-chapter steps are keyed to "for each chapter," not "each week."
+- No need to re-`source .venv/bin/activate` before each chapter -- that line was cut.
+  Running a notebook through VS Code's own kernel selection never touches the terminal at
+  all; activation only ever mattered for the one-time `pip install` step.
+- The `fetch.py` aside's trailing explanation ("run `fetch.py --help`... same as `cp` or
+  `mv` would") cut as more confusing than helpful; kept only the one-line pointer to it.
+- "Do the homework, then use whichever of 'Finished? Copy your work' or 'OR save your
+  homework for submission'..." simplified to just the first option -- the homework-file
+  submission path isn't being explained to students yet.
+- **The kernel-selection description was wrong**, caught by an actual clean-Codespace run,
+  not by reasoning about it: it's not a single "click Install, then select wip/.venv"
+  step. The real sequence (from screenshots the maintainer captured): VS Code's Select
+  Kernel dialog first offers "Install/Enable suggested extensions"; after that installs,
+  running the cell again reopens Select Kernel with "Python Environments..." as an option,
+  which opens a list where `.venv` appears explicitly marked **Recommended**. Rewritten as
+  that two-step sequence instead of the single guessed step.
