@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -67,7 +67,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Preface" href="chap00.html" />
+    <link rel="next" title="Using an Existing Codespace" href="codespace.html" />
     <link rel="prev" title="Working in Python" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -219,6 +219,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codespace.html">Using an Existing Codespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
 </ul>
@@ -231,17 +232,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -254,6 +245,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interlude-a.html">Interlude A: Docstrings and Doctests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interlude-b.html">Interlude B: Representing Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -457,7 +452,7 @@ But they have to connect to a Jupyter server somewhere.</p>
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #jupyter-intro-jupyterlite-pane {
-  display: block;
+  display: none;
   height: 600px;
   background: #fff;
   overflow: hidden;
@@ -470,7 +465,7 @@ But they have to connect to a Jupyter server somewhere.</p>
 }
 </style>
 <div id="jupyter-intro-jupyterlite-pane">
-<iframe src="jupyterlite-0c459d6a9a/notebooks/index.html?path=_Using-Notebooks.ipynb"></iframe>
+<iframe src="jupyterlite-e0a5a8455d/notebooks/index.html?path=_Using-Notebooks.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -490,6 +485,7 @@ But they have to connect to a Jupyter server somewhere.</p>
   // exists for contexts where this script never runs, e.g. viewing the raw
   // notebook in VS Code) lets top+bottom determine the height, so the pane
   // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.display = "block";
   pane.style.position = "fixed";
   pane.style.top = "0";
   pane.style.right = "0";
@@ -615,15 +611,15 @@ You’ll see several ways you can save the notebook.</p>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/porttack/working-in-python/v3/working_in_python.py&#39;</span><span class="p">)</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/porttack/working-in-python/v3/working_in_python_v2.py&#39;</span><span class="p">)</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python_v2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">working_in_python</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>You don’t need to know how this code works, but when you get to the end of the book, most of it will make sense.
-As you might guess, it downloads a file – specifically, it downloads <code class="docutils literal notranslate"><span class="pre">working_in_python.py</span></code>, which contains Python code provided specifically for this book.
+As you might guess, it downloads a file – specifically, it downloads <code class="docutils literal notranslate"><span class="pre">working_in_python_v2.py</span></code>, which contains Python code provided specifically for this book.
 The last line “imports” this code, which means we can use the code in the notebook.</p>
 <p>In other chapters, you will see code that downloads <code class="docutils literal notranslate"><span class="pre">diagram.py</span></code>, which is used to generated the diagrams in the book, and <code class="docutils literal notranslate"><span class="pre">jupyturtle.py</span></code>, which is used in several chapters to create turtle graphics.</p>
 <p>In some places you will see a cell like this that begins with <code class="docutils literal notranslate"><span class="pre">%%expect</span></code>.</p>
@@ -687,11 +683,11 @@ When you see this command, it means that the error is deliberate, usually intend
       </div>
     </a>
     <a class="right-next"
-       href="chap00.html"
+       href="codespace.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Preface</p>
+        <p class="prev-next-title">Using an Existing Codespace</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -219,6 +219,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codespace.html">Using an Existing Codespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
 </ul>
@@ -231,17 +232,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -254,6 +245,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interlude-a.html">Interlude A: Docstrings and Doctests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interlude-b.html">Interlude B: Representing Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -445,15 +440,16 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">4.12. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-draw-your-initials-do-1-or-2">4.12.1. Exercise 1: draw your initials (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-draw-a-house-from-parts-do-1-or-2">4.12.2. Exercise 2: draw a house from parts (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-docstrings">4.12.3. Exercise 3: docstrings</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-pinwheel">4.12.4. Exercise 4: pinwheel</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-interface-vs-implementation">4.12.5. Exercise 5: interface vs. implementation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">4.12.6. Exercise 6: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-draw-your-initials-do-1-or-2">4.12.1. Problem 1: draw your initials (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-draw-a-house-from-parts-do-1-or-2">4.12.2. Problem 2: draw a house from parts (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-docstrings">4.12.3. Problem 3: docstrings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-pinwheel">4.12.4. Problem 4: pinwheel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-interface-vs-implementation">4.12.5. Problem 5: interface vs. implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-6-reflection">4.12.6. Problem 6: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">4.12.7. Time check</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spiral-extra-credit">4.12.8. Spiral (extra credit)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">4.12.9. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">4.12.10. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">4.13. Standards alignment</a></li>
@@ -470,7 +466,7 @@
                   
   <!-- apcsp:begin type="note" chapter="04" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter04-Functions-and-Interfaces.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter04-Functions-and-Interfaces.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap04.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap04.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap04.ipynb" download="chap04.ipynb">Download</a></p>
@@ -479,7 +475,7 @@
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #chap04-jupyterlite-pane {
-  display: block;
+  display: none;
   height: 600px;
   background: #fff;
   overflow: hidden;
@@ -492,7 +488,7 @@
 }
 </style>
 <div id="chap04-jupyterlite-pane">
-<iframe src="jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter04-Functions-and-Interfaces.ipynb"></iframe>
+<iframe src="jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter04-Functions-and-Interfaces.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -512,6 +508,7 @@
   // exists for contexts where this script never runs, e.g. viewing the raw
   // notebook in VS Code) lets top+bottom determine the height, so the pane
   // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.display = "block";
   pane.style.position = "fixed";
   pane.style.top = "0";
   pane.style.right = "0";
@@ -538,17 +535,17 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python.py&#39;</span><span class="p">);</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python_v2.py&#39;</span><span class="p">);</span>
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/ThinkPython/raw/v3/diagram.py&#39;</span><span class="p">);</span>
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/ramalho/jupyturtle/releases/download/2024-03/jupyturtle.py&#39;</span><span class="p">);</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python_v2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">working_in_python</span>
 
 <span class="o">%</span><span class="k">load_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2
 
 <span class="n">working_in_python</span><span class="o">.</span><span class="n">check_for_update</span><span class="p">(</span>
-    <span class="s2">&quot;jupyterlite-0c459d6a9a&quot;</span><span class="p">,</span> <span class="s2">&quot;Chapter04-Functions-and-Interfaces.ipynb&quot;</span>
+    <span class="s2">&quot;jupyterlite-e0a5a8455d&quot;</span><span class="p">,</span> <span class="s2">&quot;Chapter04-Functions-and-Interfaces.ipynb&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1140,11 +1137,11 @@ To avoid that, you can add the keyword argument <code class="docutils literal no
 </section>
 <section id="homework">
 <h2><span class="section-number">4.12. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
-<p>Do either Exercise 1 or Exercise 2, not both. They’re interchangeable, so pick whichever appeals to you. Doing both is fine, but the second one earns no additional credit. Required work is five exercises (whichever of 1/2 you pick, plus Exercises 3-6), about 38 minutes total. The time check below must be filled in. The spiral at the end is extra credit, the only extra credit in this chapter, and it never substitutes for a required exercise.</p>
+<p>Do either Problem 1 or Problem 2, not both. They’re interchangeable, so pick whichever appeals to you. Doing both is fine, but the second one earns no additional credit. Required work is five problems (whichever of 1/2 you pick, plus Problems 3-6), about 38 minutes total. The time check below must be filled in. The spiral at the end is extra credit, the only extra credit in this chapter, and it never substitutes for a required problem.</p>
 <p>Note: the turtle-drawing exercises above (rectangle, rhombus, parallelogram, pie, flower) are practice. They aren’t graded. This is the graded homework.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="04" -->
-<section id="exercise-1-draw-your-initials-do-1-or-2">
-<h3><span class="section-number">4.12.1. </span>Exercise 1: draw your initials (do 1 or 2)<a class="headerlink" href="#exercise-1-draw-your-initials-do-1-or-2" title="Link to this heading">#</a></h3>
+<section id="problem-1-draw-your-initials-do-1-or-2">
+<h3><span class="section-number">4.12.1. </span>Problem 1: draw your initials (do 1 or 2)<a class="headerlink" href="#problem-1-draw-your-initials-do-1-or-2" title="Link to this heading">#</a></h3>
 <p>Using <code class="docutils literal notranslate"><span class="pre">forward</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, and <code class="docutils literal notranslate"><span class="pre">jump</span></code>, draw your first and last initials with the turtle. Build each letter as its own function. For example, if your initials are <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code>, write <code class="docutils literal notranslate"><span class="pre">draw_a()</span></code> and <code class="docutils literal notranslate"><span class="pre">draw_t()</span></code>, then a function called <code class="docutils literal notranslate"><span class="pre">draw_initials()</span></code> that calls them with a <code class="docutils literal notranslate"><span class="pre">jump</span></code> in between so they don’t run together.</p>
 <p>If one of your initials has a curve in it (like C, O, S, G, or R), you don’t need a perfect curve. Approximate it with several short straight segments that turn a little each time, the same idea the chapter used to approximate a circle with a polygon.</p>
 <!-- apcsp:end --><div class="cell docutils container">
@@ -1158,8 +1155,8 @@ To avoid that, you can add the keyword argument <code class="docutils literal no
 <!-- apcsp:begin type="exercise" chapter="04" -->
 <!-- teacher: ~13 min -->
 </section>
-<section id="exercise-2-draw-a-house-from-parts-do-1-or-2">
-<h3><span class="section-number">4.12.2. </span>Exercise 2: draw a house from parts (do 1 or 2)<a class="headerlink" href="#exercise-2-draw-a-house-from-parts-do-1-or-2" title="Link to this heading">#</a></h3>
+<section id="problem-2-draw-a-house-from-parts-do-1-or-2">
+<h3><span class="section-number">4.12.2. </span>Problem 2: draw a house from parts (do 1 or 2)<a class="headerlink" href="#problem-2-draw-a-house-from-parts-do-1-or-2" title="Link to this heading">#</a></h3>
 <p>Using <code class="docutils literal notranslate"><span class="pre">forward</span></code>, <code class="docutils literal notranslate"><span class="pre">left</span></code>, <code class="docutils literal notranslate"><span class="pre">right</span></code>, and <code class="docutils literal notranslate"><span class="pre">jump</span></code>, write <code class="docutils literal notranslate"><span class="pre">draw_wall()</span></code>, <code class="docutils literal notranslate"><span class="pre">draw_roof()</span></code>, and <code class="docutils literal notranslate"><span class="pre">draw_door()</span></code> as three separate functions, then a function called <code class="docutils literal notranslate"><span class="pre">draw_house()</span></code> that calls all three, using <code class="docutils literal notranslate"><span class="pre">jump</span></code> to position each piece so they end up in the right places relative to each other.</p>
 <p>If you want to add a round window, you don’t need a perfect curve. Approximate it with several short straight segments, the same idea the chapter used to approximate a circle with a polygon.</p>
 <!-- apcsp:end --><div class="cell docutils container">
@@ -1172,14 +1169,14 @@ To avoid that, you can add the keyword argument <code class="docutils literal no
 </div>
 <!-- apcsp:begin type="exercise" chapter="04" -->
 </section>
-<section id="exercise-3-docstrings">
-<h3><span class="section-number">4.12.3. </span>Exercise 3: docstrings<a class="headerlink" href="#exercise-3-docstrings" title="Link to this heading">#</a></h3>
-<p>Go back to the function you wrote for Exercise 1 or 2 (<code class="docutils literal notranslate"><span class="pre">draw_initials()</span></code> or <code class="docutils literal notranslate"><span class="pre">draw_house()</span></code>, whichever you chose) and add a docstring to it, following the chapter’s <code class="docutils literal notranslate"><span class="pre">polyline</span></code> example: explain in your own words what the function does.</p>
+<section id="problem-3-docstrings">
+<h3><span class="section-number">4.12.3. </span>Problem 3: docstrings<a class="headerlink" href="#problem-3-docstrings" title="Link to this heading">#</a></h3>
+<p>Go back to the function you wrote for Problem 1 or 2 (<code class="docutils literal notranslate"><span class="pre">draw_initials()</span></code> or <code class="docutils literal notranslate"><span class="pre">draw_house()</span></code>, whichever you chose) and add a docstring to it, following the chapter’s <code class="docutils literal notranslate"><span class="pre">polyline</span></code> example: explain in your own words what the function does.</p>
 <p>Re-run that cell so the docstring takes effect, then run <code class="docutils literal notranslate"><span class="pre">help(draw_initials)</span></code> or <code class="docutils literal notranslate"><span class="pre">help(draw_house)</span></code> (whichever applies) and confirm your docstring appears in the output.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="04" -->
 </section>
-<section id="exercise-4-pinwheel">
-<h3><span class="section-number">4.12.4. </span>Exercise 4: pinwheel<a class="headerlink" href="#exercise-4-pinwheel" title="Link to this heading">#</a></h3>
+<section id="problem-4-pinwheel">
+<h3><span class="section-number">4.12.4. </span>Problem 4: pinwheel<a class="headerlink" href="#problem-4-pinwheel" title="Link to this heading">#</a></h3>
 <p>You’ll need a <code class="docutils literal notranslate"><span class="pre">square</span></code> function that takes a <code class="docutils literal notranslate"><span class="pre">size</span></code> parameter, the same one from the chapter. Define it again here, then write a function called <code class="docutils literal notranslate"><span class="pre">pinwheel</span></code> that draws several overlapping squares, each rotated a little further than the last, without lifting the pen between them:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pinwheel</span><span class="p">(</span><span class="n">n_shapes</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_shapes</span><span class="p">):</span>
@@ -1190,8 +1187,8 @@ To avoid that, you can add the keyword argument <code class="docutils literal no
 <p>Try a few different values of <code class="docutils literal notranslate"><span class="pre">n_shapes</span></code> (6, then 12, then 36) and see what patterns emerge. Nothing here is new syntax. The surprise is how much visual complexity comes from just repeating and rotating a shape you already know how to draw.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="04" -->
 </section>
-<section id="exercise-5-interface-vs-implementation">
-<h3><span class="section-number">4.12.5. </span>Exercise 5: interface vs. implementation<a class="headerlink" href="#exercise-5-interface-vs-implementation" title="Link to this heading">#</a></h3>
+<section id="problem-5-interface-vs-implementation">
+<h3><span class="section-number">4.12.5. </span>Problem 5: interface vs. implementation<a class="headerlink" href="#problem-5-interface-vs-implementation" title="Link to this heading">#</a></h3>
 <p>The chapter shows two versions of <code class="docutils literal notranslate"><span class="pre">circle</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">circle</span><span class="p">(</span><span class="n">radius</span><span class="p">):</span>
     <span class="n">circumference</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">radius</span>
@@ -1210,8 +1207,8 @@ To avoid that, you can add the keyword argument <code class="docutils literal no
 <!-- apcsp:end --><p><em>Type your answer here.</em></p>
 <!-- apcsp:begin type="exercise" chapter="04" -->
 </section>
-<section id="exercise-6-reflection">
-<h3><span class="section-number">4.12.6. </span>Exercise 6: reflection<a class="headerlink" href="#exercise-6-reflection" title="Link to this heading">#</a></h3>
+<section id="problem-6-reflection">
+<h3><span class="section-number">4.12.6. </span>Problem 6: reflection<a class="headerlink" href="#problem-6-reflection" title="Link to this heading">#</a></h3>
 <p>The chapter’s development plan centers on three moves: encapsulation (wrapping code in a function), generalization (adding parameters), and refactoring (reorganizing working code without changing what it does). Which of these did you find yourself doing naturally while working through this chapter’s exercises, and which felt unfamiliar?</p>
 <p>Answer in the markdown cell below, the same way you did in chap01, chap02, and chap03.</p>
 <!-- apcsp:end --><p><em>Type your answer here.</em></p>
@@ -1258,10 +1255,27 @@ To avoid that, you can add the keyword argument <code class="docutils literal no
 </section>
 <section id="finished-copy-your-work">
 <h3><span class="section-number">4.12.9. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
-<p>This isn’t part of Exercise 6. It’s a tool. Run the cell below to copy your Homework section (including anything you’ve run) so you can paste it into a document.</p>
+<p>This isn’t part of Problem 6. It’s a tool. Run the cell below to copy your
+Homework section (including anything you’ve run) as rich text, so it pastes into a
+document already formatted. Works in JupyterLite and in VS Code/a Codespace – click
+the button either way, it detects which one you are in.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_homework_button</span><span class="p">(</span><span class="s2">&quot;chap04.ipynb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="04" -->
+</section>
+<section id="or-save-your-homework-for-submission">
+<h3><span class="section-number">4.12.10. </span>OR save your homework for submission<a class="headerlink" href="#or-save-your-homework-for-submission" title="Link to this heading">#</a></h3>
+<p>Run the cell below. It writes two files into this same folder – <code class="docutils literal notranslate"><span class="pre">chap04-homework.ipynb</span></code>
+and <code class="docutils literal notranslate"><span class="pre">chap04-homework.md</span></code> – containing everything from “Homework” above, including
+whatever you wrote and ran. Submit those two files, not the whole chapter.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">write_homework_files</span><span class="p">(</span><span class="s2">&quot;chap04.ipynb&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1375,15 +1389,16 @@ To avoid that, you can add the keyword argument <code class="docutils literal no
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">4.12. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-draw-your-initials-do-1-or-2">4.12.1. Exercise 1: draw your initials (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-draw-a-house-from-parts-do-1-or-2">4.12.2. Exercise 2: draw a house from parts (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-docstrings">4.12.3. Exercise 3: docstrings</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-pinwheel">4.12.4. Exercise 4: pinwheel</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-interface-vs-implementation">4.12.5. Exercise 5: interface vs. implementation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-reflection">4.12.6. Exercise 6: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-draw-your-initials-do-1-or-2">4.12.1. Problem 1: draw your initials (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-draw-a-house-from-parts-do-1-or-2">4.12.2. Problem 2: draw a house from parts (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-docstrings">4.12.3. Problem 3: docstrings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-pinwheel">4.12.4. Problem 4: pinwheel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-interface-vs-implementation">4.12.5. Problem 5: interface vs. implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-6-reflection">4.12.6. Problem 6: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">4.12.7. Time check</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spiral-extra-credit">4.12.8. Spiral (extra credit)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">4.12.9. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">4.12.10. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">4.13. Standards alignment</a></li>

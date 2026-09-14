@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -219,11 +219,12 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codespace.html">Using an Existing Codespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap01.html">1. Welcome</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Variables and Statements</a></li>
@@ -231,17 +232,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
-</ul>
-<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Dictionaries</a></li>
@@ -254,6 +245,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interlude-a.html">Interlude A: Docstrings and Doctests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interlude-b.html">Interlude B: Representing Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -455,6 +450,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-the-most-common-ending-letter">10.13. Extra credit: the most common ending letter</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">10.13.1. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">10.13.2. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">10.14. Standards alignment</a></li>
@@ -471,7 +467,7 @@
                   
   <!-- apcsp:begin type="note" chapter="10" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter10-Dictionaries.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter10-Dictionaries.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap10.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap10.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap10.ipynb" download="chap10.ipynb">Download</a></p>
@@ -480,7 +476,7 @@
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #chap10-jupyterlite-pane {
-  display: block;
+  display: none;
   height: 600px;
   background: #fff;
   overflow: hidden;
@@ -493,7 +489,7 @@
 }
 </style>
 <div id="chap10-jupyterlite-pane">
-<iframe src="jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter10-Dictionaries.ipynb"></iframe>
+<iframe src="jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter10-Dictionaries.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -513,6 +509,7 @@
   // exists for contexts where this script never runs, e.g. viewing the raw
   // notebook in VS Code) lets top+bottom determine the height, so the pane
   // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.display = "block";
   pane.style.position = "fixed";
   pane.style.top = "0";
   pane.style.right = "0";
@@ -540,10 +537,10 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python.py&#39;</span><span class="p">);</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python_v2.py&#39;</span><span class="p">);</span>
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/ThinkPython/raw/v3/diagram.py&#39;</span><span class="p">);</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python_v2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">working_in_python</span>
 <span class="c1"># apcsp:begin type=&quot;note&quot; chapter=&quot;10&quot;</span>
 <span class="n">working_in_python</span><span class="o">.</span><span class="n">enable_docstring_reminders</span><span class="p">()</span>
 <span class="c1"># apcsp:end</span>
@@ -1590,10 +1587,27 @@ For example, the following slice selects alternating letters, starting with the 
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="10" -->
 <section id="finished-copy-your-work">
 <h3><span class="section-number">10.13.1. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
-<p>This isn’t part of the problems above. It’s a tool. Run the cell below to copy your Homework section (including anything you’ve run) so you can paste it into a document.</p>
+<p>This isn’t part of the problems above. It’s a tool. Run the cell below to copy your
+Homework section (including anything you’ve run) as rich text, so it pastes into a
+document already formatted. Works in JupyterLite and in VS Code/a Codespace – click
+the button either way, it detects which one you are in.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_homework_button</span><span class="p">(</span><span class="s2">&quot;chap10.ipynb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="10" -->
+</section>
+<section id="or-save-your-homework-for-submission">
+<h3><span class="section-number">10.13.2. </span>OR save your homework for submission<a class="headerlink" href="#or-save-your-homework-for-submission" title="Link to this heading">#</a></h3>
+<p>Run the cell below. It writes two files into this same folder – <code class="docutils literal notranslate"><span class="pre">chap10-homework.ipynb</span></code>
+and <code class="docutils literal notranslate"><span class="pre">chap10-homework.md</span></code> – containing everything from “Homework” above, including
+whatever you wrote and ran. Submit those two files, not the whole chapter.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">write_homework_files</span><span class="p">(</span><span class="s2">&quot;chap10.ipynb&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1716,6 +1730,7 @@ For example, the following slice selects alternating letters, starting with the 
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-credit-the-most-common-ending-letter">10.13. Extra credit: the most common ending letter</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">10.13.1. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">10.13.2. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">10.14. Standards alignment</a></li>

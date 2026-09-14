@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -219,6 +219,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codespace.html">Using an Existing Codespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
 </ul>
@@ -231,17 +232,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -254,6 +245,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interlude-a.html">Interlude A: Docstrings and Doctests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interlude-b.html">Interlude B: Representing Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -444,12 +439,13 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">3.12. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-scope-check">3.12.1. Exercise 1: scope check</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-read-the-traceback">3.12.2. Exercise 2: read the traceback</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functions-calling-functions">3.12.3. Exercise 3: functions calling functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-math-functions-review">3.12.4. Exercise 4: math + functions review</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">3.12.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-scope-check">3.12.1. Problem 1: scope check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-read-the-traceback">3.12.2. Problem 2: read the traceback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-functions-calling-functions">3.12.3. Problem 3: functions calling functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-math-functions-review">3.12.4. Problem 4: math + functions review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">3.12.5. Problem 5: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">3.12.6. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">3.12.7. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">3.13. Standards alignment</a></li>
@@ -466,7 +462,7 @@
                   
   <!-- apcsp:begin type="note" chapter="03" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter03-Functions.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter03-Functions.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap03.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap03.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap03.ipynb" download="chap03.ipynb">Download</a></p>
@@ -475,7 +471,7 @@
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #chap03-jupyterlite-pane {
-  display: block;
+  display: none;
   height: 600px;
   background: #fff;
   overflow: hidden;
@@ -488,7 +484,7 @@
 }
 </style>
 <div id="chap03-jupyterlite-pane">
-<iframe src="jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter03-Functions.ipynb"></iframe>
+<iframe src="jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter03-Functions.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -508,6 +504,7 @@
   // exists for contexts where this script never runs, e.g. viewing the raw
   // notebook in VS Code) lets top+bottom determine the height, so the pane
   // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.display = "block";
   pane.style.position = "fixed";
   pane.style.top = "0";
   pane.style.right = "0";
@@ -534,10 +531,10 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python.py&#39;</span><span class="p">);</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python_v2.py&#39;</span><span class="p">);</span>
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/ThinkPython/raw/v3/diagram.py&#39;</span><span class="p">);</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python_v2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">working_in_python</span>
 </pre></div>
 </div>
 </div>
@@ -1036,17 +1033,17 @@ You don’t have to completely understand this example—we’ll learn more abou
 </section>
 <section id="homework">
 <h2><span class="section-number">3.12. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
-<p>These five exercises are your homework for this chapter, about 33 minutes total.</p>
+<p>These five problems are your homework for this chapter, about 33 minutes total.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
-<section id="exercise-1-scope-check">
-<h3><span class="section-number">3.12.1. </span>Exercise 1: scope check<a class="headerlink" href="#exercise-1-scope-check" title="Link to this heading">#</a></h3>
+<section id="problem-1-scope-check">
+<h3><span class="section-number">3.12.1. </span>Problem 1: scope check<a class="headerlink" href="#problem-1-scope-check" title="Link to this heading">#</a></h3>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">set_mood</span></code> that takes a parameter <code class="docutils literal notranslate"><span class="pre">mood</span></code>, creates a local variable named <code class="docutils literal notranslate"><span class="pre">feeling</span></code> equal to <code class="docutils literal notranslate"><span class="pre">mood</span></code>, and prints <code class="docutils literal notranslate"><span class="pre">feeling</span></code>.</p>
 <p>Call <code class="docutils literal notranslate"><span class="pre">set_mood('excited')</span></code>. Then, in a new line below the call, try to <code class="docutils literal notranslate"><span class="pre">print(feeling)</span></code>.</p>
 <p>In a comment, explain what error you get and why – what does the chapter’s <code class="docutils literal notranslate"><span class="pre">cat</span></code> example (in the “Variables and parameters are local” section) have to do with what just happened here?</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
 </section>
-<section id="exercise-2-read-the-traceback">
-<h3><span class="section-number">3.12.2. </span>Exercise 2: read the traceback<a class="headerlink" href="#exercise-2-read-the-traceback" title="Link to this heading">#</a></h3>
+<section id="problem-2-read-the-traceback">
+<h3><span class="section-number">3.12.2. </span>Problem 2: read the traceback<a class="headerlink" href="#problem-2-read-the-traceback" title="Link to this heading">#</a></h3>
 <p>Run the cell below. It raises a <code class="docutils literal notranslate"><span class="pre">NameError</span></code>.</p>
 <ol class="arabic simple">
 <li><p>In a comment, name all three functions in the call chain, in the order the traceback lists them.</p></li>
@@ -1071,29 +1068,46 @@ You don’t have to completely understand this example—we’ll learn more abou
 </div>
 <!-- apcsp:begin type="exercise" chapter="03" -->
 </section>
-<section id="exercise-3-functions-calling-functions">
-<h3><span class="section-number">3.12.3. </span>Exercise 3: functions calling functions<a class="headerlink" href="#exercise-3-functions-calling-functions" title="Link to this heading">#</a></h3>
+<section id="problem-3-functions-calling-functions">
+<h3><span class="section-number">3.12.3. </span>Problem 3: functions calling functions<a class="headerlink" href="#problem-3-functions-calling-functions" title="Link to this heading">#</a></h3>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">shout</span></code> that takes a parameter <code class="docutils literal notranslate"><span class="pre">word</span></code> and prints the word followed by <code class="docutils literal notranslate"><span class="pre">'!!!'</span></code>, using string concatenation from chapter 1.</p>
 <p>Then write a function called <code class="docutils literal notranslate"><span class="pre">greet</span></code> that takes a parameter <code class="docutils literal notranslate"><span class="pre">name</span></code> and calls <code class="docutils literal notranslate"><span class="pre">shout</span></code> to print a greeting that includes the name, the same way <code class="docutils literal notranslate"><span class="pre">print_verse</span></code> in the chapter called <code class="docutils literal notranslate"><span class="pre">first_two_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">last_three_lines</span></code> instead of doing everything itself.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
 </section>
-<section id="exercise-4-math-functions-review">
-<h3><span class="section-number">3.12.4. </span>Exercise 4: math + functions review<a class="headerlink" href="#exercise-4-math-functions-review" title="Link to this heading">#</a></h3>
+<section id="problem-4-math-functions-review">
+<h3><span class="section-number">3.12.4. </span>Problem 4: math + functions review<a class="headerlink" href="#problem-4-math-functions-review" title="Link to this heading">#</a></h3>
 <p>Remember the Pythagorean theorem exercise from chapter 2? Write a function called <code class="docutils literal notranslate"><span class="pre">show_hypotenuse</span></code> that takes two parameters, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, computes the hypotenuse using <code class="docutils literal notranslate"><span class="pre">math.sqrt</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code> the same way you did there (remember to <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">math</span></code> first), and prints a sentence with the result – something like <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">hypotenuse</span> <span class="pre">is</span> <span class="pre">15.0</span></code>.</p>
 <p>Call it with a few different pairs of leg lengths to check that it works, including <code class="docutils literal notranslate"><span class="pre">9</span></code> and <code class="docutils literal notranslate"><span class="pre">12</span></code>.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="03" -->
 </section>
-<section id="exercise-5-reflection">
-<h3><span class="section-number">3.12.5. </span>Exercise 5: reflection<a class="headerlink" href="#exercise-5-reflection" title="Link to this heading">#</a></h3>
+<section id="problem-5-reflection">
+<h3><span class="section-number">3.12.5. </span>Problem 5: reflection<a class="headerlink" href="#problem-5-reflection" title="Link to this heading">#</a></h3>
 <p>Which do you think is more useful to you right now: functions calling other functions, or the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop? Why?</p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="03" -->
 </section>
 <section id="finished-copy-your-work">
 <h3><span class="section-number">3.12.6. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
-<p>This isn’t part of Exercise 5 – it’s a tool. Run the cell below to copy your Homework section (including anything you’ve run) so you can paste it into a document.</p>
+<p>This isn’t part of Problem 5 – it’s a tool. Run the cell below to copy your
+Homework section (including anything you’ve run) as rich text, so it pastes into a
+document already formatted. Works in JupyterLite and in VS Code/a Codespace – click
+the button either way, it detects which one you are in.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_homework_button</span><span class="p">(</span><span class="s2">&quot;chap03.ipynb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="03" -->
+</section>
+<section id="or-save-your-homework-for-submission">
+<h3><span class="section-number">3.12.7. </span>OR save your homework for submission<a class="headerlink" href="#or-save-your-homework-for-submission" title="Link to this heading">#</a></h3>
+<p>Run the cell below. It writes two files into this same folder – <code class="docutils literal notranslate"><span class="pre">chap03-homework.ipynb</span></code>
+and <code class="docutils literal notranslate"><span class="pre">chap03-homework.md</span></code> – containing everything from “Homework” above, including
+whatever you wrote and ran. Submit those two files, not the whole chapter.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">write_homework_files</span><span class="p">(</span><span class="s2">&quot;chap03.ipynb&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1206,12 +1220,13 @@ You don’t have to completely understand this example—we’ll learn more abou
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">3.12. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-scope-check">3.12.1. Exercise 1: scope check</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-read-the-traceback">3.12.2. Exercise 2: read the traceback</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-functions-calling-functions">3.12.3. Exercise 3: functions calling functions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-math-functions-review">3.12.4. Exercise 4: math + functions review</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">3.12.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-scope-check">3.12.1. Problem 1: scope check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-read-the-traceback">3.12.2. Problem 2: read the traceback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-functions-calling-functions">3.12.3. Problem 3: functions calling functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-math-functions-review">3.12.4. Problem 4: math + functions review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">3.12.5. Problem 5: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">3.12.6. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">3.12.7. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">3.13. Standards alignment</a></li>

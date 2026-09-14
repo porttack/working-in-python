@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -219,6 +219,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codespace.html">Using an Existing Codespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
 </ul>
@@ -231,17 +232,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -254,6 +245,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interlude-a.html">Interlude A: Docstrings and Doctests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interlude-b.html">Interlude B: Representing Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -446,12 +441,13 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">1.10. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-order-of-operations">1.10.1. Exercise 1: order of operations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-splitting-cookies">1.10.2. Exercise 2: splitting cookies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-name-banner">1.10.3. Exercise 3: name banner</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-fix-the-typeerror">1.10.4. Exercise 4: fix the TypeError</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">1.10.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-order-of-operations">1.10.1. Problem 1: order of operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-splitting-cookies">1.10.2. Problem 2: splitting cookies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-name-banner">1.10.3. Problem 3: name banner</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-fix-the-typeerror">1.10.4. Problem 4: fix the TypeError</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">1.10.5. Problem 5: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">1.10.6. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">1.10.7. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">1.11. Standards alignment</a></li>
@@ -471,7 +467,7 @@
                   
   <!-- apcsp:begin type="note" chapter="01" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter01-Welcome.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter01-Welcome.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap01.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap01.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap01.ipynb" download="chap01.ipynb">Download</a></p>
@@ -480,7 +476,7 @@
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #chap01-jupyterlite-pane {
-  display: block;
+  display: none;
   height: 600px;
   background: #fff;
   overflow: hidden;
@@ -493,7 +489,7 @@
 }
 </style>
 <div id="chap01-jupyterlite-pane">
-<iframe src="jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter01-Welcome.ipynb"></iframe>
+<iframe src="jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter01-Welcome.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -513,6 +509,7 @@
   // exists for contexts where this script never runs, e.g. viewing the raw
   // notebook in VS Code) lets top+bottom determine the height, so the pane
   // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.display = "block";
   pane.style.position = "fixed";
   pane.style.top = "0";
   pane.style.right = "0";
@@ -542,9 +539,9 @@ Remember that you can run the code by selecting the cell and pressing the play b
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python.py&#39;</span><span class="p">);</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python_v2.py&#39;</span><span class="p">);</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python_v2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">working_in_python</span>
 </pre></div>
 </div>
 </div>
@@ -1110,10 +1107,10 @@ If you don’t, you can do the exercise without them – and then we’ll see th
 </section>
 <section id="homework">
 <h2><span class="section-number">1.10. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
-<p>These five exercises are your homework for this chapter, about 30 minutes total.</p>
+<p>These five problems are your homework for this chapter, about 30 minutes total.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
-<section id="exercise-1-order-of-operations">
-<h3><span class="section-number">1.10.1. </span>Exercise 1: order of operations<a class="headerlink" href="#exercise-1-order-of-operations" title="Link to this heading">#</a></h3>
+<section id="problem-1-order-of-operations">
+<h3><span class="section-number">1.10.1. </span>Problem 1: order of operations<a class="headerlink" href="#problem-1-order-of-operations" title="Link to this heading">#</a></h3>
 <p>The formula for converting Celsius to Fahrenheit is <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">C</span> <span class="pre">*</span> <span class="pre">9/5</span> <span class="pre">+</span> <span class="pre">32</span></code>.</p>
 <ol class="arabic simple">
 <li><p>Write an expression that converts 20°C to Fahrenheit. Predict the answer before you run the cell.</p></li>
@@ -1121,8 +1118,8 @@ If you don’t, you can do the exercise without them – and then we’ll see th
 </ol>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
 </section>
-<section id="exercise-2-splitting-cookies">
-<h3><span class="section-number">1.10.2. </span>Exercise 2: splitting cookies<a class="headerlink" href="#exercise-2-splitting-cookies" title="Link to this heading">#</a></h3>
+<section id="problem-2-splitting-cookies">
+<h3><span class="section-number">1.10.2. </span>Problem 2: splitting cookies<a class="headerlink" href="#problem-2-splitting-cookies" title="Link to this heading">#</a></h3>
 <p>You have 23 cookies to split evenly among 5 students.</p>
 <ol class="arabic simple">
 <li><p>Write an expression using <code class="docutils literal notranslate"><span class="pre">//</span></code> for how many whole cookies each student gets.</p></li>
@@ -1130,14 +1127,14 @@ If you don’t, you can do the exercise without them – and then we’ll see th
 </ol>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
 </section>
-<section id="exercise-3-name-banner">
-<h3><span class="section-number">1.10.3. </span>Exercise 3: name banner<a class="headerlink" href="#exercise-3-name-banner" title="Link to this heading">#</a></h3>
+<section id="problem-3-name-banner">
+<h3><span class="section-number">1.10.3. </span>Problem 3: name banner<a class="headerlink" href="#problem-3-name-banner" title="Link to this heading">#</a></h3>
 <p>Using <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">*</span></code>, build a one-line banner that includes your name, decorated with a border made of a repeated character (for example, dashes or asterisks).</p>
 <p>Then use <code class="docutils literal notranslate"><span class="pre">len</span></code> on your name and answer in a comment: is the number <code class="docutils literal notranslate"><span class="pre">len</span></code> gives you what you expected? Why or why not?</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="01" -->
 </section>
-<section id="exercise-4-fix-the-typeerror">
-<h3><span class="section-number">1.10.4. </span>Exercise 4: fix the TypeError<a class="headerlink" href="#exercise-4-fix-the-typeerror" title="Link to this heading">#</a></h3>
+<section id="problem-4-fix-the-typeerror">
+<h3><span class="section-number">1.10.4. </span>Problem 4: fix the TypeError<a class="headerlink" href="#problem-4-fix-the-typeerror" title="Link to this heading">#</a></h3>
 <p>The cell below raises a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
 <ol class="arabic simple">
 <li><p>In a comment, explain what the error message means, using the names of the two operand types it mentions.</p></li>
@@ -1153,17 +1150,34 @@ If you don’t, you can do the exercise without them – and then we’ll see th
 </div>
 <!-- apcsp:begin type="exercise" chapter="01" -->
 </section>
-<section id="exercise-5-reflection">
-<h3><span class="section-number">1.10.5. </span>Exercise 5: reflection<a class="headerlink" href="#exercise-5-reflection" title="Link to this heading">#</a></h3>
+<section id="problem-5-reflection">
+<h3><span class="section-number">1.10.5. </span>Problem 5: reflection<a class="headerlink" href="#problem-5-reflection" title="Link to this heading">#</a></h3>
 <p>Describe a time you debugged something that wasn’t code – a recipe, a Wi-Fi problem, directions that didn’t work. What was the “bug,” and how did you find it?</p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="01" -->
 </section>
 <section id="finished-copy-your-work">
 <h3><span class="section-number">1.10.6. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
-<p>This isn’t part of Exercise 5 – it’s a tool. Run the cell below to copy your Homework section (including anything you’ve run) so you can paste it into a document.</p>
+<p>This isn’t part of Problem 5 – it’s a tool. Run the cell below to copy your
+Homework section (including anything you’ve run) as rich text, so it pastes into a
+document already formatted. Works in JupyterLite and in VS Code/a Codespace – click
+the button either way, it detects which one you are in.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_homework_button</span><span class="p">(</span><span class="s2">&quot;chap01.ipynb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="01" -->
+</section>
+<section id="or-save-your-homework-for-submission">
+<h3><span class="section-number">1.10.7. </span>OR save your homework for submission<a class="headerlink" href="#or-save-your-homework-for-submission" title="Link to this heading">#</a></h3>
+<p>Run the cell below. It writes two files into this same folder – <code class="docutils literal notranslate"><span class="pre">chap01-homework.ipynb</span></code>
+and <code class="docutils literal notranslate"><span class="pre">chap01-homework.md</span></code> – containing everything from “Homework” above, including
+whatever you wrote and ran. Submit those two files, not the whole chapter.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">write_homework_files</span><span class="p">(</span><span class="s2">&quot;chap01.ipynb&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1277,12 +1291,13 @@ If you don’t, you can do the exercise without them – and then we’ll see th
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">1.10. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-order-of-operations">1.10.1. Exercise 1: order of operations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-splitting-cookies">1.10.2. Exercise 2: splitting cookies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-name-banner">1.10.3. Exercise 3: name banner</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-fix-the-typeerror">1.10.4. Exercise 4: fix the TypeError</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">1.10.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-order-of-operations">1.10.1. Problem 1: order of operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-splitting-cookies">1.10.2. Problem 2: splitting cookies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-name-banner">1.10.3. Problem 3: name banner</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-fix-the-typeerror">1.10.4. Problem 4: fix the TypeError</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">1.10.5. Problem 5: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">1.10.6. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">1.10.7. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">1.11. Standards alignment</a></li>

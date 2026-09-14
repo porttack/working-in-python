@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -221,6 +221,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codespace.html">Using an Existing Codespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
 </ul>
@@ -233,17 +234,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Return Values</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -256,6 +247,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interlude-a.html">Interlude A: Docstrings and Doctests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interlude-b.html">Interlude B: Representing Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -444,12 +439,13 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">2.12. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-trace-the-values">2.12.1. Exercise 1: trace the values</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-python-as-a-calculator-math-class-edition">2.12.2. Exercise 2: Python as a calculator, math-class edition</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-arguments-and-typeerror">2.12.3. Exercise 3: arguments and TypeError</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-bad-comment-good-comment">2.12.4. Exercise 4: bad comment, good comment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">2.12.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-trace-the-values">2.12.1. Problem 1: trace the values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-python-as-a-calculator-math-class-edition">2.12.2. Problem 2: Python as a calculator, math-class edition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-arguments-and-typeerror">2.12.3. Problem 3: arguments and TypeError</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-bad-comment-good-comment">2.12.4. Problem 4: bad comment, good comment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">2.12.5. Problem 5: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">2.12.6. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">2.12.7. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">2.13. Standards alignment</a></li>
@@ -466,7 +462,7 @@
                   
   <!-- apcsp:begin type="note" chapter="02" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter02-Variables-and-Statements.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter02-Variables-and-Statements.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap02.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap02.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap02.ipynb" download="chap02.ipynb">Download</a></p>
@@ -475,7 +471,7 @@
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #chap02-jupyterlite-pane {
-  display: block;
+  display: none;
   height: 600px;
   background: #fff;
   overflow: hidden;
@@ -488,7 +484,7 @@
 }
 </style>
 <div id="chap02-jupyterlite-pane">
-<iframe src="jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter02-Variables-and-Statements.ipynb"></iframe>
+<iframe src="jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter02-Variables-and-Statements.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -508,6 +504,7 @@
   // exists for contexts where this script never runs, e.g. viewing the raw
   // notebook in VS Code) lets top+bottom determine the height, so the pane
   // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.display = "block";
   pane.style.position = "fixed";
   pane.style.top = "0";
   pane.style.right = "0";
@@ -534,10 +531,10 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python.py&#39;</span><span class="p">);</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python_v2.py&#39;</span><span class="p">);</span>
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/ThinkPython/raw/v3/diagram.py&#39;</span><span class="p">);</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python_v2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">working_in_python</span>
 </pre></div>
 </div>
 </div>
@@ -1071,10 +1068,10 @@ See if you can find out which is correct.</p>
 </section>
 <section id="homework">
 <h2><span class="section-number">2.12. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
-<p>These five exercises are your homework for this chapter, about 35 minutes total.</p>
+<p>These five problems are your homework for this chapter, about 35 minutes total.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
-<section id="exercise-1-trace-the-values">
-<h3><span class="section-number">2.12.1. </span>Exercise 1: trace the values<a class="headerlink" href="#exercise-1-trace-the-values" title="Link to this heading">#</a></h3>
+<section id="problem-1-trace-the-values">
+<h3><span class="section-number">2.12.1. </span>Problem 1: trace the values<a class="headerlink" href="#problem-1-trace-the-values" title="Link to this heading">#</a></h3>
 <p>Below is a short sequence of assignment statements. Before you run the cell, write down (in a comment above each line) what you think the value of each variable is <em>after</em> that line runs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">2</span>
@@ -1085,8 +1082,8 @@ See if you can find out which is correct.</p>
 <p>Then run the cell and check your predictions. If any were wrong, add a comment explaining what you missed.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
 </section>
-<section id="exercise-2-python-as-a-calculator-math-class-edition">
-<h3><span class="section-number">2.12.2. </span>Exercise 2: Python as a calculator, math-class edition<a class="headerlink" href="#exercise-2-python-as-a-calculator-math-class-edition" title="Link to this heading">#</a></h3>
+<section id="problem-2-python-as-a-calculator-math-class-edition">
+<h3><span class="section-number">2.12.2. </span>Problem 2: Python as a calculator, math-class edition<a class="headerlink" href="#problem-2-python-as-a-calculator-math-class-edition" title="Link to this heading">#</a></h3>
 <p><strong>Part a.</strong> A right triangle has legs of length 9 and 12. The Pythagorean theorem says the hypotenuse <code class="docutils literal notranslate"><span class="pre">c</span></code> satisfies <code class="docutils literal notranslate"><span class="pre">c**2</span> <span class="pre">=</span> <span class="pre">a**2</span> <span class="pre">+</span> <span class="pre">b**2</span></code>. Create variables <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> with these values, then compute <code class="docutils literal notranslate"><span class="pre">c</span></code> using <code class="docutils literal notranslate"><span class="pre">math.sqrt</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code>. Display the result.</p>
 <p><strong>Part b.</strong> An isosceles triangle has two equal sides of length 10 and a base of length 12. The height from the top down to the base splits the triangle into two right triangles, each with a base of 6 – so it’s the same theorem again, with different numbers. Compute the height and store it in a variable named <code class="docutils literal notranslate"><span class="pre">height</span></code>. Display the result.</p>
 <p><strong>Part c.</strong> A ramp is 20 feet long and makes a 30-degree angle with the ground. The height it rises is <code class="docutils literal notranslate"><span class="pre">length</span> <span class="pre">*</span> <span class="pre">sin(angle)</span></code>.</p>
@@ -1094,8 +1091,8 @@ See if you can find out which is correct.</p>
 <p>Note: the height won’t come out to a perfectly clean <code class="docutils literal notranslate"><span class="pre">10.0</span></code> – you’ll get something like <code class="docutils literal notranslate"><span class="pre">9.999999999999998</span></code>. That’s the same floating-point-imprecision effect from the chapter’s own trig-identity exercise, not a mistake in your code.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
 </section>
-<section id="exercise-3-arguments-and-typeerror">
-<h3><span class="section-number">2.12.3. </span>Exercise 3: arguments and TypeError<a class="headerlink" href="#exercise-3-arguments-and-typeerror" title="Link to this heading">#</a></h3>
+<section id="problem-3-arguments-and-typeerror">
+<h3><span class="section-number">2.12.3. </span>Problem 3: arguments and TypeError<a class="headerlink" href="#problem-3-arguments-and-typeerror" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Predict what <code class="docutils literal notranslate"><span class="pre">round(3.14159,</span> <span class="pre">2)</span></code> displays, then run it.</p></li>
 <li><p>Now run <code class="docutils literal notranslate"><span class="pre">round(3.14159,</span> <span class="pre">2,</span> <span class="pre">5)</span></code>. In a comment, explain what kind of <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> this is – too many arguments, too few, or the wrong type?</p></li>
@@ -1103,8 +1100,8 @@ See if you can find out which is correct.</p>
 </ol>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
 </section>
-<section id="exercise-4-bad-comment-good-comment">
-<h3><span class="section-number">2.12.4. </span>Exercise 4: bad comment, good comment<a class="headerlink" href="#exercise-4-bad-comment-good-comment" title="Link to this heading">#</a></h3>
+<section id="problem-4-bad-comment-good-comment">
+<h3><span class="section-number">2.12.4. </span>Problem 4: bad comment, good comment<a class="headerlink" href="#problem-4-bad-comment-good-comment" title="Link to this heading">#</a></h3>
 <p>Here’s a line of code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temp</span> <span class="o">=</span> <span class="mf">98.6</span>
 </pre></div>
@@ -1112,17 +1109,34 @@ See if you can find out which is correct.</p>
 <p>Write two versions of this line below, each with a different comment: one that’s redundant with the code (like the chapter’s <code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">8</span>&#160; <span class="pre">#</span> <span class="pre">assign</span> <span class="pre">8</span> <span class="pre">to</span> <span class="pre">v</span></code> example), and one that adds real information the code doesn’t already show.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="02" -->
 </section>
-<section id="exercise-5-reflection">
-<h3><span class="section-number">2.12.5. </span>Exercise 5: reflection<a class="headerlink" href="#exercise-5-reflection" title="Link to this heading">#</a></h3>
+<section id="problem-5-reflection">
+<h3><span class="section-number">2.12.5. </span>Problem 5: reflection<a class="headerlink" href="#problem-5-reflection" title="Link to this heading">#</a></h3>
 <p>Of the three error types from this chapter – syntax, runtime, and semantic – which do you think would be hardest to notice you’d made? Why?</p>
 <!-- apcsp:end --><!-- apcsp:begin type="note" chapter="02" -->
 </section>
 <section id="finished-copy-your-work">
 <h3><span class="section-number">2.12.6. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
-<p>This isn’t part of Exercise 5 – it’s a tool. Run the cell below to copy your Homework section (including anything you’ve run) so you can paste it into a document.</p>
+<p>This isn’t part of Problem 5 – it’s a tool. Run the cell below to copy your
+Homework section (including anything you’ve run) as rich text, so it pastes into a
+document already formatted. Works in JupyterLite and in VS Code/a Codespace – click
+the button either way, it detects which one you are in.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_homework_button</span><span class="p">(</span><span class="s2">&quot;chap02.ipynb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="02" -->
+</section>
+<section id="or-save-your-homework-for-submission">
+<h3><span class="section-number">2.12.7. </span>OR save your homework for submission<a class="headerlink" href="#or-save-your-homework-for-submission" title="Link to this heading">#</a></h3>
+<p>Run the cell below. It writes two files into this same folder – <code class="docutils literal notranslate"><span class="pre">chap02-homework.ipynb</span></code>
+and <code class="docutils literal notranslate"><span class="pre">chap02-homework.md</span></code> – containing everything from “Homework” above, including
+whatever you wrote and ran. Submit those two files, not the whole chapter.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">write_homework_files</span><span class="p">(</span><span class="s2">&quot;chap02.ipynb&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1233,12 +1247,13 @@ See if you can find out which is correct.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">2.12. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-trace-the-values">2.12.1. Exercise 1: trace the values</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-python-as-a-calculator-math-class-edition">2.12.2. Exercise 2: Python as a calculator, math-class edition</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-arguments-and-typeerror">2.12.3. Exercise 3: arguments and TypeError</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-bad-comment-good-comment">2.12.4. Exercise 4: bad comment, good comment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">2.12.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-trace-the-values">2.12.1. Problem 1: trace the values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-python-as-a-calculator-math-class-edition">2.12.2. Problem 2: Python as a calculator, math-class edition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-arguments-and-typeerror">2.12.3. Problem 3: arguments and TypeError</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-bad-comment-good-comment">2.12.4. Problem 4: bad comment, good comment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">2.12.5. Problem 5: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">2.12.6. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">2.12.7. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">2.13. Standards alignment</a></li>

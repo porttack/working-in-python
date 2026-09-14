@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -69,7 +69,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Docstrings and Doctests" href="chap06b.html" />
+    <link rel="next" title="7. Iteration and Search" href="chap07.html" />
     <link rel="prev" title="5. Conditionals and Recursion" href="chap05.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -221,6 +221,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Start Here</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="jupyter_intro.html">About Jupyter Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codespace.html">Using an Existing Codespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About This Book</a></li>
 </ul>
@@ -233,17 +234,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Functions and Interfaces</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Conditionals and Recursion</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Return Values</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap06b.html">Interlude: Docstrings and Doctests</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Iteration and Search</a></li>
-</ul>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap07b.html">Interlude: Representing Data</a></li>
-</ul>
-<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Strings and Regular Expressions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Dictionaries</a></li>
@@ -256,6 +247,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Inheritance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Python Extras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Final thoughts</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="interlude-a.html">Interlude A: Docstrings and Doctests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interlude-b.html">Interlude B: Representing Data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="nav bd-sidenav">
@@ -448,11 +443,11 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">6.13. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-is-right-triangle-do-1-or-2">6.13.1. Exercise 1: is_right_triangle (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-can-ride-do-1-or-2">6.13.2. Exercise 2: can_ride (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-sum-to">6.13.3. Exercise 3: sum_to</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-grade-points">6.13.4. Exercise 4: debug grade_points</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">6.13.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-is-right-triangle-do-1-or-2">6.13.1. Problem 1: is_right_triangle (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-can-ride-do-1-or-2">6.13.2. Problem 2: can_ride (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-sum-to">6.13.3. Problem 3: sum_to</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-debug-grade-points">6.13.4. Problem 4: debug grade_points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">6.13.5. Problem 5: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">6.13.6. Time check</a></li>
 </ul>
 </li>
@@ -460,6 +455,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-binary-extra-credit">6.14.1. to_binary (extra credit)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-steps-extra-credit">6.14.2. collatz_steps (extra credit)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">6.14.3. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">6.14.4. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">6.15. Standards alignment</a></li>
@@ -476,7 +472,7 @@
                   
   <!-- apcsp:begin type="note" chapter="06" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter06-Return-Values.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter06-Return-Values.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap06.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap06.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap06.ipynb" download="chap06.ipynb">Download</a></p>
@@ -485,7 +481,7 @@
 <style>
 #pst-secondary-sidebar { display: none !important; }
 #chap06-jupyterlite-pane {
-  display: block;
+  display: none;
   height: 600px;
   background: #fff;
   overflow: hidden;
@@ -498,7 +494,7 @@
 }
 </style>
 <div id="chap06-jupyterlite-pane">
-<iframe src="jupyterlite-0c459d6a9a/notebooks/index.html?path=Chapter06-Return-Values.ipynb"></iframe>
+<iframe src="jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter06-Return-Values.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -518,6 +514,7 @@
   // exists for contexts where this script never runs, e.g. viewing the raw
   // notebook in VS Code) lets top+bottom determine the height, so the pane
   // fills the whole right side, not a fixed 600px slice of it.
+  pane.style.display = "block";
   pane.style.position = "fixed";
   pane.style.top = "0";
   pane.style.right = "0";
@@ -545,10 +542,10 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python.py&#39;</span><span class="p">);</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/porttack/working-in-python/raw/v3/working_in_python_v2.py&#39;</span><span class="p">);</span>
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/ThinkPython/raw/v3/diagram.py&#39;</span><span class="p">);</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">working_in_python_v2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">working_in_python</span>
 </pre></div>
 </div>
 </div>
@@ -1452,13 +1449,13 @@ returns their greatest common divisor.</p>
 </section>
 <section id="homework">
 <h2><span class="section-number">6.13. </span>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
-<p>Required work is four exercises: whichever of Exercise 1 or Exercise 2, plus Exercises 3-5, about 31 minutes total. Doing both 1 and 2 is fine, but the second one earns no additional credit. The time check below must be filled in. The extra credit at the end (<code class="docutils literal notranslate"><span class="pre">to_binary</span></code> and <code class="docutils literal notranslate"><span class="pre">collatz_steps</span></code>) is the only extra credit in this chapter. It’s optional and never substitutes for a required exercise.</p>
+<p>Required work is four problems: whichever of Problem 1 or Problem 2, plus Problems 3-5, about 31 minutes total. Doing both 1 and 2 is fine, but the second one earns no additional credit. The time check below must be filled in. The extra credit at the end (<code class="docutils literal notranslate"><span class="pre">to_binary</span></code> and <code class="docutils literal notranslate"><span class="pre">collatz_steps</span></code>) is the only extra credit in this chapter. It’s optional and never substitutes for a required problem.</p>
 <p>Every function you write in this section needs a docstring, the same as chapter 4 on.</p>
 <p>Note: the exercises above (<code class="docutils literal notranslate"><span class="pre">hypot</span></code>, <code class="docutils literal notranslate"><span class="pre">is_between</span></code>, the Ackermann function, <code class="docutils literal notranslate"><span class="pre">is_power</span></code>, and <code class="docutils literal notranslate"><span class="pre">gcd</span></code>) are practice. They aren’t graded. This is the graded homework.</p>
 <!-- apcsp:end --><!-- apcsp:begin type="exercise" chapter="06" -->
 <!-- teacher: ~8 min -->
-<section id="exercise-1-is-right-triangle-do-1-or-2">
-<h3><span class="section-number">6.13.1. </span>Exercise 1: is_right_triangle (do 1 or 2)<a class="headerlink" href="#exercise-1-is-right-triangle-do-1-or-2" title="Link to this heading">#</a></h3>
+<section id="problem-1-is-right-triangle-do-1-or-2">
+<h3><span class="section-number">6.13.1. </span>Problem 1: is_right_triangle (do 1 or 2)<a class="headerlink" href="#problem-1-is-right-triangle-do-1-or-2" title="Link to this heading">#</a></h3>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">is_right_triangle</span></code> that takes three side lengths, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code>, and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if they form a right triangle (the Pythagorean theorem holds for some pairing of the three sides as the two legs and the hypotenuse) and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise. Don’t assume the sides are given in any particular order.</p>
 <!-- apcsp:end --><p>Test your function with the following cases.</p>
 <div class="cell docutils container">
@@ -1493,8 +1490,8 @@ returns their greatest common divisor.</p>
 <!-- apcsp:begin type="exercise" chapter="06" -->
 <!-- teacher: ~8 min -->
 </section>
-<section id="exercise-2-can-ride-do-1-or-2">
-<h3><span class="section-number">6.13.2. </span>Exercise 2: can_ride (do 1 or 2)<a class="headerlink" href="#exercise-2-can-ride-do-1-or-2" title="Link to this heading">#</a></h3>
+<section id="problem-2-can-ride-do-1-or-2">
+<h3><span class="section-number">6.13.2. </span>Problem 2: can_ride (do 1 or 2)<a class="headerlink" href="#problem-2-can-ride-do-1-or-2" title="Link to this heading">#</a></h3>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">can_ride</span></code> that takes <code class="docutils literal notranslate"><span class="pre">height_inches</span></code> and <code class="docutils literal notranslate"><span class="pre">age</span></code> and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the person may ride: at least 48 inches tall, or at least 42 inches tall and at least 8 years old. Otherwise it returns <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <!-- apcsp:end --><p>Test your function with the following cases.</p>
 <div class="cell docutils container">
@@ -1529,8 +1526,8 @@ returns their greatest common divisor.</p>
 <!-- apcsp:begin type="exercise" chapter="06" -->
 <!-- teacher: ~10 min -->
 </section>
-<section id="exercise-3-sum-to">
-<h3><span class="section-number">6.13.3. </span>Exercise 3: sum_to<a class="headerlink" href="#exercise-3-sum-to" title="Link to this heading">#</a></h3>
+<section id="problem-3-sum-to">
+<h3><span class="section-number">6.13.3. </span>Problem 3: sum_to<a class="headerlink" href="#problem-3-sum-to" title="Link to this heading">#</a></h3>
 <p>Write a recursive function called <code class="docutils literal notranslate"><span class="pre">sum_to</span></code> that takes a positive integer <code class="docutils literal notranslate"><span class="pre">n</span></code> and returns the sum of the integers from 1 to <code class="docutils literal notranslate"><span class="pre">n</span></code>. As a base case, <code class="docutils literal notranslate"><span class="pre">sum_to(0)</span></code> should return <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 <!-- apcsp:end --><p>Test your function with the following cases.</p>
 <div class="cell docutils container">
@@ -1564,8 +1561,8 @@ returns their greatest common divisor.</p>
 <!-- apcsp:begin type="exercise" chapter="06" -->
 <!-- teacher: ~8 min -->
 </section>
-<section id="exercise-4-debug-grade-points">
-<h3><span class="section-number">6.13.4. </span>Exercise 4: debug grade_points<a class="headerlink" href="#exercise-4-debug-grade-points" title="Link to this heading">#</a></h3>
+<section id="problem-4-debug-grade-points">
+<h3><span class="section-number">6.13.4. </span>Problem 4: debug grade_points<a class="headerlink" href="#problem-4-debug-grade-points" title="Link to this heading">#</a></h3>
 <p>Here’s a function that’s supposed to convert a letter grade into grade points.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1600,8 +1597,8 @@ returns their greatest common divisor.</p>
 <!-- apcsp:begin type="exercise" chapter="06" -->
 <!-- teacher: ~5 min -->
 </section>
-<section id="exercise-5-reflection">
-<h3><span class="section-number">6.13.5. </span>Exercise 5: reflection<a class="headerlink" href="#exercise-5-reflection" title="Link to this heading">#</a></h3>
+<section id="problem-5-reflection">
+<h3><span class="section-number">6.13.5. </span>Problem 5: reflection<a class="headerlink" href="#problem-5-reflection" title="Link to this heading">#</a></h3>
 <p>This chapter’s functions return values instead of printing them. Give one example from your own code (from this chapter or an earlier one) where returning a value would let you do something that printing would not.</p>
 <p>Answer in the markdown cell below, the same way you did in chap01 through chap05.</p>
 <!-- apcsp:end --><p><em>Type your answer here.</em></p>
@@ -1686,10 +1683,27 @@ returns their greatest common divisor.</p>
 </section>
 <section id="finished-copy-your-work">
 <h3><span class="section-number">6.14.3. </span>Finished? Copy your work<a class="headerlink" href="#finished-copy-your-work" title="Link to this heading">#</a></h3>
-<p>This isn’t part of Exercise 5. It’s a tool. Run the cell below to copy your Homework section (including anything you’ve run) so you can paste it into a document.</p>
+<p>This isn’t part of Problem 5. It’s a tool. Run the cell below to copy your
+Homework section (including anything you’ve run) as rich text, so it pastes into a
+document already formatted. Works in JupyterLite and in VS Code/a Codespace – click
+the button either way, it detects which one you are in.</p>
 <!-- apcsp:end --><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_notebook_button</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">show_copy_homework_button</span><span class="p">(</span><span class="s2">&quot;chap06.ipynb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<!-- apcsp:begin type="note" chapter="06" -->
+</section>
+<section id="or-save-your-homework-for-submission">
+<h3><span class="section-number">6.14.4. </span>OR save your homework for submission<a class="headerlink" href="#or-save-your-homework-for-submission" title="Link to this heading">#</a></h3>
+<p>Run the cell below. It writes two files into this same folder – <code class="docutils literal notranslate"><span class="pre">chap06-homework.ipynb</span></code>
+and <code class="docutils literal notranslate"><span class="pre">chap06-homework.md</span></code> – containing everything from “Homework” above, including
+whatever you wrote and ran. Submit those two files, not the whole chapter.</p>
+<!-- apcsp:end --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">working_in_python</span><span class="o">.</span><span class="n">write_homework_files</span><span class="p">(</span><span class="s2">&quot;chap06.ipynb&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1757,11 +1771,11 @@ returns their greatest common divisor.</p>
       </div>
     </a>
     <a class="right-next"
-       href="chap06b.html"
+       href="chap07.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Docstrings and Doctests</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Iteration and Search</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1803,11 +1817,11 @@ returns their greatest common divisor.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">6.13. Homework</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-is-right-triangle-do-1-or-2">6.13.1. Exercise 1: is_right_triangle (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-can-ride-do-1-or-2">6.13.2. Exercise 2: can_ride (do 1 or 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-sum-to">6.13.3. Exercise 3: sum_to</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-debug-grade-points">6.13.4. Exercise 4: debug grade_points</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-reflection">6.13.5. Exercise 5: reflection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-is-right-triangle-do-1-or-2">6.13.1. Problem 1: is_right_triangle (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-can-ride-do-1-or-2">6.13.2. Problem 2: can_ride (do 1 or 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-sum-to">6.13.3. Problem 3: sum_to</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-4-debug-grade-points">6.13.4. Problem 4: debug grade_points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-5-reflection">6.13.5. Problem 5: reflection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-check">6.13.6. Time check</a></li>
 </ul>
 </li>
@@ -1815,6 +1829,7 @@ returns their greatest common divisor.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-binary-extra-credit">6.14.1. to_binary (extra credit)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collatz-steps-extra-credit">6.14.2. collatz_steps (extra credit)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finished-copy-your-work">6.14.3. Finished? Copy your work</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#or-save-your-homework-for-submission">6.14.4. OR save your homework for submission</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standards-alignment">6.15. Standards alignment</a></li>
