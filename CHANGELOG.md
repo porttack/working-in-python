@@ -5,6 +5,23 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-13 (2) — "Using an Existing Codespace" rewritten as explicit steps; requirements.txt added
+
+### Changed
+- Renamed the "Using a Codespace" page to "Using an Existing Codespace" and rewrote its
+  setup instructions as fully explicit, numbered shell commands (create the venv, activate
+  it, install packages, download a chapter) instead of delegating to `setup.sh` -- dropped
+  the old "quick way, no dedicated venv" section entirely in favor of this one path. Every
+  download command switched from `curl -L -o` to `wget -O` (cs50.dev has `wget`, and it's
+  simpler to explain). `setup.sh`'s usage comment updated to match.
+
+### Added
+- `requirements.txt` (repo root): pins exact, verified-compatible versions of everything a
+  chapter might import (`ipykernel`, `matplotlib`, `notebook`, `PyYAML`). `setup.sh` now
+  installs from it instead of a hardcoded package list, fetching it itself if run standalone
+  without the rest of `wip-tools.zip`. Both `wip.zip` and `wip-tools.zip` now ship it
+  alongside `setup.sh`/`fetch.py`. See `AUDIT.md`.
+
 ## 2026-09-13 — repositioned both interludes to after chapter 19, renamed chap06b/chap07b to interlude-a/interlude-b
 
 ### Changed

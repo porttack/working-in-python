@@ -8677,3 +8677,45 @@ the file browser for everyone else, not protecting anyone's saved work. Matches 
 same-day add-then-revert already on record for chapter 5's rename (2026-08-24, see
 `ALIASES`'s own comment) -- reuse that precedent, not the chapter 2/3 one, if this comes up
 again for a future rename.
+
+## 2026-09-13 follow-up — rewrote "Using a Codespace" as explicit step-by-step, added requirements.txt
+
+Maintainer feedback after previewing the page: wanted it renamed "Using an Existing
+Codespace" (the page assumes a Codespace is already running -- CS50's or any other -- not
+how to create one), and wanted the "our way" section replaced with **fully explicit,
+numbered shell commands** rather than delegating to `setup.sh` -- create the venv, activate
+it, install packages, download a chapter, each spelled out as its own step, matching this
+project's established preference for typed-out commands over black-box scripts as a
+teaching tool. The old "quick way: whatever's already there" section (no dedicated venv)
+was dropped entirely in favor of this single, explicit path.
+
+Also switched every download command on the page from `curl -L -o` to `wget -O` per direct
+request -- cs50.dev has `wget` available and the maintainer considers it simpler to explain;
+`setup.sh`'s own usage comment and its new `requirements.txt` self-fetch (below) updated to
+match.
+
+**`requirements.txt` added** (repo root), pinning exact versions of everything a chapter
+might import -- `ipykernel==7.3.0`, `matplotlib==3.11.2`, `notebook==7.6.2`,
+`PyYAML==6.0.3` -- prompted by the maintainer's own question ("why don't we just ship a
+requirements.txt...") while dictating the new instructions. Versions weren't guessed: pinned
+from a real `pip install ipykernel matplotlib pyyaml notebook` into a throwaway venv and
+`pip freeze`-ing the actual resolved set, so they're a verified-working combination, not
+arbitrary numbers. `setup.sh` now runs `pip install -r requirements.txt` instead of listing
+packages inline, with a same-directory existence check and a `wget` fallback fetch (so its
+own documented standalone-curl-equivalent usage -- fetch just `setup.sh` and run it, no zip
+-- still works without requirements.txt already present). `jb/build.sh`'s zip staging ships
+`requirements.txt` alongside `setup.sh`/`fetch.py` in both `wip-tools.zip` and `wip.zip`;
+its publish checklist and inline comments updated to match.
+
+**Verified, not just written:** a real local `jb build.sh --local` confirms the renamed
+page builds and reads correctly; `unzip -l` on both built zips confirms `requirements.txt`
+actually ships in each; `setup.sh` was run end-to-end in a scratch directory (both the
+"already have requirements.txt alongside it" case, matching the zip-based flow, and the
+"only setup.sh present" case, exercising the new `wget` fallback -- that one 404s in this
+session since `requirements.txt` isn't pushed to GitHub yet, confirming the fallback path
+runs and fails safely under `set -e` rather than silently continuing with an empty file) --
+the zip-adjacent case installed cleanly and its resolved versions matched `requirements.txt`
+exactly.
+
+Also removed, same session: the `interlude-a` JupyterLite alias added in this move's own
+Phase 3, reverted the same day -- see the entry directly above this one.

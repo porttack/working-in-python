@@ -40,16 +40,20 @@ cp ../chapters/index.ipynb .
 # already inside wip/" check means running either script from there just
 # works, no nested wip/wip/.
 #
-# wip-tools.zip: just setup.sh and fetch.py, no chapters -- a starter kit for
-# whoever's building their own working folder chapter by chapter (the taught,
-# weekly way; see the "Using a Codespace" page) rather than grabbing
-# everything at once. setup.sh stays a shell script (it's really just OS/
-# filesystem operations -- create a venv, invoke its pip), but fetch is
-# fetch.py, not a shell script: downloading a URL and writing a file is squarely
-# Python's job, and it reuses urlretrieve(), the exact function every
-# chapter's own bootstrap download() cell already uses.
+# wip-tools.zip: setup.sh, fetch.py, and requirements.txt, no chapters -- a
+# starter kit for whoever's building their own working folder chapter by
+# chapter (the taught, weekly way; see the "Using an Existing Codespace"
+# page) rather than grabbing everything at once. setup.sh stays a shell
+# script (it's really just OS/filesystem operations -- create a venv, invoke
+# its pip), but fetch is fetch.py, not a shell script: downloading a URL and
+# writing a file is squarely Python's job, and it reuses urlretrieve(), the
+# exact function every chapter's own bootstrap download() cell already uses.
+# requirements.txt pins exact versions of everything a chapter might import
+# (ipykernel, matplotlib, pyyaml, notebook), so `pip install -r
+# requirements.txt` reproduces the same environment every time instead of
+# whatever happens to be newest on the day a student runs it.
 #
-# wip.zip: the same two scripts plus every real chapter notebook, for a bulk
+# wip.zip: the same three files plus every real chapter notebook, for a bulk
 # all-at-once download. Built straight from ../chapters/*.ipynb (the same
 # source Colab/download links use), not the copies above: those get mutated
 # in place by prep_notebooks.py below for the Sphinx build, which strips
@@ -59,7 +63,7 @@ cp ../chapters/index.ipynb .
 # nothing here needs to touch that.
 rm -rf _wip_zip_stage wip-tools.zip wip.zip
 mkdir -p _wip_zip_stage/wip
-cp ../setup.sh ../fetch.py _wip_zip_stage/wip/
+cp ../setup.sh ../fetch.py ../requirements.txt _wip_zip_stage/wip/
 (cd _wip_zip_stage && zip -rq ../wip-tools.zip wip)
 
 cp ../chapters/*.ipynb _wip_zip_stage/wip/
@@ -185,6 +189,7 @@ echo "  4. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/notebooks/index.
 echo "  5. https://python.porttack.com/${JUPYTERLITE_DEPLOY_ID}/lab/index.html shows the grouped file browser"
 echo "  6. https://python.porttack.com/current/notebooks/index.html?path=__chap01-welcome.ipynb redirects and runs"
 echo "  7. https://python.porttack.com/wip.zip downloads and unzips to a wip/ folder"
-echo "     with setup.sh, fetch.py, and every real chapter, interlude-b excluded"
+echo "     with setup.sh, fetch.py, requirements.txt, and every real chapter,"
+echo "     interlude-b excluded"
 echo "  8. https://python.porttack.com/wip-tools.zip downloads and unzips to a wip/"
-echo "     folder with just setup.sh and fetch.py, no chapters"
+echo "     folder with just setup.sh, fetch.py, and requirements.txt, no chapters"

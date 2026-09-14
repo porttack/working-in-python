@@ -7,7 +7,7 @@
 # folder you submit50 from can trip its file-count safety check).
 #
 # Usage:
-#   curl -L -o setup.sh https://raw.githubusercontent.com/porttack/working-in-python/v3/setup.sh
+#   wget https://raw.githubusercontent.com/porttack/working-in-python/v3/setup.sh
 #   bash setup.sh
 #
 # Safe to run again later -- it won't recreate an already-existing venv, and
@@ -35,8 +35,13 @@ else
   python3 -m venv .venv
 fi
 
-echo "Installing packages into .venv (ipykernel, matplotlib, pyyaml, notebook) ..."
-.venv/bin/pip install ipykernel matplotlib pyyaml notebook
+if [ ! -f requirements.txt ]; then
+  echo "Fetching requirements.txt ..."
+  wget -q -O requirements.txt https://raw.githubusercontent.com/porttack/working-in-python/v3/requirements.txt
+fi
+
+echo "Installing packages into .venv (see requirements.txt) ..."
+.venv/bin/pip install -r requirements.txt
 
 if [ "$SCRIPT_PATH" != "$(pwd)/setup.sh" ]; then
   cp -- "$SCRIPT_PATH" ./setup.sh

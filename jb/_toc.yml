@@ -12,7 +12,7 @@ parts:
     - file: jupyter_intro
       title: About Jupyter Notebooks
     - file: codespace
-      title: Using a Codespace
+      title: Using an Existing Codespace
     - file: chap00        # Downey's Preface
     - file: about
 
