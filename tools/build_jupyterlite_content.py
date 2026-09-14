@@ -207,15 +207,7 @@ CONTENT_NAMES = {
 # revert: no student had visited under the old name yet, so there was nothing to
 # preserve, and shipping both names just duplicated the entry in the Lab file
 # browser for everyone else.
-ALIASES = {
-    # chap06b was live under its old served name (Chapter06b-Docstrings-and-
-    # Doctests.ipynb) before this 2026-09-13 rename/reposition to
-    # interlude-a.ipynb -- see CHAPTER_MANIFEST.md and AUDIT.md. chap07b
-    # (now interlude-b.ipynb) never had a CONTENT_NAMES entry at all, so it
-    # was never served under any name and needs no alias. Remove this entry
-    # around 2026-10, once no student could plausibly still need the old path.
-    "interlude-a.ipynb": ["Chapter06b-Docstrings-and-Doctests.ipynb"],
-}
+ALIASES = {}
 # Whether to actually ship teach/blank copies into jupyterlite/content/ at
 # all, 2026-08-16. Deliberately False for now -- what to call this file
 # (teach/blank/teacher/etc.) and how to make it sort correctly in the lab

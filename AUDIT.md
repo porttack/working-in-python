@@ -8664,3 +8664,16 @@ iterative one -- that's `watch.sh`, unaffected) for the guarantee that a renamed
 chapter can never leave a stale page behind. Verified directly: re-ran `jb build.sh --local`
 after the fix and confirmed `chap06b.html`/`chap07b.html` no longer appear in `_build/html/`
 at all.
+
+## 2026-09-13 follow-up — removed the interlude-a alias, same-day reversal
+
+The `ALIASES` entry added in this move's Phase 3 (`interlude-a.ipynb` -> the old
+`Chapter06b-Docstrings-and-Doctests.ipynb` name) was removed again the same day, at the
+maintainer's direction, after seeing both names in a preview's Lab file browser. Reasoning:
+a student's in-progress work isn't preserved by *shipping* the old name -- it's preserved
+by their own browser's local storage, which already keeps whatever they last saved at that
+path regardless of what this build ships. The alias was only ever duplicating the entry in
+the file browser for everyone else, not protecting anyone's saved work. Matches the same
+same-day add-then-revert already on record for chapter 5's rename (2026-08-24, see
+`ALIASES`'s own comment) -- reuse that precedent, not the chapter 2/3 one, if this comes up
+again for a future rename.
