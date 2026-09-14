@@ -8741,3 +8741,18 @@ and `preview.sh`/`watch.sh`:
   as what the `bash setup.sh` shortcut uses instead, for whoever picks that path. Noted for
   later, not now: an interlude or chapter expansion on `pip`/packages itself would be the
   place to teach `-r requirements.txt` properly.
+
+## 2026-09-13 follow-up — jb/build.sh: retry once on a known intermittent Sphinx race
+
+Hit while running the first real (non---local) publish since today's interlude move:
+`jb build .` failed twice in a row right after `_build/` was wiped (the fix from the entry
+above), with `os.replace() on searchindex.js.tmp -> searchindex.js` raising
+`FileNotFoundError` at the very last "dumping search index" step -- despite all 31 HTML
+pages having built completely and correctly. Isolated by running `jb build .` directly,
+repeatedly: an incremental build against the same, already-mostly-built `_build/` succeeded
+three times running; a second attempt at a genuinely clean build (via `mv _build ... &&
+jb build .`, since `rm -rf` needed approval each time) succeeded on the first try. Not
+reproducible on demand, not tied to any content change -- a real, known-shape race in
+Sphinx/jupyter-book's parallel search-index dump that only a fully clean `_build/` seems to
+expose. `jb build .` now retries once automatically before giving up for real, since every
+observed failure resolved on an immediate identical retry.

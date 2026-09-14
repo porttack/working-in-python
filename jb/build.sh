@@ -104,7 +104,17 @@ python prep_notebooks.py
 # the real one, forever, since nothing ever regenerates or removes it again.
 rm -rf _build
 
-jb build .
+# A fully clean `_build/` (just wiped above, always -- see that comment) occasionally
+# trips a Sphinx/jupyter-book race in its final "dumping search index" step:
+# os.replace() on searchindex.js.tmp fails with FileNotFoundError even though the page
+# content itself built correctly and completely. Confirmed 2026-09-13 not to be
+# content-related -- an immediate retry against the exact same source, no changes at
+# all, reliably succeeds. Rather than let one bad roll of that race abort an entire
+# publish, retry the build step itself once before giving up for real.
+if ! jb build .; then
+  echo "jb build failed (a known intermittent race on a clean _build/ -- see build.sh); retrying once ..." >&2
+  jb build .
+fi
 
 # JupyterLite (chap01-11, Colab-outage fallback): built separately from
 # ../jupyterlite/content/ and copied in as a subdirectory so it survives the
