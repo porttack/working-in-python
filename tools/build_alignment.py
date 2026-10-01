@@ -131,6 +131,15 @@ h1 { margin-top: 0; }
   border-radius: 5px; padding: .05em .4em; color: var(--accent); white-space: nowrap;
 }
 .weight { font-size: .78rem; color: var(--muted); font-weight: normal; }
+.topic-weight-estimate { cursor: help; border-bottom: 1px dotted var(--muted); }
+.page-toggles { display: flex; flex-wrap: wrap; gap: .4em 1.2em; margin: 0 0 1.2rem; }
+.page-toggle-label {
+  display: inline-flex; align-items: center; gap: .4em; font-size: .82rem; color: var(--muted);
+}
+.page-toggle-label input { margin: 0; }
+body.hide-topic-weights .topic-weight-estimate { display: none; }
+body.hide-carriers .meta, body.hide-carriers .meta-list { display: none; }
+body.hide-los .lo { display: none; }
 .anchor-link {
   color: var(--muted); text-decoration: none; margin-right: .35em; font-weight: normal;
   opacity: .5;
@@ -148,6 +157,14 @@ section.big-idea > h2 { font-size: 1.5rem; }
 .topic h3 { margin: 0 0 .3rem; font-size: 1.1rem; }
 .topic .paraphrase { margin: .3rem 0; }
 .topic .meta { font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; }
+.topic .meta-list { list-style: none; font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; padding: 0; }
+.topic .meta-list li { margin: .3rem 0; padding-left: 1.1rem; text-indent: -1.1rem; }
+.topic .meta-list strong { color: var(--fg); }
+.meta-strength { font-style: italic; }
+.topic .meta-list .meta-note {
+  text-indent: 0; font-size: .92em; border-left: 3px solid var(--border);
+  padding-left: .6rem; margin: .35rem 0 .1rem;
+}
 .topic .note { font-size: .82rem; color: var(--muted); border-left: 3px solid var(--border); padding-left: .6rem; margin: .5rem 0; }
 .lo { margin: .9rem 0 .9rem .2rem; }
 .lo h4 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 600; }
@@ -201,6 +218,33 @@ SEARCH_JS = """
   });
 })();
 """
+
+TOGGLE_JS = """
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  document.querySelectorAll('.page-toggle').forEach(function(input) {
+    var hideClass = input.dataset.hideClass;
+    if (!hideClass) return;
+    // ?<param>=0 (or "false") forces it off, ?<param>=1 (or present/anything
+    // else) forces it on -- lets a link hand out a pre-set view, e.g.
+    // "...?los=1" to turn Learning Objectives/Essential Knowledge on despite
+    // the page's own default.
+    var paramKey = hideClass.replace(/^hide-/, "");
+    if (params.has(paramKey)) {
+      var v = params.get(paramKey);
+      input.checked = v !== "0" && v !== "false";
+    }
+    function sync() { document.body.classList.toggle(hideClass, !input.checked); }
+    input.addEventListener('change', sync);
+    sync();
+  });
+})();
+"""
+
+# Every framework page lists, per standard, which curricula/carriers cover it
+# (cov.carrier_html()) -- the same toggle makes sense on all five pages.
+CARRIER_TOGGLE = ("hide-carriers", "Show which curricula cover each item", True)
+
 
 def esc(s):
     return htmlmod.escape(s, quote=False) if s else ""
@@ -265,16 +309,19 @@ class Coverage:
         # Chapter locators zero-pad only the leading numeric run, e.g. 3 -> "03" and
         # the lettered interlude "7b" -> "07b" (never "7b" padded to width 2, which
         # would wrongly leave it unpadded since it's already 2 characters long).
-        # locator_slugs overrides this entirely for a source whose real per-chapter
-        # URL isn't a zero-padded number (e.g. Jekyll's full-filename permalinks) --
-        # opt-in per locator, so every source without it behaves exactly as before.
-        if meta.get("locator_kind") == "chapter":
-            slug = meta.get("locator_slugs", {}).get(str(locator))
-            if slug:
-                padded = slug
-            else:
-                m = re.match(r"^(\d+)([a-zA-Z]*)$", str(locator))
-                padded = f"{int(m.group(1)):02d}{m.group(2)}" if m else str(locator)
+        # locator_slugs overrides this entirely for a source whose real per-locator
+        # URL isn't a zero-padded number (e.g. Jekyll's full-filename permalinks, or
+        # a non-chapter source whose locators don't share one predictable path shape
+        # at all -- cs50psets' Readability locator is a full external-looking path,
+        # not even under its own pathway's usual prefix) -- opt-in per locator, checked
+        # regardless of locator_kind, so every source/locator without an entry behaves
+        # exactly as before.
+        slug = meta.get("locator_slugs", {}).get(str(locator))
+        if slug:
+            padded = slug
+        elif meta.get("locator_kind") == "chapter":
+            m = re.match(r"^(\d+)([a-zA-Z]*)$", str(locator))
+            padded = f"{int(m.group(1)):02d}{m.group(2)}" if m else str(locator)
         else:
             padded = str(locator)
         url = template.format(base_url=meta.get("base_url", ""), locator=padded)
@@ -314,34 +361,57 @@ class Coverage:
         url = self._locator_url(source, locator, anchor.get("slug") if anchor else None)
         return f'<a href="{esc(url)}">{esc(text)}</a>' if url else esc(text)
 
+    def _carrier_clause(self, source, entry, with_title):
+        """One source's coverage of one code, as plain body text (no wrapping
+        element -- callers decide whether that's a <li> or the only sentence in
+        a <p>). with_title=False drops the leading source name, for scoped
+        (single-source) mode where it would just repeat the one source this
+        run was given on every line."""
+        locs = entry.get("locators", [])
+        anchors = entry.get("anchors", {})
+        title = esc(self.source_meta.get(source, {}).get("title", source))
+        if locs:
+            clauses = ", ".join(self._locator_clause(source, loc, anchors.get(str(loc))) for loc in locs)
+            strength = entry.get("strength")
+            if strength and strength != "strong":
+                clauses += f' <span class="meta-strength">({esc(strength)})</span>'
+            return f"Covered in {clauses}" if not with_title else f"<strong>{title}:</strong> {clauses}"
+        if entry.get("checked"):
+            return "Not covered" if not with_title else f"<strong>{title}:</strong> not covered"
+        return "Covered, no locator on record" if not with_title else f"<strong>{title}:</strong> covered, no locator on record"
+
     def carrier_html(self, code):
         """None means: say nothing (used when --source scoping is active and this
         code has no coverage from the loaded source -- it may well be carried by a
         source this run was never given, and "unassigned" would be a false claim of
         a gap. Only the unscoped, all-sources view may claim "Unassigned". Returns
-        HTML -- callers must NOT esc() the result."""
+        a complete, ready-to-insert HTML block -- callers must NOT esc() the result
+        and must NOT wrap it in another element (scoped mode returns its own <p
+        class="meta">; the cross-source view, where a popular code can easily be
+        carried by half a dozen sources, returns a <ul class="meta-list"> with one
+        line per source instead of the old single run-on sentence, which became
+        unreadable once several sources piled into it)."""
         entries = self.get(code)
         if not entries:
-            return None if self.scoped else "Unassigned"
-        parts = []
+            return None if self.scoped else '<p class="meta">Unassigned</p>'
+        if self.scoped:
+            # A scoped run only ever loads one carrier file, so there's at most
+            # one entry here -- a single sentence reads fine, no list needed.
+            parts = [self._carrier_clause(source, entry, with_title=False) for source, entry in entries]
+            return f'<p class="meta">{"; ".join(parts)}</p>'
+        # Each source's own note is folded into its own <li> here, right under
+        # that source's "Covered by" line -- a flat list of notes rendered
+        # separately below (the old behavior, still used in scoped mode) has no
+        # way to show which note belongs to which source once there's more than
+        # one, which is exactly the confusing part a reader flagged.
+        items = []
         for source, entry in entries:
-            locs = entry.get("locators", [])
-            anchors = entry.get("anchors", {})
-            title = esc(self.source_meta.get(source, {}).get("title", source))
-            if locs:
-                clauses = ", ".join(self._locator_clause(source, loc, anchors.get(str(loc))) for loc in locs)
-                strength = entry.get("strength")
-                if strength and strength != "strong":
-                    clauses += f" ({esc(strength)})"
-                # In scoped (single-source) mode the source name is always the one
-                # source this run was given -- redundant on every line, so drop it.
-                # In the cross-source view, multiple sources are genuinely in play.
-                parts.append(f"Covered in {clauses}" if self.scoped else f"Covered by {title}: {clauses}")
-            elif entry.get("checked"):
-                parts.append("Not covered" if self.scoped else f"Not covered by {title}")
-            else:
-                parts.append("Covered, no locator on record" if self.scoped else f"Covered by {title}, no locator on record")
-        return "; ".join(parts)
+            li = self._carrier_clause(source, entry, with_title=True)
+            if entry.get("note"):
+                note = esc(humanize_chapter_refs(entry["note"], self.source_meta.get(source, {}).get("interlude_letters")))
+                li += f'<div class="meta-note">{note}</div>'
+            items.append(f"<li>{li}</li>")
+        return f'<ul class="meta-list">{"".join(items)}</ul>'
 
     def coverage_summary(self, code):
         """(covering: list[str], total: int) -- of every source this Coverage was
@@ -353,6 +423,13 @@ class Coverage:
         return covering, len(self.source_meta)
 
     def notes(self, code):
+        """Only meaningful in scoped (single-source) mode. The cross-source view
+        folds each source's note directly into its own <li> in carrier_html()
+        instead -- see the comment there -- so this returns nothing there, and
+        callers' existing "for note in cov.notes(code)" loops naturally render
+        nothing extra rather than showing every note twice."""
+        if not self.scoped:
+            return []
         return [
             humanize_chapter_refs(entry["note"], self.source_meta.get(source, {}).get("interlude_letters"))
             for source, entry in self.get(code)
@@ -373,12 +450,33 @@ def load_carrier_files(carriers_dir, sources):
 
 # ---------- AP CSP ----------
 
+def _ek_count(topic):
+    return sum(len(lo.get("eks", [])) for lo in topic.get("los", []))
+
+
 def render_apcsp(catalog, cov, scope_label):
     big_ideas = {b["id"]: b for b in catalog["big_ideas"]}
     practices = catalog["practices"]
     topics_by_bi = {}
     for t in catalog["topics"]:
         topics_by_bi.setdefault(t["big_idea"], []).append(t)
+
+    # College Board publishes MCQ weight only at the Big Idea and Practice
+    # level -- there is no official per-topic number. This estimates one by
+    # splitting a Big Idea's published range across its topics in proportion
+    # to each topic's share of Essential Knowledge statements (the finest-
+    # grained unit the catalog has), so a denser topic shows a larger slice.
+    # Always label it "est." and explain the method via a title attribute --
+    # never let it read as if College Board published it.
+    topic_weight = {}
+    for bi_id, topics in topics_by_bi.items():
+        bi = big_ideas[bi_id]
+        total_eks = sum(_ek_count(t) for t in topics)
+        if not total_eks or bi.get("mcq_weight_low") is None:
+            continue
+        for t in topics:
+            share = _ek_count(t) / total_eks
+            topic_weight[t["code"]] = (bi["mcq_weight_low"] * share, bi["mcq_weight_high"] * share)
 
     toc = ['<h2>Practices</h2>', "<ul>"]
     for p in practices:
@@ -402,11 +500,20 @@ def render_apcsp(catalog, cov, scope_label):
         body.append(f'<h2><a class="anchor-link" href="#{bi["id"]}">#</a><span class="code-badge">{bi["id"]}</span> Big Idea {bi["number"]}: {esc(bi["name"])} <span class="weight">({bi["mcq_weight_low"]}–{bi["mcq_weight_high"]}% MCQ)</span></h2>')
         for t in topics_by_bi.get(bi["id"], []):
             body.append(f'<div class="topic" id="T-{t["code"]}">')
-            body.append(f'<h3><a class="anchor-link" href="#T-{t["code"]}">#</a><span class="code-badge">{t["code"]}</span> {esc(t["title"])}</h3>')
+            weight_span = ""
+            if t["code"] in topic_weight:
+                low, high = topic_weight[t["code"]]
+                weight_span = (
+                    f' <span class="weight topic-weight-estimate" '
+                    f'title="Estimated from this topic’s share of Essential Knowledge statements '
+                    f'within Big Idea {bi["number"]}. College Board does not publish an official '
+                    f'per-topic weight.">(~{low:.1f}–{high:.1f}% MCQ, est.)</span>'
+                )
+            body.append(f'<h3><a class="anchor-link" href="#T-{t["code"]}">#</a><span class="code-badge">{t["code"]}</span> {esc(t["title"])}{weight_span}</h3>')
             body.append(f'<p class="paraphrase">{esc(t["paraphrase"])}</p>')
             line = cov.carrier_html(t["code"])
             if line:
-                body.append(f'<p class="meta">{line}</p>')
+                body.append(line)
             for note in cov.notes(t["code"]):
                 body.append(f'<p class="note">{esc(note)}</p>')
             for ex in t.get("exclusions", []):
@@ -428,8 +535,16 @@ for linking from standards-alignment work ({esc(catalog['meta']['ced_version'])}
 paraphrase, not College Board's text. Only the AP-assigned codes are reproduced as-is."""
     if scope_label:
         provenance += f' <strong>Scope.</strong> This copy shows only what {esc(scope_label)} carries.'
+    if topic_weight:
+        provenance += (" <strong>Topic weights.</strong> The “~…% MCQ, est.” figure next to each "
+                        "topic is this page’s own estimate (a Big Idea’s published range, split by "
+                        "each topic’s share of Essential Knowledge statements), not a College Board number.")
 
-    return page("AP CSP Standards Reference", "\n".join(toc), "\n".join(body), provenance)
+    toggles = [CARRIER_TOGGLE, ("hide-los", "Show learning objectives & essential knowledge", False)]
+    if topic_weight:
+        toggles.insert(0, ("hide-topic-weights", "Show estimated topic weights", True))
+
+    return page("AP CSP Standards Reference", "\n".join(toc), "\n".join(body), provenance, toggles)
 
 
 # ---------- California 9-12 ----------
@@ -475,7 +590,7 @@ def render_castandards(catalog, cov, scope_label):
                     body.append(f'<p class="note">{esc(s["scope_note"])}</p>')
                 line = cov.carrier_html(s["code"])
                 if line:
-                    body.append(f'<p class="meta">{line}</p>')
+                    body.append(line)
                 for note in cov.notes(s["code"]):
                     body.append(f'<p class="note">{esc(note)}</p>')
                 body.append("</div>")
@@ -487,7 +602,7 @@ Science core standards (adopted 2018), for linking from standards-alignment work
 are reproduced as-is."""
     if scope_label:
         provenance += f' <strong>Scope.</strong> This copy shows only what {esc(scope_label)} carries.'
-    return page("CA CS Standards Reference", "\n".join(toc), "\n".join(body), provenance)
+    return page("CA CS Standards Reference", "\n".join(toc), "\n".join(body), provenance, [CARRIER_TOGGLE])
 
 
 # ---------- CSTA 2017 ----------
@@ -517,7 +632,7 @@ def render_csta2017(catalog, cov, scope_label):
             body.append(f'<p class="paraphrase">{esc(s["paraphrase"])}</p>')
             line = cov.carrier_html(s["code"])
             if line:
-                body.append(f'<p class="meta">{line}</p>')
+                body.append(line)
             for note in cov.notes(s["code"]):
                 body.append(f'<p class="note">{esc(note)}</p>')
             body.append("</div>")
@@ -533,7 +648,7 @@ K-12 CS standards -- most match closely, but a few diverge in wording or don't c
 single CA standard."""
     if scope_label:
         provenance += f' <strong>Scope.</strong> This copy shows only what {esc(scope_label)} carries.'
-    return page("CSTA 2017 Standards Reference", "\n".join(toc), "\n".join(body), provenance)
+    return page("CSTA 2017 Standards Reference", "\n".join(toc), "\n".join(body), provenance, [CARRIER_TOGGLE])
 
 
 # ---------- CSTA 2026 ----------
@@ -591,7 +706,7 @@ def render_csta2026(catalog, cov, scope_label):
                         body.append(f'<p class="note">{esc(s["scope_note"])}</p>')
                     line = cov.carrier_html(s["code"])
                     if line:
-                        body.append(f'<p class="meta">{line}</p>')
+                        body.append(line)
                     for note in cov.notes(s["code"]):
                         body.append(f'<p class="note">{esc(note)}</p>')
                     body.append("</div>")
@@ -603,7 +718,7 @@ Science Standards (high-school level), for linking from standards-alignment work
 reproduced as-is."""
     if scope_label:
         provenance += f' <strong>Scope.</strong> This copy shows only what {esc(scope_label)} carries.'
-    return page("CSTA 2026 Standards Reference", "\n".join(toc), "\n".join(body), provenance)
+    return page("CSTA 2026 Standards Reference", "\n".join(toc), "\n".join(body), provenance, [CARRIER_TOGGLE])
 
     provenance = """<strong>What this is.</strong> A locally built index of the CSTA 2026 K-12 Computer
 Science Standards (high-school level), for linking from standards-alignment work.
@@ -611,7 +726,7 @@ Science Standards (high-school level), for linking from standards-alignment work
 reproduced as-is."""
     if scope_label:
         provenance += f' <strong>Scope.</strong> This copy shows only what {esc(scope_label)} carries.'
-    return page("CSTA 2026 Standards Reference", "\n".join(toc), "\n".join(body), provenance)
+    return page("CSTA 2026 Standards Reference", "\n".join(toc), "\n".join(body), provenance, [CARRIER_TOGGLE])
 
 
 # ---------- CA CTE ICT ----------
@@ -623,7 +738,7 @@ def render_ca_ict(catalog, cov, scope_label):
         out.append(f'<p class="paraphrase">{esc(grp["paraphrase"])}</p>')
         grp_line = cov.carrier_html(grp["code"])
         if grp_line:
-            out.append(f'<p class="meta">{grp_line}</p>')
+            out.append(grp_line)
         if grp.get("items"):
             out.append('<ul class="ek-list">')
             for item in grp["items"]:
@@ -660,10 +775,22 @@ Pathway C (Software and Systems Development). <strong>What this is not.</strong>
 paraphrases, not the CDE's text; only codes are reproduced as-is."""
     if scope_label:
         provenance += f' <strong>Scope.</strong> This copy shows only what {esc(scope_label)} carries.'
-    return page("CA ICT & Anchor Standards Reference", "\n".join(toc), "\n".join(body), provenance)
+    return page("CA ICT & Anchor Standards Reference", "\n".join(toc), "\n".join(body), provenance, [CARRIER_TOGGLE])
 
 
-def page(title, toc_html, body_html, provenance_html):
+def page(title, toc_html, body_html, provenance_html, toggles=None):
+    """toggles: list of (hide_class, label, checked_by_default) -- each renders as a
+    checkbox that adds/removes `hide_class` on <body> (see TOGGLE_JS), paired with a
+    `body.<hide_class> ...` CSS rule in CSS. The same mechanism as the search box: a
+    static page, interactive without a backend."""
+    toggles_html = ""
+    if toggles:
+        items = "".join(
+            f'<label class="page-toggle-label"><input type="checkbox" class="page-toggle" '
+            f'data-hide-class="{hide_class}"{" checked" if checked else ""}> {esc(label)}</label>'
+            for hide_class, label, checked in toggles
+        )
+        toggles_html = f'<div class="page-toggles">{items}</div>'
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -682,11 +809,13 @@ def page(title, toc_html, body_html, provenance_html):
 <h1>{esc(title)}</h1>
 <div class="provenance">{provenance_html}</div>
 <input id="search" type="search" placeholder="Filter by code or text…" aria-label="Filter standards">
+{toggles_html}
 {body_html}
 <footer>Generated by build_alignment.py. Not an official framework document.</footer>
 </main>
 </div>
 <script>{SEARCH_JS}</script>
+<script>{TOGGLE_JS}</script>
 </body>
 </html>
 """

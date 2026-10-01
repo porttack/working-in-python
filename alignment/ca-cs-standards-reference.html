@@ -50,6 +50,15 @@ h1 { margin-top: 0; }
   border-radius: 5px; padding: .05em .4em; color: var(--accent); white-space: nowrap;
 }
 .weight { font-size: .78rem; color: var(--muted); font-weight: normal; }
+.topic-weight-estimate { cursor: help; border-bottom: 1px dotted var(--muted); }
+.page-toggles { display: flex; flex-wrap: wrap; gap: .4em 1.2em; margin: 0 0 1.2rem; }
+.page-toggle-label {
+  display: inline-flex; align-items: center; gap: .4em; font-size: .82rem; color: var(--muted);
+}
+.page-toggle-label input { margin: 0; }
+body.hide-topic-weights .topic-weight-estimate { display: none; }
+body.hide-carriers .meta, body.hide-carriers .meta-list { display: none; }
+body.hide-los .lo { display: none; }
 .anchor-link {
   color: var(--muted); text-decoration: none; margin-right: .35em; font-weight: normal;
   opacity: .5;
@@ -67,6 +76,14 @@ section.big-idea > h2 { font-size: 1.5rem; }
 .topic h3 { margin: 0 0 .3rem; font-size: 1.1rem; }
 .topic .paraphrase { margin: .3rem 0; }
 .topic .meta { font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; }
+.topic .meta-list { list-style: none; font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; padding: 0; }
+.topic .meta-list li { margin: .3rem 0; padding-left: 1.1rem; text-indent: -1.1rem; }
+.topic .meta-list strong { color: var(--fg); }
+.meta-strength { font-style: italic; }
+.topic .meta-list .meta-note {
+  text-indent: 0; font-size: .92em; border-left: 3px solid var(--border);
+  padding-left: .6rem; margin: .35rem 0 .1rem;
+}
 .topic .note { font-size: .82rem; color: var(--muted); border-left: 3px solid var(--border); padding-left: .6rem; margin: .5rem 0; }
 .lo { margin: .9rem 0 .9rem .2rem; }
 .lo h4 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 600; }
@@ -225,6 +242,7 @@ Science core standards (adopted 2018), for linking from standards-alignment work
 <strong>What this is not.</strong> Original paraphrases, not the CDE's text; only codes
 are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working in Python carries.</div>
 <input id="search" type="search" placeholder="Filter by code or text…" aria-label="Filter standards">
+<div class="page-toggles"><label class="page-toggle-label"><input type="checkbox" class="page-toggle" data-hide-class="hide-carriers" checked> Show which curricula cover each item</label></div>
 <section class="big-idea" id="AP">
 <h2><a class="anchor-link" href="#AP">#</a><span class="code-badge">AP</span> Algorithms &amp; Programming</h2>
 <div class="tier-heading">6-8</div>
@@ -357,7 +375,7 @@ are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working 
 <div class="topic" id="S-9-12S.AP.14">
 <h3><a class="anchor-link" href="#S-9-12S.AP.14">#</a><span class="code-badge">9-12S.AP.14</span></h3>
 <p class="paraphrase">Different data structures trade off differently for the same basic operations -- inserting, deleting, modifying -- and picking one over another is a real design decision, not a formality.</p>
-<p class="meta">Covered in <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a> (partial)</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a> <span class="meta-strength">(partial)</span></p>
 <p class="note">Chapter 10 switches from a list to a dictionary specifically because dictionary lookup is faster than scanning a list with in -- a genuine data-structure trade-off. Narrower than the standard's own examples (insert/delete/modify): the book's comparison is about lookup speed only, not those three operations.</p>
 </div>
 <div class="topic" id="S-9-12S.AP.15">
@@ -369,7 +387,7 @@ are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working 
 <div class="topic" id="S-9-12S.AP.16">
 <h3><a class="anchor-link" href="#S-9-12S.AP.16">#</a><span class="code-badge">9-12S.AP.16</span></h3>
 <p class="paraphrase">A big, real-world problem usually decomposes into smaller pieces that already have a solution -- reusable code or a known procedure -- if you can spot the pattern.</p>
-<p class="meta">Covered in <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a> (partial)</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a> <span class="meta-strength">(partial)</span></p>
 <p class="note">Chapter 7's uses_all, built by reusing uses_any/uses_only instead of writing a new loop, and Chapter 4's arc built by generalizing the existing polygon-derived circle, are both instances of spotting that a subproblem already has a solution close at hand -- this standard's own framing, distinct from AP.17's 'write your own procedures' and AP.18's 'reach for a library.'</p>
 </div>
 <div class="topic" id="S-9-12S.AP.17">
@@ -387,7 +405,7 @@ are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working 
 <div class="topic" id="S-9-12S.AP.19">
 <h3><a class="anchor-link" href="#S-9-12S.AP.19">#</a><span class="code-badge">9-12S.AP.19</span></h3>
 <p class="paraphrase">Planning software for people beyond yourself means following an actual development-lifecycle process, not just writing until it works.</p>
-<p class="meta">Covered in <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a> (partial)</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a> <span class="meta-strength">(partial)</span></p>
 <p class="note">Chapter 4's development plan (problem statement, examples, template, draft, test) is a real, structured process, not writing until it works. Same caveat as this file's core 9-12.AP.18 gap: it's a solo, technical process that never involves feedback from users beyond the student, so the 'planning software for people beyond yourself' half of this standard is thinner than the process half.</p>
 </div>
 <div class="topic" id="S-9-12S.AP.20">
@@ -403,7 +421,7 @@ are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working 
 <div class="topic" id="S-9-12S.AP.22">
 <h3><a class="anchor-link" href="#S-9-12S.AP.22">#</a><span class="code-badge">9-12S.AP.22</span></h3>
 <p class="paraphrase">A meaningful set of test cases covers ordinary behavior and the edge cases at the boundary, not just the input you expect to work.</p>
-<p class="meta">Covered in <a href="https://python.porttack.com/interlude-a.html?readonly">Interlude A (Docstrings and Doctests)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap06b.html?readonly">Interlude A (Docstrings and Doctests)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></p>
 <p class="note">Same evidence as this file's new csta2026 S1-SWD-TR-07 entry: Interlude A's Choosing test cases table (typical, boundary, edge) is close to a literal match for 'ordinary behavior and the edge cases at the boundary.'</p>
 </div>
 <div class="topic" id="S-9-12S.AP.23">
@@ -495,14 +513,14 @@ are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working 
 <div class="topic" id="S-9-12.DA.8">
 <h3><a class="anchor-link" href="#S-9-12.DA.8">#</a><span class="code-badge">9-12.DA.8</span></h3>
 <p class="paraphrase">The same real-world thing -- a color, a character, an image -- can be represented digitally in more than one way, and converting between those representations is a normal task.</p>
-<p class="meta">Covered in <a href="https://python.porttack.com/interlude-b.html?readonly">Interlude B (Representing Data, outline only)</a></p>
-<p class="note">Same underlying content as AP 2.1/DAT-1.A (data represented using bits), carried by Interlude B ('Representing Data'), positioned after chapter 19 -- see apcsp.json's 2.1 note for the full carrier detail, including that Interlude B is an outline only as of 2026-08-17, not drafted prose. Previously logged as carried by CS50T Multimedia, same as that AP topic; removed 2026-08-09 -- teacher confirms that supplement hasn't been taught since year one. Pico I2C unit remains a secondary, partial touchpoint.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap07b.html?readonly">Interlude B (Representing Data, outline only)</a></p>
+<p class="note">Same underlying content as AP 2.1/DAT-1.A (data represented using bits), carried by the interlude between chapters 7 and 8 ('Representing Data', Interlude B) -- see apcsp.json's 2.1 note for the full carrier detail, including that Interlude B is an outline only as of 2026-08-17, not drafted prose. Previously logged as carried by CS50T Multimedia, same as that AP topic; removed 2026-08-09 -- teacher confirms that supplement hasn't been taught since year one. Pico I2C unit remains a secondary, partial touchpoint.</p>
 </div>
 <div class="topic" id="S-9-12.DA.9">
 <h3><a class="anchor-link" href="#S-9-12.DA.9">#</a><span class="code-badge">9-12.DA.9</span></h3>
 <p class="paraphrase">How data is organized and where it's stored is a choice with real consequences for cost, speed, reliability, privacy, and integrity.</p>
-<p class="meta">Covered in <a href="https://python.porttack.com/interlude-b.html?readonly">Interlude B (Representing Data, outline only)</a></p>
-<p class="note">Partially carried: the CED's own worked example for this standard is file-size-vs-quality tradeoffs across image formats -- the same territory as AP 2.2/DAT-1.D (data compression), which Interlude B ('Representing Data'), positioned after chapter 19 now covers. But DA.9's scope is broader than 2.2 alone (storage location, cost, reliability, privacy, integrity), and Interlude B's outline doesn't reach those dimensions -- see apcsp.json's 2.2 note. As of 2026-08-17 Interlude B is an outline only, not drafted prose. Previously logged as carried by CS50T Multimedia; removed 2026-08-09, same reason as DA.8.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap07b.html?readonly">Interlude B (Representing Data, outline only)</a></p>
+<p class="note">Partially carried: the CED's own worked example for this standard is file-size-vs-quality tradeoffs across image formats -- the same territory as AP 2.2/DAT-1.D (data compression), which the interlude between chapters 7 and 8 ('Representing Data', Interlude B) now covers. But DA.9's scope is broader than 2.2 alone (storage location, cost, reliability, privacy, integrity), and Interlude B's outline doesn't reach those dimensions -- see apcsp.json's 2.2 note. As of 2026-08-17 Interlude B is an outline only, not drafted prose. Previously logged as carried by CS50T Multimedia; removed 2026-08-09, same reason as DA.8.</p>
 </div>
 <div class="topic" id="S-9-12.DA.10">
 <h3><a class="anchor-link" href="#S-9-12.DA.10">#</a><span class="code-badge">9-12.DA.10</span></h3>
@@ -692,6 +710,27 @@ are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working 
       });
       topicEl.classList.toggle('hidden', !anyVisible && !topicMatches);
     });
+  });
+})();
+</script>
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  document.querySelectorAll('.page-toggle').forEach(function(input) {
+    var hideClass = input.dataset.hideClass;
+    if (!hideClass) return;
+    // ?<param>=0 (or "false") forces it off, ?<param>=1 (or present/anything
+    // else) forces it on -- lets a link hand out a pre-set view, e.g.
+    // "...?los=1" to turn Learning Objectives/Essential Knowledge on despite
+    // the page's own default.
+    var paramKey = hideClass.replace(/^hide-/, "");
+    if (params.has(paramKey)) {
+      var v = params.get(paramKey);
+      input.checked = v !== "0" && v !== "false";
+    }
+    function sync() { document.body.classList.toggle(hideClass, !input.checked); }
+    input.addEventListener('change', sync);
+    sync();
   });
 })();
 </script>

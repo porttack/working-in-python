@@ -3,24 +3,7 @@
   "title": "Working in Python (a jupyter notebook)",
   "base_url": "https://python.porttack.com",
   "locator_kind": "chapter",
-  "locator_url_template": "{base_url}/{locator}.html",
-  "locator_slugs": {
-   "1": "chap01",
-   "2": "chap02",
-   "3": "chap03",
-   "4": "chap04",
-   "5": "chap05",
-   "6": "chap06",
-   "6b": "interlude-a",
-   "7": "chap07",
-   "7b": "interlude-b",
-   "8": "chap08",
-   "9": "chap09",
-   "10": "chap10",
-   "11": "chap11",
-   "12": "chap12",
-   "13": "chap13"
-  },
+  "locator_url_template": "{base_url}/chap{locator}.html",
   "readonly_suffix": true,
   "source": "working_in_python",
   "locator_titles": {
@@ -57,6 +40,12 @@
     "by": "Claude Sonnet 5",
     "scope": "CSTA 2026 core (HS-*) and CA CTE/ICT (anchor + Pathway C), checked against chapters 9-13 specifically, following the 2026-08-31 pass's CSTA/CA-Specialty work",
     "note": "Added 4 csta2026 core + 1 ca-ict-anchor + 1 apcsp entry (6 total), all with real locators, no new gaps logged (not an exhaustive gap sweep of either catalog -- focused on finding genuine matches for chapters 9-13, which had zero csta2026-core and zero ca-ict-anchor coverage before this pass). Also corrected S1-SWD-TR-06's note, which described chapters 9-13's 'Ask a virtual assistant' sections as still present -- they were removed book-wide the same day, in working_in_python's own repo, by a VA-removal policy decision unrelated to this pass. Two clear findings: chap10's too_slow/much_faster list-vs-dict speed comparison is the single richest piece of evidence in chapters 9-13, carrying apcsp 3.17, csta2026 HS-ALG-PS-03, and ca-ict-anchor C5.3 simultaneously; chap12's deterministic/pseudorandom glossary terms are an unusually direct, named match for csta2026 HS-ALG-PS-04."
+   },
+   {
+    "date": "2026-09-10",
+    "by": "Claude Sonnet 5",
+    "scope": "csta2017, for the six codes crosswalking to this file's existing core castandards entries (AP.13, AP.14, AP.16, AP.17, AP.20, DA.9) -- not an independent sweep of the full CSTA 2017 catalog",
+    "note": "Added 6 csta2017 entries, read directly against CSTA's own paraphrase text rather than assumed from the crosswalk's code-equivalence alone. Two came back lower than a naive crosswalk-strength read would suggest: 3A-AP-17 (partial, since the classes half of CSTA's procedures-or-objects framing lives in this book's independent-study chapters 14-19, not the sequenced course) and 3A-AP-21 (related, since CSTA's own standard specifically names usability/accessibility testing, which chap04/chap07's iterative-testing work doesn't address -- the same gap 9-12.AP.20's own note already flags)."
    }
   ]
  },
@@ -97,13 +86,13 @@
     "locators": [
      "7b"
     ],
-    "note": "Carried by Interlude B ('Representing Data'), positioned after chapter 19: bits, place value, binary/decimal/hex conversion by hand and via bin()/int(s, 2)/format(). As of 2026-08-17 chap07b exists only as an outline (section headings, vocabulary, standards claims) -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; that supplement was dropped after year one and never taught again, so the assignment was stale -- removed 2026-08-09 per teacher confirmation. The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14, 'Digital communication protocols') remains a secondary, partial touchpoint (hexadecimal as byte notation) alongside chap07b's fuller treatment."
+    "note": "Carried by the interlude between chapters 7 and 8 ('Representing Data', chap07b): bits, place value, binary/decimal/hex conversion by hand and via bin()/int(s, 2)/format(). As of 2026-08-17 chap07b exists only as an outline (section headings, vocabulary, standards claims) -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; that supplement was dropped after year one and never taught again, so the assignment was stale -- removed 2026-08-09 per teacher confirmation. The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14, 'Digital communication protocols') remains a secondary, partial touchpoint (hexadecimal as byte notation) alongside chap07b's fuller treatment."
    },
    "2.2": {
     "locators": [
      "7b"
     ],
-    "note": "Carried by Interlude B ('Representing Data'), positioned after chapter 19: the lossless/lossy contrast, taught as the choice the exam actually tests rather than as definitions, plus student-written run-length encoding as the lossless worked example. As of 2026-08-17 chap07b exists only as an outline -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; removed 2026-08-09 per teacher confirmation that supplement hasn't been taught since year one. The Pico I2C chapter (see 2.1's note) still doesn't touch compression at all."
+    "note": "Carried by the interlude between chapters 7 and 8 ('Representing Data', chap07b): the lossless/lossy contrast, taught as the choice the exam actually tests rather than as definitions, plus student-written run-length encoding as the lossless worked example. As of 2026-08-17 chap07b exists only as an outline -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; removed 2026-08-09 per teacher confirmation that supplement hasn't been taught since year one. The Pico I2C chapter (see 2.1's note) still doesn't touch compression at all."
    },
    "2.3": {
     "locators": [
@@ -230,13 +219,13 @@
     "locators": [
      "7b"
     ],
-    "note": "Same underlying content as AP 2.1/DAT-1.A (data represented using bits), carried by Interlude B ('Representing Data'), positioned after chapter 19 -- see apcsp.json's 2.1 note for the full carrier detail, including that chap07b is an outline only as of 2026-08-17, not drafted prose. Previously logged as carried by CS50T Multimedia, same as that AP topic; removed 2026-08-09 -- teacher confirms that supplement hasn't been taught since year one. Pico I2C unit remains a secondary, partial touchpoint."
+    "note": "Same underlying content as AP 2.1/DAT-1.A (data represented using bits), carried by the interlude between chapters 7 and 8 ('Representing Data', chap07b) -- see apcsp.json's 2.1 note for the full carrier detail, including that chap07b is an outline only as of 2026-08-17, not drafted prose. Previously logged as carried by CS50T Multimedia, same as that AP topic; removed 2026-08-09 -- teacher confirms that supplement hasn't been taught since year one. Pico I2C unit remains a secondary, partial touchpoint."
    },
    "9-12.DA.9": {
     "locators": [
      "7b"
     ],
-    "note": "Partially carried: the CED's own worked example for this standard is file-size-vs-quality tradeoffs across image formats -- the same territory as AP 2.2/DAT-1.D (data compression), which Interlude B ('Representing Data'), positioned after chapter 19 now covers. But DA.9's scope is broader than 2.2 alone (storage location, cost, reliability, privacy, integrity), and chap07b's outline doesn't reach those dimensions -- see apcsp.json's 2.2 note. As of 2026-08-17 chap07b is an outline only, not drafted prose. Previously logged as carried by CS50T Multimedia; removed 2026-08-09, same reason as DA.8."
+    "note": "Partially carried: the CED's own worked example for this standard is file-size-vs-quality tradeoffs across image formats -- the same territory as AP 2.2/DAT-1.D (data compression), which the interlude between chapters 7 and 8 ('Representing Data', chap07b) now covers. But DA.9's scope is broader than 2.2 alone (storage location, cost, reliability, privacy, integrity), and chap07b's outline doesn't reach those dimensions -- see apcsp.json's 2.2 note. As of 2026-08-17 chap07b is an outline only, not drafted prose. Previously logged as carried by CS50T Multimedia; removed 2026-08-09, same reason as DA.8."
    },
    "9-12.DA.10": {
     "locators": [],
@@ -414,6 +403,55 @@
     "locators": [],
     "note": "Not covered. Same status as this file's core 9-12.DA.11 entry: chap12's Markov text model is a model of sorts, but the chapter never judges how accurately it represents anything or uses that judgment to refine a hypothesis.",
     "checked": true
+   }
+  },
+  "csta2017": {
+   "3A-AP-14": {
+    "locators": [
+     9
+    ],
+    "strength": "strong",
+    "note": "Read directly against CSTA's own text: chap09 (Lists) is a direct match for lists replacing near-identical variables. Same evidence as 9-12.AP.13 above."
+   },
+   "3A-AP-15": {
+    "locators": [
+     5,
+     6
+    ],
+    "strength": "strong",
+    "note": "Read directly against CSTA's own text: the iterative-vs-recursive Fibonacci comparison across chap05/chap06 is exactly picking one control structure over another and weighing the tradeoff, matching CSTA's own defend-your-choice framing directly. Same evidence as 9-12.AP.14 above."
+   },
+   "3A-AP-17": {
+    "locators": [
+     3,
+     4
+    ],
+    "strength": "partial",
+    "note": "Read directly against CSTA's own text: chap03/chap04's function-decomposition material carries the procedure half of this standard directly. The classes material (chapters 14-19) that would carry the object half is independent-study/post-AP-exam content, not part of the sequenced course, so this stays partial rather than strong, same caveat as 9-12.AP.16 above."
+   },
+   "3A-AP-18": {
+    "locators": [
+     2,
+     4,
+     8
+    ],
+    "strength": "strong",
+    "note": "Read directly against CSTA's own text: chap02's import, chap04's jupyturtle, and chap08's re module are all building from code someone else wrote, matching CSTA's own 'including code someone else wrote' framing directly. Same evidence as 9-12.AP.17 above."
+   },
+   "3A-AP-21": {
+    "locators": [
+     4,
+     7
+    ],
+    "strength": "related",
+    "note": "Read directly against CSTA's own text: chap04's development plan and chap07's doctest work are real iterative testing, but CSTA's own standard specifically names usability and accessibility, which neither chapter addresses, the same gap the 9-12.AP.20 note above already flags."
+   },
+   "3A-DA-10": {
+    "locators": [
+     "7b"
+    ],
+    "strength": "partial",
+    "note": "Read directly against CSTA's own text: interlude 7b's file-size-vs-quality tradeoffs across image formats is adjacent storage-tradeoff territory, but the interlude's own framing leans on compression rather than CSTA's specific local-vs-cloud, cost/speed/privacy framing, same partial rating as the 9-12.DA.9 note above."
    }
   },
   "csta2026": {
