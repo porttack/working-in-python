@@ -8779,3 +8779,86 @@ corrections, all from direct observation rather than guesswork:
   running the cell again reopens Select Kernel with "Python Environments..." as an option,
   which opens a list where `.venv` appears explicitly marked **Recommended**. Rewritten as
   that two-step sequence instead of the single guessed step.
+
+## 2026-10-06 — state/stack diagram figures cut from chapters 2 and 7 (Pass 2, ad hoc)
+
+Maintainer request, out of the normal pass order: "can we remove most/all of the state
+diagram stuff from working in python chapters 1-11? ... kids do it, but I'm not really sure
+they benefit." This is not a VA-removal decision and isn't in the treatment matrix; treated
+as a one-off destructive-edit task under Pass 2's mode since that's what it is mechanically.
+
+**What was actually in scope, found by inspection, not assumption:** grepped `chapters/` for
+"state diagram" and "stack diagram" before touching anything. Five chapters use the term:
+ch. 2 and 7 (variable state diagrams), ch. 3 (stack diagrams -- a distinct concept, function
+frames, not variable bindings), and ch. 9/10/14 (state diagrams again, for list/dict/object
+aliasing -- kept, per the maintainer's own earlier reasoning about why those matter).
+
+**Ch. 3 was proposed for the same cut and explicitly rejected after checking forward
+dependencies:** chapters 4, 5, and 6 all reuse stack diagrams for recursion, and ch. 5 has an
+exercise that says "Draw a stack diagram that shows..." -- an actual skill the chapter never
+would have taught if ch. 3's introduction were removed. Raised to the maintainer rather than
+decided silently (CLAUDE.md's "any temptation to restructure... resequence... upstream
+prose"); maintainer chose to keep ch. 3 as-is. **Left untouched entirely -- zero changes.**
+
+**Ch. 2 had the same forward-dependency problem** (its "State diagrams" section is the one
+place the term and glossary entry are defined; ch. 9/10/14 all say "the state diagram looks
+like this" assuming it was already taught) **but the maintainer chose to relocate the
+definition rather than keep ch. 2's section.** Also raised rather than decided, per the same
+CLAUDE.md principle.
+
+**What was actually done:**
+- Ch. 2: removed the whole "## State diagrams" section (4 cells: header, two diagram-code
+  cells, closing paragraph) and its glossary entry. The section was fully self-contained --
+  nothing before or after it in the chapter referenced it -- so no prose repair was needed
+  there.
+- Ch. 7: removed its one state-diagram figure (intro sentence + two diagram-code cells).
+  The following cell had two sentences describing the diagram's arrows ("The dotted arrow
+  indicates...") immediately followed by an unrelated sentence introducing **update** --
+  trimmed the diagram-description sentences, kept the **update** sentence verbatim, no
+  further repair needed. Checked: no other chapter references ch. 7's "rebind"/dotted-arrow/
+  solid-arrow language, so this was a clean, isolated cut.
+- Ch. 9: ch. 2's definition paragraph ("A common way to represent variables on paper...")
+  moved here essentially verbatim, prepended to ch. 9's own first state-diagram figure (the
+  first point after the cut where the term is used), plus the glossary entry, inserted right
+  after `nested list` to match where it now first comes up. This is new-to-ch.9 content but
+  not new *prose* -- it's Downey's own sentences, relocated, not rewritten.
+- `alignment/vocabulary-by-chapter.md` hand-edited to move the `state diagram` row from the
+  Chapter 2 section to the Chapter 9 section (this file is hand-authored, chapter mapping and
+  all -- confirmed by reading `tools/build_vocabulary_by_chapter.py`'s own docstring before
+  touching it, not assumed). Then `make vocab-by-chapter` and `make glossary` regenerated the
+  derived `.html`/`ap-vocabulary-glossary.*` files from that edit, confirmed by grepping the
+  output for the corrected chapter number (was "2", now "9").
+
+**Tooling gotcha worth recording for the next pass:** `NotebookEdit` round-trips the whole
+`.ipynb` file through its own JSON writer, which uses `ensure_ascii=False` and collapses a
+cell's `source` to a single string instead of the list-of-lines nbformat already used
+throughout this repo -- it rewrote *every* cell containing a non-ASCII character (em dashes,
+the pseudocode arrow) anywhere in the file, not just the cells actually touched, massively
+inflating the diff. Caught by reading the diff before building anything, not after. Fixed by
+discarding `NotebookEdit`'s output and reconstructing the three touched files directly from
+`git show HEAD:<path>` JSON plus the intended cell-level changes
+(`json.dump(..., ensure_ascii=True, indent=1)`, trailing newline, `text.splitlines
+(keepends=True)` for any cell whose source actually changed), which reproduced the repo's
+existing byte-for-byte formatting for every untouched cell. **If a future pass uses
+`NotebookEdit` on this repo, diff the result before running `make projector` -- don't trust
+that an edited cell's neighbors came through unchanged.**
+
+**Verified:** `make check` clean (blanks/, check_sync, jupyterlite check) before and after;
+`git diff` against the pre-edit HEAD shows only the four intended cell-level changes per file
+plus the removed/added lines described above -- nothing else moved. `data/exercise-ledger.json`
+untouched: neither chapter's exercises section mentions diagrams, confirmed by grep before
+concluding no ledger entry was needed. Ran `make ledger` once to sanity-check regeneration
+was clean; it instead surfaced an unrelated, pre-existing drift (`CHANGELOG_DETAIL.md` still
+has `chap06b` where the ledger itself already says `interlude-a`, left over from the
+2026-09-13 interlude rename never having regenerated this file) -- reverted that output since
+it's out of this task's scope; **next pass that touches `interlude-a`/`interlude-b` should run
+`make ledger` for real and commit the result.**
+
+**What the next pass needs to know:** this doesn't close out any pass or tier -- it's a
+narrow, maintainer-directed cut that happened to land in three already-"done" chapters (2, 3,
+7 are all marked done in Pass 2's status line; ch. 9 is also done). No status-line change
+needed beyond noting this happened; the chapters aren't reopening any larger scope. Chapters
+10 and 14 still show state diagrams for dict/object aliasing, unchanged, per the maintainer's
+original reasoning (kept because dict/object aliasing is where the concept has to pay for
+itself). If the maintainer later wants the same style of review for chapters 8-11's other
+visual aids, that would be a fresh ask, not an extension of this one.

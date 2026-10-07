@@ -5,6 +5,29 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-10-06 — state/stack diagram figures cut from chapters 2 and 7
+
+### Removed
+- Chapter 2's "State diagrams" section (header, the two diagram-generating code cells, and
+  the closing explanation) and its `state diagram` glossary entry -- maintainer judgment call
+  that the figure wasn't earning its keep for a first exposure to variables.
+- Chapter 7's single state-diagram figure (rebinding example): the intro sentence and its two
+  diagram-generating code cells. The closing cell's two diagram-description sentences ("The
+  dotted arrow...") were trimmed; the remaining sentence defining **update** stood on its own
+  and was kept as-is.
+- Chapter 3's stack-diagram section was considered for the same cut but kept: chapters 4-6
+  reuse stack diagrams for recursion, and chapter 5 has an exercise asking students to draw
+  one, so removing the introduction there would have left those chapters referencing an
+  untaught concept.
+
+### Changed
+- Chapter 9 now carries the `state diagram` term's first introduction (one paragraph, moved
+  essentially verbatim from chapter 2, prepended to the chapter's own first state-diagram
+  figure) and the glossary entry, since chapters 9, 10, and 14 all use the term assuming it
+  was already taught. `alignment/vocabulary-by-chapter.md` and the generated
+  `ap-vocabulary-glossary.*` / `vocabulary-by-chapter.html` updated to match (chapter 9, not
+  2). See `AUDIT.md`.
+
 ## 2026-09-13 (2) — "Using an Existing Codespace" rewritten as explicit steps; requirements.txt added
 
 ### Changed

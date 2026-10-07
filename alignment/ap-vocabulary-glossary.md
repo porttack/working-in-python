@@ -366,7 +366,7 @@ Where this book uses a different word than the exam for the same idea (e.g. this
 | **specialization** |  | 17 | A way of using inheritance to create a new class that is a specialized version of an existing class. |
 | **speedup** | AP | — | Sequential time divided by parallel time. |
 | **stack diagram** |  | 3 | A graphical representation of a stack of functions, their variables, and the values they refer to. |
-| **state diagram** |  | 2 | A graphical representation of a set of variables and the values they refer to. |
+| **state diagram** |  | 9 | A graphical representation of a set of variables and the values they refer to. |
 | **statement** |  | 2 | One or more lines of code that represent a command or action. |
 | **static method** |  | 15 | A method that can be invoked without an object as receiver. |
 | **string** | AP | 1 | A type that represents sequences of characters. |
