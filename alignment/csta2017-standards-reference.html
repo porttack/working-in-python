@@ -50,6 +50,15 @@ h1 { margin-top: 0; }
   border-radius: 5px; padding: .05em .4em; color: var(--accent); white-space: nowrap;
 }
 .weight { font-size: .78rem; color: var(--muted); font-weight: normal; }
+.topic-weight-estimate { cursor: help; border-bottom: 1px dotted var(--muted); }
+.page-toggles { display: flex; flex-wrap: wrap; gap: .4em 1.2em; margin: 0 0 1.2rem; }
+.page-toggle-label {
+  display: inline-flex; align-items: center; gap: .4em; font-size: .82rem; color: var(--muted);
+}
+.page-toggle-label input { margin: 0; }
+body.hide-topic-weights .topic-weight-estimate { display: none; }
+body.hide-carriers .meta, body.hide-carriers .meta-list { display: none; }
+body.hide-los .lo { display: none; }
 .anchor-link {
   color: var(--muted); text-decoration: none; margin-right: .35em; font-weight: normal;
   opacity: .5;
@@ -67,6 +76,14 @@ section.big-idea > h2 { font-size: 1.5rem; }
 .topic h3 { margin: 0 0 .3rem; font-size: 1.1rem; }
 .topic .paraphrase { margin: .3rem 0; }
 .topic .meta { font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; }
+.topic .meta-list { list-style: none; font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; padding: 0; }
+.topic .meta-list li { margin: .3rem 0; padding-left: 1.1rem; text-indent: -1.1rem; }
+.topic .meta-list strong { color: var(--fg); }
+.meta-strength { font-style: italic; }
+.topic .meta-list .meta-note {
+  text-indent: 0; font-size: .92em; border-left: 3px solid var(--border);
+  padding-left: .6rem; margin: .35rem 0 .1rem;
+}
 .topic .note { font-size: .82rem; color: var(--muted); border-left: 3px solid var(--border); padding-left: .6rem; margin: .5rem 0; }
 .lo { margin: .9rem 0 .9rem .2rem; }
 .lo h4 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 600; }
@@ -226,6 +243,7 @@ as-is. See _standards/crosswalk-castandards-csta2017.json for how these compare 
 K-12 CS standards -- most match closely, but a few diverge in wording or don't correspond to any
 single CA standard. <strong>Scope.</strong> This copy shows only what Working in Python carries.</div>
 <input id="search" type="search" placeholder="Filter by code or text…" aria-label="Filter standards">
+<div class="page-toggles"><label class="page-toggle-label"><input type="checkbox" class="page-toggle" data-hide-class="hide-carriers" checked> Show which curricula cover each item</label></div>
 <section class="big-idea" id="AP">
 <h2><a class="anchor-link" href="#AP">#</a><span class="code-badge">AP</span> Algorithms &amp; Programming</h2>
 <div class="topic" id="S-2-AP-10">
@@ -275,10 +293,14 @@ single CA standard. <strong>Scope.</strong> This copy shows only what Working in
 <div class="topic" id="S-3A-AP-14">
 <h3><a class="anchor-link" href="#S-3A-AP-14">#</a><span class="code-badge">3A-AP-14</span></h3>
 <p class="paraphrase">When several near-identical variables start to pile up, a list lets you generalize the pattern instead of repeating nearly the same code for each one.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap09.html?readonly">Chapter 9 (Lists)</a></p>
+<p class="note">Read directly against CSTA's own text: Chapter 9 (Lists) is a direct match for lists replacing near-identical variables. Same evidence as 9-12.AP.13 above.</p>
 </div>
 <div class="topic" id="S-3A-AP-15">
 <h3><a class="anchor-link" href="#S-3A-AP-15">#</a><span class="code-badge">3A-AP-15</span></h3>
 <p class="paraphrase">Picking one control structure over another, like a loop instead of recursion, is a real design decision with tradeoffs in readability and performance that you should be able to defend.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a></p>
+<p class="note">Read directly against CSTA's own text: the iterative-vs-recursive Fibonacci comparison across Chapter 5/Chapter 6 is exactly picking one control structure over another and weighing the tradeoff, matching CSTA's own defend-your-choice framing directly. Same evidence as 9-12.AP.14 above.</p>
 </div>
 <div class="topic" id="S-3A-AP-16">
 <h3><a class="anchor-link" href="#S-3A-AP-16">#</a><span class="code-badge">3A-AP-16</span></h3>
@@ -287,10 +309,14 @@ single CA standard. <strong>Scope.</strong> This copy shows only what Working in
 <div class="topic" id="S-3A-AP-17">
 <h3><a class="anchor-link" href="#S-3A-AP-17">#</a><span class="code-badge">3A-AP-17</span></h3>
 <p class="paraphrase">Breaking a hard problem down systematically, into procedures, modules, or objects, is what makes it possible to reuse pieces that already exist instead of solving everything from scratch.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a> <span class="meta-strength">(partial)</span></p>
+<p class="note">Read directly against CSTA's own text: Chapter 3/Chapter 4's function-decomposition material carries the procedure half of this standard directly. The classes material (chapters 14-19) that would carry the object half is independent-study/post-AP-exam content, not part of the sequenced course, so this stays partial rather than strong, same caveat as 9-12.AP.16 above.</p>
 </div>
 <div class="topic" id="S-3A-AP-18">
 <h3><a class="anchor-link" href="#S-3A-AP-18">#</a><span class="code-badge">3A-AP-18</span></h3>
 <p class="paraphrase">A complex artifact is usually a system of smaller interacting pieces, whether that's procedures inside one program or several programs that work together, each with its own role.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></p>
+<p class="note">Read directly against CSTA's own text: Chapter 2's import, Chapter 4's jupyturtle, and Chapter 8's re module are all building from code someone else wrote, matching CSTA's own 'including code someone else wrote' framing directly. Same evidence as 9-12.AP.17 above.</p>
 </div>
 <div class="topic" id="S-3A-AP-19">
 <h3><a class="anchor-link" href="#S-3A-AP-19">#</a><span class="code-badge">3A-AP-19</span></h3>
@@ -303,6 +329,8 @@ single CA standard. <strong>Scope.</strong> This copy shows only what Working in
 <div class="topic" id="S-3A-AP-21">
 <h3><a class="anchor-link" href="#S-3A-AP-21">#</a><span class="code-badge">3A-AP-21</span></h3>
 <p class="paraphrase">Testing and refining a program isn't just about fixing bugs, it's also the process that makes it more usable and accessible to the people who'll actually use it.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a> <span class="meta-strength">(related)</span></p>
+<p class="note">Read directly against CSTA's own text: Chapter 4's development plan and Chapter 7's doctest work are real iterative testing, but CSTA's own standard specifically names usability and accessibility, which neither chapter addresses, the same gap the 9-12.AP.20 note above already flags.</p>
 </div>
 <div class="topic" id="S-3A-AP-22">
 <h3><a class="anchor-link" href="#S-3A-AP-22">#</a><span class="code-badge">3A-AP-22</span></h3>
@@ -456,6 +484,8 @@ single CA standard. <strong>Scope.</strong> This copy shows only what Working in
 <div class="topic" id="S-3A-DA-10">
 <h3><a class="anchor-link" href="#S-3A-DA-10">#</a><span class="code-badge">3A-DA-10</span></h3>
 <p class="paraphrase">Where and how you store data, like locally versus in the cloud, involves real tradeoffs in cost, speed, and privacy, not just a technical preference.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap07b.html?readonly">Interlude B (Representing Data, outline only)</a> <span class="meta-strength">(partial)</span></p>
+<p class="note">Read directly against CSTA's own text: interlude 7b's file-size-vs-quality tradeoffs across image formats is adjacent storage-tradeoff territory, but the interlude's own framing leans on compression rather than CSTA's specific local-vs-cloud, cost/speed/privacy framing, same partial rating as the 9-12.DA.9 note above.</p>
 </div>
 <div class="topic" id="S-3A-DA-11">
 <h3><a class="anchor-link" href="#S-3A-DA-11">#</a><span class="code-badge">3A-DA-11</span></h3>
@@ -627,6 +657,27 @@ single CA standard. <strong>Scope.</strong> This copy shows only what Working in
       });
       topicEl.classList.toggle('hidden', !anyVisible && !topicMatches);
     });
+  });
+})();
+</script>
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  document.querySelectorAll('.page-toggle').forEach(function(input) {
+    var hideClass = input.dataset.hideClass;
+    if (!hideClass) return;
+    // ?<param>=0 (or "false") forces it off, ?<param>=1 (or present/anything
+    // else) forces it on -- lets a link hand out a pre-set view, e.g.
+    // "...?los=1" to turn Learning Objectives/Essential Knowledge on despite
+    // the page's own default.
+    var paramKey = hideClass.replace(/^hide-/, "");
+    if (params.has(paramKey)) {
+      var v = params.get(paramKey);
+      input.checked = v !== "0" && v !== "false";
+    }
+    function sync() { document.body.classList.toggle(hideClass, !input.checked); }
+    input.addEventListener('change', sync);
+    sync();
   });
 })();
 </script>

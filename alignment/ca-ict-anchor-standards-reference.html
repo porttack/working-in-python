@@ -50,6 +50,15 @@ h1 { margin-top: 0; }
   border-radius: 5px; padding: .05em .4em; color: var(--accent); white-space: nowrap;
 }
 .weight { font-size: .78rem; color: var(--muted); font-weight: normal; }
+.topic-weight-estimate { cursor: help; border-bottom: 1px dotted var(--muted); }
+.page-toggles { display: flex; flex-wrap: wrap; gap: .4em 1.2em; margin: 0 0 1.2rem; }
+.page-toggle-label {
+  display: inline-flex; align-items: center; gap: .4em; font-size: .82rem; color: var(--muted);
+}
+.page-toggle-label input { margin: 0; }
+body.hide-topic-weights .topic-weight-estimate { display: none; }
+body.hide-carriers .meta, body.hide-carriers .meta-list { display: none; }
+body.hide-los .lo { display: none; }
 .anchor-link {
   color: var(--muted); text-decoration: none; margin-right: .35em; font-weight: normal;
   opacity: .5;
@@ -67,6 +76,14 @@ section.big-idea > h2 { font-size: 1.5rem; }
 .topic h3 { margin: 0 0 .3rem; font-size: 1.1rem; }
 .topic .paraphrase { margin: .3rem 0; }
 .topic .meta { font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; }
+.topic .meta-list { list-style: none; font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; padding: 0; }
+.topic .meta-list li { margin: .3rem 0; padding-left: 1.1rem; text-indent: -1.1rem; }
+.topic .meta-list strong { color: var(--fg); }
+.meta-strength { font-style: italic; }
+.topic .meta-list .meta-note {
+  text-indent: 0; font-size: .92em; border-left: 3px solid var(--border);
+  padding-left: .6rem; margin: .35rem 0 .1rem;
+}
 .topic .note { font-size: .82rem; color: var(--muted); border-left: 3px solid var(--border); padding-left: .6rem; margin: .5rem 0; }
 .lo { margin: .9rem 0 .9rem .2rem; }
 .lo h4 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 600; }
@@ -155,6 +172,7 @@ Curriculum Standards, ICT sector (2013): the 11 cross-sector anchor standards pl
 Pathway C (Software and Systems Development). <strong>What this is not.</strong> Original
 paraphrases, not the CDE's text; only codes are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working in Python carries.</div>
 <input id="search" type="search" placeholder="Filter by code or text…" aria-label="Filter standards">
+<div class="page-toggles"><label class="page-toggle-label"><input type="checkbox" class="page-toggle" data-hide-class="hide-carriers" checked> Show which curricula cover each item</label></div>
 <h2 id="anchors">Anchor Standards</h2>
 <div class="topic" id="T-1.0">
 <h3><a class="anchor-link" href="#T-1.0">#</a><span class="code-badge">1.0</span> Academics</h3>
@@ -237,29 +255,29 @@ paraphrases, not the CDE's text; only codes are reproduced as-is. <strong>Scope.
 <li id="T-5.4"><a class="anchor-link" href="#T-5.4">#</a><span class="code-badge">5.4</span> Drawing a sound conclusion from analysis is what actually informs a good decision.
 </li>
 <li id="T-5.5"><a class="anchor-link" href="#T-5.5">#</a><span class="code-badge">5.5</span> Tracking a problem to its source takes a structured, logical approach, not guesswork.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a></p></div>
 <div class="item-note">Chapter 5's Debugging section traces a symptom back to its structural cause rather than guessing: an indentation error reported at one line but caused by the line above, a decibels bug reported at line 5 but actually on line 4 (integer division). Headers only -- the chapter demonstrates this but doesn't name it as its own skill.</div>
 </li>
 <li id="T-5.6"><a class="anchor-link" href="#T-5.6">#</a><span class="code-badge">5.6</span> Knowing where to look for help solving a problem is itself a resource worth knowing.
 </li>
 <li id="T-5.7"><a class="anchor-link" href="#T-5.7">#</a><span class="code-badge">5.7</span> Some problems get solved by working through them repeatedly, refining the approach each pass.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></p></div>
 <div class="item-note">Chapter 7's has_e build-up (inline loop, then encapsulated, then a boolean return, then parameterized) and the incremental construction of uses_any mirror this standard's start-rough-and-refine framing -- the same pattern as AP's 3.9 Developing Algorithms, from the Anchor-standard side.</div>
 </li>
 <li id="T-5.8"><a class="anchor-link" href="#T-5.8">#</a><span class="code-badge">5.8</span> Algorithms are a tool for solving problems, not just an abstract concept.
 </li>
 <li id="T-5.9"><a class="anchor-link" href="#T-5.9">#</a><span class="code-badge">5.9</span> A large problem becomes tractable once it's broken into smaller components.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a></p></div>
 <div class="item-note">Chapter 3's 'Why functions?' section explicitly frames functions as a way to divide a big program into smaller, debuggable, reusable pieces -- a direct match. Chapter 4's development plan is a literal, numbered decomposition procedure. Chapter 5's recursive decomposition (countdown, the Sierpinski exercise splitting a triangle of degree n into three of degree n-1) is a purer instance of the same idea.</div>
 </li>
 <li id="T-5.10"><a class="anchor-link" href="#T-5.10">#</a><span class="code-badge">5.10</span> Layers of abstraction let you work with a system without tracking every detail underneath it.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a></p></div>
 <div class="item-note">Calling repeat/print_twice without re-deriving what's inside them is a first, light instance of working through a layer of abstraction -- headers only, since the book doesn't use the word 'abstraction' this early and the connection is implicit. Chapter 4's interface/implementation split (two different circle implementations sharing one interface) makes the concept explicit for the first time. Chapter 6's leap of faith -- trusting a function's return value without re-examining its body -- is the clearest, most direct treatment of abstraction in the book so far.</div>
 </li>
 <li id="T-5.11"><a class="anchor-link" href="#T-5.11">#</a><span class="code-badge">5.11</span> Numbers can be represented in more than one base system, including binary and hexadecimal.
 </li>
 <li id="T-5.12"><a class="anchor-link" href="#T-5.12">#</a><span class="code-badge">5.12</span> Boolean logic underlies both decision-making and searching in computing.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></p></div>
 <div class="item-note">Chapter 5's boolean expressions and logical operators feed directly into its if statements -- boolean logic driving decision-making is the chapter's structure, not just present in it. Chapter 7's has_e/uses_any (booleans built from in/or) driving linear search, and Chapter 8's re.search result tested against None, are the searching half of the same standard -- the single best new match found in either chapter.</div>
 </li>
 </ul>
@@ -465,31 +483,31 @@ paraphrases, not the CDE's text; only codes are reproduced as-is. <strong>Scope.
 <li id="T-C4.3"><a class="anchor-link" href="#T-C4.3">#</a><span class="code-badge">C4.3</span> Software gets built inside some kind of environment -- a simple content editor on one end, a full-featured IDE on the other.
 </li>
 <li id="T-C4.4"><a class="anchor-link" href="#T-C4.4">#</a><span class="code-badge">C4.4</span> Data has types, and those types get encoded in specific ways.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a></p></div>
 <div class="item-note">Chapter 1 introduces int, float, and str as distinct types with different encodings, and the type() function to check them -- a direct match. Chapter 6's Checking types section (isinstance, a type-guarded factorial) extends it with a second, applied instance -- checking a type at runtime, not just naming types.</div>
 </li>
 <li id="T-C4.5"><a class="anchor-link" href="#T-C4.5">#</a><span class="code-badge">C4.5</span> Programming paradigms differ -- procedural, object-oriented, event-driven, multithreaded -- and each shapes how code gets structured.
 </li>
 <li id="T-C4.6"><a class="anchor-link" href="#T-C4.6">#</a><span class="code-badge">C4.6</span> Every programming language has its own syntax, and using it correctly matters.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a></p></div>
 <div class="item-note">Chapter 1 introduces syntax errors (missing parentheses, illegal quote marks); Chapter 2's Debugging section explicitly names 'syntax error' as one of three error kinds. Both are about a language's own syntax rules, matching this standard directly.</div>
 </li>
 <li id="T-C4.7"><a class="anchor-link" href="#T-C4.7">#</a><span class="code-badge">C4.7</span> Data structures, arrays, objects, files, and databases are all ways of organizing a program's data.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a>, <a href="https://python.porttack.com/chap09.html?readonly">Chapter 9 (Lists)</a>, <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a>, <a href="https://python.porttack.com/chap11.html?readonly">Chapter 11 (Tuples)</a>, <a href="https://python.porttack.com/chap13.html?readonly">Chapter 13 (Files and Databases)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a>, <a href="https://python.porttack.com/chap09.html?readonly">Chapter 9 (Lists)</a>, <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a>, <a href="https://python.porttack.com/chap11.html?readonly">Chapter 11 (Tuples)</a>, <a href="https://python.porttack.com/chap13.html?readonly">Chapter 13 (Files and Databases)</a></p></div>
 <div class="item-note">Chapter 8's Writing files section (open, read mode vs 'w' mode, close) is a direct match for this standard's 'files' item. Chapters 9 (lists), 10 (dictionaries), 11 (tuples), and 13 (files and shelve-based key-value storage) extend it to the 'data structures' and 'databases' items -- in sequence, this book's treatment of every structure this standard names except objects.</div>
 </li>
 <li id="T-C4.8"><a class="anchor-link" href="#T-C4.8">#</a><span class="code-badge">C4.8</span> Object-oriented programming brings its own vocabulary: objects, properties, methods, inheritance.
 </li>
 <li id="T-C4.9"><a class="anchor-link" href="#T-C4.9">#</a><span class="code-badge">C4.9</span> A working program leans on a shared toolkit of constructs -- branches and loops, reusable procedures and functions that take parameters, variables to hold state, ways to recover from errors, and sometimes a function that calls itself.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></p></div>
 <div class="item-note">Chapter 2 introduces variables; Chapter 3 introduces functions, parameters, and the for loop, plus error handling via %%expect. Chapter 4 adds keyword arguments and more parameter work than chapters 2-3 combined. Chapter 5 adds branches (conditionals) and Chapter 6 adds recursion -- 'sometimes a function that calls itself' is this standard's own closing phrase, and Chapter 6's factorial/fibonacci are exactly that. Chapter 7 reinforces variables-holding-state (Updating variables) and a second error-recovery demo. Chapter 8 adds branch-on-condition file-reading loops and TypeError/IndexError recovery. By chapter 8 this standard's full construct list is covered.</div>
 </li>
 <li id="T-C4.10"><a class="anchor-link" href="#T-C4.10">#</a><span class="code-badge">C4.10</span> Different queueing, sorting, and searching algorithms trade off differently against each other.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></p></div>
 <div class="item-note">Chapter 7's Search section explicitly names and builds the linear-search pattern -- the searching half of this standard. The trade-off half isn't reached; no second search algorithm exists yet to compare it against. Headers only.</div>
 </li>
 <li id="T-C4.11"><a class="anchor-link" href="#T-C4.11">#</a><span class="code-badge">C4.11</span> Development work needs documentation aimed at more than one audience -- comments for other programmers, manuals for users.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a></p></div>
 <div class="item-note">Chapter 2's Comments section is the 'comments for other programmers' half of this standard. Chapter 4's Docstrings section is a more formal instance of the same half -- a documented contract rather than a plain comment, so a distinct but related carrier, not a repeat. The 'manuals for users' half still isn't addressed anywhere.</div>
 </li>
 </ul>
@@ -503,17 +521,17 @@ paraphrases, not the CDE's text; only codes are reproduced as-is. <strong>Scope.
 <li id="T-C5.2"><a class="anchor-link" href="#T-C5.2">#</a><span class="code-badge">C5.2</span> A program sometimes has to change because its own specification changed, or because the technology around it moved on.
 </li>
 <li id="T-C5.3"><a class="anchor-link" href="#T-C5.3">#</a><span class="code-badge">C5.3</span> Code can be optimized deliberately for better performance.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a></p></div>
 <div class="item-note">Same evidence as this file's new apcsp 3.17 and csta2026 HS-ALG-PS-03 entries: Chapter 10's too_slow rewritten as much_faster is a deliberate, measured performance optimization, not an incidental speedup.</div>
 </li>
 <li id="T-C5.4"><a class="anchor-link" href="#T-C5.4">#</a><span class="code-badge">C5.4</span> Testing is a distinct step applied to both software and the broader project.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></p></div>
 <div class="item-note">Chapter 7's Doctest section -- docstring-embedded tests, a dedicated pass/fail vocabulary, and a runner function built for the purpose -- is close to a literal match for testing as its own distinct development step.</div>
 </li>
 <li id="T-C5.5"><a class="anchor-link" href="#T-C5.5">#</a><span class="code-badge">C5.5</span> A finished result gets evaluated against what it was originally required to do.
 </li>
 <li id="T-C5.6"><a class="anchor-link" href="#T-C5.6">#</a><span class="code-badge">C5.6</span> Debugging is part of quality assurance, not separate from it.
-<div class="item-meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></div>
+<div class="item-meta"><p class="meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></p></div>
 <div class="item-note">Every chapter's Debugging section -- same pattern as AP CRD-1.4/CRD-2.I, already the carrier for AP topic 1.4 in every chapter. Headers only throughout; no single chapter's Debugging section is more chapter-specific than any other's.</div>
 </li>
 </ul>
@@ -642,6 +660,27 @@ paraphrases, not the CDE's text; only codes are reproduced as-is. <strong>Scope.
       });
       topicEl.classList.toggle('hidden', !anyVisible && !topicMatches);
     });
+  });
+})();
+</script>
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  document.querySelectorAll('.page-toggle').forEach(function(input) {
+    var hideClass = input.dataset.hideClass;
+    if (!hideClass) return;
+    // ?<param>=0 (or "false") forces it off, ?<param>=1 (or present/anything
+    // else) forces it on -- lets a link hand out a pre-set view, e.g.
+    // "...?los=1" to turn Learning Objectives/Essential Knowledge on despite
+    // the page's own default.
+    var paramKey = hideClass.replace(/^hide-/, "");
+    if (params.has(paramKey)) {
+      var v = params.get(paramKey);
+      input.checked = v !== "0" && v !== "false";
+    }
+    function sync() { document.body.classList.toggle(hideClass, !input.checked); }
+    input.addEventListener('change', sync);
+    sync();
   });
 })();
 </script>

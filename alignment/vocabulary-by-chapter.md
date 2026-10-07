@@ -36,7 +36,6 @@ Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-1
 |---|---|---|
 | **variable** | AP | A name that refers to a value. |
 | **assignment statement** | AP | A statement that assigns a value to a variable. |
-| **state diagram** |  | A graphical representation of a set of variables and the values they refer to. |
 | **keyword** |  | A special word used to specify the structure of a program. |
 | **import statement** |  | A statement that reads a module file so we can use the variables and functions it contains. |
 | **module** | AP | A file that contains Python code, including function definitions and sometimes other statements. |
@@ -154,6 +153,7 @@ Every term from Downey's own chapter-ending `## Glossary` sections, chapters 1-1
 | **list** | AP | An object that contains a sequence of values. |
 | **element** | AP | One of the values in a list or other sequence. |
 | **nested list** |  | A list that is an element of another list. |
+| **state diagram** |  | A graphical representation of a set of variables and the values they refer to. |
 | **delimiter** |  | A character or string used to indicate where a string should be split. |
 | **equivalent** |  | Having the same value. |
 | **identical** |  | Being the same object (which implies equivalence). |

@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b384e4d8" />
@@ -467,7 +467,7 @@
                   
   <!-- apcsp:begin type="note" chapter="07" -->
 <p><strong>Other Ways to open this chapter:</strong>
-<a class="reference external" href="https://python.porttack.com/jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter07-Iteration-and-Search-v2.ipynb">JupyterLite</a> |
+<a class="reference external" href="https://python.porttack.com/jupyterlite-f6279f958e/notebooks/index.html?path=Chapter07-Iteration-and-Search-v2.ipynb">JupyterLite</a> |
 <a class="reference external" href="https://colab.research.google.com/github/porttack/working-in-python/blob/v3/chapters/chap07.ipynb">Colab</a> |
 <a class="reference external" href="https://python.porttack.com/chap07.html?readonly">Read Only</a> |
 <a href="https://python.porttack.com/_sources/chap07.ipynb" download="chap07.ipynb">Download</a></p>
@@ -489,7 +489,7 @@
 }
 </style>
 <div id="chap07-jupyterlite-pane">
-<iframe src="jupyterlite-e0a5a8455d/notebooks/index.html?path=Chapter07-Iteration-and-Search-v2.ipynb"></iframe>
+<iframe src="jupyterlite-f6279f958e/notebooks/index.html?path=Chapter07-Iteration-and-Search-v2.ipynb"></iframe>
 </div>
 <script>
 (function () {
@@ -729,30 +729,6 @@ A new assignment makes an existing variable refer to a new value (and stop refer
 </div>
 </div>
 </div>
-<p>The following figure shows what these assignments looks like in a state diagram.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_rebind</span><span class="p">,</span> <span class="n">draw_bindings</span>
-
-<span class="n">bindings</span> <span class="o">=</span> <span class="n">make_rebind</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">diagram</span><span class="p">,</span> <span class="n">adjust</span>
-
-<span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.54</span><span class="p">,</span> <span class="mf">0.61</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">]</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">diagram</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
-<span class="n">bbox</span> <span class="o">=</span> <span class="n">draw_bindings</span><span class="p">(</span><span class="n">bindings</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="c1"># adjust(x, y, bbox)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The dotted arrow indicates that <code class="docutils literal notranslate"><span class="pre">x</span></code> no longer refers to <code class="docutils literal notranslate"><span class="pre">5</span></code>.
-The solid arrow indicates that it now refers to <code class="docutils literal notranslate"><span class="pre">7</span></code>.</p>
 <p>A common kind of assignment is an <!--blank--><strong>update</strong><!--/blank-->, where the new value of
 the variable depends on the old.</p>
 <div class="cell docutils container">

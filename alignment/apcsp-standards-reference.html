@@ -50,6 +50,15 @@ h1 { margin-top: 0; }
   border-radius: 5px; padding: .05em .4em; color: var(--accent); white-space: nowrap;
 }
 .weight { font-size: .78rem; color: var(--muted); font-weight: normal; }
+.topic-weight-estimate { cursor: help; border-bottom: 1px dotted var(--muted); }
+.page-toggles { display: flex; flex-wrap: wrap; gap: .4em 1.2em; margin: 0 0 1.2rem; }
+.page-toggle-label {
+  display: inline-flex; align-items: center; gap: .4em; font-size: .82rem; color: var(--muted);
+}
+.page-toggle-label input { margin: 0; }
+body.hide-topic-weights .topic-weight-estimate { display: none; }
+body.hide-carriers .meta, body.hide-carriers .meta-list { display: none; }
+body.hide-los .lo { display: none; }
 .anchor-link {
   color: var(--muted); text-decoration: none; margin-right: .35em; font-weight: normal;
   opacity: .5;
@@ -67,6 +76,14 @@ section.big-idea > h2 { font-size: 1.5rem; }
 .topic h3 { margin: 0 0 .3rem; font-size: 1.1rem; }
 .topic .paraphrase { margin: .3rem 0; }
 .topic .meta { font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; }
+.topic .meta-list { list-style: none; font-size: .8rem; color: var(--muted); margin: .2rem 0 .8rem; padding: 0; }
+.topic .meta-list li { margin: .3rem 0; padding-left: 1.1rem; text-indent: -1.1rem; }
+.topic .meta-list strong { color: var(--fg); }
+.meta-strength { font-style: italic; }
+.topic .meta-list .meta-note {
+  text-indent: 0; font-size: .92em; border-left: 3px solid var(--border);
+  padding-left: .6rem; margin: .35rem 0 .1rem;
+}
 .topic .note { font-size: .82rem; color: var(--muted); border-left: 3px solid var(--border); padding-left: .6rem; margin: .5rem 0; }
 .lo { margin: .9rem 0 .9rem .2rem; }
 .lo h4 { margin: 0 0 .25rem; font-size: 1rem; font-weight: 600; }
@@ -184,8 +201,9 @@ footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; border-top: 1p
 framework — Practices, Big Ideas, Topics, Learning Objectives, and Essential Knowledge —
 for linking from standards-alignment work (AP CSP Course and Exam Description, effective Fall 2023 (V.1)).
 <strong>What this is not.</strong> Every sentence of description below is an original
-paraphrase, not College Board's text. Only the AP-assigned codes are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working in Python carries.</div>
+paraphrase, not College Board's text. Only the AP-assigned codes are reproduced as-is. <strong>Scope.</strong> This copy shows only what Working in Python carries. <strong>Topic weights.</strong> The “~…% MCQ, est.” figure next to each topic is this page’s own estimate (a Big Idea’s published range, split by each topic’s share of Essential Knowledge statements), not a College Board number.</div>
 <input id="search" type="search" placeholder="Filter by code or text…" aria-label="Filter standards">
+<div class="page-toggles"><label class="page-toggle-label"><input type="checkbox" class="page-toggle" data-hide-class="hide-topic-weights" checked> Show estimated topic weights</label><label class="page-toggle-label"><input type="checkbox" class="page-toggle" data-hide-class="hide-carriers" checked> Show which curricula cover each item</label><label class="page-toggle-label"><input type="checkbox" class="page-toggle" data-hide-class="hide-los"> Show learning objectives &amp; essential knowledge</label></div>
 <section id="practices"><h2>Computational Thinking Practices</h2>
 <table class="practice-table"><thead><tr><th>Code</th><th>Name</th><th>MCQ weight</th></tr></thead><tbody>
 <tr id="P1"><td><a class="anchor-link" href="#P1">#</a><span class="code-badge">P1</span></td><td>Computational Solution Design</td><td>18–25%</td></tr>
@@ -198,7 +216,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 <section class="big-idea" id="CRD">
 <h2><a class="anchor-link" href="#CRD">#</a><span class="code-badge">CRD</span> Big Idea 1: Creative Development <span class="weight">(10–13% MCQ)</span></h2>
 <div class="topic" id="T-1.1">
-<h3><a class="anchor-link" href="#T-1.1">#</a><span class="code-badge">1.1</span> Collaboration</h3>
+<h3><a class="anchor-link" href="#T-1.1">#</a><span class="code-badge">1.1</span> Collaboration <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 1. College Board does not publish an official per-topic weight.">(~1.8–2.3% MCQ, est.)</span></h3>
 <p class="paraphrase">Working with other people, and giving them credit, changes how a computing project turns out.</p>
 <div class="lo" id="CRD-1.A">
 <h4><a class="anchor-link" href="#CRD-1.A">#</a><span class="code-badge">CRD-1.A</span> <span class="lo-text">Explain how collaborating with others makes a computing innovation better than one person could make alone.</span></h4>
@@ -223,7 +241,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-1.2">
-<h3><a class="anchor-link" href="#T-1.2">#</a><span class="code-badge">1.2</span> Program Function and Purpose</h3>
+<h3><a class="anchor-link" href="#T-1.2">#</a><span class="code-badge">1.2</span> Program Function and Purpose <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 1. College Board does not publish an official per-topic weight.">(~3.0–3.9% MCQ, est.)</span></h3>
 <p class="paraphrase">A program exists to do something for someone, and describing what it does means naming its inputs, its outputs, and the behavior that connects them.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a></p>
 <p class="note">Chapter 1 frames programs generally; Chapter 5's 'Keyboard input' section is the book's only real input-handling content. The CED's event-driven-programming framing (CRD-2.C.5, CRD-2.C.6) has no counterpart -- this book's programs are run-to-completion scripts, not event loops.</p>
@@ -260,7 +278,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-1.3">
-<h3><a class="anchor-link" href="#T-1.3">#</a><span class="code-badge">1.3</span> Program Design and Development</h3>
+<h3><a class="anchor-link" href="#T-1.3">#</a><span class="code-badge">1.3</span> Program Design and Development <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 1. College Board does not publish an official per-topic weight.">(~3.6–4.7% MCQ, est.)</span></h3>
 <p class="paraphrase">Building a program well means planning before writing, documenting while writing, and being willing to revise.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a></p>
 <p class="note">Chapter 4's 'A development plan' and 'Docstrings' sections are a direct match for CRD-2.E/F/G. CRD-2.H (acknowledging code taken from another source) has no counterpart anywhere in the book -- a real gap, not just a light topic.</p>
@@ -300,7 +318,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-1.4">
-<h3><a class="anchor-link" href="#T-1.4">#</a><span class="code-badge">1.4</span> Identifying and Correcting Errors</h3>
+<h3><a class="anchor-link" href="#T-1.4">#</a><span class="code-badge">1.4</span> Identifying and Correcting Errors <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 1. College Board does not publish an official per-topic weight.">(~1.6–2.1% MCQ, est.)</span></h3>
 <p class="paraphrase">Programs fail in a few recognizable ways, and testing with well-chosen inputs -- including edge cases -- is how those failures get found before a user does.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a>, <a href="https://python.porttack.com/chap09.html?readonly">Chapter 9 (Lists)</a>, <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a>, <a href="https://python.porttack.com/chap11.html?readonly">Chapter 11 (Tuples)</a>, <a href="https://python.porttack.com/chap12.html?readonly">Chapter 12 (Text Analysis and Generation)</a>, <a href="https://python.porttack.com/chap13.html?readonly">Chapter 13 (Files and Databases)</a></p>
 <p class="note">Every chapter in the book carries a 'Debugging' section, confirmed by header scan. That is the strongest and most consistent alignment of any Big Idea 1 topic; Chapter 7's doctest material additionally matches CRD-2.J's testing-with-defined-inputs framing well.</p>
@@ -325,10 +343,10 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 <section class="big-idea" id="DAT">
 <h2><a class="anchor-link" href="#DAT">#</a><span class="code-badge">DAT</span> Big Idea 2: Data <span class="weight">(17–22% MCQ)</span></h2>
 <div class="topic" id="T-2.1">
-<h3><a class="anchor-link" href="#T-2.1">#</a><span class="code-badge">2.1</span> Binary Numbers</h3>
+<h3><a class="anchor-link" href="#T-2.1">#</a><span class="code-badge">2.1</span> Binary Numbers <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 2. College Board does not publish an official per-topic weight.">(~5.7–7.3% MCQ, est.)</span></h3>
 <p class="paraphrase">Computers store everything as bits, and binary place-value works the same way decimal place-value does, just base 2 instead of base 10.</p>
-<p class="meta">Covered in <a href="https://python.porttack.com/interlude-b.html?readonly">Interlude B (Representing Data, outline only)</a></p>
-<p class="note">Carried by Interlude B ('Representing Data'), positioned after chapter 19: bits, place value, binary/decimal/hex conversion by hand and via bin()/int(s, 2)/format(). As of 2026-08-17 Interlude B exists only as an outline (section headings, vocabulary, standards claims) -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; that supplement was dropped after year one and never taught again, so the assignment was stale -- removed 2026-08-09 per teacher confirmation. The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14, 'Digital communication protocols') remains a secondary, partial touchpoint (hexadecimal as byte notation) alongside Interlude B's fuller treatment.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap07b.html?readonly">Interlude B (Representing Data, outline only)</a></p>
+<p class="note">Carried by the interlude between chapters 7 and 8 ('Representing Data', Interlude B): bits, place value, binary/decimal/hex conversion by hand and via bin()/int(s, 2)/format(). As of 2026-08-17 Interlude B exists only as an outline (section headings, vocabulary, standards claims) -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; that supplement was dropped after year one and never taught again, so the assignment was stale -- removed 2026-08-09 per teacher confirmation. The Pico/MicroPython unit's I2C chapter (source/rpi-pico-2e ch.14, 'Digital communication protocols') remains a secondary, partial touchpoint (hexadecimal as byte notation) alongside Interlude B's fuller treatment.</p>
 <p class="note">Out of scope: specific range limitations for real numbers are outside course/exam scope (EK DAT-1.B.3)</p>
 <div class="lo" id="DAT-1.A">
 <h4><a class="anchor-link" href="#DAT-1.A">#</a><span class="code-badge">DAT-1.A</span> <span class="lo-text">Show how information gets encoded as sequences of bits.</span></h4>
@@ -362,10 +380,10 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-2.2">
-<h3><a class="anchor-link" href="#T-2.2">#</a><span class="code-badge">2.2</span> Data Compression</h3>
+<h3><a class="anchor-link" href="#T-2.2">#</a><span class="code-badge">2.2</span> Data Compression <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 2. College Board does not publish an official per-topic weight.">(~2.5–3.3% MCQ, est.)</span></h3>
 <p class="paraphrase">Compression trades off file size against fidelity; lossless keeps everything, lossy throws some of it away for a bigger size reduction.</p>
-<p class="meta">Covered in <a href="https://python.porttack.com/interlude-b.html?readonly">Interlude B (Representing Data, outline only)</a></p>
-<p class="note">Carried by Interlude B ('Representing Data'), positioned after chapter 19: the lossless/lossy contrast, taught as the choice the exam actually tests rather than as definitions, plus student-written run-length encoding as the lossless worked example. As of 2026-08-17 Interlude B exists only as an outline -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; removed 2026-08-09 per teacher confirmation that supplement hasn't been taught since year one. The Pico I2C chapter (see 2.1's note) still doesn't touch compression at all.</p>
+<p class="meta">Covered in <a href="https://python.porttack.com/chap07b.html?readonly">Interlude B (Representing Data, outline only)</a></p>
+<p class="note">Carried by the interlude between chapters 7 and 8 ('Representing Data', Interlude B): the lossless/lossy contrast, taught as the choice the exam actually tests rather than as definitions, plus student-written run-length encoding as the lossless worked example. As of 2026-08-17 Interlude B exists only as an outline -- no drafted prose or exercises yet; see CHAPTER_MANIFEST.md's Interludes section and AUDIT.md's 2026-08-17 handoff. Previously logged as carried by CS50T Multimedia; removed 2026-08-09 per teacher confirmation that supplement hasn't been taught since year one. The Pico I2C chapter (see 2.1's note) still doesn't touch compression at all.</p>
 <div class="lo" id="DAT-1.D">
 <h4><a class="anchor-link" href="#DAT-1.D">#</a><span class="code-badge">DAT-1.D</span> <span class="lo-text">Weigh different compression algorithms against each other to pick the right one for a given situation.</span></h4>
 <ul class="ek-list">
@@ -380,7 +398,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-2.3">
-<h3><a class="anchor-link" href="#T-2.3">#</a><span class="code-badge">2.3</span> Extracting Information from Data</h3>
+<h3><a class="anchor-link" href="#T-2.3">#</a><span class="code-badge">2.3</span> Extracting Information from Data <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 2. College Board does not publish an official per-topic weight.">(~5.4–6.9% MCQ, est.)</span></h3>
 <p class="paraphrase">Raw data becomes information once a program finds the patterns in it, and real data sets are rarely clean enough to do that without some processing first.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap12.html?readonly">Chapter 12 (Text Analysis and Generation)</a>, <a href="https://python.porttack.com/chap13.html?readonly">Chapter 13 (Files and Databases)</a></p>
 <p class="note">Chapter 12 (word frequencies, Markov analysis) and Chapter 13 (file/database work) are a strong match. Metadata specifically (DAT-2.B) has no direct counterpart.</p>
@@ -415,7 +433,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-2.4">
-<h3><a class="anchor-link" href="#T-2.4">#</a><span class="code-badge">2.4</span> Using Programs with Data</h3>
+<h3><a class="anchor-link" href="#T-2.4">#</a><span class="code-badge">2.4</span> Using Programs with Data <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 2. College Board does not publish an official per-topic weight.">(~3.5–4.5% MCQ, est.)</span></h3>
 <p class="paraphrase">Programs that read, combine, and rewrite data files let a person do with a data set what would be impractical by hand.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap12.html?readonly">Chapter 12 (Text Analysis and Generation)</a>, <a href="https://python.porttack.com/chap13.html?readonly">Chapter 13 (Files and Databases)</a></p>
 <p class="note">Chapter 13's file, YAML, and shelve work carries this directly.</p>
@@ -443,7 +461,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 <section class="big-idea" id="AAP">
 <h2><a class="anchor-link" href="#AAP">#</a><span class="code-badge">AAP</span> Big Idea 3: Algorithms and Programming <span class="weight">(30–35% MCQ)</span></h2>
 <div class="topic" id="T-3.1">
-<h3><a class="anchor-link" href="#T-3.1">#</a><span class="code-badge">3.1</span> Variables and Assignments</h3>
+<h3><a class="anchor-link" href="#T-3.1">#</a><span class="code-badge">3.1</span> Variables and Assignments <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~1.8–2.1% MCQ, est.)</span></h3>
 <p class="paraphrase">A variable is a named place to keep a value, and assignment is how that name gets pointed at a value.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a></p>
 <div class="lo" id="AAP-1.A">
@@ -463,7 +481,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.2">
-<h3><a class="anchor-link" href="#T-3.2">#</a><span class="code-badge">3.2</span> Data Abstraction</h3>
+<h3><a class="anchor-link" href="#T-3.2">#</a><span class="code-badge">3.2</span> Data Abstraction <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~3.1–3.6% MCQ, est.)</span></h3>
 <p class="paraphrase">Grouping related values under one name lets a program treat a collection as a single thing instead of tracking each part separately.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap09.html?readonly">Chapter 9 (Lists)</a>, <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a>, <a href="https://python.porttack.com/chap11.html?readonly">Chapter 11 (Tuples)</a></p>
 <p class="note">Lists (Chapter 9), dictionaries (Chapter 10), and tuples (Chapter 11) are all worked examples of this LO. The linked-list exclusion is moot here -- the book never implements one.</p>
@@ -490,7 +508,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.3">
-<h3><a class="anchor-link" href="#T-3.3">#</a><span class="code-badge">3.3</span> Mathematical Expressions</h3>
+<h3><a class="anchor-link" href="#T-3.3">#</a><span class="code-badge">3.3</span> Mathematical Expressions <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~3.8–4.5% MCQ, est.)</span></h3>
 <p class="paraphrase">Arithmetic and comparison operators combine into expressions the same way in code as they do on paper, with the same rules about order of operations.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a></p>
 <div class="lo" id="AAP-2.A">
@@ -522,7 +540,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.4">
-<h3><a class="anchor-link" href="#T-3.4">#</a><span class="code-badge">3.4</span> Strings</h3>
+<h3><a class="anchor-link" href="#T-3.4">#</a><span class="code-badge">3.4</span> Strings <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~1.0–1.2% MCQ, est.)</span></h3>
 <p class="paraphrase">Text is data too, and a string is handled as a sequence of characters that can be measured, sliced, and searched.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap01.html?readonly">Chapter 1 (Welcome)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></p>
 <div class="lo" id="AAP-2.D">
@@ -539,7 +557,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.5">
-<h3><a class="anchor-link" href="#T-3.5">#</a><span class="code-badge">3.5</span> Boolean Expressions</h3>
+<h3><a class="anchor-link" href="#T-3.5">#</a><span class="code-badge">3.5</span> Boolean Expressions <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~1.3–1.5% MCQ, est.)</span></h3>
 <p class="paraphrase">An expression that evaluates to true or false is what a program's decisions are built on.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a></p>
 <div class="lo" id="AAP-2.F">
@@ -553,7 +571,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.6">
-<h3><a class="anchor-link" href="#T-3.6">#</a><span class="code-badge">3.6</span> Conditionals</h3>
+<h3><a class="anchor-link" href="#T-3.6">#</a><span class="code-badge">3.6</span> Conditionals <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~1.0–1.2% MCQ, est.)</span></h3>
 <p class="paraphrase">An if-statement lets a program take one path or another depending on whether a condition holds.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a></p>
 <div class="lo" id="AAP-2.G">
@@ -570,7 +588,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.7">
-<h3><a class="anchor-link" href="#T-3.7">#</a><span class="code-badge">3.7</span> Nested Conditionals</h3>
+<h3><a class="anchor-link" href="#T-3.7">#</a><span class="code-badge">3.7</span> Nested Conditionals <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~0.3–0.3% MCQ, est.)</span></h3>
 <p class="paraphrase">Putting one conditional inside another lets a program handle more than two possible outcomes.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap05.html?readonly">Chapter 5 (Conditionals and Recursion)</a></p>
 <div class="lo" id="AAP-2.I">
@@ -580,7 +598,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.8">
-<h3><a class="anchor-link" href="#T-3.8">#</a><span class="code-badge">3.8</span> Iteration</h3>
+<h3><a class="anchor-link" href="#T-3.8">#</a><span class="code-badge">3.8</span> Iteration <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~1.5–1.8% MCQ, est.)</span></h3>
 <p class="paraphrase">Repeating a block of statements, either a fixed number of times or until some condition changes, is how a program does the same kind of work over and over.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></p>
 <p class="note">IMPORTANT COVERAGE GAP, not a light-topic judgment call: the exam reference sheet gives this topic two pseudocode forms -- REPEAT n TIMES (definite, matches Python's `for`) and REPEAT UNTIL(condition) (indefinite/condition-controlled, matches Python's `while`). This edition of the book has no `while` loop anywhere -- confirmed by scanning every code cell in chapters 1-13, zero hits outside prose mentions of the English word 'while'. Indefinite iteration is instead handled through recursion (Chapter 5, Chapter 6), which is a real substitute conceptually but is not the same pseudocode construct on the exam, and does not produce the REPEAT UNTIL-specific edge cases the CED calls out (AAP-2.K.4 infinite loop from a condition that never becomes true; AAP-2.K.5 zero-iteration when the condition is already true) since Python's recursion has no direct exam-reference-sheet form of its own. Whether this is closed with a short while-loop supplement or left as recursion-covers-it-in-spirit is a real pedagogical call, not something to resolve while indexing the standard.</p>
@@ -600,7 +618,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.9">
-<h3><a class="anchor-link" href="#T-3.9">#</a><span class="code-badge">3.9</span> Developing Algorithms</h3>
+<h3><a class="anchor-link" href="#T-3.9">#</a><span class="code-badge">3.9</span> Developing Algorithms <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~2.1–2.4% MCQ, est.)</span></h3>
 <p class="paraphrase">Building an algorithm from scratch usually means starting with a rough version and refining it in small, testable steps.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a>, <a href="https://python.porttack.com/chap07.html?readonly">Chapter 7 (Iteration and Search)</a></p>
 <p class="note">Chapter 6's 'Incremental development' section is a direct match; Chapter 7 builds a linear-search function the same way.</p>
@@ -622,7 +640,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.10">
-<h3><a class="anchor-link" href="#T-3.10">#</a><span class="code-badge">3.10</span> Lists</h3>
+<h3><a class="anchor-link" href="#T-3.10">#</a><span class="code-badge">3.10</span> Lists <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~1.8–2.1% MCQ, est.)</span></h3>
 <p class="paraphrase">A list holds an ordered sequence of values that a program can step through one at a time.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap09.html?readonly">Chapter 9 (Lists)</a></p>
 <p class="note">Out of scope: traversing two lists at once with a shared index (parallel traversal) is outside course/exam scope (EK AAP-2.O.1)</p>
@@ -643,7 +661,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.11">
-<h3><a class="anchor-link" href="#T-3.11">#</a><span class="code-badge">3.11</span> Binary Search</h3>
+<h3><a class="anchor-link" href="#T-3.11">#</a><span class="code-badge">3.11</span> Binary Search <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~0.8–0.9% MCQ, est.)</span></h3>
 <p class="paraphrase">Searching a sorted collection by repeatedly cutting the remaining range in half finds a value in far fewer steps than checking every element.</p>
 <p class="note">Out of scope: specific implementations of the binary search algorithm are outside course/exam scope (EK AAP-2.P.1)</p>
 <div class="lo" id="AAP-2.P">
@@ -655,7 +673,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.12">
-<h3><a class="anchor-link" href="#T-3.12">#</a><span class="code-badge">3.12</span> Calling Procedures</h3>
+<h3><a class="anchor-link" href="#T-3.12">#</a><span class="code-badge">3.12</span> Calling Procedures <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~2.3–2.7% MCQ, est.)</span></h3>
 <p class="paraphrase">Calling a function hands control to a separate block of code and, often, gets a value back in return.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap06.html?readonly">Chapter 6 (Return Values)</a></p>
 <div class="lo" id="AAP-3.A">
@@ -673,7 +691,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.13">
-<h3><a class="anchor-link" href="#T-3.13">#</a><span class="code-badge">3.13</span> Developing Procedures</h3>
+<h3><a class="anchor-link" href="#T-3.13">#</a><span class="code-badge">3.13</span> Developing Procedures <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~2.3–2.7% MCQ, est.)</span></h3>
 <p class="paraphrase">Writing a function well means giving it parameters general enough to be reused, and a name and docstring that explain what it does without exposing how.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap03.html?readonly">Chapter 3 (Functions)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a></p>
 <div class="lo" id="AAP-3.B">
@@ -695,7 +713,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.14">
-<h3><a class="anchor-link" href="#T-3.14">#</a><span class="code-badge">3.14</span> Libraries</h3>
+<h3><a class="anchor-link" href="#T-3.14">#</a><span class="code-badge">3.14</span> Libraries <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~1.3–1.5% MCQ, est.)</span></h3>
 <p class="paraphrase">Importing a library brings in code someone else already wrote and tested, so a program can use it without reimplementing it.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap02.html?readonly">Chapter 2 (Variables and Statements)</a>, <a href="https://python.porttack.com/chap04.html?readonly">Chapter 4 (Functions and Interfaces)</a>, <a href="https://python.porttack.com/chap08.html?readonly">Chapter 8 (Strings and Regular Expressions)</a></p>
 <p class="note">Chapter 2 introduces `import`; Chapter 4 (jupyturtle) and Chapter 8 (`re`) are the book's main worked examples of using an imported library.</p>
@@ -710,7 +728,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.15">
-<h3><a class="anchor-link" href="#T-3.15">#</a><span class="code-badge">3.15</span> Random Values</h3>
+<h3><a class="anchor-link" href="#T-3.15">#</a><span class="code-badge">3.15</span> Random Values <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~0.5–0.6% MCQ, est.)</span></h3>
 <p class="paraphrase">A program can introduce controlled unpredictability by drawing values from a random-number generator instead of computing them.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap12.html?readonly">Chapter 12 (Text Analysis and Generation)</a></p>
 <div class="lo" id="AAP-3.E">
@@ -721,7 +739,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.16">
-<h3><a class="anchor-link" href="#T-3.16">#</a><span class="code-badge">3.16</span> Simulations</h3>
+<h3><a class="anchor-link" href="#T-3.16">#</a><span class="code-badge">3.16</span> Simulations <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~2.1–2.4% MCQ, est.)</span></h3>
 <p class="paraphrase">A simulation stands in for a real process that would be too slow, risky, or expensive to run for real, trading some realism for repeatability.</p>
 <div class="lo" id="AAP-3.F">
 <h4><a class="anchor-link" href="#AAP-3.F">#</a><span class="code-badge">AAP-3.F</span> <span class="lo-text">A student should be able to explain how a computer can stand in for something in the real world, and weigh a simulation against the real thing it models.</span></h4>
@@ -737,7 +755,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.17">
-<h3><a class="anchor-link" href="#T-3.17">#</a><span class="code-badge">3.17</span> Algorithmic Efficiency</h3>
+<h3><a class="anchor-link" href="#T-3.17">#</a><span class="code-badge">3.17</span> Algorithmic Efficiency <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~2.3–2.7% MCQ, est.)</span></h3>
 <p class="paraphrase">Algorithms that solve the same problem are not equally fast, and how an algorithm's running time grows with input size is what separates a practical solution from an impractical one.</p>
 <p class="meta">Covered in <a href="https://python.porttack.com/chap10.html?readonly">Chapter 10 (Dictionaries)</a></p>
 <p class="note">Chapter 10's too_slow/much_faster comparison is a direct instance of AAP-4.A.5's informal efficiency-by-counting: the chapter reasons that checking every word against every other word is roughly 'the number of words squared -- roughly -- which is almost 13 billion' comparisons, then measures the dictionary-based version at '10,000 times faster.' Two algorithms solving the identical problem (finding reversed-word pairs), correctness held equal, efficiency the only variable -- AAP-4.A.6's own framing. No complexity-class vocabulary (constant/linear/quadratic) appears, which is fine: this topic's own exclusions rule out formal Big-O analysis, and AAP-4.A.5 explicitly names counting statement executions as a legitimate informal alternative.</p>
@@ -758,7 +776,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-3.18">
-<h3><a class="anchor-link" href="#T-3.18">#</a><span class="code-badge">3.18</span> Undecidable Problems</h3>
+<h3><a class="anchor-link" href="#T-3.18">#</a><span class="code-badge">3.18</span> Undecidable Problems <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 3. College Board does not publish an official per-topic weight.">(~0.8–0.9% MCQ, est.)</span></h3>
 <p class="paraphrase">Some yes-or-no problems have no algorithm that can always answer correctly, no matter how much time is allowed.</p>
 <p class="note">Out of scope: determining whether a given problem is undecidable is outside course/exam scope (EK AAP-4.B.2)</p>
 <div class="lo" id="AAP-4.B">
@@ -773,7 +791,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 <section class="big-idea" id="CSN">
 <h2><a class="anchor-link" href="#CSN">#</a><span class="code-badge">CSN</span> Big Idea 4: Computer Systems and Networks <span class="weight">(11–15% MCQ)</span></h2>
 <div class="topic" id="T-4.1">
-<h3><a class="anchor-link" href="#T-4.1">#</a><span class="code-badge">4.1</span> The Internet</h3>
+<h3><a class="anchor-link" href="#T-4.1">#</a><span class="code-badge">4.1</span> The Internet <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 4. College Board does not publish an official per-topic weight.">(~5.9–8.0% MCQ, est.)</span></h3>
 <p class="paraphrase">The internet moves data between computers by breaking it into pieces and routing each piece independently through a shared network of devices.</p>
 <div class="lo" id="CSN-1.A">
 <h4><a class="anchor-link" href="#CSN-1.A">#</a><span class="code-badge">CSN-1.A</span> <span class="lo-text">Describe how networked devices cooperate to move data from one point to another.</span></h4>
@@ -815,7 +833,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-4.2">
-<h3><a class="anchor-link" href="#T-4.2">#</a><span class="code-badge">4.2</span> Fault Tolerance</h3>
+<h3><a class="anchor-link" href="#T-4.2">#</a><span class="code-badge">4.2</span> Fault Tolerance <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 4. College Board does not publish an official per-topic weight.">(~1.9–2.6% MCQ, est.)</span></h3>
 <p class="paraphrase">A system built from unreliable parts can still be reliable overall if it is designed to keep working when some of those parts fail.</p>
 <div class="lo" id="CSN-1.E">
 <h4><a class="anchor-link" href="#CSN-1.E">#</a><span class="code-badge">CSN-1.E</span> <span class="lo-text">Using the Internet as an example, explain what makes a system fault-tolerant, why that matters, and where such a system might still be vulnerable.</span></h4>
@@ -830,7 +848,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-4.3">
-<h3><a class="anchor-link" href="#T-4.3">#</a><span class="code-badge">4.3</span> Parallel and Distributed Computing</h3>
+<h3><a class="anchor-link" href="#T-4.3">#</a><span class="code-badge">4.3</span> Parallel and Distributed Computing <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 4. College Board does not publish an official per-topic weight.">(~3.2–4.4% MCQ, est.)</span></h3>
 <p class="paraphrase">Splitting a problem across multiple processors or machines can finish it faster than one processor working alone.</p>
 <div class="lo" id="CSN-2.A">
 <h4><a class="anchor-link" href="#CSN-2.A">#</a><span class="code-badge">CSN-2.A</span> <span class="lo-text">Compare sequential, parallel, and distributed approaches to solving a problem, and judge how efficient each one is.</span></h4>
@@ -857,7 +875,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 <section class="big-idea" id="IOC">
 <h2><a class="anchor-link" href="#IOC">#</a><span class="code-badge">IOC</span> Big Idea 5: Impact of Computing <span class="weight">(21–26% MCQ)</span></h2>
 <div class="topic" id="T-5.1">
-<h3><a class="anchor-link" href="#T-5.1">#</a><span class="code-badge">5.1</span> Beneficial and Harmful Effects</h3>
+<h3><a class="anchor-link" href="#T-5.1">#</a><span class="code-badge">5.1</span> Beneficial and Harmful Effects <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 5. College Board does not publish an official per-topic weight.">(~3.3–4.1% MCQ, est.)</span></h3>
 <p class="paraphrase">A computing innovation can end up used in ways its creators never intended, for better and for worse.</p>
 <div class="lo" id="IOC-1.A">
 <h4><a class="anchor-link" href="#IOC-1.A">#</a><span class="code-badge">IOC-1.A</span> <span class="lo-text">Show that a single outcome of a computing innovation can be seen as helpful in one respect and damaging in another.</span></h4>
@@ -880,7 +898,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-5.2">
-<h3><a class="anchor-link" href="#T-5.2">#</a><span class="code-badge">5.2</span> Digital Divide</h3>
+<h3><a class="anchor-link" href="#T-5.2">#</a><span class="code-badge">5.2</span> Digital Divide <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 5. College Board does not publish an official per-topic weight.">(~1.5–1.9% MCQ, est.)</span></h3>
 <p class="paraphrase">Unequal access to computing and the internet, across geography, income, and other lines, shapes who benefits from computing innovations.</p>
 <div class="lo" id="IOC-1.C">
 <h4><a class="anchor-link" href="#IOC-1.C">#</a><span class="code-badge">IOC-1.C</span> <span class="lo-text">Identify the factors that leave some groups with less access to computing than others.</span></h4>
@@ -893,7 +911,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-5.3">
-<h3><a class="anchor-link" href="#T-5.3">#</a><span class="code-badge">5.3</span> Computing Bias</h3>
+<h3><a class="anchor-link" href="#T-5.3">#</a><span class="code-badge">5.3</span> Computing Bias <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 5. College Board does not publish an official per-topic weight.">(~0.9–1.1% MCQ, est.)</span></h3>
 <p class="paraphrase">Software can reproduce and amplify existing human biases, whether through the data it learns from or the assumptions built into its logic.</p>
 <div class="lo" id="IOC-1.D">
 <h4><a class="anchor-link" href="#IOC-1.D">#</a><span class="code-badge">IOC-1.D</span> <span class="lo-text">Show how bias can find its way into a computing innovation.</span></h4>
@@ -904,7 +922,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-5.4">
-<h3><a class="anchor-link" href="#T-5.4">#</a><span class="code-badge">5.4</span> Crowdsourcing</h3>
+<h3><a class="anchor-link" href="#T-5.4">#</a><span class="code-badge">5.4</span> Crowdsourcing <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 5. College Board does not publish an official per-topic weight.">(~1.8–2.3% MCQ, est.)</span></h3>
 <p class="paraphrase">Gathering small contributions from very large numbers of people, over the internet, can solve problems no small group could tackle alone.</p>
 <div class="lo" id="IOC-1.E">
 <h4><a class="anchor-link" href="#IOC-1.E">#</a><span class="code-badge">IOC-1.E</span> <span class="lo-text">Describe how large numbers of people can work together on a problem via computing.</span></h4>
@@ -918,7 +936,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-5.5">
-<h3><a class="anchor-link" href="#T-5.5">#</a><span class="code-badge">5.5</span> Legal and Ethical Concerns</h3>
+<h3><a class="anchor-link" href="#T-5.5">#</a><span class="code-badge">5.5</span> Legal and Ethical Concerns <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 5. College Board does not publish an official per-topic weight.">(~3.3–4.1% MCQ, est.)</span></h3>
 <p class="paraphrase">Digitizing information raises questions of ownership and proper credit that copying on paper never had to answer at the same scale.</p>
 <div class="lo" id="IOC-1.F">
 <h4><a class="anchor-link" href="#IOC-1.F">#</a><span class="code-badge">IOC-1.F</span> <span class="lo-text">Describe legal and ethical questions raised by how computing gets used.</span></h4>
@@ -937,7 +955,7 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
 </ul></div>
 </div>
 <div class="topic" id="T-5.6">
-<h3><a class="anchor-link" href="#T-5.6">#</a><span class="code-badge">5.6</span> Safe Computing</h3>
+<h3><a class="anchor-link" href="#T-5.6">#</a><span class="code-badge">5.6</span> Safe Computing <span class="weight topic-weight-estimate" title="Estimated from this topic’s share of Essential Knowledge statements within Big Idea 5. College Board does not publish an official per-topic weight.">(~10.0–12.4% MCQ, est.)</span></h3>
 <p class="paraphrase">Personal data collected online carries real risk, and encryption and authentication are the main tools for limiting who can get at it.</p>
 <p class="note">Out of scope: specific mathematical procedures for encryption/decryption are outside course/exam scope (EK IOC-2.B.5)</p>
 <div class="lo" id="IOC-2.A">
@@ -1021,6 +1039,27 @@ paraphrase, not College Board's text. Only the AP-assigned codes are reproduced 
       });
       topicEl.classList.toggle('hidden', !anyVisible && !topicMatches);
     });
+  });
+})();
+</script>
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  document.querySelectorAll('.page-toggle').forEach(function(input) {
+    var hideClass = input.dataset.hideClass;
+    if (!hideClass) return;
+    // ?<param>=0 (or "false") forces it off, ?<param>=1 (or present/anything
+    // else) forces it on -- lets a link hand out a pre-set view, e.g.
+    // "...?los=1" to turn Learning Objectives/Essential Knowledge on despite
+    // the page's own default.
+    var paramKey = hideClass.replace(/^hide-/, "");
+    if (params.has(paramKey)) {
+      var v = params.get(paramKey);
+      input.checked = v !== "0" && v !== "false";
+    }
+    function sync() { document.body.classList.toggle(hideClass, !input.checked); }
+    input.addEventListener('change', sync);
+    sync();
   });
 })();
 </script>
