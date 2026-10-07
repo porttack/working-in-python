@@ -8862,3 +8862,111 @@ needed beyond noting this happened; the chapters aren't reopening any larger sco
 original reasoning (kept because dict/object aliasing is where the concept has to pay for
 itself). If the maintainer later wants the same style of review for chapters 8-11's other
 visual aids, that would be a fresh ask, not an extension of this one.
+
+## 2026-10-07 — chapters 1-3 Homework: solution cells restored, Problems de-vagued, ch. 2 Problem 2 trimmed (Pass 2, ad hoc, continued)
+
+Maintainer feedback, same informal thread as 2026-10-06's state-diagram cut: "Let's add
+cells for solution-goes-here in the homework section. And some of this now seems vague
+to me - especially problem 4. And I want to give this to 9th graders who only have 5
+weeks of math 1. Some of the homework might be too much for them? And ... OR, if your
+teacher asks, save your homework..."
+
+**New, durable context from this conversation:** this course's current cohort is 9th
+graders, about 5 weeks into Math 1 (no trigonometry yet) when chapter 2 is taught.
+Worth keeping in mind for any future chapter's homework that leans on math content --
+chapter 2's Problem 2 turned out to be exactly this case (see below).
+
+**Investigated before changing anything:** grepped every chapter's Homework section for
+code/markdown cells vs. prose that references "the cell below" or "write it below."
+Chapters 4 onward all have real solution cells already. Chapters 1, 2, and 3 do not --
+every one of their 15 Homework Problems is prompt-only. Checked `data/exercise-ledger.json`
+for why: each of these problems carries a note from 2026-08-16, when the separate
+`chapNN-exercises.ipynb` files were deleted repo-wide. That note says, for each one,
+"This exercise's solution cell was a bare '# Solution goes here' placeholder with no
+starter code, so nothing needed to move... a student adds their own cell for it
+directly" -- a deliberate decision at the time, not an oversight. Only the *buggy*
+starter-code cells (ch01's TypeError demo, ch03's NameError/traceback demo) were migrated
+into the chapters themselves, since those actually had content worth keeping.
+
+Raised rather than decided silently: asked the maintainer whether to fix just chapter 2
+(the chapter in front of us) or all three chapters sharing the identical gap, since the
+gap and the fix are the same in each. Maintainer chose all three. Also asked how to
+handle chapter 2 Problem 2's Part c (an trig-based ramp problem -- not something a
+Math-1-only, 5-weeks-in student has seen) given the new "give this to 9th graders"
+context; maintainer chose to cut Part c and keep Parts a/b.
+
+**What was actually done, chapter by chapter:**
+
+- **Ch. 1**: added solution cells for Problems 1, 2, 3 (two cells each for 1 and 2, since
+  each has two numbered parts; one for 3). Problem 4 ("fix the TypeError") rewritten:
+  the original instructions asked for a second fix "using `int` on a numeric string
+  instead" with nothing to actually work on -- the only material was the one buggy cell
+  (`'Score: ' + 95`, fixed with `str`) and a single blank solution cell for *both* fixes.
+  There was no second, concrete scenario for the int-based fix, so a student had to
+  invent one from scratch with zero scaffolding. This is almost certainly the "especially
+  problem 4" vagueness the maintainer meant. Added a second, deliberately mirrored buggy
+  cell (`'5' + 3`, a numeric-string-plus-int TypeError, the reverse of the first) with
+  its own solution cell, so the instruction now points at something concrete instead of
+  asking the student to invent an example of a pattern they've just been introduced to.
+  Problem 5 got a `*Type your answer here.*` cell.
+- **Ch. 2**: Problem 1 ("trace the values") had its code inside a markdown fence, not an
+  actual cell -- the prose said "before you run the cell" / "then run the cell" and
+  there was nothing to run. Moved the code into a real cell, reworded the two sentences
+  that referenced "the cell" to match, and did *not* add a separate solution cell since
+  the trace itself (predictive comments) belongs directly on that cell. Problem 2 ("Python
+  as a calculator, math-class edition"): removed Part c (ramp length/angle, `math.sin`/
+  `math.cos`/`math.radians`) per the maintainer's call above -- this entry's own ledger
+  note recorded Part c was originally "tied to concurrent Math 2 content per the user,"
+  an assumption that doesn't hold for this cohort. Kept Parts a/b (Pythagorean theorem)
+  unchanged and added their solution cells, since chapter 3's Problem 4 explicitly says
+  "Remember the Pythagorean theorem exercise from chapter 2?" and depends on it surviving.
+  Problem 3 ("arguments and TypeError") got three solution cells, one per numbered
+  sub-task, since each runs independently (and sub-tasks 2/3 are themselves about reading
+  an error message, so one failing call shouldn't block the next). Problem 4 ("bad
+  comment, good comment") reworded -- "write two versions of this line below" didn't say
+  whether that meant one cell or two -- to "each in its own cell," and added both. Problem
+  5 got its answer cell. Chapter's own Homework intro line updated from "about 35 minutes
+  total" to "about 31" to reflect Part c's removal.
+- **Ch. 3**: added one solution cell each for Problems 1, 3, and 4 (single-task problems),
+  one for Problem 2 (added *after* the existing buggy traceback cell, which stays
+  unchanged -- same pattern as ch. 1's Problem 4: the buggy cell is given, the fix goes in
+  its own cell after it, not edited in place), and a `*Type your answer here.*` cell for
+  Problem 5.
+- **All 14 chapters with a Homework section** (1-13 plus `interlude-a`): the "OR save your
+  homework for submission" heading reworded to "OR, if your teacher asks, save your
+  homework for submission," at the maintainer's direction -- it's a fallback for a
+  specific ask, not an equally-weighted alternative to the default "Finished? Copy your
+  work" button just above it. Pure text substitution, done directly on the file text (not
+  through `NotebookEdit`) specifically to avoid the reserialization issue from
+  2026-10-06's entry -- confirmed clean: the 11 chapters that got *only* this change show
+  exactly a 2-line diff each.
+
+**`data/exercise-ledger.json`:** all 15 touched Homework Problems (`ch01ex-hw01`-`05`,
+`ch02ex-hw01`-`05`, `ch03ex-hw01`-`05`) updated: `action` changed from `added` to `edited`,
+and each got a dated note explaining what changed (cell restored / prose clarified / Part
+c cut), cross-referencing each other for the shared "cell restored" reasoning rather than
+repeating the same paragraph 11 times. `ch01ex-hw04` and `ch02ex-hw02`'s
+`est_minutes_after` adjusted (6->8 for the now-two-fix-cycle Problem 4; 12->8 for Problem
+2 losing its most involved part). Ran `make ledger` for real this time (not reverted, as
+in the 2026-10-06 entry) -- it regenerated `CHANGELOG_DETAIL.md` cleanly and, as a side
+effect, also picked up the stale `chap06b` section header dating back to the 2026-09-13
+interlude rename, fixing it to `interlude-a` to match the ledger's own ids. That was the
+exact follow-up the previous entry asked for, so no separate pass is needed for it now.
+
+**Verified:** `make check` clean (blanks/, check_sync, jupyterlite check) after every
+edit. Every new/edited notebook cell checked against the existing JSON formatting
+convention (list-of-lines `source`, `ensure_ascii=True`, trailing newline) rather than
+`NotebookEdit`, per the gotcha recorded 2026-10-06. Read each modified chapter's full
+Homework section back afterward, cell by cell, to confirm problem -> cell(s) -> next
+problem ordering is correct and no sentinel (`apcsp:begin`/`apcsp:end`) was dropped --
+caught and fixed one real mistake here: an early pass at the text edits for ch. 1's
+Problem 4 and ch. 2's Problems 1/2/4 accidentally stripped their sentinel wrappers when
+rewriting the prose; re-added before this was considered done.
+
+**What the next pass needs to know:** chapters 4-19 weren't touched and don't need this
+-- they already have solution cells. No other math-content audits were done outside
+chapter 2's Problem 2; if the maintainer wants the same "does this assume math this
+cohort hasn't had yet" review elsewhere, that's a fresh ask covering chapters this pass
+didn't look at (9-13 in particular use heavier string/data-processing math -- word
+counts, letter frequencies -- not geometry/trig, so probably fine, but not actually
+checked here).

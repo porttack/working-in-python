@@ -5,6 +5,36 @@ For a generated, per-exercise breakdown, see `CHANGELOG_DETAIL.md`.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-10-07 — chapters 1-3 Homework: solution cells restored, Problem 4 (ch. 1) and Problem 1 (ch. 2) de-vagued, ch. 2 Problem 2 trimmed for a Math-1-only audience
+
+### Added
+- Chapters 1, 2, and 3: every graded Homework Problem that lacked an actual code or
+  markdown answer cell now has one (15 problems across the three chapters). These
+  problems previously only had prompt text saying things like "the cell below" or
+  "write it below" with no cell actually provided -- a 2026-08-16 cleanup had
+  deliberately left them that way ("a student adds their own cell"), but in practice
+  that was more friction than it was worth for a new programmer. See `AUDIT.md`.
+
+### Changed
+- Chapter 1, Problem 4 ("fix the TypeError"): rewritten for clarity. The original asked
+  for a second fix "using `int` on a numeric string" with no second example to work
+  from. Added a concrete second buggy cell (`'5' + 3`) that's the mirror image of the
+  first, so each fix now has its own worked example.
+- Chapter 2, Problem 1 ("trace the values"): the code was a markdown-fenced block, not
+  an actual cell, despite the prose saying "run the cell" -- moved it into a real cell.
+- Chapter 2, Problem 2 ("Python as a calculator, math-class edition"): Part c (a ramp
+  problem using `sin`/`cos`/radian conversion) removed. It was originally written
+  assuming students were concurrently taking Math 2; this course's current audience
+  (9th graders, about 5 weeks into Math 1) hasn't reached trigonometry yet. Parts a/b
+  (Pythagorean theorem) kept, since chapter 3's own homework references them. Chapter's
+  Homework intro line updated (35 -> 31 minutes) to match.
+- Chapter 2, Problem 4 ("bad comment, good comment"): clarified that the two comment
+  versions go in separate cells.
+- All 14 chapters with a "Homework" section: the "OR save your homework for submission"
+  heading now reads "OR, if your teacher asks, save your homework for submission" --
+  it's a fallback for a specific ask, not an equally-weighted alternative to the default
+  "copy your work" button.
+
 ## 2026-10-06 — state/stack diagram figures cut from chapters 2 and 7
 
 ### Removed

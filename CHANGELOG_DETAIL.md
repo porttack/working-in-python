@@ -20,11 +20,11 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch01-ex05 | Fix a TypeError two different ways, using str then int | native | added | — | None | 6 |
 | ch01-ex06 | Explain the difference between / and // in a markdown answer cell | native | added | — | None | 4 |
 | ch01-va01 | Ask a virtual assistant: bitwise operators, order of operations, round arguments, modulus | B | removed | — | 0 | 0 |
-| ch01ex-hw01 | Order-of-operations lab: Celsius-to-Fahrenheit conversion, predict then run | native | added | — | None | 6 |
-| ch01ex-hw02 | Splitting cookies: integer division and leftover without the modulus operator | native | added | — | None | 5 |
-| ch01ex-hw03 | Name banner using string concatenation and repetition, plus len() | native | added | — | None | 8 |
-| ch01ex-hw04 | Fix a TypeError two different ways, using str then int | native | added | — | None | 6 |
-| ch01ex-hw05 | Reflection: debugging something that wasn't code | native | added | — | None | 4 |
+| ch01ex-hw01 | Order-of-operations lab: Celsius-to-Fahrenheit conversion, predict then run | native | edited | — | None | 6 |
+| ch01ex-hw02 | Splitting cookies: integer division and leftover without the modulus operator | native | edited | — | None | 5 |
+| ch01ex-hw03 | Name banner using string concatenation and repetition, plus len() | native | edited | — | None | 8 |
+| ch01ex-hw04 | Fix a TypeError two different ways, using str then int | native | edited | — | None | 8 |
+| ch01ex-hw05 | Reflection: debugging something that wasn't code | native | edited | — | None | 4 |
 
 ## chap02
 
@@ -35,11 +35,11 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch02-ex01 | Make deliberate errors with assignment order, chained assignment, and imports | native | kept | — | 15 | 15 |
 | ch02-ex02 | Practice using the interpreter as a calculator: sphere volume, trig identity, math.e | native | edited | — | 25 | 25 |
 | ch02-va01 | Ask a virtual assistant: keywords, int/float/str as names, built-in functions, math module | B | removed | — | 0 | 0 |
-| ch02ex-hw01 | Trace the values: predict variable state across sequential reassignment | native | added | — | None | 8 |
-| ch02ex-hw02 | Python as a calculator: Pythagorean theorem, isosceles triangle height, ramp angle with sin/cos | native | added | — | None | 12 |
-| ch02ex-hw03 | Arguments and TypeError: round() with one, two, and three arguments | native | added | — | None | 6 |
-| ch02ex-hw04 | Bad comment, good comment on a single assignment line | native | added | — | None | 5 |
-| ch02ex-hw05 | Reflection: which error type (syntax/runtime/semantic) is hardest to notice | native | added | — | None | 4 |
+| ch02ex-hw01 | Trace the values: predict variable state across sequential reassignment | native | edited | — | None | 8 |
+| ch02ex-hw02 | Python as a calculator: Pythagorean theorem, isosceles triangle height, ramp angle with sin/cos | native | edited | — | None | 8 |
+| ch02ex-hw03 | Arguments and TypeError: round() with one, two, and three arguments | native | edited | — | None | 6 |
+| ch02ex-hw04 | Bad comment, good comment on a single assignment line | native | edited | — | None | 5 |
+| ch02ex-hw05 | Reflection: which error type (syntax/runtime/semantic) is hardest to notice | native | edited | — | None | 4 |
 
 ## chap03
 
@@ -52,11 +52,11 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch03-ex03 | Write a function called rectangle that draws a rectangle of characters | native | kept | — | 15 | 15 |
 | ch03-ex04 | Write a program that prints the '99 Bottles of Beer' song | native | kept | — | 25 | 25 |
 | ch03-va01 | Ask a virtual assistant: spaces vs tabs, writing/debugging functions with a VA | B | removed | — | 0 | 0 |
-| ch03ex-hw01 | Scope check: local variable disappears outside the function, reproducing the chapter's cat example | native | added | — | None | 7 |
-| ch03ex-hw02 | Read the traceback: identify the call chain and fix a typo three functions deep | native | added | — | None | 6 |
-| ch03ex-hw03 | Functions calling functions: shout and greet | native | added | — | None | 8 |
-| ch03ex-hw04 | Math + functions review: Pythagorean theorem wrapped in a print-based function | native | added | — | None | 8 |
-| ch03ex-hw05 | Reflection: functions calling functions vs. the for loop | native | added | — | None | 4 |
+| ch03ex-hw01 | Scope check: local variable disappears outside the function, reproducing the chapter's cat example | native | edited | — | None | 7 |
+| ch03ex-hw02 | Read the traceback: identify the call chain and fix a typo three functions deep | native | edited | — | None | 6 |
+| ch03ex-hw03 | Functions calling functions: shout and greet | native | edited | — | None | 8 |
+| ch03ex-hw04 | Math + functions review: Pythagorean theorem wrapped in a print-based function | native | edited | — | None | 8 |
+| ch03ex-hw05 | Reflection: functions calling functions vs. the for loop | native | edited | — | None | 4 |
 
 ## chap04
 
@@ -123,20 +123,6 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch06ex-hw03 | sum_to(n): recursive sum of the integers from 1 to n, base case sum_to(0) = 0 | native | added | — | None | 10 |
 | ch06ex-hw04 | Debug grade_points: the function only prints, so multiplying its call by 3 raises a TypeError on None | native | added | — | None | 8 |
 | ch06ex-hw05 | Reflection: one example where a return value does something printing could not | native | added | — | None | 5 |
-
-## chap06b
-
-7 exercise(s).
-
-| ID | Anchor | Kind | Action | Replacement | Min before | Min after |
-|---|---|---|---|---|---|---|
-| ch06b-ec01 | Extra credit: write a completely correct function with a doctest that fails anyway, and explain why | original | added | — | 10 | 10 |
-| ch06b-ex01 | Add a docstring with three doctests to is_leap_year from Chapter 5 | original | added | — | 8 | 8 |
-| ch06b-ex02 | Write can_ride(height_inches, age) with a docstring and three doctests including a false-boundary test (choose one: Exercise 2 or 3) | original | added | — | 10 | 10 |
-| ch06b-ex03 | Write letter_grade(score) with a docstring and three doctests including a false-boundary test (choose one: Exercise 2 or 3) | original | added | — | 10 | 10 |
-| ch06b-ex04 | Hand-trace and fix the buggy count_down_to_zero so its existing doctests pass, without changing the docstring | original | added | — | 8 | 8 |
-| ch06b-ex05 | Determine whether the code or the doctest is wrong in middle_character, fix only the wrong one, and explain the reasoning | original | added | — | 8 | 8 |
-| ch06b-ex06 | Reflection: did knowing the doctest would run change how you wrote the docstring? | original | added | — | 5 | 5 |
 
 ## chap07
 
@@ -340,10 +326,24 @@ Per-exercise record generated from `data/exercise-ledger.json`. See `AP_MODIFICA
 | ch18-ex06 | Rewrite the Deck __str__ method using a list comprehension | native | kept | — | 15 | 15 |
 | ch18-va01 | Ask a virtual assistant: set/Counter/comprehension/unittest questions | B | removed | — | 0 | 0 |
 
+## interlude-a
+
+7 exercise(s).
+
+| ID | Anchor | Kind | Action | Replacement | Min before | Min after |
+|---|---|---|---|---|---|---|
+| int-a-ec01 | Extra credit: write a completely correct function with a doctest that fails anyway, and explain why | original | added | — | 10 | 10 |
+| int-a-ex01 | Add a docstring with three doctests to is_leap_year from Chapter 5 | original | added | — | 8 | 8 |
+| int-a-ex02 | Write can_ride(height_inches, age) with a docstring and three doctests including a false-boundary test (choose one: Exercise 2 or 3) | original | added | — | 10 | 10 |
+| int-a-ex03 | Write letter_grade(score) with a docstring and three doctests including a false-boundary test (choose one: Exercise 2 or 3) | original | added | — | 10 | 10 |
+| int-a-ex04 | Hand-trace and fix the buggy count_down_to_zero so its existing doctests pass, without changing the docstring | original | added | — | 8 | 8 |
+| int-a-ex05 | Determine whether the code or the doctest is wrong in middle_character, fix only the wrong one, and explain the reasoning | original | added | — | 8 | 8 |
+| int-a-ex06 | Reflection: did knowing the doctest would run change how you wrote the docstring? | original | added | — | 5 | 5 |
+
 ## Totals
 
 Total exercises: 200
 
 By kind: A=4, B=17, native=172, original=7
 
-By action: added=100, edited=10, kept=67, removed=23
+By action: added=85, edited=25, kept=67, removed=23
